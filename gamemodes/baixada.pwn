@@ -1244,7 +1244,6 @@ main()
 	Report = DCC_FindChannelById("1145712239614107760");
 	ChatAdm = DCC_FindChannelById("1145558205775233044");
 	Sets = DCC_FindChannelById("1145712207049527407");
-	status = DCC_FindChannelById("1145713328069558414");
 
 	print("\n'---_.Baixada Roleplay by Luan_Rosa._---'");
 	print("--- Gamemode Iniciada Com Sucesso!  ---\n");
@@ -9302,7 +9301,7 @@ public OnPlayerCommandPerformed(playerid, cmdtext[], success)
 
 public OnPlayerStateChange(playerid, newstate, oldstate)
 {
-	if(oldstate == PLAYER_STATE_ONFOOT && newstate == PLAYER_STATE_DRIVER)//O jogador entrou no veículo como motorista
+	if(oldstate == PLAYER_STATE_ONFOOT && newstate == PLAYER_STATE_DRIVER)//O jogador entrou no veiculo como motorista
     {
         new VeloDados[43];
         PlayerTextDrawSetPreviewModel(playerid, TextVelocimetroP[playerid][3], GetVehicleModel(GetPlayerVehicleID(playerid)));
@@ -11869,8 +11868,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						strcat(stg, "{FFFF00}/d{FFFFFF} Central de Policia\n\n");
 						strcat(stg, "{FFFF00}/algemar{FFFFFF} Colocar uma algema em um jogador.\n\n");
 						strcat(stg, "{FFFF00}/desalgemar{FFFFFF} Remove uma algema de um jogador.\n\n");
-						strcat(stg, "{FFFF00}/pveiculo{FFFFFF} Coloque um jogador no veículo.\n\n");
-						strcat(stg, "{FFFF00}/rveiculo{FFFFFF} Remova um jogador no veículo.\n\n");
+						strcat(stg, "{FFFF00}/pveiculo{FFFFFF} Coloque um jogador no veiculo.\n\n");
+						strcat(stg, "{FFFF00}/rveiculo{FFFFFF} Remova um jogador no veiculo.\n\n");
 						strcat(stg, "{FFFF00}/prender{FFFFFF} Acorrentar um jogador.\n\n");
 						strcat(stg, "{FFFF00}/ab{FFFFFF} Anuncia o embarque de um jogador.\n\n");
 						strcat(stg, "{FFFF00}/su{FFFFFF} Coloque o nível de procurado.\n\n");
@@ -11889,8 +11888,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						new stg[1100];
 						strcat(stg, "{FFFF00}/ga{FFFFFF} Radio de gang\n\n");
 						strcat(stg, "{FFFF00}/ab{FFFFFF} Anuncio de abordagem.\n\n");
-						strcat(stg, "{FFFF00}/pveiculo{FFFFFF} Coloque um jogador no veículo.\n\n");
-						strcat(stg, "{FFFF00}/rveiculo{FFFFFF} Remova um jogador no veículo.\n\n");
+						strcat(stg, "{FFFF00}/pveiculo{FFFFFF} Coloque um jogador no veiculo.\n\n");
+						strcat(stg, "{FFFF00}/rveiculo{FFFFFF} Remova um jogador no veiculo.\n\n");
 						strcat(stg, "{FFFF00}/verinv{FFFFFF} Verificar inventario de um jogador.\n\n");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAORG, DIALOG_STYLE_MSGBOX, "Comandos Organizacao", stg, "Ok", "");
 					}
@@ -11899,15 +11898,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					new stg[1100];
 					strcat(stg, "{FFFF00}/mv{FFFFFF} Abre un menu\n\n");
-					strcat(stg, "{FFFF00}/localizarv{FFFFFF} Lozaliza seu veículo no mapa.\n\n");
-					strcat(stg, "{FFFF00}/trancar{FFFFFF} Tranque seu veículo.\n\n");
-					strcat(stg, "{FFFF00}/alarmev{FFFFFF} Ligue o alarme do veículo.\n\n");
-					strcat(stg, "{FFFF00}/mala{FFFFFF} Olhar o porta-malas do veículo.\n\n");
-					strcat(stg, "{FFFF00}/venderv{FFFFFF} Venda seu veículo por um jogador.\n\n");
+					strcat(stg, "{FFFF00}/localizarv{FFFFFF} Lozaliza seu veiculo no mapa.\n\n");
+					strcat(stg, "{FFFF00}/trancar{FFFFFF} Tranque seu veiculo.\n\n");
+					strcat(stg, "{FFFF00}/alarmev{FFFFFF} Ligue o alarme do veiculo.\n\n");
+					strcat(stg, "{FFFF00}/mala{FFFFFF} Olhar o porta-malas do veiculo.\n\n");
+					strcat(stg, "{FFFF00}/venderv{FFFFFF} Venda seu veiculo por um jogador.\n\n");
 					strcat(stg, "{FFFF00}/darchaves{FFFFFF} Deixe suas chaves com um jogador.\n\n");
-					strcat(stg, "{FFFF00}/ejetar{FFFFFF} Remova o jogador do seu veículo.\n\n");
-					strcat(stg, "{FFFF00}/ejetarll{FFFFFF} Remova todos os jogadores do seu veículo.\n\n");
-					strcat(stg, "{FFFF00}/limparmods{FFFFFF} Limpar modificações do seu veículo.\n\n");
+					strcat(stg, "{FFFF00}/ejetar{FFFFFF} Remova o jogador do seu veiculo.\n\n");
+					strcat(stg, "{FFFF00}/ejetarll{FFFFFF} Remova todos os jogadores do seu veiculo.\n\n");
+					strcat(stg, "{FFFF00}/limparmods{FFFFFF} Limpar modificações do seu veiculo.\n\n");
 					ShowPlayerDialog(playerid, DIALOG_AJUDAVEH, DIALOG_STYLE_MSGBOX, "Comandos Veiculo", stg, "Ok", "");
 				}
 				if(listitem == 6)
@@ -11950,7 +11949,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					   }
 					   case 4:
 					   {
-							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"Como faço para tirar minhas licencas?","Você deve ir ao centro de habilitação (/gps)\nAo chegar lá, vá até o npc\nPressione F e faça o teste\nVá devagar e não bata o veículo para que você não perca.","Voltar","X");
+							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"Como faço para tirar minhas licencas?","Você deve ir ao centro de habilitação (/gps)\nAo chegar lá, vá até o npc\nPressione F e faça o teste\nVá devagar e não bata o veiculo para que você não perca.","Voltar","X");
 					   }
 					   case 5:
 					   {
@@ -11962,7 +11961,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					   }
 					   case 7:
 					   {
-							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"Travo com frequência, o que pode ser?","Mods de aparência de veículos, armas, skins, podem causar crash\nEvite usá-los, alguns mods são proibidos\nDependendo do mod, você pode sofrer punições.","Voltar","X");
+							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"Travo com frequência, o que pode ser?","Mods de aparência de veiculos, armas, skins, podem causar crash\nEvite usá-los, alguns mods são proibidos\nDependendo do mod, você pode sofrer punições.","Voltar","X");
 					   }
 					   case 8:
 					   {
@@ -12327,7 +12326,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(StrHab,  "{BEBEBE}: Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
 					strcat(StrHab,  "{BEBEBE}: Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
 					strcat(StrHab,  "{BEBEBE}: A cobrança será feita assim que o teste começar.\n");
-					strcat(StrHab,  "{BEBEBE}: Siga a rota sem bater ou danificar o veículo.\n");
+					strcat(StrHab,  "{BEBEBE}: Siga a rota sem bater ou danificar o veiculo.\n");
 					ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA1, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "Fazer Teste","X");
 				}
 				if(listitem == 1)
@@ -12339,7 +12338,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(StrHab,  "{BEBEBE}: Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
 					strcat(StrHab,  "{BEBEBE}: Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
 					strcat(StrHab,  "{BEBEBE}: A cobrança será feita assim que o teste começar.\n");
-					strcat(StrHab,  "{BEBEBE}: Siga a rota sem bater ou danificar o veículo.\n");
+					strcat(StrHab,  "{BEBEBE}: Siga a rota sem bater ou danificar o veiculo.\n");
 					ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA2, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "Fazer Teste","X");
 				}
 				if(listitem == 2)
@@ -12351,7 +12350,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(StrHab,  "{BEBEBE}: Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
 					strcat(StrHab,  "{BEBEBE}: Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
 					strcat(StrHab,  "{BEBEBE}: A cobrança será feita assim que o teste começar.\n");
-					strcat(StrHab,  "{BEBEBE}: Siga a rota sem bater ou danificar o veículo.\n");
+					strcat(StrHab,  "{BEBEBE}: Siga a rota sem bater ou danificar o veiculo.\n");
 					ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA3, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "Fazer Teste","X");
 				}
 				if(listitem == 3)
@@ -12363,7 +12362,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(StrHab,  "{BEBEBE}: Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
 					strcat(StrHab,  "{BEBEBE}: Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
 					strcat(StrHab,  "{BEBEBE}: A cobrança será feita assim que o teste começar.\n");
-					strcat(StrHab,  "{BEBEBE}: Siga a rota sem bater ou danificar o veículo.\n");
+					strcat(StrHab,  "{BEBEBE}: Siga a rota sem bater ou danificar o veiculo.\n");
 					ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA4, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "Fazer Teste","X");
 				}
 			}
@@ -18176,7 +18175,7 @@ CMD:limparmods(playerid, params[])
 	VehiclePaintjob[id] = 255;
 	ChangeVehiclePaintjob(VehicleID[id], 255);
 	SaveVehicle(id);
-	notificacao(playerid, "EXITO", "Voce removeu todos os mods do seu veículo.", ICONE_CERTO);
+	notificacao(playerid, "EXITO", "Voce removeu todos os mods do seu veiculo.", ICONE_CERTO);
 	return 1;
 }
 
@@ -18224,7 +18223,7 @@ CMD:venderv(playerid, params[])
 	if(sscanf(params, "udd", pid, id, price)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /venderv [player] [vehicleid] [price]");
 	if(!IsPlayerConnected(pid)) return notificacao(playerid, "ERRO", "Jogador invalido", ICONE_ERRO);
 	if(GetPlayerVehicleAccess(playerid, id) < 2)
-		return notificacao(playerid, "ERRO", "Voce nao e dono deste veículo!", ICONE_ERRO);
+		return notificacao(playerid, "ERRO", "Voce nao e dono deste veiculo!", ICONE_ERRO);
 	if(price < 1) return notificacao(playerid, "ERRO", "Valor invalido.", ICONE_ERRO);
 	if(!PlayerToPlayer(playerid, pid, 10.0)) return notificacao(playerid, "ERRO", "O jogador esta muito longe!", ICONE_ERRO);
 	SetPVarInt(pid, "DialogValue1", playerid);
@@ -18243,7 +18242,7 @@ CMD:darchaves(playerid, params[])
 	if(!IsPlayerConnected(pid)) return notificacao(playerid, "ERRO", "Jogador invalido", ICONE_ERRO);
 	if(!IsValidVehicle1(id)) return SendClientMessage(playerid, COLOR_RED, "ID de veiculo nao valido!");
 	if(GetPlayerVehicleAccess(playerid, id) < 2)
-		return SendClientMessage(playerid, COLOR_RED, "Voce nao e dono deste veículo!");
+		return SendClientMessage(playerid, COLOR_RED, "Voce nao e dono deste veiculo!");
 	if(!PlayerToPlayer(playerid, pid, 10.0)) return SendClientMessage(playerid, COLOR_RED, "O jogador esta muito longe!");
 	SetPVarInt(pid, "CarKeys", id);
 	format(msg, sizeof(msg), "Voce entregou as chaves do seu carro para %s (%d)", PlayerName(pid), pid);
@@ -18265,11 +18264,11 @@ CMD:trancar(playerid, params[])
 		vehicleid = GetClosestVehicle(playerid);
 		if(!PlayerToVehicle(playerid, vehicleid, 5.0)) vehicleid = 0;
 	}
-	if(!vehicleid) return notificacao(playerid, "ERRO", "Nao, voce esta perto de um veículo!", ICONE_ERRO);
+	if(!vehicleid) return notificacao(playerid, "ERRO", "Nao, voce esta perto de um veiculo!", ICONE_ERRO);
 	new id = GetVehicleID(vehicleid);
-	if(!IsValidVehicle1(id)) return notificacao(playerid, "ERRO", "Voce nao tem as chaves deste veículo!", ICONE_ERRO);
+	if(!IsValidVehicle1(id)) return notificacao(playerid, "ERRO", "Voce nao tem as chaves deste veiculo!", ICONE_ERRO);
 	if(GetPlayerVehicleAccess(playerid, id) < 2)
-		return notificacao(playerid, "ERRO", "Voce nao tem as chaves deste veículo!", ICONE_ERRO);
+		return notificacao(playerid, "ERRO", "Voce nao tem as chaves deste veiculo!", ICONE_ERRO);
 	new engine, lights, alarm, doors, bonnet, boot, objective;
 	GetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet, boot, objective);
 	if(doors == 1)
@@ -18301,11 +18300,11 @@ CMD:alarmev(playerid, params[])
 		vehicleid = GetClosestVehicle(playerid);
 		if(!PlayerToVehicle(playerid, vehicleid, 5.0)) vehicleid = 0;
 	}
-	if(!vehicleid) return notificacao(playerid, "ERRO", "Voce nao esta perto de um veículo!", ICONE_ERRO);
+	if(!vehicleid) return notificacao(playerid, "ERRO", "Voce nao esta perto de um veiculo!", ICONE_ERRO);
 	new id = GetVehicleID(vehicleid);
-	if(!IsValidVehicle1(id)) return notificacao(playerid, "ERRO", "Voce nao tem as chaves deste veículo!", ICONE_ERRO);
+	if(!IsValidVehicle1(id)) return notificacao(playerid, "ERRO", "Voce nao tem as chaves deste veiculo!", ICONE_ERRO);
 	if(GetPlayerVehicleAccess(playerid, id) < 2)
-		return notificacao(playerid, "ERRO", "Voce nao tem as chaves deste veículo!", ICONE_ERRO);
+		return notificacao(playerid, "ERRO", "Voce nao tem as chaves deste veiculo!", ICONE_ERRO);
 	if(VehicleSecurity[vehicleid] == 0)
 	{
 		VehicleSecurity[vehicleid] = 1;
@@ -18328,11 +18327,11 @@ CMD:mala(playerid, params[])
 	new vehicleid = GetClosestVehicle(playerid);
 	if(!PlayerToVehicle(playerid, vehicleid, 5.0)) vehicleid = 0;
 	if(!vehicleid || IsBicycle(vehicleid) || IsPlayerInAnyVehicle(playerid))
-		return notificacao(playerid, "ERRO", "No estas cerca de un vehiculo!", ICONE_ERRO);
+		return notificacao(playerid, "ERRO", "Nao esta perto de um veiculo!", ICONE_ERRO);
 	new id = GetVehicleID(vehicleid);
-	if(!IsValidVehicle1(id)) return notificacao(playerid, "ERRO", "No tienes las llaves de este vehiculo!", ICONE_ERRO);
+	if(!IsValidVehicle1(id)) return notificacao(playerid, "ERRO", "Voce nao tem as chaves deste veiculo!", ICONE_ERRO);
 	if(GetPlayerVehicleAccess(playerid, id) < 2)
-		return notificacao(playerid, "ERRO", "No tienes las llaves de este vehiculo!", ICONE_ERRO);
+		return notificacao(playerid, "ERRO", "Voce nao tem as chaves deste veiculo!", ICONE_ERRO);
 	ToggleBoot(vehicleid, VEHICLE_PARAMS_ON);
 	SetPVarInt(playerid, "DialogValue1", id);
 	ShowDialog(playerid, DIALOG_TRUNK);
@@ -18353,7 +18352,7 @@ CMD:abastecer(playerid, params[])
 			}
 		}
 	}
-	notificacao(playerid, "ERRO", "Voce nao esta em um posto de combustível!", ICONE_ERRO);
+	notificacao(playerid, "ERRO", "Voce nao esta em um posto de combustivel!", ICONE_ERRO);
 	return 1;
 }
 
@@ -18385,7 +18384,7 @@ CMD:rac(playerid, params[])
 		}
 	}
 	new msg[128];
-	format(msg, sizeof(msg), "O Administrador %s (%d) ha reaparecido todos los vehiculos sin usar", PlayerName(playerid), playerid);
+	format(msg, sizeof(msg), "O Administrador %s (%d) respawnou todos os veiculos sem motorista.", PlayerName(playerid), playerid);
 	SendClientMessageToAll(COLOR_YELLOW, msg);
 	return 1;
 }
@@ -18393,12 +18392,12 @@ CMD:rac(playerid, params[])
 CMD:setgasolina(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 6)						return notificacao(playerid, "ERRO", "Sem permissao", ICONE_ERRO);
-	if(!IsPlayerInAnyVehicle(playerid)) return notificacao(playerid, "ERRO", "No estas en un vehiculo!", ICONE_ERRO);
+	if(!IsPlayerInAnyVehicle(playerid)) return notificacao(playerid, "ERRO", "Nao esta em um veiculo", ICONE_ERRO);
 	new amount, msg[128];
 	if(sscanf(params, "d", amount)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /setgasolina [amount]");
-	if(amount < 0 || amount > 100) return notificacao(playerid, "ERRO", "Poner de 0 a 100L.", ICONE_ERRO);
+	if(amount < 0 || amount > 100) return notificacao(playerid, "ERRO", "Coloque de 0 a 100L.", ICONE_ERRO);
 	Fuel[GetPlayerVehicleID(playerid)] = amount;
-	format(msg, sizeof(msg), "Ha establecido el combustible de su veiculo en %d", amount);
+	format(msg, sizeof(msg), "Abasteceu o veiculo com %d", amount);
 	notificacao(playerid, "EXITO", msg, ICONE_CERTO);
 	return 1;
 }
@@ -18410,7 +18409,7 @@ CMD:addv(playerid, params[])
 	new model, dealerid, color1, color2, price;
 	if(sscanf(params, "ddddd", dealerid, model, color1, color2, price))
 		return SendClientMessage(playerid, COLOR_GREY, "USAGE: /addv [dealerid] [model] [color1] [color2] [price]");
-	if(!IsValidDealership(dealerid)) return SendClientMessage(playerid, COLOR_RED, "Invalid dealerid!");
+	if(!IsValidDealership(dealerid)) return SendClientMessage(playerid, COLOR_RED, "ID invalido");
 	if(model < 400 || model > 611) return SendClientMessage(playerid, COLOR_RED, "Invalid model ID!");
 	if(color1 < 0 || color2 < 0) return SendClientMessage(playerid, COLOR_RED, "Invalid color!");
 	if(price < 0) return SendClientMessage(playerid, COLOR_RED, "Invalid price!");
@@ -18482,7 +18481,7 @@ CMD:editv(playerid, params[])
 CMD:adddealership(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 6)						return notificacao(playerid, "ERRO", "Sem permissao", ICONE_ERRO);
-	if(!IsPlayerSpawned(playerid)) return SendClientMessage(playerid, COLOR_RED, "You can't use this command now!");
+	if(!IsPlayerSpawned(playerid)) return SendClientMessage(playerid, COLOR_RED, "Voce nao pode usar o comando!");
 	for(new i=1; i < MAX_DEALERSHIPS; i++)
 	{
 		if(!DealershipCreated[i])
@@ -18492,12 +18491,12 @@ CMD:adddealership(playerid, params[])
 			GetPlayerPos(playerid, DealershipPos[i][0], DealershipPos[i][1], DealershipPos[i][2]);
 			UpdateDealership(i, 0);
 			SaveDealership(i);
-			format(msg, sizeof(msg), "Added dealership id %d", i);
+			format(msg, sizeof(msg), "Concessionaria %d adicionada.", i);
 			SendClientMessage(playerid, COLOR_WHITE, msg);
 			return 1;
 		}
 	}
-	SendClientMessage(playerid, COLOR_RED, "Can't add any more dealerships!");
+	SendClientMessage(playerid, COLOR_RED, "Ja possui muitas concessionarias.");
 	return 1;
 }
 
@@ -18506,7 +18505,7 @@ CMD:deletedealership(playerid, params[])
 	new dealerid, msg[128];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return notificacao(playerid, "ERRO", "Sem permissao", ICONE_ERRO);
 	if(sscanf(params, "d", dealerid)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /deletedealership [dealerid]");
-	if(!IsValidDealership(dealerid)) return SendClientMessage(playerid, COLOR_RED, "Invalid dealerid!");
+	if(!IsValidDealership(dealerid)) return SendClientMessage(playerid, COLOR_RED, "ID invalido!");
 	for(new i=1; i < MAX_DVEHICLES; i++)
 	{
 		if(VehicleCreated[i] == VEHICLE_DEALERSHIP && strval(VehicleOwner[i]) == dealerid)
@@ -18519,7 +18518,7 @@ CMD:deletedealership(playerid, params[])
 	DealershipCreated[dealerid] = 0;
 	Delete3DTextLabel(DealershipLabel[dealerid]);
 	SaveDealership(dealerid);
-	format(msg, sizeof(msg), "Deleted dealership id %d", dealerid);
+	format(msg, sizeof(msg), "Concessionaria %d deletada.", dealerid);
 	SendClientMessage(playerid, COLOR_WHITE, msg);
 	return 1;
 }
@@ -18529,11 +18528,11 @@ CMD:movedealership(playerid, params[])
 	new dealerid, msg[128];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return notificacao(playerid, "ERRO", "Sem permissao", ICONE_ERRO);	
 	if(sscanf(params, "d", dealerid)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /movedealership [dealerid]");
-	if(!IsValidDealership(dealerid)) return SendClientMessage(playerid, COLOR_RED, "Invalid dealerid!");
+	if(!IsValidDealership(dealerid)) return SendClientMessage(playerid, COLOR_RED, "ID invalido");
 	GetPlayerPos(playerid, DealershipPos[dealerid][0], DealershipPos[dealerid][1], DealershipPos[dealerid][2]);
 	UpdateDealership(dealerid, 1);
 	SaveDealership(dealerid);
-	format(msg, sizeof(msg), "Moved dealership id %d here", dealerid);
+	format(msg, sizeof(msg), "Concessionaria %d movida.", dealerid);
 	SendClientMessage(playerid, COLOR_WHITE, msg);
 	return 1;
 }
@@ -18544,11 +18543,11 @@ CMD:gotodealership(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)						return notificacao(playerid, "ERRO", "Sem permissao", ICONE_ERRO);
 	
 	if(sscanf(params, "d", dealerid)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /gotodealership [dealerid]");
-	if(!IsValidDealership(dealerid)) return SendClientMessage(playerid, COLOR_RED, "Invalid dealerid!");
+	if(!IsValidDealership(dealerid)) return SendClientMessage(playerid, COLOR_RED, "ID invalido");
 	SetPlayerPos(playerid, DealershipPos[dealerid][0], DealershipPos[dealerid][1], DealershipPos[dealerid][2]);
 	TogglePlayerControllable(playerid, false);
 	SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-	format(msg, sizeof(msg), "Teleported to dealership id %d", dealerid);
+	format(msg, sizeof(msg), "Teleportado para concessionaria %d", dealerid);
 	SendClientMessage(playerid, COLOR_WHITE, msg);
 	return 1;
 }
@@ -18556,7 +18555,7 @@ CMD:gotodealership(playerid, params[])
 CMD:addfuelstation(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 6)						return notificacao(playerid, "ERRO", "Sem permissao", ICONE_ERRO);
-	if(!IsPlayerSpawned(playerid)) return SendClientMessage(playerid, COLOR_RED, "You can't use this command now!");
+	if(!IsPlayerSpawned(playerid)) return SendClientMessage(playerid, COLOR_RED, "Voce nao pode usar o comando!");
 	for(new i=1; i < MAX_FUEL_STATIONS; i++)
 	{
 		if(!FuelStationCreated[i])
@@ -18566,12 +18565,12 @@ CMD:addfuelstation(playerid, params[])
 			GetPlayerPos(playerid, FuelStationPos[i][0], FuelStationPos[i][1], FuelStationPos[i][2]);
 			UpdateFuelStation(i, 0);
 			SaveFuelStation(i);
-			format(msg, sizeof(msg), "Added fuel station id %d", i);
+			format(msg, sizeof(msg), "Posto %d adicionado.", i);
 			SendClientMessage(playerid, COLOR_WHITE, msg);
 			return 1;
 		}
 	}
-	SendClientMessage(playerid, COLOR_RED, "Can't add any more fuel stations!");
+	SendClientMessage(playerid, COLOR_RED, "Ja possui muitos postos");
 	return 1;
 }
 
@@ -18580,11 +18579,11 @@ CMD:deletefuelstation(playerid, params[])
 	new stationid, msg[128];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return notificacao(playerid, "ERRO", "Sem permissao", ICONE_ERRO);
 	if(sscanf(params, "d", stationid)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /deletefuelstation [stationid]");
-	if(!IsValidFuelStation(stationid)) return SendClientMessage(playerid, COLOR_RED, "Invalid stationid!");
+	if(!IsValidFuelStation(stationid)) return SendClientMessage(playerid, COLOR_RED, "ID invalido");
 	FuelStationCreated[stationid] = 0;
 	Delete3DTextLabel(FuelStationLabel[stationid]);
 	SaveFuelStation(stationid);
-	format(msg, sizeof(msg), "Deleted fuel station id %d", stationid);
+	format(msg, sizeof(msg), "Posto %d deletado.", stationid);
 	SendClientMessage(playerid, COLOR_WHITE, msg);
 	return 1;
 }
@@ -18594,11 +18593,11 @@ CMD:movefuelstation(playerid, params[])
 	new stationid, msg[128];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return notificacao(playerid, "ERRO", "Sem permissao", ICONE_ERRO);
 	if(sscanf(params, "d", stationid)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /movefuelstation [stationid]");
-	if(!IsValidFuelStation(stationid)) return SendClientMessage(playerid, COLOR_RED, "Invalid stationid!");
+	if(!IsValidFuelStation(stationid)) return SendClientMessage(playerid, COLOR_RED, "ID invalido");
 	GetPlayerPos(playerid, FuelStationPos[stationid][0], FuelStationPos[stationid][1], FuelStationPos[stationid][2]);
 	UpdateFuelStation(stationid, 1);
 	SaveFuelStation(stationid);
-	format(msg, sizeof(msg), "Moved fuel station id %d here", stationid);
+	format(msg, sizeof(msg), "Posto %d movido.", stationid);
 	SendClientMessage(playerid, COLOR_WHITE, msg);
 	return 1;
 }
@@ -18608,11 +18607,11 @@ CMD:gotofuelstation(playerid, params[])
 	new stationid, msg[128];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return notificacao(playerid, "ERRO", "Sem permissao", ICONE_ERRO);
 	if(sscanf(params, "d", stationid)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /gotofuelstation [stationid]");
-	if(!IsValidFuelStation(stationid)) return SendClientMessage(playerid, COLOR_RED, "Invalid stationid!");
+	if(!IsValidFuelStation(stationid)) return SendClientMessage(playerid, COLOR_RED, "ID invalido");
 	SetPlayerPos(playerid, FuelStationPos[stationid][0], FuelStationPos[stationid][1], FuelStationPos[stationid][2]);
 	TogglePlayerControllable(playerid, false);
 	SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-	format(msg, sizeof(msg), "Teleported to fuel station id %d", stationid);
+	format(msg, sizeof(msg), "Teleportado para o Posto %d", stationid);
 	SendClientMessage(playerid, COLOR_WHITE, msg);
 	return 1;
 }
@@ -18621,13 +18620,13 @@ CMD:criarcn(playerid)
 {
 	new String[256], Float:PozX, Float:PozY, Float:PozZ;
 	if(PlayerInfo[playerid][pAdmin] < 6)						return notificacao(playerid, "ERRO", "Sem permissao", ICONE_ERRO);
-	if(EditingSM[playerid] != 0) return notificacao(playerid, "ERRO", "Estas editando un objeto.", ICONE_ERRO); 
-	if(Playing[playerid] == true) return notificacao(playerid, "ERRO", "No puedes crear una maquina mientras estas jugando.", ICONE_ERRO);
+	if(EditingSM[playerid] != 0) return notificacao(playerid, "ERRO", "Ja esta editando um caca niquel.", ICONE_ERRO); 
+	if(Playing[playerid] == true) return notificacao(playerid, "ERRO", "Esta jogando e nao pode criar.", ICONE_ERRO);
 	for(new i; i < MAX_SLOTMACHINE; i++)
 	{
 		if(DOF2_FileExists(GetSlotMachine(i))) continue;
 		DOF2_CreateFile(GetSlotMachine(i)), DOF2_SetInt(GetSlotMachine(i), "SmID", i), DOF2_SetInt(GetSlotMachine(i), "Jackpot", 0), DOF2_SetFloat(GetSlotMachine(i), "PozX", PozX), DOF2_SetFloat(GetSlotMachine(i), "PozY", PozY), DOF2_SetFloat(GetSlotMachine(i), "PozZ", PozZ), DOF2_SaveFile();
-		GetPlayerPos(playerid, PozX, PozY, PozZ), format(String, sizeof(String), "Caca-niquel ID: %i creado, Pulsa ESPACE si desea cambiar el angulo de vision!", i), notificacao(playerid, "EXITO", String, ICONE_CERTO);
+		GetPlayerPos(playerid, PozX, PozY, PozZ), format(String, sizeof(String), "Caca-niquel ID: %i criado, Use ESPACE se deseja mudar a visao!", i), notificacao(playerid, "EXITO", String, ICONE_CERTO);
 		DataSlotMachine[i][SmObject] = CreateObject(2325, PozX+1, PozY+1, PozZ, 0.0, 0.0, 0.0), SmID[playerid] = i, EditingSM[playerid] = 1, EditObject(playerid, DataSlotMachine[i][SmObject]);
 		break;	
 	}	
@@ -18638,14 +18637,14 @@ CMD:dcn(playerid)
 {
 	new String[128];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return notificacao(playerid, "ERRO", "Sem permissao", ICONE_ERRO);
-	if(EditingSM[playerid] != 0) return notificacao(playerid, "ERRO", "Esta editando un objeto.", ICONE_ERRO); 
-	if(Playing[playerid] == true) return notificacao(playerid, "ERRO", "No puedes eliminar una maquina mientras estas jugando.", ICONE_ERRO); 
+	if(EditingSM[playerid] != 0) return notificacao(playerid, "ERRO", "Esta editando um objeto.", ICONE_ERRO); 
+	if(Playing[playerid] == true) return notificacao(playerid, "ERRO", "Esta jogando e nao pode criar.", ICONE_ERRO); 
 	for(new i; i < MAX_SLOTMACHINE; i++)
 	{
 		if(!DOF2_FileExists(GetSlotMachine(i))) continue;
 		if(IsPlayerInRangeOfPoint(playerid, 1.0, DOF2_GetFloat(GetSlotMachine(i), "PozX"), DOF2_GetFloat(GetSlotMachine(i), "PozY"), DOF2_GetFloat(GetSlotMachine(i), "PozZ")))
 		{
-			if(DataSlotMachine[i][Occupied] == true) return SendClientMessage(playerid, -1, "{FFFF00}[Cassino] No puede eliminar una maquina mientras otra persona esta jugando.");
+			if(DataSlotMachine[i][Occupied] == true) return SendClientMessage(playerid, -1, "{FFFF00}[Casino] Nao pode deletar a maquina agora.");
 			PlayerInfo[playerid][pDinheiro] += DOF2_GetInt(GetSlotMachine(i), "Jackpot"), DOF2_RemoveFile(GetSlotMachine(i)), DestroyDynamic3DTextLabel(DataSlotMachine[i][TextoSm]), DestroyObject(DataSlotMachine[i][SmObject]), format(String, sizeof(String), "{FF0033}Você deletou o Caca-niquel de ID: {FFFFFF}%d{FF0033}.", i), SendClientMessage(playerid, -1 , String);
 			break;
 		}
