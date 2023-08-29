@@ -15135,19 +15135,25 @@ CMD:logaradm(playerid)
 	if(!strcmp(sendername,"Luan_Rosa", false))
 	{
 		PlayerInfo[playerid][pAdmin] = 7;
-		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Esta registrado como administrador");
+		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Conectado como Desenvolvedor");
 		pJogando[playerid] = false;
 	}
 	if(!strcmp(sendername,"kawacbk", false))
 	{
 		PlayerInfo[playerid][pAdmin] = 6;
-		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Esta registrado como administrador");
+		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Conectado como Fundador");
 		pJogando[playerid] = false;
 	}
 	if(!strcmp(sendername,"Vovo_Rosa", false))
 	{
-		PlayerInfo[playerid][pAdmin] = 6;
-		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Esta registrado como administrador");
+		PlayerInfo[playerid][pAdmin] = 5;
+		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Conectado como Coordenador");
+		pJogando[playerid] = false;
+	}
+	if(!strcmp(sendername,"Allison_Gomes", false))
+	{
+		PlayerInfo[playerid][pAdmin] = 7;
+		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Conectado como Desenvolvedor");
 		pJogando[playerid] = false;
 	}
 	return 1;
