@@ -2199,22 +2199,8 @@ CallBack::AttVeh(playerid)
 		veiculoidb = GetPlayerVehicleID(playerid);
 		new Float:vhealth;
 		GetVehicleHealth(veiculoidb, vhealth);
-		new vehicle = GetPlayerVehicleID(playerid);
 		if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 		{
-			new Float:vida;
-			new engine,lights,alarm,doors,bonnet,boot,objective;
-			GetVehicleHealth(vehicle, vida);
-			if(vida < 300.0)
-			{
-				GetVehicleParamsEx(vehicle,engine,lights,alarm,doors,bonnet,boot,objective);
-				SetVehicleParamsEx(vehicle,VEHICLE_PARAMS_OFF,lights,alarm,doors,bonnet,boot,objective);
-				RepairCar[playerid] = GetPlayerVehicleID(playerid);
-				SetVehicleHealth(RepairCar[playerid], 250.0);
-				GameTextForPlayer(playerid,"~r~	VEICULO QUEBRADO. ~n~~w~", 5000, 1);
-				RemovePlayerFromVehicle(playerid);
-				return 1;
-			}
 			new Account[255];
 			new carid = GetVehicleModel(GetPlayerVehicleID(playerid));
 			for(new i; i < MAX_RADAR; i++)
@@ -5001,7 +4987,7 @@ stock Timers(playerid)
 	TimerSedebar[playerid] = SetTimerEx("SedeBar", minutos(5), true, "d", playerid); 
 	TimerColete[playerid] = SetTimerEx("Colete", 150, true, "d", playerid);
 	TimerPayDay[playerid] = SetTimerEx("PayDay", minutos(30), false, "d", playerid); 
-	TimerAttVeh[playerid] = SetTimerEx("AttVeh", 1000, true, "d", playerid);
+	TimerAttVeh[playerid] = SetTimerEx("AttVeh", 5000, true, "d", playerid);
 	TimerHacker[playerid] = SetTimerEx("TimerHack", 1000, false, "d", playerid);
 }
 
@@ -7916,7 +7902,7 @@ stock NpcText()
 	new Actor[30+1],Text3D:label[30+1];
 
 	Actor[0] = CreateActor(217, 1685.058349, -2326.510742, 13.546875, 175.751434); 
-	label[0] = Create3DTextLabel("{FFFFFF}Ola, Use {FF00FF}/ajuda {FFFFFF}para conhecer os comandos.", 0x008080FF, 1685.058349, -2326.510742, 13.546875, 15.0, 0);
+	label[0] = Create3DTextLabel("{FFFFFF}Ola, Use {FFFF00}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, 1685.058349, -2326.510742, 13.546875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[0], Actor[0], 0.0, 0.0, 0.7);
 
 	Actor[1] = CreateActor(76, -501.242370, 296.501190, 2001.094970, 179.496414); 
@@ -9142,7 +9128,7 @@ public OnPlayerText(playerid, text[])
 	if(pLogado[playerid] == false)              				return notificacao(playerid, "ERRO", "Nao esta conectado", ICONE_AVISO);
 	{
 		new string[128];
-		format(string, sizeof(string), "%s{FFFF00}%d{FFFF00} falou {FFFFFF}%s",Name(playerid), playerid,text);
+		format(string, sizeof(string), "%s({FFFF00}%d{FFFFFF}) falou {FFFF00}%s",Name(playerid), playerid,text);
 		ProxDetector(30.0, playerid, string, -1, -1, -1, -1, -1);
 
 		format(string,sizeof(string),"%s falou %s", Name(playerid), text);
@@ -13724,12 +13710,25 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0:
 					{
+						new vehicle = GetPlayerVehicleID(playerid);
+						new Float:vida;
+						GetVehicleHealth(vehicle, vida);
 						new vehicleid = GetPlayerVehicleID(playerid);
 						new engine, lights, alarm, doors, bonnet, boot, objective;
 						GetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet, boot, objective);
 						if(engine == 0 && Fuel[vehicleid] <= 0)
 						{
 							ShowErrorDialog(playerid, "Veiculo sem combustivel");
+							return 1;
+						}
+						if(vida < 300.0)
+						{
+							GetVehicleParamsEx(vehicle,engine,lights,alarm,doors,bonnet,boot,objective);
+							SetVehicleParamsEx(vehicle,VEHICLE_PARAMS_OFF,lights,alarm,doors,bonnet,boot,objective);
+							RepairCar[playerid] = GetPlayerVehicleID(playerid);
+							SetVehicleHealth(RepairCar[playerid], 280.0);
+							ShowErrorDialog(playerid, "Veiculo quebrado\nchame um mecanico");
+							RemovePlayerFromVehicle(playerid);
 							return 1;
 						}
 						if(engine == 1) { engine = 0; lights = 0; }

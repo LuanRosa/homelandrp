@@ -5127,3 +5127,520 @@ v0.3.7-R2, (C)2005-2015 SA-MP Team
 [00:15:42] [dbg:raknet:free] : module released
 [00:15:42] [sv:dbg:network:free] : module releasing...
 [00:15:42] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[19:49:17] filterscripts = ""  (string)
+[19:49:18] 
+[19:49:18] Server Plugins
+[19:49:18] --------------
+[19:49:18]  Loading plugin: crashdetect
+[19:49:19]   CrashDetect plugin 4.21
+[19:49:19]   Loaded.
+[19:49:19]  Loading plugin: sscanf
+[19:49:20] 
+[19:49:20]  ===============================
+[19:49:20] 
+[19:49:20]       sscanf plugin loaded.     
+[19:49:20] 
+[19:49:20]          Version: 2.13.8
+[19:49:20] 
+[19:49:20]    (c) 2022 Alex "Y_Less" Cole  
+[19:49:20] 
+[19:49:20]  ===============================
+[19:49:20] 
+[19:49:20]   Loaded.
+[19:49:20]  Loading plugin: streamer
+[19:49:21] 
+
+*** Streamer Plugin v2.9.6 by Incognito loaded ***
+
+[19:49:21]   Loaded.
+[19:49:21]  Loading plugin: timerfix
+[19:49:21]   >> TimerFix v1.5 successfully loaded.
+[19:49:21]   Loaded.
+[19:49:21]  Loading plugin: mapandreas
+[19:49:22]   Failed.
+[19:49:22]  Loading plugin: sampvoice
+[19:49:23] [sv:dbg:network:init] : module initializing...
+[19:49:23] [dbg:raknet:init] : module initializing...
+[19:49:23] [dbg:raknet:init] : module initialized
+[19:49:24] [sv:dbg:network:init] : module initialized
+[19:49:24] [sv:dbg:main:Load] : creating 2 work threads...
+[19:49:25]  -------------------------------------------    
+[19:49:25]    ___                __   __    _              
+[19:49:26]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[19:49:27]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[19:49:27]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[19:49:27]                   |_|                           
+[19:49:28]  -------------------------------------------    
+[19:49:29]            SampVoice by MOR loaded              
+[19:49:29]  -------------------------------------------    
+[19:49:29]   Loaded.
+[19:49:30]  Loading plugin: discord-connector
+[19:49:44]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[19:49:45]   Loaded.
+[19:49:45]  Loaded 6 plugins.
+
+[19:49:46] 
+[19:49:46] Filterscripts
+[19:49:46] ---------------
+[19:49:47]   Loaded 0 filterscripts.
+
+[19:49:47] *** Streamer Plugin: The plugin version (0x295) is older than the include file version (0x296) for this script. The plugin might need to be updated to the latest version.
+[19:49:47] [sv:dbg:main:AmxLoad] : net game pointer (value:02289F00) received
+[19:49:47] [sv:dbg:network:bind] : voice server running on port 62096
+[19:49:47]  
+[19:49:47] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[19:49:47] ***                 Ignore any errors if the FS already unloaded.
+[19:49:47]  
+[19:49:48]  
+[19:49:48] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[19:49:48] ***                 Ignore any errors due to insufficient FS slots.
+[19:49:48]  
+[19:49:48]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[19:49:48]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[19:49:48]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[19:49:48]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[19:49:48]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[19:49:48]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[19:49:48]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[19:49:49]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[19:49:49]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[19:49:49]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[19:49:50]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[19:49:50]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[19:49:51]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[19:49:51]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[19:49:51]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[19:49:52]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[19:49:52]  
+[19:49:52] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[19:49:52]  
+[19:49:52]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[19:49:52]  
+[19:49:52]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[19:49:53]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[19:49:53]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[19:49:53]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[19:49:53]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[19:49:53]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[19:49:53]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[19:49:54]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[19:49:54]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[19:49:54]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[19:49:54]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[19:49:55]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[19:49:55]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[19:49:55]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[19:49:55]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[19:49:55]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[19:49:55]  
+[19:49:55] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[19:49:55] ***                 Ignore any errors if the FS already loaded.
+[19:49:56]  
+[19:49:56]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[19:49:56] [debug] Long callback execution detected (hang or performance issue)
+[19:49:57] [debug] AMX backtrace:
+[19:49:57] [debug] #0 000090c8 in FIXES_IsPlayerConnected (playerid=15) at E:\Baixada Roleplay\pawno\include\fixes.inc:12409
+[19:49:57] [debug] #1 000174b0 in SSCANF_RunInit () at E:\Baixada Roleplay\pawno\include\sscanf2.inc:908
+[19:49:57] [debug] #2 00017704 in public On_GameModeInit ()  at E:\Baixada Roleplay\pawno\include\sscanf2.inc:1065
+[19:49:57] [debug] #3 00009a28 in public OnGameModeInit () at E:\Baixada Roleplay\pawno\include\fixes.inc:12706
+[19:49:58]  
+[19:49:58] --------------------------------------
+[19:49:58]  Anticheat Nex-AC carregado!
+[19:49:58]  Anticheat versão: 1.9.62
+[19:49:58]  Autor: Nexius (PT-BR by NicK_)
+[19:49:58] --------------------------------------
+
+[19:49:58] MapFix by Nexius v4.3.3 loaded (include version).
+[19:49:59] [Arquivos Load] AntiDeAMX Iniciado com Sucesso.
+[19:49:59] [Arquivos Load] Foram Carregadas todas as orgs
+[19:49:59] [Arquivos Load] Todos os MapIcon foram carregados
+[19:49:59] [Arquivos Load] Todos os caixas foram carregados.
+[19:49:59] [Arquivos Load] Todos os Pickups e 3DLabel foram carregados.
+[19:49:59] [Arquivos Load] Todos as textdraws globais foram carregados.
+[19:50:01] [Arquivos Load] Foram Carregados 25 veiculos
+[19:50:02] [Arquivos Load] Foram Carregados 1 Concessionarias
+[19:50:03] [Arquivos Load] Foram Carregadas 8 Postos
+[19:50:04] [Arquivos Load] Os objetos estao sendo carregados.
+[19:50:04] [Arquivos Load] Todos os objetos foram carregados.
+[19:50:21] [Arquivos Load] Foram Carregadas 308 Casas.
+[19:50:24] [Arquivos Load] Foram Carregadas 53 Radares.
+[19:50:25] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[19:50:25] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[19:50:25] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[19:50:25] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[19:50:25] 
+'---_.Baixada Roleplay by Luan_Rosa._---'
+[19:50:25] --- Gamemode Iniciada Com Sucesso!  ---
+
+[19:50:25] Number of vehicle models: 23
+[19:50:37] [debug] Long callback execution detected (hang or performance issue)
+[19:50:37] [debug] AMX backtrace:
+[19:50:37] [debug] #0 00013850 in SaveVehicle (vehicleid=5) at E:\Baixada Roleplay\pawno\include\fixes.inc:18512
+[19:50:37] [debug] #1 000a59c0 in public SaveTimer () at E:\Baixada Roleplay\gamemodes\baixada.pwn:2148
+[19:50:42] [debug] Long callback execution detected (hang or performance issue)
+[19:50:42] [debug] AMX backtrace:
+[19:50:42] [debug] #0 000a1530 in SaveVehicle (vehicleid=7) at E:\Baixada Roleplay\gamemodes\baixada.pwn:1828
+[19:50:42] [debug] #1 000a59c0 in public SaveTimer () at E:\Baixada Roleplay\gamemodes\baixada.pwn:2148
+Console input: ipconfig
+[19:51:11] [debug] Long callback execution detected (hang or performance issue)
+[19:51:11] [debug] AMX backtrace:
+[19:51:12] [debug] #0 000a17c4 in SaveVehicle (vehicleid=20) at E:\Baixada Roleplay\gamemodes\baixada.pwn:1835
+[19:51:12] [debug] #1 000a59c0 in public SaveTimer () at E:\Baixada Roleplay\gamemodes\baixada.pwn:2148
+[19:52:24] [connection] 192.168.1.104:55854 requests connection cookie.
+[19:52:24] [connection] incoming connection: 192.168.1.104:55854 id: 0
+[19:52:25] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.104) ...
+[19:52:25] [sv:dbg:network:connect] : player (0) assigned key (5e180bad)
+[19:52:25] [join] Luan_Rosa has joined the server (0:192.168.1.104)
+[19:52:25] [debug] Long callback execution detected (hang or performance issue)
+[19:52:25] [debug] AMX backtrace:
+[19:52:25] [debug] #0 000d09dc in todastextdraw (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:5140
+[19:52:25] [debug] #1 00250e10 in public NT_OnPlayerConnect (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:8885
+[19:52:25] [debug] #2 00095f38 in public ac_OnPlayerConnect (playerid=0) at E:\Baixada Roleplay\pawno\include\notificacao.inc:181
+[19:52:25] [debug] #3 00028e40 in public Iter_OnPlayerConnect (playerid=0) at E:\Baixada Roleplay\pawno\include\nex-ac.inc:3857
+[19:52:25] [debug] #4 native CallLocalFunction () in samp-server.exe
+[19:52:25] [debug] #5 00018100 in public SSCANF_OnPlayerConnect (0)  at E:\Baixada Roleplay\pawno\include\foreach.inc:584
+[19:52:25] [debug] #6 000178d4 in public On_PlayerConnect (0)  at E:\Baixada Roleplay\pawno\include\sscanf2.inc:1129
+[19:52:25] [debug] #7 0000a6d0 in public OnPlayerConnect (playerid=0) at E:\Baixada Roleplay\pawno\include\fixes.inc:13220
+[19:52:37] [debug] Long callback execution detected (hang or performance issue)
+[19:52:37] [debug] AMX backtrace:
+[19:52:37] [debug] #0 0006c3dc in DOF2_HashKey (key[]=@01ef5c08 "pSenha") at E:\Baixada Roleplay\pawno\include\DOF2.inc:1665
+[19:52:37] [debug] #1 0006951c in DOF2_ParseFile (file[]=@01ef6a68 "Contas/Luan_Rosa.ini", extraid=-1, bool:callback=false) at E:\Baixada Roleplay\pawno\include\DOF2.inc:1143
+[19:52:37] [debug] #2 00067ed4 in DOF2_GetStringEx (file[]=@01ef6a68 "Contas/Luan_Rosa.ini", key[]=@01e65c9c "pSenha", result[]=@01ef6448 "", size=128, tag[]=@01eb70e8 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:698
+[19:52:37] [debug] #3 00067d78 in DOF2_GetString (file[]=@01ef6a68 "Contas/Luan_Rosa.ini", key[]=@01e65c9c "pSenha", tag[]=@01eb70e8 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:685
+[19:52:37] [debug] #4 0026f800 in public ac_OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@01eb6ecc "174458") at E:\Baixada Roleplay\gamemodes\baixada.pwn:11381
+[19:52:37] [debug] #5 0002d74c in public On_DialogResponse (0, 0, 1, -1, 32206540)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:4299
+[19:52:37] [debug] #6 00012c80 in public OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@01eb6ecc "174458") at E:\Baixada Roleplay\pawno\include\fixes.inc:17956
+[19:54:33] [debug] Long callback execution detected (hang or performance issue)
+[19:54:33] [debug] AMX backtrace:
+[19:54:33] [debug] #0 000a63b0 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:54:34] [debug] Long callback execution detected (hang or performance issue)
+[19:54:34] [debug] AMX backtrace:
+[19:54:34] [debug] #0 000a64b4 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:54:35] [debug] Long callback execution detected (hang or performance issue)
+[19:54:35] [debug] AMX backtrace:
+[19:54:35] [debug] #0 000a63b8 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:54:40] [debug] Long callback execution detected (hang or performance issue)
+[19:54:40] [debug] AMX backtrace:
+[19:54:40] [debug] #0 000a65c4 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:54:42] [debug] Long callback execution detected (hang or performance issue)
+[19:54:43] [debug] AMX backtrace:
+[19:54:43] [debug] #0 000a671c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2227
+[19:54:46] [debug] Long callback execution detected (hang or performance issue)
+[19:54:46] [debug] AMX backtrace:
+[19:54:46] [debug] #0 000a63c0 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:54:49] [debug] Long callback execution detected (hang or performance issue)
+[19:54:49] [debug] AMX backtrace:
+[19:54:49] [debug] #0 000a6374 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:54:54] [debug] Long callback execution detected (hang or performance issue)
+[19:54:54] [debug] AMX backtrace:
+[19:54:54] [debug] #0 000a6404 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:54:56] [debug] Long callback execution detected (hang or performance issue)
+[19:54:56] [debug] AMX backtrace:
+[19:54:56] [debug] #0 000a6634 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:54:59] [debug] Long callback execution detected (hang or performance issue)
+[19:54:59] [debug] AMX backtrace:
+[19:54:59] [debug] #0 000a62f8 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2220
+[19:55:01] [debug] Long callback execution detected (hang or performance issue)
+[19:55:01] [debug] AMX backtrace:
+[19:55:01] [debug] #0 000a679c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:55:04] [debug] Long callback execution detected (hang or performance issue)
+[19:55:04] [debug] AMX backtrace:
+[19:55:04] [debug] #0 000a62e4 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2220
+[19:55:06] [debug] Long callback execution detected (hang or performance issue)
+[19:55:06] [debug] AMX backtrace:
+[19:55:06] [debug] #0 000a667c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:55:13] [debug] Long callback execution detected (hang or performance issue)
+[19:55:13] [debug] AMX backtrace:
+[19:55:13] [debug] #0 000a66d8 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:55:15] [debug] Long callback execution detected (hang or performance issue)
+[19:55:15] [debug] AMX backtrace:
+[19:55:15] [debug] #0 000a6340 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:55:19] [debug] Long callback execution detected (hang or performance issue)
+[19:55:19] [debug] AMX backtrace:
+[19:55:19] [debug] #0 000a6604 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:55:19] [debug] Long callback execution detected (hang or performance issue)
+[19:55:20] [debug] AMX backtrace:
+[19:55:20] [debug] #0 000a65e8 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:55:22] [debug] Long callback execution detected (hang or performance issue)
+[19:55:22] [debug] AMX backtrace:
+[19:55:22] [debug] #0 000a6430 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:55:25] [debug] Long callback execution detected (hang or performance issue)
+[19:55:25] [debug] AMX backtrace:
+[19:55:25] [debug] #0 000a65f8 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:55:27] [debug] Long callback execution detected (hang or performance issue)
+[19:55:27] [debug] AMX backtrace:
+[19:55:27] [debug] #0 000a6474 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:55:35] [debug] Long callback execution detected (hang or performance issue)
+[19:55:35] [debug] AMX backtrace:
+[19:55:35] [debug] #0 000a685c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:55:40] [debug] Long callback execution detected (hang or performance issue)
+[19:55:40] [debug] AMX backtrace:
+[19:55:40] [debug] #0 000a64e0 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:55:49] [debug] Long callback execution detected (hang or performance issue)
+[19:55:49] [debug] AMX backtrace:
+[19:55:49] [debug] #0 000a65e8 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:55:50] [debug] Long callback execution detected (hang or performance issue)
+[19:55:50] [debug] AMX backtrace:
+[19:55:50] [debug] #0 000a63ac in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:55:53] [debug] Long callback execution detected (hang or performance issue)
+[19:55:53] [debug] AMX backtrace:
+[19:55:53] [debug] #0 000a6720 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2227
+[19:55:54] [debug] Long callback execution detected (hang or performance issue)
+[19:55:54] [debug] AMX backtrace:
+[19:55:54] [debug] #0 000a6728 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2227
+[19:55:56] [debug] Long callback execution detected (hang or performance issue)
+[19:55:56] [debug] AMX backtrace:
+[19:55:56] [debug] #0 000a6750 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2227
+[19:55:57] [debug] Long callback execution detected (hang or performance issue)
+[19:55:57] [debug] AMX backtrace:
+[19:55:57] [debug] #0 0003c92c in public On_PlayerUpdate (0)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:5530
+[19:55:57] [debug] #1 0000e03c in public OnPlayerUpdate (playerid=0) at E:\Baixada Roleplay\pawno\include\fixes.inc:14533
+[19:56:00] [debug] Long callback execution detected (hang or performance issue)
+[19:56:00] [debug] AMX backtrace:
+[19:56:00] [debug] #0 000a6660 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:56:03] [debug] Long callback execution detected (hang or performance issue)
+[19:56:03] [debug] AMX backtrace:
+[19:56:03] [debug] #0 000a652c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:56:06] [debug] Long callback execution detected (hang or performance issue)
+[19:56:06] [debug] AMX backtrace:
+[19:56:06] [debug] #0 000a6740 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2227
+[19:56:08] [debug] Long callback execution detected (hang or performance issue)
+[19:56:08] [debug] AMX backtrace:
+[19:56:08] [debug] #0 000a6870 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:56:09] [debug] Long callback execution detected (hang or performance issue)
+[19:56:09] [debug] AMX backtrace:
+[19:56:09] [debug] #0 000a6790 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:56:09] [debug] Long callback execution detected (hang or performance issue)
+[19:56:10] [debug] AMX backtrace:
+[19:56:10] [debug] #0 000a6ef4 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2278
+[19:56:11] [debug] Long callback execution detected (hang or performance issue)
+[19:56:11] [debug] AMX backtrace:
+[19:56:11] [debug] #0 000a64e4 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:56:17] [debug] Long callback execution detected (hang or performance issue)
+[19:56:18] [debug] AMX backtrace:
+[19:56:18] [debug] #0 000a658c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:56:19] [debug] Long callback execution detected (hang or performance issue)
+[19:56:19] [debug] AMX backtrace:
+[19:56:20] [debug] #0 000a6778 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:56:21] [debug] Long callback execution detected (hang or performance issue)
+[19:56:21] [debug] AMX backtrace:
+[19:56:21] [debug] #0 000a643c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:56:23] [debug] Long callback execution detected (hang or performance issue)
+[19:56:23] [debug] AMX backtrace:
+[19:56:23] [debug] #0 000a676c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:56:25] [debug] Long callback execution detected (hang or performance issue)
+[19:56:25] [debug] AMX backtrace:
+[19:56:26] [debug] #0 000a658c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:56:26] [debug] Long callback execution detected (hang or performance issue)
+[19:56:26] [debug] AMX backtrace:
+[19:56:27] [debug] #0 000a663c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:56:29] [debug] Long callback execution detected (hang or performance issue)
+[19:56:29] [debug] AMX backtrace:
+[19:56:29] [debug] #0 000a64ec in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:56:30] [debug] Long callback execution detected (hang or performance issue)
+[19:56:30] [debug] AMX backtrace:
+[19:56:30] [debug] #0 000a64b4 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:56:34] [debug] Long callback execution detected (hang or performance issue)
+[19:56:34] [debug] AMX backtrace:
+[19:56:34] [debug] #0 000a6734 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2227
+[19:56:34] [debug] Long callback execution detected (hang or performance issue)
+[19:56:35] [debug] AMX backtrace:
+[19:56:35] [debug] #0 000a6870 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:56:36] [debug] Long callback execution detected (hang or performance issue)
+[19:56:36] [debug] AMX backtrace:
+[19:56:36] [debug] #0 000a6634 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:56:37] [debug] Long callback execution detected (hang or performance issue)
+[19:56:37] [debug] AMX backtrace:
+[19:56:37] [debug] #0 000a639c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:56:41] [debug] Long callback execution detected (hang or performance issue)
+[19:56:41] [debug] AMX backtrace:
+[19:56:41] [debug] #0 000a6814 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:56:41] [debug] Long callback execution detected (hang or performance issue)
+[19:56:42] [debug] AMX backtrace:
+[19:56:42] [debug] #0 000a6620 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:56:42] [debug] Long callback execution detected (hang or performance issue)
+[19:56:42] [debug] AMX backtrace:
+[19:56:42] [debug] #0 000a62dc in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2220
+[19:56:45] [debug] Long callback execution detected (hang or performance issue)
+[19:56:45] [debug] AMX backtrace:
+[19:56:45] [debug] #0 000a6404 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:56:49] [debug] Long callback execution detected (hang or performance issue)
+[19:56:49] [debug] AMX backtrace:
+[19:56:49] [debug] #0 000a67f8 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:56:50] [debug] Long callback execution detected (hang or performance issue)
+[19:56:50] [debug] AMX backtrace:
+[19:56:50] [debug] #0 000a6838 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:56:52] [debug] Long callback execution detected (hang or performance issue)
+[19:56:52] [debug] AMX backtrace:
+[19:56:53] [debug] #0 000a66c8 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:56:58] [debug] Long callback execution detected (hang or performance issue)
+[19:56:58] [debug] AMX backtrace:
+[19:56:58] [debug] #0 000a6460 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:57:04] [debug] Long callback execution detected (hang or performance issue)
+[19:57:04] [debug] AMX backtrace:
+[19:57:04] [debug] #0 000a6788 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:57:18] [debug] Long callback execution detected (hang or performance issue)
+[19:57:18] [debug] AMX backtrace:
+[19:57:18] [debug] #0 00069cf0 in DOF2_ParseLine (line[]=@00a45f20 "PozY = -2288.09716796", key[]=@01eecd6c "PozY", value[]=@01eecf90 "-2288.097", keysize=128, valuesize=32) at E:\Baixada Roleplay\pawno\include\DOF2.inc:1221
+[19:57:18] [debug] #1 00066578 in DOF2_SearchEntry (key[]=@01e60e70 "PozY", tag[]=@01eb6ecc "", keybuf[]=@01eecd6c "PozY", valbuf[]=@01eecf90 "-2288.097", &pos=@01eecf6c 0, keybufsize=128, valbufsize=32) at E:\Baixada Roleplay\pawno\include\DOF2.inc:519
+[19:57:18] [debug] #2 00067f78 in DOF2_GetStringEx (file[]=@01eb6ed0 "Cacaniquel/Slot0.ini", key[]=@01e60e70 "PozY", result[]=@01eecf90 "-2288.097", size=32, tag[]=@01eb6ecc "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:706
+[19:57:18] [debug] #3 00068248 in Float:DOF2_GetFloat (file[]=@01eb6ed0 "Cacaniquel/Slot0.ini", key[]=@01e60e70 "PozY", tag[]=@01eb6ecc "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:907
+[19:57:18] [debug] #4 00269594 in public ac_OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:10943
+[19:57:18] [debug] #5 00041494 in public On_PlayerKeyStateChange (0, 16, 0)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:6020
+[19:57:18] [debug] #6 0000ec58 in public OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at E:\Baixada Roleplay\pawno\include\fixes.inc:15196
+[19:58:38] [debug] Long callback execution detected (hang or performance issue)
+[19:58:38] [debug] AMX backtrace:
+[19:58:38] [debug] #0 000a67f4 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:58:42] [debug] Long callback execution detected (hang or performance issue)
+[19:58:42] [debug] AMX backtrace:
+[19:58:42] [debug] #0 000a643c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:58:43] [debug] Long callback execution detected (hang or performance issue)
+[19:58:43] [debug] AMX backtrace:
+[19:58:43] [debug] #0 0003872c in public On_PlayerUpdate (0)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:5189
+[19:58:43] [debug] #1 0000e03c in public OnPlayerUpdate (playerid=0) at E:\Baixada Roleplay\pawno\include\fixes.inc:14533
+[19:58:44] [debug] Long callback execution detected (hang or performance issue)
+[19:58:44] [debug] AMX backtrace:
+[19:58:44] [debug] #0 000a67d8 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:58:45] [debug] Long callback execution detected (hang or performance issue)
+[19:58:45] [debug] AMX backtrace:
+[19:58:45] [debug] #0 00038b30 in public On_PlayerUpdate (0)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:5220
+[19:58:45] [debug] #1 0000e03c in public OnPlayerUpdate (playerid=0) at E:\Baixada Roleplay\pawno\include\fixes.inc:14533
+[19:58:46] [debug] Long callback execution detected (hang or performance issue)
+[19:58:46] [debug] AMX backtrace:
+[19:58:46] [debug] #0 000a64ac in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:58:50] [debug] Long callback execution detected (hang or performance issue)
+[19:58:50] [debug] AMX backtrace:
+[19:58:50] [debug] #0 000a67ec in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:58:52] [debug] Long callback execution detected (hang or performance issue)
+[19:58:52] [debug] AMX backtrace:
+[19:58:52] [debug] #0 000a6778 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:58:53] [debug] Long callback execution detected (hang or performance issue)
+[19:58:53] [debug] AMX backtrace:
+[19:58:53] [debug] #0 000a680c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:58:55] [debug] Long callback execution detected (hang or performance issue)
+[19:58:55] [debug] AMX backtrace:
+[19:58:55] [debug] #0 000a680c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:58:57] [debug] Long callback execution detected (hang or performance issue)
+[19:58:57] [debug] AMX backtrace:
+[19:58:57] [debug] #0 000a6604 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:59:01] [debug] Long callback execution detected (hang or performance issue)
+[19:59:01] [debug] AMX backtrace:
+[19:59:01] [debug] #0 000a63f8 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:59:02] [debug] Long callback execution detected (hang or performance issue)
+[19:59:02] [debug] AMX backtrace:
+[19:59:02] [debug] #0 00000f44 in _FIXES_RTrim (string[]=@01ef66b4 "bC: 10000") at E:\Baixada Roleplay\pawno\include\fixes.inc:11274
+[19:59:02] [debug] #1 00011e0c in FIXES_PlayerTextDrawSetString (playerid=0, PlayerText:text=48, string[]=@01ef66b4 "bC: 10000") at E:\Baixada Roleplay\pawno\include\fixes.inc:17234
+[19:59:02] [debug] #2 000b0ffc in public Colete (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:3112
+[19:59:03] [debug] Long callback execution detected (hang or performance issue)
+[19:59:03] [debug] AMX backtrace:
+[19:59:03] [debug] #0 000a6300 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2220
+[19:59:03] [debug] Long callback execution detected (hang or performance issue)
+[19:59:03] [debug] AMX backtrace:
+[19:59:03] [debug] #0 00000ed8 in _FIXES_RTrim (string[]=@01ef66b4 "96") at E:\Baixada Roleplay\pawno\include\fixes.inc:11270
+[19:59:03] [debug] #1 00011e0c in FIXES_PlayerTextDrawSetString (playerid=0, PlayerText:text=46, string[]=@01ef66b4 "96") at E:\Baixada Roleplay\pawno\include\fixes.inc:17234
+[19:59:03] [debug] #2 000b0ef4 in public Colete (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:3109
+[19:59:04] [debug] Long callback execution detected (hang or performance issue)
+[19:59:04] [debug] AMX backtrace:
+[19:59:04] [debug] #0 000a63c0 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:59:05] [debug] Long callback execution detected (hang or performance issue)
+[19:59:05] [debug] AMX backtrace:
+[19:59:05] [debug] #0 000a63ac in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:59:07] [debug] Long callback execution detected (hang or performance issue)
+[19:59:07] [debug] AMX backtrace:
+[19:59:07] [debug] #0 000a680c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:59:10] [debug] Long callback execution detected (hang or performance issue)
+[19:59:10] [debug] AMX backtrace:
+[19:59:10] [debug] #0 000a643c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:59:11] [debug] Long callback execution detected (hang or performance issue)
+[19:59:12] [debug] AMX backtrace:
+[19:59:12] [debug] #0 00000870 in Float:operator-(Float:,_:) (Float:oper1=82.04096, oper2=82) at E:\Baixada Roleplay\pawno\include\float.inc:124
+[19:59:12] [debug] #1 00013b1c in Float:FIXES_floatfract (Float:value=82.04096) at E:\Baixada Roleplay\pawno\include\fixes.inc:18777
+[19:59:12] [debug] #2 0001b5ec in ac_GetVehicleZAngle (vehicleid=26, &Float:z_angle=@01ef6e3c 82.04096) at E:\Baixada Roleplay\pawno\include\nex-ac.inc:1105
+[19:59:12] [debug] #3 00039ddc in public On_PlayerUpdate (0)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:5336
+[19:59:12] [debug] #4 0000e03c in public OnPlayerUpdate (playerid=0) at E:\Baixada Roleplay\pawno\include\fixes.inc:14533
+[19:59:13] [debug] Long callback execution detected (hang or performance issue)
+[19:59:13] [debug] AMX backtrace:
+[19:59:13] [debug] #0 000a6578 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:59:14] [debug] Long callback execution detected (hang or performance issue)
+[19:59:14] [debug] AMX backtrace:
+[19:59:14] [debug] #0 000a6734 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2227
+[19:59:15] [debug] Long callback execution detected (hang or performance issue)
+[19:59:15] [debug] AMX backtrace:
+[19:59:15] [debug] #0 000a62d0 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2220
+[19:59:16] [debug] Long callback execution detected (hang or performance issue)
+[19:59:16] [debug] AMX backtrace:
+[19:59:16] [debug] #0 000a671c in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2227
+[19:59:21] [debug] Long callback execution detected (hang or performance issue)
+[19:59:21] [debug] AMX backtrace:
+[19:59:21] [debug] #0 000a6854 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:59:28] [debug] Long callback execution detected (hang or performance issue)
+[19:59:28] [debug] AMX backtrace:
+[19:59:28] [debug] #0 000a65f0 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:59:29] [debug] Long callback execution detected (hang or performance issue)
+[19:59:29] [debug] AMX backtrace:
+[19:59:29] [debug] #0 000a6658 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2222
+[19:59:31] [debug] Long callback execution detected (hang or performance issue)
+[19:59:31] [debug] AMX backtrace:
+[19:59:31] [debug] #0 000a6780 in public AttVeh (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:2228
+[19:59:36] [debug] Long callback execution detected (hang or performance issue)
+[19:59:36] [debug] AMX backtrace:
+[19:59:36] [debug] #0 0006933c in DOF2_ParseFile (file[]=@01eb6ed0 "Cacaniquel/Slot1.ini", extraid=-1, bool:callback=false) at E:\Baixada Roleplay\pawno\include\DOF2.inc:1134
+[19:59:36] [debug] #1 00067ed4 in DOF2_GetStringEx (file[]=@01eb6ed0 "Cacaniquel/Slot1.ini", key[]=@01e60e84 "PozZ", result[]=@01eecf94 "", size=32, tag[]=@01eb6ecc "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:698
+[19:59:36] [debug] #2 00068248 in Float:DOF2_GetFloat (file[]=@01eb6ed0 "Cacaniquel/Slot1.ini", key[]=@01e60e84 "PozZ", tag[]=@01eb6ecc "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:907
+[19:59:36] [debug] #3 00269514 in public ac_OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:10943
+[19:59:36] [debug] #4 00041494 in public On_PlayerKeyStateChange (0, 16, 0)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:6020
+[19:59:36] [debug] #5 0000ec58 in public OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at E:\Baixada Roleplay\pawno\include\fixes.inc:15196
+[19:59:37] [debug] Long callback execution detected (hang or performance issue)
+[19:59:38] [debug] AMX backtrace:
+[19:59:38] [debug] #0 0003d7d8 in public On_PlayerUpdate (0)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:5646
+[19:59:38] [debug] #1 0000e03c in public OnPlayerUpdate (playerid=0) at E:\Baixada Roleplay\pawno\include\fixes.inc:14533
+[20:03:20] [debug] Long callback execution detected (hang or performance issue)
+[20:03:20] [debug] AMX backtrace:
+[20:03:20] [debug] #0 00000f9c in _FIXES_RTrim (string[]=@01ef66b4 "91") at E:\Baixada Roleplay\pawno\include\fixes.inc:11277
+[20:03:20] [debug] #1 00011e0c in FIXES_PlayerTextDrawSetString (playerid=0, PlayerText:text=47, string[]=@01ef66b4 "91") at E:\Baixada Roleplay\pawno\include\fixes.inc:17234
+[20:03:20] [debug] #2 000b0e08 in public Colete (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:3106
+[20:03:58] [debug] Long callback execution detected (hang or performance issue)
+[20:03:58] [debug] AMX backtrace:
+[20:03:58] [debug] #0 00032ffc in public On_PlayerUpdate (0)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:4764
+[20:03:59] [debug] #1 0000e03c in public OnPlayerUpdate (playerid=0) at E:\Baixada Roleplay\pawno\include\fixes.inc:14533
+[20:04:01] [debug] Long callback execution detected (hang or performance issue)
+[20:04:01] [debug] AMX backtrace:
+[20:04:01] [debug] #0 000b0ecc in public Colete (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:3107
+[20:05:02] [debug] Long callback execution detected (hang or performance issue)
+[20:05:03] [debug] AMX backtrace:
+[20:05:03] [debug] #0 00040930 in public On_PlayerUpdate (0)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:5956
+[20:05:03] [debug] #1 0000e03c in public OnPlayerUpdate (playerid=0) at E:\Baixada Roleplay\pawno\include\fixes.inc:14533
+[20:06:27] [sv:dbg:network:connect] : disconnecting player (0) ...
+[20:06:27] [debug] Long callback execution detected (hang or performance issue)
+[20:06:28] [debug] AMX backtrace:
+[20:06:28] [debug] #0 00068cb8 in DOF2_ParseFile (file[]=@01ef662c "Contas/Luan_Rosa.ini", extraid=-1, bool:callback=false) at E:\Baixada Roleplay\pawno\include\DOF2.inc:1062
+[20:06:28] [debug] #1 00067164 in DOF2_SetString (file[]=@01ef662c "Contas/Luan_Rosa.ini", key[]=@01e18cac "pLevel", value[]=@01ef654c "0", tag[]=@01eb6ecc "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:579
+[20:06:29] [debug] #2 00068054 in DOF2_SetInt (file[]=@01ef662c "Contas/Luan_Rosa.ini", key[]=@01e18cac "pLevel", value=0, tag[]=@01eb6ecc "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:858
+[20:06:29] [debug] #3 00111b44 in SalvarDados (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:8318
+[20:06:29] [debug] #4 002511f8 in public ac_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\gamemodes\baixada.pwn:8913
+[20:06:29] [debug] #5 00029ad4 in public TIMERFIX_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\nex-ac.inc:3924
+[20:06:29] [debug] #6 00019438 in public Iter_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\timerfix.inc:208
+[20:06:30] [debug] #7 native CallLocalFunction () in samp-server.exe
+[20:06:30] [debug] #8 00018cf0 in public SSCANF_OnPlayerDisconnect (0, 1)  at E:\Baixada Roleplay\pawno\include\foreach.inc:818
+[20:06:30] [debug] #9 00017948 in public On_PlayerDisconnect (0, 1)  at E:\Baixada Roleplay\pawno\include\sscanf2.inc:1154
+[20:06:30] [debug] #10 0000a7a4 in public OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\fixes.inc:13272
+[20:06:34] [debug] Run time error 4: "Array index out of bounds"
+[20:06:34] [debug]  Attempted to read/write array element at index 4 in array of size 4
+[20:06:34] [debug] AMX backtrace:
+[20:06:35] [debug] #0 00251ef4 in public ac_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\gamemodes\baixada.pwn:8992
+[20:06:35] [debug] #1 00029ad4 in public TIMERFIX_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\nex-ac.inc:3924
+[20:06:35] [debug] #2 00019438 in public Iter_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\timerfix.inc:208
+[20:06:35] [debug] #3 native CallLocalFunction () in samp-server.exe
+[20:06:35] [debug] #4 00018cf0 in public SSCANF_OnPlayerDisconnect (0, 1)  at E:\Baixada Roleplay\pawno\include\foreach.inc:818
+[20:06:36] [debug] #5 00017948 in public On_PlayerDisconnect (0, 1)  at E:\Baixada Roleplay\pawno\include\sscanf2.inc:1154
+[20:06:36] [debug] #6 0000a7a4 in public OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\fixes.inc:13272
+[20:06:36] [part] Luan_Rosa has left the server (0:1)
