@@ -6,7 +6,7 @@ O objetivo geral é como dito é sim simular sua vida, podendo seguir ela como u
 
 Essa Gamemode não requer o uso de comandos. Toda a jogabilidade foi construída com um modelo de interação intuitivo em mente, com apenas algumas teclas necessárias para acessar os recursos específicos da gamemode.
 
-# AUTO AJUDA
+## AUTO AJUDA
 
 Essa Gamemode foi feita usando dois editores, dentro eles o Sublim Text e Visual Studio onde fizemos a mudança oara está utilizando o GitHub da maneira mais eficaz e rápida.
 
@@ -16,7 +16,7 @@ Toda a Gamemode possui comentários em todo o código para se encontrar melhor e
 
 Se essa Gamemode está disponível para todos hoje, agradeça a seus desenvolvedores e principalmente ao Luan_Rosa (RosaScripter) que fez a Gamemode penando já em outros desenvolvedores que utilizariam essa Gamemode no futuro caso esteja disponível para a comunidade.
 
-# CRÉDITOS
+## CRÉDITOS
 
 Essa Gamemode foi feita em cima de algumas bases feitas também pelo Luan_Rosa (RosaScripter), no caso feita totalmente do zero.
 
@@ -29,7 +29,7 @@ João (Chapado) - Criador de algumas mapeações
 
 Deixo também todo agradecimento aos apoiadores do servidor Baixada Roleplay, principalmente toda a staff que sempre manteve presente em todas as sugestões e atualizações.
 
-# LICENÇA 
+## LICENÇA 
 
 Breve resumo: https://tldrlegal.com/license/mozilla-public-license-2.0-(mpl-2)
 
@@ -40,7 +40,7 @@ Você deve disponibilizar o código-fonte de qualquer uma de suas alterações n
 E deixe todos os créditos intactos. Isso inclui quaisquer mensagens do jogo.
 
 Este bloco é mostrado no topo de cada arquivo de origem para indicar que está em MPL:
-
+```
 Copyright (C) 2023 Barnaby "LuanRosa" Keene
 
 This Source Code Form is subject to the terms of the Mozilla Public
