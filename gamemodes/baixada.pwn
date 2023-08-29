@@ -18656,15 +18656,15 @@ CMD:editcn(playerid)
 {
 	new String[256];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return notificacao(playerid, "ERRO", "Sem permissao", ICONE_ERRO);
-	if(EditingSM[playerid] != 0) return notificacao(playerid, "ERRO", "Ya esta editando un objeto.", ICONE_ERRO);
-	if(Playing[playerid] == true) return notificacao(playerid, "ERRO", "No puedes editar una maquina mientras estas jugando.", ICONE_ERRO);
+	if(EditingSM[playerid] != 0) return notificacao(playerid, "ERRO", "Ja esta editando uma maquina.", ICONE_ERRO);
+	if(Playing[playerid] == true) return notificacao(playerid, "ERRO", "Esta jogando e nao pode criar.", ICONE_ERRO);
 	for(new i; i < MAX_SLOTMACHINE; i++)
 	{
 		if(!DOF2_FileExists(GetSlotMachine(i))) continue;
 		if(IsPlayerInRangeOfPoint(playerid, 1.0, DOF2_GetFloat(GetSlotMachine(i), "PozX"), DOF2_GetFloat(GetSlotMachine(i), "PozY"), DOF2_GetFloat(GetSlotMachine(i), "PozZ")))
 		{
-			if(DataSlotMachine[i][Occupied] == true) return notificacao(playerid, "ERRO", "No puede editar una maquina mientras otra persona esta jugando.", ICONE_ERRO);
-			SmID[playerid] = i, EditingSM[playerid] = 1, format(String, sizeof(String), "Estas editando la maquina. Pulsa ESPACE si desea cambiar el angulo de vision!", SmID[playerid]), notificacao(playerid, "INFO", String, ICONE_AVISO);
+			if(DataSlotMachine[i][Occupied] == true) return notificacao(playerid, "ERRO", "Esta jogando e nao pode criar.", ICONE_ERRO);
+			SmID[playerid] = i, EditingSM[playerid] = 1, format(String, sizeof(String), "Use ESPACE se deseja mudar a visao!", SmID[playerid]), notificacao(playerid, "INFO", String, ICONE_AVISO);
 			EditObject(playerid, DataSlotMachine[i][SmObject]);
 			break;
 		}
@@ -18675,14 +18675,13 @@ CMD:editcn(playerid)
 CMD:infocn(playerid)
 {
 	new String[256];
-	if(EditingSM[playerid] != 0) return notificacao(playerid, "ERRO", "Esta editando un objeto.", ICONE_ERRO);
-	if(Playing[playerid] == true) return notificacao(playerid, "ERRO", "No puede ver la informacion de una maquina mientras esta jugando.", ICONE_ERRO);
+	if(EditingSM[playerid] != 0) return notificacao(playerid, "ERRO", "Esta editando um objeto.", ICONE_ERRO);
 	for(new i; i < MAX_SLOTMACHINE; i++)
 	{
 		if(!DOF2_FileExists(GetSlotMachine(i))) continue;
 		if(IsPlayerInRangeOfPoint(playerid, 1.0, DOF2_GetFloat(GetSlotMachine(i), "PozX"), DOF2_GetFloat(GetSlotMachine(i), "PozY"), DOF2_GetFloat(GetSlotMachine(i), "PozZ")))
 		{
-			format(String, sizeof(String), "Esta es la maquina %d y tiene el valor de $%i en su JACKPOT.", i, DOF2_GetInt(GetSlotMachine(i), "Jackpot")), notificacao(playerid, "INFO", String, ICONE_AVISO);
+			format(String, sizeof(String), "Esta maquina %d possui R$%i de JACKPOT.", i, DOF2_GetInt(GetSlotMachine(i), "Jackpot")), notificacao(playerid, "INFO", String, ICONE_AVISO);
 			break;
 		}
 	}
@@ -18697,17 +18696,17 @@ CMD:freq(playerid, params[])
 	if(freq == 0)
 	{
 		FrequenciaConectada[playerid] = 0;
-		SendClientMessage(playerid, 0xFF0000FF, "Radio cerrado!");
+		SendClientMessage(playerid, 0xFF0000FF, "Radio desligado!");
 		SvDetachListenerFromStream(Frequencia[freq], playerid);
 		FrequenciaConectada[playerid] = 0;
 	} else {
 		new string[128];
-		format(string, 128, "[Radio] Frequencia conectada: (%d).", freq);
+		format(string, 128, "Frequencia conectada: (%d).", freq);
 		SendClientMessage(playerid, 0x00AE00FF, string);
 
-		format(string, 128, "[Radio] %s saliu de la frequencia(%d)", Name(playerid), FrequenciaConectada[playerid]);
+		format(string, 128, "%s saiu da frequencia(%d)", Name(playerid), FrequenciaConectada[playerid]);
 		MsgFrequencia(FrequenciaConectada[playerid], 0xBF0000FF, string);
-		format(string, 128, "[Radio] %s ingreso en la frequencia(%d)", Name(playerid), freq);
+		format(string, 128, "%s entrou na frequencia(%d)", Name(playerid), freq);
 		MsgFrequencia(freq, 0xFF6C00FF, string);
 
 		SetTimerEx("ConectarNaFrequencia", 100, false, "id", playerid, freq);
@@ -18720,7 +18719,7 @@ CMD:vip(playerid, params[])
 	if(PlayerInfo[playerid][pVIP] < 1)						return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
 	if(sscanf(params, "s[56]", Motivo)) 							return SendClientMessage(playerid, CorErroNeutro, "USE: /vip [TEXTO]");
 	//
-	format(Str, sizeof(Str), "%s {FFFF00}%s{FFFFFF} dice {FFFF00}%s", VIP(playerid), Name(playerid), Motivo);
+	format(Str, sizeof(Str), "%s {FFFF00}%s{FFFFFF} disse {FFFF00}%s", VIP(playerid), Name(playerid), Motivo);
 	SendAdminMessage(0xDDA0DDFF, Str);
 	return 1;
 }
@@ -18740,15 +18739,15 @@ CMD:mudarskin(playerid, params[])
 CMD:tunar(playerid,params[])
 {
 	if(!IsPlayerInAnyVehicle(playerid))
-		return SendClientMessage(playerid, 0x27408BFF, "[wTuning]- Necesitas estar en un vehículo.");
+		return SendClientMessage(playerid, 0x27408BFF, "Nao esta em um veiculo.");
 
 	if(GetPlayerVehicleSeat(playerid) != 0)
-        return SendClientMessage(playerid,  0x27408BFF, "[wTuning]- necesitas conducir el vehículo");
+        return SendClientMessage(playerid,  0x27408BFF, "Nao esta dentro do veiculo.");
 
 	if(!GetVehicleModelEx(GetVehicleModel(GetPlayerVehicleID(playerid))))
-	    return SendClientMessage(playerid,  0x27408BFF, "[wTuning]- este vehículo no puede ser tuneado.");
+	    return SendClientMessage(playerid,  0x27408BFF, "Este veiculo nao pode ser tunado.");
 	if(wTuning[playerid] == true)
-	    return SendClientMessage(playerid,  0x27408BFF, "[wTuning]- ya esta tuneado este vehiculo.");
+	    return SendClientMessage(playerid,  0x27408BFF, "Ja esta tunando.");
 
     static
 		nome_veiculo[40]
@@ -18757,7 +18756,7 @@ CMD:tunar(playerid,params[])
 	format(nome_veiculo, sizeof(nome_veiculo), "veiculo: %s", VehicleNames[GetVehicleModel(GetPlayerVehicleID(playerid)) - 400]);
     PlayerTextDrawSetString(playerid, PlayerText:wMenu[0], nome_veiculo);
 
-    SendClientMessage(playerid,  0x27408BFF, "[wTuning]- Tuneando Veiculo.");
+    SendClientMessage(playerid,  0x27408BFF, "Tunando Veiculo.");
 
     for(new i; i < sizeof(wBase); i++) { TextDrawShowForPlayer(playerid, Text:wBase[i]); }
 	for(new i; i < sizeof(wMenu); i++) { PlayerTextDrawShow(playerid, PlayerText:wMenu[i]); }
@@ -18975,11 +18974,11 @@ CMD:tunagemvip(playerid)
 CMD:repararvip(playerid)
 {
 	if(PlayerInfo[playerid][pVIP] < 3)						return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
-	if(!IsPlayerInAnyVehicle(playerid)) return notificacao(playerid, "ERRO", "No estas en un vehiculo.", ICONE_ERRO);
+	if(!IsPlayerInAnyVehicle(playerid)) return notificacao(playerid, "ERRO", "Nao esta em um veiculo.", ICONE_ERRO);
  
     RepairVehicle(GetPlayerVehicleID(playerid));
 	SetVehicleHealth(GetPlayerVehicleID(playerid), 1000.0);
-	notificacao(playerid, "EXITO", "Reparaste este vehiculo.", ICONE_CERTO);
+	notificacao(playerid, "EXITO", "Reparou este veiculo.", ICONE_CERTO);
 	return 1;
 }
 
