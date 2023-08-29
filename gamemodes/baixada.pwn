@@ -11329,7 +11329,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SetInt(Account, "pDinheiro", 0);
 					PlayerInfo[playerid][pDinheiro] = 0;
 					DOF2_SetInt(Account, "pBanco", 0);
-					PlayerInfo[playerid][pBanco] = 1000;
+					PlayerInfo[playerid][pBanco] = 0;
 					DOF2_SetInt(Account, "pSexo", 0);
 					DOF2_SetInt(Account, "pIdade", 0);
 					DOF2_SetInt(Account, "pSegundosJogados", 0);
