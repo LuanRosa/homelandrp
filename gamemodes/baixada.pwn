@@ -1,5 +1,4 @@
 //                          INCLUDES
-//Teste chapei
 
 #define SSCANF_NO_NICE_FEATURES
 #define DEBUG
