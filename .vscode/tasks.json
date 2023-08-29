@@ -1,0 +1,51 @@
+{
+  "version": "2.0.0",
+  "windows": {
+    "options": {
+      "shell": {
+        "executable": "cmd.exe",
+        "args": ["/d", "/c"]
+      }
+    }
+  },
+  "tasks": [
+    {
+      "label": "Abrir server",
+      "type": "shell",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "command": "${workspaceFolder}/samp-server.exe",
+      "presentation": {
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Compilar",
+      "type": "shell",
+      "command": "${workspaceFolder}/pawno/pawncc.exe",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "args": ["${file}", "-D${input:scriptType}", "-;+", "-(+", "-d3", "-Z", "-w239", "-w217", "-w214", "-w208", "-w201"],
+      "isBackground": false,
+      "presentation": {
+        "reveal": "never",
+        "clear": true
+      },
+      "problemMatcher": "$pawncc"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "scriptType",
+      "type": "pickString",
+      "description": "Qual tipo de arquivo?",
+      "options": ["gamemodes", "filterscripts"]
+    }
+  ]
+}

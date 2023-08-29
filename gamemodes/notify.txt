@@ -1,0 +1,3 @@
+notificacao(playerid, "EXITO", ".", ICONE_CERTO);
+notificacao(playerid, "ERRO", ".", ICONE_ERRO);
+notificacao(playerid, "INFO", ".", ICONE_AVISO);
