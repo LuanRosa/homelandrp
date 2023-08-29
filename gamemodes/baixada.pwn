@@ -138,7 +138,6 @@ static DCC_Channel:EntradaeSaida;
 static DCC_Channel:Report;
 static DCC_Channel:ChatAdm;
 static DCC_Channel:Sets;
-static DCC_Channel:status;
 
 //                          SAMP VOICE
 
@@ -8798,10 +8797,6 @@ public OnGameModeInit()
 	TimerMensagemAuto = SetTimer("SendMSG", minutos(2), true);
 	maintimer = SetTimer("MainTimer", 1000, true);
 	savetimer = SetTimer("SaveTimer", 2222, true);
-
-	new string[255];
-	format(string,sizeof(string),"Servidor Online @everyone");
-	DCC_SendChannelMessage(status, string);
 	return 1;
 }
 
@@ -8860,9 +8855,6 @@ public OnGameModeExit()
 		}
 	}
 	print("Dados salvos. Desligado...");
-	new string[255];
-	format(string,sizeof(string),"Servidor Offline @everyone");
-	DCC_SendChannelMessage(status, string);
 	DOF2_Exit();
 	return 1;
 }
