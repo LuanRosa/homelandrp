@@ -20,6 +20,7 @@
 #include 		<	    mapfix		 	>
 #include 		< 		notificacao	 	>
 #include 		< 		enterfix 		>
+#include		<		progress2		>
 
 #define CallBack::%0(%1) 		forward %0(%1);\
 							public %0(%1)
@@ -571,7 +572,9 @@ new Text:Textdraw0,
 	Text:Textdraw1;
 new PlayerText:HudServer[MAX_PLAYERS][10];
 new PlayerText:Registration_PTD[MAX_PLAYERS][23];
-new PlayerText:ProgressoBar[MAX_PLAYERS][16];
+new PlayerText:ProgressoBar[MAX_PLAYERS][14];
+new PlayerBar:ProgressoBar_pp[MAX_PLAYERS][1];
+new pValueBar[MAX_PLAYERS],TimerBar[MAX_PLAYERS];
 
 //                          VARIAVEIS DA SLOTS
 
@@ -1269,24 +1272,19 @@ new RandomMSG[][] =
 
 //                          PUBLICS
 
-CallBack::tempopogress(playerid)
-{
-    static Float:progress;
-     PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][8], (298.5 + (6.5 * ++progress) / 100), 42.500000);
-    if(progress < 100.00) 
-	{
-		SetTimerEx("tempopogress", 100, false, "d", playerid);
-	}
-	else
-	{
-		for(new i = 0; i < 16; i ++)
-		{
+CallBack::tempoprogress(playerid){
+    if(pValueBar[playerid] < 100) {
+		pValueBar[playerid]++;
+		SetPlayerProgressBarValue(playerid, ProgressoBar_pp[playerid][0], pValueBar[playerid]);
+	}else{
+		for(new i = 0; i < 14; i ++){
 			PlayerTextDrawHide(playerid, ProgressoBar[playerid][i]);
-			progress = 0;
 		}
+		HidePlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
+		pValueBar[playerid] = 0;
+		KillTimer(TimerBar[playerid]);
 	}
-	
-    return 1;
+	return 1;
 }
 
 CallBack::AntiSpam(playerid) 
@@ -5125,7 +5123,7 @@ stock CarregarMortos(playerid)
 
 stock todastextdraw(playerid)
 {
-	ProgressoBar[playerid][0] = CreatePlayerTextDraw(playerid, 317.000000, 332.000000, "_");
+		ProgressoBar[playerid][0] = CreatePlayerTextDraw(playerid, 317.000000, 332.000000, "_");
 	PlayerTextDrawFont(playerid, ProgressoBar[playerid][0], 1);
 	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][0], 0.600000, 4.149989);
 	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][0], 298.500000, 106.000000);
@@ -5211,7 +5209,7 @@ stock todastextdraw(playerid)
 
 	ProgressoBar[playerid][6] = CreatePlayerTextDraw(playerid, 325.000000, 333.000000, "_");
 	PlayerTextDrawFont(playerid, ProgressoBar[playerid][6], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][6], 0.600000, 4.049988);
+	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][6], 0.600000, 4.049987);
 	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][6], 298.500000, 107.000000);
 	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][6], 1);
 	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][6], 0);
@@ -5223,131 +5221,105 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][6], 1);
 	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][6], 0);
 
-	ProgressoBar[playerid][7] = CreatePlayerTextDraw(playerid, 321.000000, 368.000000, "_");
+	ProgressoBar[playerid][7] = CreatePlayerTextDraw(playerid, 275.000000, 348.000000, "40%");
 	PlayerTextDrawFont(playerid, ProgressoBar[playerid][7], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][7], 0.595833, -0.300008);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][7], 298.500000, 100.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][7], 1);
+	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][7], 0.195832, 1.000000);
+	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][7], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][7], 0);
 	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][7], 0);
 	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][7], 2);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][7], -1);
+	PlayerTextDrawColor(playerid, ProgressoBar[playerid][7], -18);
 	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][7], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][7], 707406591);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][7], 1);
+	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][7], 50);
+	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][7], 0);
 	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][7], 1);
 	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][7], 0);
 
-	ProgressoBar[playerid][8] = CreatePlayerTextDraw(playerid, 292.000000, 368.000000, "_");
+	ProgressoBar[playerid][8] = CreatePlayerTextDraw(playerid, 287.000000, 348.000000, "Progresso");
 	PlayerTextDrawFont(playerid, ProgressoBar[playerid][8], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][8], 0.595833, -0.300008);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][8], 298.500000, 42.500000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][8], 1);
+	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][8], 0.195832, 1.000000);
+	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][8], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][8], 0);
 	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][8], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][8], 2);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][8], -1);
+	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][8], 1);
+	PlayerTextDrawColor(playerid, ProgressoBar[playerid][8], -18);
 	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][8], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][8], 1804477439);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][8], 1);
+	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][8], 50);
+	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][8], 0);
 	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][8], 1);
 	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][8], 0);
 
-	ProgressoBar[playerid][9] = CreatePlayerTextDraw(playerid, 275.000000, 348.000000, "40%");
+	ProgressoBar[playerid][9] = CreatePlayerTextDraw(playerid, 268.000000, 338.000000, "Roubando cofre...");
 	PlayerTextDrawFont(playerid, ProgressoBar[playerid][9], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][9], 0.195833, 1.000000);
+	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][9], 0.195832, 1.000000);
 	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][9], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][9], 0);
 	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][9], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][9], 2);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][9], -18);
+	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][9], 1);
+	PlayerTextDrawColor(playerid, ProgressoBar[playerid][9], -1094795538);
 	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][9], 255);
 	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][9], 50);
 	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][9], 0);
 	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][9], 1);
 	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][9], 0);
 
-	ProgressoBar[playerid][10] = CreatePlayerTextDraw(playerid, 287.000000, 348.000000, "Progresso");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][10], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][10], 0.195833, 1.000000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][10], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][10], 0);
+	ProgressoBar[playerid][10] = CreatePlayerTextDraw(playerid, 345.000000, 349.000000, "ld_beat:chit");
+	PlayerTextDrawFont(playerid, ProgressoBar[playerid][10], 4);
+	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][10], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][10], 10.000000, 10.000000);
+	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][10], 1);
 	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][10], 0);
 	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][10], 1);
 	PlayerTextDrawColor(playerid, ProgressoBar[playerid][10], -18);
 	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][10], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][10], 50);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][10], 0);
+	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][10], -18);
+	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][10], 1);
 	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][10], 1);
 	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][10], 0);
 
-	ProgressoBar[playerid][11] = CreatePlayerTextDraw(playerid, 268.000000, 338.000000, "Roubando cofre...");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][11], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][11], 0.195833, 1.000000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][11], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][11], 0);
+	ProgressoBar[playerid][11] = CreatePlayerTextDraw(playerid, 346.000000, 350.000000, "ld_beat:chit");
+	PlayerTextDrawFont(playerid, ProgressoBar[playerid][11], 4);
+	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][11], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][11], 8.000000, 8.000000);
+	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][11], 1);
 	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][11], 0);
 	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][11], 1);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][11], -1094795538);
+	PlayerTextDrawColor(playerid, ProgressoBar[playerid][11], 471604479);
 	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][11], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][11], 50);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][11], 0);
+	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][11], -18);
+	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][11], 1);
 	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][11], 1);
 	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][11], 0);
 
-	ProgressoBar[playerid][12] = CreatePlayerTextDraw(playerid, 345.000000, 349.000000, "ld_beat:chit");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][12], 4);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][12], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][12], 10.000000, 10.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][12], 1);
+	ProgressoBar[playerid][12] = CreatePlayerTextDraw(playerid, 349.000000, 350.000000, "L");
+	PlayerTextDrawFont(playerid, ProgressoBar[playerid][12], 1);
+	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][12], 0.145833, 0.649999);
+	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][12], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][12], 0);
 	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][12], 0);
 	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][12], 1);
 	PlayerTextDrawColor(playerid, ProgressoBar[playerid][12], -18);
 	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][12], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][12], -18);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][12], 1);
+	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][12], 50);
+	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][12], 0);
 	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][12], 1);
 	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][12], 0);
 
-	ProgressoBar[playerid][13] = CreatePlayerTextDraw(playerid, 346.000000, 350.000000, "ld_beat:chit");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][13], 4);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][13], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][13], 8.000000, 8.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][13], 1);
+	ProgressoBar[playerid][13] = CreatePlayerTextDraw(playerid, 367.000000, 350.000000, "00:00:40");
+	PlayerTextDrawFont(playerid, ProgressoBar[playerid][13], 1);
+	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][13], 0.141665, 0.699999);
+	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][13], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][13], 0);
 	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][13], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][13], 1);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][13], 471604479);
+	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][13], 2);
+	PlayerTextDrawColor(playerid, ProgressoBar[playerid][13], -1094795538);
 	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][13], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][13], -18);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][13], 1);
+	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][13], 50);
+	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][13], 0);
 	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][13], 1);
 	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][13], 0);
+	ProgressoBar_pp[playerid][0] = CreatePlayerProgressBar(playerid, 270.000000, 366.000000, 108.000000, 1.000000, 1804477439, 100.000000, 0);
 
-	ProgressoBar[playerid][14] = CreatePlayerTextDraw(playerid, 349.000000, 350.000000, "L");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][14], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][14], 0.145833, 0.650000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][14], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][14], 0);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][14], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][14], 1);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][14], -18);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][14], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][14], 50);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][14], 0);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][14], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][14], 0);
-
-	ProgressoBar[playerid][15] = CreatePlayerTextDraw(playerid, 367.000000, 350.000000, "00:00:40");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][15], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][15], 0.141666, 0.700000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][15], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][15], 0);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][15], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][15], 2);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][15], -1094795538);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][15], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][15], 50);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][15], 0);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][15], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][15], 0);
 
 	Registration_PTD[playerid][0] = CreatePlayerTextDraw(playerid, 269.6997, 149.4332, "LD_SPAC:white"); // ïóñòî
 	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][0], 99.0000, 158.8589);
@@ -8524,6 +8496,7 @@ stock ZerarDados(playerid)
 	ltumba[playerid] = false;
 	RecentlyShot[playerid] = 0;
 	InventarioAberto[playerid] = 0;
+	pValueBar[playerid] = 0;
 	SetPlayerColor(playerid, 0xFFFFFFFF);
 	SetPlayerSkillLevel(playerid,WEAPONSKILL_PISTOL,200);
 	SetPlayerSkillLevel(playerid,WEAPONSKILL_MICRO_UZI,200);
@@ -19256,11 +19229,12 @@ CMD:atendimento(playerid)
 
 CMD:testep(playerid)
 {
-	for(new i = 0; i < 16; i ++)
+	for(new i = 0; i < 14; i ++)
 	{
 		PlayerTextDrawShow(playerid, ProgressoBar[playerid][i]);
 	}
-    SetTimerEx("tempopogress", 100, false, "d", playerid);
-    SendClientMessage(playerid, -1, "Pogress iniciado!");
+	ShowPlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
+    TimerBar[playerid] = SetTimerEx("tempoprogress", 100, false, "d", playerid);
+    SendClientMessage(playerid, -1, "Progress iniciado!");
     return 1;
 }
