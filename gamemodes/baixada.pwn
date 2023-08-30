@@ -3810,8 +3810,16 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 			{
 				cmd_inventario(playerid);
-				SetTimerEx("Habilitar", 22000, false, "i",playerid);
 				SetTimerEx("Termino",20000, false, "i",playerid);
+				for(i = 0; i < 14; i ++)
+				{
+					PlayerTextDrawShow(playerid, ProgressoBar[playerid][i]);
+					format(str,sizeof(str),"Pescando...");
+					PlayerTextDrawSetString(playerid, ProgressoBar[playerid][11],str);
+				}
+				ShowPlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
+				TimerBar[playerid] = SetTimerEx("tempoprogress", 1000, true, "d", playerid);
+				SetTimerEx("Habilitar", 22000, false, "i",playerid);
 				TogglePlayerControllable(playerid, 0);
 				UsouCMD[playerid] = true;	
 			}
@@ -19229,16 +19237,4 @@ CMD:atendimento(playerid)
 	format(String, sizeof(String), "O jogador {FFFF00}%s {FFFFFF}esta solicitando atendimento use {FFFF00}/par {FFFFFF}ou va ate ele.", Name(playerid));
 	SendAdminMessage(-1, String);
 	return 1;
-}
-
-CMD:testep(playerid)
-{
-	for(new i = 0; i < 14; i ++)
-	{
-		PlayerTextDrawShow(playerid, ProgressoBar[playerid][i]);
-	}
-	ShowPlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
-    TimerBar[playerid] = SetTimerEx("tempoprogress", 100, true, "d", playerid);
-    SendClientMessage(playerid, -1, "Progress iniciado!");
-    return 1;
 }

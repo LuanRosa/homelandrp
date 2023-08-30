@@ -240,39 +240,39 @@ static bool:ac_ACAllow[] =
 {
 	true,	//0 Anti-AirBreak (onfoot)
 	true,	//1 Anti-AirBreak (in vehicle)
-	true,	//2 Anti-teleport hack (onfoot)
+	false,	//2 Anti-teleport hack (onfoot)
 	true,	//3 Anti-teleport hack (in vehicle)
-	true,	//4 Anti-teleport hack (into/between vehicles)
+	false,	//4 Anti-teleport hack (into/between vehicles)
 	true,	//5 Anti-teleport hack (vehicle to player)
 	true,	//6 Anti-teleport hack (pickups)
 	true,	//7 Anti-FlyHack (onfoot)
 	true,	//8 Anti-FlyHack (in vehicle)
 	true,	//9 Anti-SpeedHack (onfoot)
 	true,	//10 Anti-SpeedHack (in vehicle)
-	true,	//11 Anti-Health hack (in vehicle)
-	true,	//12 Anti-Health hack (onfoot)
-	true,	//13 Anti-Armour hack
-	true,	//14 Anti-Money hack
+	false,	//11 Anti-Health hack (in vehicle)
+	false,	//12 Anti-Health hack (onfoot)
+	false,	//13 Anti-Armour hack
+	false,	//14 Anti-Money hack
 	true,	//15 Anti-Weapon hack
-	true,	//16 Anti-Ammo hack (add)
+	false,	//16 Anti-Ammo hack (add)
 	true,	//17 Anti-Ammo hack (infinite)
-	true,	//18 Anti-Special actions hack
-	true,	//19 Anti-GodMode from bullets (onfoot)
-	true,	//20 Anti-GodMode from bullets (in vehicle)
-	true,	//21 Anti-Invisible hack
-	true,	//22 Anti-lagcomp-spoof
-	true,	//23 Anti-Tuning hack
+	false,	//18 Anti-Special actions hack
+	false,	//19 Anti-GodMode from bullets (onfoot)
+	false,	//20 Anti-GodMode from bullets (in vehicle)
+	false,	//21 Anti-Invisible hack
+	false,	//22 Anti-lagcomp-spoof
+	false,	//23 Anti-Tuning hack
 	false,	//24 Anti-Parkour mod
 	true,	//25 Anti-Quick turn
 	true,	//26 Anti-Rapid fire
 	true,	//27 Anti-FakeSpawn
-	true,	//28 Anti-FakeKill
+	false,	//28 Anti-FakeKill
 	true,	//29 Anti-Pro Aim
-	true,	//30 Anti-CJ run
+	false,	//30 Anti-CJ run
 	true,	//31 Anti-CarShot
 	true,	//32 Anti-CarJack
 	false,	//33 Anti-UnFreeze
-	true,	//34 Anti-AFK Ghost
+	false,	//34 Anti-AFK Ghost
 	true,	//35 Anti-Full Aiming
 
 	false,	//36 Anti-Fake NPC
@@ -281,21 +281,21 @@ static bool:ac_ACAllow[] =
 	true,	//39 Anti-Dialog hack
 	true,	//40 Protection from sandbox
 	true,	//41 Protection from invalid version
-	true,	//42 Anti-Rcon hack
+	false,	//42 Anti-Rcon hack
 
 	true,	//43 Anti-Tuning crasher
 	true,	//44 Anti-Invalid seat crasher
 	true,	//45 Anti-Dialog crasher
 	true,	//46 Anti-Attached object crasher
-	true,	//47 Anti-Weapon Crasher
+	false,	//47 Anti-Weapon Crasher
 
 	true,	//48 Protection from connection flood in one slot
 	true,	//49 Anti-callback functions flood
-	true,	//50 Anti-flood by seat changing
+	false,	//50 Anti-flood by seat changing
 
 	true,	//51 Anti-DoS
 
-	true	//52 Anti-NOPs
+	false	//52 Anti-NOPs
 },
 
 bool:ac_NOPAllow[] =

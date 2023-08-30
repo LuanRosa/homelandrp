@@ -7621,3 +7621,811 @@ v0.3.7-R2, (C)2005-2015 SA-MP Team
 [00:43:52] [dbg:raknet:free] : module released
 [00:43:52] [sv:dbg:network:free] : module releasing...
 [00:43:52] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[12:48:10] filterscripts = ""  (string)
+[12:48:10] 
+[12:48:10] Server Plugins
+[12:48:10] --------------
+[12:48:10]  Loading plugin: crashdetect
+[12:48:10]   CrashDetect plugin 4.21
+[12:48:10]   Loaded.
+[12:48:10]  Loading plugin: sscanf
+[12:48:11] 
+[12:48:11]  ===============================
+[12:48:11] 
+[12:48:11]       sscanf plugin loaded.     
+[12:48:11] 
+[12:48:11]          Version: 2.13.8
+[12:48:11] 
+[12:48:11]    (c) 2022 Alex "Y_Less" Cole  
+[12:48:11] 
+[12:48:11]  ===============================
+[12:48:11] 
+[12:48:11]   Loaded.
+[12:48:11]  Loading plugin: streamer
+[12:48:11] 
+
+*** Streamer Plugin v2.9.6 by Incognito loaded ***
+
+[12:48:11]   Loaded.
+[12:48:11]  Loading plugin: timerfix
+[12:48:11]   >> TimerFix v1.5 successfully loaded.
+[12:48:11]   Loaded.
+[12:48:11]  Loading plugin: mapandreas
+[12:48:11]   Failed.
+[12:48:11]  Loading plugin: sampvoice
+[12:48:11] [sv:dbg:network:init] : module initializing...
+[12:48:11] [dbg:raknet:init] : module initializing...
+[12:48:11] [dbg:raknet:init] : module initialized
+[12:48:11] [sv:dbg:network:init] : module initialized
+[12:48:11] [sv:dbg:main:Load] : creating 2 work threads...
+[12:48:11]  -------------------------------------------    
+[12:48:11]    ___                __   __    _              
+[12:48:11]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[12:48:11]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[12:48:11]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[12:48:11]                   |_|                           
+[12:48:11]  -------------------------------------------    
+[12:48:11]            SampVoice by MOR loaded              
+[12:48:12]  -------------------------------------------    
+[12:48:12]   Loaded.
+[12:48:12]  Loading plugin: discord-connector
+[12:48:14]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[12:48:14]   Loaded.
+[12:48:15]  Loaded 6 plugins.
+
+[12:48:15] 
+[12:48:15] Filterscripts
+[12:48:15] ---------------
+[12:48:15]   Loaded 0 filterscripts.
+
+[12:48:15] *** Streamer Plugin: The plugin version (0x295) is older than the include file version (0x296) for this script. The plugin might need to be updated to the latest version.
+[12:48:15] [sv:dbg:main:AmxLoad] : net game pointer (value:02209BD8) received
+[12:48:15] [sv:dbg:network:bind] : voice server running on port 63443
+[12:48:15]  
+[12:48:16] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[12:48:16] ***                 Ignore any errors if the FS already unloaded.
+[12:48:16]  
+[12:48:16]  
+[12:48:16] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[12:48:16] ***                 Ignore any errors due to insufficient FS slots.
+[12:48:16]  
+[12:48:16]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[12:48:16]  
+[12:48:16] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[12:48:16]  
+[12:48:16]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[12:48:16]  
+[12:48:16]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[12:48:16]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[12:48:16]  
+[12:48:16] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[12:48:16] ***                 Ignore any errors if the FS already loaded.
+[12:48:16]  
+[12:48:16]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[12:48:16] [debug] Long callback execution detected (hang or performance issue)
+[12:48:16] [debug] AMX backtrace:
+[12:48:16] [debug] #0 000090c8 in FIXES_IsPlayerConnected (playerid=15) at E:\Baixada Roleplay\pawno\include\fixes.inc:12409
+[12:48:16] [debug] #1 000174b0 in SSCANF_RunInit () at E:\Baixada Roleplay\pawno\include\sscanf2.inc:908
+[12:48:16] [debug] #2 00017704 in public On_GameModeInit ()  at E:\Baixada Roleplay\pawno\include\sscanf2.inc:1065
+[12:48:16] [debug] #3 00009a28 in public OnGameModeInit () at E:\Baixada Roleplay\pawno\include\fixes.inc:12706
+[12:48:16]  
+[12:48:16] --------------------------------------
+[12:48:16]  Anticheat Nex-AC carregado!
+[12:48:17]  Anticheat versão: 1.9.62
+[12:48:17]  Autor: Nexius (PT-BR by NicK_)
+[12:48:17] --------------------------------------
+
+[12:48:17] MapFix by Nexius v4.3.3 loaded (include version).
+[12:48:17] [Arquivos Load] AntiDeAMX Iniciado com Sucesso.
+[12:48:17] [Arquivos Load] Foram Carregadas todas as orgs
+[12:48:17] [Arquivos Load] Todos os MapIcon foram carregados
+[12:48:17] [Arquivos Load] Todos os caixas foram carregados.
+[12:48:17] [Arquivos Load] Todos os Pickups e 3DLabel foram carregados.
+[12:48:17] [Arquivos Load] Todos as textdraws globais foram carregados.
+[12:48:18] [Arquivos Load] Foram Carregados 25 veiculos
+[12:48:18] [Arquivos Load] Foram Carregados 1 Concessionarias
+[12:48:18] [Arquivos Load] Foram Carregadas 8 Postos
+[12:48:18] [Arquivos Load] Os objetos estao sendo carregados.
+[12:48:18] [Arquivos Load] Todos os objetos foram carregados.
+[12:48:28] [Arquivos Load] Foram Carregadas 308 Casas.
+[12:48:29] [Arquivos Load] Foram Carregadas 53 Radares.
+[12:48:30] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[12:48:30] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[12:48:30] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[12:48:30] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[12:48:30] 
+'---_.Baixada Roleplay by Luan_Rosa._---'
+[12:48:30] --- Gamemode Iniciada Com Sucesso!  ---
+
+[12:48:30] Number of vehicle models: 23
+[13:33:27]  -------------------------------------------
+[13:33:27]            SampVoice unloading...           
+[13:33:27]  -------------------------------------------
+[13:33:27] [dbg:raknet:free] : module releasing...
+[13:33:27] [dbg:raknet:free] : module released
+[13:33:27] [sv:dbg:network:free] : module releasing...
+[13:33:27] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[13:42:44] filterscripts = ""  (string)
+[13:42:44] 
+[13:42:44] Server Plugins
+[13:42:44] --------------
+[13:42:44]  Loading plugin: crashdetect
+[13:42:44]   CrashDetect plugin 4.21
+[13:42:44]   Loaded.
+[13:42:44]  Loading plugin: sscanf
+[13:42:44] 
+[13:42:44]  ===============================
+[13:42:44] 
+[13:42:44]       sscanf plugin loaded.     
+[13:42:44] 
+[13:42:44]          Version: 2.13.8
+[13:42:44] 
+[13:42:44]    (c) 2022 Alex "Y_Less" Cole  
+[13:42:44] 
+[13:42:44]  ===============================
+[13:42:44] 
+[13:42:44]   Loaded.
+[13:42:44]  Loading plugin: streamer
+[13:42:44] 
+
+*** Streamer Plugin v2.9.6 by Incognito loaded ***
+
+[13:42:44]   Loaded.
+[13:42:44]  Loading plugin: timerfix
+[13:42:44]   >> TimerFix v1.5 successfully loaded.
+[13:42:44]   Loaded.
+[13:42:44]  Loading plugin: mapandreas
+[13:42:44]   Failed.
+[13:42:44]  Loading plugin: sampvoice
+[13:42:44] [sv:dbg:network:init] : module initializing...
+[13:42:44] [dbg:raknet:init] : module initializing...
+[13:42:44] [dbg:raknet:init] : module initialized
+[13:42:44] [sv:dbg:network:init] : module initialized
+[13:42:44] [sv:dbg:main:Load] : creating 2 work threads...
+[13:42:44]  -------------------------------------------    
+[13:42:44]    ___                __   __    _              
+[13:42:44]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[13:42:44]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[13:42:44]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[13:42:44]                   |_|                           
+[13:42:44]  -------------------------------------------    
+[13:42:45]            SampVoice by MOR loaded              
+[13:42:45]  -------------------------------------------    
+[13:42:45]   Loaded.
+[13:42:45]  Loading plugin: discord-connector
+[13:42:46]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[13:42:46]   Loaded.
+[13:42:46]  Loaded 6 plugins.
+
+[13:42:46] 
+[13:42:46] Filterscripts
+[13:42:46] ---------------
+[13:42:46]   Loaded 0 filterscripts.
+
+[13:42:46] *** Streamer Plugin: The plugin version (0x295) is older than the include file version (0x296) for this script. The plugin might need to be updated to the latest version.
+[13:42:46] [sv:dbg:main:AmxLoad] : net game pointer (value:02479BD8) received
+[13:42:47] [sv:dbg:network:bind] : voice server running on port 62142
+[13:42:47]  
+[13:42:47] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[13:42:47] ***                 Ignore any errors if the FS already unloaded.
+[13:42:47]  
+[13:42:47]  
+[13:42:47] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[13:42:47] ***                 Ignore any errors due to insufficient FS slots.
+[13:42:47]  
+[13:42:47]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[13:42:47]  
+[13:42:47] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[13:42:47]  
+[13:42:47]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[13:42:47]  
+[13:42:47]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[13:42:47]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[13:42:47]  
+[13:42:47] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[13:42:47] ***                 Ignore any errors if the FS already loaded.
+[13:42:47]  
+[13:42:47]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[13:42:47] [debug] Long callback execution detected (hang or performance issue)
+[13:42:47] [debug] AMX backtrace:
+[13:42:47] [debug] #0 000090c8 in FIXES_IsPlayerConnected (playerid=15) at E:\Baixada Roleplay\pawno\include\fixes.inc:12409
+[13:42:47] [debug] #1 000174b0 in SSCANF_RunInit () at E:\Baixada Roleplay\pawno\include\sscanf2.inc:908
+[13:42:47] [debug] #2 00017704 in public On_GameModeInit ()  at E:\Baixada Roleplay\pawno\include\sscanf2.inc:1065
+[13:42:47] [debug] #3 00009a28 in public OnGameModeInit () at E:\Baixada Roleplay\pawno\include\fixes.inc:12706
+[13:42:47]  
+[13:42:47] --------------------------------------
+[13:42:47]  Anticheat Nex-AC carregado!
+[13:42:47]  Anticheat versão: 1.9.62
+[13:42:47]  Autor: Nexius (PT-BR by NicK_)
+[13:42:47] --------------------------------------
+
+[13:42:47] MapFix by Nexius v4.3.3 loaded (include version).
+[13:42:47] [Arquivos Load] AntiDeAMX Iniciado com Sucesso.
+[13:42:47] [Arquivos Load] Foram Carregadas todas as orgs
+[13:42:47] [Arquivos Load] Todos os MapIcon foram carregados
+[13:42:47] [Arquivos Load] Todos os caixas foram carregados.
+[13:42:47] [Arquivos Load] Todos os Pickups e 3DLabel foram carregados.
+[13:42:47] [Arquivos Load] Todos as textdraws globais foram carregados.
+[13:42:47] [Arquivos Load] Foram Carregados 25 veiculos
+[13:42:47] [Arquivos Load] Foram Carregados 1 Concessionarias
+[13:42:47] [Arquivos Load] Foram Carregadas 8 Postos
+[13:42:47] [Arquivos Load] Os objetos estao sendo carregados.
+[13:42:47] [Arquivos Load] Todos os objetos foram carregados.
+[13:42:49] [Arquivos Load] Foram Carregadas 308 Casas.
+[13:42:49] [Arquivos Load] Foram Carregadas 53 Radares.
+[13:42:49] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[13:42:49] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[13:42:49] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[13:42:49] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[13:42:49] 
+'---_.Baixada Roleplay by Luan_Rosa._---'
+[13:42:49] --- Gamemode Iniciada Com Sucesso!  ---
+
+[13:42:49] Number of vehicle models: 23
+[13:44:15] [connection] 192.168.1.107:39852 requests connection cookie.
+[13:44:16] [connection] incoming connection: 192.168.1.107:39852 id: 0
+[13:44:16] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.107) ...
+[13:44:16] [sv:dbg:network:connect] : player (0) assigned key (9dab0a3)
+[13:44:16] [join] Luan_Rosa has joined the server (0:192.168.1.107)
+[13:44:41] [debug] Long callback execution detected (hang or performance issue)
+[13:44:41] [debug] AMX backtrace:
+[13:44:41] [debug] #0 00069ea4 in DOF2_ParseLine (line[]=@023ef8b0 "pLevel = 0", key[]=@023ef6b0 "pLevel", value[]=@023ef4b0 "0", keysize=128, valuesize=128) at E:\Baixada Roleplay\pawno\include\DOF2.inc:1234
+[13:44:41] [debug] #1 000690d0 in DOF2_ParseFile (file[]=@023f0510 "Contas/Luan_Rosa.ini", extraid=-1, bool:callback=false) at E:\Baixada Roleplay\pawno\include\DOF2.inc:1125
+[13:44:41] [debug] #2 00067ed4 in DOF2_GetStringEx (file[]=@023f0510 "Contas/Luan_Rosa.ini", key[]=@0235f70c "pSenha", result[]=@023efef0 "", size=128, tag[]=@023b0b90 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:698
+[13:44:41] [debug] #3 00067d78 in DOF2_GetString (file[]=@023f0510 "Contas/Luan_Rosa.ini", key[]=@0235f70c "pSenha", tag[]=@023b0b90 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:685
+[13:44:41] [debug] #4 0027f30c in public ac_OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@023b0974 "174458") at E:\Baixada Roleplay\gamemodes\baixada.pwn:11597
+[13:44:41] [debug] #5 0002d74c in public On_DialogResponse (0, 0, 1, -1, 37423476)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:4299
+[13:44:41] [debug] #6 00012c80 in public OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@023b0974 "174458") at E:\Baixada Roleplay\pawno\include\fixes.inc:17956
+[13:44:45] [debug] Long callback execution detected (hang or performance issue)
+[13:44:45] [debug] AMX backtrace:
+[13:44:45] [debug] #0 0002a744 in public On_PlayerSpawn (0)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:3984
+[13:44:45] [debug] #1 0000cab4 in public OnPlayerSpawn (playerid=0) at E:\Baixada Roleplay\pawno\include\fixes.inc:13876
+[13:46:30] [debug] Long callback execution detected (hang or performance issue)
+[13:46:30] [debug] AMX backtrace:
+[13:46:30] [debug] #0 00068d04 in DOF2_ParseFile (file[]=@023b0978 "Cacaniquel/Slot1.ini", extraid=-1, bool:callback=false) at E:\Baixada Roleplay\pawno\include\DOF2.inc:1067
+[13:46:30] [debug] #1 00067ed4 in DOF2_GetStringEx (file[]=@023b0978 "Cacaniquel/Slot1.ini", key[]=@0235a8f4 "PozZ", result[]=@023e6a3c "", size=32, tag[]=@023b0974 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:698
+[13:46:30] [debug] #2 00068248 in Float:DOF2_GetFloat (file[]=@023b0978 "Cacaniquel/Slot1.ini", key[]=@0235a8f4 "PozZ", tag[]=@023b0974 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:907
+[13:46:30] [debug] #3 00279020 in public ac_OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:11159
+[13:46:30] [debug] #4 00041494 in public On_PlayerKeyStateChange (0, 16, 0)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:6020
+[13:46:30] [debug] #5 0000ec58 in public OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at E:\Baixada Roleplay\pawno\include\fixes.inc:15196
+[13:46:35] [debug] Long callback execution detected (hang or performance issue)
+[13:46:35] [debug] AMX backtrace:
+[13:46:35] [debug] #0 0005b0e8 in public ac_Timer (playerid=0) at E:\Baixada Roleplay\pawno\include\nex-ac.inc:9071
+[13:50:23] [debug] Long callback execution detected (hang or performance issue)
+[13:50:23] [debug] AMX backtrace:
+[13:50:23] [debug] #0 0003fe50 in public On_PlayerUpdate (0)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:5883
+[13:50:23] [debug] #1 0000e03c in public OnPlayerUpdate (playerid=0) at E:\Baixada Roleplay\pawno\include\fixes.inc:14533
+[13:50:55] [sv:dbg:network:connect] : disconnecting player (0) ...
+[13:50:55] [debug] Long callback execution detected (hang or performance issue)
+[13:50:55] [debug] AMX backtrace:
+[13:50:55] [debug] #0 00068cc4 in DOF2_ParseFile (file[]=@023f00c0 "Contas/Luan_Rosa.ini", extraid=-1, bool:callback=false) at E:\Baixada Roleplay\pawno\include\DOF2.inc:1063
+[13:50:55] [debug] #1 00067164 in DOF2_SetString (file[]=@023f00c0 "Contas/Luan_Rosa.ini", key[]=@02312714 "pLevel", value[]=@023effe0 "0", tag[]=@023b0974 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:579
+[13:50:55] [debug] #2 00068054 in DOF2_SetInt (file[]=@023f00c0 "Contas/Luan_Rosa.ini", key[]=@02312714 "pLevel", value=0, tag[]=@023b0974 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:858
+[13:50:55] [debug] #3 00121704 in SalvarDados (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:8534
+[13:50:55] [debug] #4 00260d04 in public ppb_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\gamemodes\baixada.pwn:9129
+[13:50:55] [debug] #5 0009e960 in public ac_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\progress2.inc:411
+[13:50:55] [debug] #6 00029ad4 in public TIMERFIX_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\nex-ac.inc:3924
+[13:50:55] [debug] #7 00019438 in public Iter_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\timerfix.inc:208
+[13:50:55] [debug] #8 native CallLocalFunction () in samp-server.exe
+[13:50:55] [debug] #9 00018cf0 in public SSCANF_OnPlayerDisconnect (0, 1)  at E:\Baixada Roleplay\pawno\include\foreach.inc:818
+[13:50:55] [debug] #10 00017948 in public On_PlayerDisconnect (0, 1)  at E:\Baixada Roleplay\pawno\include\sscanf2.inc:1154
+[13:50:55] [debug] #11 0000a7a4 in public OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\fixes.inc:13272
+[13:50:56] [debug] Run time error 4: "Array index out of bounds"
+[13:50:56] [debug]  Attempted to read/write array element at index 4 in array of size 4
+[13:50:56] [debug] AMX backtrace:
+[13:50:56] [debug] #0 00261a00 in public ppb_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\gamemodes\baixada.pwn:9208
+[13:50:56] [debug] #1 0009e960 in public ac_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\progress2.inc:411
+[13:50:56] [debug] #2 00029ad4 in public TIMERFIX_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\nex-ac.inc:3924
+[13:50:56] [debug] #3 00019438 in public Iter_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\timerfix.inc:208
+[13:50:56] [debug] #4 native CallLocalFunction () in samp-server.exe
+[13:50:56] [debug] #5 00018cf0 in public SSCANF_OnPlayerDisconnect (0, 1)  at E:\Baixada Roleplay\pawno\include\foreach.inc:818
+[13:50:56] [debug] #6 00017948 in public On_PlayerDisconnect (0, 1)  at E:\Baixada Roleplay\pawno\include\sscanf2.inc:1154
+[13:50:56] [debug] #7 0000a7a4 in public OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\fixes.inc:13272
+[13:50:56] [part] Luan_Rosa has left the server (0:1)
+[13:51:00]  -------------------------------------------
+[13:51:00]            SampVoice unloading...           
+[13:51:00]  -------------------------------------------
+[13:51:00] [dbg:raknet:free] : module releasing...
+[13:51:00] [dbg:raknet:free] : module released
+[13:51:00] [sv:dbg:network:free] : module releasing...
+[13:51:00] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[13:51:05] filterscripts = ""  (string)
+[13:51:05] 
+[13:51:05] Server Plugins
+[13:51:05] --------------
+[13:51:05]  Loading plugin: crashdetect
+[13:51:05]   CrashDetect plugin 4.21
+[13:51:05]   Loaded.
+[13:51:05]  Loading plugin: sscanf
+[13:51:05] 
+[13:51:05]  ===============================
+[13:51:05] 
+[13:51:05]       sscanf plugin loaded.     
+[13:51:05] 
+[13:51:05]          Version: 2.13.8
+[13:51:05] 
+[13:51:05]    (c) 2022 Alex "Y_Less" Cole  
+[13:51:05] 
+[13:51:05]  ===============================
+[13:51:05] 
+[13:51:05]   Loaded.
+[13:51:05]  Loading plugin: streamer
+[13:51:05] 
+
+*** Streamer Plugin v2.9.6 by Incognito loaded ***
+
+[13:51:05]   Loaded.
+[13:51:05]  Loading plugin: timerfix
+[13:51:05]   >> TimerFix v1.5 successfully loaded.
+[13:51:05]   Loaded.
+[13:51:05]  Loading plugin: mapandreas
+[13:51:05]   Failed.
+[13:51:05]  Loading plugin: sampvoice
+[13:51:05] [sv:dbg:network:init] : module initializing...
+[13:51:05] [dbg:raknet:init] : module initializing...
+[13:51:05] [dbg:raknet:init] : module initialized
+[13:51:05] [sv:dbg:network:init] : module initialized
+[13:51:05] [sv:dbg:main:Load] : creating 2 work threads...
+[13:51:05]  -------------------------------------------    
+[13:51:05]    ___                __   __    _              
+[13:51:05]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[13:51:05]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[13:51:05]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[13:51:05]                   |_|                           
+[13:51:05]  -------------------------------------------    
+[13:51:05]            SampVoice by MOR loaded              
+[13:51:05]  -------------------------------------------    
+[13:51:05]   Loaded.
+[13:51:05]  Loading plugin: discord-connector
+[13:51:06]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[13:51:06]   Loaded.
+[13:51:06]  Loaded 6 plugins.
+
+[13:51:07] 
+[13:51:07] Filterscripts
+[13:51:07] ---------------
+[13:51:07]   Loaded 0 filterscripts.
+
+[13:51:08] *** Streamer Plugin: The plugin version (0x295) is older than the include file version (0x296) for this script. The plugin might need to be updated to the latest version.
+[13:51:08] [sv:dbg:main:AmxLoad] : net game pointer (value:02269BD8) received
+[13:51:08] [sv:dbg:network:bind] : voice server running on port 62736
+[13:51:08]  
+[13:51:08] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[13:51:08] ***                 Ignore any errors if the FS already unloaded.
+[13:51:08]  
+[13:51:08]  
+[13:51:08] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[13:51:08] ***                 Ignore any errors due to insufficient FS slots.
+[13:51:08]  
+[13:51:08]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[13:51:08]  
+[13:51:08] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[13:51:08]  
+[13:51:08]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[13:51:08]  
+[13:51:08]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[13:51:08]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[13:51:08]  
+[13:51:08] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[13:51:08] ***                 Ignore any errors if the FS already loaded.
+[13:51:08]  
+[13:51:08]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[13:51:08] [debug] Long callback execution detected (hang or performance issue)
+[13:51:08] [debug] AMX backtrace:
+[13:51:08] [debug] #0 000090c8 in FIXES_IsPlayerConnected (playerid=15) at E:\Baixada Roleplay\pawno\include\fixes.inc:12409
+[13:51:08] [debug] #1 000174b0 in SSCANF_RunInit () at E:\Baixada Roleplay\pawno\include\sscanf2.inc:908
+[13:51:08] [debug] #2 00017704 in public On_GameModeInit ()  at E:\Baixada Roleplay\pawno\include\sscanf2.inc:1065
+[13:51:08] [debug] #3 00009a28 in public OnGameModeInit () at E:\Baixada Roleplay\pawno\include\fixes.inc:12706
+[13:51:09]  
+[13:51:09] --------------------------------------
+[13:51:09]  Anticheat Nex-AC carregado!
+[13:51:09]  Anticheat versão: 1.9.62
+[13:51:09]  Autor: Nexius (PT-BR by NicK_)
+[13:51:09] --------------------------------------
+
+[13:51:09] MapFix by Nexius v4.3.3 loaded (include version).
+[13:51:09] [Arquivos Load] AntiDeAMX Iniciado com Sucesso.
+[13:51:09] [Arquivos Load] Foram Carregadas todas as orgs
+[13:51:09] [Arquivos Load] Todos os MapIcon foram carregados
+[13:51:09] [Arquivos Load] Todos os caixas foram carregados.
+[13:51:09] [Arquivos Load] Todos os Pickups e 3DLabel foram carregados.
+[13:51:09] [Arquivos Load] Todos as textdraws globais foram carregados.
+[13:51:09] [Arquivos Load] Foram Carregados 25 veiculos
+[13:51:09] [Arquivos Load] Foram Carregados 1 Concessionarias
+[13:51:09] [Arquivos Load] Foram Carregadas 8 Postos
+[13:51:09] [Arquivos Load] Os objetos estao sendo carregados.
+[13:51:09] [Arquivos Load] Todos os objetos foram carregados.
+[13:51:12] [Arquivos Load] Foram Carregadas 308 Casas.
+[13:51:12] [Arquivos Load] Foram Carregadas 53 Radares.
+[13:51:12] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[13:51:12] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[13:51:12] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[13:51:12] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[13:51:12] 
+'---_.Baixada Roleplay by Luan_Rosa._---'
+[13:51:12] --- Gamemode Iniciada Com Sucesso!  ---
+
+[13:51:12] Number of vehicle models: 23
+[13:55:24] [connection] 192.168.1.107:47673 requests connection cookie.
+[13:55:25] [connection] incoming connection: 192.168.1.107:47673 id: 0
+[13:55:27] [connection] 192.168.1.107:47673 requests connection cookie.
+[13:57:03] [connection] 192.168.1.107:47967 requests connection cookie.
+[13:57:03] [connection] incoming connection: 192.168.1.107:47967 id: 0
+[13:57:04] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.107) ...
+[13:57:04] [sv:dbg:network:connect] : player (0) assigned key (f7b60558)
+[13:57:04] [join] Luan_Rosa has joined the server (0:192.168.1.107)
+[13:57:21] [debug] Long callback execution detected (hang or performance issue)
+[13:57:21] [debug] AMX backtrace:
+[13:57:21] [debug] #0 000663d4 in DOF2_SearchEntry (key[]=@0235fbec "pCamZ", tag[]=@023b0990 "", keybuf[]=@023efe54 "", valbuf[]=@023f0078 "", &pos=@023f0054 0, keybufsize=128, valbufsize=32) at E:\Baixada Roleplay\pawno\include\DOF2.inc:498
+[13:57:21] [debug] #1 00067f78 in DOF2_GetStringEx (file[]=@023f0510 "Contas/Luan_Rosa.ini", key[]=@0235fbec "pCamZ", result[]=@023f0078 "", size=32, tag[]=@023b0990 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:706
+[13:57:21] [debug] #2 00068248 in Float:DOF2_GetFloat (file[]=@023f0510 "Contas/Luan_Rosa.ini", key[]=@0235fbec "pCamZ", tag[]=@023b0990 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:907
+[13:57:21] [debug] #3 00280330 in public ac_OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@023b0974 "174458") at E:\Baixada Roleplay\gamemodes\baixada.pwn:11635
+[13:57:21] [debug] #4 0002d74c in public On_DialogResponse (0, 0, 1, -1, 37423476)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:4299
+[13:57:21] [debug] #5 00012c80 in public OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@023b0974 "174458") at E:\Baixada Roleplay\pawno\include\fixes.inc:17956
+[13:57:28] [debug] Long callback execution detected (hang or performance issue)
+[13:57:28] [debug] AMX backtrace:
+[13:57:28] [debug] #0 00069fbc in charfind (string[]=@00a46120 "PozZ = 13.51463031", c=61) at E:\Baixada Roleplay\pawno\include\DOF2.inc:1339
+[13:57:28] [debug] #1 00069950 in DOF2_ParseLine (line[]=@00a46120 "PozZ = 13.51463031", key[]=@023e6818 "", value[]=@023e6a3c "", keysize=128, valuesize=32) at E:\Baixada Roleplay\pawno\include\DOF2.inc:1192
+[13:57:28] [debug] #2 00066578 in DOF2_SearchEntry (key[]=@0235a8f4 "PozZ", tag[]=@023b0974 "", keybuf[]=@023e6818 "", valbuf[]=@023e6a3c "", &pos=@023e6a18 0, keybufsize=128, valbufsize=32) at E:\Baixada Roleplay\pawno\include\DOF2.inc:519
+[13:57:28] [debug] #3 00067f78 in DOF2_GetStringEx (file[]=@023b0978 "Cacaniquel/Slot1.ini", key[]=@0235a8f4 "PozZ", result[]=@023e6a3c "", size=32, tag[]=@023b0974 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:706
+[13:57:28] [debug] #4 00068248 in Float:DOF2_GetFloat (file[]=@023b0978 "Cacaniquel/Slot1.ini", key[]=@0235a8f4 "PozZ", tag[]=@023b0974 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:907
+[13:57:28] [debug] #5 00279020 in public ac_OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=8) at E:\Baixada Roleplay\gamemodes\baixada.pwn:11160
+[13:57:28] [debug] #6 00041494 in public On_PlayerKeyStateChange (0, 16, 8)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:6020
+[13:57:28] [debug] #7 0000ec58 in public OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=8) at E:\Baixada Roleplay\pawno\include\fixes.inc:15196
+[13:58:13] [sv:dbg:network:connect] : disconnecting player (0) ...
+[13:58:13] [debug] Long callback execution detected (hang or performance issue)
+[13:58:13] [debug] AMX backtrace:
+[13:58:13] [debug] #0 00069bf4 in DOF2_ParseLine (line[]=@023ef798 "pCamZ = 16.97080039", key[]=@023ef598 "pCamZ", value[]=@023ef398 "-2061.72412109", keysize=128, valuesize=128) at E:\Baixada Roleplay\pawno\include\DOF2.inc:1213
+[13:58:13] [debug] #1 000690d0 in DOF2_ParseFile (file[]=@023f00c0 "Contas/Luan_Rosa.ini", extraid=-1, bool:callback=false) at E:\Baixada Roleplay\pawno\include\DOF2.inc:1125
+[13:58:13] [debug] #2 00067164 in DOF2_SetString (file[]=@023f00c0 "Contas/Luan_Rosa.ini", key[]=@02312714 "pLevel", value[]=@023effe0 "0", tag[]=@023b0974 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:579
+[13:58:13] [debug] #3 00068054 in DOF2_SetInt (file[]=@023f00c0 "Contas/Luan_Rosa.ini", key[]=@02312714 "pLevel", value=0, tag[]=@023b0974 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:858
+[13:58:13] [debug] #4 00121704 in SalvarDados (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:8535
+[13:58:13] [debug] #5 00260d04 in public ppb_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\gamemodes\baixada.pwn:9130
+[13:58:13] [debug] #6 0009e960 in public ac_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\progress2.inc:411
+[13:58:13] [debug] #7 00029ad4 in public TIMERFIX_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\nex-ac.inc:3924
+[13:58:13] [debug] #8 00019438 in public Iter_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\timerfix.inc:208
+[13:58:13] [debug] #9 native CallLocalFunction () in samp-server.exe
+[13:58:13] [debug] #10 00018cf0 in public SSCANF_OnPlayerDisconnect (0, 1)  at E:\Baixada Roleplay\pawno\include\foreach.inc:818
+[13:58:13] [debug] #11 00017948 in public On_PlayerDisconnect (0, 1)  at E:\Baixada Roleplay\pawno\include\sscanf2.inc:1154
+[13:58:13] [debug] #12 0000a7a4 in public OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\fixes.inc:13272
+[13:58:13] [debug] Run time error 4: "Array index out of bounds"
+[13:58:13] [debug]  Attempted to read/write array element at index 4 in array of size 4
+[13:58:13] [debug] AMX backtrace:
+[13:58:13] [debug] #0 00261a00 in public ppb_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\gamemodes\baixada.pwn:9209
+[13:58:13] [debug] #1 0009e960 in public ac_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\progress2.inc:411
+[13:58:13] [debug] #2 00029ad4 in public TIMERFIX_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\nex-ac.inc:3924
+[13:58:13] [debug] #3 00019438 in public Iter_OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\timerfix.inc:208
+[13:58:13] [debug] #4 native CallLocalFunction () in samp-server.exe
+[13:58:13] [debug] #5 00018cf0 in public SSCANF_OnPlayerDisconnect (0, 1)  at E:\Baixada Roleplay\pawno\include\foreach.inc:818
+[13:58:13] [debug] #6 00017948 in public On_PlayerDisconnect (0, 1)  at E:\Baixada Roleplay\pawno\include\sscanf2.inc:1154
+[13:58:13] [debug] #7 0000a7a4 in public OnPlayerDisconnect (playerid=0, reason=1) at E:\Baixada Roleplay\pawno\include\fixes.inc:13272
+[13:58:13] [part] Luan_Rosa has left the server (0:1)
+[13:58:32]  -------------------------------------------
+[13:58:32]            SampVoice unloading...           
+[13:58:32]  -------------------------------------------
+[13:58:32] [dbg:raknet:free] : module releasing...
+[13:58:32] [dbg:raknet:free] : module released
+[13:58:32] [sv:dbg:network:free] : module releasing...
+[13:58:32] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[14:01:16] filterscripts = ""  (string)
+[14:01:16] 
+[14:01:16] Server Plugins
+[14:01:16] --------------
+[14:01:16]  Loading plugin: crashdetect
+[14:01:16]   CrashDetect plugin 4.21
+[14:01:16]   Loaded.
+[14:01:16]  Loading plugin: sscanf
+[14:01:16] 
+[14:01:16]  ===============================
+[14:01:16] 
+[14:01:16]       sscanf plugin loaded.     
+[14:01:16] 
+[14:01:16]          Version: 2.13.8
+[14:01:16] 
+[14:01:16]    (c) 2022 Alex "Y_Less" Cole  
+[14:01:16] 
+[14:01:16]  ===============================
+[14:01:16] 
+[14:01:16]   Loaded.
+[14:01:16]  Loading plugin: streamer
+[14:01:16] 
+
+*** Streamer Plugin v2.9.6 by Incognito loaded ***
+
+[14:01:16]   Loaded.
+[14:01:16]  Loading plugin: timerfix
+[14:01:16]   >> TimerFix v1.5 successfully loaded.
+[14:01:16]   Loaded.
+[14:01:16]  Loading plugin: mapandreas
+[14:01:16]   Failed.
+[14:01:16]  Loading plugin: sampvoice
+[14:01:16] [sv:dbg:network:init] : module initializing...
+[14:01:16] [dbg:raknet:init] : module initializing...
+[14:01:16] [dbg:raknet:init] : module initialized
+[14:01:17] [sv:dbg:network:init] : module initialized
+[14:01:17] [sv:dbg:main:Load] : creating 2 work threads...
+[14:01:17]  -------------------------------------------    
+[14:01:17]    ___                __   __    _              
+[14:01:17]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[14:01:17]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[14:01:17]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[14:01:17]                   |_|                           
+[14:01:17]  -------------------------------------------    
+[14:01:17]            SampVoice by MOR loaded              
+[14:01:17]  -------------------------------------------    
+[14:01:17]   Loaded.
+[14:01:17]  Loading plugin: discord-connector
+[14:01:18]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[14:01:18]   Loaded.
+[14:01:18]  Loaded 6 plugins.
+
+[14:01:18] 
+[14:01:18] Filterscripts
+[14:01:19] ---------------
+[14:01:19]   Loaded 0 filterscripts.
+
+[14:01:19] *** Streamer Plugin: The plugin version (0x295) is older than the include file version (0x296) for this script. The plugin might need to be updated to the latest version.
+[14:01:19] [sv:dbg:main:AmxLoad] : net game pointer (value:02409BD8) received
+[14:01:19] [sv:dbg:network:bind] : voice server running on port 52014
+[14:01:19]  
+[14:01:19] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[14:01:19] ***                 Ignore any errors if the FS already unloaded.
+[14:01:19]  
+[14:01:19]  
+[14:01:19] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[14:01:19] ***                 Ignore any errors due to insufficient FS slots.
+[14:01:19]  
+[14:01:19]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[14:01:19]  
+[14:01:19] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[14:01:19]  
+[14:01:19]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[14:01:19]  
+[14:01:19]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[14:01:19]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[14:01:19]  
+[14:01:19] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[14:01:19] ***                 Ignore any errors if the FS already loaded.
+[14:01:19]  
+[14:01:19]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[14:01:19] [debug] Long callback execution detected (hang or performance issue)
+[14:01:19] [debug] AMX backtrace:
+[14:01:19] [debug] #0 000090c8 in FIXES_IsPlayerConnected (playerid=15) at E:\Baixada Roleplay\pawno\include\fixes.inc:12409
+[14:01:19] [debug] #1 000174b0 in SSCANF_RunInit () at E:\Baixada Roleplay\pawno\include\sscanf2.inc:908
+[14:01:19] [debug] #2 00017704 in public On_GameModeInit ()  at E:\Baixada Roleplay\pawno\include\sscanf2.inc:1065
+[14:01:19] [debug] #3 00009a28 in public OnGameModeInit () at E:\Baixada Roleplay\pawno\include\fixes.inc:12706
+[14:01:19]  
+[14:01:19] --------------------------------------
+[14:01:19]  Anticheat Nex-AC carregado!
+[14:01:19]  Anticheat versão: 1.9.62
+[14:01:19]  Autor: Nexius (PT-BR by NicK_)
+[14:01:19] --------------------------------------
+
+[14:01:19] MapFix by Nexius v4.3.3 loaded (include version).
+[14:01:19] [Arquivos Load] AntiDeAMX Iniciado com Sucesso.
+[14:01:19] [Arquivos Load] Foram Carregadas todas as orgs
+[14:01:19] [Arquivos Load] Todos os MapIcon foram carregados
+[14:01:19] [Arquivos Load] Todos os caixas foram carregados.
+[14:01:19] [Arquivos Load] Todos os Pickups e 3DLabel foram carregados.
+[14:01:19] [Arquivos Load] Todos as textdraws globais foram carregados.
+[14:01:20] [Arquivos Load] Foram Carregados 25 veiculos
+[14:01:20] [Arquivos Load] Foram Carregados 1 Concessionarias
+[14:01:20] [Arquivos Load] Foram Carregadas 8 Postos
+[14:01:20] [Arquivos Load] Os objetos estao sendo carregados.
+[14:01:20] [Arquivos Load] Todos os objetos foram carregados.
+[14:01:21] [Arquivos Load] Foram Carregadas 308 Casas.
+[14:01:21] [Arquivos Load] Foram Carregadas 53 Radares.
+[14:01:21] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[14:01:21] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[14:01:21] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[14:01:21] [Arquivos Load] Foram Carregados Cofres de Orgs.
+[14:01:21] 
+'---_.Baixada Roleplay by Luan_Rosa._---'
+[14:01:21] --- Gamemode Iniciada Com Sucesso!  ---
+
+[14:01:21] Number of vehicle models: 23
+[14:02:24] [connection] 192.168.1.107:53445 requests connection cookie.
+[14:02:24] [connection] incoming connection: 192.168.1.107:53445 id: 0
+[14:02:24] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.107) ...
+[14:02:24] [sv:dbg:network:connect] : player (0) assigned key (aeafbd46)
+[14:02:24] [join] Luan_Rosa has joined the server (0:192.168.1.107)
+[14:02:37] [debug] Long callback execution detected (hang or performance issue)
+[14:02:37] [debug] AMX backtrace:
+[14:02:37] [debug] #0 00069b2c in DOF2_ParseLine (line[]=@00a46920 "pSegundosJogados = 4760", key[]=@023efe94 "", value[]=@023f00b8 "", keysize=128, valuesize=16) at E:\Baixada Roleplay\pawno\include\DOF2.inc:1204
+[14:02:37] [debug] #1 00066578 in DOF2_SearchEntry (key[]=@0235fa94 "pSegundosJogados", tag[]=@023b0990 "", keybuf[]=@023efe94 "", valbuf[]=@023f00b8 "", &pos=@023f0094 0, keybufsize=128, valbufsize=16) at E:\Baixada Roleplay\pawno\include\DOF2.inc:519
+[14:02:37] [debug] #2 00067f78 in DOF2_GetStringEx (file[]=@023f0510 "Contas/Luan_Rosa.ini", key[]=@0235fa94 "pSegundosJogados", result[]=@023f00b8 "", size=16, tag[]=@023b0990 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:706
+[14:02:37] [debug] #3 000680d8 in DOF2_GetInt (file[]=@023f0510 "Contas/Luan_Rosa.ini", key[]=@0235fa94 "pSegundosJogados", tag[]=@023b0990 "") at E:\Baixada Roleplay\pawno\include\DOF2.inc:865
+[14:02:37] [debug] #4 0027fbf8 in public ac_OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@023b0974 "174458") at E:\Baixada Roleplay\gamemodes\baixada.pwn:11623
+[14:02:37] [debug] #5 0002d74c in public On_DialogResponse (0, 0, 1, -1, 37423476)  at E:\Baixada Roleplay\pawno\include\nex-ac.inc:4299
+[14:02:37] [debug] #6 00012c80 in public OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@023b0974 "174458") at E:\Baixada Roleplay\pawno\include\fixes.inc:17956
+[14:02:48] [Nex-AC debug] Max ping: 500, ping: 1057
+[14:02:48] [Nex-AC] Suspeita no ID 0. Código de motivo: 038
+[14:02:49] [sv:dbg:network:connect] : disconnecting player (0) ...
+[14:02:49] [debug] Long callback execution detected (hang or performance issue)
+[14:02:49] [debug] AMX backtrace:
+[14:02:49] [debug] #0 0006a0c0 in fwritechars (File:handle=5134872, c[]=@00a46b20 "Bala4 = 0") at E:\Baixada Roleplay\pawno\include\DOF2.inc:1353
+[14:02:49] [debug] #1 0006882c in DOF2_WriteFile () at E:\Baixada Roleplay\pawno\include\DOF2.inc:1008
+[14:02:49] [debug] #2 00121690 in SalvarDados (playerid=0) at E:\Baixada Roleplay\gamemodes\baixada.pwn:8534
+[14:02:49] [debug] #3 00260d04 in public ppb_OnPlayerDisconnect (playerid=0, reason=2) at E:\Baixada Roleplay\gamemodes\baixada.pwn:9129
+[14:02:49] [debug] #4 0009e960 in public ac_OnPlayerDisconnect (playerid=0, reason=2) at E:\Baixada Roleplay\pawno\include\progress2.inc:411
+[14:02:49] [debug] #5 00029ad4 in public TIMERFIX_OnPlayerDisconnect (playerid=0, reason=2) at E:\Baixada Roleplay\pawno\include\nex-ac.inc:3924
+[14:02:49] [debug] #6 00019438 in public Iter_OnPlayerDisconnect (playerid=0, reason=2) at E:\Baixada Roleplay\pawno\include\timerfix.inc:208
+[14:02:49] [debug] #7 native CallLocalFunction () in samp-server.exe
+[14:02:49] [debug] #8 00018cf0 in public SSCANF_OnPlayerDisconnect (0, 2)  at E:\Baixada Roleplay\pawno\include\foreach.inc:818
+[14:02:49] [debug] #9 00017948 in public On_PlayerDisconnect (0, 2)  at E:\Baixada Roleplay\pawno\include\sscanf2.inc:1154
+[14:02:49] [debug] #10 0000a7a4 in public OnPlayerDisconnect (playerid=0, reason=2) at E:\Baixada Roleplay\pawno\include\fixes.inc:13272
+[14:02:49] [debug] #11 native Kick () in samp-server.exe
+[14:02:49] [debug] #12 00061004 in public ac_KickTimer (playerid=0) at E:\Baixada Roleplay\pawno\include\nex-ac.inc:9441
+[14:02:49] [debug] Run time error 4: "Array index out of bounds"
+[14:02:49] [debug]  Attempted to read/write array element at index 4 in array of size 4
+[14:02:49] [debug] AMX backtrace:
+[14:02:49] [debug] #0 00261a00 in public ppb_OnPlayerDisconnect (playerid=0, reason=2) at E:\Baixada Roleplay\gamemodes\baixada.pwn:9208
+[14:02:49] [debug] #1 0009e960 in public ac_OnPlayerDisconnect (playerid=0, reason=2) at E:\Baixada Roleplay\pawno\include\progress2.inc:411
+[14:02:49] [debug] #2 00029ad4 in public TIMERFIX_OnPlayerDisconnect (playerid=0, reason=2) at E:\Baixada Roleplay\pawno\include\nex-ac.inc:3924
+[14:02:49] [debug] #3 00019438 in public Iter_OnPlayerDisconnect (playerid=0, reason=2) at E:\Baixada Roleplay\pawno\include\timerfix.inc:208
+[14:02:49] [debug] #4 native CallLocalFunction () in samp-server.exe
+[14:02:49] [debug] #5 00018cf0 in public SSCANF_OnPlayerDisconnect (0, 2)  at E:\Baixada Roleplay\pawno\include\foreach.inc:818
+[14:02:49] [debug] #6 00017948 in public On_PlayerDisconnect (0, 2)  at E:\Baixada Roleplay\pawno\include\sscanf2.inc:1154
+[14:02:49] [debug] #7 0000a7a4 in public OnPlayerDisconnect (playerid=0, reason=2) at E:\Baixada Roleplay\pawno\include\fixes.inc:13272
+[14:02:49] [debug] #8 native Kick () in samp-server.exe
+[14:02:49] [debug] #9 00061004 in public ac_KickTimer (playerid=0) at E:\Baixada Roleplay\pawno\include\nex-ac.inc:9441
+[14:02:49] [part] Luan_Rosa has left the server (0:2)
+[14:07:12]  -------------------------------------------
+[14:07:12]            SampVoice unloading...           
+[14:07:12]  -------------------------------------------
+[14:07:12] [dbg:raknet:free] : module releasing...
+[14:07:12] [dbg:raknet:free] : module released
+[14:07:12] [sv:dbg:network:free] : module releasing...
+[14:07:12] [sv:dbg:network:free] : module released
