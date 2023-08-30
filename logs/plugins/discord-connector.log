@@ -1045,3 +1045,4 @@ porque o host conectado não respondeu
 [08/30/23 13:23:45] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
 [08/30/23 13:24:10] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
 [08/30/23 13:24:40] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[08/30/23 17:45:18] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
