@@ -1273,9 +1273,13 @@ new RandomMSG[][] =
 //                          PUBLICS
 
 CallBack::tempoprogress(playerid){
+	new str[10];
     if(pValueBar[playerid] < 100) {
 		pValueBar[playerid]++;
 		SetPlayerProgressBarValue(playerid, ProgressoBar_pp[playerid][0], pValueBar[playerid]);
+		format(str,sizeof(str),"%d%",pValueBar[playerid]);
+		PlayerTextDrawSetString(playerid, ProgressoBar[playerid][7],str);
+		PlayerTextDrawShow(playerid, ProgressoBar[playerid][7]);
 	}else{
 		for(new i = 0; i < 14; i ++){
 			PlayerTextDrawHide(playerid, ProgressoBar[playerid][i]);
@@ -5221,7 +5225,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][6], 1);
 	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][6], 0);
 
-	ProgressoBar[playerid][7] = CreatePlayerTextDraw(playerid, 275.000000, 348.000000, "40%");
+	ProgressoBar[playerid][7] = CreatePlayerTextDraw(playerid, 275.000000, 348.000000, "0%");
 	PlayerTextDrawFont(playerid, ProgressoBar[playerid][7], 1);
 	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][7], 0.195832, 1.000000);
 	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][7], 400.000000, 17.000000);
@@ -5319,8 +5323,8 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][13], 1);
 	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][13], 0);
 	ProgressoBar_pp[playerid][0] = CreatePlayerProgressBar(playerid, 270.000000, 366.000000, 108.000000, 1.000000, 1804477439, 100.000000, 0);
-
-
+	SetPlayerProgressBarValue(playerid, ProgressoBar_pp[playerid][0], 0);
+	
 	Registration_PTD[playerid][0] = CreatePlayerTextDraw(playerid, 269.6997, 149.4332, "LD_SPAC:white"); // ïóñòî
 	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][0], 99.0000, 158.8589);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][0], 1);
@@ -19234,7 +19238,7 @@ CMD:testep(playerid)
 		PlayerTextDrawShow(playerid, ProgressoBar[playerid][i]);
 	}
 	ShowPlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
-    TimerBar[playerid] = SetTimerEx("tempoprogress", 100, false, "d", playerid);
+    TimerBar[playerid] = SetTimerEx("tempoprogress", 100, true, "d", playerid);
     SendClientMessage(playerid, -1, "Progress iniciado!");
     return 1;
 }
