@@ -1018,3 +1018,12 @@ porque o host conectado não respondeu
 [08/28/23 18:22:14] [ERROR] DCC_SendChannelMessage: invalid channel id '0'
 [08/28/23 23:53:57] [ERROR] DCC_SendChannelMessage: invalid channel id '0'
 [08/29/23 20:06:28] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[08/29/23 22:28:35] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[08/29/23 22:28:35] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[08/29/23 22:38:26] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[08/29/23 22:38:51] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[08/29/23 22:48:36] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[08/29/23 22:49:08] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[08/29/23 22:49:21] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[08/29/23 22:50:33] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[08/30/23 00:39:24] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
