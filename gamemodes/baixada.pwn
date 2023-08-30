@@ -3795,7 +3795,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			strcat(megastrings, String2);
 			format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\t{FFFFFF}Org:{FFFF00} %s\t{FFFFFF}Cargo:{FFFF00} %s\n", Profs(playerid), NomeOrg(playerid), NomeCargo(playerid));
 			strcat(megastrings, String2);
-			format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\t{FFFFFF}N°Casa:{FFFF00} %d\n", PlayerInfo[playerid][pMultas], PlayerInfo[playerid][Casa]);
+			format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\t{FFFFFF}N�Casa:{FFFF00} %d\n", PlayerInfo[playerid][pMultas], PlayerInfo[playerid][Casa]);
 			strcat(megastrings, String2);
 			format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\t{FFFFFF}Expira VIP:{FFFF00} %s\n", ConvertTimeX(PlayerInfo[playerid][pSegundosJogados]), convertNumber(PlayerInfo[playerid][ExpiraVIP]-gettime()));
 			strcat(megastrings, String2);
@@ -3818,7 +3818,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 					PlayerTextDrawSetString(playerid, ProgressoBar[playerid][11],str);
 				}
 				ShowPlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
-				TimerBar[playerid] = SetTimerEx("tempoprogress", 1000, true, "d", playerid);
+				TimerBar[playerid] = SetTimerEx("tempoprogress", 200, true, "d", playerid);
 				SetTimerEx("Habilitar", 22000, false, "i",playerid);
 				TogglePlayerControllable(playerid, 0);
 				UsouCMD[playerid] = true;	
