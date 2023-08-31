@@ -188,7 +188,6 @@ enum
 	DIALOG_EMP4,
 	DIALOG_EMP5,
 	DIALOG_CMDRG,
-	DIALOG_UPLVL,
 	DIALOG_REANIMAR,
 	DIALOG_CARGA,
 	DIALOG_CONVITE,
@@ -256,12 +255,9 @@ enum
 enum pInfo
 {
 	pSenha[24],
-	pLevel,
-	pXP,
 	pSkin,
 	pDinheiro,
 	pBanco,
-	pSexo,
 	pIdade,
 	pSegundosJogados,
 	pAvisos,
@@ -1269,6 +1265,146 @@ new RandomMSG[][] =
 };
 
 //                          PUBLICS
+
+Progresso:DescarregarCarga(playerid, progress)
+{
+	if(progress >= 100)
+	{
+		if(PlayerToPoint(3.0, playerid, -225.2885,-209.2343,2.0181))
+		{
+			Cargase[playerid] = false;
+			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
+			if(PlayerInfo[playerid][pVIP] == 0)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2100;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$2100.", ICONE_EMPREGO); 
+			}   
+			if(PlayerInfo[playerid][pVIP] == 2)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2100*2;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4200.", ICONE_EMPREGO); 
+			}
+			if(PlayerInfo[playerid][pVIP] == 3)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2100*2;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4200.", ICONE_EMPREGO); 
+			}
+			DisablePlayerCheckpoint(playerid);
+			Carregou[playerid] = 0;
+		}
+		if(PlayerToPoint(3.0, playerid, 219.3734,9.5520,3.1495))
+		{
+			Cargase[playerid] = false;
+			if(PlayerInfo[playerid][pVIP] == 0)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2150;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$2150.", ICONE_EMPREGO); 
+			}   
+			if(PlayerInfo[playerid][pVIP] == 2)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2150*2;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4300.", ICONE_EMPREGO); 
+			}
+			if(PlayerInfo[playerid][pVIP] == 3)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2150*2;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4300.", ICONE_EMPREGO); 
+			}
+			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
+			DisablePlayerCheckpoint(playerid);
+			Carregou[playerid] = 0;
+		}
+		if(PlayerToPoint(3.0, playerid, 1338.3881,286.8327,20.1563))
+		{
+			Cargase[playerid] = false;
+			if(PlayerInfo[playerid][pVIP] == 0)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2150;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$2150.", ICONE_EMPREGO); 
+			}   
+			if(PlayerInfo[playerid][pVIP] == 2)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2150*2;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4300.", ICONE_EMPREGO); 
+			}
+			if(PlayerInfo[playerid][pVIP] == 3)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2150*2;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4300.", ICONE_EMPREGO); 
+			}
+			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
+			DisablePlayerCheckpoint(playerid);
+			Carregou[playerid] = 0;
+		}
+		if(PlayerToPoint(3.0, playerid, 1635.2142,2192.1284,11.4099))
+		{
+			Cargase[playerid] = false;
+			if(PlayerInfo[playerid][pVIP] == 0)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2400;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$2400.", ICONE_EMPREGO); 
+			}   
+			if(PlayerInfo[playerid][pVIP] == 2)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2400*2;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4800.", ICONE_EMPREGO); 
+			}
+			if(PlayerInfo[playerid][pVIP] == 3)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2400*2;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4800.", ICONE_EMPREGO); 
+			}
+			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
+			DisablePlayerCheckpoint(playerid);
+			Carregou[playerid] = 0;
+				
+		}
+		if(PlayerToPoint(3.0, playerid, -1934.6858,259.0710,41.6420))
+		{
+			Cargase[playerid] = false;
+			if(PlayerInfo[playerid][pVIP] == 0)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2500;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$2500.", ICONE_EMPREGO); 
+			}   
+			if(PlayerInfo[playerid][pVIP] == 2)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2500*2;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$5000.", ICONE_EMPREGO); 
+			}
+			if(PlayerInfo[playerid][pVIP] == 3)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2500*2;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$5000.", ICONE_EMPREGO); 
+			}
+			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
+			DisablePlayerCheckpoint(playerid);
+			Carregou[playerid] = 0;
+		}
+		if(PlayerToPoint(3.0, playerid, -1823.9757,54.3441,15.1228))
+		{
+			Cargase[playerid] = false;
+			if(PlayerInfo[playerid][pVIP] == 0)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2250;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$2250.", ICONE_EMPREGO); 
+			}   
+			if(PlayerInfo[playerid][pVIP] == 2)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2250*2;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4500.", ICONE_EMPREGO); 
+			}
+			if(PlayerInfo[playerid][pVIP] == 3)
+			{
+				PlayerInfo[playerid][pDinheiro] += 2250*2;
+				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4500.", ICONE_EMPREGO); 
+			}
+			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
+			DisablePlayerCheckpoint(playerid);	
+			Carregou[playerid] = 0;
+		}
+	}
+}
 
 Progresso:RotaCova1(playerid, progress)
 {
@@ -2884,7 +3020,6 @@ CallBack::PayDay(playerid)
 		PlayerInfo[playerid][pBanco] -= gi;
 		PlayerInfo[playerid][pBanco] -= gjuros;
 		PlayerInfo[playerid][pBanco] += g;
-		PlayerInfo[playerid][pXP] += 1;
 		strcat(megastrings,"{FFFFFF}---------------------------------- PayDay ----------------------------------\n\n");
 		format(String2,sizeof(String2), "{FFFFFF}Salario Civil: {00FF00}$%i\n", g);
 		strcat(megastrings, String2);
@@ -2905,21 +3040,18 @@ CallBack::PayDay(playerid)
 			PlayerInfo[playerid][pBanco] += 500;
 			format(String2,sizeof(String2), "{FFFFFF}Ganho beneficio do seu VIP\n");
 			strcat(megastrings, String2);
-			PlayerInfo[playerid][pXP] += 1;
 		}
 		if(PlayerInfo[playerid][pVIP] == 2)
 		{
 			PlayerInfo[playerid][pBanco] += 800;
 			format(String2,sizeof(String2), "{FFFFFF}Ganho beneficio de seu VIP\n");
 			strcat(megastrings, String2);
-			PlayerInfo[playerid][pXP] += 2;
 		}
 		if(PlayerInfo[playerid][pVIP] == 3)
 		{
 			PlayerInfo[playerid][pBanco] += 3000;
 			format(String2,sizeof(String2), "{FFFFFF}Ganho beneficio de seu VIP\n");
 			strcat(megastrings, String2);
-			PlayerInfo[playerid][pXP] += 4;
 		}
 		format(String2,sizeof(String2), "{FFFFFF}Taxa Bancaria: {FFFF00}-R$%i\n", gjuros);
 		strcat(megastrings, String2);
@@ -3819,8 +3951,6 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 		{
 			new megastrings[500], String2[500];
 			format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\t{FFFFFF}Idade: {FFFF00}%d {FFFFFF}anos\t{FFFFFF}VIP: {FFFF00}%s\n", Name(playerid),PlayerInfo[playerid][pIdade], VIP(playerid));
-			strcat(megastrings, String2);
-			format(String2,sizeof(String2), "{FFFFFF}Level: {FFFF00}%d\t{FFFFFF}XP: ({FFFF00}%d{FFFFFF}/{FFFF00}4{FFFFFF})\n", GetPlayerScore(playerid), PlayerInfo[playerid][pXP]);
 			strcat(megastrings, String2);
 			format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\t{FFFFFF}Org:{FFFF00} %s\t{FFFFFF}Cargo:{FFFF00} %s\n", Profs(playerid), NomeOrg(playerid), NomeCargo(playerid));
 			strcat(megastrings, String2);
@@ -8258,6 +8388,38 @@ stock BanirIP(playerid, administrador, Motivo1[])
 
 stock ZerarDados(playerid)
 {
+	PlayerInfo[playerid][pSkin] = 0;
+	PlayerInfo[playerid][pDinheiro] = 0;
+	PlayerInfo[playerid][pBanco] = 0;
+	PlayerInfo[playerid][pIdade] = 0;
+	PlayerInfo[playerid][pSegundosJogados] = 0;
+	PlayerInfo[playerid][pAvisos] = 0;
+	PlayerInfo[playerid][pCadeia] = 0;
+	PlayerInfo[playerid][pAdmin] = 0;
+	PlayerInfo[playerid][pInterior] = 0;
+	PlayerInfo[playerid][pPosX] = 0;
+	PlayerInfo[playerid][pPosY] = 0;
+	PlayerInfo[playerid][pPosZ] = 0;
+	PlayerInfo[playerid][pPosA] = 0;
+	PlayerInfo[playerid][pCamX] = 0;
+	PlayerInfo[playerid][pCamY] = 0;
+	PlayerInfo[playerid][pCamZ] = 0;
+	PlayerInfo[playerid][pCongelado] = false;
+	PlayerInfo[playerid][pCalado] = false;
+	PlayerInfo[playerid][pVIP] = 0;
+	PlayerInfo[playerid][ExpiraVIP] = 0;
+	PlayerInfo[playerid][vKey] = 0;
+	PlayerInfo[playerid][vCoins] = 0;
+	PlayerInfo[playerid][pProfissao] = 0;
+	PlayerInfo[playerid][Org] = 0;
+	PlayerInfo[playerid][Cargo] = 0;
+	PlayerInfo[playerid][convite] = 0;
+	PlayerInfo[playerid][pProcurado] = 0;
+	PlayerInfo[playerid][pMultas] = 0;
+	PlayerInfo[playerid][Casa] = 0;
+	PlayerInfo[playerid][Entrada] = 0;
+	PlayerInfo[playerid][pAvaliacao] = 0;
+	
 	BigEar[playerid] = 0;
 	VehAlugado[playerid] = 0;
 	Localizando[playerid] = 0;
@@ -8352,11 +8514,8 @@ stock SalvarDados(playerid)
 	if(DOF2_FileExists(File))
 	{
 		DOF2_SaveFile();
-		DOF2_SetInt(File, "pLevel", GetPlayerScore(playerid));
-		DOF2_SetInt(File, "pXP", PlayerInfo[playerid][pXP]);
 		DOF2_SetInt(File, "pDinheiro", PlayerInfo[playerid][pDinheiro]);
 		DOF2_SetInt(File, "pBanco", PlayerInfo[playerid][pBanco]);
-		DOF2_SetInt(File, "pSexo", PlayerInfo[playerid][pSexo]);
 		DOF2_SetInt(File, "pIdade", PlayerInfo[playerid][pIdade]);
 		DOF2_SetInt(File, "pSegundosJogados", PlayerInfo[playerid][pSegundosJogados]);
 		DOF2_SetInt(File, "pAvisos", PlayerInfo[playerid][pAvisos]);
@@ -8403,12 +8562,9 @@ stock SalvarDadosSkin(playerid)
 	if(DOF2_FileExists(File))
 	{
 		DOF2_SaveFile();
-		DOF2_SetInt(File, "pLevel", GetPlayerScore(playerid));
-		DOF2_SetInt(File, "pXP", PlayerInfo[playerid][pXP]);
 		DOF2_SetInt(File, "pSkin", GetPlayerSkin(playerid));
 		DOF2_SetInt(File, "pDinheiro", PlayerInfo[playerid][pDinheiro]);
 		DOF2_SetInt(File, "pBanco", PlayerInfo[playerid][pBanco]);
-		DOF2_SetInt(File, "pSexo", PlayerInfo[playerid][pSexo]);
 		DOF2_SetInt(File, "pIdade", PlayerInfo[playerid][pIdade]);
 		DOF2_SetInt(File, "pSegundosJogados", PlayerInfo[playerid][pSegundosJogados]);
 		DOF2_SetInt(File, "pAvisos", PlayerInfo[playerid][pAvisos]);
@@ -11317,14 +11473,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_CreateFile(Account); 
 					DOF2_SaveFile();
 					DOF2_SetString(Account, "pSenha", PlayerInfo[playerid][pSenha]);
-					DOF2_SetInt(Account, "pLevel", 0);
-					DOF2_SetInt(Account, "pXP", 0);
 					DOF2_SetInt(Account, "pSkin", 0);
 					DOF2_SetInt(Account, "pDinheiro", 0);
 					PlayerInfo[playerid][pDinheiro] = 0;
 					DOF2_SetInt(Account, "pBanco", 0);
 					PlayerInfo[playerid][pBanco] = 0;
-					DOF2_SetInt(Account, "pSexo", 0);
 					DOF2_SetInt(Account, "pIdade", 0);
 					DOF2_SetInt(Account, "pSegundosJogados", 0);
 					DOF2_SetInt(Account, "pAvisos", 0);
@@ -11399,13 +11552,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(DOF2_FileExists(Account))
     	            {
 						format(PlayerInfo[playerid][pLastLogin], 24, DOF2_GetString(Account, "pLastLogin"));
-						SetPlayerScore(playerid, DOF2_GetInt(Account, "pLevel"));
-						PlayerInfo[playerid][pXP] = DOF2_GetInt(Account, "pXP");
 						PlayerInfo[playerid][pSkin] = DOF2_GetInt(Account, "pSkin");
 						SetPlayerSkin(playerid, DOF2_GetInt(Account, "pSkin"));
 						PlayerInfo[playerid][pDinheiro] = DOF2_GetInt(Account, "pDinheiro");
 						PlayerInfo[playerid][pBanco] = DOF2_GetInt(Account, "pBanco");
-						PlayerInfo[playerid][pSexo] = DOF2_GetInt(Account, "pSexo");
 						PlayerInfo[playerid][pIdade] = DOF2_GetInt(Account, "pIdade");
 						PlayerInfo[playerid][pSegundosJogados] = DOF2_GetInt(Account, "pSegundosJogados");
 						PlayerInfo[playerid][pAvisos] = DOF2_GetInt(Account, "pAvisos");
@@ -12576,19 +12726,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 			}
 		}
-		case DIALOG_UPLVL:
-		{
-			if(response)
-			{
-				if(PlayerInfo[playerid][pXP] < 4) 	return notificacao(playerid, "ERRO", "Nao possui 4xp", ICONE_ERRO);
-				if(GetPlayerMoney(playerid) < 5000)  return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
-				PlayerInfo[playerid][pXP] -= 4;
-				SetPlayerScore(playerid, GetPlayerScore(playerid)+1);
-				PlayerInfo[playerid][pDinheiro] -= 5000;
-				notificacao(playerid, "EXITO", "Acaba de subir un level.", ICONE_CERTO);
-				return 1;
-			}
-		}
 		case DIALOG_REANIMAR:
 		{
 			if(response)
@@ -12642,7 +12779,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					notificacao(playerid, "EXITO", "Seu caminhao foi carregado para Ind. Solarin!", ICONE_EMPREGO);
 					notificacao(playerid, "EXITO", "Foi marcado um ponto para descarregar.", ICONE_EMPREGO);
-					GameTextForPlayer(playerid, "~y~~h~cargado", 1000, 0);
+					GameTextForPlayer(playerid, "~y~~h~carregado", 1000, 0);
 					Cargase[playerid] = true;
 					Carregou[playerid] = 1;
 					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
@@ -12653,7 +12790,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					notificacao(playerid, "EXITO", "Seu caminhao foi carregado para Wang Cars!", ICONE_EMPREGO);
 					notificacao(playerid, "EXITO", "Foi marcado um ponto para descarregar.", ICONE_EMPREGO);
-					GameTextForPlayer(playerid, "~y~~h~cargado", 1000, 0);
+					GameTextForPlayer(playerid, "~y~~h~carregado", 1000, 0);
 					Cargase[playerid] = true;
 					Carregou[playerid] = 1;
 					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
@@ -12664,7 +12801,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					notificacao(playerid, "EXITO", "Seu caminhao foi carregado para Michelin Pneus!", ICONE_EMPREGO);
 					notificacao(playerid, "EXITO", "Foi marcado um ponto para descarregar.", ICONE_EMPREGO);
-					GameTextForPlayer(playerid, "~y~~h~cargado", 1000, 0);
+					GameTextForPlayer(playerid, "~y~~h~carregado", 1000, 0);
 					Cargase[playerid] = true;
 					Carregou[playerid] = 1;
 					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
@@ -12673,7 +12810,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 3)
 				{
-					GameTextForPlayer(playerid, "~y~~h~cargado", 1000, 0);
+					GameTextForPlayer(playerid, "~y~~h~carregado", 1000, 0);
 					notificacao(playerid, "EXITO", "Seu caminhao foi carregado para Sprunk!", ICONE_EMPREGO);
 					notificacao(playerid, "EXITO", "Foi marcado um ponto para descarregar.", ICONE_EMPREGO);
 					Cargase[playerid] = true;
@@ -12686,7 +12823,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					notificacao(playerid, "EXITO", "Seu caminhao foi carregado para Xoomer!", ICONE_EMPREGO);
 					notificacao(playerid, "EXITO", "Foi marcado um ponto para descarregar.", ICONE_EMPREGO);
-					GameTextForPlayer(playerid, "~y~~h~cargado", 1000, 0);
+					GameTextForPlayer(playerid, "~y~~h~carregado", 1000, 0);
 					Cargase[playerid] = true;
 					Carregou[playerid] = 1;
 					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
@@ -12697,7 +12834,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			   {
 					notificacao(playerid, "EXITO", "Seu caminhao foi carregado para FlaischBerg!", ICONE_EMPREGO);
 					notificacao(playerid, "EXITO", "Foi marcado um ponto para descarregar.", ICONE_EMPREGO);
-					GameTextForPlayer(playerid, "~y~~h~cargado", 1000, 0);
+					GameTextForPlayer(playerid, "~y~~h~carregado", 1000, 0);
 					Cargase[playerid] = true;
 					Carregou[playerid] = 1;
 					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
@@ -13479,8 +13616,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(MissaoPlayer[playerid][MISSAO2] == 1)
 					{
 						if(MissaoPlayer[playerid][CMISSAO2] == 1) return notificacao(playerid, "ERRO", "Missao completa", ICONE_ERRO);
-						notificacao(playerid, "EXITO", "Completou a missao e ganhou 2pt expericencia.", ICONE_CERTO);
-						PlayerInfo[playerid][pXP] += 2;
+						notificacao(playerid, "EXITO", "Completou a missao e ganhou R$500 expericencia.", ICONE_CERTO);
+						PlayerInfo[playerid][pDinheiro] += 500;
 						MissaoPlayer[playerid][CMISSAO2] = 1;
 					}
 					else
@@ -13493,8 +13630,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(MissaoPlayer[playerid][MISSAO3] == 1)
 					{
 						if(MissaoPlayer[playerid][CMISSAO3] == 1) return notificacao(playerid, "ERRO", "Missao completa", ICONE_ERRO);
-						notificacao(playerid, "EXITO", "Completou a missao e ganhou 1pt expericencia.", ICONE_CERTO);
-						PlayerInfo[playerid][pXP] += 1;
+						notificacao(playerid, "EXITO", "Completou a missao e ganhou R$500 expericencia.", ICONE_CERTO);
+						PlayerInfo[playerid][pDinheiro] += 500;
 						MissaoPlayer[playerid][CMISSAO3] = 1;
 					}
 					else
@@ -13507,8 +13644,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(MissaoPlayer[playerid][MISSAO4] == 1)
 					{
 						if(MissaoPlayer[playerid][CMISSAO4] == 1) return notificacao(playerid, "ERRO", "Missao completa", ICONE_ERRO);
-						notificacao(playerid, "EXITO", "Completou a missao e ganhou 1 level.", ICONE_CERTO);
-						SetPlayerScore(playerid, GetPlayerScore(playerid)+1);
+						notificacao(playerid, "EXITO", "Completou a missao e ganhou R$500.", ICONE_CERTO);
+						PlayerInfo[playerid][pDinheiro] = 500;
 						MissaoPlayer[playerid][CMISSAO4] = 1;
 					}
 					else
@@ -13521,8 +13658,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(MissaoPlayer[playerid][MISSAO5] == 1)
 					{
 						if(MissaoPlayer[playerid][CMISSAO5] == 1) return notificacao(playerid, "ERRO", "Missao completa", ICONE_ERRO);
-						notificacao(playerid, "EXITO", "Completou a missao e ganhou 1pt expericencia.", ICONE_CERTO);
-						PlayerInfo[playerid][pXP] += 1;
+						notificacao(playerid, "EXITO", "Completou a missao e ganhou R$500 expericencia.", ICONE_CERTO);
+						PlayerInfo[playerid][pDinheiro] += 500;
 						MissaoPlayer[playerid][CMISSAO5] = 1;
 					}
 					else
@@ -13535,8 +13672,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(MissaoPlayer[playerid][MISSAO6] == 1)
 					{
 						if(MissaoPlayer[playerid][CMISSAO6] != 1) return notificacao(playerid, "ERRO", "Missao completa", ICONE_ERRO);
-						notificacao(playerid, "EXITO", "Completou a missao e ganhou 1pt expericencia.", ICONE_CERTO);
-						PlayerInfo[playerid][pXP] += 1;
+						notificacao(playerid, "EXITO", "Completou a missao e ganhou R$500 expericencia.", ICONE_CERTO);
+						PlayerInfo[playerid][pDinheiro] += 500;
 						MissaoPlayer[playerid][CMISSAO6] = 1;
 					}
 					else
@@ -13549,8 +13686,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(MissaoPlayer[playerid][MISSAO7] == 1)
 					{
 						if(MissaoPlayer[playerid][CMISSAO7] == 1) return notificacao(playerid, "ERRO", "Missao completa", ICONE_ERRO);
-						notificacao(playerid, "EXITO", "Completou a missao e ganhou 2 level.", ICONE_CERTO);
-						SetPlayerScore(playerid, GetPlayerScore(playerid)+2);
+						notificacao(playerid, "EXITO", "Completou a missao e ganhou R$500.", ICONE_CERTO);
+						PlayerInfo[playerid][pDinheiro] = 500;
 						MissaoPlayer[playerid][CMISSAO7] = 1;
 					}
 					else
@@ -13563,8 +13700,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(MissaoPlayer[playerid][MISSAO8] == 1)
 					{
 						if(MissaoPlayer[playerid][CMISSAO8] == 1) return notificacao(playerid, "ERRO", "Missao completa", ICONE_ERRO);
-						notificacao(playerid, "EXITO", "Completou a missao e ganhou 1pt expericencia.", ICONE_CERTO);
-						PlayerInfo[playerid][pXP] += 1;
+						notificacao(playerid, "EXITO", "Completou a missao e ganhou R$500 expericencia.", ICONE_CERTO);
+						PlayerInfo[playerid][pDinheiro] += 500;
 						MissaoPlayer[playerid][CMISSAO8] = 1;
 					}
 					else
@@ -13591,8 +13728,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(MissaoPlayer[playerid][MISSAO10] == 1)
 					{
 						if(MissaoPlayer[playerid][CMISSAO10] == 1) return notificacao(playerid, "ERRO", "Missao completa", ICONE_ERRO);
-						notificacao(playerid, "EXITO", "Completou a missao e ganhou 2pt expericencia.", ICONE_CERTO);
-						PlayerInfo[playerid][pXP] += 2;
+						notificacao(playerid, "EXITO", "Completou a missao e ganhou R$500 expericencia.", ICONE_CERTO);
+						PlayerInfo[playerid][pDinheiro] += 500;
 						MissaoPlayer[playerid][CMISSAO10] = 1;
 					}
 					else
@@ -13605,8 +13742,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(MissaoPlayer[playerid][MISSAO11] == 1)
 					{
 						if(MissaoPlayer[playerid][CMISSAO11] == 1) return notificacao(playerid, "ERRO", "Missao completa", ICONE_ERRO);
-						notificacao(playerid, "EXITO", "Completou a missao e ganhou 1pt expericencia.", ICONE_CERTO);
-						PlayerInfo[playerid][pXP] += 1;
+						notificacao(playerid, "EXITO", "Completou a missao e ganhou R$500 expericencia.", ICONE_CERTO);
+						PlayerInfo[playerid][pDinheiro] += 500;
 						MissaoPlayer[playerid][CMISSAO11] = 1;
 					}
 					else
@@ -13633,8 +13770,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(MissaoPlayer[playerid][MISSAO13] == 1)
 					{
 						if(MissaoPlayer[playerid][CMISSAO13] == 1) return notificacao(playerid, "ERRO", "Missao completa", ICONE_ERRO);
-						notificacao(playerid, "EXITO", "Completou a missao e ganhou 2 level.", ICONE_CERTO);
-						SetPlayerScore(playerid, GetPlayerScore(playerid)+2);
+						notificacao(playerid, "EXITO", "Completou a missao e ganhou R$500.", ICONE_CERTO);
+						PlayerInfo[playerid][pDinheiro] = 500;
 						MissaoPlayer[playerid][CMISSAO13] = 1;
 					}
 					else
@@ -15936,26 +16073,6 @@ CMD:dardinheiro(playerid, params[])
 	return 1;
 }   
 
-CMD:setlvl(playerid, params[])
-{
-	if(PlayerInfo[playerid][pAdmin] < 6)		return notificacao(playerid, "ERRO", "Sem permissao", ICONE_ERRO);
-	if(pJogando[playerid] == true) 				return notificacao(playerid, "ERRO", "Nao iniciou trabalho staff", ICONE_ERRO);
-	if(sscanf(params, "dd", ID, Numero))		return SendClientMessage(playerid, CorErroNeutro, "USE: /setlvl [ID] [SCORE]");
-	if(!IsPlayerConnected(ID))					return notificacao(playerid, "ERRO", "Jogador nao esta online.", ICONE_ERRO);
-	//
-	SetPlayerScore(ID, Numero);
-	//
-	format(Str, sizeof(Str), "{FFFF00}AVISO{FFFFFF} Deu a {FFFF00}%s {FFFFFF}, {FFFF00}%d{FFFFFF} de level.", Name(ID), Numero);
-	SendClientMessage(playerid, -1, Str);
-	//
-	format(Str, sizeof(Str), "{FFFF00}AVISO{FFFFFF} O Administrador {FFFF00}%s {FFFFFF} te deu level: {FFFF00}%d", Name(playerid), Numero);
-	SendClientMessage(playerid, -1, Str);
-
-	format(Str, sizeof(Str), "O Administrador %s poner level de %s para %d", Name(playerid), Name(ID), Numero);
-	DCC_SendChannelMessage(Sets, Str);
-	return 1;
-}
-
 CMD:setadmin(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 7)		return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
@@ -16061,14 +16178,6 @@ CMD:lojavip(playerid)
 	return 1;
 }
 
-CMD:uplvl(playerid)
-{
-	new String[500];
-	format(String, sizeof(String), "{FFFFFF}Possui XP({FFFF00}%i {FFFFFF}/ 4)\nValor Upgrade: {FFFF00}5000", PlayerInfo[playerid][pXP]);
-	ShowPlayerDialog(playerid, DIALOG_UPLVL, DIALOG_STYLE_MSGBOX, "Subir Nivel" , String, "Melhorar", "X");	
-	return 1;
-}
-
 CMD:dveiculo(playerid)
 {
 	if(VehAlugado[playerid] == 1)
@@ -16147,139 +16256,8 @@ CMD:descarregar(playerid)
 	if(Cargase[playerid] == false) 		return notificacao(playerid, "ERRO", "Seu caminhao nao esta carregar.", ICONE_ERRO);
 	if(GetVehicleModel(GetPlayerVehicleID(playerid)) != 456) 	return notificacao(playerid, "ERRO", "No estas en veiculo del empleo.", ICONE_ERRO);
 	if(Cargase[playerid] == true) 
-	if(PlayerToPoint(3.0, playerid, -225.2885,-209.2343,2.0181))
-	{
-		Cargase[playerid] = false;
-		SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
-		if(PlayerInfo[playerid][pVIP] == 0)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2100;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$2100.", ICONE_EMPREGO); 
-		}   
-		if(PlayerInfo[playerid][pVIP] == 2)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2100*2;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4200.", ICONE_EMPREGO); 
-		}
-		if(PlayerInfo[playerid][pVIP] == 3)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2100*2;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4200.", ICONE_EMPREGO); 
-		}
-		DisablePlayerCheckpoint(playerid);
-		Carregou[playerid] = 0;
-	}
-	if(PlayerToPoint(3.0, playerid, 219.3734,9.5520,3.1495))
-	{
-		Cargase[playerid] = false;
-		if(PlayerInfo[playerid][pVIP] == 0)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2150;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$2150.", ICONE_EMPREGO); 
-		}   
-		if(PlayerInfo[playerid][pVIP] == 2)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2150*2;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4300.", ICONE_EMPREGO); 
-		}
-		if(PlayerInfo[playerid][pVIP] == 3)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2150*2;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4300.", ICONE_EMPREGO); 
-		}
-		SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
-		DisablePlayerCheckpoint(playerid);
-		Carregou[playerid] = 0;
-	}
-	if(PlayerToPoint(3.0, playerid, 1338.3881,286.8327,20.1563))
-	{
-		Cargase[playerid] = false;
-		if(PlayerInfo[playerid][pVIP] == 0)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2150;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$2150.", ICONE_EMPREGO); 
-		}   
-		if(PlayerInfo[playerid][pVIP] == 2)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2150*2;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4300.", ICONE_EMPREGO); 
-		}
-		if(PlayerInfo[playerid][pVIP] == 3)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2150*2;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4300.", ICONE_EMPREGO); 
-		}
-		SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
-		DisablePlayerCheckpoint(playerid);
-		Carregou[playerid] = 0;
-	}
-	if(PlayerToPoint(3.0, playerid, 1635.2142,2192.1284,11.4099))
-	{
-		Cargase[playerid] = false;
-		if(PlayerInfo[playerid][pVIP] == 0)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2400;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$2400.", ICONE_EMPREGO); 
-		}   
-		if(PlayerInfo[playerid][pVIP] == 2)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2400*2;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4800.", ICONE_EMPREGO); 
-		}
-		if(PlayerInfo[playerid][pVIP] == 3)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2400*2;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4800.", ICONE_EMPREGO); 
-		}
-		SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
-		DisablePlayerCheckpoint(playerid);
-		Carregou[playerid] = 0;
-			
-	}
-	if(PlayerToPoint(3.0, playerid, -1934.6858,259.0710,41.6420))
-	{
-		Cargase[playerid] = false;
-		if(PlayerInfo[playerid][pVIP] == 0)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2500;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$2500.", ICONE_EMPREGO); 
-		}   
-		if(PlayerInfo[playerid][pVIP] == 2)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2500*2;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$5000.", ICONE_EMPREGO); 
-		}
-		if(PlayerInfo[playerid][pVIP] == 3)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2500*2;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$5000.", ICONE_EMPREGO); 
-		}
-		SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
-		DisablePlayerCheckpoint(playerid);
-		Carregou[playerid] = 0;
-	}
-	if(PlayerToPoint(3.0, playerid, -1823.9757,54.3441,15.1228))
-	{
-		Cargase[playerid] = false;
-		if(PlayerInfo[playerid][pVIP] == 0)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2250;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$2250.", ICONE_EMPREGO); 
-		}   
-		if(PlayerInfo[playerid][pVIP] == 2)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2250*2;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4500.", ICONE_EMPREGO); 
-		}
-		if(PlayerInfo[playerid][pVIP] == 3)
-		{
-			PlayerInfo[playerid][pDinheiro] += 2250*2;
-			notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4500.", ICONE_EMPREGO); 
-		}
-		SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
-		DisablePlayerCheckpoint(playerid);	
-		Carregou[playerid] = 0;
-	}
+
+	CreateProgress(playerid, "DescarregarCarga","Descarregando caminhao...", 200);
 	return 1;
 }
 
@@ -16634,7 +16612,6 @@ CMD:aa(playerid)
 			strcat(ComandosAdmins, "{FFFF00} /setskin {FFFFFF}- Setar skin a um jogador.\n");
 			strcat(ComandosAdmins, "{FFFF00} /setvida {FFFFFF}- Setar vida a um jogador.\n");
 			strcat(ComandosAdmins, "{FFFF00} /setcolete {FFFFFF}- Setar colete a um jogador.\n");
-			strcat(ComandosAdmins, "{FFFF00} /setlvl {FFFFFF}- Setar lvl a um jogador.\n");
 			strcat(ComandosAdmins, "{FFFF00} /dardinheiro {FFFFFF}- Dar dinheiro a um jogador.\n");
 			strcat(ComandosAdmins, "{FFFF00} /setarma {FFFFFF}- Setar arma a um jogador.\n");
 			strcat(ComandosAdmins, "{FFFF00} /antiafk {FFFFFF}- Desativar ou Ativar o AntiAFK do servidor.\n");
@@ -16697,7 +16674,6 @@ CMD:aa(playerid)
 			strcat(ComandosAdmins, "{FFFF00} /setskin {FFFFFF}- Setar skin a um jogador.\n");
 			strcat(ComandosAdmins, "{FFFF00} /setvida {FFFFFF}- Setar vida a um jogador.\n");
 			strcat(ComandosAdmins, "{FFFF00} /setcolete {FFFFFF}- Setar colete a um jogador.\n");
-			strcat(ComandosAdmins, "{FFFF00} /setlvl {FFFFFF}- Setar lvl a um jogador.\n");
 			strcat(ComandosAdmins, "{FFFF00} /dardinheiro {FFFFFF}- Dar dinheiro a um jogador.\n");
 			strcat(ComandosAdmins, "{FFFF00} /setarma {FFFFFF}- Setar arma a um jogador.\n");
 			strcat(ComandosAdmins, "{FFFF00} /antiafk {FFFFFF}- Desativar ou Ativar o AntiAFK do servidor.\n");
@@ -17044,21 +17020,15 @@ CMD:verdocumentos(playerid, params[])
 	if(!IsPerto(playerid,ID))return notificacao(playerid, "ERRO", "Nao esta proximo do jogador.", ICONE_ERRO);
 	//
 	new megastrings[500], String2[500];
-	format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n", Name(ID));
+	format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\t{FFFFFF}Idade: {FFFF00}%d {FFFFFF}anos\t{FFFFFF}VIP: {FFFF00}%s\n", Name(ID),PlayerInfo[ID][pIdade], VIP(ID));
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}VIP: {FFFF00}%s\n", VIP(ID));
+	format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\t{FFFFFF}Org:{FFFF00} %s\t{FFFFFF}Cargo:{FFFF00} %s\n", Profs(playerid), NomeOrg(ID), NomeCargo(ID));
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Idade: {FFFF00}%i {FFFFFF}anos\n", PlayerInfo[ID][pIdade]);
+	format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\t{FFFFFF}N�Casa:{FFFF00} %d\n", PlayerInfo[ID][pMultas], PlayerInfo[ID][Casa]);
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Nivel: {FFFF00}%d{FFFFFF}({FFFF00}%d{FFFFFF}/{FFFF00}4{FFFFFF})\n", GetPlayerScore(ID), PlayerInfo[ID][pXP]);
+	format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\t{FFFFFF}Expira VIP:{FFFF00} %s\n", ConvertTimeX(PlayerInfo[ID][pSegundosJogados]), convertNumber(PlayerInfo[ID][ExpiraVIP]-gettime()));
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Emprego:{FFFF00} %s\n", Profs(ID));
-	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Org:{FFFF00} %s\n", NomeOrg(ID));
-	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\n", PlayerInfo[ID][pMultas]);
-	strcat(megastrings, String2);
-	ShowPlayerDialog(ID, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"{FFFFFF}Documento de um jogador",megastrings,"X","");
+	ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
 	return 1;
 }
 

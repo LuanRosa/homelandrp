@@ -3,7 +3,6 @@ CarregarMapIcons()
     CreateDynamicMapIcon(1172.0829, -1323.5533, 15.4034, 22, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//HOSPITAL
 	CreateDynamicMapIcon(2105.4880, -1806.2786, 13.5547, 29, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///PIZZARIA
 	CreateDynamicMapIcon(1122.706909, -2036.977539, 69.894248, 40, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///PREFEITURA
-	CreateDynamicMapIcon(914.273193, -1004.627075, 37.979484, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///AGENCIA
 	CreateDynamicMapIcon(1555.4982, -1676.1260, 16.1953, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///POLICIA
 	CreateDynamicMapIcon(2447.828125, -1962.687133, 13.546875, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///MERCADO NEGRO
 	CreateDynamicMapIcon(1246.486206, -1651.059448, 17.028537, 52, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///BANCO
