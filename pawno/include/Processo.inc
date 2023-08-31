@@ -42,7 +42,6 @@ stock CreateProgress(playerid, callback[],title[], time = 1000){
 
 CallProg:: UpdateProgress(playerid)
 {
-
 	if(Progress_Info[playerid][p_percent] >= 100.0)
 	{
 		return KillProgress(playerid);

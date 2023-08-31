@@ -573,7 +573,6 @@ new Text:Textdraw0,
 	Text:Textdraw1;
 new PlayerText:HudServer[MAX_PLAYERS][10];
 new PlayerText:Registration_PTD[MAX_PLAYERS][23];
-new pValueBar[MAX_PLAYERS],TimerBar[MAX_PLAYERS];
 
 //                          VARIAVEIS DA SLOTS
 
@@ -1271,21 +1270,123 @@ new RandomMSG[][] =
 
 //                          PUBLICS
 
-CallBack::tempoprogress(playerid){
-	new str[10];
-    if(pValueBar[playerid] < 100) {
-		pValueBar[playerid]++;
-		SetPlayerProgressBarValue(playerid, ProgressoBar_pp[playerid][0], pValueBar[playerid]);
-		format(str,sizeof(str),"%d%",pValueBar[playerid]);
-		PlayerTextDrawSetString(playerid, ProgressoBar[playerid][7],str);
-		PlayerTextDrawShow(playerid, ProgressoBar[playerid][7]);
-	}else{
-		for(new i = 0; i < 14; i ++){
-			PlayerTextDrawHide(playerid, ProgressoBar[playerid][i]);
+Progresso:RotaCova1(playerid, progress)
+{
+	if(progress >= 100)
+	{
+		CargoTumba[playerid] = 1;
+		TogglePlayerControllable(playerid, 1);
+		SetPlayerCheckpoint(playerid, 934.1115,-1103.3857,24.3118, 10);
+		notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+	}
+}
+
+Progresso:RotaCova2(playerid, progress)
+{
+	if(progress >= 100)
+	{
+		CargoTumba[playerid] = 2;
+		TogglePlayerControllable(playerid, 1);
+		SetPlayerCheckpoint(playerid, 934.1115,-1103.3857,24.3118, 10);
+		notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+	}
+}
+
+Progresso:RotaCova3(playerid, progress)
+{
+	if(progress >= 100)
+	{
+		CargoTumba[playerid] = 3;
+		TogglePlayerControllable(playerid, 1);
+		SetPlayerCheckpoint(playerid, 934.1115,-1103.3857,24.3118, 10);
+		notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+	}
+}
+
+Progresso:Cova(playerid, progress)
+{
+	if(progress >= 100)
+	{
+		new covastr[500];
+		new dincova = randomEx(0,300);
+		PlayerInfo[playerid][pDinheiro] += dincova;
+		if(PlayerInfo[playerid][pVIP] == 0)
+		{
+			PlayerInfo[playerid][pDinheiro] += dincova;
+			format(covastr,sizeof(covastr),"Ganhou %i concertando essa cova.", dincova);
+			notificacao(playerid, "TRABALHO", covastr, ICONE_EMPREGO); 
+		}   
+		if(PlayerInfo[playerid][pVIP] == 2)
+		{
+			PlayerInfo[playerid][pDinheiro] += dincova*2;
+			format(covastr,sizeof(covastr),"Ganhou %i concertando essa cova.", dincova*2);
+			notificacao(playerid, "TRABALHO", covastr, ICONE_EMPREGO); 
 		}
-		HidePlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
-		pValueBar[playerid] = 0;
-		KillTimer(TimerBar[playerid]);
+		if(PlayerInfo[playerid][pVIP] == 3)
+		{
+			PlayerInfo[playerid][pDinheiro] += dincova*2;
+			format(covastr,sizeof(covastr),"Ganhou %i concertando essa cova.", dincova*2);
+			notificacao(playerid, "TRABALHO", covastr, ICONE_EMPREGO); 
+		}
+		ClearAnimations(playerid);
+		TogglePlayerControllable(playerid, 1);
+		Covaconcerto[playerid] = false;
+	}
+}
+
+Progresso:Pesca(playerid, progress)
+{
+	if(progress == 1)
+	{ 
+		// EM PROGRESSO
+	}
+	if(progress >= 100)
+	{
+		new peixes = randomEx(1,3);
+		new peixe = randomEx(0,6);
+		new s[800];
+		if(IsPlayerInRangeOfPoint(playerid, 15.0, 383.2907,-2088.7842,7.8359))
+		if(peixe == 0)
+		{
+			format(s,sizeof(s),"Nao pescou nenhum peixe");
+			notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
+		}
+		if(peixe == 1)
+		{
+			GanharItem(playerid,902, peixes);
+			format(s,sizeof(s),"Pescou %i estrela do mar.",peixes);
+			notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
+		}
+		if(peixe == 2)
+		{
+			format(s,sizeof(s),"Nao pescou nenhum peixe");
+			notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
+		}
+		if(peixe == 3)
+		{
+			GanharItem(playerid,19630, peixes);
+			format(s,sizeof(s),"Pescou %i tilapia.",peixes);
+			notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
+		}
+		if(peixe == 4)
+		{
+			GanharItem(playerid,1599, peixes);
+			format(s,sizeof(s),"Pescou %i tucunare.",peixes);
+			notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
+		}
+		if(peixe == 5)
+		{
+			format(s,sizeof(s),"Nao pescou nenhum peixe");
+			notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
+		}
+		if(peixe == 6)
+		{
+			GanharItem(playerid,1600, peixes);
+			format(s,sizeof(s),"Pescou %i royal.",peixes);
+			notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
+		}
+		TogglePlayerControllable(playerid, 1);
+		UsouCMD[playerid] = false;
 	}
 	return 1;
 }
@@ -2243,9 +2344,6 @@ CallBack::AttVeh(playerid)
 							{
 								PassouRadar[playerid] = 1;
 								GameTextForPlayer(playerid, "~w~RADAR", 1000, 1);
-								//new str2[5000];
-								//format(str2, sizeof(str2),"{00FF00}[RADAR]: Pasaste a: [{FFFFFF}%d KM/H{00FF00}] en Radar de: [{FFFFFF}%d KM/H{00FF00}]", velocidade, RadarInfo[i][RadarVelocidade]);
-								//SendClientMessage(playerid, 0xFD0600FF,str2);
 								SetTimerEx("LiberarRadar", segundos(5), false, "d", playerid);
 								return 1;
 							}
@@ -2257,7 +2355,6 @@ CallBack::AttVeh(playerid)
 								if(PassouRadar[playerid] == 0)
 								{
 									PassouRadar[playerid] = 1;
-									//GameTextForPlayer(playerid, "~b~[ RADAR LIBERADO ]", 1000, 15);
 									SetTimerEx("LiberarRadar", segundos(5), false, "d", playerid);
 									return 1;
 								}
@@ -2267,26 +2364,14 @@ CallBack::AttVeh(playerid)
 						{
 							if(PassouRadar[playerid] == 0)
 							{
-								if(GetPlayerScore(playerid) < 2)
-								{
-									new multaradar = randomEx(500, 5000);
-									//new str2[5000];
-									PassouRadar[playerid] = 1;
-									GameTextForPlayer(playerid, "~n~ ~r~RADAR", 2000, 1);
-									SetTimerEx("LiberarRadar", segundos(5), false, "d", playerid);
-									PlayerPlaySound(playerid,1132,0.0,0.0,0.0);
-									//SendClientMessage(playerid, 0xFD0600FF,"{FF2400}| ___________________ | {FFFFFF}Radar de Velocidade{FF2400} | ___________________ |");
-									//format(str2, sizeof(str2),"{FF2400}[RADAR]: Voce passou a: [{FFFFFF}%d KM/H{FF2400}] No Radar de: [{FFFFFF}%d KM/H{FF2400}] e Foi Multado!", velocidade, RadarInfo[i][RadarVelocidade]);
-									//SendClientMessage(playerid, 0xFD0600FF,str2);
-									PlayerInfo[playerid][pMultas] += multaradar;
-									return 1;
-								}
-								else
-								{
-									PassouRadar[playerid] = 1;
-									SetTimerEx("LiberarRadar", segundos(5), false, "d", playerid);
-									//SendClientMessage(playerid, -1, "{8B008B}[ RADAR ]: {FFFFFF}No tienes Nivel +2 para poder cobrar multas, y el Radar ha sido liberado.");
-								}
+
+								new multaradar = randomEx(500, 5000);
+								PassouRadar[playerid] = 1;
+								GameTextForPlayer(playerid, "~n~ ~r~RADAR", 2000, 1);
+								SetTimerEx("LiberarRadar", segundos(5), false, "d", playerid);
+								PlayerPlaySound(playerid,1132,0.0,0.0,0.0);
+								PlayerInfo[playerid][pMultas] += multaradar;
+								return 1;
 							}
 						}
 					}
@@ -2872,61 +2957,6 @@ CallBack::AnimyTogle2(playerid)
 	TogglePlayerControllable(playerid, 1);
 	return 1;
 } 
-
-CallBack::Habilitar(playerid)
-{
-	UsouCMD[playerid] = false;
-	return 1;
-}
-
-CallBack::Termino(playerid)
-{
-	new peixes = randomEx(1,3);
-	new peixe = randomEx(0,6);
-	new s[800];
-	if(IsPlayerInRangeOfPoint(playerid, 15.0, 383.2907,-2088.7842,7.8359))
-	if(peixe == 0)
-	{
-		format(s,sizeof(s),"Nao pescou nenhum peixe");
-		notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
-	}
-	if(peixe == 1)
-	{
-		GanharItem(playerid,902, peixes);
-		format(s,sizeof(s),"Pescou %i estrela do mar.",peixes);
-		notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
-	}
-	if(peixe == 2)
-	{
-		format(s,sizeof(s),"Nao pescou nenhum peixe");
-		notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
-	}
-	if(peixe == 3)
-	{
-		GanharItem(playerid,19630, peixes);
-		format(s,sizeof(s),"Pescou %i tilapia.",peixes);
-		notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
-	}
-	if(peixe == 4)
-	{
-		GanharItem(playerid,1599, peixes);
-		format(s,sizeof(s),"Pescou %i tucunare.",peixes);
-		notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
-	}
-	if(peixe == 5)
-	{
-		format(s,sizeof(s),"Nao pescou nenhum peixe");
-		notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
-	}
-	if(peixe == 6)
-	{
-		GanharItem(playerid,1600, peixes);
-		format(s,sizeof(s),"Pescou %i royal.",peixes);
-		notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
-	}
-	TogglePlayerControllable(playerid, 1);
-	return true;
-}
 
 CallBack::VerificarTeste(playerid)
 {
@@ -3809,8 +3839,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 			{
 				cmd_inventario(playerid);
-				CreateProgress(playerid, "Pesca","Pescando...", 900);
-				SetTimerEx("Habilitar", 22000, false, "i",playerid);
+				CreateProgress(playerid, "Pesca","Pescando...", 300);
 				TogglePlayerControllable(playerid, 0);
 				UsouCMD[playerid] = true;	
 			}
@@ -5126,204 +5155,6 @@ stock CarregarMortos(playerid)
 
 stock todastextdraw(playerid)
 {
-		ProgressoBar[playerid][0] = CreatePlayerTextDraw(playerid, 317.000000, 332.000000, "_");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][0], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][0], 0.600000, 4.149989);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][0], 298.500000, 106.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][0], 1);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][0], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][0], 2);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][0], -1);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][0], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][0], 471604479);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][0], 1);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][0], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][0], 0);
-
-	ProgressoBar[playerid][1] = CreatePlayerTextDraw(playerid, 259.000000, 324.000000, "ld_beat:chit");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][1], 4);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][1], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][1], 11.500000, 12.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][1], 1);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][1], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][1], 1);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][1], 471604479);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][1], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][1], 50);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][1], 1);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][1], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][1], 0);
-
-	ProgressoBar[playerid][2] = CreatePlayerTextDraw(playerid, 322.000000, 330.000000, "_");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][2], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][2], 0.600000, 4.649991);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][2], 298.500000, 108.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][2], 1);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][2], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][2], 2);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][2], -1);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][2], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][2], 471604479);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][2], 1);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][2], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][2], 0);
-
-	ProgressoBar[playerid][3] = CreatePlayerTextDraw(playerid, 259.000000, 366.000000, "ld_beat:chit");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][3], 4);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][3], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][3], 11.500000, 12.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][3], 1);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][3], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][3], 1);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][3], 471604479);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][3], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][3], 50);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][3], 1);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][3], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][3], 0);
-
-	ProgressoBar[playerid][4] = CreatePlayerTextDraw(playerid, 372.000000, 324.000000, "ld_beat:chit");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][4], 4);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][4], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][4], 11.500000, 12.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][4], 1);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][4], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][4], 1);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][4], 471604479);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][4], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][4], 50);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][4], 1);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][4], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][4], 0);
-
-	ProgressoBar[playerid][5] = CreatePlayerTextDraw(playerid, 371.000000, 367.000000, "ld_beat:chit");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][5], 4);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][5], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][5], 12.000000, 12.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][5], 1);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][5], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][5], 1);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][5], 471604479);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][5], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][5], 50);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][5], 1);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][5], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][5], 0);
-
-	ProgressoBar[playerid][6] = CreatePlayerTextDraw(playerid, 325.000000, 333.000000, "_");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][6], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][6], 0.600000, 4.049987);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][6], 298.500000, 107.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][6], 1);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][6], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][6], 2);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][6], -1);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][6], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][6], 471604479);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][6], 1);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][6], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][6], 0);
-
-	ProgressoBar[playerid][7] = CreatePlayerTextDraw(playerid, 275.000000, 348.000000, "0%");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][7], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][7], 0.195832, 1.000000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][7], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][7], 0);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][7], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][7], 2);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][7], -18);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][7], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][7], 50);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][7], 0);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][7], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][7], 0);
-
-	ProgressoBar[playerid][8] = CreatePlayerTextDraw(playerid, 287.000000, 348.000000, "Progresso");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][8], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][8], 0.195832, 1.000000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][8], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][8], 0);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][8], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][8], 1);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][8], -18);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][8], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][8], 50);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][8], 0);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][8], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][8], 0);
-
-	ProgressoBar[playerid][9] = CreatePlayerTextDraw(playerid, 268.000000, 338.000000, "Roubando cofre...");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][9], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][9], 0.195832, 1.000000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][9], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][9], 0);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][9], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][9], 1);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][9], -1094795538);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][9], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][9], 50);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][9], 0);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][9], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][9], 0);
-
-	ProgressoBar[playerid][10] = CreatePlayerTextDraw(playerid, 345.000000, 349.000000, "ld_beat:chit");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][10], 4);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][10], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][10], 10.000000, 10.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][10], 1);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][10], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][10], 1);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][10], -18);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][10], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][10], -18);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][10], 1);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][10], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][10], 0);
-
-	ProgressoBar[playerid][11] = CreatePlayerTextDraw(playerid, 346.000000, 350.000000, "ld_beat:chit");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][11], 4);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][11], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][11], 8.000000, 8.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][11], 1);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][11], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][11], 1);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][11], 471604479);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][11], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][11], -18);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][11], 1);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][11], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][11], 0);
-
-	ProgressoBar[playerid][12] = CreatePlayerTextDraw(playerid, 349.000000, 350.000000, "L");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][12], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][12], 0.145833, 0.649999);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][12], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][12], 0);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][12], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][12], 1);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][12], -18);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][12], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][12], 50);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][12], 0);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][12], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][12], 0);
-
-	ProgressoBar[playerid][13] = CreatePlayerTextDraw(playerid, 367.000000, 350.000000, "00:00:40");
-	PlayerTextDrawFont(playerid, ProgressoBar[playerid][13], 1);
-	PlayerTextDrawLetterSize(playerid, ProgressoBar[playerid][13], 0.141665, 0.699999);
-	PlayerTextDrawTextSize(playerid, ProgressoBar[playerid][13], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, ProgressoBar[playerid][13], 0);
-	PlayerTextDrawSetShadow(playerid, ProgressoBar[playerid][13], 0);
-	PlayerTextDrawAlignment(playerid, ProgressoBar[playerid][13], 2);
-	PlayerTextDrawColor(playerid, ProgressoBar[playerid][13], -1094795538);
-	PlayerTextDrawBackgroundColor(playerid, ProgressoBar[playerid][13], 255);
-	PlayerTextDrawBoxColor(playerid, ProgressoBar[playerid][13], 50);
-	PlayerTextDrawUseBox(playerid, ProgressoBar[playerid][13], 0);
-	PlayerTextDrawSetProportional(playerid, ProgressoBar[playerid][13], 1);
-	PlayerTextDrawSetSelectable(playerid, ProgressoBar[playerid][13], 0);
-	ProgressoBar_pp[playerid][0] = CreatePlayerProgressBar(playerid, 270.000000, 366.000000, 108.000000, 1.000000, 1804477439, 100.000000, 0);
-	SetPlayerProgressBarValue(playerid, ProgressoBar_pp[playerid][0], 0);
-	
 	Registration_PTD[playerid][0] = CreatePlayerTextDraw(playerid, 269.6997, 149.4332, "LD_SPAC:white"); // ïóñòî
 	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][0], 99.0000, 158.8589);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][0], 1);
@@ -8499,7 +8330,6 @@ stock ZerarDados(playerid)
 	ltumba[playerid] = false;
 	RecentlyShot[playerid] = 0;
 	InventarioAberto[playerid] = 0;
-	pValueBar[playerid] = 0;
 	SetPlayerColor(playerid, 0xFFFFFFFF);
 	SetPlayerSkillLevel(playerid,WEAPONSKILL_PISTOL,200);
 	SetPlayerSkillLevel(playerid,WEAPONSKILL_MICRO_UZI,200);
@@ -9621,32 +9451,10 @@ public OnPlayerEnterCheckpoint(playerid)
 	}
 	if(Covaconcerto[playerid] == true) 
 	{ 
-		new covastr[500];
-		new dincova = randomEx(0,300);
-		PlayerInfo[playerid][pDinheiro] += dincova;
-		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 1, 1, 0, 1, 0, 1);
-		SetTimerEx("AnimyTogle", 10200, false, "i", playerid);  
-		Covaconcerto[playerid] = false;
-		DisablePlayerCheckpoint(playerid);   
-		if(PlayerInfo[playerid][pVIP] == 0)
-		{
-			PlayerInfo[playerid][pDinheiro] += dincova;
-			format(covastr,sizeof(covastr),"Ganhou %i concertando essa cova.", dincova);
-			notificacao(playerid, "TRABALHO", covastr, ICONE_EMPREGO); 
-		}   
-		if(PlayerInfo[playerid][pVIP] == 2)
-		{
-			PlayerInfo[playerid][pDinheiro] += dincova*2;
-			format(covastr,sizeof(covastr),"Ganhou %i concertando essa cova.", dincova*2);
-			notificacao(playerid, "TRABALHO", covastr, ICONE_EMPREGO); 
-		}
-		if(PlayerInfo[playerid][pVIP] == 3)
-		{
-			PlayerInfo[playerid][pDinheiro] += dincova*2;
-			format(covastr,sizeof(covastr),"Ganhou %i concertando essa cova.", dincova*2);
-			notificacao(playerid, "TRABALHO", covastr, ICONE_EMPREGO); 
-		}
+		DisablePlayerCheckpoint(playerid); 
+		TogglePlayerControllable(playerid, 0);
+		CreateProgress(playerid, "Cova","Concertando cova...", 100);
 	}
 	if(ltumba[playerid] == true)
 	{
@@ -9654,36 +9462,27 @@ public OnPlayerEnterCheckpoint(playerid)
 		{
 			if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 442)
 			{
-				CargoTumba[playerid] = 1;
-				DisablePlayerCheckpoint(playerid);
-				SetPlayerCheckpoint(playerid, 934.1115,-1103.3857,24.3118, 10);
+				DisablePlayerCheckpoint(playerid); 
 				TogglePlayerControllable(playerid, 0);
-				SetTimerEx("AnimyTogle2", 10200, false, "i", playerid);
-				notificacao(playerid, "TRABALHO", "Pegou uma tumba agora volte ao cemiterio.", ICONE_EMPREGO);
+				CreateProgress(playerid, "RotaCova1","Colocando cadaver...", 100);
 			}
 		}
 		if(IsPlayerInRangeOfPoint(playerid, 10.0, 1609.8369,1823.2799,10.5249))
 		{
 			if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 442)
 			{
-				CargoTumba[playerid] = 2;
-				DisablePlayerCheckpoint(playerid);
-				SetPlayerCheckpoint(playerid, 934.1115,-1103.3857,24.3118, 10);
+				DisablePlayerCheckpoint(playerid); 
 				TogglePlayerControllable(playerid, 0);
-				SetTimerEx("AnimyTogle2", 10200, false, "i", playerid);
-				notificacao(playerid, "TRABALHO", "Pegou uma tumba agora volte ao cemiterio.", ICONE_EMPREGO);
+				CreateProgress(playerid, "RotaCova2","Colocando cadaver...", 100);
 			}
 		}
 		if(IsPlayerInRangeOfPoint(playerid, 10.0, -2590.4451,643.4471,14.1566))
 		{
 			if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 442)
 			{
-				CargoTumba[playerid] = 3;
-				DisablePlayerCheckpoint(playerid);
-				SetPlayerCheckpoint(playerid, 934.1115,-1103.3857,24.3118, 10);
+				DisablePlayerCheckpoint(playerid); 
 				TogglePlayerControllable(playerid, 0);
-				SetTimerEx("AnimyTogle2", 10200, false, "i", playerid);
-				notificacao(playerid, "TRABALHO", "Pegou uma tumba agora volte ao cemiterio.", ICONE_EMPREGO);
+				CreateProgress(playerid, "RotaCova3","Colocando cadaver...", 100);
 			}
 		}
 	}
@@ -11143,6 +10942,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	if(newkeys == KEY_SECONDARY_ATTACK)
 	{
 		cmd_pegaritem(playerid);
+		cmd_ltumba(playerid);
 		new Inv[5000], Nick[5000], orgid = GetPlayerOrg(playerid);
 		for(new i; i < MAX_SLOTMACHINE; i++)
 		{
@@ -11360,7 +11160,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return notificacao(playerid, "INFO", "Ja possui um emprego /sairemprego.", ICONE_ERRO);
 			else
 			{
-				if(GetPlayerScore(playerid) < 1) 		return notificacao(playerid, "ERRO", "Nao possui 1 level.", ICONE_ERRO);
 				PlayerInfo[playerid][pProfissao] = 2;
 				notificacao(playerid, "EXITO", "Aceitou em emprego novo.", ICONE_CERTO);
 				MissaoPlayer[playerid][MISSAO3] = 1;
@@ -11371,7 +11170,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return notificacao(playerid, "INFO", "Ja possui um emprego /sairemprego.", ICONE_ERRO);
 			if(!CheckInventario2(playerid, 1854)) 	return notificacao(playerid, "ERRO", "Nao tem Licenca B.", ICONE_ERRO);
 			if(!CheckInventario2(playerid, 19792)) 	return notificacao(playerid, "ERRO", "Nao possui carteira de trabalho.", ICONE_ERRO);
-			if(GetPlayerScore(playerid) < 2) 		return notificacao(playerid, "ERRO", "Nao possui 2 leveis", ICONE_ERRO);
 			else
 			{
 				PlayerInfo[playerid][pProfissao] = 3;
@@ -11403,7 +11201,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{
 				if(!CheckInventario2(playerid, 1855)) return notificacao(playerid, "ERRO", "Nao possui Licenca C", ICONE_ERRO);
 				if(!CheckInventario2(playerid, 19792)) 	return notificacao(playerid, "ERRO", "Nao possui carteira de trabalho.", ICONE_ERRO);
-				if(GetPlayerScore(playerid) < 2) 		return notificacao(playerid, "ERRO", "Nao possui 2 leveis", ICONE_ERRO);
 				PlayerInfo[playerid][pProfissao] = 4;
 				notificacao(playerid, "EXITO", "Aceitou em emprego novo.", ICONE_CERTO);
 				MissaoPlayer[playerid][MISSAO2] = 1;
@@ -11415,7 +11212,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			else
 			{
 				if(!CheckInventario2(playerid, 1854)) return notificacao(playerid, "ERRO", "Nao possui Licenca B", ICONE_ERRO);
-				if(GetPlayerScore(playerid) < 2) 		return notificacao(playerid, "ERRO", "Nao possui 2 leveis", ICONE_ERRO);
 				PlayerInfo[playerid][pProfissao] = 5;
 				notificacao(playerid, "EXITO", "Aceitou em emprego novo.", ICONE_CERTO);
 				MissaoPlayer[playerid][MISSAO3] = 1;
@@ -14418,6 +14214,7 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 
 public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 {
+	SetPlayerPos(playerid, fX,fY,fZ);
 	return 1;
 }
 
@@ -15190,14 +14987,6 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 }
 
 //                          COMANDOS
-CMD:testeinc(playerid,params[]){
-	new title[128],tempo;
-	if(sscanf(params,"s[64]d",title,tempo)) return SendClientMessage(playerid,-1,"Use /testeic [titulo] [tempo]");
-	CreateProgress(playerid, title,title,tempo);
-	SendClientMessage(playerid,-1,"Teste iniciado");
-	return 1;
-}
-
 
 CMD:ajuda(playerid, params[])
 {
