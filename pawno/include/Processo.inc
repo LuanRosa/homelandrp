@@ -10,11 +10,12 @@
 
 enum ProgressInfo{
 	p_callback[32],
+	p_title[64],
 	p_time,
 	p_timer,
 	Float:p_percent
 }
-new Progress_Info[MAX_PLAYERS][ProgressInfo], PlayerText:ProgressoBar[MAX_PLAYERS][14],PlayerBar:ProgressoBar_pp[MAX_PLAYERS][1];
+new Progress_Info[MAX_PLAYERS][ProgressInfo], PlayerText:ProgressoBar[MAX_PLAYERS][14],PlayerBar:ProgressoBar_pp[MAX_PLAYERS][1],Reloginho[MAX_PLAYERS];
 
 #define CallProg::%0(%1) forward %0(%1); public %0(%1)
 
@@ -24,15 +25,16 @@ new Progress_Info[MAX_PLAYERS][ProgressInfo], PlayerText:ProgressoBar[MAX_PLAYER
 	forward Progress_%0(%1,Float:%2); public Progress_%0(%1,Float:%2)
 
 stock CreateProgress(playerid, callback[],title[], time = 1000){
-	new str[128];
+	new string[128];
 	Progress_Info[playerid][p_percent] = 0;
-	format(Progress_Info[playerid][p_callback], 32, "Progress_%s", callback);
-	Progress_Info[playerid][p_time] = time;
-	format(str,sizeof(str),"%s",title);
-	PlayerTextDrawSetString(playerid, ProgressoBar[playerid][9], str);
-	SetPVarInt(playerid, "Temp", gettime()+time);
-
+	Reloginho[playerid] = 0;
 	CreateTDProgress(playerid);
+	format(Progress_Info[playerid][p_callback], 32, "Progress_%s", callback);
+	format(string,sizeof(string),"%s",title);
+	PlayerTextDrawSetString(playerid, ProgressoBar[playerid][9], string);
+	PlayerTextDrawShow(playerid, ProgressoBar[playerid][9]);
+	Progress_Info[playerid][p_time] = time;
+	Reloginho[playerid] = gettime()+(time / 10);
 
 	Progress_Info[playerid][p_timer] = SetTimerEx("UpdateProgress", Progress_Info[playerid][p_time], true, "i", playerid);
 	return 1;
@@ -45,17 +47,15 @@ CallProg:: UpdateProgress(playerid)
 	{
 		return KillProgress(playerid);
 	}
-
-	new string[10]; 
-	format(string, sizeof(string), "%d%", Progress_Info[playerid][p_percent]);
-	PlayerTextDrawSetString(playerid, ProgressoBar[playerid][7], string);
-	format(string, sizeof(string), "%s", ConvertTime(GetPVarInt(playerid, "Temp")-gettime()));
-	PlayerTextDrawSetString(playerid, ProgressoBar[playerid][13], string);
-
+	new string[80];
 	Progress_Info[playerid][p_percent] += 1; //(100 / Progress_Info[playerid][p_percent]); //
-	SetPlayerProgressBarValue(playerid, ProgressoBar_pp[playerid][0], Progress_Info[playerid][p_percent]);
-	PlayerTextDrawShow(playerid, PlayerTD[playerid][7]);
-	PlayerTextDrawShow(playerid, PlayerTD[playerid][13]);
+	SetPlayerProgressBarValue(playerid, ProgressoBar_pp[playerid][0], Progress_Info[playerid][p_percent]); 
+	format(string, sizeof(string), "%.0f%", Progress_Info[playerid][p_percent]);
+	PlayerTextDrawSetString(playerid, ProgressoBar[playerid][7], string);
+	format(string, sizeof(string), "%s", ConvertTime(Reloginho[playerid]-gettime()));
+	PlayerTextDrawSetString(playerid, ProgressoBar[playerid][13], string);
+	PlayerTextDrawShow(playerid, ProgressoBar[playerid][7]);
+	PlayerTextDrawShow(playerid, ProgressoBar[playerid][13]);
 	
 	CallLocalFunction(Progress_Info[playerid][p_callback], "df", playerid, Progress_Info[playerid][p_percent]);
 	return 1;
@@ -307,7 +307,7 @@ ConvertTime(number)
     }
     else
     {
-        format(string, 100, "%02d:%02d", mins, secs);
+        format(string, 100, "00:%02d:%02d", mins, secs);
     }
     return string;
 }

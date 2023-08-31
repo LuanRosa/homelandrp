@@ -21,6 +21,7 @@
 #include 		< 		notificacao	 	>
 #include 		< 		enterfix 		>
 #include		<		progress2		>
+#include		<		processo		>
 
 #define CallBack::%0(%1) 		forward %0(%1);\
 							public %0(%1)
@@ -572,8 +573,6 @@ new Text:Textdraw0,
 	Text:Textdraw1;
 new PlayerText:HudServer[MAX_PLAYERS][10];
 new PlayerText:Registration_PTD[MAX_PLAYERS][23];
-new PlayerText:ProgressoBar[MAX_PLAYERS][14];
-new PlayerBar:ProgressoBar_pp[MAX_PLAYERS][1];
 new pValueBar[MAX_PLAYERS],TimerBar[MAX_PLAYERS];
 
 //                          VARIAVEIS DA SLOTS
@@ -3810,15 +3809,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 			{
 				cmd_inventario(playerid);
-				SetTimerEx("Termino",20000, false, "i",playerid);
-				for(i = 0; i < 14; i ++)
-				{
-					PlayerTextDrawShow(playerid, ProgressoBar[playerid][i]);
-					format(str,sizeof(str),"Pescando...");
-					PlayerTextDrawSetString(playerid, ProgressoBar[playerid][11],str);
-				}
-				ShowPlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
-				TimerBar[playerid] = SetTimerEx("tempoprogress", 200, true, "d", playerid);
+				CreateProgress(playerid, "Pesca","Pescando...", 900);
 				SetTimerEx("Habilitar", 22000, false, "i",playerid);
 				TogglePlayerControllable(playerid, 0);
 				UsouCMD[playerid] = true;	
@@ -15199,6 +15190,14 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 }
 
 //                          COMANDOS
+CMD:testeinc(playerid,params[]){
+	new title[128],tempo;
+	if(sscanf(params,"s[64]d",title,tempo)) return SendClientMessage(playerid,-1,"Use /testeic [titulo] [tempo]");
+	CreateProgress(playerid, title,title,tempo);
+	SendClientMessage(playerid,-1,"Teste iniciado");
+	return 1;
+}
+
 
 CMD:ajuda(playerid, params[])
 {
