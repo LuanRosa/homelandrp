@@ -71,7 +71,6 @@ stock KillProgress(playerid)
 	KillTimer(Progress_Info[playerid][p_timer]);
 	Progress_Info[playerid][p_time] = 18;
 	Progress_Info[playerid][p_percent] = 0;
-	SetPVarInt(playerid, "Temp", gettime());
 	return 1;
 }
 

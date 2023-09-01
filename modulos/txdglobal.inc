@@ -226,36 +226,6 @@ CarregarTxdGlobal()
 	TextDrawColor(Textdraw1, 1162167807);
 	TextDrawSetOutline(Textdraw1, 1);
 	TextDrawSetProportional(Textdraw1, 1);
-	//
-	TextVelocimetro[0] = TextDrawCreate(183.133331, 375.766021, "km/h");
-	TextDrawLetterSize(TextVelocimetro[0], 0.269660, 1.564997);
-	TextDrawAlignment(TextVelocimetro[0], 1);
-	TextDrawColor(TextVelocimetro[0], -5963521);
-	TextDrawSetShadow(TextVelocimetro[0], 0);
-	TextDrawSetOutline(TextVelocimetro[0], 1);
-	TextDrawBackgroundColor(TextVelocimetro[0], 255);
-	TextDrawFont(TextVelocimetro[0], 2);
-	TextDrawSetProportional(TextVelocimetro[0], 1);
- 
-	TextVelocimetro[1] = TextDrawCreate(167.109069, 389.849273, "Health~n~");
-	TextDrawLetterSize(TextVelocimetro[1], 0.170423, 1.319998);
-	TextDrawTextSize(TextVelocimetro[1], -6.000000, 0.000000);
-	TextDrawAlignment(TextVelocimetro[1], 1);
-	TextDrawColor(TextVelocimetro[1], -1);
-	TextDrawSetShadow(TextVelocimetro[1], 0);
-	TextDrawBackgroundColor(TextVelocimetro[1], 255);
-	TextDrawFont(TextVelocimetro[1], 2);
-	TextDrawSetProportional(TextVelocimetro[1], 1);
- 
-	TextVelocimetro[2] = TextDrawCreate(218.614898, 390.382537, "LITROS");
-	TextDrawLetterSize(TextVelocimetro[2], 0.198534, 1.267498);
-	TextDrawTextSize(TextVelocimetro[2], -6.000000, 0.000000);
-	TextDrawAlignment(TextVelocimetro[2], 1);
-	TextDrawColor(TextVelocimetro[2], -1);
-	TextDrawSetShadow(TextVelocimetro[2], 0);
-	TextDrawBackgroundColor(TextVelocimetro[2], 255);
-	TextDrawFont(TextVelocimetro[2], 2);
-	TextDrawSetProportional(TextVelocimetro[2], 1);
 
 	TDEditor_TD[0] = TextDrawCreate(321.999969, 143.125915, "box");
 	TextDrawLetterSize(TDEditor_TD[0], 0.000000, 0.966665);
@@ -930,5 +900,118 @@ CarregarTxdGlobal()
 	TextDrawBackgroundColor(TDEditor_TD[65], 255);
 	TextDrawFont(TDEditor_TD[65], 3);
 	TextDrawSetProportional(TDEditor_TD[65], 1);
+
+	//Nova logomarca
+	Logo[0] = TextDrawCreate(314.000000, 9.000000, "_");
+	TextDrawFont(Logo[0], 1);
+	TextDrawLetterSize(Logo[0], 0.583333, 5.650000);
+	TextDrawTextSize(Logo[0], 290.500000, 27.500000);
+	TextDrawSetOutline(Logo[0], 1);
+	TextDrawSetShadow(Logo[0], 0);
+	TextDrawAlignment(Logo[0], 2);
+	TextDrawColor(Logo[0], -1);
+	TextDrawBackgroundColor(Logo[0], 255);
+	TextDrawBoxColor(Logo[0], -65468);
+	TextDrawUseBox(Logo[0], 1);
+	TextDrawSetProportional(Logo[0], 1);
+	TextDrawSetSelectable(Logo[0], 0);
+
+	Logo[1] = TextDrawCreate(314.000000, 11.000000, "_");
+	TextDrawFont(Logo[1], 1);
+	TextDrawLetterSize(Logo[1], 0.583333, 5.199998);
+	TextDrawTextSize(Logo[1], 290.500000, 24.000000);
+	TextDrawSetOutline(Logo[1], 1);
+	TextDrawSetShadow(Logo[1], 0);
+	TextDrawAlignment(Logo[1], 2);
+	TextDrawColor(Logo[1], -1);
+	TextDrawBackgroundColor(Logo[1], 255);
+	TextDrawBoxColor(Logo[1], 100);
+	TextDrawUseBox(Logo[1], 1);
+	TextDrawSetProportional(Logo[1], 1);
+	TextDrawSetSelectable(Logo[1], 0);
+
+	Logo[2] = TextDrawCreate(305.000000, 6.000000, "B");
+	TextDrawFont(Logo[2], 1);
+	TextDrawLetterSize(Logo[2], 0.470833, 2.599999);
+	TextDrawTextSize(Logo[2], 400.000000, 17.000000);
+	TextDrawSetOutline(Logo[2], 0);
+	TextDrawSetShadow(Logo[2], 0);
+	TextDrawAlignment(Logo[2], 2);
+	TextDrawColor(Logo[2], -65436);
+	TextDrawBackgroundColor(Logo[2], 255);
+	TextDrawBoxColor(Logo[2], 50);
+	TextDrawUseBox(Logo[2], 0);
+	TextDrawSetProportional(Logo[2], 1);
+	TextDrawSetSelectable(Logo[2], 0);
+
+	Logo[3] = TextDrawCreate(320.000000, 24.000000, "C");
+	TextDrawFont(Logo[3], 3);
+	TextDrawLetterSize(Logo[3], 0.604166, 2.049999);
+	TextDrawTextSize(Logo[3], 400.000000, 17.000000);
+	TextDrawSetOutline(Logo[3], 0);
+	TextDrawSetShadow(Logo[3], 0);
+	TextDrawAlignment(Logo[3], 2);
+	TextDrawColor(Logo[3], -65436);
+	TextDrawBackgroundColor(Logo[3], 255);
+	TextDrawBoxColor(Logo[3], 50);
+	TextDrawUseBox(Logo[3], 0);
+	TextDrawSetProportional(Logo[3], 1);
+	TextDrawSetSelectable(Logo[3], 0);
+
+	Logo[4] = TextDrawCreate(308.000000, 24.000000, "C");
+	TextDrawFont(Logo[4], 3);
+	TextDrawLetterSize(Logo[4], -0.583333, 2.049999);
+	TextDrawTextSize(Logo[4], 400.000000, 17.000000);
+	TextDrawSetOutline(Logo[4], 0);
+	TextDrawSetShadow(Logo[4], 0);
+	TextDrawAlignment(Logo[4], 2);
+	TextDrawColor(Logo[4], -65436);
+	TextDrawBackgroundColor(Logo[4], 255);
+	TextDrawBoxColor(Logo[4], 50);
+	TextDrawUseBox(Logo[4], 0);
+	TextDrawSetProportional(Logo[4], 1);
+	TextDrawSetSelectable(Logo[4], 0);
+
+	Logo[5] = TextDrawCreate(314.000000, 38.000000, "ADA");
+	TextDrawFont(Logo[5], 1);
+	TextDrawLetterSize(Logo[5], 0.408333, 2.599999);
+	TextDrawTextSize(Logo[5], 400.000000, 17.000000);
+	TextDrawSetOutline(Logo[5], 0);
+	TextDrawSetShadow(Logo[5], 0);
+	TextDrawAlignment(Logo[5], 2);
+	TextDrawColor(Logo[5], -65436);
+	TextDrawBackgroundColor(Logo[5], 255);
+	TextDrawBoxColor(Logo[5], 50);
+	TextDrawUseBox(Logo[5], 0);
+	TextDrawSetProportional(Logo[5], 1);
+	TextDrawSetSelectable(Logo[5], 0);
+
+	Logo[6] = TextDrawCreate(315.000000, 4.000000, "A");
+	TextDrawFont(Logo[6], 1);
+	TextDrawLetterSize(Logo[6], 0.470833, 2.599999);
+	TextDrawTextSize(Logo[6], 400.000000, 17.000000);
+	TextDrawSetOutline(Logo[6], 0);
+	TextDrawSetShadow(Logo[6], 0);
+	TextDrawAlignment(Logo[6], 2);
+	TextDrawColor(Logo[6], -65436);
+	TextDrawBackgroundColor(Logo[6], 255);
+	TextDrawBoxColor(Logo[6], 50);
+	TextDrawUseBox(Logo[6], 0);
+	TextDrawSetProportional(Logo[6], 1);
+	TextDrawSetSelectable(Logo[6], 0);
+
+	Logo[7] = TextDrawCreate(324.000000, 6.000000, "I");
+	TextDrawFont(Logo[7], 1);
+	TextDrawLetterSize(Logo[7], 0.470833, 2.599999);
+	TextDrawTextSize(Logo[7], 400.000000, 17.000000);
+	TextDrawSetOutline(Logo[7], 0);
+	TextDrawSetShadow(Logo[7], 0);
+	TextDrawAlignment(Logo[7], 2);
+	TextDrawColor(Logo[7], -65436);
+	TextDrawBackgroundColor(Logo[7], 255);
+	TextDrawBoxColor(Logo[7], 100);
+	TextDrawUseBox(Logo[7], 0);
+	TextDrawSetProportional(Logo[7], 1);
+	TextDrawSetSelectable(Logo[7], 0);
 	print("[Arquivos Load] Todos as textdraws globais foram carregados.");
 }

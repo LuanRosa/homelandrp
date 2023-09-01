@@ -255,6 +255,7 @@ enum
 enum pInfo
 {
 	pSenha[24],
+	IDF,
 	pSkin,
 	pDinheiro,
 	pBanco,
@@ -568,6 +569,7 @@ new PlayerText:CopGuns[MAX_PLAYERS][6];
 new Text:Textdraw0,
 	Text:Textdraw1;
 new PlayerText:HudServer[MAX_PLAYERS][10];
+new Text:Logo[8];
 new PlayerText:Registration_PTD[MAX_PLAYERS][23];
 
 //                          VARIAVEIS DA SLOTS
@@ -655,18 +657,19 @@ new bool:Cargase[MAX_PLAYERS] = false,
 	Carregou[MAX_PLAYERS];
 new ocupadodemais[MAX_PLAYERS];
 new RepairCar[MAX_PLAYERS];
+new ProxID;
 
-new Text:TextVelocimetro[3];
-new PlayerText:TextVelocimetroP[MAX_PLAYERS][4];
+// velocimetro //
+new TimerVelo[MAX_PLAYERS];
+new mostrandovelo[MAX_PLAYERS];
+new PlayerText:VeloC[MAX_PLAYERS][60];
 
+//Tela de carregamento
 new CarregandoTelaLogin[MAX_PLAYERS];
 new TimerLogin[MAX_PLAYERS];
-new Text:loadTela1;
-new Text:loadTela2;
-new Text:loadTela3;
-new Text:loadTela4;
-new Text:loadTela5;
-new PlayerText:loadTela6[MAX_PLAYERS];
+new Text:Loadsc[17];
+new PlayerText:Loadsc_p[MAX_PLAYERS][1];
+new PlayerBar:Loadsc_b[MAX_PLAYERS][1];
 
 //                          FLOATS E LOCAIS DEFINIDOS
 
@@ -1532,6 +1535,17 @@ CallBack::AntiSpam(playerid)
 	return 1;
 }
 
+CallBack::Attplayer(playerid){
+	new str[100];
+	if(PlayerInfo[playerid][pAdmin] >= 1){
+		format(str,sizeof(str),"[STAFF]\n%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
+	}else{
+		format(str,sizeof(str),"%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
+	}
+	SetPlayerChatBubble(playerid, str, 0xFFFFFFFF, 8.0, 20000);
+	return true;
+}
+
 CallBack::attloginname(playerid)
 {
 	new stringg[50];
@@ -1643,22 +1657,19 @@ CallBack::mortoxx(playerid)
 
 CallBack::mostrarTelaLogin(playerid)
 {
-	if(CarregandoTelaLogin[playerid] < 101)
-	{
+	if(CarregandoTelaLogin[playerid] < 99){
 	    CarregandoTelaLogin[playerid]++;
 	    new newtext[5];
 	    format(newtext, sizeof(newtext), "%d%", CarregandoTelaLogin[playerid]);
-	    PlayerTextDrawSetString(playerid, loadTela6[playerid], newtext);
-	    TimerLogin[playerid] = SetTimerEx("mostrarTelaLogin", 50, false, "d", playerid);
-	}
-	if(CarregandoTelaLogin[playerid] >= 101)
-	{
-	    TextDrawHideForPlayer(playerid, loadTela1);
-		TextDrawHideForPlayer(playerid, loadTela2);
-		TextDrawHideForPlayer(playerid, loadTela3);
-		TextDrawHideForPlayer(playerid, loadTela4);
-		TextDrawHideForPlayer(playerid, loadTela5);
-		PlayerTextDrawHide(playerid, loadTela6[playerid]);
+	    PlayerTextDrawSetString(playerid, Loadsc_p[playerid][0], newtext);
+		SetPlayerProgressBarValue(playerid, Loadsc_b[playerid][0], CarregandoTelaLogin[playerid]);
+	    TimerLogin[playerid] = SetTimerEx("mostrarTelaLogin", 100, false, "d", playerid);
+	}else{
+		for(new t=0;t<17;t++){
+			TextDrawHideForPlayer(playerid, Loadsc[t]);
+		}
+		DestroyPlayerProgressBar(playerid, Loadsc_b[playerid][0]);
+		PlayerTextDrawDestroy(playerid, Loadsc_p[playerid][0]);
 		KillTimer(TimerLogin[playerid]);
 		SetTimerEx("loginp", 40, false, "i", playerid);
 	}
@@ -1745,32 +1756,58 @@ CallBack::VelocimetroEx(playerid)
 {
 	if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 	{
-		new VeloDados[43];
- 		PlayerTextDrawSetPreviewModel(playerid, TextVelocimetroP[playerid][3], GetVehicleModel(GetPlayerVehicleID(playerid)));
-        new Float:VidaV; GetVehicleHealth(GetPlayerVehicleID(playerid), VidaV);
-        new Float:V1 = floatmul(VidaV, 100.0);
-        new Float:V2 = floatdiv(V1, 1000.0);
- 
-        format(VeloDados, sizeof(VeloDados), "%0.0f%s", V2, "%");
-        PlayerTextDrawSetString(playerid, TextVelocimetroP[playerid][1], VeloDados);
- 
-		format(VeloDados, sizeof(VeloDados), "%d", VelocidadeDoVeiculo(GetPlayerVehicleID(playerid)));
-		PlayerTextDrawSetString(playerid, TextVelocimetroP[playerid][0], VeloDados);
+		new engine, lights, alarm, doors, bonnet, boot, objective;
+		GetVehicleParamsEx(GetPlayerVehicleID(playerid), engine, lights, alarm, doors, bonnet, boot, objective);
 
-		format(VeloDados, sizeof(VeloDados), "%0.0f%s", Fuel[GetPlayerVehicleID(playerid)]);
-		PlayerTextDrawSetString(playerid, TextVelocimetroP[playerid][2], VeloDados);
- 
-     	SetTimerEx("VelocimetroEx", 50, false, "d", playerid);
-	}
-	else
-	{
-	    TextDrawHideForPlayer(playerid, TextVelocimetro[0]);
-		TextDrawHideForPlayer(playerid, TextVelocimetro[1]);
-		TextDrawHideForPlayer(playerid, TextVelocimetro[2]);
-		for(new t; t < 4; t++)
-		{
-		    PlayerTextDrawHide(playerid, TextVelocimetroP[playerid][t]);
+		if(engine == 1){
+			PlayerTextDrawColor(playerid, VeloC[playerid][31], 16711935); //bolinha verde
+   		}else{
+			PlayerTextDrawColor(playerid, VeloC[playerid][31], -16776961); //bolinha vermelha
 		}
+  		if(doors != 0 && VehicleLock[GetPlayerVehicleID(playerid)] != 0){
+			PlayerTextDrawColor(playerid, VeloC[playerid][56], 16711935);
+		}else{
+			PlayerTextDrawColor(playerid, VeloC[playerid][56], -16776961);
+   		}
+
+		if(Fuel[GetPlayerVehicleID(playerid)] >= 80){
+  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][14], 16711935);
+		}else{
+  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][14], -16776961);
+		}
+		if(Fuel[GetPlayerVehicleID(playerid)] >= 60){
+  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][15], 16711935);
+		}else{
+  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][15], -16776961);
+		}
+		if(Fuel[GetPlayerVehicleID(playerid)] >= 40){
+  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][16], 16711935);
+		}else{
+  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][16], -16776961);
+		}
+		if(Fuel[GetPlayerVehicleID(playerid)] >= 20){
+			PlayerTextDrawBoxColor(playerid, VeloC[playerid][17], 16711935);
+		}else{
+  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][17], -16776961);
+		}
+		if(Fuel[GetPlayerVehicleID(playerid)] < 20){
+ 			PlayerTextDrawBoxColor(playerid, VeloC[playerid][18], -65281); //amarelo critico
+		}else if(Fuel[GetPlayerVehicleID(playerid)] == 0){
+  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][18], -16776961);
+		}
+		new str[60];
+		format(str, sizeof(str), "%03d", VelocidadeDoVeiculo(GetPlayerVehicleID(playerid)));
+		PlayerTextDrawSetString(playerid, VeloC[playerid][58], str);
+		for(new t=0;t<60;t++){
+  			PlayerTextDrawShow(playerid,VeloC[playerid][t]);
+		}
+	}else{
+	    if(mostrandovelo[playerid] != 0){
+	    	for(new t=0;t<60;t++){
+  				PlayerTextDrawHide(playerid,VeloC[playerid][t]);
+			}
+		}
+		KillTimer(TimerVelo[playerid]);
 	}
 	return 1;
 }
@@ -5162,6 +5199,18 @@ CallBack::PlayerTextDraw( playerid )
 
 //                          STOCKS
 
+stock GetPlayerIdfixo(playerid) return PlayerInfo[playerid][IDF];
+stock GetIdfixo()
+{
+	new id;
+	ProxID ++;
+	id  = ProxID;
+	new File[150];format(File, sizeof(File), "IDs/ProxID.ini");
+	DOF2_SetInt(File,"ProxID",ProxID);
+	DOF2_SaveFile();
+	return id;
+}
+
 stock Timers(playerid)
 {
 	TimerFomebar[playerid] = SetTimerEx("FomeBar", minutos(5), true, "d", playerid);
@@ -5492,7 +5541,24 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][22], 1);
 	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][22], 0);
 
-	HudServer[playerid][0] = CreatePlayerTextDraw(playerid,288.000000, -1.000000, "BAIXADA");
+	//Loadscreen strings e progressbar
+	Loadsc_p[playerid][0] = CreatePlayerTextDraw(playerid, 438.000000, 271.000000, "100%");
+	PlayerTextDrawFont(playerid, Loadsc_p[playerid][0], 2);
+	PlayerTextDrawLetterSize(playerid, Loadsc_p[playerid][0], 0.208333, 1.300000);
+	PlayerTextDrawTextSize(playerid, Loadsc_p[playerid][0], 474.000000, -88.500000);
+	PlayerTextDrawSetOutline(playerid, Loadsc_p[playerid][0], 0);
+	PlayerTextDrawSetShadow(playerid, Loadsc_p[playerid][0], 0);
+	PlayerTextDrawAlignment(playerid, Loadsc_p[playerid][0], 2);
+	PlayerTextDrawColor(playerid, Loadsc_p[playerid][0], -1);
+	PlayerTextDrawBackgroundColor(playerid, Loadsc_p[playerid][0], 255);
+	PlayerTextDrawBoxColor(playerid, Loadsc_p[playerid][0], 50);
+	PlayerTextDrawUseBox(playerid, Loadsc_p[playerid][0], 0);
+	PlayerTextDrawSetProportional(playerid, Loadsc_p[playerid][0], 1);
+	PlayerTextDrawSetSelectable(playerid, Loadsc_p[playerid][0], 0);
+	Loadsc_b[playerid][0] = CreatePlayerProgressBar(playerid, 224.000000, 284.000000, 200.000000, -13.000000, -65281, 100.000000, 0);
+	SetPlayerProgressBarValue(playerid, Loadsc_b[playerid][0], 0);
+
+	HudServer[playerid][0] = CreatePlayerTextDraw(playerid,288.000000, -1.000000, "_"); //Logomarca antiga
 	PlayerTextDrawBackgroundColor(playerid,HudServer[playerid][0], 255);
 	PlayerTextDrawFont(playerid,HudServer[playerid][0], 1);
 	PlayerTextDrawLetterSize(playerid,HudServer[playerid][0], 0.519999, 3.300002);
@@ -5502,7 +5568,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetShadow(playerid,HudServer[playerid][0], 0);
 	PlayerTextDrawSetSelectable(playerid,HudServer[playerid][0], 0);
 
-	HudServer[playerid][1] = CreatePlayerTextDraw(playerid,293.000000, 22.000000, "- ROLEPLAY -");
+	HudServer[playerid][1] = CreatePlayerTextDraw(playerid,293.000000, 22.000000, "_"); //2
 	PlayerTextDrawBackgroundColor(playerid,HudServer[playerid][1], 255);
 	PlayerTextDrawFont(playerid,HudServer[playerid][1], 2);
 	PlayerTextDrawLetterSize(playerid,HudServer[playerid][1], 0.239999, 1.200003);
@@ -6393,49 +6459,647 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][5], 1);
 	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][5], 1);
 
-	TextVelocimetroP[playerid][0] = CreatePlayerTextDraw(playerid, 165.625427, 340.132507, "0");
-	PlayerTextDrawLetterSize(playerid, TextVelocimetroP[playerid][0], 0.762928, 4.335831);
-	PlayerTextDrawAlignment(playerid, TextVelocimetroP[playerid][0], 1);
-	PlayerTextDrawColor(playerid, TextVelocimetroP[playerid][0], -1);
-	PlayerTextDrawSetShadow(playerid, TextVelocimetroP[playerid][0], 0);
-	PlayerTextDrawSetOutline(playerid, TextVelocimetroP[playerid][0], -1);
-	PlayerTextDrawBackgroundColor(playerid, TextVelocimetroP[playerid][0], 255);
-	PlayerTextDrawFont(playerid, TextVelocimetroP[playerid][0], 2);
-	PlayerTextDrawSetProportional(playerid, TextVelocimetroP[playerid][0], 1);
- 
-	TextVelocimetroP[playerid][1] = CreatePlayerTextDraw(playerid, 198.868499, 389.932556, "100%");
-	PlayerTextDrawLetterSize(playerid, TextVelocimetroP[playerid][1], 0.170423, 1.319998);
-	PlayerTextDrawTextSize(playerid, TextVelocimetroP[playerid][1], -6.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, TextVelocimetroP[playerid][1], 1);
-	PlayerTextDrawColor(playerid, TextVelocimetroP[playerid][1], -1061109505);
-	PlayerTextDrawSetShadow(playerid, TextVelocimetroP[playerid][1], 0);
-	PlayerTextDrawSetOutline(playerid, TextVelocimetroP[playerid][1], 1);
-	PlayerTextDrawBackgroundColor(playerid, TextVelocimetroP[playerid][1], 255);
-	PlayerTextDrawFont(playerid, TextVelocimetroP[playerid][1], 2);
-	PlayerTextDrawSetProportional(playerid, TextVelocimetroP[playerid][1], 1);
- 
-	TextVelocimetroP[playerid][2] = CreatePlayerTextDraw(playerid, 249.142745, 390.166137, "100%~n~");
-	PlayerTextDrawLetterSize(playerid, TextVelocimetroP[playerid][2], 0.170423, 1.319998);
-	PlayerTextDrawTextSize(playerid, TextVelocimetroP[playerid][2], -6.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, TextVelocimetroP[playerid][2], 1);
-	PlayerTextDrawColor(playerid, TextVelocimetroP[playerid][2], -1061109505);
-	PlayerTextDrawSetShadow(playerid, TextVelocimetroP[playerid][2], 0);
-	PlayerTextDrawSetOutline(playerid, TextVelocimetroP[playerid][2], 1);
-	PlayerTextDrawBackgroundColor(playerid, TextVelocimetroP[playerid][2], 255);
-	PlayerTextDrawFont(playerid, TextVelocimetroP[playerid][2], 2);
-	PlayerTextDrawSetProportional(playerid, TextVelocimetroP[playerid][2], 1);
- 
-	TextVelocimetroP[playerid][3] = CreatePlayerTextDraw(playerid, 201.333175, 320.950012, "");
-	PlayerTextDrawTextSize(playerid, TextVelocimetroP[playerid][3], 90.000000, 90.000000);
-	PlayerTextDrawAlignment(playerid, TextVelocimetroP[playerid][3], 1);
-	PlayerTextDrawColor(playerid, TextVelocimetroP[playerid][3], -1);
-	PlayerTextDrawSetShadow(playerid, TextVelocimetroP[playerid][3], 0);
-    PlayerTextDrawBackgroundColor(playerid, TextVelocimetroP[playerid][3], 0);
-	PlayerTextDrawFont(playerid, TextVelocimetroP[playerid][3], 5);
-	PlayerTextDrawSetProportional(playerid, TextVelocimetroP[playerid][3], 0);
-	PlayerTextDrawSetPreviewModel(playerid, TextVelocimetroP[playerid][3], 562);
-	PlayerTextDrawSetPreviewRot(playerid, TextVelocimetroP[playerid][3], -10.000000, 0.000000, -7.000000, 1.000000);
-	PlayerTextDrawSetPreviewVehCol(playerid, TextVelocimetroP[playerid][3], -1, -1);
+	//VELOCIMETRO
+	VeloC[playerid][0] = CreatePlayerTextDraw(playerid, 595.007385, 364.416839, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][0], -0.001402, 4.130434);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][0], 590.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][0], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][0], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][0], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][0], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][0], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][0], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][0], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][0], 1);
+
+	VeloC[playerid][1] = CreatePlayerTextDraw(playerid, 590.622924, 356.249938, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][1], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][1], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][1], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][1], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][1], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][1], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][1], 0);
+
+	VeloC[playerid][2] = CreatePlayerTextDraw(playerid, 620.307739, 365.000213, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][2], -0.011242, 3.962932);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][2], 612.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][2], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][2], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][2], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][2], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][2], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][2], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][2], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][2], 1);
+
+	VeloC[playerid][3] = CreatePlayerTextDraw(playerid, 609.832275, 356.833282, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][3], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][3], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][3], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][3], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][3], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][3], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][3], 0);
+
+	VeloC[playerid][4] = CreatePlayerTextDraw(playerid, 595.476257, 364.416931, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][4], -0.002339, 3.757107);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][4], 614.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][4], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][4], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][4], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][4], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][4], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][4], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][4], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][4], 1);
+
+	VeloC[playerid][5] = CreatePlayerTextDraw(playerid, 590.622863, 400.583404, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][5], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][5], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][5], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][5], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][5], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][5], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][5], 0);
+
+	VeloC[playerid][6] = CreatePlayerTextDraw(playerid, 609.832275, 400.583404, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][6], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][6], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][6], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][6], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][6], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][6], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][6], 0);
+
+	VeloC[playerid][7] = CreatePlayerTextDraw(playerid, 600.161315, 362.083526, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][7], -0.003279, -0.011229);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][7], 612.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][7], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][7], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][7], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][7], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][7], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][7], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][7], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][7], 1);
+
+	VeloC[playerid][8] = CreatePlayerTextDraw(playerid, 598.755920, 404.083557, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][8], -0.000468, -0.063729);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][8], 612.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][8], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][8], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][8], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][8], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][8], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][8], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][8], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][8], 1);
+
+	VeloC[playerid][9] = CreatePlayerTextDraw(playerid, 603.909606, 372.583374, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][9], -0.003279, 0.068277);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][9], 604.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][9], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][9], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][9], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][9], -16776961);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][9], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][9], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][9], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][9], 1);
+
+	VeloC[playerid][10] = CreatePlayerTextDraw(playerid, 603.909606, 367.916717, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][10], -0.003745, 0.074110);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][10], 599.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][10], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][10], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][10], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][10], -16776961);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][10], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][10], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][10], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][10], 1);
+
+	VeloC[playerid][11] = CreatePlayerTextDraw(playerid, 609.063476, 367.916625, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][11], -0.003279, 0.068277);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][11], 604.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][11], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][11], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][11], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][11], -16776961);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][11], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][11], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][11], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][11], 1);
+
+	VeloC[playerid][12] = CreatePlayerTextDraw(playerid, 603.909545, 367.916625, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][12], 0.000000, -0.742551);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][12], 603.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][12], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][12], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][12], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][12], -16776961);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][12], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][12], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][12], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][12], 1);
+
+	VeloC[playerid][13] = CreatePlayerTextDraw(playerid, 607.189086, 357.999938, "s");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][13], 0.218213, 2.329164);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][13], -4.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][13], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][13], -16776961);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][13], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][13], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][13], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][13], 1);
+
+	VeloC[playerid][14] = CreatePlayerTextDraw(playerid, 603.909484, 385.416656, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][14], -0.001402, -0.649218);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][14], 604.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][14], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][14], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][14], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][14], -16776961);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][14], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][14], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][14], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][14], 1);
+
+	VeloC[playerid][15] = CreatePlayerTextDraw(playerid, 603.909484, 390.083312, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][15], -0.003279, -0.649218);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][15], 604.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][15], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][15], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][15], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][15], -16776961);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][15], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][15], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][15], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][15], 1);
+
+	VeloC[playerid][16] = CreatePlayerTextDraw(playerid, 603.909484, 394.749969, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][16], -0.003279, -0.649218);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][16], 604.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][16], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][16], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][16], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][16], -16776961);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][16], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][16], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][16], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][16], 1);
+
+	VeloC[playerid][17] = CreatePlayerTextDraw(playerid, 603.909362, 399.416656, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][17], -0.003279, -0.649218);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][17], 604.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][17], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][17], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][17], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][17], -16776961);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][17], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][17], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][17], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][17], 1);
+
+	VeloC[playerid][18] = CreatePlayerTextDraw(playerid, 603.909362, 404.083312, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][18], -0.003279, -0.649218);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][18], 604.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][18], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][18], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][18], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][18], 16711935);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][18], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][18], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][18], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][18], 1);
+
+	VeloC[playerid][19] = CreatePlayerTextDraw(playerid, 569.539306, 357.416564, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][19], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][19], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][19], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][19], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][19], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][19], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][19], 0);
+
+	VeloC[playerid][20] = CreatePlayerTextDraw(playerid, 573.923889, 365.583526, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][20], 0.017333, 0.181268);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][20], 569.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][20], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][20], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][20], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][20], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][20], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][20], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][20], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][20], 1);
+
+	VeloC[playerid][21] = CreatePlayerTextDraw(playerid, 579.378295, 357.416503, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][21], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][21], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][21], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][21], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][21], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][21], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][21], 0);
+
+	VeloC[playerid][22] = CreatePlayerTextDraw(playerid, 588.448242, 365.583496, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][22], -0.020145, 0.216268);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][22], 584.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][22], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][22], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][22], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][22], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][22], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][22], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][22], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][22], 1);
+
+	VeloC[playerid][23] = CreatePlayerTextDraw(playerid, 569.539123, 367.333007, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][23], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][23], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][23], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][23], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][23], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][23], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][23], 0);
+
+	VeloC[playerid][24] = CreatePlayerTextDraw(playerid, 579.846801, 367.333099, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][24], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][24], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][24], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][24], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][24], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][24], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][24], 0);
+
+	VeloC[playerid][25] = CreatePlayerTextDraw(playerid, 576.266906, 363.250152, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][25], -0.007027, -0.542064);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][25], 582.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][25], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][25], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][25], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][25], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][25], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][25], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][25], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][25], 1);
+
+	VeloC[playerid][26] = CreatePlayerTextDraw(playerid, 578.140808, 374.333404, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][26], -0.007027, -0.542064);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][26], 580.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][26], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][26], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][26], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][26], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][26], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][26], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][26], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][26], 1);
+
+	VeloC[playerid][27] = CreatePlayerTextDraw(playerid, 574.393005, 365.000091, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][27], -0.004215, 0.210435);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][27], 584.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][27], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][27], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][27], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][27], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][27], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][27], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][27], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][27], 1);
+
+	VeloC[playerid][28] = CreatePlayerTextDraw(playerid, 579.078002, 367.916778, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][28], -0.005621, -0.238729);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][28], 580.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][28], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][28], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][28], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][28], -1);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][28], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][28], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][28], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][28], 1);
+
+	VeloC[playerid][29] = CreatePlayerTextDraw(playerid, 577.672424, 369.083465, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][29], -0.004215, -0.536230);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][29], 579.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][29], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][29], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][29], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][29], -1);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][29], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][29], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][29], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][29], 1);
+
+	VeloC[playerid][30] = CreatePlayerTextDraw(playerid, 580.015075, 366.750061, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][30], -0.004215, -0.536230);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][30], 578.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][30], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][30], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][30], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][30], -1);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][30], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][30], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][30], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][30], 1);
+
+	VeloC[playerid][31] = CreatePlayerTextDraw(playerid, 583.126403, 368.499847, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][31], 5.000000, 7.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][31], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][31], -16776961);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][31], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][31], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][31], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][31], 0);
+
+	VeloC[playerid][32] = CreatePlayerTextDraw(playerid, 570.007751, 374.916564, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][32], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][32], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][32], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][32], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][32], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][32], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][32], 0);
+
+	VeloC[playerid][33] = CreatePlayerTextDraw(playerid, 576.734863, 384.250274, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][33], 0.017333, 0.181268);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][33], 568.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][33], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][33], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][33], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][33], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][33], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][33], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][33], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][33], 1);
+
+	VeloC[playerid][34] = CreatePlayerTextDraw(playerid, 579.846740, 374.916503, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][34], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][34], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][34], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][34], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][34], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][34], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][34], 0);
+
+	VeloC[playerid][35] = CreatePlayerTextDraw(playerid, 588.916748, 384.250183, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][35], -0.020145, 0.216268);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][35], 584.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][35], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][35], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][35], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][35], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][35], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][35], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][35], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][35], 1);
+
+	VeloC[playerid][36] = CreatePlayerTextDraw(playerid, 570.007629, 384.833007, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][36], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][36], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][36], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][36], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][36], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][36], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][36], 0);
+
+	VeloC[playerid][37] = CreatePlayerTextDraw(playerid, 579.846923, 385.416503, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][37], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][37], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][37], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][37], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][37], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][37], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][37], 0);
+
+	VeloC[playerid][38] = CreatePlayerTextDraw(playerid, 575.798400, 380.750091, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][38], -0.007027, -0.542064);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][38], 582.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][38], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][38], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][38], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][38], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][38], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][38], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][38], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][38], 1);
+
+	VeloC[playerid][39] = CreatePlayerTextDraw(playerid, 576.735351, 392.416778, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][39], -0.007027, -0.542064);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][39], 581.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][39], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][39], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][39], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][39], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][39], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][39], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][39], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][39], 1);
+
+	VeloC[playerid][40] = CreatePlayerTextDraw(playerid, 574.393005, 382.500091, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][40], -0.004215, 0.210435);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][40], 584.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][40], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][40], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][40], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][40], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][40], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][40], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][40], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][40], 1);
+
+	VeloC[playerid][41] = CreatePlayerTextDraw(playerid, 577.504028, 378.999938, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][41], 5.000000, 7.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][41], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][41], -1);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][41], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][41], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][41], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][41], 0);
+
+	VeloC[playerid][42] = CreatePlayerTextDraw(playerid, 575.161499, 384.249847, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][42], 9.000000, 7.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][42], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][42], -1);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][42], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][42], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][42], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][42], 0);
+
+	VeloC[playerid][43] = CreatePlayerTextDraw(playerid, 575.329589, 384.833465, "/");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][43], 0.605210, 0.503332);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][43], 11.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][43], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][43], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][43], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][43], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][43], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][43], 1);
+
+	VeloC[playerid][44] = CreatePlayerTextDraw(playerid, 582.657958, 385.999847, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][44], 5.000000, 7.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][44], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][44], -16776961);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][44], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][44], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][44], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][44], 0);
+
+	VeloC[playerid][45] = CreatePlayerTextDraw(playerid, 569.539306, 391.249938, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][45], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][45], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][45], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][45], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][45], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][45], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][45], 0);
+
+	VeloC[playerid][46] = CreatePlayerTextDraw(playerid, 577.671936, 401.166961, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][46], -0.002808, 0.187102);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][46], 568.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][46], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][46], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][46], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][46], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][46], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][46], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][46], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][46], 1);
+
+	VeloC[playerid][47] = CreatePlayerTextDraw(playerid, 579.846740, 391.249877, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][47], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][47], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][47], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][47], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][47], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][47], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][47], 0);
+
+	VeloC[playerid][48] = CreatePlayerTextDraw(playerid, 587.511169, 400.583465, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][48], 0.011242, 0.169602);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][48], 584.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][48], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][48], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][48], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][48], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][48], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][48], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][48], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][48], 1);
+
+	VeloC[playerid][49] = CreatePlayerTextDraw(playerid, 569.539123, 401.749633, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][49], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][49], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][49], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][49], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][49], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][49], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][49], 0);
+
+	VeloC[playerid][50] = CreatePlayerTextDraw(playerid, 579.846618, 401.749664, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][50], 9.000000, 8.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][50], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][50], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][50], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][50], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][50], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][50], 0);
+
+	VeloC[playerid][51] = CreatePlayerTextDraw(playerid, 575.798400, 397.083465, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][51], -0.007027, -0.542064);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][51], 582.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][51], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][51], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][51], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][51], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][51], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][51], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][51], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][51], 1);
+
+	VeloC[playerid][52] = CreatePlayerTextDraw(playerid, 576.735473, 408.750152, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][52], -0.007027, -0.542064);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][52], 583.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][52], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][52], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][52], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][52], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][52], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][52], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][52], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][52], 1);
+
+	VeloC[playerid][53] = CreatePlayerTextDraw(playerid, 573.924499, 399.416870, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][53], -0.004215, 0.210435);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][53], 584.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][53], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][53], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][53], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][53], 255);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][53], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][53], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][53], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][53], 1);
+
+	VeloC[playerid][54] = CreatePlayerTextDraw(playerid, 580.015197, 404.083282, "_");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][54], 0.005152, -0.442896);
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][54], 579.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][54], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][54], -1);
+	PlayerTextDrawUseBox(playerid, VeloC[playerid][54], 1);
+	PlayerTextDrawBoxColor(playerid, VeloC[playerid][54], -1);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][54], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][54], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][54], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][54], 1);
+
+	VeloC[playerid][55] = CreatePlayerTextDraw(playerid, 576.735351, 401.166717, "U");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][55], 0.261785, -0.832499);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][55], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][55], -1);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][55], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][55], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][55], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][55], 1);
+
+	VeloC[playerid][56] = CreatePlayerTextDraw(playerid, 583.126403, 402.333190, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, VeloC[playerid][56], 5.000000, 7.000000);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][56], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][56], 16711935);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][56], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][56], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][56], 4);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][56], 0);
+
+	VeloC[playerid][57] = CreatePlayerTextDraw(playerid, 526.135131, 356.250030, "(");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][57], 1.056861, 4.353330);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][57], 1);
+	PlayerTextDrawColor(playerid, VeloC[playerid][57], -16776961);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][57], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][57], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][57], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][57], 1);
+
+	VeloC[playerid][58] = CreatePlayerTextDraw(playerid, 563.616821, 374.333282, "00~w~0");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][58], 0.327378, 1.039999);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][58], 3);
+	PlayerTextDrawColor(playerid, VeloC[playerid][58], -128);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][58], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][58], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][58], 2);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][58], 1);
+
+	VeloC[playerid][59] = CreatePlayerTextDraw(playerid, 561.742919, 382.499877, "HM/H");
+	PlayerTextDrawLetterSize(playerid, VeloC[playerid][59], 0.251477, 0.684166);
+	PlayerTextDrawAlignment(playerid, VeloC[playerid][59], 3);
+	PlayerTextDrawColor(playerid, VeloC[playerid][59], -1);
+	PlayerTextDrawSetShadow(playerid, VeloC[playerid][59], 0);
+	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][59], 255);
+	PlayerTextDrawFont(playerid, VeloC[playerid][59], 1);
+	PlayerTextDrawSetProportional(playerid, VeloC[playerid][59], 1);
 
 	TDLucky[0] = CreatePlayerTextDraw(playerid, 331.000000, 130.000000, "_");
 	PlayerTextDrawAlignment(playerid, TDLucky[0], 2), PlayerTextDrawFont(playerid, TDLucky[0], 1); 
@@ -7066,72 +7730,247 @@ stock todastextdraw(playerid)
     PlayerTextDrawSetShadow(playerid,TextDrawMorte[playerid][5], 0);
     PlayerTextDrawSetSelectable(playerid,TextDrawMorte[playerid][5], 0);
 
-	loadTela6[playerid] = CreatePlayerTextDraw(playerid, 305.625000, 244.416625, "0%");
-	PlayerTextDrawLetterSize(playerid, loadTela6[playerid], 0.556875, 3.017500);
-	PlayerTextDrawAlignment(playerid, loadTela6[playerid], 1);
-	PlayerTextDrawColor(playerid, loadTela6[playerid], 0x434543FF);
-	PlayerTextDrawSetShadow(playerid, loadTela6[playerid], 0);
-	PlayerTextDrawSetOutline(playerid, loadTela6[playerid], 1);
-	PlayerTextDrawBackgroundColor(playerid, loadTela6[playerid], 51);
-	PlayerTextDrawFont(playerid, loadTela6[playerid], 2);
-	PlayerTextDrawSetProportional(playerid, loadTela6[playerid], 1);
-	PlayerTextDrawShow(playerid, loadTela6[playerid]);
-
 }
 stock CreateTelaLogin(){
 
-	loadTela1 = TextDrawCreate(680.000000, 0.000000, "~w~");
-	TextDrawBackgroundColor(loadTela1, 255);
-	TextDrawFont(loadTela1, 1);
-	TextDrawLetterSize(loadTela1, 1.899999, 52.099998);
-	TextDrawColor(loadTela1, -1);
-	TextDrawSetOutline(loadTela1, 0);
-	TextDrawSetProportional(loadTela1, 1);
-	TextDrawSetShadow(loadTela1, 1);
-	TextDrawUseBox(loadTela1, 1);
-	TextDrawBoxColor(loadTela1, 303174399);
-	TextDrawTextSize(loadTela1, -401.000000, 0.000000);
+	//Loadscreen
+	Loadsc[0] = TextDrawCreate(321.000000, -6.000000, "_");
+	TextDrawFont(Loadsc[0], 1);
+	TextDrawLetterSize(Loadsc[0], 0.662499, 52.049987);
+	TextDrawTextSize(Loadsc[0], 298.500000, 751.000000);
+	TextDrawSetOutline(Loadsc[0], 1);
+	TextDrawSetShadow(Loadsc[0], 0);
+	TextDrawAlignment(Loadsc[0], 2);
+	TextDrawColor(Loadsc[0], -1);
+	TextDrawBackgroundColor(Loadsc[0], 255);
+	TextDrawBoxColor(Loadsc[0], 471604479);
+	TextDrawUseBox(Loadsc[0], 1);
+	TextDrawSetProportional(Loadsc[0], 1);
+	TextDrawSetSelectable(Loadsc[0], 0);
 
-	loadTela2 = TextDrawCreate(221.250000, 131.833404, "~h~Baixada~w~Roleplay");
-	TextDrawLetterSize(loadTela2, 0.666251, 3.915837);
-	TextDrawAlignment(loadTela2, 1);
-	TextDrawColor(loadTela2, -1);
-	TextDrawSetShadow(loadTela2, 0);
-	TextDrawSetOutline(loadTela2, 1);
-	TextDrawBackgroundColor(loadTela2, 51);
-	TextDrawFont(loadTela2, 3);
-	TextDrawSetProportional(loadTela2, 1);
+	Loadsc[1] = TextDrawCreate(293.000000, 146.000000, "B");
+	TextDrawFont(Loadsc[1], 1);
+	TextDrawLetterSize(Loadsc[1], 0.849999, 3.299998);
+	TextDrawTextSize(Loadsc[1], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[1], 2);
+	TextDrawSetShadow(Loadsc[1], 2);
+	TextDrawAlignment(Loadsc[1], 1);
+	TextDrawColor(Loadsc[1], -65281);
+	TextDrawBackgroundColor(Loadsc[1], 255);
+	TextDrawBoxColor(Loadsc[1], 50);
+	TextDrawUseBox(Loadsc[1], 0);
+	TextDrawSetProportional(Loadsc[1], 1);
+	TextDrawSetSelectable(Loadsc[1], 0);
 
-	loadTela3 = TextDrawCreate(449.500000, 168.916671, "BOX");
-	TextDrawLetterSize(loadTela3, 0.000000, 0.970368);
-	TextDrawTextSize(loadTela3, 399.250000, 0.000000);
-	TextDrawAlignment(loadTela3, 1);
-	TextDrawColor(loadTela3, 0);
-	TextDrawUseBox(loadTela3, true);
-	TextDrawBoxColor(loadTela3, 102);
-	TextDrawSetShadow(loadTela3, 0);
-	TextDrawSetOutline(loadTela3, 0);
-	TextDrawFont(loadTela3, 0);
+	Loadsc[2] = TextDrawCreate(309.000000, 144.000000, "A");
+	TextDrawFont(Loadsc[2], 1);
+	TextDrawLetterSize(Loadsc[2], 0.849999, 3.299998);
+	TextDrawTextSize(Loadsc[2], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[2], 2);
+	TextDrawSetShadow(Loadsc[2], 0);
+	TextDrawAlignment(Loadsc[2], 1);
+	TextDrawColor(Loadsc[2], -65281);
+	TextDrawBackgroundColor(Loadsc[2], 255);
+	TextDrawBoxColor(Loadsc[2], 50);
+	TextDrawUseBox(Loadsc[2], 0);
+	TextDrawSetProportional(Loadsc[2], 1);
+	TextDrawSetSelectable(Loadsc[2], 0);
 
-	loadTela4 = TextDrawCreate(405.625000, 166.833343, "v1.0");
-	TextDrawLetterSize(loadTela4, 0.181874, 1.238332);
-	TextDrawAlignment(loadTela4, 1);
-	TextDrawColor(loadTela4, -1);
-	TextDrawSetShadow(loadTela4, 0);
-	TextDrawSetOutline(loadTela4, 1);
-	TextDrawBackgroundColor(loadTela4, 51);
-	TextDrawFont(loadTela4, 1);
-	TextDrawSetProportional(loadTela4, 1);
+	Loadsc[3] = TextDrawCreate(330.000000, 146.000000, "I");
+	TextDrawFont(Loadsc[3], 1);
+	TextDrawLetterSize(Loadsc[3], 0.849999, 3.299998);
+	TextDrawTextSize(Loadsc[3], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[3], 2);
+	TextDrawSetShadow(Loadsc[3], 0);
+	TextDrawAlignment(Loadsc[3], 1);
+	TextDrawColor(Loadsc[3], -65281);
+	TextDrawBackgroundColor(Loadsc[3], 255);
+	TextDrawBoxColor(Loadsc[3], 50);
+	TextDrawUseBox(Loadsc[3], 0);
+	TextDrawSetProportional(Loadsc[3], 1);
+	TextDrawSetSelectable(Loadsc[3], 0);
 
-	loadTela5 = TextDrawCreate(267.500000, 222.250030, "CARREGANDO...");
-	TextDrawLetterSize(loadTela5, 0.471249, 1.903333);
-	TextDrawAlignment(loadTela5, 1);
-	TextDrawColor(loadTela5, -1);
-	TextDrawSetShadow(loadTela5, 0);
-	TextDrawSetOutline(loadTela5, 1);
-	TextDrawBackgroundColor(loadTela5, 51);
-	TextDrawFont(loadTela5, 2);
-	TextDrawSetProportional(loadTela5, 1);
+	Loadsc[4] = TextDrawCreate(319.000000, 167.000000, "C");
+	TextDrawFont(Loadsc[4], 3);
+	TextDrawLetterSize(Loadsc[4], 1.079167, 3.299998);
+	TextDrawTextSize(Loadsc[4], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[4], 2);
+	TextDrawSetShadow(Loadsc[4], 0);
+	TextDrawAlignment(Loadsc[4], 1);
+	TextDrawColor(Loadsc[4], -65281);
+	TextDrawBackgroundColor(Loadsc[4], 255);
+	TextDrawBoxColor(Loadsc[4], 50);
+	TextDrawUseBox(Loadsc[4], 0);
+	TextDrawSetProportional(Loadsc[4], 1);
+	TextDrawSetSelectable(Loadsc[4], 0);
+
+	Loadsc[5] = TextDrawCreate(318.000000, 167.000000, "C");
+	TextDrawFont(Loadsc[5], 3);
+	TextDrawLetterSize(Loadsc[5], -1.104168, 3.299998);
+	TextDrawTextSize(Loadsc[5], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[5], 2);
+	TextDrawSetShadow(Loadsc[5], 0);
+	TextDrawAlignment(Loadsc[5], 1);
+	TextDrawColor(Loadsc[5], -65281);
+	TextDrawBackgroundColor(Loadsc[5], 255);
+	TextDrawBoxColor(Loadsc[5], 50);
+	TextDrawUseBox(Loadsc[5], 0);
+	TextDrawSetProportional(Loadsc[5], 1);
+	TextDrawSetSelectable(Loadsc[5], 0);
+
+	Loadsc[6] = TextDrawCreate(291.000000, 191.000000, "A");
+	TextDrawFont(Loadsc[6], 1);
+	TextDrawLetterSize(Loadsc[6], 0.849999, 3.299998);
+	TextDrawTextSize(Loadsc[6], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[6], 2);
+	TextDrawSetShadow(Loadsc[6], 0);
+	TextDrawAlignment(Loadsc[6], 1);
+	TextDrawColor(Loadsc[6], -65281);
+	TextDrawBackgroundColor(Loadsc[6], 255);
+	TextDrawBoxColor(Loadsc[6], 50);
+	TextDrawUseBox(Loadsc[6], 0);
+	TextDrawSetProportional(Loadsc[6], 1);
+	TextDrawSetSelectable(Loadsc[6], 0);
+
+	Loadsc[7] = TextDrawCreate(310.000000, 190.000000, "D");
+	TextDrawFont(Loadsc[7], 1);
+	TextDrawLetterSize(Loadsc[7], 0.849999, 3.299998);
+	TextDrawTextSize(Loadsc[7], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[7], 2);
+	TextDrawSetShadow(Loadsc[7], 0);
+	TextDrawAlignment(Loadsc[7], 1);
+	TextDrawColor(Loadsc[7], -65281);
+	TextDrawBackgroundColor(Loadsc[7], 255);
+	TextDrawBoxColor(Loadsc[7], 50);
+	TextDrawUseBox(Loadsc[7], 0);
+	TextDrawSetProportional(Loadsc[7], 1);
+	TextDrawSetSelectable(Loadsc[7], 0);
+
+	Loadsc[8] = TextDrawCreate(326.000000, 191.000000, "A");
+	TextDrawFont(Loadsc[8], 1);
+	TextDrawLetterSize(Loadsc[8], 0.849999, 3.299998);
+	TextDrawTextSize(Loadsc[8], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[8], 2);
+	TextDrawSetShadow(Loadsc[8], 0);
+	TextDrawAlignment(Loadsc[8], 1);
+	TextDrawColor(Loadsc[8], -65281);
+	TextDrawBackgroundColor(Loadsc[8], 255);
+	TextDrawBoxColor(Loadsc[8], 50);
+	TextDrawUseBox(Loadsc[8], 0);
+	TextDrawSetProportional(Loadsc[8], 1);
+	TextDrawSetSelectable(Loadsc[8], 0);
+
+	Loadsc[9] = TextDrawCreate(278.000000, 217.000000, "ROLEPLAY");
+	TextDrawFont(Loadsc[9], 3);
+	TextDrawLetterSize(Loadsc[9], 0.600000, 2.000000);
+	TextDrawTextSize(Loadsc[9], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[9], 0);
+	TextDrawSetShadow(Loadsc[9], 0);
+	TextDrawAlignment(Loadsc[9], 1);
+	TextDrawColor(Loadsc[9], -1);
+	TextDrawBackgroundColor(Loadsc[9], 255);
+	TextDrawBoxColor(Loadsc[9], 50);
+	TextDrawUseBox(Loadsc[9], 0);
+	TextDrawSetProportional(Loadsc[9], 1);
+	TextDrawSetSelectable(Loadsc[9], 0);
+
+	Loadsc[10] = TextDrawCreate(363.000000, 207.000000, "]");
+	TextDrawFont(Loadsc[10], 0);
+	TextDrawLetterSize(Loadsc[10], 0.354166, 1.350000);
+	TextDrawTextSize(Loadsc[10], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[10], 0);
+	TextDrawSetShadow(Loadsc[10], 0);
+	TextDrawAlignment(Loadsc[10], 1);
+	TextDrawColor(Loadsc[10], -65281);
+	TextDrawBackgroundColor(Loadsc[10], 255);
+	TextDrawBoxColor(Loadsc[10], 50);
+	TextDrawUseBox(Loadsc[10], 0);
+	TextDrawSetProportional(Loadsc[10], 1);
+	TextDrawSetSelectable(Loadsc[10], 0);
+
+	Loadsc[11] = TextDrawCreate(372.000000, 199.000000, "]");
+	TextDrawFont(Loadsc[11], 0);
+	TextDrawLetterSize(Loadsc[11], 0.354166, 1.350000);
+	TextDrawTextSize(Loadsc[11], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[11], 0);
+	TextDrawSetShadow(Loadsc[11], 0);
+	TextDrawAlignment(Loadsc[11], 1);
+	TextDrawColor(Loadsc[11], -65281);
+	TextDrawBackgroundColor(Loadsc[11], 255);
+	TextDrawBoxColor(Loadsc[11], 50);
+	TextDrawUseBox(Loadsc[11], 0);
+	TextDrawSetProportional(Loadsc[11], 1);
+	TextDrawSetSelectable(Loadsc[11], 0);
+
+	Loadsc[12] = TextDrawCreate(382.000000, 194.000000, "]");
+	TextDrawFont(Loadsc[12], 0);
+	TextDrawLetterSize(Loadsc[12], 0.354166, 1.350000);
+	TextDrawTextSize(Loadsc[12], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[12], 0);
+	TextDrawSetShadow(Loadsc[12], 0);
+	TextDrawAlignment(Loadsc[12], 1);
+	TextDrawColor(Loadsc[12], -65281);
+	TextDrawBackgroundColor(Loadsc[12], 255);
+	TextDrawBoxColor(Loadsc[12], 50);
+	TextDrawUseBox(Loadsc[12], 0);
+	TextDrawSetProportional(Loadsc[12], 1);
+	TextDrawSetSelectable(Loadsc[12], 0);
+
+	Loadsc[13] = TextDrawCreate(230.000000, 248.000000, "BAIXANDO DADOS DO SERVIDOR, AGUARDE...");
+	TextDrawFont(Loadsc[13], 2);
+	TextDrawLetterSize(Loadsc[13], 0.208333, 1.300000);
+	TextDrawTextSize(Loadsc[13], 474.000000, -88.500000);
+	TextDrawSetOutline(Loadsc[13], 0);
+	TextDrawSetShadow(Loadsc[13], 0);
+	TextDrawAlignment(Loadsc[13], 1);
+	TextDrawColor(Loadsc[13], -1);
+	TextDrawBackgroundColor(Loadsc[13], 255);
+	TextDrawBoxColor(Loadsc[13], 50);
+	TextDrawUseBox(Loadsc[13], 0);
+	TextDrawSetProportional(Loadsc[13], 1);
+	TextDrawSetSelectable(Loadsc[13], 0);
+
+	Loadsc[14] = TextDrawCreate(265.000000, 207.000000, "]");
+	TextDrawFont(Loadsc[14], 0);
+	TextDrawLetterSize(Loadsc[14], 0.354166, 1.350000);
+	TextDrawTextSize(Loadsc[14], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[14], 0);
+	TextDrawSetShadow(Loadsc[14], 0);
+	TextDrawAlignment(Loadsc[14], 1);
+	TextDrawColor(Loadsc[14], -65281);
+	TextDrawBackgroundColor(Loadsc[14], 255);
+	TextDrawBoxColor(Loadsc[14], 50);
+	TextDrawUseBox(Loadsc[14], 0);
+	TextDrawSetProportional(Loadsc[14], 1);
+	TextDrawSetSelectable(Loadsc[14], 0);
+
+	Loadsc[15] = TextDrawCreate(255.000000, 199.000000, "]");
+	TextDrawFont(Loadsc[15], 0);
+	TextDrawLetterSize(Loadsc[15], 0.354166, 1.350000);
+	TextDrawTextSize(Loadsc[15], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[15], 0);
+	TextDrawSetShadow(Loadsc[15], 0);
+	TextDrawAlignment(Loadsc[15], 1);
+	TextDrawColor(Loadsc[15], -65281);
+	TextDrawBackgroundColor(Loadsc[15], 255);
+	TextDrawBoxColor(Loadsc[15], 50);
+	TextDrawUseBox(Loadsc[15], 0);
+	TextDrawSetProportional(Loadsc[15], 1);
+	TextDrawSetSelectable(Loadsc[15], 0);
+
+	Loadsc[16] = TextDrawCreate(245.000000, 193.000000, "]");
+	TextDrawFont(Loadsc[16], 0);
+	TextDrawLetterSize(Loadsc[16], 0.354166, 1.350000);
+	TextDrawTextSize(Loadsc[16], 400.000000, 17.000000);
+	TextDrawSetOutline(Loadsc[16], 0);
+	TextDrawSetShadow(Loadsc[16], 0);
+	TextDrawAlignment(Loadsc[16], 1);
+	TextDrawColor(Loadsc[16], -65281);
+	TextDrawBackgroundColor(Loadsc[16], 255);
+	TextDrawBoxColor(Loadsc[16], 50);
+	TextDrawUseBox(Loadsc[16], 0);
+	TextDrawSetProportional(Loadsc[16], 1);
+	TextDrawSetSelectable(Loadsc[16], 0);
 
 }
 
@@ -8513,6 +9352,7 @@ stock SalvarDados(playerid)
 	if(DOF2_FileExists(File))
 	{
 		DOF2_SaveFile();
+		DOF2_SetInt(File, "IDF", PlayerInfo[playerid][IDF]);
 		DOF2_SetInt(File, "pDinheiro", PlayerInfo[playerid][pDinheiro]);
 		DOF2_SetInt(File, "pBanco", PlayerInfo[playerid][pBanco]);
 		DOF2_SetInt(File, "pIdade", PlayerInfo[playerid][pIdade]);
@@ -8904,7 +9744,7 @@ public OnGameModeInit()
 	DisableInteriorEnterExits();
 	EnableStuntBonusForAll(0);
 	UsePlayerPedAnims();
-	ShowNameTags(1);
+	ShowNameTags(0);
 	SetNameTagDrawDistance(30.0);
 	AllowInteriorWeapons(1);
 	ManualVehicleEngineAndLights();
@@ -9053,11 +9893,11 @@ public OnGameModeExit()
 public OnPlayerRequestClass(playerid, classid)
 {
 	ZerarDados(playerid);
-	TextDrawShowForPlayer(playerid, loadTela1);
-	TextDrawShowForPlayer(playerid, loadTela2);
-	TextDrawShowForPlayer(playerid, loadTela3);
-	TextDrawShowForPlayer(playerid, loadTela4);
-	TextDrawShowForPlayer(playerid, loadTela5);
+	for(new t=0;t<17;t++){
+		TextDrawShowForPlayer(playerid, Loadsc[t]);
+	}
+	PlayerTextDrawShow(playerid, Loadsc_p[playerid][0]);
+	ShowPlayerProgressBar(playerid, Loadsc_b[playerid][0]);
     TogglePlayerSpectating(playerid, true);
     TimerLogin[playerid] = SetTimerEx("mostrarTelaLogin", 50, false, "d", playerid);
  	PlayerPlaySound(playerid, 1098, 0.0, 0.0, 0.0);
@@ -9179,9 +10019,13 @@ public OnPlayerDisconnect(playerid, reason)
 		SvDeleteStream(lstream[playerid]);
 		lstream[playerid] = SV_NULL;
 	}
-	for(new t; t < 5; t++)
+	for(new t; t < 60; t++)
 	{
-	    PlayerTextDrawDestroy(playerid, TextVelocimetroP[playerid][t]);
+	    PlayerTextDrawDestroy(playerid, VeloC[playerid][t]);
+	}
+	for(new i = 0; i < 8; i++)
+	{
+		TextDrawHideForPlayer(playerid, Logo[i]);
 	}
 	PlayerTextDrawDestroy(playerid, Textdraw2[playerid]);
 	ZerarDados(playerid);
@@ -9334,7 +10178,7 @@ public OnPlayerText(playerid, text[])
 	if(pLogado[playerid] == false)              				return notificacao(playerid, "ERRO", "Nao esta conectado", ICONE_AVISO);
 	{
 		new string[128];
-		format(string, sizeof(string), "%s({FFFF00}%d{FFFFFF}) falou {FFFF00}%s",Name(playerid), playerid,text);
+		format(string, sizeof(string), "%s(%04d{FFFF00}%d{FFFFFF}) falou {FFFF00}%s",Name(playerid), PlayerInfo[playerid][IDF],playerid,text);
 		ProxDetector(30.0, playerid, string, -1, -1, -1, -1, -1);
 
 		format(string,sizeof(string),"%s falou %s", Name(playerid), text);
@@ -9495,30 +10339,15 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 {
 	if(oldstate == PLAYER_STATE_ONFOOT && newstate == PLAYER_STATE_DRIVER)//O jogador entrou no veiculo como motorista
     {
-        new VeloDados[43];
-        PlayerTextDrawSetPreviewModel(playerid, TextVelocimetroP[playerid][3], GetVehicleModel(GetPlayerVehicleID(playerid)));
-        new Float:VidaV; GetVehicleHealth(GetPlayerVehicleID(playerid), VidaV);
-        new Float:V1 = floatmul(VidaV, 100.0);
-        new Float:V2 = floatdiv(V1, 1000.0);
- 
-       	format(VeloDados, sizeof(VeloDados), "%0.0f%s", V2, "%");
-        PlayerTextDrawSetString(playerid, TextVelocimetroP[playerid][1], VeloDados);
- 
-		format(VeloDados, sizeof(VeloDados), "%d", VelocidadeDoVeiculo(GetPlayerVehicleID(playerid)));
-		PlayerTextDrawSetString(playerid, TextVelocimetroP[playerid][0], VeloDados);
-
-		format(VeloDados, sizeof(VeloDados), "%0.0f%s", Fuel[GetPlayerVehicleID(playerid)]);
-		PlayerTextDrawSetString(playerid, TextVelocimetroP[playerid][2], VeloDados);
- 
-  		TextDrawShowForPlayer(playerid, TextVelocimetro[0]);
-		TextDrawShowForPlayer(playerid, TextVelocimetro[1]);
-		TextDrawShowForPlayer(playerid, TextVelocimetro[2]);
- 
-		for(new t; t < 4; t++)
-		{
-		    PlayerTextDrawShow(playerid, TextVelocimetroP[playerid][t]);
+		if(mostrandovelo[playerid] == 0){
+			for(new t; t < 60; t++)
+			{
+		    	PlayerTextDrawShow(playerid, VeloC[playerid][t]);
+			}
+			mostrandovelo[playerid] = 1;
 		}
-		SetTimerEx("VelocimetroEx", 50, false, "d", playerid);
+		
+		TimerVelo[playerid] = SetTimerEx("VelocimetroEx", 50, true, "d", playerid);
     }
 	if(IsPlayerInAnyVehicle(playerid) && !IsBicycle(GetPlayerVehicleID(playerid)))
 	{
@@ -11097,7 +11926,9 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	if(newkeys == KEY_SECONDARY_ATTACK)
 	{
 		cmd_pegaritem(playerid);
-		cmd_ltumba(playerid);
+		if(PlayerToPoint(3.0, playerid, 934.1115,-1103.3857,24.3118)){
+			cmd_ltumba(playerid);
+		}
 		new Inv[5000], Nick[5000], orgid = GetPlayerOrg(playerid);
 		for(new i; i < MAX_SLOTMACHINE; i++)
 		{
@@ -11467,11 +12298,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				format(PlayerInfo[playerid][pSenha], 20, inputtext);
+				new uid = GetIdfixo();
+				PlayerInfo[playerid][IDF] = uid;
 				if(!DOF2_FileExists(Account))
 				{
 					DOF2_CreateFile(Account); 
 					DOF2_SaveFile();
 					DOF2_SetString(Account, "pSenha", PlayerInfo[playerid][pSenha]);
+					DOF2_SetInt(Account, "IDF", PlayerInfo[playerid][IDF]);
 					DOF2_SetInt(Account, "pSkin", 0);
 					DOF2_SetInt(Account, "pDinheiro", 0);
 					PlayerInfo[playerid][pDinheiro] = 0;
@@ -11551,6 +12385,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(DOF2_FileExists(Account))
     	            {
 						format(PlayerInfo[playerid][pLastLogin], 24, DOF2_GetString(Account, "pLastLogin"));
+						PlayerInfo[playerid][IDF] = DOF2_GetInt(Account, "IDF");
 						PlayerInfo[playerid][pSkin] = DOF2_GetInt(Account, "pSkin");
 						SetPlayerSkin(playerid, DOF2_GetInt(Account, "pSkin"));
 						PlayerInfo[playerid][pDinheiro] = DOF2_GetInt(Account, "pDinheiro");
@@ -11604,6 +12439,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						PlayerTextDrawShow(playerid, HudServer[playerid][i]);
 					}
+					for(new i = 0; i < 8; i ++)
+					{
+						TextDrawShowForPlayer(playerid, Logo[i]);
+					}
 					CancelSelectTextDraw(playerid);
 					Timers(playerid);
 					PlayerTextDraw(playerid);
@@ -11653,6 +12492,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1685.7053, -2335.2058, 13.5469, 0.8459, 0, 0, 0, 0, 0, 0);
 			SpawnPlayer(playerid);
+			SetTimerEx("Attplayer",1000,true,"i",playerid);
 			if(response) SpawnPos[playerid] = true;
 			else SpawnPos[playerid] = false;
 		}
@@ -15218,7 +16058,7 @@ CMD:logaradm(playerid)
 		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Conectado como Fundador");
 		pJogando[playerid] = false;
 	}
-	if(!strcmp(sendername,"Vovo_Rosa", false))
+	if(!strcmp(sendername,"Chosen_Estranho", false))
 	{
 		PlayerInfo[playerid][pAdmin] = 5;
 		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Conectado como Coordenador");
