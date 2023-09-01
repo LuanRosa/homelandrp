@@ -670,10 +670,9 @@ new PlayerText:loadTela6[MAX_PLAYERS];
 
 //                          FLOATS E LOCAIS DEFINIDOS
 
-new Float:Entradas[8][3] =
+new Float:Entradas[7][3] =
 {
 	{1172.0829, -1323.5533, 15.4034},//Hospital
-	{914.273193, -1004.627075, 37.979484},//Agencia
 	{1555.4982, -1676.1260, 16.1953},//Policia de Patrulla
 	{2447.828125, -1962.687133, 13.546875},//Mercado Negro
 	{1122.706909, -2036.977539, 69.894248},//Prefeitura
@@ -8419,7 +8418,7 @@ stock ZerarDados(playerid)
 	PlayerInfo[playerid][Casa] = 0;
 	PlayerInfo[playerid][Entrada] = 0;
 	PlayerInfo[playerid][pAvaliacao] = 0;
-	
+
 	BigEar[playerid] = 0;
 	VehAlugado[playerid] = 0;
 	Localizando[playerid] = 0;
@@ -8977,7 +8976,7 @@ public OnGameModeInit()
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}/prender{FFFFFF}'para \nprender o jogador.",-1,PosPrender[i][0],PosPrender[i][1],PosPrender[i][2],15);
 	}
 
-	for(new i; i < 8; i++)
+	for(new i; i < 7; i++)
 	{
 		CreateDynamicPickup(19606,23,Entradas[i][0],Entradas[i][1],Entradas[i][2],0);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
@@ -12137,28 +12136,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 1)
 				{
-					MEGAString[0] = EOS;
-					new string[128];
-					format(string, sizeof(string), "{FFFF00}{FFFFFF} Profissao\t{FFFF00}Level\t{FFFFFF}Licencias\t{FFFF00}T.Trabajo\n");
-					strcat(MEGAString,string);
-					format(string, sizeof(string), "{FFFF00}-{FFFFFF} Enfermeiro\t{FFFF00}0\t{FFFFFF}Licenca B\t{FFFF00}NECESSITA\n");
-					strcat(MEGAString,string);
-					format(string, sizeof(string), "{FFFF00}-{FFFFFF} Caminhoneiro\t{FFFF00}+2\t{FFFFFF}Licenca C\t{FFFF00}NECESSITA\n");
-					strcat(MEGAString,string);
-					format(string, sizeof(string), "{FFFF00}-{FFFFFF} Coveiro\t{FFFF00}1\t{FFFFFF}NAO NECESSITA\t{FFFF00}NAO NECESSITA\n");
-					strcat(MEGAString,string);
-					format(string, sizeof(string), "{FFFF00}-{FFFFFF} Pescador\t{FFFF00}0\t{FFFFFF}NAO NECESSITA\t{FFFF00}NAO NECESSITA\n");
-					strcat(MEGAString,string);
-					format(string, sizeof(string), "{FFFF00}-{FFFFFF} Tranportador de Tumba\t{FFFF00}2\t{FFFFFF}Licenca B\t{FFFF00}NAO NECESSITA\n");
-					strcat(MEGAString,string);
-					format(string, sizeof(string), "{FFFF00}-{FFFFFF} Construtor\t{FFFF00}0\t{FFFFFF}NAO NECESSITA\t{FFFF00}NAO NECESSITA\n");
-					strcat(MEGAString,string);
-					format(string, sizeof(string), "{FFFF00}-{FFFFFF} Mecanico\t{FFFF00}0\t{FFFFFF}Licenca B\t{FFFF00}NAO NECESSITA\n");
-					strcat(MEGAString,string);
-					ShowPlayerDialog(playerid,DIALOG_SELTRABALHO,DIALOG_STYLE_TABLIST_HEADERS, "Profissoes", MEGAString,"Selecionar","X");
-				}
-				if(listitem == 2)
-				{
 					ShowPlayerDialog(playerid, DIALOG_LOCALIZARCASA, DIALOG_STYLE_INPUT, "Localizar Casas", "{FFFF00}- {FFFFFF}Introduza o ID da casa que queira localizar", "Localizar", "X");
 				}
 			}
@@ -12228,54 +12205,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
 					SetPlayerCheckpoint(playerid, 2124.720214, -1122.188110, 25.385765, 8.0);
-					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
-				}
-			}
-		}
-		case DIALOG_GPS2:
-		{
-			if(response)
-			{
-				if(listitem == 0)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 376.6558,-2056.4216,8.0156, 8.0);
-					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
-				}
-				if(listitem == 1)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 818.8176,-1106.7904,25.7940, 8.0);
-					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
-				}
-				if(listitem == 2)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1174.452636, -1312.022338, -44.283576, 8.0);
-					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
-				}
-				if(listitem == 3)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -74.9909,-1135.9198,1.0781,8.0);
-					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
-				}
-				if(listitem == 4)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 937.6857,-1085.2791,24.2891, 8);
-					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
-				}
-				if(listitem == 5)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1282.408813, -1296.472167, 13.368761, 8);
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 			}
@@ -15139,7 +15068,7 @@ CMD:ajuda(playerid, params[])
 
 CMD:gps(playerid)
 {
-	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_LIST, "Onde deseja ir?", "{FFFF00}- {FFFFFF}Locais importantes\n{FFFF00}- {FFFFFF}Empregos\n{FFFF00}- {FFFFFF}Localizar uma Casa", "Selecionar", "X");
+	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_LIST, "Onde deseja ir?", "{FFFF00}- {FFFFFF}Locais importantes\n{FFFF00}- {FFFFFF}Localizar uma Casa", "Selecionar", "X");
 	MissaoPlayer[playerid][MISSAO8] = 1;
 	return 1;
 }
@@ -17885,7 +17814,7 @@ CMD:missoes(playerid)
 	}
 	else
 	{
-		strcat(megastrings,"{FFFFFF}Fazer Documento:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}$500");
+		strcat(megastrings,"{FFFFFF}Fazer Documento:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO2] == 1)
 	{
@@ -17893,7 +17822,7 @@ CMD:missoes(playerid)
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Primero emprego com carteira:\t{FFFF00}Nao fez{FFFFFF}\t{00FF00}2pt expericencia");
+		strcat(megastrings,"\n{FFFFFF}Primero emprego com carteira:\t{FFFF00}Nao fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO3] == 1)
 	{
@@ -17901,7 +17830,7 @@ CMD:missoes(playerid)
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Primero emprego sem carteira:\t{FFFF00}Nao fez{FFFFFF}\t{00FF00}1pt expericencia");
+		strcat(megastrings,"\n{FFFFFF}Primero emprego sem carteira:\t{FFFF00}Nao fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO4] == 1)
 	{
@@ -17909,7 +17838,7 @@ CMD:missoes(playerid)
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Fazer carteira de trabalho:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}1 Level");
+		strcat(megastrings,"\n{FFFFFF}Fazer carteira de trabalho:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO5] == 1)
 	{
@@ -17917,7 +17846,7 @@ CMD:missoes(playerid)
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Fazer licencas:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}1pt expericencia");
+		strcat(megastrings,"\n{FFFFFF}Fazer licencas:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO6] == 1)
 	{
@@ -17925,7 +17854,7 @@ CMD:missoes(playerid)
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Comprar telefone:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}1pt expericencia");
+		strcat(megastrings,"\n{FFFFFF}Comprar telefone:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO7] == 1)
 	{
@@ -17933,7 +17862,7 @@ CMD:missoes(playerid)
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Comprar uma casa:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}2 level");
+		strcat(megastrings,"\n{FFFFFF}Comprar uma casa:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO8] == 1)
 	{
@@ -17941,7 +17870,7 @@ CMD:missoes(playerid)
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Olhar /gps:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}1pt expericencia");
+		strcat(megastrings,"\n{FFFFFF}Olhar /gps:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO9] == 1)
 	{
@@ -17957,7 +17886,7 @@ CMD:missoes(playerid)
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Fazer aposta no cassino:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}2pt expericencia");
+		strcat(megastrings,"\n{FFFFFF}Fazer aposta no cassino:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO11] == 1)
 	{
@@ -17965,7 +17894,7 @@ CMD:missoes(playerid)
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Olhar /ajuda:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}1pt expericencia");
+		strcat(megastrings,"\n{FFFFFF}Olhar /ajuda:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO12] == 1)
 	{
@@ -17981,7 +17910,7 @@ CMD:missoes(playerid)
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Entrar em organizacao:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}2 level");
+		strcat(megastrings,"\n{FFFFFF}Entrar em organizacao:\t{FFFF00}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	ShowPlayerDialog(playerid, DIALOG_MISSOES,DIALOG_STYLE_LIST,"Missoes",megastrings,"Concluir","X");
 	return 1;
