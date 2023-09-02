@@ -29,13 +29,14 @@ enum pMobileInfo
 {
     bool:isMobile,
     bool:isHaveAutoaim
-};
+}
 new PlayerMobileInfo[MAX_PLAYERS][pMobileInfo];
 
 public OnPlayerConnect(playerid)
 {
     new gpciStr[64];
-	gpci(playerid, gpciStr, sizeof gpciStr);
+	gpci(playerid, gpciStr,sizeof(gpciStr));
+	
     if(!strcmp(gpciStr, MOBILE_AUTH_KEY)) // system for older version, will be deprecated
 		PlayerMobileInfo[playerid][isMobile] = true;
 	else
@@ -84,7 +85,7 @@ IRawPacket:ID_CUSTOM_SYNC(playerid, BitStream:bs)
 	BS_GetNumberOfBytesUsed(bs, bytes);
 	if(bytes < MIN_PACKET_SIZE) return 0;
 
-	BS_ReadValue(bs,
+	BS_ReadValue(bs, 
 		PR_IGNORE_BITS, 8,
 		PR_UINT8, rpcid);
 
