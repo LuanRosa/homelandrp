@@ -1552,21 +1552,20 @@ CallBack::AntiSpam(playerid)
 }
 
 CallBack::Attplayer(playerid){
-	new str[100];
-	if(Falou[playerid] == true){
+	static str[300];
+	if(pJogando[playerid] == false && Falou[playerid] == false && Susurrou[playerid] == false && Gritou[playerid] == false){
+		format(str,sizeof(str),"{FFFF00}[STAFF]\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
+	}else if(Falou[playerid] == true){
 		format(str,sizeof(str),"{FFFF00}[FALANDO]\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
 	}else if(Susurrou[playerid] == true){
 		format(str,sizeof(str),"{FFFF00}[SUSURRANDO]\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
 	}else if(Gritou[playerid] == true){
 		format(str,sizeof(str),"{FFFF00}[GRITANDO]\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
-	}
-	if(pJogando[playerid] == true){
-		format(str,sizeof(str),"{FFFF00}\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
 	}else{
 		format(str,sizeof(str),"%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
 	}
 	SetPlayerChatBubble(playerid, str, 0xFFFFFFFF, 8.0, 20000);
-	return true;
+	return 1;
 }
 
 CallBack::attloginname(playerid)
@@ -8818,6 +8817,9 @@ stock ZerarDados(playerid)
 	Susurrando[playerid] = false;
 	Falando[playerid] = false;
 	Gritando[playerid] = false;
+	Falou[playerid] = false;
+	Susurrou[playerid] = false;
+	Gritou[playerid] = false;
 	PlantandoMaconha[playerid] = false;
 	RoubandoCaixa[playerid] = false;
 	Moved[playerid] = false;
@@ -9466,6 +9468,12 @@ public OnPlayerConnect(playerid)
 	else
 	{
 		Falando[playerid] = true;
+		if(Susurrando[playerid] == true){
+			Susurrando[playerid] = false;
+		}
+		if(Gritando[playerid] == true){
+			Gritando[playerid] = false;
+		}
  		lstream[playerid] = SvCreateDLStreamAtPlayer(15.0, SV_INFINITY, playerid, 0xff0000ff, "L");
 		Susurrandos[playerid] = SvCreateDLStreamAtPlayer(5.0, SV_INFINITY, playerid, 0xff0000ff, "L");
 		Gritandos[playerid] = SvCreateDLStreamAtPlayer(30.0, SV_INFINITY, playerid, 0xff0000ff, "L");
