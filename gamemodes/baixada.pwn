@@ -1551,16 +1551,21 @@ CallBack::AntiSpam(playerid)
 	return 1;
 }
 
+CallBack::CANIM(playerid){
+	ClearAnimations(playerid);
+	return 1;
+}
+
 CallBack::Attplayer(playerid){
 	static str[300];
 	if(pJogando[playerid] == false && Falou[playerid] == false && Susurrou[playerid] == false && Gritou[playerid] == false){
-		format(str,sizeof(str),"{FFFF00}[STAFF]\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"{FFFF00}STAFF\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
 	}else if(Falou[playerid] == true){
-		format(str,sizeof(str),"{FFFF00}[FALANDO]\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"{FFFF00}FALANDO\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
 	}else if(Susurrou[playerid] == true){
-		format(str,sizeof(str),"{FFFF00}[SUSURRANDO]\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"{FFFF00}SUSURRANDO\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
 	}else if(Gritou[playerid] == true){
-		format(str,sizeof(str),"{FFFF00}[GRITANDO]\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"{FFFF00}GRITANDO\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
 	}else{
 		format(str,sizeof(str),"%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
 	}
@@ -1841,11 +1846,14 @@ CallBack::VelocimetroEx(playerid)
 		}else{
 			PlayerTextDrawSetString(playerid, VeloC[playerid][9], "N");
 		}
-		for(new t=0;t<52;t++){
-  			TextDrawShowForPlayer(playerid,VeloC_G[t]);
-		}
 		for(new t=0;t<10;t++){
   			PlayerTextDrawShow(playerid,VeloC[playerid][t]);
+		}
+		if(mostrandovelo[playerid] == 0){
+			for(new t=0;t<52;t++){
+  				TextDrawShowForPlayer(playerid,VeloC_G[t]);
+			}
+			mostrandovelo[playerid] = 1;
 		}
 	}else{
 	    if(mostrandovelo[playerid] != 0){
@@ -1855,6 +1863,7 @@ CallBack::VelocimetroEx(playerid)
 			for(new t=0;t<52;t++){
   				TextDrawHideForPlayer(playerid,VeloC_G[t]);
 			}
+			mostrandovelo[playerid] = 0;
 		}
 		KillTimer(TimerVelo[playerid]);
 	}
