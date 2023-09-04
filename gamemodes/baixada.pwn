@@ -693,7 +693,7 @@ new Float:Entradas[10][3] =
 	{-2653.636474, 640.163085, 14.453125},//Hospital
 	{-2695.638183, 640.165405, 14.453125},//Hospital
 	{1555.4982, -1676.1260, 16.1953},//Policia de Patrulla
-	{2447.828125, -1962.687133, 13.546875},//Mercado Negro
+	{-2201.102050, -2341.364013, 30.625000},//Mercado Negro
 	{-2766.550781, 375.652496, 6.334682},//Prefeitura
 	{2105.4880, -1806.2786, 13.5547},//Pizzaria
 	{649.326538, -1353.821166, 13.546194},//San News
@@ -3225,8 +3225,7 @@ CallBack::VerificarTeste(playerid)
 				CheckpointPontosMoto[playerid] = 0;
 				KillTimer(TimerTesteMoto[playerid]);
 
-				SetPlayerPos(playerid, 1322.5415,-1166.1248,23.9117);
-				SetPlayerInterior(playerid, 0);
+				terminouteste(playerid);
 				TogglePlayerControllable(playerid, false);
 				SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 				IniciouTesteHabilitacaoA[playerid] = 0;
@@ -3253,8 +3252,7 @@ CallBack::VerificarTeste(playerid)
 				CheckpointPontosVeiculo[playerid] = 0;
 				KillTimer(TimerTesteVeiculo[playerid]);
 
-				SetPlayerPos(playerid, 1322.5415,-1166.1248,23.9117);
-				SetPlayerInterior(playerid, 0);
+				terminouteste(playerid);
 				TogglePlayerControllable(playerid, false);
 				SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 				IniciouTesteHabilitacaoB[playerid] = 0;
@@ -3281,8 +3279,7 @@ CallBack::VerificarTeste(playerid)
 				CheckpointPontosCaminhao[playerid] = 0;
 				KillTimer(TimerTesteCaminhao[playerid]);
 
-				SetPlayerPos(playerid, 1322.5415,-1166.1248,23.9117);
-				SetPlayerInterior(playerid, 0);
+				terminouteste(playerid);
 				TogglePlayerControllable(playerid, false);
 				SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 				IniciouTesteHabilitacaoC[playerid] = 0;
@@ -9950,7 +9947,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			mostrandovelo[playerid] = 1;
 		}
 		
-		TimerVelo[playerid] = SetTimerEx("VelocimetroEx", 50, true, "d", playerid);
+		TimerVelo[playerid] = SetTimerEx("VelocimetroEx", 1000, true, "d", playerid);
     }
 	if(IsPlayerInAnyVehicle(playerid) && !IsBicycle(GetPlayerVehicleID(playerid)))
 	{
@@ -11494,7 +11491,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
 		//MERCADO NEGRO ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 2447.828125, -1962.687133, 13.546875))
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, -2201.102050, -2341.364013, 30.625000))
 		{
 			SetPlayerPos(playerid,  504.942962, -2317.662597, 512.790771);
 			SetPlayerInterior(playerid, 0);
@@ -11505,7 +11502,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		//MERCADO NEGRO SAIDA
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,504.942962, -2317.662597, 512.790771))
 		{
-			SetPlayerPos(playerid, 2447.828125, -1962.687133, 13.546875);
+			SetPlayerPos(playerid, -2201.102050, -2341.364013, 30.625000);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
