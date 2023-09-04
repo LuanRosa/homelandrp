@@ -1,3 +1,4 @@
-E:\Baixada Roleplay\gamemodes\baixada.pwn(3441) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "RetirarItem"
+../modulos/mapserver.inc(5884) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "playerid"
+E:\Baixada Roleplay\gamemodes\baixada.pwn(3444) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "RetirarItem"
 Pawn compiler 3.2.3664	 	 	Copyright (c) 1997-2016, ITB CompuPhase
 

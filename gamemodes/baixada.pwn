@@ -688,15 +688,18 @@ new PlayerBar:Loadsc_b[MAX_PLAYERS][1];
 
 //                          FLOATS E LOCAIS DEFINIDOS
 
-new Float:Entradas[7][3] =
+new Float:Entradas[10][3] =
 {
-	{1172.0829, -1323.5533, 15.4034},//Hospital
+	{-2653.636474, 640.163085, 14.453125},//Hospital
+	{-2695.638183, 640.165405, 14.453125},//Hospital
 	{1555.4982, -1676.1260, 16.1953},//Policia de Patrulla
 	{2447.828125, -1962.687133, 13.546875},//Mercado Negro
-	{1122.706909, -2036.977539, 69.894248},//Prefeitura
+	{-2766.550781, 375.652496, 6.334682},//Prefeitura
 	{2105.4880, -1806.2786, 13.5547},//Pizzaria
 	{649.326538, -1353.821166, 13.546194},//San News
-	{649.283264, -1360.890258, 13.586422}//San News
+	{649.283264, -1360.890258, 13.586422},//San News
+	{-1988.149658, 1039.089355, 55.726562},//BANCO
+	{-2026.631591, -102.066413, 35.164062}//LICENCAS
 };
 
 new Float:AutoEscolaPosicao[13][3] =
@@ -778,7 +781,7 @@ new Float:PosEquiparORG[4][4] =
 new Float:PosVeiculos[6][4] =
 {
 	{1592.244384, -1614.151855, 13.382812},//Policia Patrulla
-	{1683.126831, -2312.236816, 13.546875},//Spawn
+	{-1707.393066, 1333.281982, 7.178680},//Spawn
 	{1179.630615, -1339.028686, 13.838010},//Hospital
 	{-47.1722,-1143.3977,1.0781},//Camionero
 	{926.562072, -1075.043457, 23.885242},//Transportador de Tumba
@@ -8462,28 +8465,28 @@ stock NpcText()
 {
 	new Actor[30+1],Text3D:label[30+1];
 
-	Actor[0] = CreateActor(217, 1685.058349, -2326.510742, 13.546875, 175.751434); 
-	label[0] = Create3DTextLabel("{FFFFFF}Ola, Use {FFFF00}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, 1685.058349, -2326.510742, 13.546875, 15.0, 0);
+	Actor[0] = CreateActor(217, -1639.563720, 1410.743530, 7.187500, 318.422424); 
+	label[0] = Create3DTextLabel("{FFFFFF}Ola, Use {FFFF00}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, -1639.563720, 1410.743530, 7.187500, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[0], Actor[0], 0.0, 0.0, 0.7);
 
 	Actor[1] = CreateActor(76, -501.242370, 296.501190, 2001.094970, 179.496414); 
 	label[1] = Create3DTextLabel("{FFFF00}Prefeitura\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, -501.242370, 296.501190, 2001.094970, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[1], Actor[1], 0.0, 0.0, 0.7);
 
-	Actor[2] = CreateActor(147, 1245.0440, -1650.9316, 17.028537, -95.5000);  
-	label[2] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1245.0440, -1650.9316, 17.028537, 15.0, 0);
+	Actor[2] = CreateActor(147, 1462.576904, 1407.553588, 14.206275, 100.548011);  
+	label[2] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1462.576904, 1407.553588, 14.206275, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[2], Actor[2], 0.0, 0.0, 0.7);
 
-	Actor[3] = CreateActor(147, 1244.7418, -1675.3851, 17.028537, -95.5000);  
-	label[3] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1244.7418, -1675.3851, 17.028537, 15.0, 0);
+	Actor[3] = CreateActor(147, 1462.577392, 1405.711914, 14.206276, 89.946968);  
+	label[3] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1462.577392, 1405.711914, 14.206276, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[3], Actor[3], 0.0, 0.0, 0.7);
 
-	Actor[4] = CreateActor(147, 1244.9561, -1669.2781, 17.028537, -95.5000);  
-	label[4] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1244.9561, -1669.2781, 17.028537, 15.0, 0);
+	Actor[4] = CreateActor(147, 1462.576660, 1403.018798, 14.206276, 94.979888);  
+	label[4] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1462.576660, 1403.018798, 14.206276, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[4], Actor[4], 0.0, 0.0, 0.7);
 
-	Actor[9] = CreateActor(147, 1244.9105, -1663.0659, 17.028537, -95.5000);  
-	label[9] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1244.9105, -1663.0659, 17.028537, 15.0, 0);
+	Actor[9] = CreateActor(147, 1462.576660, 1400.825683, 14.206275, 89.875282);  
+	label[9] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1462.576660, 1400.825683, 14.206275, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[9], Actor[9], 0.0, 0.0, 0.7);
 
 	Actor[21] = CreateActor(147, 1244.8408, -1657.1215, 17.028537, -95.5000);  
@@ -8503,7 +8506,7 @@ stock NpcText()
 	Attach3DTextLabelToPlayer(label[7], Actor[7], 0.0, 0.0, 0.7);
 
 	Actor[8] = CreateActor(194, 617.928100, -1.965069, 1001.040832, 185.973175);  
-	label[8] = Create3DTextLabel("{FFFF00}Agencia de Emprego\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 617.928100, -1.965069, 1001.040832, 15.0, 0);
+	label[8] = Create3DTextLabel("{FFFF00}Central de Licencas\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 617.928100, -1.965069, 1001.040832, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[8], Actor[8], 0.0, 0.0, 0.7);
 
 	Actor[10] = CreateActor(28, 514.767089, -2334.465820, 508.693756,1.0);  
@@ -8513,10 +8516,6 @@ stock NpcText()
 	Actor[11] = CreateActor(147, 1526.1862,-1798.9884,16.8121, 92.23461);  
 	label[11] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1526.1862,-1798.9884,17.028537, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[11], Actor[11], 0.0, 0.0, 0.7); 
-
-	Actor[12] = CreateActor(165, 1322.202148, -1168.256591, 23.911737, 5.436280);  
-	label[12] = Create3DTextLabel("{FFFF00}Auto Escola\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1322.202148, -1168.256591, 23.911737, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[12], Actor[12], 0.0, 0.0, 0.7); 
 
 	Actor[13] = CreateActor(35, 376.6558,-2056.4216,8.0156, 3.0);  
 	label[13] = Create3DTextLabel("{FFFF00}Pescador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 376.6558,-2056.4216,8.0156, 15.0, 0);
@@ -9365,7 +9364,7 @@ public OnGameModeInit()
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}/prender{FFFFFF}'para \nprender o jogador.",-1,PosPrender[i][0],PosPrender[i][1],PosPrender[i][2],15);
 	}
 
-	for(new i; i < 7; i++)
+	for(new i; i < 10; i++)
 	{
 		CreateDynamicPickup(19606,23,Entradas[i][0],Entradas[i][1],Entradas[i][2],0);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
@@ -10250,6 +10249,12 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	return 1;
 }
 
+stock terminouteste(playerid)
+{
+	SetPlayerPos(playerid, 616.849304, -9.415119, 1000.990295);
+	SetPlayerInterior(playerid, 0);
+	return 1;
+}
 public OnPlayerEnterRaceCheckpoint(playerid)
 {
 	switch(CheckpointPontosMoto[playerid])
@@ -10477,8 +10482,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						CheckpointPontosMoto[playerid] = 0;
 						KillTimer(TimerTesteMoto[playerid]);
 
-						SetPlayerPos(playerid, 1322.5415,-1166.1248,23.9117);
-						SetPlayerInterior(playerid, 0);
+						terminouteste(playerid);
 						TogglePlayerControllable(playerid, false);
 						SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 						IniciouTesteHabilitacaoA[playerid] = 0;
@@ -10499,8 +10503,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						CheckpointPontosMoto[playerid] = 0;
 						KillTimer(TimerTesteMoto[playerid]);
 
-						SetPlayerPos(playerid, 1322.5415,-1166.1248,23.9117);
-						SetPlayerInterior(playerid, 0);
+						terminouteste(playerid);
 						TogglePlayerControllable(playerid, false);
 						SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 						IniciouTesteHabilitacaoA[playerid] = 0;
@@ -10741,8 +10744,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						CheckpointPontosVeiculo[playerid] = 0;
 						KillTimer(TimerTesteVeiculo[playerid]);
 
-						SetPlayerPos(playerid, 1322.5415,-1166.1248,23.9117);
-						SetPlayerInterior(playerid, 0);
+						terminouteste(playerid);
 						TogglePlayerControllable(playerid, false);
 						SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 						IniciouTesteHabilitacaoB[playerid] = 0;
@@ -10763,8 +10765,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						CheckpointPontosVeiculo[playerid] = 0;
 						KillTimer(TimerTesteVeiculo[playerid]);
 
-						SetPlayerPos(playerid, 1322.5415,-1166.1248,23.9117);
-						SetPlayerInterior(playerid, 0);
+						terminouteste(playerid);
 						TogglePlayerControllable(playerid, false);
 						SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 						IniciouTesteHabilitacaoB[playerid] = 0;
@@ -11005,8 +11006,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						CheckpointPontosCaminhao[playerid] = 0;
 						KillTimer(TimerTesteCaminhao[playerid]);
 
-						SetPlayerPos(playerid, 1322.5415,-1166.1248,23.9117);
-						SetPlayerInterior(playerid, 0);
+						terminouteste(playerid);
 						TogglePlayerControllable(playerid, false);
 						SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 						IniciouTesteHabilitacaoC[playerid] = 0;
@@ -11026,8 +11026,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						CheckpointPontosCaminhao[playerid] = 0;
 						KillTimer(TimerTesteCaminhao[playerid]);
 
-						SetPlayerPos(playerid, 1322.5415,-1166.1248,23.9117);
-						SetPlayerInterior(playerid, 0);
+						terminouteste(playerid);
 						TogglePlayerControllable(playerid, false);
 						SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 						IniciouTesteHabilitacaoC[playerid] = 0;
@@ -11099,8 +11098,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						CheckpointPontosAerea[playerid] = 0;
 						KillTimer(TimerTesteAerea[playerid]);
 
-						SetPlayerPos(playerid, 1322.5415,-1166.1248,23.9117);
-						SetPlayerInterior(playerid, 0);
+						terminouteste(playerid);
 						TogglePlayerControllable(playerid, false);
 						SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 						IniciouTesteHabilitacaoD[playerid] = 0;
@@ -11120,8 +11118,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						CheckpointPontosAerea[playerid] = 0;
 						KillTimer(TimerTesteAerea[playerid]);
 
-						SetPlayerPos(playerid, 1322.5415,-1166.1248,23.9117);
-						SetPlayerInterior(playerid, 0);
+						terminouteste(playerid);
 						TogglePlayerControllable(playerid, false);
 						SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 						IniciouTesteHabilitacaoD[playerid] = 0;
@@ -11245,12 +11242,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
  	}
 	if(newkeys == KEY_CTRL_BACK)
 	{
-		if(PlayerToPoint(3.0, playerid, 1683.126831, -2312.236816, 13.546875))
+		if(PlayerToPoint(3.0, playerid, -1707.393066, 1333.281982, 7.178680))
 		{
 			if(VehAlugado[playerid] == 0)
 			{
 				VehAlugado[playerid] = 1;
-				VeiculoCivil[playerid] = CreateVehicle(462, 1683.126831, -2312.236816, 13.546875, 90, -1, -1, false);
+				VeiculoCivil[playerid] = CreateVehicle(462, -1707.393066, 1333.281982, 7.178680, 90, -1, -1, false);
 				PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
 				notificacao(playerid, "INFO", "Para devolver seu veiculo use /dveiculo.", ICONE_AVISO);
 				MissaoPlayer[playerid][MISSAO12] = 1;
@@ -11353,9 +11350,54 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			//
 		}
 		//HOSPITAL ENTRADA
-		if(IsPlayerInRangeOfPoint(playerid,2.0, 1172.0829,-1323.5533,15.4034))
+		if(IsPlayerInRangeOfPoint(playerid,2.0, -2653.636474, 640.163085, 14.453125))
 		{
 			SetPlayerPos(playerid,  1176.3602,-1326.3590,-44.2836);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//HOSPITAL SAIDA
+		else if(IsPlayerInRangeOfPoint(playerid,2.0,1176.3602,-1326.3590,-44.2836))
+		{
+			SetPlayerPos(playerid, -2653.636474, 640.163085, 14.453125);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//HOSPITAL ENTRADA 2
+		if(IsPlayerInRangeOfPoint(playerid,2.0, -2695.638183, 640.165405, 14.453125))
+		{
+			SetPlayerPos(playerid,  1149.824829, -1320.302734, -44.276340);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//HOSPITAL SAIDA 2
+		else if(IsPlayerInRangeOfPoint(playerid,2.0,1149.824829, -1320.302734, -44.276340))
+		{
+			SetPlayerPos(playerid, -2695.638183, 640.165405, 14.453125);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//BANCO ENTRADA
+		if(IsPlayerInRangeOfPoint(playerid,2.0, -1988.149658, 1039.089355, 55.726562))
+		{
+			SetPlayerPos(playerid,  1447.551513, 1394.525878, 14.206276);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//BANCO SAIDA
+		if(IsPlayerInRangeOfPoint(playerid,2.0, 1447.551513, 1394.525878, 14.206276))
+		{
+			SetPlayerPos(playerid,  -1988.149658, 1039.089355, 55.726562);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
@@ -11370,6 +11412,15 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
+		//PIZZARIA SAIDA
+		else if(IsPlayerInRangeOfPoint(playerid,2.0,372.2827,-133.5237,1001.4922))
+		{
+			SetPlayerPos(playerid, 2105.4880,-1806.2786,13.5547);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
 		//SAN NEWS ENTRADA
 		else if(IsPlayerInRangeOfPoint(playerid,2.0, 649.326538, -1353.821166, 13.546194) || IsPlayerInRangeOfPoint(playerid,2.0, 649.283264, -1360.890258, 13.586422))
 		{
@@ -11379,8 +11430,17 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
+		//SAN NEWS SAIDA
+		else if(IsPlayerInRangeOfPoint(playerid,2.0,-5465.766113, -4536.025878, 4051.079589))
+		{
+			SetPlayerPos(playerid, 649.326538, -1353.821166, 13.546194);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
 		//PREFEITURA ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 1122.706909, -2036.977539, 69.894248))
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, -2766.550781, 375.652496, 6.334682))
 		{
 			SetPlayerPos(playerid,  -501.1714,286.6785,2001.0950);
 			SetPlayerInterior(playerid, 1);
@@ -11388,10 +11448,28 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
-		//AGENCIA ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 914.273193, -1004.627075, 37.979484))
+		//PREFEITURA SAIDA
+		else if(IsPlayerInRangeOfPoint(playerid,2.0,-501.1714,286.6785,2001.0950))
+		{
+			SetPlayerPos(playerid, -2766.550781, 375.652496, 6.334682);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//LICENCAS ENTRADA
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, -2026.631591, -102.066413, 35.164062))
 		{
 			SetPlayerPos(playerid,  617.5486,-25.6596,1000.9903);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//LICENCAS SAIDA
+		else if(IsPlayerInRangeOfPoint(playerid,2.0,617.5486,-25.6596,1000.9903))
+		{
+			SetPlayerPos(playerid, -2026.631591, -102.066413, 35.164062);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
@@ -11406,64 +11484,19 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
-		//MERCADO NEGRO ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 2447.828125, -1962.687133, 13.546875))
-		{
-			SetPlayerPos(playerid,  504.942962, -2317.662597, 512.790771);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//SAN NEWS SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,-5465.766113, -4536.025878, 4051.079589))
-		{
-			SetPlayerPos(playerid, 649.326538, -1353.821166, 13.546194);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//HOSPITAL SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,1176.3602,-1326.3590,-44.2836))
-		{
-			SetPlayerPos(playerid, 1172.0829,-1323.5533,15.4034);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//PIZZARIA SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,372.2827,-133.5237,1001.4922))
-		{
-			SetPlayerPos(playerid, 2105.4880,-1806.2786,13.5547);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//PREFEITURA SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,-501.1714,286.6785,2001.0950))
-		{
-			SetPlayerPos(playerid, 1122.706909, -2036.977539, 69.894248);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//AGENCIA SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,617.5486,-25.6596,1000.9903))
-		{
-			SetPlayerPos(playerid, 914.273193, -1004.627075, 37.979484);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
 		//POLICIA DE PATRULLA SAIDA
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,350.7115,1834.2186,2241.5850))
 		{
 			SetPlayerPos(playerid, 1555.4982,-1676.1260,16.1953);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//MERCADO NEGRO ENTRADA
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, 2447.828125, -1962.687133, 13.546875))
+		{
+			SetPlayerPos(playerid,  504.942962, -2317.662597, 512.790771);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
@@ -11585,7 +11618,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		{
 			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_LIST,"Loja Ilegal", "{FFFF00}- {FFFFFF}C4\t{32CD32}R$25000\n{FFFF00}- {FFFFFF}Sementes de Maconha\t{32CD32}R$1000", "Selecionar","X");
 		}
-		if(PlayerToPoint(3.0, playerid, 1245.0440, -1650.9316, 19.3384) || PlayerToPoint(3.0, playerid, 1244.7418, -1675.3851, 19.3384) || PlayerToPoint(3.0, playerid,  1244.9561, -1669.2781, 19.3384) || PlayerToPoint(3.0, playerid, 1244.9105, -1663.0659, 19.3384) || PlayerToPoint(3.0, playerid, 1244.8408, -1657.1215, 19.3384))
+		if(PlayerToPoint(3.0, playerid, 1462.576904, 1407.553588, 14.206275) || PlayerToPoint(3.0, playerid, 1462.577392, 1405.711914, 14.206276) || PlayerToPoint(3.0, playerid,  1462.576660, 1403.018798, 14.206276) || PlayerToPoint(3.0, playerid, 1462.576660, 1400.825683, 14.206275))
 		{
 			if(TxdBAncoAb[playerid] == false)
 			{
@@ -11614,33 +11647,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				TxdBAncoAb[playerid] = false;
 			}
 		}
-		if(PlayerToPoint(3.0, playerid, 617.928100, -1.965069, 1001.040832))
-		{
-			MEGAString[0] = EOS;
-			new string[128];
-			format(string, sizeof(string), "{FFFF00}{FFFFFF} Profissao\t{FFFF00}Level\t{FFFFFF}Licencias\t{FFFF00}T.Trabajo\n");
-			strcat(MEGAString,string);
-			format(string, sizeof(string), "{FFFF00}-{FFFFFF} Enfermeiro\t{FFFF00}0\t{FFFFFF}Licencia B\t{FFFF00}NECESSITA\n");
-			strcat(MEGAString,string);
-			format(string, sizeof(string), "{FFFF00}-{FFFFFF} Caminhoneiro\t{FFFF00}+2\t{FFFFFF}Licencia C\t{FFFF00}NECESSITA\n");
-			strcat(MEGAString,string);
-			format(string, sizeof(string), "{FFFF00}-{FFFFFF} Coveiro\t{FFFF00}1\t{FFFFFF}NAO NECESSITA\t{FFFF00}NAO NECESSITA\n");
-			strcat(MEGAString,string);
-			format(string, sizeof(string), "{FFFF00}-{FFFFFF} Pescador\t{FFFF00}0\t{FFFFFF}NAO NECESSITA\t{FFFF00}NAO NECESSITA\n");
-			strcat(MEGAString,string);
-			format(string, sizeof(string), "{FFFF00}-{FFFFFF} Tranportador de Tumba\t{FFFF00}2\t{FFFFFF}Licencia B\t{FFFF00}NAO NECESSITA\n");
-			strcat(MEGAString,string);
-			format(string, sizeof(string), "{FFFF00}-{FFFFFF} Construtor\t{FFFF00}0\t{FFFFFF}NAO NECESSITA\t{FFFF00}NAO NECESSITA\n");
-			strcat(MEGAString,string);
-			format(string, sizeof(string), "{FFFF00}-{FFFFFF} Mecanico\t{FFFF00}0\t{FFFFFF}Licencia B\t{FFFF00}NAO NECESSITA\n");
-			strcat(MEGAString,string);
-			ShowPlayerDialog(playerid,DIALOG_SELTRABALHO,DIALOG_STYLE_TABLIST_HEADERS, "Profissoes", MEGAString,"Selecionar","X");
-		}
 		if(PlayerToPoint(3.0, playerid, 376.4162, -117.2733, 1001.4922))
 		{
 			ShowPlayerDialog(playerid, DIALOG_CATLANCHE, DIALOG_STYLE_LIST, "Pizzeria", "{FFFF00}- {FFFFFF}Alimentos\n{FFFF00}- {FFFFFF}Refrescos", "Selecionar", "X");
 		}
-		if(PlayerToPoint(2.0, playerid, 1322.5415,-1166.1248,23.9117))
+		if(PlayerToPoint(2.0, playerid, 617.928100, -1.965069, 1001.040832))
 		{
 			new string[1000], mercada[1000];
 			strcat(string, "Habilitacao\tValor\n");
@@ -12075,7 +12086,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					else
 					{ 
-						SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1685.7053, -2335.2058, 13.5469, 0.8459, 0, 0, 0, 0, 0, 0);
+						SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -1636.031250, 1412.865600, 7.187500, 136.470169, 0, 0, 0, 0, 0, 0);
 						SpawnPlayer(playerid);
 						FirstLogin[playerid] = false;
 					}	
@@ -12138,7 +12149,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		case DIALOG_BANIDO: Kick(playerid);
 		case DIALOG_POS:
 		{
-			SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1685.7053, -2335.2058, 13.5469, 0.8459, 0, 0, 0, 0, 0, 0);
+			SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -1636.031250, 1412.865600, 7.187500, 136.470169, 0, 0, 0, 0, 0, 0);
 			SpawnPlayer(playerid);
 			if(response) SpawnPos[playerid] = true;
 			else SpawnPos[playerid] = false;

@@ -1067,3 +1067,31 @@ porque o host conectado não respondeu
 [08/31/23 19:03:40] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [08/31/23 19:52:39] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
 [08/31/23 20:03:08] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/04/23 14:57:19] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/04/23 15:32:59] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/04/23 15:40:54] [ERROR] Can't read from Discord websocket gateway: O tempo limite do semáforo expirou (121)
+[09/04/23 15:40:54] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[09/04/23 15:41:05] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:41:13] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:41:34] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:41:49] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:42:20] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:42:45] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:43:15] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:43:50] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:44:41] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:45:37] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:46:29] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:47:35] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:48:35] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:54:43] [ERROR] Can't read from Discord websocket gateway: O tempo limite do semáforo expirou (121)
+[09/04/23 15:54:43] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[09/04/23 15:55:47] [ERROR] Can't read from Discord websocket gateway: O tempo limite do semáforo expirou (121)
+[09/04/23 15:55:47] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[09/04/23 15:56:17] [ERROR] Can't connect to Discord gateway: The socket was closed due to a timeout (1)
+[09/04/23 15:56:52] [ERROR] Can't connect to Discord gateway: The socket was closed due to a timeout (1)
+[09/04/23 17:26:02] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[09/04/23 19:04:06] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/04/23 19:35:01] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[09/04/23 19:35:06] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[09/04/23 19:56:31] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream

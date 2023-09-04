@@ -375,3 +375,29 @@ porque o host conectado não respondeu
 [08/31/23 18:20:03] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [08/31/23 19:03:40] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [08/31/23 20:03:08] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/04/23 14:57:19] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/04/23 15:32:59] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/04/23 15:40:54] [plugins/discord-connector] Can't read from Discord websocket gateway: O tempo limite do semáforo expirou (121)
+[09/04/23 15:40:54] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[09/04/23 15:41:05] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:41:13] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:41:34] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:41:49] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:42:20] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:42:45] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:43:15] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:43:50] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:44:41] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:45:37] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:46:29] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:47:35] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:48:35] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/04/23 15:54:43] [plugins/discord-connector] Can't read from Discord websocket gateway: O tempo limite do semáforo expirou (121)
+[09/04/23 15:54:43] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[09/04/23 15:55:47] [plugins/discord-connector] Can't read from Discord websocket gateway: O tempo limite do semáforo expirou (121)
+[09/04/23 15:55:47] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[09/04/23 15:56:17] [plugins/discord-connector] Can't connect to Discord gateway: The socket was closed due to a timeout (1)
+[09/04/23 15:56:52] [plugins/discord-connector] Can't connect to Discord gateway: The socket was closed due to a timeout (1)
+[09/04/23 17:26:02] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[09/04/23 19:04:06] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/04/23 19:56:31] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
