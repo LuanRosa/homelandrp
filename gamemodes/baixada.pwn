@@ -140,7 +140,6 @@ new	UltimaFala[MAX_PLAYERS];
 static DCC_Channel:Chat;
 static DCC_Channel:Dinn;
 static DCC_Channel:EntradaeSaida;
-static DCC_Channel:Report;
 static DCC_Channel:ChatAdm;
 static DCC_Channel:Sets;
 
@@ -1258,7 +1257,6 @@ main()
 	Chat = DCC_FindChannelById("1145712079861452850");
 	Dinn = DCC_FindChannelById("1145712172794642442");
 	EntradaeSaida = DCC_FindChannelById("1145712303124254743");
-	Report = DCC_FindChannelById("1145712239614107760");
 	ChatAdm = DCC_FindChannelById("1145558205775233044");
 	Sets = DCC_FindChannelById("1145712207049527407");
 
@@ -1559,15 +1557,15 @@ CallBack::CANIM(playerid){
 CallBack::Attplayer(playerid){
 	static str[300];
 	if(pJogando[playerid] == false && Falou[playerid] == false && Susurrou[playerid] == false && Gritou[playerid] == false){
-		format(str,sizeof(str),"{FFFF00}STAFF\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"{FFFF00}STAFF\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
 	}else if(Falou[playerid] == true){
-		format(str,sizeof(str),"{FFFF00}FALANDO\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"{FFFF00}FALANDO\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
 	}else if(Susurrou[playerid] == true){
-		format(str,sizeof(str),"{FFFF00}SUSURRANDO\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"{FFFF00}SUSURRANDO\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
 	}else if(Gritou[playerid] == true){
-		format(str,sizeof(str),"{FFFF00}GRITANDO\n{FFFFFF}%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"{FFFF00}GRITANDO\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
 	}else{
-		format(str,sizeof(str),"%04d{FFFF00}%d",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
 	}
 	SetPlayerChatBubble(playerid, str, 0xFFFFFFFF, 8.0, 20000);
 	return 1;
@@ -2079,7 +2077,7 @@ ShowDialog(playerid, dialogid)
 			new id = GetPVarInt(playerid, "DialogValue2");
 			new price = GetPVarInt(playerid, "DialogValue3");
 			new info[256];
-			format(info, sizeof(info), "{FFFF00}%s {FFFFFF}({FFFF00}%d{FFFFFF}) quer vender  {FFFF00}%s {FFFFFF}por {FFFF00}$%d.", PlayerName(targetid), targetid,
+			format(info, sizeof(info), "%04d({FFFF00}%d{FFFFFF}) quer vender  {FFFF00}%s {FFFFFF}por {FFFF00}$%d.", PlayerInfo[targetid][IDF],targetid,
 				VehicleNames[VehicleModel[id]-400], price);
 			strcat(info, "\n\n Te gustaria comprar?", sizeof(info));
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Comprar Veiculo", info, "Comprar", "X");
@@ -2703,7 +2701,7 @@ CallBack::CarregarPlantacao()
 CallBack::MaconhaColher(playerid, mac)
 {
 	new gfstring[128];
-	format(gfstring, sizeof(gfstring), "** %s suas maconhas foram cultivadas!", Name(playerid));
+	format(gfstring, sizeof(gfstring), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) suas maconhas foram cultivadas!", PlayerInfo[playerid][IDF],playerid);
 	ProxDetector(30.0, playerid, gfstring, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 	format(gfstring, sizeof gfstring, "Colheu uma maconha com %d gramas.",MaconhaInfo[mac][GramasProntas]);
 	notificacao(playerid, "EXITO", gfstring, ICONE_CERTO);
@@ -2731,7 +2729,7 @@ CallBack::MaconhaQueimar(playerid, mac)
 CallBack::MaconhaQueimar2(playerid, mac)
 {
 	new gfstring[128];
-	format(gfstring, sizeof gfstring, "O Policial %s queimou uma plantacao de maconha.",Name(playerid));
+	format(gfstring, sizeof gfstring, "{FFFFFF}O Policial %04d({FFFF00}%d{FFFFFF}) queimou uma plantacao de maconha.",PlayerInfo[playerid][IDF],playerid);
 	ProxDetector(30.0, playerid, gfstring, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 	CreateExplosion(MaconhaInfo[mac][mX], MaconhaInfo[mac][mY], MaconhaInfo[mac][mZ], 10, 1.0);
 	DestroyDynamicObject(MaconhaInfo[mac][Object]);
@@ -2763,7 +2761,7 @@ CallBack::PlantarMaconhas(playerid, slt)
 	MaconhaInfo[slt][Object] = CreateDynamicObject(3409, pX, pY, pZ-0.6,0.0, 0.0, 0.0);
 	ClearAnimations(playerid);
 	PlantandoMaconha[playerid] = false;
-	format(string, sizeof(string), "* %s plantou uma semente de maconha!", Name(playerid));
+	format(string, sizeof(string), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) plantou uma semente de maconha!", PlayerInfo[playerid][IDF],playerid);
 	ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 	notificacao(playerid, "EXITO", "Semente plantada use /maconhas para suas plantacoes.", ICONE_CERTO);
 	return true;
@@ -3004,7 +3002,7 @@ CallBack::RoubarCaixa(playerid, caixa_id)
 	new string[128];
 	new sendername[MAX_PLAYER_NAME];
 	GetPlayerName(playerid,sendername,sizeof(sendername));
-	format(string, sizeof(string), "{FFFFFF}* {FFFF00}%s {FFFFFF}Colocou uma bomba em um caixa!", sendername);
+	format(string, sizeof(string), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) Colocou uma bomba em um caixa!", PlayerInfo[playerid][IDF],playerid);
 	SendClientMessageInRange(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
 	notificacao(playerid, "EXITO", "Colocou uma bomba em um caixa, agora afasta-se.", ICONE_CERTO);
@@ -3187,7 +3185,7 @@ CallBack::PayDay(playerid)
 		TimerPayDay[playerid] = SetTimerEx("PayDay", minutos(30), false, "i", playerid); 
 
 		new string[100];
-		format(string,sizeof(string),"%s agora tem R$%i na mao e R$%i no banco", Name(playerid), PlayerInfo[playerid][pDinheiro], PlayerInfo[playerid][pBanco]);
+		format(string,sizeof(string),"%04d(%d) agora tem R$%i na mao e R$%i no banco", PlayerInfo[playerid][IDF],playerid, PlayerInfo[playerid][pDinheiro], PlayerInfo[playerid][pBanco]);
 		DCC_SendChannelMessage(Dinn, string);
 	}
 	return true;
@@ -3871,9 +3869,8 @@ DroparItem(playerid, modelid)
 					DropItemSlot[i][Interior] = GetPlayerInterior(playerid);
 					format(str, sizeof(str), "Item: %s\nUnidades: %s", ItemNomeInv(PlayerInventario[playerid][modelid][Slot]), ConvertMoney(PlayerInventario[playerid][modelid][Unidades]));
 					DropItemSlot[i][LabelItem] = CreateDynamic3DTextLabel(str, -1, x,y,z-1, 5, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-					format(str, sizeof(str), "{FFFFFF}*{FFFF00}%s {FFFFFF}soltou {FFFF00}%s {FFFFFF}com {FFFF00}%s {FFFFFF}unidades no chao.", Name(playerid), ItemNomeInv(PlayerInventario[playerid][modelid][Slot]), ConvertMoney(PlayerInventario[playerid][modelid][Unidades]));
+					format(str, sizeof(str), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) soltou {FFFF00}%s {FFFFFF}com {FFFF00}%s {FFFFFF}unidades no chao.", PlayerInfo[playerid][IDF],playerid, ItemNomeInv(PlayerInventario[playerid][modelid][Slot]), ConvertMoney(PlayerInventario[playerid][modelid][Unidades]));
 					SendClientMessageInRange(30, playerid, str, 0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA);
-					format(str, sizeof(str), "{FFFF00}%s {FFFFFF}soltou o item {FFFF00}%s {FFFFFF}com {FFFF00}%s {FFFFFF}unidades no chao.", Name(playerid), ItemNomeInv(DropItemSlot[i][DropItemID]), ConvertMoney(DropItemSlot[i][DropItemUni]));
 					PlayerInventario[playerid][modelid][Unidades] = 0;
 					AtualizarInventario(playerid, modelid);
 					ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.1, 0, 0, 0, 0, 0, 1);
@@ -4054,8 +4051,8 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			SetTimerEx("PlantarMaconhas", 17000, false, "id", playerid, slt);
 			PlantandoMaconha[playerid] = true;
 
-			format(string, sizeof(string), "** %s ja comecou a plantar uma semente.", Name(playerid));
-			ProxDetector(30.0, playerid, string, -1,-1,-1,-1,-1);
+			format(string, sizeof(string), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) ja comecou a plantar uma semente.", PlayerInfo[playerid][IDF],playerid);
+			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 			notificacao(playerid, "EXITO", "Espere que se complete.", ICONE_CERTO);
 
 			PlayerInventario[playerid][modelid][Unidades] --;
@@ -4210,7 +4207,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 		case 331..371:
 		{
 			GivePlayerWeapon(playerid, GetArmaInv(PlayerInventario[playerid][modelid][Slot]), PlayerInventario[playerid][modelid][Unidades]);
-			format(str, sizeof(str), "{FFFFFF}*{FFFF00}%s {FFFFFF}retirou um(a) {FFFF00}%s {FFFFFF}do seu inventario.", Name(playerid), ItemNomeInv(PlayerInventario[playerid][modelid][Slot]));
+			format(str, sizeof(str), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) retirou um(a) {FFFF00}%s {FFFFFF}do seu inventario.", PlayerInfo[playerid][IDF],playerid, ItemNomeInv(PlayerInventario[playerid][modelid][Slot]));
 			SendClientMessageInRange(30, playerid, str, 0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA);
 			PlayerInventario[playerid][modelid][Unidades] = 0;
 			AtualizarInventario(playerid, modelid);
@@ -4222,7 +4219,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(SedePlayer[playerid] >= 80) return notificacao(playerid, "ERRO", "Nao esta com sede.", ICONE_ERRO);
 			SedePlayer[playerid] += fomesede;
 			PlayerInventario[playerid][modelid][Unidades]--;
-			format(str, 128, "{FFFFFF}*{FFFF00}%s {FFFFFF}bebeu uma garrafa de {FFFF00}%s", Name(playerid), ItemNomeInv(PlayerInventario[playerid][modelid][Slot]));
+			format(str, 128, "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) bebeu uma garrafa de {FFFF00}%s", PlayerInfo[playerid][IDF],playerid, ItemNomeInv(PlayerInventario[playerid][modelid][Slot]));
 			ApplyAnimation(playerid, "VENDING", "VEND_Drink_P", 4.1, 0, 0, 0, 0, 0, 1);
 			SendClientMessageInRange(30, playerid, str, 0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA);
 			AtualizarInventario(playerid, modelid);
@@ -4233,7 +4230,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(FomePlayer[playerid] >= 80) return notificacao(playerid, "ERRO", "Nao esta com fome.", ICONE_ERRO);
 			FomePlayer[playerid] += fomesede;
 			PlayerInventario[playerid][modelid][Unidades]--;
-			format(str, 128, "{FFFFFF}*{FFFF00}%s {FFFFFF}comeu um(a) {FFFF00}%s", Name(playerid), ItemNomeInv(PlayerInventario[playerid][modelid][Slot]));
+			format(str, 128, "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) comeu um(a) {FFFF00}%s", PlayerInfo[playerid][IDF],playerid, ItemNomeInv(PlayerInventario[playerid][modelid][Slot]));
 			ApplyAnimation(playerid, "FOOD", "EAT_Burger", 4.1, 0, 0, 0, 0, 0, 1);
 			SendClientMessageInRange(30, playerid, str, 0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA);
 			AtualizarInventario(playerid, modelid);
@@ -4316,7 +4313,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 		{
 			if(EquipouCasco[playerid] == 0)
 			{
-				format(str, sizeof(str), "{FFFF00}%s{FFFFFF} colocou um capacete.", Name(playerid));
+				format(str, sizeof(str), "{FFFFFF}%04d({FFFF00}%d{FFFFFF}) colocou um capacete.", PlayerInfo[playerid][IDF],playerid);
 				SendClientMessageInRange(30, playerid, str, 0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA);
 				SetPlayerAttachedObject(playerid, 1, 18645, 2, 0.07, 0, 0, 88, 75, 0);
 				AtualizarInventario(playerid, modelid);
@@ -4324,7 +4321,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			}
 			else
 			{
-				format(str, sizeof(str), "{FFFF00}%s{FFFFFF} retirou um capacete.", Name(playerid));
+				format(str, sizeof(str), "{FFFFFF}%04d({FFFF00}%d{FFFFFF}) retirou um capacete.", PlayerInfo[playerid][IDF],playerid);
 				SendClientMessageInRange(30, playerid, str, 0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA);
 				RemovePlayerAttachedObject(playerid,1);
 				AtualizarInventario(playerid, modelid);
@@ -4335,10 +4332,10 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 		}
 		case 18870:
 		{
-			format(str, sizeof(str), "{FFFF00}%s{FFFFFF} pegou um celular.", Name(playerid));
+			format(str, sizeof(str), "{FFFFFF}%04d({FFFF00}%d{FFFFFF}) pegou um celular.", PlayerInfo[playerid][IDF],playerid);
 			SendClientMessageInRange(30, playerid, str, 0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA);
 			AtualizarInventario(playerid, modelid);
-			ShowPlayerDialog(playerid, DIALOG_CELULAR, DIALOG_STYLE_LIST, "Telefono", "Transferencia PIX", "Confirmar", "X");
+			ShowPlayerDialog(playerid, DIALOG_CELULAR, DIALOG_STYLE_LIST, "Telefone", "Transferencia PIX", "Confirmar", "X");
 			return 1;
 		}
 		case 11738:
@@ -4390,7 +4387,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			GetPlayer2DZone2(playerid, location, MAX_ZONE_NAME);
 
 			new string[800];
-			format(string, sizeof string, "{FFFF00}CNN {FFFF00}%s {FFFFFF}e {FFFF00}seus companheiros {FFFFFF}estao roubando um caixa em {FFFF00}%s", Name(playerid), location);
+			format(string, sizeof string, "{FFFF00}CNN {FFFFFF}%04d({FFFF00}%d{FFFFFF})e {FFFF00}seus companheiros {FFFFFF}estao roubando um caixa em {FFFF00}%s", PlayerInfo[playerid][IDF],playerid, location);
 			SendClientMessageToAll(-1, string);
 
 			new sendername[MAX_PLAYER_NAME];
@@ -9445,6 +9442,7 @@ public OnGameModeExit()
 public OnPlayerRequestClass(playerid, classid)
 {
 	ZerarDados(playerid);
+	PlayAudioStreamForPlayer(playerid, "https://www.dropbox.com/scl/fi/bfd11qfhhh1mnostowgmn/Plug-Production-Baixada-Roleplay-Prod.-TKD.mp3?rlkey=kz6680s3e7gisl713gnorxksg&dl=0");
 	for(new t=0;t<17;t++){
 		TextDrawShowForPlayer(playerid, Loadsc[t]);
 	}
@@ -9760,15 +9758,13 @@ public OnPlayerText(playerid, text[])
 		notificacao(playerid, "ERRO", "Esta calado e nao podera falar.", ICONE_ERRO);
 		return 0;
 	}
-	format(Str, sizeof(Str), "%s %s", Name(playerid), text);
-	Log("Logs/FalaTodos.ini", Str);
 	Moved[playerid] = true;
 	//
 	UltimaFala[playerid] = gettime();
 	if(pLogado[playerid] == false)              				return notificacao(playerid, "ERRO", "Nao esta conectado", ICONE_AVISO);
 	{
 		new string[128];
-		format(string, sizeof(string), "%s(%04d{FFFF00}%d{FFFFFF}) falou {FFFF00}%s",Name(playerid), PlayerInfo[playerid][IDF],playerid,text);
+		format(string, sizeof(string), "{FFFFFF}%04d({FFFF00}%d{FFFFFF}) falou {FFFF00}%s",PlayerInfo[playerid][IDF],playerid,text);
 		ProxDetector(30.0, playerid, string, -1, -1, -1, -1, -1);
 
 		format(string,sizeof(string),"%s falou %s", Name(playerid), text);
@@ -9918,7 +9914,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 	if(TemCinto[playerid] == true){
 		new string3[128];
 		TemCinto[playerid] = false;
-		format(string3, sizeof(string3), "** %s tirou o cinto de seguranca", Name(playerid));
+		format(string3, sizeof(string3), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) tirou o cinto de seguranca", PlayerInfo[playerid][IDF],playerid);
 		ProxDetector(20.0, playerid, string3, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 		notificacao(playerid, "EXITO", "Cinto de seguranca removido", ICONE_CERTO);
 	}else{
@@ -12764,7 +12760,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 0)
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%s compro  {0080FF}SULTAN{FFFFFF} por{FFFF00} BC$5.000", Name(playerid));
+					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}SULTAN{FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 560, 1);
@@ -12773,7 +12769,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 1)
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%s compro  {0080FF}HOTKNIFE{FFFFFF} por{FFFF00} BC$5.000", Name(playerid));
+					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}HOTKNIFE{FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 434, 1);
@@ -12782,7 +12778,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 2)
 				{
 					if(PlayerInfo[playerid][pCoins] < 2000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%s compro  {0080FF}RC BANDIT{FFFFFF} por{FFFF00} BC$2.000", Name(playerid));
+					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}RC BANDIT{FFFFFF} por{FFFF00} BC$2.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 441, 1);
@@ -12791,7 +12787,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 3)
 				{
 					if(PlayerInfo[playerid][pCoins] < 2000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%s compro  {0080FF}RC BARON{FFFFFF} por{FFFF00} BC$2.000", Name(playerid));
+					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}RC BARON{FFFFFF} por{FFFF00} BC$2.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 464, 1);
@@ -12800,7 +12796,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 4)
 				{
 					if(PlayerInfo[playerid][pCoins] < 2000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%s compro  {0080FF}RC RAIDER{FFFFFF} por{FFFF00} BC$2.000", Name(playerid));
+					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}RC RAIDER{FFFFFF} por{FFFF00} BC$2.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 465, 1);
@@ -12809,7 +12805,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 5)
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%s compro  {0080FF}HOTRING{FFFFFF} por{FFFF00} BC$5.000", Name(playerid));
+					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}HOTRING{FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 502, 1);
@@ -12818,7 +12814,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 6)
 				{
 					if(PlayerInfo[playerid][pCoins] < 2000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%s compro  {0080FF}RC GOBLIN{FFFFFF} por{FFFF00} BC$2.000", Name(playerid));
+					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}RC GOBLIN{FFFFFF} por{FFFF00} BC$2.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 501, 1);
@@ -12827,7 +12823,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 7)
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%s compro  {0080FF}MONSTER{FFFFFF} por{FFFF00} BC$5.000", Name(playerid));
+					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}MONSTER{FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 556, 1);
@@ -12843,7 +12839,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 0)
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%s compro  {0080FF}VIP PRATA {FFFFFF} por{FFFF00} BC$5.000", Name(playerid));
+					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}VIP PRATA {FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 5000;
 					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
@@ -12857,7 +12853,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 1)
 				{
 					if(PlayerInfo[playerid][pCoins] < 10000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%s compro  {0080FF}VIP GOLD {FFFFFF} por{FFFF00} BC$10.000", Name(playerid));
+					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}VIP GOLD {FFFFFF} por{FFFF00} BC$10.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pBanco] += 5000;
 					PlayerInfo[playerid][pCoins] -= 10000;
@@ -12872,7 +12868,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 2)
 				{
 					if(PlayerInfo[playerid][pCoins] < 20000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%s compro  {0080FF}VIP PATROCINADOR por{FFFF00} BC$20.000", Name(playerid));
+					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}VIP PATROCINADOR por{FFFF00} BC$20.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pBanco] += 25000;
 					PlayerInfo[playerid][pCoins] -= 20000;
@@ -13180,11 +13176,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				    ClearAnimations(id, 1);
 				    ClearAnimations(id);
 			        SetPlayerPos(id, PlayerMorto[id][pPosMt1], PlayerMorto[id][pPosMt2], PlayerMorto[id][pPosMt3]);
-			        new string[200];
-			        format(string, 200, "{00FF00}~> voce reviveu o jogador %s!", PlayerName(id));
-				    SendClientMessage(playerid, -1, string);
-				    format(string, 200, "{00FF00}~> %s te reviveu!", PlayerName(playerid));
-				    SendClientMessage(id, -1, string);
 				    return 1;
 				}
 				notificacao(playerid, "ERRO", "Estas lejos de un jugador!", ICONE_ERRO);
@@ -13276,7 +13267,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PlayerInfo[playerid][Cargo] = 1;
 				format(String,sizeof(String),"Acaba de entrar na organizacao{FFFF00} (%s)",NomeOrg(playerid));
 				notificacao(playerid, "INFO", String, ICONE_AVISO);
-				format(String,sizeof(String),"%s acaba de entrar na sua organizaccao (%s)",Name(playerid),NomeOrg(playerid));
+				format(String,sizeof(String),"%04d(%d) acaba de entrar na sua organizaccao (%s)",PlayerInfo[playerid][IDF],playerid,NomeOrg(playerid));
 				notificacao(PlayerInfo[playerid][convite], "INFO", String, ICONE_AVISO);
 				PlayerInfo[playerid][convite] = 0;
 				convidarmembro(playerid, PlayerInfo[playerid][Org]);
@@ -13284,7 +13275,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			if(!response)
 			{
-				format(String,sizeof(String),"%s Recusou o convite para org (%s)",Name(playerid),NomeOrg(playerid));
+				format(String,sizeof(String),"%04d(%d) Recusou o convite para org (%s)",PlayerInfo[playerid][IDF],playerid,NomeOrg(playerid));
 				notificacao(PlayerInfo[playerid][convite], "INFO", String, ICONE_AVISO);
 				format(String,sizeof(String),"Recusou o convite para sua organizacao (%s)",NomeOrg(playerid));
 				notificacao(playerid, "INFO", String, ICONE_AVISO);
@@ -13315,126 +13306,85 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(response)
 			{
-				new string[800];
 				if(listitem == 0)
 				{
 					SetPlayerSkin(playerid, 265);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 1)
 				{
 					SetPlayerSkin(playerid, 266);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 2)
 				{
 					SetPlayerSkin(playerid, 267);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 3)
 				{
 					SetPlayerSkin(playerid, 280);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 4)
 				{
 					SetPlayerSkin(playerid, 281);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 5)
 				{
 					SetPlayerSkin(playerid, 282);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 6)
 				{
 					SetPlayerSkin(playerid, 283);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 7)
 				{
 					SetPlayerSkin(playerid, 284);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 8)
 				{
 					SetPlayerSkin(playerid, 285);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 9)
 				{
 					SetPlayerSkin(playerid, 286);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 10)
 				{
 					SetPlayerSkin(playerid, 300);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 11)
 				{
 					SetPlayerSkin(playerid, 301);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 12)
 				{
 					SetPlayerSkin(playerid, 302);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 13)
 				{
 					SetPlayerSkin(playerid, 306);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 14)
 				{
 					SetPlayerSkin(playerid, 307);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 15)
 				{
 					SetPlayerSkin(playerid, 308);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 16)
 				{
 					SetPlayerSkin(playerid, 309);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 17)
 				{
 					SetPlayerSkin(playerid, 310);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 18)
 				{
 					SetPlayerSkin(playerid, 311);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}pegou um uniforme no armario", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 				if(listitem == 19)
 				{
 					SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
-					format(string, sizeof(string), "{FFFFFF}* Oficial {FFFF00}%s {FFFFFF}Saco su ROPA de trabajo", Name(playerid));
-					ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 				}
 			}
 		}
@@ -13906,7 +13856,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 								format(File, sizeof(File), PASTA_CONTAS, CasaInfo[i][CasaDono]);
 
-								format(gstring, sizeof(gstring), "| IMOBILIARIA |{FFFFFF} O Jogador {FFFF00}%s {FFFFFF}comprou uma casa em {FFFF00}%s {FFFFFF}valor de {FFFF00}R$%d.", Name(playerid), location, CasaInfo[i][CasaValor]);
+								format(gstring, sizeof(gstring), "| IMOBILIARIA |{FFFFFF} O jogador %04d({FFFF00}%d{FFFFFF}) comprou uma casa em {FFFF00}%s {FFFFFF}valor de {FFFF00}R$%d.", PlayerInfo[playerid][IDF],playerid, location, CasaInfo[i][CasaValor]);
 								SendClientMessageToAll(COR_GREY, gstring);
 
 								format(gstring, sizeof(gstring), "Compro casa id %d e pagou R$%d.", CasaInfo[i][CasaId], CasaInfo[i][CasaValor]);
@@ -14473,14 +14423,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SaveVehicle(id);
 				format(msg, sizeof(msg), "Voce comprou o veiculo por R$%d", price);
 				notificacao(playerid, "EXITO", msg, ICONE_CERTO);
-				format(msg, sizeof(msg), "%s (%d) aceitou a oferta", PlayerName(playerid), playerid);
+				format(msg, sizeof(msg), "%04d(%d) aceitou a oferta", PlayerInfo[playerid][IDF],playerid);
 				notificacao(targetid, "INFO", msg, ICONE_AVISO);
 			}
 			else
 			{
 				new targetid = GetPVarInt(playerid, "DialogValue1");
 				new msg[128];
-				format(msg, sizeof(msg), " %s (%d) recusou a oferta", PlayerName(playerid), playerid);
+				format(msg, sizeof(msg), " %04d(%d) recusou a oferta", PlayerInfo[playerid][IDF],playerid);
 				notificacao(targetid, "INFO", msg, ICONE_AVISO);
 			}
 			return 1;
@@ -14892,7 +14842,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		{
 			Patrulha[playerid] = true;
 			SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
-			format(strings, sizeof(strings), "* Oficial %s se identificou e iniciou o trabalho.", Name(playerid));
+			format(strings, sizeof(strings), "*{FFFFFF} Oficial %04d({FFFF00}%d{FFFFFF}) se identificou e iniciou o trabalho.", PlayerInfo[playerid][IDF],playerid);
 			ProxDetector(30.0, playerid, strings, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);    
 			SetPlayerColor(playerid, 0x0012FFFF);
 			SetPlayerHealth(playerid, 100);
@@ -14902,7 +14852,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 			Patrulha[playerid] = false;
 			SetPlayerHealth(playerid, 100);
 			SetPlayerArmour(playerid, 0);	
-			format(strings, sizeof(strings), "* Oficial %s se identificou como policial e deixou o trabado.", Name(playerid));
+			format(strings, sizeof(strings), "* {FFFFFF}Oficial %04d({FFFF00}%d{FFFFFF}) se identificou como policial e deixou o trabado.", PlayerInfo[playerid][IDF],playerid);
 			ProxDetector(30.0, playerid, strings, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);    
 			SetPlayerColor(playerid, 0xFFFFFFFF);
 			SetPlayerHealth(playerid, 100);
@@ -14922,59 +14872,44 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 	}
 	if(playertextid == CopGuns[playerid][0])
 	{
-		new string[800];
 		SetPlayerArmour(playerid, 100);
 		RemovePlayerWeapon(playerid, 34);
-		format(string, sizeof(string), "* Oficial %s Pegou 9mm do armario", Name(playerid));
-		ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);    
 		GivePlayerWeapon(playerid, 22, 100);
 	}
 	if(playertextid == CopGuns[playerid][1])
 	{
-		new string[800];
 		SetPlayerArmour(playerid, 100);
 		RemovePlayerWeapon(playerid, 34);
 		RemovePlayerWeapon(playerid, 25);
 		RemovePlayerWeapon(playerid, 29);
 		RemovePlayerWeapon(playerid, 31);
-		format(string, sizeof(string), "* Oficial %s Pegou uma M4 do armario", Name(playerid));
-		ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);    
 		GivePlayerWeapon(playerid, 31, 250);
 	}
 	if(playertextid == CopGuns[playerid][2])
 	{
-		new string[800];
 		SetPlayerArmour(playerid, 100);
 		RemovePlayerWeapon(playerid, 34);
 		RemovePlayerWeapon(playerid, 29);
 		RemovePlayerWeapon(playerid, 31);
 		RemovePlayerWeapon(playerid, 25);
-		format(string, sizeof(string), "* Oficial %s Pegou uma SHOTGUN do armario", Name(playerid));
-		ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);    
 		GivePlayerWeapon(playerid, 25, 15);
 	}
 	if(playertextid == CopGuns[playerid][3])
 	{
-		new string[800];
 		SetPlayerArmour(playerid, 100);
 		RemovePlayerWeapon(playerid, 34);
 		RemovePlayerWeapon(playerid, 25);
 		RemovePlayerWeapon(playerid, 31);
 		RemovePlayerWeapon(playerid, 29);
-		format(string, sizeof(string), "* Oficial %s Pegou uma MP5 do armario", Name(playerid));
-		ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);    
 		GivePlayerWeapon(playerid, 29, 250);
 	}
 	if(playertextid == CopGuns[playerid][4])
 	{
-		new string[800];
 		SetPlayerArmour(playerid, 100);
 		RemovePlayerWeapon(playerid, 29);
 		RemovePlayerWeapon(playerid, 25);
 		RemovePlayerWeapon(playerid, 31);
 		RemovePlayerWeapon(playerid, 34);
-		format(string, sizeof(string), "* Oficial %s Pegou um RIFLE del armario", Name(playerid));
-		ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);    
 		GivePlayerWeapon(playerid, 34, 25);
 	}
 	if(playertextid == HudCop[playerid][2])
@@ -15025,7 +14960,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 						SetPVarInt(playerid, "MoneyEarned", money+GetPVarInt(playerid, "MoneyEarned"));
 
 						PlayerTextDrawSetString(playerid, CasinoPTD[30], "~g~Ganhou! : )" );
-						format(string, sizeof(string), "Jugadas: ~g~%d~w~~h~~n~Dinheiro ganho: ~g~R$%s", GetPVarInt(playerid, "Mines"), FormatNumber(GetPVarInt(playerid, "MoneyEarned")));
+						format(string, sizeof(string), "JOgadas: ~g~%d~w~~h~~n~Dinheiro ganho: ~g~R$%s", GetPVarInt(playerid, "Mines"), FormatNumber(GetPVarInt(playerid, "MoneyEarned")));
 						PlayerTextDrawSetString(playerid, CasinoPTD[31], string);
 						MissaoPlayer[playerid][MISSAO10] = 1;
 					} 
@@ -15033,8 +14968,6 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 					{
 						PlayerTextDrawSetString(playerid, CasinoPTD[30], "~r~Perdeu!~n~");
 
-						format(string, sizeof(string), "* %s perdeu R$%s no jogo da mina.", GetName(playerid), FormatNumber(GetPVarInt(playerid, "BetAmount")));
-						ProxDetector(30.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 						MissaoPlayer[playerid][MISSAO10] = 1;
 						for( new x = 0; x < 30; x++ ) 
 						{
@@ -15453,8 +15386,6 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		{
 			PlayerInfo[playerid][pDinheiro] += GetPVarInt( playerid, "BetAmount");
 			PlayerInfo[playerid][pDinheiro] += GetPVarInt( playerid, "MoneyEarned");
-			format(string, sizeof(string), "* %s ganhou R$%s no jogo da mina.", GetName(playerid), FormatNumber(GetPVarInt(playerid, "MoneyEarned")));
-			ProxDetector(30.0,playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 			format(string, sizeof(string), "~g~Ganhou R$%s.", FormatNumber(GetPVarInt(playerid, "MoneyEarned")));
 			ShowCasinoTDs(playerid);
 			PlayerTextDrawSetString(playerid, CasinoPTD[30], string);
@@ -15567,7 +15498,7 @@ CMD:cinto(playerid){
 	if(TemCinto[playerid] == false){
 		TemCinto[playerid] = true;
 		notificacao(playerid, "EXITO", "Cinto de seguranca colocado", ICONE_CERTO);
-		format(str, sizeof(str), "** %s colocou o cinto de seguranca", Name(playerid));
+		format(str, sizeof(str), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) colocou o cinto de seguranca", PlayerInfo[playerid][IDF],playerid);
 		ProxDetector(20.0, playerid, str, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 		for(new x=0;x<5;x++){
 			TextDrawHideForPlayer(playerid, Tdcinto[x]);
@@ -15575,7 +15506,7 @@ CMD:cinto(playerid){
 	}else{
 		TemCinto[playerid] = false;
 		notificacao(playerid, "EXITO", "Cinto de seguranca removido", ICONE_CERTO);
-		format(str, sizeof(str), "** %s retirou o cinto de seguranca", Name(playerid));
+		format(str, sizeof(str), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) retirou o cinto de seguranca", PlayerInfo[playerid][IDF],playerid);
 		ProxDetector(20.0, playerid, str, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 		for(new x=0;x<5;x++){
 			TextDrawShowForPlayer(playerid, Tdcinto[x]);
@@ -15647,7 +15578,7 @@ CMD:inventario(playerid)
 		}
 		InventarioAberto[playerid] = 0;
 		CancelSelectTextDraw(playerid);
-		format(str, sizeof(str), "{FFFFFF}*{FFFF00}%s {FFFFFF}fechou o inventario.", Name(playerid));
+		format(str, sizeof(str), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF})fechou o inventario.", PlayerInfo[playerid][IDF],playerid);
 		SendClientMessageInRange(30, playerid, str, 0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA);
 		return 1;
 	}
@@ -15674,7 +15605,7 @@ CMD:inventario(playerid)
 		}
 		SelectTextDraw(playerid, 0xC4C4C4AA);
 		InventarioAberto[playerid] = 1;
-		format(str, sizeof(str), "{FFFFFF}*{FFFF00}%s {FFFFFF}abriu o inventario.", Name(playerid));
+		format(str, sizeof(str), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF})abriu o inventario.", PlayerInfo[playerid][IDF],playerid);
 		SendClientMessageInRange(30, playerid, str, 0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA);
 	}
 	return 1;
@@ -15688,12 +15619,9 @@ CMD:report(playerid, params[])
 	//
 	notificacao(playerid, "EXITO", "Os administradores foram notificados. Bom jogo !", ICONE_CERTO);
 	//
-	format(Str, sizeof(Str), "{FFFFFF}REPORT {FFFF00}%s{FFFFFF}(ID:{FFFF00}%d{FFFFFF}) report {FFFF00}%s{FFFFFF}(ID:{FFFF00}%d{FFFFFF}) Motivo: {FFFF00}%s", Name(playerid), playerid, Name(ID), ID, Motivo);
+	format(Str, sizeof(Str), "{FFFFFF}%04d({FFFF00}%d{FFFFFF}) report {FFFFFF}%04d({FFFF00}%d{FFFFFF}) Motivo: {FFFF00}%s", PlayerInfo[playerid][IDF],playerid, PlayerInfo[ID][IDF],ID, Motivo);
 	SendAdminMessage(AzulClaro, Str);
 	//
-	new string[100];
-	format(string,sizeof(string),"%s fez report em %s motivo %s", Name(playerid), Name(ID), Motivo);
-	DCC_SendChannelMessage(Report, string);
 	return 1;
 }
 
@@ -15702,7 +15630,7 @@ CMD:duvida(playerid, params[])
 	if(pLogado[playerid] == false)              				return notificacao(playerid, "ERRO", "Nao fez login.", ICONE_ERRO);
 	if(sscanf(params, "s[56]", Str))							return SendClientMessage(playerid, CorErroNeutro, "USE: /duvida [TEXTO]");
 	//
-	format(Str, sizeof(Str), "{07fc03}Duvida{FFF} %s{FFFF00} disse {FFFFFF}%s", Name(playerid), Str);
+	format(Str, sizeof(Str), "{07fc03}(Duvida){FFFFFF} %s{FFFF00} disse {FFFFFF}%s", Name(playerid), Str);
 	SendClientMessageToAll(-1, Str);
 	return 1;
 }
@@ -16732,7 +16660,7 @@ CMD:convidar(playerid,params[])
 	if(!IsPerto(playerid,id))return notificacao(playerid, "ERRO", "Nao esta perto deste jogador.", ICONE_ERRO);
 	if(PlayerInfo[id][Org] != 0)return notificacao(playerid, "ERRO", "Este jogador ja e de uma organizacao.", ICONE_ERRO);
 	PlayerInfo[id][convite] = PlayerInfo[playerid][Org];
-	format(String,sizeof(String),"Esta sendo convidado por %s. (%s)",Name(playerid),NomeOrg(playerid));
+	format(String,sizeof(String),"Esta sendo convidado por {FFFFFF}%04d({FFFF00}%d{FFFFFF}). (%s)",PlayerInfo[playerid][IDF],playerid,NomeOrg(playerid));
 	ShowPlayerDialog(id,DIALOG_CONVITE,DIALOG_STYLE_MSGBOX,"Convite",String,"Aceitar","X");
 	return 1;
 }
@@ -16764,9 +16692,9 @@ CMD:demitir(playerid,params[])
 	if(sscanf(params,"i",xPlayer))
 		return SendClientMessage(playerid , 0xFF0000FF , "{FFFF00}AVISO{FFFFFF}/demitir [playerid]");
 	if(PlayerInfo[xPlayer][Org] != PlayerInfo[playerid][Org])return notificacao(playerid, "ERRO", "Este jogador nao e de sua organizacao.", ICONE_ERRO);
-	format(String, sizeof(String),"Ha expulsado %s de su organizacao!",Name(xPlayer));
+	format(String, sizeof(String),"Expulsou %04d(%d) de sua organizacao!",PlayerInfo[xPlayer][IDF],xPlayer);
 	notificacao(playerid, "EXITO", String, ICONE_CERTO);
-	format(String, sizeof(String),"Fuiste expulsado de su organizacao por %s",Name(playerid));
+	format(String, sizeof(String),"Foi expulsado de sua organizacao por %04d(%d)",PlayerInfo[playerid][IDF],playerid);
 	notificacao(xPlayer, "INFO", String, ICONE_AVISO);
 	expulsarmembro(xPlayer, PlayerInfo[xPlayer][Org]);
 	PlayerInfo[xPlayer][Org] = 0;
@@ -16785,9 +16713,9 @@ CMD:promover(playerid,params[])
 	if(cargo == 0)return notificacao(playerid, "ERRO", "Nao pode dar este cargo.", ICONE_ERRO);
 	if(PlayerInfo[id][Org] != PlayerInfo[playerid][Org])return notificacao(playerid, "ERRO", "Este jogador nao de sua organizacao.", ICONE_ERRO);
 	PlayerInfo[id][Cargo] = cargo;
-	format(String,sizeof(String),"Voce deu %s para %s de organizacao.",NomeCargo(id),Name(id));
+	format(String,sizeof(String),"Voce deu %s para %04d(%d) de organizacao.",NomeCargo(id),PlayerInfo[id][IDF],id);
 	notificacao(playerid, "EXITO", String, ICONE_CERTO);
-	format(String,sizeof(String),"%s colocou voce como %s de organizacao.",Name(playerid),NomeCargo(id));
+	format(String,sizeof(String),"%04d(%d) colocou voce como %s de organizacao.",PlayerInfo[playerid][IDF],playerid,NomeCargo(id));
 	notificacao(id, "INFO", String, ICONE_AVISO);
 	return 1;
 }
@@ -16880,9 +16808,9 @@ CMD:pagar(playerid, params[])
 
 	PlayerInfo[id][pDinheiro] += quantia;
 	PlayerInfo[playerid][pDinheiro] -= quantia;
-	format(string, sizeof(string), "Pagou R$%d para %s (ID: %d)", quantia, Name(id), id);
+	format(string, sizeof(string), "Pagou R$%d para %04d(%d)", quantia, PlayerInfo[id][IDF],id);
 	notificacao(playerid, "EXITO", string, ICONE_CERTO);
-	format(string, sizeof(string), "Recebeu R$%d de %s (ID: %d).", quantia, Name(playerid), playerid);
+	format(string, sizeof(string), "Recebeu R$%d de %04d(%d).", quantia, PlayerInfo[playerid][IDF],playerid);
 	notificacao(id, "INFO", string, ICONE_AVISO);
 	return 1;
 } 
@@ -17160,7 +17088,7 @@ CMD:d(playerid, params[])
 	if(Patrulha[playerid] == false) 								return notificacao(playerid, "ERRO", "Nao esta em patrulha.", ICONE_ERRO);
 	if(sscanf(params, "s[56]", Str)) 							return SendClientMessage(playerid, CorErroNeutro, "USE: /d [TEXTO]");
 
-	format(Str, sizeof(Str), "{FFFFFF}[{FFFF00}%s{FFFFFF}] {FFFF00}%s{FFFFFF} disse {FFFF00}%s", NomeCargo(playerid), Name(playerid), Str);
+	format(Str, sizeof(Str), "{FFFFFF}[{FFFF00}%s{FFFFFF}] {FFFFFF}%04d({FFFF00}%d{FFFFFF}) disse {FFFF00}%s", NomeCargo(playerid), PlayerInfo[playerid][IDF],playerid, Str);
 	SendRadioMessage(0xDDA0DDFF, Str);
 
 	return 1;
@@ -17171,7 +17099,7 @@ CMD:ga(playerid, params[])
 	if(!IsBandido(playerid))						return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
 	if(sscanf(params, "s[56]", Str)) 							return SendClientMessage(playerid, CorErroNeutro, "USE: /ga [TEXTO]");
 
-	format(Str, sizeof(Str), "{FFFFFF}[{FFFF00}%s{FFFFFF}] {FFFF00}%s{FFFFFF} disse {FFFF00}%s", NomeCargo(playerid), Name(playerid), Str);
+	format(Str, sizeof(Str), "{FFFFFF}[{FFFF00}%s{FFFFFF}] {FFFFFF}%04d({FFFF00}%d{FFFFFF}) disse {FFFF00}%s", NomeCargo(playerid), PlayerInfo[playerid][IDF],playerid, Str);
 	SendGangMessage(0xDDA0DDFF, Str);
 
 	return 1;
@@ -17268,7 +17196,7 @@ CMD:prender(playerid, params[])
 			PlayerInfo[ID][pCadeia] = 1;
 		}
 		//
-		format(Str, sizeof(Str), "{FFFF00}AVISO{FFFFFF} O jogador {FFFF00}%s {FFFFFF}foi preso por {FFFF00}%s {FFFFFF}por {FFFF00}%i {FFFFFF}minutos. Motivo: {FFFF00}%s", Name(ID), NomeOrg(playerid), Numero, Motivo);
+		format(Str, sizeof(Str), "{FFFF00}AVISO{FFFFFF} O jogador {FFFFFF}%04d({FFFF00}%d{FFFFFF})foi preso por {FFFF00}%s {FFFFFF}por {FFFF00}%i {FFFFFF}minutos. Motivo: {FFFF00}%s", PlayerInfo[ID][IDF],ID, NomeOrg(playerid), Numero, Motivo);
 		SendClientMessageToAll(VermelhoEscuro, Str);
 	}
 	return 1;
@@ -17279,11 +17207,11 @@ CMD:ab(playerid)
 	new String[5000];
 	if(IsPolicial(playerid))
 	{
-		format(String,sizeof(String),"{6959CD}*** [%s]%s: POLICIA, PARE OU IREMOS ATIRAR!!!! ***", NomeOrg(playerid), Name(playerid));
+		format(String,sizeof(String),"{6959CD}*** %s, PARE OU IREMOS ATIRAR!!!! ***", NomeOrg(playerid));
 	}
 	if(IsBandido(playerid))
 	{
-		format(String,sizeof(String),"{6959CD}*** [%s]%s: ASSALTO, PARE OU IREMOS ATIRAR!!!! ***", NomeOrg(playerid), Name(playerid));
+		format(String,sizeof(String),"{6959CD}*** %s, PARE OU IREMOS ATIRAR!!!! ***", NomeOrg(playerid));
 	}
 	ProxDetector(30.0, playerid, String, -1,-1,-1,-1,-1);
 	return 1;
@@ -17297,7 +17225,7 @@ CMD:su(playerid, params[])
 	if(!IsPlayerConnected(ID))									return notificacao(playerid, "ERRO", "Jogador nao esta online.", ICONE_ERRO);
 	if(!IsPerto(playerid,ID))return notificacao(playerid, "ERRO", "Nao esta proximo do jogador.", ICONE_ERRO);
 	//
-	format(Str, sizeof(Str), "O Policial %s colocou %i de procurado em voce.", Name(playerid), Numero);
+	format(Str, sizeof(Str), "O Policial %04d(%d) colocou %i de procurado em voce.", PlayerInfo[playerid][IDF],playerid, Numero);
 	notificacao(ID, "INFO", Str, ICONE_AVISO);
 
 	notificacao(playerid, "EXITO", "Colocou com sucesso o jogador como procurado.", ICONE_CERTO);
@@ -17322,7 +17250,7 @@ CMD:verinv(playerid, params[])
 		}
 		InventarioAberto[playerid] = 0;
 		CancelSelectTextDraw(playerid);
-		format(str, sizeof(str), "{FFFFFF}*{FFFF00}%s {FFFFFF}nao esta mas verificando as coisas de {FFFF00}%s{FFFFFF}.", Name(playerid), Name(ID));
+		format(str, sizeof(str), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) nao esta mas verificando as coisas de {FFFFFF}%04d({FFFF00}%d{FFFFFF}).", PlayerInfo[playerid][IDF],playerid, PlayerInfo[ID][IDF],ID);
 		SendClientMessageInRange(30, playerid, str, 0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA);
 		return 1;
 	}
@@ -17349,7 +17277,7 @@ CMD:verinv(playerid, params[])
 		}
 		SelectTextDraw(playerid, 0xC4C4C4AA);
 		InventarioAberto[playerid] = 1;
-		format(str, sizeof(str), "{FFFFFF}*{FFFF00}%s {FFFFFF}esta verificando as coisas de {FFFF00}%s{FFFFFF}.", Name(playerid), Name(ID));
+		format(str, sizeof(str), "{FFFFFF}*{FFFFFF}%04d({FFFF00}%d{FFFFFF}) esta mas verificando as coisas de {FFFFFF}%04d({FFFF00}%d{FFFFFF}).", PlayerInfo[playerid][IDF],playerid, PlayerInfo[ID][IDF],ID);
 		SendClientMessageInRange(30, playerid, str, 0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA);
 	}
 	return 1;
@@ -17361,7 +17289,7 @@ CMD:patrulha(playerid)
 
 	SendClientMessageToAll(-1,"");
 	SendClientMessageToAll(-1,"");
-	format(Str, sizeof(Str), "{FFFF00}AVISO{FFFFFF} O Policial {FFFF00}%s {FFFFFF}esta em patrulha.", Name(playerid));
+	format(Str, sizeof(Str), "{FFFF00}%s {FFFFFF}esta em patrulha.", NomeOrg(playerid));
 	SendClientMessageToAll(AzulRoyal, Str); 
 	SendClientMessageToAll(-1,"");
 	SendClientMessageToAll(-1,"");	
@@ -17377,10 +17305,10 @@ CMD:rarmeros(playerid, params[])
 	if(!IsPerto(playerid,ID))return notificacao(playerid, "ERRO", "Nao esta proximo do jogador.", ICONE_ERRO);
 	ResetPlayerWeapons(ID);
 	//
-	format(Str, sizeof(Str), "Desarmaste: %s", Name(ID));
+	format(Str, sizeof(Str), "Desarmou: %04d(%d)", PlayerInfo[ID][IDF],ID);
 	notificacao(playerid, "EXITO", Str, ICONE_CERTO);
 	//
-	format(Str, 106, "Has sido desarmado por O Administrador %s", Name(playerid));
+	format(Str, 106, "Foi desarmado por %04d(%d)", PlayerInfo[playerid][IDF],playerid);
 	notificacao(ID, "INFO", Str, ICONE_AVISO);
 	return 1;
 }
@@ -17429,7 +17357,7 @@ CMD:procurados(playerid)
 		{ 
 			if(IsPlayerConnected(i)) 
 			{ 
-				format(string, sizeof(string), "%s(%d)", Name(i),i); 
+				format(string, sizeof(string), "{FFFFFF}%04d({FFFF00}%d{FFFFFF})", PlayerInfo[i][IDF],i); 
 				SendClientMessage(playerid, 0xE3E3E3FF, string); 
 				count++; 
 			} 
@@ -17450,10 +17378,10 @@ CMD:multar(playerid, params[])
 	if(!IsPerto(playerid,ID))return notificacao(playerid, "ERRO", "Nao esta proximo do jogador.", ICONE_ERRO);
 	//
 	PlayerInfo[ID][pMultas] += Numero;
-	format(Str, sizeof(Str), "Deu a %s, %d de multa.", Name(ID), Numero);
+	format(Str, sizeof(Str), "Deu a %04d(%d), %d de multa.", PlayerInfo[ID][IDF],ID, Numero);
 	notificacao(playerid, "EXITO", Str, ICONE_CERTO);
 	//
-	format(Str, sizeof(Str), "O Policial %s te deu %d de multa.", Name(playerid), Numero);
+	format(Str, sizeof(Str), "O Policial %04d(%d) te deu %d de multa.", PlayerInfo[playerid][IDF],playerid, Numero);
 	notificacao(ID, "INFO", Str, ICONE_AVISO);
 	return 1;
 }

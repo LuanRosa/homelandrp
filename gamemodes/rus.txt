@@ -1,3 +1,13 @@
-E:\Play7 Roleplay\gamemodes\play7.pwn(3153) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "RetirarItem"
+../modulos/txdglobal.inc(1018) : íåïðàâèëüíàÿ òàáóëÿöèÿ
+../modulos/txdglobal.inc(1019) : íåïðàâèëüíàÿ òàáóëÿöèÿ
+E:\Baixada Roleplay\gamemodes\baixada.pwn(13181) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "string"
+E:\Baixada Roleplay\gamemodes\baixada.pwn(13312) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "string"
+E:\Baixada Roleplay\gamemodes\baixada.pwn(14879) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "string"
+E:\Baixada Roleplay\gamemodes\baixada.pwn(14886) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "string"
+E:\Baixada Roleplay\gamemodes\baixada.pwn(14896) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "string"
+E:\Baixada Roleplay\gamemodes\baixada.pwn(14906) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "string"
+E:\Baixada Roleplay\gamemodes\baixada.pwn(14916) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "string"
+E:\Baixada Roleplay\gamemodes\baixada.pwn(1261) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "Report"
+E:\Baixada Roleplay\gamemodes\baixada.pwn(3443) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "RetirarItem"
 Pawn compiler 3.2.3664	 	 	Copyright (c) 1997-2016, ITB CompuPhase
 
