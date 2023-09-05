@@ -692,14 +692,14 @@ new Float:Entradas[10][3] =
 {
 	{-2653.636474, 640.163085, 14.453125},//Hospital
 	{-2695.638183, 640.165405, 14.453125},//Hospital
-	{1555.4982, -1676.1260, 16.1953},//Policia de Patrulla
+	{-1605.569213, 710.272521, 13.867187},//Policia de Patrulla
 	{-2201.102050, -2341.364013, 30.625000},//Mercado Negro
 	{-2766.550781, 375.652496, 6.334682},//Prefeitura
-	{2105.4880, -1806.2786, 13.5547},//Pizzaria
-	{649.326538, -1353.821166, 13.546194},//San News
-	{649.283264, -1360.890258, 13.586422},//San News
+	{-1720.950439, 1359.725219, 7.185316},//Pizzaria
+	{-2521.187744, -624.952026, 132.781982},//San News
 	{-1988.149658, 1039.089355, 55.726562},//BANCO
-	{-2026.631591, -102.066413, 35.164062}//LICENCAS
+	{-2026.631591, -102.066413, 35.164062},//LICENCAS
+	{-2241.819580, 128.696746, 35.320312}//27/7
 };
 
 new Float:AutoEscolaPosicao[13][3] =
@@ -1422,6 +1422,7 @@ Progresso:DescarregarCarga(playerid, progress)
 			DisablePlayerCheckpoint(playerid);	
 			Carregou[playerid] = 0;
 		}
+		TogglePlayerControllable(playerid, 1);
 	}
 }
 
@@ -8494,8 +8495,8 @@ stock NpcText()
 	label[5] = Create3DTextLabel("{FFFF00}Pizzaria.\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 376.4162, -117.2733, 1001.4922, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[5], Actor[5], 0.0, 0.0, 0.7);
 
-	Actor[6] = CreateActor(182, 1345.0359,-1761.5284,13.5992,180.0017);  
-	label[6] = Create3DTextLabel("{FFFF00}Loja 24/7\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1345.0359,-1761.5284,13.5992, 15.0, 0);
+	Actor[6] = CreateActor(182, -29.509042, -186.833679, 1003.546875, 7.996203);  
+	label[6] = Create3DTextLabel("{FFFF00}Loja 24/7\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, -29.509042, -186.833679, 1003.546875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[6], Actor[6], 0.0, 0.0, 0.7);
 
 	Actor[7] = CreateActor(182, -30.870576, -30.705114, 1003.557250, 3.0);  
@@ -9448,15 +9449,14 @@ public OnPlayerRequestClass(playerid, classid)
     TimerLogin[playerid] = SetTimerEx("mostrarTelaLogin", 50, false, "d", playerid);
  	PlayerPlaySound(playerid, 1098, 0.0, 0.0, 0.0);
 	LimparChat(playerid, 10);
-  	InterpolateCameraPos(playerid, 987.909362, -1712.450805, 47.442787, 1238.741821, -1714.237304, 28.193325, 50000);
-	InterpolateCameraLookAt(playerid, 992.657348, -1712.335937, 45.879596, 1239.015380, -1710.006103, 25.543354, 60000);
-	LimparChat(playerid, 10);
 	return 0;
 }
 
 public OnPlayerConnect(playerid)
 {	
 	new string[255];
+	SetPlayerCameraPos(playerid, 1981.038940, 1191.061401, 27.828259); 
+	SetPlayerCameraLookAt(playerid, 1985.139648, 1195.111572, 27.636171);
 	format(string,sizeof(string),"%s entrou no servidor!", Name(playerid));
 	DCC_SendChannelMessage(EntradaeSaida, string);
 	todastextdraw(playerid);
@@ -9947,7 +9947,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			mostrandovelo[playerid] = 1;
 		}
 		
-		TimerVelo[playerid] = SetTimerEx("VelocimetroEx", 1000, true, "d", playerid);
+		TimerVelo[playerid] = SetTimerEx("VelocimetroEx", 250, true, "d", playerid);
     }
 	if(IsPlayerInAnyVehicle(playerid) && !IsBicycle(GetPlayerVehicleID(playerid)))
 	{
@@ -11401,7 +11401,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
 		//PIZZARIA ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 2105.4880,-1806.2786,13.5547))
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, -1720.950439, 1359.725219, 7.185316))
 		{
 			SetPlayerPos(playerid,  372.2827,-133.5237,1001.4922);
 			SetPlayerInterior(playerid, 5);
@@ -11412,14 +11412,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		//PIZZARIA SAIDA
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,372.2827,-133.5237,1001.4922))
 		{
-			SetPlayerPos(playerid, 2105.4880,-1806.2786,13.5547);
+			SetPlayerPos(playerid, -1720.950439, 1359.725219, 7.185316);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
 		//SAN NEWS ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 649.326538, -1353.821166, 13.546194) || IsPlayerInRangeOfPoint(playerid,2.0, 649.283264, -1360.890258, 13.586422))
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, -2521.187744, -624.952026, 132.781982))
 		{
 			SetPlayerPos(playerid, -5465.766113, -4536.025878, 4051.079589);
 			SetPlayerInterior(playerid, 1);
@@ -11430,7 +11430,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		//SAN NEWS SAIDA
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,-5465.766113, -4536.025878, 4051.079589))
 		{
-			SetPlayerPos(playerid, 649.326538, -1353.821166, 13.546194);
+			SetPlayerPos(playerid, -2521.187744, -624.952026, 132.781982);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
@@ -11473,7 +11473,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
 		//POLICIA DE PATRULLA ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 1555.4982,-1676.1260,16.1953))
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, -1605.569213, 710.272521, 13.867187))
 		{
 			SetPlayerPos(playerid, 350.7115,1834.2186,2241.5850);
 			SetPlayerInterior(playerid, 1);
@@ -11484,7 +11484,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		//POLICIA DE PATRULLA SAIDA
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,350.7115,1834.2186,2241.5850))
 		{
-			SetPlayerPos(playerid, 1555.4982,-1676.1260,16.1953);
+			SetPlayerPos(playerid, -1605.569213, 710.272521, 13.867187);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
@@ -11503,6 +11503,24 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,504.942962, -2317.662597, 512.790771))
 		{
 			SetPlayerPos(playerid, -2201.102050, -2341.364013, 30.625000);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//24  ENTRADA
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, -2241.819580, 128.696746, 35.320312))
+		{
+			SetPlayerPos(playerid,  -25.884498,-185.868988,1003.546875);
+			SetPlayerInterior(playerid, 17);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//24  SAIDA
+		else if(IsPlayerInRangeOfPoint(playerid,2.0,-25.884498,-185.868988,1003.546875))
+		{
+			SetPlayerPos(playerid, -2241.819580, 128.696746, 35.320312);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
@@ -11663,7 +11681,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 			return ShowPlayerDialog(playerid, DIALOG_AUTO_ESCOLA, DIALOG_STYLE_TABLIST_HEADERS, "Auto Escola", string, "Confirmar", "X");
 		}
-		if(PlayerToPoint(3.0, playerid,  1345.0359,-1761.5284,13.5992))
+		if(PlayerToPoint(3.0, playerid,  -29.509042, -186.833679, 1003.546875))
 		{
 			ShowPlayerDialog(playerid, DIALOG_247, DIALOG_STYLE_LIST, "Loja 24/7", "{FFFF00}- {FFFFFF}Celular\t{32CD32}R$1200\n{FFFF00}- {FFFFFF}Capacete\t{32CD32}R$580\n{FFFF00}- {FFFFFF}Vara de pescar\t{32CD32}R$1200\n", "Selecionar", "X");
 		}
@@ -12627,7 +12645,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_GPS1, DIALOG_STYLE_LIST, " Selecionar um local", "{FFFF00}- {FFFFFF}Prefeitura\n{FFFF00}- {FFFFFF}Banco\n{FFFF00}- {FFFFFF}Agencia de Empregos\n{FFFF00}- {FFFFFF}Hospital\n{FFFF00}- {FFFFFF}Loja 24/7\n{FFFF00}- {FFFFFF}Central de Licencas\n{FFFF00}- {FFFFFF}Mercado Negro\n{FFFF00}- {FFFFFF}Pizzaria\n{FFFF00}- {FFFFFF}Concesionario 1\n", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_GPS1, DIALOG_STYLE_LIST, " Selecionar um local", "{FFFF00}- {FFFFFF}Prefeitura\n{FFFF00}- {FFFFFF}Banco\n{FFFF00}- {FFFFFF}Hospital\n{FFFF00}- {FFFFFF}Loja de Utilidades\n{FFFF00}- {FFFFFF}Central de Licencas\n{FFFF00}- {FFFFFF}Pizzaria\n{FFFF00}- {FFFFFF}Concesionaria\n{FFFF00}- {FFFFFF}Delegacia Central", "Selecionar", "X");
 				}
 				if(listitem == 1)
 				{
@@ -12643,63 +12661,56 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1122.706909, -2036.977539, 69.894248, 8.0);
+					SetPlayerCheckpoint(playerid, -2766.550781, 375.652496, 6.334682, 8.0);
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 				if(listitem == 1)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1481.0083, -1771.7889, 18.7958, 8.0);
+					SetPlayerCheckpoint(playerid,-1988.149658, 1039.089355, 55.726562, 8.0);
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 				if(listitem == 2)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 914.273193, -1004.627075, 37.979484, 8.0);
+					SetPlayerCheckpoint(playerid, -2653.636474, 640.163085, 14.453125, 8.0);
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 				if(listitem == 3)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1171.679931, -1306.941650, -44.064826, 8.0);
+					SetPlayerCheckpoint(playerid, -2241.819580, 128.696746, 35.320312, 8.0);
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 				if(listitem == 4)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1352.4470, -1759.2511, 13.5078, 8.0);
+					SetPlayerCheckpoint(playerid, -2026.631591, -102.066413, 35.164062, 8.0);
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 				if(listitem == 5)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1322.202148, -1168.256591, 23.911737, 8.0);
+					SetPlayerCheckpoint(playerid, -1720.950439, 1359.725219, 7.185316, 8.0);
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 				if(listitem == 6)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 2447.828125, -1962.687133, 13.546875, 8.0);
+					SetPlayerCheckpoint(playerid, -1973.108276, 288.896331, 35.171875, 8.0);
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 				if(listitem == 7)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 2105.4880, -1806.2786, 13.5547, 8.0);
-					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
-				}
-				if(listitem == 8)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 2124.720214, -1122.188110, 25.385765, 8.0);
+					SetPlayerCheckpoint(playerid, -1605.569213, 710.272521, 13.867187, 8.0);
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 			}
@@ -16640,6 +16651,7 @@ CMD:descarregar(playerid)
 	if(GetVehicleModel(GetPlayerVehicleID(playerid)) != 456) 	return notificacao(playerid, "ERRO", "No estas en veiculo del empleo.", ICONE_ERRO);
 	if(Cargase[playerid] == true) 
 
+	TogglePlayerControllable(playerid, 0);
 	CreateProgress(playerid, "DescarregarCarga","Descarregando caminhao...", 200);
 	return 1;
 }
