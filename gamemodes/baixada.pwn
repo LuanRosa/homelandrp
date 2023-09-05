@@ -1736,10 +1736,7 @@ CallBack::loginp(playerid)
 		}
 		else
 		{
-			for(new i; i < 100; i++)
-			{
-				SendClientMessage(playerid, CinzaEscuro, " ");
-			}
+			LimparChat(playerid, 10);
 			new StrM[450];
 			strcat(StrM, "\t\t{FFFFFF}-x-x-x-x-x- {FFFF00}BANIDO{FFFFFF} -x-x-x-x-x-\n\nEsta conta esta banida deste servidor !\n\n{FFA500}Conta:{E64022} ");
 			strcat(StrM, Name(playerid));
@@ -3037,15 +3034,11 @@ CallBack::ExplodirCaixa(caixa_id)
 	UltimaCaixaRoubada[1] = py;
 	UltimaCaixaRoubada[2] = pz;
 
-	SendClientMessageToAll(-1, "{FFFF00}CNN {FFFFFF}Um caixa acaba de ser consertado!");
-
 	//--------- Jogar grana no chão --
 
 	GetXYInFrontOfCaixa(CaixaInfo[caixa_id][Caixa_Object], px, py, 3.1);
-
 	for(new i; i < MAX_PICKUPS_ROUBO; i++)
 	{
-
 		Pickups_Roubo[caixa_id][i] = CreatePickup(1212, 23, px+(RdonPickups[random(sizeof(RdonPickups))][0]),py-(RdonPickups[random(sizeof(RdonPickups))][0]),pz-0.3);
 	}
 
@@ -3059,7 +3052,6 @@ CallBack::RestoreCaixa(caixa_id)
 {
 	if(CaixaInfo[caixa_id][Caixa_Roubada])
 	{
-		SendClientMessageToAll(0x00660CC8, "{FFFF00}CNN {FFFFFF}Um caixa automatico foi consertado pelo governo!");
 
 		new Float:px, Float:py, Float:pz,
 		Float:rx, Float:ry, Float:rz;
@@ -3792,7 +3784,7 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 1599: name = "Tucunare";
 		case 1600: name = "Royal";
 		case 18632: name = "Vara de Pescar";
-		case 11750: name = "Esposar";
+		case 11750: name = "Algema";
 		default: name = "(null)";
 	}
 	return name;
@@ -4565,7 +4557,7 @@ CallBack::TestAway(playerid, TimeTo)
 	}
 	if(TimeTo == 0)
 	{
-		SendClientMessage(playerid, VermelhoEscuro, "{FFFF00}AVISO{FFFFFF} foi expulso por inatividade");
+		notificacao(playerid, "INFO", "Foi expulso por esta AFK.", ICONE_AVISO);	
 		TextDrawHideForPlayer(playerid, Textdraw0);
 		TextDrawHideForPlayer(playerid, Textdraw1);
 		PlayerTextDrawHide(playerid, Textdraw2[playerid]);
@@ -12704,6 +12696,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
 					SetPlayerCheckpoint(playerid, -1973.108276, 288.896331, 35.171875, 8.0);
+					
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 				if(listitem == 7)
