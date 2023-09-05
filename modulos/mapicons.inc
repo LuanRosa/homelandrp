@@ -8,10 +8,10 @@ CarregarMapIcons()
 	CreateDynamicMapIcon(-1988.149658, 1039.089355, 55.726562, 52, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///BANCO
 	CreateDynamicMapIcon(-2026.631591, -102.066413, 35.164062, 36, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///AUTO ESCOLA
 	CreateDynamicMapIcon(2014.328125, -1770.929077, 13.543199, 27, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///MECANICA
-	CreateDynamicMapIcon(-2241.819580, 128.696746, 35.320312, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///27-7
+	CreateDynamicMapIcon(-1620.058715, 1256.722900, 7.417592, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///27-7
 	CreateDynamicMapIcon(-2521.187744, -624.952026, 132.781982, 34, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//SAN NEWS
 
-	CreateDynamicMapIcon(376.6558, -2056.4216, 8.0156, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///PESCADOR
+	CreateDynamicMapIcon(-2790.296142, 1321.418212, 7.098842, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///PESCADOR
 	CreateDynamicMapIcon(818.8176, -1106.7904, 25.7940, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///COVERO
 	CreateDynamicMapIcon(1174.452636, -1312.022338, -44.283576, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///ENFERMERO
 	CreateDynamicMapIcon(-74.9909, -1135.9198, 1.0781, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///CAMIONERO
