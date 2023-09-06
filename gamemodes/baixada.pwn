@@ -568,7 +568,6 @@ new bool:Patrulha[MAX_PLAYERS] = false;
 new bool:PegouMaterial[MAX_PLAYERS] = false;
 new bool:TxdBAncoAb[MAX_PLAYERS] = false;
 new	bool:AparecendoNoAdmins[MAX_PLAYERS] = true;
-
 //                          TEXTDRAWS
 
 new Text:TDEditor_TD[66];
@@ -669,6 +668,8 @@ new ocupadodemais[MAX_PLAYERS];
 new RepairCar[MAX_PLAYERS];
 new bool:TemCinto[MAX_PLAYERS] = false;
 new ProxID;
+new TemMinerio[MAX_PLAYERS];
+new Desossando[MAX_PLAYERS];
 
 // velocimetro //
 new TimerVelo[MAX_PLAYERS];
@@ -699,7 +700,7 @@ new Float:Entradas[10][3] =
 	{-2521.187744, -624.952026, 132.781982},//San News
 	{-1988.149658, 1039.089355, 55.726562},//BANCO
 	{-2026.631591, -102.066413, 35.164062},//LICENCAS
-	{-2241.819580, 128.696746, 35.320312}//27/7
+	{-2521.626220, 2295.312988, 4.984375}//AÇOUGUE
 };
 
 new Float:AutoEscolaPosicao[13][3] =
@@ -760,6 +761,15 @@ new Float:PosPesca[7][4] =
 	{-2817.992431, 1328.583618, 7.101562}, 
 	{-2822.475585, 1328.583618, 7.101562},
 	{-2827.454101, 1328.583618, 7.101562}
+};
+
+new Float:PosDesossa[5][4] =
+{
+	{956.002807, 2120.503662, 1011.723022},
+	{956.002807, 2122.305419, 1011.723022},
+	{956.002807, 2124.407470, 1011.723022}, 
+	{956.002807, 2126.409423, 1011.723022}, 
+	{956.002807, 2128.511474, 1011.723022}
 };
 
 new Float:PosEquipar[1][4] =
@@ -1487,6 +1497,61 @@ Progresso:Cova(playerid, progress)
 	}
 }
 
+Progresso:Desossar(playerid, progress)
+{
+	if(progress >= 100)
+	{
+		SetPlayerCheckpoint(playerid, -371.239501, 2345.548095, 30.018764, 1.0);
+		ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+		SetPlayerAttachedObject(playerid, 1, 2804, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+		Desossando[playerid] = 1;
+		UsouCMD[playerid] = false;
+		TogglePlayerControllable(playerid, 1);
+	}
+	return 1;
+}
+Progresso:Minerar(playerid, progress)
+{
+	if(progress >= 100)
+	{
+		new mineiro = randomEx(0,3);
+		new s[255];
+		ClearAnimations(playerid);
+		if(mineiro == 0)
+		{
+			format(s,sizeof(s),"Nao encontrou nenhum minerio.");
+			notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
+		}
+		if(mineiro == 1)
+		{
+			SetPlayerCheckpoint(playerid, -371.239501, 2345.548095, 30.018764, 1.0);
+			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+			SetPlayerAttachedObject(playerid, 1, 2936, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+			TemMinerio[playerid] = 1;
+		}
+		if(mineiro == 2)
+		{
+			SetPlayerCheckpoint(playerid, -371.239501, 2345.548095, 30.018764, 1.0);
+			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+			SetPlayerAttachedObject(playerid, 1, 1303, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+			TemMinerio[playerid] = 2;
+		}
+		if(mineiro == 3)
+		{
+			SetPlayerCheckpoint(playerid, -371.239501, 2345.548095, 30.018764, 1.0);
+			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+			SetPlayerAttachedObject(playerid, 1, 828, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+			TemMinerio[playerid] = 3;
+		}
+		UsouCMD[playerid] = false;
+		TogglePlayerControllable(playerid, 1);
+	}
+	return 1;
+}
 Progresso:Pesca(playerid, progress)
 {
 	if(progress == 1)
@@ -1496,7 +1561,7 @@ Progresso:Pesca(playerid, progress)
 	if(progress >= 100)
 	{
 		new peixes = randomEx(1,5);
-		new peixe = randomEx(0,10);
+		new peixe = randomEx(0,12);
 		new s[255];
 		if(IsPlayerInRangeOfPoint(playerid, 15.0, 383.2907,-2088.7842,7.8359))
 		if(peixe == 0)
@@ -1559,6 +1624,16 @@ Progresso:Pesca(playerid, progress)
 		{
 			GanharItem(playerid,1608, peixes);
 			format(s,sizeof(s),"Pescou %i tubarao.",peixes);
+			notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
+		}
+		if(peixe == 11)
+		{
+			format(s,sizeof(s),"Nao pescou nenhum peixe");
+			notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
+		}
+		if(peixe == 12)
+		{
+			format(s,sizeof(s),"Nao pescou nenhum peixe");
 			notificacao(playerid, "TRABALHO", s, ICONE_EMPREGO);
 		}
 		TogglePlayerControllable(playerid, 1);
@@ -8447,8 +8522,8 @@ stock Profs(playerid)
 	new LipeStrondaProfs[64];
 	if(PlayerInfo[playerid][pProfissao] == 0) { LipeStrondaProfs = "Desempregado"; }
 	else if(PlayerInfo[playerid][pProfissao] == 1) { LipeStrondaProfs = "Pescador"; }
-	else if(PlayerInfo[playerid][pProfissao] == 2) { LipeStrondaProfs = "Coveiro"; }
-	else if(PlayerInfo[playerid][pProfissao] == 3) { LipeStrondaProfs = "Enfermeiro"; }
+	else if(PlayerInfo[playerid][pProfissao] == 2) { LipeStrondaProfs = "Minerador"; }
+	else if(PlayerInfo[playerid][pProfissao] == 3) { LipeStrondaProfs = "Acougueiro"; }
 	else if(PlayerInfo[playerid][pProfissao] == 4) { LipeStrondaProfs = "Caminhoneiro"; }
 	else if(PlayerInfo[playerid][pProfissao] == 5) { LipeStrondaProfs = "Tranporte de Tumba"; }
 	else if(PlayerInfo[playerid][pProfissao] == 6) { LipeStrondaProfs = "Construtor"; }
@@ -8459,7 +8534,7 @@ stock Profs(playerid)
 stock VIP(playerid)
 {
 	new LipeStrondaVIP[64];
-	if(PlayerInfo[playerid][pVIP] != 0) { LipeStrondaVIP = "NENHUM"; }
+	if(PlayerInfo[playerid][pVIP] != 0) { LipeStrondaVIP = " "; }
 	if(PlayerInfo[playerid][pVIP] == 1) { LipeStrondaVIP = "VIP PRATA"; }
 	else if(PlayerInfo[playerid][pVIP] == 2) { LipeStrondaVIP = "VIP OURO"; }
 	else if(PlayerInfo[playerid][pVIP] == 3) { LipeStrondaVIP = "VIP PATROCINADOR"; }
@@ -8592,16 +8667,16 @@ stock NpcText()
 	label[13] = Create3DTextLabel("{FFFF00}Pescador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -2790.296142, 1321.418212, 7.098842, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[13], Actor[13], 0.0, 0.0, 0.7);
 
-	Actor[14] = CreateActor(35, -2788.145996, 1312.905639, 7.622592, 78.640907);  
+	Actor[14] = CreateActor(32, -2788.145996, 1312.905639, 7.622592, 78.640907);  
 	label[14] = Create3DTextLabel("{FFFF00}Loja de Pescados\n{FFFFFF}Use o {FFFF00}Inventario{FFFFFF}' para vender.", 0x008080FF, -2788.145996, 1312.905639, 7.622592, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[14], Actor[14], 0.0, 0.0, 0.7);
 
-	Actor[15] = CreateActor(34, 818.8176,-1106.7904,25.7940, 4.0);  
-	label[15] = Create3DTextLabel("{FFFF00}Coveiro\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 818.8176,-1106.7904,25.7940, 15.0, 0);
+	Actor[15] = CreateActor(34, -367.570373, 2348.615722, 29.772922, 73.008232);  
+	label[15] = Create3DTextLabel("{FFFF00}Minerador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -367.570373, 2348.615722, 29.772922, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[15], Actor[15], 0.0, 0.0, 0.7);
 
-	Actor[16] = CreateActor(274, 1174.452636, -1312.022338, -44.283576, 87.023475);  
-	label[16] = Create3DTextLabel("{FFFF00}Enfermeiro\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 1174.452636, -1312.022338, -44.28357, 15.0, 0);
+	Actor[16] = CreateActor(133, 960.607055, 2097.604003, 1011.023010, 358.121734);  
+	label[16] = Create3DTextLabel("{FFFF00}Acougueiro\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 960.607055, 2097.604003, 1011.023010, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[16], Actor[16], 0.0, 0.0, 0.7);
 
 	Actor[17] = CreateActor(78, -74.9909,-1135.9198,1.0781, 335.0);  
@@ -8870,6 +8945,7 @@ stock ZerarDados(playerid)
 	PlayerInfo[playerid][Entrada] = 0;
 	PlayerInfo[playerid][pAvaliacao] = 0;
 
+	TemMinerio[playerid] = 0;
 	BigEar[playerid] = 0;
 	VehAlugado[playerid] = 0;
 	Localizando[playerid] = 0;
@@ -9428,7 +9504,10 @@ public OnGameModeInit()
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use a'{FFFF00}Vara de Pescar{FFFFFF}'para\ncomecar a pescar.", -1, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2], 15.0);
 	}
-
+	for(new i; i < 5; i++)
+	{
+		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \niniciar o desossamento.", -1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2], 15.0);
+	}
 	for(new i; i < 1; i++)
 	{
 		CreateDynamicPickup(19606,23,PosPrender[i][0],PosPrender[i][1],PosPrender[i][2],0);
@@ -10247,6 +10326,90 @@ public OnPlayerEnterCheckpoint(playerid)
 		}
 		DisablePlayerCheckpoint(playerid);
 		PegouMaterial[playerid] = false;
+	} 
+	if(TemMinerio[playerid] == 0)
+	{
+		//
+	}
+	else
+	{
+		new constrstr[500];
+		TogglePlayerControllable(playerid, 0);
+		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 1, 1, 0, 1, 0, 1);
+		SetTimerEx("AnimyTogle", 3000, false, "i", playerid);
+		RemovePlayerAttachedObject(playerid, 1);
+		ClearAnimations(playerid);
+		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+		if(TemMinerio[playerid] == 1)
+		{
+			new dinmateriale = randomEx(0, 200);
+			if(PlayerInfo[playerid][pVIP] == 0)
+			{
+				PlayerInfo[playerid][pDinheiro] += dinmateriale;
+				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale);
+				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
+			}   
+			if(PlayerInfo[playerid][pVIP] == 2)
+			{
+				PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
+				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale*2);
+				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
+			}
+			if(PlayerInfo[playerid][pVIP] == 3)
+			{
+				PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
+				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale*2);
+				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
+			}
+			TemMinerio[playerid] = 0;
+		}
+		if(TemMinerio[playerid] == 2)
+		{
+			new dinmateriale = randomEx(0, 400);
+			if(PlayerInfo[playerid][pVIP] == 0)
+			{
+				PlayerInfo[playerid][pDinheiro] += dinmateriale;
+				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale);
+				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
+			}   
+			if(PlayerInfo[playerid][pVIP] == 2)
+			{
+				PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
+				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale*2);
+				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
+			}
+			if(PlayerInfo[playerid][pVIP] == 3)
+			{
+				PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
+				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale*2);
+				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
+			}
+			TemMinerio[playerid] = 0;
+		}
+		if(TemMinerio[playerid] == 3)
+		{
+			new dinmateriale = randomEx(0, 500);
+			if(PlayerInfo[playerid][pVIP] == 0)
+			{
+				PlayerInfo[playerid][pDinheiro] += dinmateriale;
+				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale);
+				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
+			}   
+			if(PlayerInfo[playerid][pVIP] == 2)
+			{
+				PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
+				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale*2);
+				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
+			}
+			if(PlayerInfo[playerid][pVIP] == 3)
+			{
+				PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
+				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale*2);
+				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
+			}
+			TemMinerio[playerid] = 0;
+		}
+		DisablePlayerCheckpoint(playerid);
 	} 
 	return 1;
 }
@@ -11581,19 +11744,19 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
-		//24  ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, -2241.819580, 128.696746, 35.320312))
+		//AÇOUGUE  ENTRADA
+		if(IsPlayerInRangeOfPoint(playerid,2.0, -2521.626220, 2295.312988, 4.984375))
 		{
-			SetPlayerPos(playerid,  -25.884498,-185.868988,1003.546875);
-			SetPlayerInterior(playerid, 17);
+			SetPlayerPos(playerid,  963.418762,2108.292480,1011.030273	);
+			SetPlayerInterior(playerid, 1);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
-		//24  SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,-25.884498,-185.868988,1003.546875))
+		//AÇOUGUE  SAIDA
+		else if(IsPlayerInRangeOfPoint(playerid,2.0,963.418762,2108.292480,1011.030273	))
 		{
-			SetPlayerPos(playerid, -2241.819580, 128.696746, 35.320312);
+			SetPlayerPos(playerid, -2521.626220, 2295.312988, 4.984375);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
@@ -11651,6 +11814,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	if(newkeys == KEY_SECONDARY_ATTACK)
 	{
 		cmd_pegaritem(playerid);
+		
+		if(PlayerToPoint(3.0, playerid, -368.498535, 2378.540771, 33.939697)){
+			cmd_minerar(playerid);
+		}
 		if(PlayerToPoint(3.0, playerid, 934.1115,-1103.3857,24.3118)){
 			cmd_ltumba(playerid);
 		}
@@ -11844,7 +12011,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				MissaoPlayer[playerid][MISSAO3] = 1;
 			}
 		}
-		if(PlayerToPoint(3.0, playerid, 818.8176,-1106.7904,25.7940))
+		if(PlayerToPoint(3.0, playerid, -367.570373, 2348.615722, 29.772922))
 		{
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return notificacao(playerid, "INFO", "Ja possui um emprego /sairemprego.", ICONE_ERRO);
 			else
@@ -11854,11 +12021,9 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				MissaoPlayer[playerid][MISSAO3] = 1;
 			}
 		} 
-		if(PlayerToPoint(3.0, playerid, 1174.452636, -1312.022338, -44.283576))
+		if(PlayerToPoint(3.0, playerid, 960.607055, 2097.604003, 1011.023010))
 		{
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return notificacao(playerid, "INFO", "Ja possui um emprego /sairemprego.", ICONE_ERRO);
-			if(!CheckInventario2(playerid, 1854)) 	return notificacao(playerid, "ERRO", "Nao tem Licenca B.", ICONE_ERRO);
-			if(!CheckInventario2(playerid, 19792)) 	return notificacao(playerid, "ERRO", "Nao possui carteira de trabalho.", ICONE_ERRO);
 			else
 			{
 				PlayerInfo[playerid][pProfissao] = 3;
@@ -19463,5 +19628,40 @@ CMD:atendimento(playerid)
 
 	format(String, sizeof(String), "O jogador {FFFF00}%s {FFFFFF}esta solicitando atendimento use {FFFF00}/par {FFFFFF}ou va ate ele.", Name(playerid));
 	SendAdminMessage(-1, String);
+	return 1;
+}
+
+CMD:minerar(playerid)
+{
+	if(PlayerInfo[playerid][pProfissao] != 2) 	return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
+	if(UsouCMD[playerid] == true) 	return notificacao(playerid, "ERRO", "Ainda nao passou 30s.", ICONE_ERRO); 
+	if(TemMinerio[playerid] == 1 || TemMinerio[playerid] == 2 || TemMinerio[playerid] == 3) 	return notificacao(playerid, "ERRO", "Voce ja possui um minerio em maos.", ICONE_ERRO); 
+	if(IsPlayerInRangeOfPoint(playerid, 2.0, -368.498535, 2378.540771, 33.939697))
+	{
+		ApplyAnimation(playerid, "BASEBALL", "BAT_4", 4.1, 1, 0, 0, 1, 1, 1);
+		CreateProgress(playerid, "Minerar","Minerando...", 150);
+		TogglePlayerControllable(playerid, 0);
+		RemovePlayerAttachedObject(playerid, 1);
+		DisablePlayerCheckpoint(playerid);
+		UsouCMD[playerid] = true;
+	}
+	return 1;
+}
+
+CMD:desossar(playerid)
+{
+	
+	if(PlayerInfo[playerid][pProfissao] != 3) 	return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
+	if(UsouCMD[playerid] == true) 	return notificacao(playerid, "ERRO", "Ainda nao passou 30s.", ICONE_ERRO); 
+	if(Desossando[playerid] == 1 || Desossando[playerid] == 2 || Desossando[playerid] == 3) 	return notificacao(playerid, "ERRO", "Voce ja esta fazendo as etapas.", ICONE_ERRO); 
+	for(new i; i < 5; i++)
+	if(IsPlayerInRangeOfPoint(playerid, 1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2]))
+	{
+		CreateProgress(playerid, "Desossar","Desossando...", 300);
+		TogglePlayerControllable(playerid, 0);
+		RemovePlayerAttachedObject(playerid, 1);
+		DisablePlayerCheckpoint(playerid);
+		UsouCMD[playerid] = true;
+	}
 	return 1;
 }

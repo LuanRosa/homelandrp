@@ -692,3 +692,5 @@
 [08/31/23 19:52:39] [plugins/discord-connector] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
 [09/04/23 19:35:01] [plugins/discord-connector] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
 [09/04/23 19:35:06] [plugins/discord-connector] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[09/05/23 21:05:26] [plugins/discord-connector] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[09/05/23 21:05:32] [plugins/discord-connector] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'

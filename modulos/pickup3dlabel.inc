@@ -6,6 +6,9 @@ CarregarPickup3dLabel()
 	CreateDynamicPickup(19921, 23, 1972.660156, -1783.894287, 13.543199);//Mecanica
 	CreateDynamicPickup(19056, 23, 1682.7653, -2278.0766, 13.5063);//Presente
 	
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \ncomecar a minerar.", -1, -368.498535, 2378.540771, 33.939697, 25.0); // Carregamento Materiais LS
+	CreateDynamicPickup(337, 23, -368.498535, 2378.540771, 33.939697); //
+
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \npegar o material.", -1, 1277.651367, -1301.349487, 13.336478, 25.0); // Carregamento Materiais LS
 	CreateDynamicPickup(2037, 23, 1277.651367, -1301.349487, 13.336478); //
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \ndeixar o material.", -1, 1258.313720, -1263.115478, 17.821365, 25.0); // Descarregamento Materiais LS

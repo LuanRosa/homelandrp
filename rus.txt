@@ -1,3 +1,5 @@
-E:\Baixada Roleplay\gamemodes\baixada.pwn(3454) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "RetirarItem"
+../modulos/mapserver.inc(8417) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "acougue"
+../modulos/mapserver.inc(8401) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "mina"
+E:\Baixada Roleplay\gamemodes\baixada.pwn(3529) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "RetirarItem"
 Pawn compiler 3.2.3664	 	 	Copyright (c) 1997-2016, ITB CompuPhase
 

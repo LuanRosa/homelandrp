@@ -276,8 +276,8 @@ static bool:ac_ACAllow[] =
 	true,	//35 Anti-Full Aiming
 
 	false,	//36 Anti-Fake NPC
-	true,	//37 Anti-Reconnect
-	true,	//38 Anti-High ping
+	false,	//37 Anti-Reconnect
+	false,	//38 Anti-High ping
 	true,	//39 Anti-Dialog hack
 	true,	//40 Protection from sandbox
 	true,	//41 Protection from invalid version

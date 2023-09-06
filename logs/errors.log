@@ -408,3 +408,5 @@ porque o host conectado não respondeu
 [09/04/23 23:48:22] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [09/05/23 18:36:14] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712172794642442/messages': end of stream
 [09/05/23 20:43:06] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/05/23 21:20:01] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/06/23 01:31:35] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
