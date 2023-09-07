@@ -1510,6 +1510,7 @@ Progresso:Desossar(playerid, progress)
 		Desossando[playerid] = 1;
 		UsouCMD[playerid] = false;
 		TogglePlayerControllable(playerid, 1);
+		notificacao(playerid, "EXITO", "Terminou de desossar, leve agora processe a carne.", ICONE_EMPREGO);
 	}
 	return 1;
 }
@@ -10419,6 +10420,7 @@ public OnPlayerEnterCheckpoint(playerid)
 		new dinmateriale = randomEx(0, 200);
 		new constrstr[500];
 		ClearAnimations(playerid);
+		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 		RemovePlayerAttachedObject(playerid, 1);
 		if(PlayerInfo[playerid][pVIP] == 0)
 		{
@@ -19726,6 +19728,8 @@ CMD:deixarcarne(playerid)
 			MoveDynamicObject(ObjetoAcougue[0], 942.313171, 2136.355224, 1011.229980,2.0);
 			SetPlayerCheckpoint(playerid,938.006469, 2144.264892, 1011.023437, 1.0);
 			Desossando[playerid] = 2;
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+			notificacao(playerid, "EXITO", "Sua carne esta sendo processada, pegue uma embalagem.", ICONE_EMPREGO);
 		}
 	}
 	return 1;
@@ -19742,6 +19746,7 @@ CMD:pegarcaixa(playerid)
 			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 			SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
 			Desossando[playerid] = 3;
+			notificacao(playerid, "EXITO", "Pegou a embalagem, pegue empacote a carne.", ICONE_EMPREGO);
 		}
 	}
 	return 1;
@@ -19754,8 +19759,9 @@ CMD:empacotarcarne(playerid)
 		if(IsPlayerInRangeOfPoint(playerid, 1, 942.416259, 2137.294921, 1011.023437))
 		{
 			DisablePlayerCheckpoint(playerid);
-			DestroyObject(ObjetoAcougue[0]);
+			DestroyDynamicObject(ObjetoAcougue[0]);
 			Desossando[playerid] = 4;
+			notificacao(playerid, "EXITO", "Leve a embalagem ate a revisao.", ICONE_EMPREGO);
 		}
 	}
 	return 1;
@@ -19771,6 +19777,9 @@ CMD:deixarcaixa(playerid)
 			ObjetoAcougue[1] = CreateDynamicObject(1220, 942.429260, 2154.825195, 1011.523071, 0.0, 0.0, 1000.000);
 			MoveDynamicObject(ObjetoAcougue[1], 942.429260, 2172.342285, 1011.523071,2.0);
 			Desossando[playerid] = 5;
+			notificacao(playerid, "EXITO", "Iniciou processo de revisao.", ICONE_EMPREGO);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+			ClearAnimations(playerid);
 		}
 	}
 	return 1;
@@ -19783,11 +19792,13 @@ CMD:pegarcaixa2(playerid)
 		if(IsPlayerInRangeOfPoint(playerid, 1, 942.288391, 2173.139404, 1011.023437))
 		{
 			DisablePlayerCheckpoint(playerid);
+			DestroyDynamicObject(ObjetoAcougue[1]);
 			SetPlayerCheckpoint(playerid, 964.872192, 2159.816406, 1011.030273, 1.0);
 			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
 			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 			SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
 			Desossando[playerid] = 6;
+			notificacao(playerid, "EXITO", "Caixa revisada, leve ate o ponto de entrega.", ICONE_EMPREGO);
 		}
 	}
 	return 1;
