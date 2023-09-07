@@ -19803,3 +19803,10 @@ CMD:pegarcaixa2(playerid)
 	}
 	return 1;
 }
+
+CMD:irla(playerid)
+{
+	SetPlayerPos(playerid,1800.504150, -1245.274780, 14.635800);
+    SetPlayerInterior(playerid, 0);
+	return 1;
+}
