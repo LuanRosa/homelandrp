@@ -670,7 +670,7 @@ new bool:TemCinto[MAX_PLAYERS] = false;
 new ProxID;
 new TemMinerio[MAX_PLAYERS];
 new Desossando[MAX_PLAYERS];
-
+new ObjetoAcougue[6];
 // velocimetro //
 new TimerVelo[MAX_PLAYERS];
 new mostrandovelo[MAX_PLAYERS];
@@ -763,13 +763,16 @@ new Float:PosPesca[7][4] =
 	{-2827.454101, 1328.583618, 7.101562}
 };
 
-new Float:PosDesossa[5][4] =
+new Float:PosDesossa[8][4] =
 {
 	{956.002807, 2120.503662, 1011.723022},
-	{956.002807, 2122.305419, 1011.723022},
+	{958.202270, 2122.305419, 1011.723022},
 	{956.002807, 2124.407470, 1011.723022}, 
-	{956.002807, 2126.409423, 1011.723022}, 
-	{956.002807, 2128.511474, 1011.723022}
+	{958.402221, 2126.409423, 1011.723022}, 
+	{956.002807, 2128.511474, 1011.723022},
+	{960.201782, 2120.503662, 1011.723022},
+	{960.201782, 2124.007080, 1011.723022},
+	{960.201782, 2128.311279, 1011.723022}
 };
 
 new Float:PosEquipar[1][4] =
@@ -1501,7 +1504,6 @@ Progresso:Desossar(playerid, progress)
 {
 	if(progress >= 100)
 	{
-		SetPlayerCheckpoint(playerid, -371.239501, 2345.548095, 30.018764, 1.0);
 		ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
 		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 		SetPlayerAttachedObject(playerid, 1, 2804, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
@@ -8946,6 +8948,7 @@ stock ZerarDados(playerid)
 	PlayerInfo[playerid][pAvaliacao] = 0;
 
 	TemMinerio[playerid] = 0;
+	Desossando[playerid] = 0;
 	BigEar[playerid] = 0;
 	VehAlugado[playerid] = 0;
 	Localizando[playerid] = 0;
@@ -9504,7 +9507,7 @@ public OnGameModeInit()
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use a'{FFFF00}Vara de Pescar{FFFFFF}'para\ncomecar a pescar.", -1, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2], 15.0);
 	}
-	for(new i; i < 5; i++)
+	for(new i; i < 8; i++)
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \niniciar o desossamento.", -1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2], 15.0);
 	}
@@ -10410,6 +10413,33 @@ public OnPlayerEnterCheckpoint(playerid)
 			TemMinerio[playerid] = 0;
 		}
 		DisablePlayerCheckpoint(playerid);
+	} 
+	if(Desossando[playerid] == 6)
+	{
+		new dinmateriale = randomEx(0, 200);
+		new constrstr[500];
+		ClearAnimations(playerid);
+		RemovePlayerAttachedObject(playerid, 1);
+		if(PlayerInfo[playerid][pVIP] == 0)
+		{
+			PlayerInfo[playerid][pDinheiro] += dinmateriale;
+			format(constrstr,sizeof(constrstr),"Ganhou %i com esta caixa.", dinmateriale);
+			notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
+		}   
+		if(PlayerInfo[playerid][pVIP] == 2)
+		{
+			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
+			format(constrstr,sizeof(constrstr),"Ganhou %i com esta caixa.", dinmateriale*2);
+			notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
+		}
+		if(PlayerInfo[playerid][pVIP] == 3)
+		{
+			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
+			format(constrstr,sizeof(constrstr),"Ganhou %i com esta caixa..", dinmateriale*2);
+			notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
+		}
+		DisablePlayerCheckpoint(playerid);
+		Desossando[playerid] = 0;
 	} 
 	return 1;
 }
@@ -11814,7 +11844,25 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	if(newkeys == KEY_SECONDARY_ATTACK)
 	{
 		cmd_pegaritem(playerid);
-		
+		for(new i; i < 8; i++)
+		if(IsPlayerInRangeOfPoint(playerid, 1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2])){
+			cmd_desossar(playerid);
+		}
+		if(IsPlayerInRangeOfPoint(playerid, 1, 942.577758, 2117.902099, 1011.030273)){
+			cmd_deixarcarne(playerid);
+		}
+		if(IsPlayerInRangeOfPoint(playerid, 1, 938.006469, 2144.264892, 1011.023437)){
+			cmd_pegarcaixa(playerid);
+		}
+		if(IsPlayerInRangeOfPoint(playerid, 1, 942.416259, 2137.294921, 1011.023437)){
+			cmd_empacotarcarne(playerid);
+		}
+		if(IsPlayerInRangeOfPoint(playerid, 1, 942.421325, 2153.745849, 1011.023437)){
+			cmd_deixarcaixa(playerid);
+		}
+		if(IsPlayerInRangeOfPoint(playerid, 1, 942.288391, 2173.139404, 1011.023437)){
+			cmd_pegarcaixa2(playerid);
+		}
 		if(PlayerToPoint(3.0, playerid, -368.498535, 2378.540771, 33.939697)){
 			cmd_minerar(playerid);
 		}
@@ -19654,14 +19702,93 @@ CMD:desossar(playerid)
 	if(PlayerInfo[playerid][pProfissao] != 3) 	return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
 	if(UsouCMD[playerid] == true) 	return notificacao(playerid, "ERRO", "Ainda nao passou 30s.", ICONE_ERRO); 
 	if(Desossando[playerid] == 1 || Desossando[playerid] == 2 || Desossando[playerid] == 3) 	return notificacao(playerid, "ERRO", "Voce ja esta fazendo as etapas.", ICONE_ERRO); 
-	for(new i; i < 5; i++)
+	for(new i; i < 8; i++)
 	if(IsPlayerInRangeOfPoint(playerid, 1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2]))
 	{
 		CreateProgress(playerid, "Desossar","Desossando...", 300);
 		TogglePlayerControllable(playerid, 0);
 		RemovePlayerAttachedObject(playerid, 1);
-		DisablePlayerCheckpoint(playerid);
 		UsouCMD[playerid] = true;
+	}
+	return 1;
+}
+
+CMD:deixarcarne(playerid)
+{
+	if(Desossando[playerid] == 1)
+	{
+		if(IsPlayerInRangeOfPoint(playerid, 1, 942.577758, 2117.902099, 1011.030273))
+		{
+			RemovePlayerAttachedObject(playerid, 1);
+			DisablePlayerCheckpoint(playerid);
+			ClearAnimations(playerid);
+			ObjetoAcougue[0] = CreateDynamicObject(2804, 942.313171, 2118.938232, 1011.229980, 0.0, 0.0, 1000.000);
+			MoveDynamicObject(ObjetoAcougue[0], 942.313171, 2136.355224, 1011.229980,2.0);
+			SetPlayerCheckpoint(playerid,938.006469, 2144.264892, 1011.023437, 1.0);
+			Desossando[playerid] = 2;
+		}
+	}
+	return 1;
+}
+
+CMD:pegarcaixa(playerid)
+{
+	if(Desossando[playerid] == 2)
+	{
+		if(IsPlayerInRangeOfPoint(playerid, 1, 938.006469, 2144.264892, 1011.023437))
+		{
+			DisablePlayerCheckpoint(playerid);
+			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+			SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+			Desossando[playerid] = 3;
+		}
+	}
+	return 1;
+}
+
+CMD:empacotarcarne(playerid)
+{
+	if(Desossando[playerid] == 3)
+	{
+		if(IsPlayerInRangeOfPoint(playerid, 1, 942.416259, 2137.294921, 1011.023437))
+		{
+			DisablePlayerCheckpoint(playerid);
+			DestroyObject(ObjetoAcougue[0]);
+			Desossando[playerid] = 4;
+		}
+	}
+	return 1;
+}
+
+CMD:deixarcaixa(playerid)
+{
+	if(Desossando[playerid] == 4)
+	{
+		if(IsPlayerInRangeOfPoint(playerid, 1, 942.421325, 2153.745849, 1011.023437))
+		{
+			RemovePlayerAttachedObject(playerid, 1);
+			ObjetoAcougue[1] = CreateDynamicObject(1220, 942.429260, 2154.825195, 1011.523071, 0.0, 0.0, 1000.000);
+			MoveDynamicObject(ObjetoAcougue[1], 942.429260, 2172.342285, 1011.523071,2.0);
+			Desossando[playerid] = 5;
+		}
+	}
+	return 1;
+}
+
+CMD:pegarcaixa2(playerid)
+{
+	if(Desossando[playerid] == 5)
+	{
+		if(IsPlayerInRangeOfPoint(playerid, 1, 942.288391, 2173.139404, 1011.023437))
+		{
+			DisablePlayerCheckpoint(playerid);
+			SetPlayerCheckpoint(playerid, 964.872192, 2159.816406, 1011.030273, 1.0);
+			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+			SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+			Desossando[playerid] = 6;
+		}
 	}
 	return 1;
 }
