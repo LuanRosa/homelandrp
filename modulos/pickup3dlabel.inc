@@ -9,6 +9,13 @@ CarregarPickup3dLabel()
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \ncomecar a minerar.", -1, -368.498535, 2378.540771, 33.939697, 25.0); // Carregamento Materiais LS
 	CreateDynamicPickup(337, 23, -368.498535, 2378.540771, 33.939697); //
 
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -520.421813, -504.999450, 24.635631, 25.0); // Carregamento Materiais LS
+	CreateDynamicPickup(1220, 23, -520.421813, -504.999450, 24.635631); //
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -529.748168, -504.937561, 24.640802, 25.0); // Carregamento Materiais LS
+	CreateDynamicPickup(1220, 23, -529.748168, -504.937561, 24.640802); //
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -557.552368, -505.473480, 24.596021, 25.0); // Carregamento Materiais LS
+	CreateDynamicPickup(1220, 23, -557.552368, -505.473480, 24.596021); //
+
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \npegar o material.", -1, 1277.651367, -1301.349487, 13.336478, 25.0); // Carregamento Materiais LS
 	CreateDynamicPickup(2037, 23, 1277.651367, -1301.349487, 13.336478); //
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \ndeixar o material.", -1, 1258.313720, -1263.115478, 17.821365, 25.0); // Descarregamento Materiais LS
