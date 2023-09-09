@@ -6817,19 +6817,38 @@ stock todastextdraw(playerid)
 	PlayerTextDrawFont(playerid, TDLucky[4], 3), PlayerTextDrawLetterSize(playerid, TDLucky[4], 0.700000, 2.000000);
 	PlayerTextDrawSetOutline(playerid, TDLucky[4], 1);
 
-		DrawInv[playerid][0] = CreatePlayerTextDraw(playerid, 317.000000, 1.000000, "_");
+	DrawInv[playerid][0] = CreatePlayerTextDraw(playerid, 317.000000, 1.000000, "_");
+	PlayerTextDrawFont(playerid, DrawInv[playerid][0], 1);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][0], 1.208333, 49.799999);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][0], 353.500000, 735.000000);
+	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][0], 1);
+	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][0], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][0], 2);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][0], -1);
-	PlayerTextDrawUseBox(playerid, DrawInv[playerid][0], 1);
-	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][0], 150);
-	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][0], 0);
 	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][0], 255);
-	PlayerTextDrawFont(playerid, DrawInv[playerid][0], 1);
+	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][0], 135);
+	PlayerTextDrawUseBox(playerid, DrawInv[playerid][0], 1);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][0], 1);
+	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][0], 0);
 
-	DrawInv[playerid][2] = CreatePlayerTextDraw(playerid, 172.000000, 70.000000, "Preview_Model");
+	DrawInv[playerid][1] = CreatePlayerTextDraw(playerid, 172.000000, 70.000000, "Preview_Model");
+	PlayerTextDrawFont(playerid, DrawInv[playerid][1], 5);
+	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][1], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][1], 55.000000, 45.500000);
+	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][1], 0);
+	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][1], 0);
+	PlayerTextDrawAlignment(playerid, DrawInv[playerid][1], 1);
+	PlayerTextDrawColor(playerid, DrawInv[playerid][1], -1);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][1], 125);
+	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][1], 255);
+	PlayerTextDrawUseBox(playerid, DrawInv[playerid][1], 0);
+	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][1], 1);
+	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][1], 1);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][1], 15985);
+	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][1], -10.000000, 0.000000, -20.000000, 1.000000);
+	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][1], 1, 1);
+
+	DrawInv[playerid][2] = CreatePlayerTextDraw(playerid, 228.000000, 70.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][2], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][2], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][2], 55.000000, 45.500000);
@@ -6846,7 +6865,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][2], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][2], 1, 1);
 
-	DrawInv[playerid][3] = CreatePlayerTextDraw(playerid, 229.000000, 70.000000, "Preview_Model");
+	DrawInv[playerid][3] = CreatePlayerTextDraw(playerid, 284.000000, 70.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][3], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][3], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][3], 55.000000, 45.500000);
@@ -6863,7 +6882,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][3], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][3], 1, 1);
 
-	DrawInv[playerid][4] = CreatePlayerTextDraw(playerid, 286.000000, 70.000000, "Preview_Model");
+	DrawInv[playerid][4] = CreatePlayerTextDraw(playerid, 340.000000, 70.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][4], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][4], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][4], 55.000000, 45.500000);
@@ -6880,7 +6899,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][4], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][4], 1, 1);
 
-	DrawInv[playerid][5] = CreatePlayerTextDraw(playerid, 343.000000, 70.000000, "Preview_Model");
+	DrawInv[playerid][5] = CreatePlayerTextDraw(playerid, 396.000000, 70.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][5], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][5], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][5], 55.000000, 45.500000);
@@ -6897,7 +6916,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][5], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][5], 1, 1);
 
-	DrawInv[playerid][6] = CreatePlayerTextDraw(playerid, 400.000000, 70.000000, "Preview_Model");
+	DrawInv[playerid][6] = CreatePlayerTextDraw(playerid, 172.000000, 116.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][6], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][6], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][6], 55.000000, 45.500000);
@@ -6914,7 +6933,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][6], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][6], 1, 1);
 
-	DrawInv[playerid][7] = CreatePlayerTextDraw(playerid, 172.000000, 116.000000, "Preview_Model");
+	DrawInv[playerid][7] = CreatePlayerTextDraw(playerid, 228.000000, 116.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][7], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][7], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][7], 55.000000, 45.500000);
@@ -6931,7 +6950,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][7], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][7], 1, 1);
 
-	DrawInv[playerid][8] = CreatePlayerTextDraw(playerid, 229.000000, 116.000000, "Preview_Model");
+	DrawInv[playerid][8] = CreatePlayerTextDraw(playerid, 284.000000, 116.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][8], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][8], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][8], 55.000000, 45.500000);
@@ -6948,7 +6967,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][8], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][8], 1, 1);
 
-	DrawInv[playerid][9] = CreatePlayerTextDraw(playerid, 286.000000, 116.000000, "Preview_Model");
+	DrawInv[playerid][9] = CreatePlayerTextDraw(playerid, 340.000000, 116.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][9], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][9], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][9], 55.000000, 45.500000);
@@ -6965,7 +6984,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][9], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][9], 1, 1);
 
-	DrawInv[playerid][10] = CreatePlayerTextDraw(playerid, 343.000000, 116.000000, "Preview_Model");
+	DrawInv[playerid][10] = CreatePlayerTextDraw(playerid, 396.000000, 116.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][10], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][10], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][10], 55.000000, 45.500000);
@@ -6982,7 +7001,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][10], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][10], 1, 1);
 
-	DrawInv[playerid][11] = CreatePlayerTextDraw(playerid, 400.000000, 116.000000, "Preview_Model");
+	DrawInv[playerid][11] = CreatePlayerTextDraw(playerid, 172.000000, 162.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][11], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][11], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][11], 55.000000, 45.500000);
@@ -6999,7 +7018,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][11], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][11], 1, 1);
 
-	DrawInv[playerid][12] = CreatePlayerTextDraw(playerid, 172.000000, 162.000000, "Preview_Model");
+	DrawInv[playerid][12] = CreatePlayerTextDraw(playerid, 228.000000, 162.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][12], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][12], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][12], 55.000000, 45.500000);
@@ -7016,7 +7035,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][12], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][12], 1, 1);
 
-	DrawInv[playerid][13] = CreatePlayerTextDraw(playerid, 229.000000, 162.000000, "Preview_Model");
+	DrawInv[playerid][13] = CreatePlayerTextDraw(playerid, 284.000000, 162.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][13], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][13], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][13], 55.000000, 45.500000);
@@ -7033,7 +7052,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][13], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][13], 1, 1);
 
-	DrawInv[playerid][14] = CreatePlayerTextDraw(playerid, 286.000000, 162.000000, "Preview_Model");
+	DrawInv[playerid][14] = CreatePlayerTextDraw(playerid, 340.000000, 162.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][14], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][14], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][14], 55.000000, 45.500000);
@@ -7046,11 +7065,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][14], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][14], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][14], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][14], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][14], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][14], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][14], 1, 1);
 
-	DrawInv[playerid][15] = CreatePlayerTextDraw(playerid, 343.000000, 162.000000, "Preview_Model");
+	DrawInv[playerid][15] = CreatePlayerTextDraw(playerid, 396.000000, 162.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][15], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][15], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][15], 55.000000, 45.500000);
@@ -7063,11 +7082,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][15], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][15], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][15], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][15], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][15], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][15], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][15], 1, 1);
 
-	DrawInv[playerid][16] = CreatePlayerTextDraw(playerid, 400.000000, 162.000000, "Preview_Model");
+	DrawInv[playerid][16] = CreatePlayerTextDraw(playerid, 172.000000, 208.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][16], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][16], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][16], 55.000000, 45.500000);
@@ -7080,11 +7099,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][16], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][16], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][16], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][16], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][16], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][16], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][16], 1, 1);
 
-	DrawInv[playerid][17] = CreatePlayerTextDraw(playerid, 172.000000, 209.000000, "Preview_Model");
+	DrawInv[playerid][17] = CreatePlayerTextDraw(playerid, 228.000000, 208.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][17], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][17], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][17], 55.000000, 45.500000);
@@ -7097,11 +7116,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][17], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][17], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][17], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][17], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][17], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][17], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][17], 1, 1);
 
-	DrawInv[playerid][18] = CreatePlayerTextDraw(playerid, 229.000000, 209.000000, "Preview_Model");
+	DrawInv[playerid][18] = CreatePlayerTextDraw(playerid, 284.000000, 208.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][18], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][18], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][18], 55.000000, 45.500000);
@@ -7114,11 +7133,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][18], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][18], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][18], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][18], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][18], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][18], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][18], 1, 1);
 
-	DrawInv[playerid][19] = CreatePlayerTextDraw(playerid, 286.000000, 209.000000, "Preview_Model");
+	DrawInv[playerid][19] = CreatePlayerTextDraw(playerid, 340.000000, 208.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][19], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][19], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][19], 55.000000, 45.500000);
@@ -7131,11 +7150,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][19], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][19], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][19], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][19], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][19], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][19], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][19], 1, 1);
 
-	DrawInv[playerid][20] = CreatePlayerTextDraw(playerid, 343.000000, 209.000000, "Preview_Model");
+	DrawInv[playerid][20] = CreatePlayerTextDraw(playerid, 396.000000, 208.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][20], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][20], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][20], 55.000000, 45.500000);
@@ -7148,11 +7167,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][20], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][20], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][20], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][20], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][20], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][20], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][20], 1, 1);
 
-	DrawInv[playerid][21] = CreatePlayerTextDraw(playerid, 400.000000, 209.000000, "Preview_Model");
+	DrawInv[playerid][21] = CreatePlayerTextDraw(playerid, 172.000000, 254.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][21], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][21], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][21], 55.000000, 45.500000);
@@ -7165,11 +7184,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][21], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][21], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][21], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][21], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][21], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][21], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][21], 1, 1);
 
-	DrawInv[playerid][22] = CreatePlayerTextDraw(playerid, 172.000000, 255.000000, "Preview_Model");
+	DrawInv[playerid][22] = CreatePlayerTextDraw(playerid, 228.000000, 254.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][22], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][22], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][22], 55.000000, 45.500000);
@@ -7182,11 +7201,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][22], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][22], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][22], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][22], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][22], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][22], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][22], 1, 1);
 
-	DrawInv[playerid][23] = CreatePlayerTextDraw(playerid, 229.000000, 255.000000, "Preview_Model");
+	DrawInv[playerid][23] = CreatePlayerTextDraw(playerid, 284.000000, 254.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][23], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][23], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][23], 55.000000, 45.500000);
@@ -7199,11 +7218,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][23], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][23], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][23], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][23], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][23], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][23], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][23], 1, 1);
 
-	DrawInv[playerid][24] = CreatePlayerTextDraw(playerid, 286.000000, 255.000000, "Preview_Model");
+	DrawInv[playerid][24] = CreatePlayerTextDraw(playerid, 340.000000, 254.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][24], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][24], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][24], 55.000000, 45.500000);
@@ -7216,11 +7235,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][24], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][24], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][24], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][24], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][24], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][24], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][24], 1, 1);
 
-	DrawInv[playerid][25] = CreatePlayerTextDraw(playerid, 343.000000, 255.000000, "Preview_Model");
+	DrawInv[playerid][25] = CreatePlayerTextDraw(playerid, 396.000000, 254.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][25], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][25], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][25], 55.000000, 45.500000);
@@ -7233,11 +7252,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][25], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][25], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][25], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][25], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][25], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][25], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][25], 1, 1);
 
-	DrawInv[playerid][26] = CreatePlayerTextDraw(playerid, 400.000000, 255.000000, "Preview_Model");
+	DrawInv[playerid][26] = CreatePlayerTextDraw(playerid, 172.000000, 300.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][26], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][26], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][26], 55.000000, 45.500000);
@@ -7250,11 +7269,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][26], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][26], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][26], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][26], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][26], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][26], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][26], 1, 1);
 
-	DrawInv[playerid][27] = CreatePlayerTextDraw(playerid, 172.000000, 302.000000, "Preview_Model");
+	DrawInv[playerid][27] = CreatePlayerTextDraw(playerid, 228.000000, 300.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][27], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][27], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][27], 55.000000, 45.500000);
@@ -7267,11 +7286,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][27], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][27], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][27], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][27], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][27], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][27], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][27], 1, 1);
 
-	DrawInv[playerid][28] = CreatePlayerTextDraw(playerid, 229.000000, 302.000000, "Preview_Model");
+	DrawInv[playerid][28] = CreatePlayerTextDraw(playerid, 284.000000, 300.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][28], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][28], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][28], 55.000000, 45.500000);
@@ -7284,11 +7303,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][28], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][28], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][28], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][28], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][28], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][28], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][28], 1, 1);
 
-	DrawInv[playerid][29] = CreatePlayerTextDraw(playerid, 286.000000, 302.000000, "Preview_Model");
+	DrawInv[playerid][29] = CreatePlayerTextDraw(playerid, 340.000000, 300.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][29], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][29], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][29], 55.000000, 45.500000);
@@ -7301,11 +7320,11 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][29], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][29], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][29], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][29], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][29], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][29], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][29], 1, 1);
 
-	DrawInv[playerid][30] = CreatePlayerTextDraw(playerid, 343.000000, 302.000000, "Preview_Model");
+	DrawInv[playerid][30] = CreatePlayerTextDraw(playerid, 396.000000, 300.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][30], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][30], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][30], 55.000000, 45.500000);
@@ -7318,26 +7337,8 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][30], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][30], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][30], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][30], 15856);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][30], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][30], -10.000000, 0.000000, -20.000000, 1.000000);
-	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][30], 1, 1);
-
-	DrawInv[playerid][31] = CreatePlayerTextDraw(playerid, 400.000000, 302.000000, "Preview_Model");
-	PlayerTextDrawFont(playerid, DrawInv[playerid][31], 5);
-	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][31], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][31], 55.000000, 45.500000);
-	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][31], 0);
-	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][31], 0);
-	PlayerTextDrawAlignment(playerid, DrawInv[playerid][31], 1);
-	PlayerTextDrawColor(playerid, DrawInv[playerid][31], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][31], 125);
-	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][31], 255);
-	PlayerTextDrawUseBox(playerid, DrawInv[playerid][31], 0);
-	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][31], 1);
-	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][31], 1);
-	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][31], 15856);
-	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][31], -10.000000, 0.000000, -20.000000, 1.000000);
-	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][31], 1, 1);
 
 	for(new i = 1; i < 33; ++i)
 	{
