@@ -20645,3 +20645,92 @@ v0.3.7-R2, (C)2005-2015 SA-MP Team
 [00:20:18] [dbg:raknet:free] : module released
 [00:20:18] [sv:dbg:network:free] : module releasing...
 [00:20:18] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[07:57:48] filterscripts = ""  (string)
+[07:57:48] 
+[07:57:48] Server Plugins
+[07:57:48] --------------
+[07:57:48]  Loading plugin: crashdetect
+[07:57:48]   Failed.
+[07:57:48]  Loading plugin: sscanf
+[07:57:48] 
+[07:57:48]  ===============================
+[07:57:48] 
+[07:57:48]       sscanf plugin loaded.     
+[07:57:48] 
+[07:57:48]          Version: 2.13.8
+[07:57:48] 
+[07:57:48]    (c) 2022 Alex "Y_Less" Cole  
+[07:57:48] 
+[07:57:48]  ===============================
+[07:57:48] 
+[07:57:48]   Loaded.
+[07:57:48]  Loading plugin: streamer
+[07:57:48] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[07:57:48]   Loaded.
+[07:57:48]  Loading plugin: timerfix
+[07:57:48]   >> TimerFix v1.5 successfully loaded.
+[07:57:48]   Loaded.
+[07:57:48]  Loading plugin: pawnraknet
+[07:57:48] [Pawn.RakNet] plugin v1.6.0 loading...
+[07:57:48] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[07:57:48]   Loaded.
+[07:57:48]  Loading plugin: sampvoice
+[07:57:48] [sv:dbg:network:init] : module initializing...
+[07:57:48] [dbg:raknet:init] : module initializing...
+[07:57:48] [dbg:raknet:init] : module initialized
+[07:57:48] [sv:dbg:network:init] : module initialized
+[07:57:48] [sv:dbg:main:Load] : creating 2 work threads...
+[07:57:48]  -------------------------------------------    
+[07:57:48]    ___                __   __    _              
+[07:57:48]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[07:57:48]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[07:57:48]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[07:57:48]                   |_|                           
+[07:57:48]  -------------------------------------------    
+[07:57:48]            SampVoice by MOR loaded              
+[07:57:48]  -------------------------------------------    
+[07:57:48]   Loaded.
+[07:57:48]  Loading plugin: discord-connector
+[07:57:52]   Failed.
+[07:57:52]  Loaded 5 plugins.
+
+[07:57:52] 
+[07:57:52] Filterscripts
+[07:57:52] ---------------
+[07:57:52]   Loaded 0 filterscripts.
+
+[07:57:53] [sv:dbg:main:AmxLoad] : net game pointer (value:02349B58) received
+[07:57:53] [sv:dbg:network:bind] : voice server running on port 56610
+[07:57:53] Script[gamemodes/baixada.amx]: Run time error 19: "File or function is not found"
+[07:57:53] Number of vehicle models: 0
+[07:57:57]  -------------------------------------------
+[07:57:57]            SampVoice unloading...           
+[07:57:57]  -------------------------------------------
+[07:57:57] [dbg:raknet:free] : module releasing...
+[07:57:57] [dbg:raknet:free] : module released
+[07:57:57] [sv:dbg:network:free] : module releasing...
+[07:57:57] [sv:dbg:network:free] : module released
