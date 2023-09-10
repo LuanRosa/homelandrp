@@ -9957,9 +9957,9 @@ stock SalvarDados(playerid)
 	{
 		DOF2_SaveFile();
 		DOF2_SetInt(File, "IDF", PlayerInfo[playerid][IDF]);
-		DOF2_SetString(File,"pEmail",PlayerInfo[playerid][pEmail]);
+		DOF2_SetString(File,"pEmail", PlayerInfo[playerid][pEmail]);
 		DOF2_SetInt(File, "pDinheiro", PlayerInfo[playerid][pDinheiro]);
-		DOF2_SetInt(File,"pSexo",PlayerInfo[playerid][pSexo]);
+		DOF2_SetInt(File,"pSexo", PlayerInfo[playerid][pSexo]);
 		DOF2_SetInt(File, "pBanco", PlayerInfo[playerid][pBanco]);
 		DOF2_SetInt(File, "pIdade", PlayerInfo[playerid][pIdade]);
 		DOF2_SetInt(File, "pSegundosJogados", PlayerInfo[playerid][pSegundosJogados]);
@@ -10008,6 +10008,8 @@ stock SalvarDadosSkin(playerid)
 	{
 		DOF2_SaveFile();
 		DOF2_SetInt(File, "pSkin", GetPlayerSkin(playerid));
+		DOF2_SetString(File,"pEmail", PlayerInfo[playerid][pEmail]);
+		DOF2_SetInt(File,"pSexo", PlayerInfo[playerid][pSexo]);
 		DOF2_SetInt(File, "pDinheiro", PlayerInfo[playerid][pDinheiro]);
 		DOF2_SetInt(File, "pBanco", PlayerInfo[playerid][pBanco]);
 		DOF2_SetInt(File, "pIdade", PlayerInfo[playerid][pIdade]);
@@ -13165,7 +13167,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					DOF2_CreateFile(Account); 
 					DOF2_SaveFile();
-					DOF2_SetString(Account, "pSenha", PlayerInfo[playerid][pSenha]);
+					DOF2_SetString(Account, "pSenha", SHA256_password);
 					DOF2_SetString(Account, "pEmail", "");
 					DOF2_SetInt(Account, "IDF", PlayerInfo[playerid][IDF]);
 					DOF2_SetInt(Account, "pSexo", 0);
@@ -13209,7 +13211,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
 				}
-				CancelSelectTextDraw(playerid);
+				//CancelSelectTextDraw(playerid);
 				ShowPlayerDialog(playerid, DIALOG_EMAIL, DIALOG_STYLE_INPUT, "{FFFFFF}Email", "\n{FFFFFF}Digite seu email para seguir para o proximo passo do cadastro\n{FF0000}Voce deve colocar o email corretamente.", "Validar", "");
 			}
 		}
@@ -13269,7 +13271,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else
 			{
-				if(checkPasswordAccount(playerid, inputtext))
+				if(!checkPasswordAccount(playerid, inputtext))
 				{
 					format(Str, sizeof(Str), "Desejo boas vindas novamente, %s.\nPara Entrar no servidor Digite sua senha abaixo.", Name(playerid));
 					ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Bem vindo de novo", Str, "Ingresar", "X");
@@ -13287,10 +13289,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(DOF2_FileExists(Account))
     	            {
 						format(PlayerInfo[playerid][pLastLogin], 24, DOF2_GetString(Account, "pLastLogin"));
-						format(PlayerInfo[playerid][pEmail],64,DOF2_GetString(Account,"pEmail"));
+						//format(PlayerInfo[playerid][pEmail],64,DOF2_GetString(Account,"pEmail"));
 						PlayerInfo[playerid][IDF] = DOF2_GetInt(Account, "IDF");
 						PlayerInfo[playerid][pSkin] = DOF2_GetInt(Account, "pSkin");
-						PlayerInfo[playerid][IDF] = DOF2_GetInt(Account, "pSexo");
+						PlayerInfo[playerid][pSexo] = DOF2_GetInt(Account, "pSexo");
 						SetPlayerSkin(playerid, DOF2_GetInt(Account, "pSkin"));
 						PlayerInfo[playerid][pDinheiro] = DOF2_GetInt(Account, "pDinheiro");
 						PlayerInfo[playerid][pBanco] = DOF2_GetInt(Account, "pBanco");
@@ -16718,7 +16720,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 	if(clickedid == TDCadastro[14]){
 		if(PlayerInfo[playerid][pSexo] == 0) return SendClientMessage(playerid, 0xFF0000FF, "Voce precisa escolher um Genero.");
 		if(PlayerInfo[playerid][pSkin] == 0) return SendClientMessage(playerid, 0xFF0000FF, "Voce precisa escolher uma aparencia.");
-		CancelSelectTextDraw(playerid);
+		//CancelSelectTextDraw(playerid);
 		for(new i=0;i<18;i++){
 			TextDrawHideForPlayer(playerid, TDCadastro[i]);
 		}
@@ -16727,6 +16729,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		}
 		DestroyActor(actorcad[playerid]);
 		MostrandoMenu[playerid] = false;
+		SalvarDadosSkin(playerid);
 		SendClientMessage(playerid, -1, "Voce concluiu o cadastro, agora realize o login em sua conta.");
 		format(Str, sizeof(Str), "Desejo boas vindas, %s.\nPara Entrar no servidor Digite sua senha abaixo.", Name(playerid));
 		ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Seja bem vindo ao servidor...", Str, "Logar", "Cancelar");
