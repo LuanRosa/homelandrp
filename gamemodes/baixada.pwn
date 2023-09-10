@@ -30,6 +30,8 @@
 
 new	UltimaFala[MAX_PLAYERS];
 #define SEGUNDOS_SEM_FALAR  		2  
+// Encrypt de password
+#define passwordSalt                "akjhf2bh36s"
 
 //                          ICONES NOTIFICAÇÃO
 
@@ -164,8 +166,8 @@ enum
 {
 	DIALOG_LOGIN,
 	DIALOG_REGISTRO,
-	DIALOG_SELSEXO,
-	DIALOG_SELIDADE,
+	DIALOG_EMAIL,
+	//DIALOG_SELIDADE,
 	DIALOG_BANIDO,
 	DIALOG_POS,
 	DIALOG_PRESOS,
@@ -265,8 +267,10 @@ enum
 enum pInfo
 {
 	pSenha[24],
+	pEmail[64],
 	IDF,
 	pSkin,
+	pSexo,
 	pDinheiro,
 	pBanco,
 	pIdade,
@@ -580,6 +584,8 @@ new Text:Textdraw0,
 new PlayerText:HudServer[MAX_PLAYERS][10];
 new Text:Logo[8];
 new PlayerText:Registration_PTD[MAX_PLAYERS][23];
+new Text:TDCadastro[18];
+new PlayerText:TDCadastro_p[MAX_PLAYERS][7];
 
 //                          VARIAVEIS DA SLOTS
 
@@ -665,12 +671,17 @@ new Localizando[MAX_PLAYERS];
 new bool:Cargase[MAX_PLAYERS] = false,
 	Carregou[MAX_PLAYERS];
 new ocupadodemais[MAX_PLAYERS];
+new bool:MostrandoMenu[MAX_PLAYERS];
+new TimerCad[MAX_PLAYERS];
 new RepairCar[MAX_PLAYERS];
 new bool:TemCinto[MAX_PLAYERS] = false;
 new ProxID;
 new TemMinerio[MAX_PLAYERS];
 new Desossando[MAX_PLAYERS];
+new Page[MAX_PLAYERS];
+new Preview[MAX_PLAYERS][6];
 new ObjetoAcougue[MAX_PLAYERS][3];
+new actorcad[MAX_PLAYERS];
 // velocimetro //
 new TimerVelo[MAX_PLAYERS];
 new mostrandovelo[MAX_PLAYERS];
@@ -1652,6 +1663,618 @@ CallBack::AntiSpam(playerid)
 	return 1;
 }
 
+CallBack::AttCad(playerid){
+	if(MostrandoMenu[playerid] == true){
+		if(Page[playerid] == 1){
+			Preview[playerid][0] = 1;
+			Preview[playerid][1] = 2;
+			Preview[playerid][2] = 3;
+			Preview[playerid][3] = 4;
+			Preview[playerid][4] = 5;
+			Preview[playerid][5] = 6;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 2){
+			Preview[playerid][0] = 7;
+			Preview[playerid][1] = 8;
+			Preview[playerid][2] = 9;
+			Preview[playerid][3] = 10;
+			Preview[playerid][4] = 11;
+			Preview[playerid][5] = 12;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 3){
+			Preview[playerid][0] = 13;
+			Preview[playerid][1] = 14;
+			Preview[playerid][2] = 15;
+			Preview[playerid][3] = 16;
+			Preview[playerid][4] = 17;
+			Preview[playerid][5] = 18;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 4){
+			Preview[playerid][0] = 19;
+			Preview[playerid][1] = 20;
+			Preview[playerid][2] = 21;
+			Preview[playerid][3] = 22;
+			Preview[playerid][4] = 23;
+			Preview[playerid][5] = 24;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 5){
+			Preview[playerid][0] = 25;
+			Preview[playerid][1] = 26;
+			Preview[playerid][2] = 27;
+			Preview[playerid][3] = 28;
+			Preview[playerid][4] = 29;
+			Preview[playerid][5] = 30;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 6){
+			Preview[playerid][0] = 31;
+			Preview[playerid][1] = 32;
+			Preview[playerid][2] = 33;
+			Preview[playerid][3] = 34;
+			Preview[playerid][4] = 35;
+			Preview[playerid][5] = 36;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 7){
+			Preview[playerid][0] = 37;
+			Preview[playerid][1] = 38;
+			Preview[playerid][2] = 39;
+			Preview[playerid][3] = 40;
+			Preview[playerid][4] = 41;
+			Preview[playerid][5] = 42;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 8){
+			Preview[playerid][0] = 43;
+			Preview[playerid][1] = 44;
+			Preview[playerid][2] = 45;
+			Preview[playerid][3] = 46;
+			Preview[playerid][4] = 47;
+			Preview[playerid][5] = 48;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 9){
+			Preview[playerid][0] = 49;
+			Preview[playerid][1] = 50;
+			Preview[playerid][2] = 51;
+			Preview[playerid][3] = 52;
+			Preview[playerid][4] = 53;
+			Preview[playerid][5] = 54;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 10){
+			Preview[playerid][0] = 55;
+			Preview[playerid][1] = 56;
+			Preview[playerid][2] = 57;
+			Preview[playerid][3] = 58;
+			Preview[playerid][4] = 59;
+			Preview[playerid][5] = 60;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 11){
+			Preview[playerid][0] = 61;
+			Preview[playerid][1] = 62;
+			Preview[playerid][2] = 63;
+			Preview[playerid][3] = 64;
+			Preview[playerid][4] = 65;
+			Preview[playerid][5] = 66;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 12){
+			Preview[playerid][0] = 67;
+			Preview[playerid][1] = 68;
+			Preview[playerid][2] = 69;
+			Preview[playerid][3] = 70;
+			Preview[playerid][4] = 71;
+			Preview[playerid][5] = 72;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 13){
+			Preview[playerid][0] = 73;
+			Preview[playerid][1] = 74;
+			Preview[playerid][2] = 75;
+			Preview[playerid][3] = 76;
+			Preview[playerid][4] = 77;
+			Preview[playerid][5] = 78;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 14){
+			Preview[playerid][0] = 79;
+			Preview[playerid][1] = 80;
+			Preview[playerid][2] = 81;
+			Preview[playerid][3] = 82;
+			Preview[playerid][4] = 83;
+			Preview[playerid][5] = 84;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 15){
+			Preview[playerid][0] = 85;
+			Preview[playerid][1] = 86;
+			Preview[playerid][2] = 87;
+			Preview[playerid][3] = 88;
+			Preview[playerid][4] = 89;
+			Preview[playerid][5] = 90;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 16){
+			Preview[playerid][0] = 91;
+			Preview[playerid][1] = 92;
+			Preview[playerid][2] = 93;
+			Preview[playerid][3] = 94;
+			Preview[playerid][4] = 95;
+			Preview[playerid][5] = 96;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 17){
+			Preview[playerid][0] = 97;
+			Preview[playerid][1] = 98;
+			Preview[playerid][2] = 99;
+			Preview[playerid][3] = 100;
+			Preview[playerid][4] = 101;
+			Preview[playerid][5] = 102;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 18){
+			Preview[playerid][0] = 103;
+			Preview[playerid][1] = 104;
+			Preview[playerid][2] = 105;
+			Preview[playerid][3] = 106;
+			Preview[playerid][4] = 107;
+			Preview[playerid][5] = 108;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 19){
+			Preview[playerid][0] = 109;
+			Preview[playerid][1] = 110;
+			Preview[playerid][2] = 111;
+			Preview[playerid][3] = 112;
+			Preview[playerid][4] = 113;
+			Preview[playerid][5] = 114;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 20){
+			Preview[playerid][0] = 115;
+			Preview[playerid][1] = 116;
+			Preview[playerid][2] = 117;
+			Preview[playerid][3] = 118;
+			Preview[playerid][4] = 119;
+			Preview[playerid][5] = 120;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 21){
+			Preview[playerid][0] = 121;
+			Preview[playerid][1] = 122;
+			Preview[playerid][2] = 123;
+			Preview[playerid][3] = 124;
+			Preview[playerid][4] = 125;
+			Preview[playerid][5] = 126;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 22){
+			Preview[playerid][0] = 127;
+			Preview[playerid][1] = 128;
+			Preview[playerid][2] = 129;
+			Preview[playerid][3] = 130;
+			Preview[playerid][4] = 131;
+			Preview[playerid][5] = 132;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 23){
+			Preview[playerid][0] = 133;
+			Preview[playerid][1] = 134;
+			Preview[playerid][2] = 135;
+			Preview[playerid][3] = 136;
+			Preview[playerid][4] = 137;
+			Preview[playerid][5] = 138;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 24){
+			Preview[playerid][0] = 139;
+			Preview[playerid][1] = 140;
+			Preview[playerid][2] = 141;
+			Preview[playerid][3] = 142;
+			Preview[playerid][4] = 143;
+			Preview[playerid][5] = 144;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 25){
+			Preview[playerid][0] = 145;
+			Preview[playerid][1] = 146;
+			Preview[playerid][2] = 147;
+			Preview[playerid][3] = 148;
+			Preview[playerid][4] = 149;
+			Preview[playerid][5] = 150;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 26){
+			Preview[playerid][0] = 151;
+			Preview[playerid][1] = 152;
+			Preview[playerid][2] = 153;
+			Preview[playerid][3] = 154;
+			Preview[playerid][4] = 155;
+			Preview[playerid][5] = 156;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 27){
+			Preview[playerid][0] = 157;
+			Preview[playerid][1] = 158;
+			Preview[playerid][2] = 159;
+			Preview[playerid][3] = 160;
+			Preview[playerid][4] = 161;
+			Preview[playerid][5] = 162;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 28){
+			Preview[playerid][0] = 163;
+			Preview[playerid][1] = 164;
+			Preview[playerid][2] = 165;
+			Preview[playerid][3] = 166;
+			Preview[playerid][4] = 167;
+			Preview[playerid][5] = 168;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 29){
+			Preview[playerid][0] = 169;
+			Preview[playerid][1] = 170;
+			Preview[playerid][2] = 171;
+			Preview[playerid][3] = 172;
+			Preview[playerid][4] = 173;
+			Preview[playerid][5] = 174;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 30){
+			Preview[playerid][0] = 175;
+			Preview[playerid][1] = 176;
+			Preview[playerid][2] = 177;
+			Preview[playerid][3] = 178;
+			Preview[playerid][4] = 179;
+			Preview[playerid][5] = 180;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 31){
+			Preview[playerid][0] = 181;
+			Preview[playerid][1] = 182;
+			Preview[playerid][2] = 183;
+			Preview[playerid][3] = 184;
+			Preview[playerid][4] = 185;
+			Preview[playerid][5] = 186;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 32){
+			Preview[playerid][0] = 187;
+			Preview[playerid][1] = 188;
+			Preview[playerid][2] = 189;
+			Preview[playerid][3] = 190;
+			Preview[playerid][4] = 191;
+			Preview[playerid][5] = 192;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 33){
+			Preview[playerid][0] = 193;
+			Preview[playerid][1] = 194;
+			Preview[playerid][2] = 195;
+			Preview[playerid][3] = 196;
+			Preview[playerid][4] = 197;
+			Preview[playerid][5] = 198;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 34){
+			Preview[playerid][0] = 199;
+			Preview[playerid][1] = 200;
+			Preview[playerid][2] = 201;
+			Preview[playerid][3] = 202;
+			Preview[playerid][4] = 203;
+			Preview[playerid][5] = 204;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 35){
+			Preview[playerid][0] = 205;
+			Preview[playerid][1] = 206;
+			Preview[playerid][2] = 207;
+			Preview[playerid][3] = 208;
+			Preview[playerid][4] = 209;
+			Preview[playerid][5] = 210;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 36){
+			Preview[playerid][0] = 212;
+			Preview[playerid][1] = 213;
+			Preview[playerid][2] = 214;
+			Preview[playerid][3] = 215;
+			Preview[playerid][4] = 216;
+			Preview[playerid][5] = 218;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 37){
+			Preview[playerid][0] = 219;
+			Preview[playerid][1] = 220;
+			Preview[playerid][2] = 221;
+			Preview[playerid][3] = 222;
+			Preview[playerid][4] = 223;
+			Preview[playerid][5] = 224;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 38){
+			Preview[playerid][0] = 225;
+			Preview[playerid][1] = 226;
+			Preview[playerid][2] = 227;
+			Preview[playerid][3] = 228;
+			Preview[playerid][4] = 229;
+			Preview[playerid][5] = 230;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 39){
+			Preview[playerid][0] = 231;
+			Preview[playerid][1] = 232;
+			Preview[playerid][2] = 233;
+			Preview[playerid][3] = 234;
+			Preview[playerid][4] = 235;
+			Preview[playerid][5] = 236;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 40){
+			Preview[playerid][0] = 237;
+			Preview[playerid][1] = 238;
+			Preview[playerid][2] = 239;
+			Preview[playerid][3] = 240;
+			Preview[playerid][4] = 241;
+			Preview[playerid][5] = 242;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 41){
+			Preview[playerid][0] = 243;
+			Preview[playerid][1] = 244;
+			Preview[playerid][2] = 245;
+			Preview[playerid][3] = 246;
+			Preview[playerid][4] = 247;
+			Preview[playerid][5] = 248;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 42){
+			Preview[playerid][0] = 249;
+			Preview[playerid][1] = 250;
+			Preview[playerid][2] = 251;
+			Preview[playerid][3] = 252;
+			Preview[playerid][4] = 253;
+			Preview[playerid][5] = 254;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 43){
+			Preview[playerid][0] = 255;
+			Preview[playerid][1] = 256;
+			Preview[playerid][2] = 257;
+			Preview[playerid][3] = 258;
+			Preview[playerid][4] = 259;
+			Preview[playerid][5] = 260;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 44){
+			Preview[playerid][0] = 261;
+			Preview[playerid][1] = 262;
+			Preview[playerid][2] = 263;
+			Preview[playerid][3] = 264;
+			Preview[playerid][4] = 268;
+			Preview[playerid][5] = 269;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}else if(Page[playerid] == 45){
+			Preview[playerid][0] = 270;
+			Preview[playerid][1] = 271;
+			Preview[playerid][2] = 272;
+			Preview[playerid][3] = 273;
+			Preview[playerid][4] = 289;
+			Preview[playerid][5] = 290;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}
+		else if(Page[playerid] == 46){
+			Page[playerid] = 1;
+			Preview[playerid][0] = 291;
+			Preview[playerid][1] = 292;
+			Preview[playerid][2] = 293;
+			Preview[playerid][3] = 294;
+			Preview[playerid][4] = 295;
+			Preview[playerid][5] = 296;
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+		}
+		for(new i=0;i<7;i++){
+			PlayerTextDrawShow(playerid, TDCadastro_p[playerid][i]);
+		}
+	}else{
+		KillTimer(TimerCad[playerid]);
+	}
+	return 1;
+}
+
 CallBack::CANIM(playerid){
 	ClearAnimations(playerid);
 	return 1;
@@ -1660,17 +2283,17 @@ CallBack::CANIM(playerid){
 CallBack::Attplayer(playerid){
 	static str[300];
 	if(pJogando[playerid] == false && Falou[playerid] == false && Susurrou[playerid] == false && Gritou[playerid] == false){
-		format(str,sizeof(str),"{FFFF00}STAFF\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"STAFF\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
 	}else if(Falou[playerid] == true){
-		format(str,sizeof(str),"{FFFF00}FALANDO\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"FALANDO\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
 	}else if(Susurrou[playerid] == true){
-		format(str,sizeof(str),"{FFFF00}SUSURRANDO\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"SUSURRANDO\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
 	}else if(Gritou[playerid] == true){
-		format(str,sizeof(str),"{FFFF00}GRITANDO\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"GRITANDO\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
 	}else{
-		format(str,sizeof(str),"%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
 	}
-	SetPlayerChatBubble(playerid, str, 0xFFFFFFFF, 8.0, 20000);
+	SetPlayerChatBubble(playerid, str, 0xFFFF00FF, 8.0, 20000);
 	return 1;
 }
 
@@ -5429,6 +6052,35 @@ CallBack::PlayerTextDraw( playerid )
 
 //                          STOCKS
 
+stock checkPasswordAccount(playerid, password[]) {
+	new SHA256_password[95],Account[256], returnSucess = 0;
+
+	// Encryptar a senha
+	SHA256_PassHash(password, passwordSalt, SHA256_password, sizeof (SHA256_password));
+	format(Account, sizeof(Account), PASTA_CONTAS, Name(playerid));
+	if(DOF2_FileExists(Account)){
+		if (!strcmp(SHA256_password, DOF2_GetString(Account, "pSenha"))) {
+	    	returnSucess = 1;
+		}
+	}
+	return returnSucess;
+}
+
+stock IsValidInput(const ipstr[])
+{
+    for(new i = 0; ipstr[i] != EOS; ++i)
+    {
+        switch(ipstr[i])
+        {
+            case '0'..'9', 'A'..'Z', 'a'..'z', '_', '[', '@', ']', '.':
+                continue;
+            default:
+                return 0;
+        }
+    }
+    return 1;
+}
+
 stock GetPlayerIdfixo(playerid) return PlayerInfo[playerid][IDF];
 stock GetIdfixo()
 {
@@ -5894,6 +6546,123 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][9], 255);
 	PlayerTextDrawFont(playerid, VeloC[playerid][9], 2);
 	PlayerTextDrawSetProportional(playerid, VeloC[playerid][9], 1);
+
+		//STRINGS TD CADASTRO
+	TDCadastro_p[playerid][0] = CreatePlayerTextDraw(playerid, 94.000000, 197.000000, "Preview_Model");
+	PlayerTextDrawFont(playerid, TDCadastro_p[playerid][0], 5);
+	PlayerTextDrawLetterSize(playerid, TDCadastro_p[playerid][0], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, TDCadastro_p[playerid][0], 32.500000, 32.000000);
+	PlayerTextDrawSetOutline(playerid, TDCadastro_p[playerid][0], 0);
+	PlayerTextDrawSetShadow(playerid, TDCadastro_p[playerid][0], 0);
+	PlayerTextDrawAlignment(playerid, TDCadastro_p[playerid][0], 1);
+	PlayerTextDrawColor(playerid, TDCadastro_p[playerid][0], -1);
+	PlayerTextDrawBackgroundColor(playerid, TDCadastro_p[playerid][0], -1094795521);
+	PlayerTextDrawBoxColor(playerid, TDCadastro_p[playerid][0], -741092353);
+	PlayerTextDrawUseBox(playerid, TDCadastro_p[playerid][0], 0);
+	PlayerTextDrawSetProportional(playerid, TDCadastro_p[playerid][0], 1);
+	PlayerTextDrawSetSelectable(playerid, TDCadastro_p[playerid][0], 1);
+	PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], 1);
+	PlayerTextDrawSetPreviewRot(playerid, TDCadastro_p[playerid][0], -10.000000, 0.000000, -20.000000, 1.000000);
+	PlayerTextDrawSetPreviewVehCol(playerid, TDCadastro_p[playerid][0], 1, 1);
+
+	TDCadastro_p[playerid][1] = CreatePlayerTextDraw(playerid, 134.000000, 197.000000, "Preview_Model");
+	PlayerTextDrawFont(playerid, TDCadastro_p[playerid][1], 5);
+	PlayerTextDrawLetterSize(playerid, TDCadastro_p[playerid][1], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, TDCadastro_p[playerid][1], 32.500000, 32.000000);
+	PlayerTextDrawSetOutline(playerid, TDCadastro_p[playerid][1], 0);
+	PlayerTextDrawSetShadow(playerid, TDCadastro_p[playerid][1], 0);
+	PlayerTextDrawAlignment(playerid, TDCadastro_p[playerid][1], 1);
+	PlayerTextDrawColor(playerid, TDCadastro_p[playerid][1], -1);
+	PlayerTextDrawBackgroundColor(playerid, TDCadastro_p[playerid][1], -1094795521);
+	PlayerTextDrawBoxColor(playerid, TDCadastro_p[playerid][1], -741092353);
+	PlayerTextDrawUseBox(playerid, TDCadastro_p[playerid][1], 0);
+	PlayerTextDrawSetProportional(playerid, TDCadastro_p[playerid][1], 1);
+	PlayerTextDrawSetSelectable(playerid, TDCadastro_p[playerid][1], 1);
+	PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], 2);
+	PlayerTextDrawSetPreviewRot(playerid, TDCadastro_p[playerid][1], -10.000000, 0.000000, -20.000000, 1.000000);
+	PlayerTextDrawSetPreviewVehCol(playerid, TDCadastro_p[playerid][1], 1, 1);
+
+	TDCadastro_p[playerid][2] = CreatePlayerTextDraw(playerid, 174.000000, 197.000000, "Preview_Model");
+	PlayerTextDrawFont(playerid, TDCadastro_p[playerid][2], 5);
+	PlayerTextDrawLetterSize(playerid, TDCadastro_p[playerid][2], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, TDCadastro_p[playerid][2], 32.500000, 32.000000);
+	PlayerTextDrawSetOutline(playerid, TDCadastro_p[playerid][2], 0);
+	PlayerTextDrawSetShadow(playerid, TDCadastro_p[playerid][2], 0);
+	PlayerTextDrawAlignment(playerid, TDCadastro_p[playerid][2], 1);
+	PlayerTextDrawColor(playerid, TDCadastro_p[playerid][2], -1);
+	PlayerTextDrawBackgroundColor(playerid, TDCadastro_p[playerid][2], -1094795521);
+	PlayerTextDrawBoxColor(playerid, TDCadastro_p[playerid][2], -741092353);
+	PlayerTextDrawUseBox(playerid, TDCadastro_p[playerid][2], 0);
+	PlayerTextDrawSetProportional(playerid, TDCadastro_p[playerid][2], 1);
+	PlayerTextDrawSetSelectable(playerid, TDCadastro_p[playerid][2], 1);
+	PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], 3);
+	PlayerTextDrawSetPreviewRot(playerid, TDCadastro_p[playerid][2], -10.000000, 0.000000, -20.000000, 1.000000);
+	PlayerTextDrawSetPreviewVehCol(playerid, TDCadastro_p[playerid][2], 1, 1);
+
+	TDCadastro_p[playerid][3] = CreatePlayerTextDraw(playerid, 94.000000, 242.000000, "Preview_Model");
+	PlayerTextDrawFont(playerid, TDCadastro_p[playerid][3], 5);
+	PlayerTextDrawLetterSize(playerid, TDCadastro_p[playerid][3], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, TDCadastro_p[playerid][3], 32.500000, 32.000000);
+	PlayerTextDrawSetOutline(playerid, TDCadastro_p[playerid][3], 0);
+	PlayerTextDrawSetShadow(playerid, TDCadastro_p[playerid][3], 0);
+	PlayerTextDrawAlignment(playerid, TDCadastro_p[playerid][3], 1);
+	PlayerTextDrawColor(playerid, TDCadastro_p[playerid][3], -1);
+	PlayerTextDrawBackgroundColor(playerid, TDCadastro_p[playerid][3], -1094795521);
+	PlayerTextDrawBoxColor(playerid, TDCadastro_p[playerid][3], -741092353);
+	PlayerTextDrawUseBox(playerid, TDCadastro_p[playerid][3], 0);
+	PlayerTextDrawSetProportional(playerid, TDCadastro_p[playerid][3], 1);
+	PlayerTextDrawSetSelectable(playerid, TDCadastro_p[playerid][3], 1);
+	PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], 4);
+	PlayerTextDrawSetPreviewRot(playerid, TDCadastro_p[playerid][3], -10.000000, 0.000000, -20.000000, 1.000000);
+	PlayerTextDrawSetPreviewVehCol(playerid, TDCadastro_p[playerid][3], 1, 1);
+
+	TDCadastro_p[playerid][4] = CreatePlayerTextDraw(playerid, 134.000000, 242.000000, "Preview_Model");
+	PlayerTextDrawFont(playerid, TDCadastro_p[playerid][4], 5);
+	PlayerTextDrawLetterSize(playerid, TDCadastro_p[playerid][4], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, TDCadastro_p[playerid][4], 32.500000, 32.000000);
+	PlayerTextDrawSetOutline(playerid, TDCadastro_p[playerid][4], 0);
+	PlayerTextDrawSetShadow(playerid, TDCadastro_p[playerid][4], 0);
+	PlayerTextDrawAlignment(playerid, TDCadastro_p[playerid][4], 1);
+	PlayerTextDrawColor(playerid, TDCadastro_p[playerid][4], -1);
+	PlayerTextDrawBackgroundColor(playerid, TDCadastro_p[playerid][4], -1094795521);
+	PlayerTextDrawBoxColor(playerid, TDCadastro_p[playerid][4], -741092353);
+	PlayerTextDrawUseBox(playerid, TDCadastro_p[playerid][4], 0);
+	PlayerTextDrawSetProportional(playerid, TDCadastro_p[playerid][4], 1);
+	PlayerTextDrawSetSelectable(playerid, TDCadastro_p[playerid][4], 1);
+	PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], 5);
+	PlayerTextDrawSetPreviewRot(playerid, TDCadastro_p[playerid][4], -10.000000, 0.000000, -20.000000, 1.000000);
+	PlayerTextDrawSetPreviewVehCol(playerid, TDCadastro_p[playerid][4], 1, 1);
+
+	TDCadastro_p[playerid][5] = CreatePlayerTextDraw(playerid, 174.000000, 242.000000, "Preview_Model");
+	PlayerTextDrawFont(playerid, TDCadastro_p[playerid][5], 5);
+	PlayerTextDrawLetterSize(playerid, TDCadastro_p[playerid][5], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, TDCadastro_p[playerid][5], 32.500000, 32.000000);
+	PlayerTextDrawSetOutline(playerid, TDCadastro_p[playerid][5], 0);
+	PlayerTextDrawSetShadow(playerid, TDCadastro_p[playerid][5], 0);
+	PlayerTextDrawAlignment(playerid, TDCadastro_p[playerid][5], 1);
+	PlayerTextDrawColor(playerid, TDCadastro_p[playerid][5], -1);
+	PlayerTextDrawBackgroundColor(playerid, TDCadastro_p[playerid][5], -1094795521);
+	PlayerTextDrawBoxColor(playerid, TDCadastro_p[playerid][5], -741092353);
+	PlayerTextDrawUseBox(playerid, TDCadastro_p[playerid][5], 0);
+	PlayerTextDrawSetProportional(playerid, TDCadastro_p[playerid][5], 1);
+	PlayerTextDrawSetSelectable(playerid, TDCadastro_p[playerid][5], 1);
+	PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], 6);
+	PlayerTextDrawSetPreviewRot(playerid, TDCadastro_p[playerid][5], -10.000000, 0.000000, -20.000000, 1.000000);
+	PlayerTextDrawSetPreviewVehCol(playerid, TDCadastro_p[playerid][5], 1, 1);
+
+	TDCadastro_p[playerid][6] = CreatePlayerTextDraw(playerid, 149.000000, 304.000000, "1/46");
+	PlayerTextDrawFont(playerid, TDCadastro_p[playerid][6], 1);
+	PlayerTextDrawLetterSize(playerid, TDCadastro_p[playerid][6], 0.162499, 1.049978);
+	PlayerTextDrawTextSize(playerid, TDCadastro_p[playerid][6], 490.500000, 199.500000);
+	PlayerTextDrawSetOutline(playerid, TDCadastro_p[playerid][6], 0);
+	PlayerTextDrawSetShadow(playerid, TDCadastro_p[playerid][6], 0);
+	PlayerTextDrawAlignment(playerid, TDCadastro_p[playerid][6], 2);
+	PlayerTextDrawColor(playerid, TDCadastro_p[playerid][6], -1);
+	PlayerTextDrawBackgroundColor(playerid, TDCadastro_p[playerid][6], 255);
+	PlayerTextDrawBoxColor(playerid, TDCadastro_p[playerid][6], 512819199);
+	PlayerTextDrawUseBox(playerid, TDCadastro_p[playerid][6], 0);
+	PlayerTextDrawSetProportional(playerid, TDCadastro_p[playerid][6], 1);
+	PlayerTextDrawSetSelectable(playerid, TDCadastro_p[playerid][6], 0);
 
 	HudServer[playerid][0] = CreatePlayerTextDraw(playerid,288.000000, -1.000000, "_"); //Logomarca antiga
 	PlayerTextDrawBackgroundColor(playerid,HudServer[playerid][0], 255);
@@ -9099,11 +9868,13 @@ stock ZerarDados(playerid)
 	FomePlayer[playerid] = 0;
 	SedePlayer[playerid] = 0;
 	PassouRadar[playerid] = 0;
+	Page[playerid] = 0;
 	ItemOpcao[playerid] = 0;
 	TemCinto[playerid] = false;
 	Susurrando[playerid] = false;
 	Falando[playerid] = false;
 	Gritando[playerid] = false;
+	MostrandoMenu[playerid] = false;
 	Falou[playerid] = false;
 	Susurrou[playerid] = false;
 	Gritou[playerid] = false;
@@ -9164,6 +9935,9 @@ stock ZerarDados(playerid)
 	SetPlayerSkillLevel(playerid,WEAPONSKILL_PISTOL,200);
 	SetPlayerSkillLevel(playerid,WEAPONSKILL_MICRO_UZI,200);
 	SetPlayerSkillLevel(playerid,WEAPONSKILL_SNIPERRIFLE,200);
+	for(new i=0;i<6;i++){
+		Preview[playerid][i] = 0;
+	}
 	return 1;
 }
 
@@ -9183,7 +9957,9 @@ stock SalvarDados(playerid)
 	{
 		DOF2_SaveFile();
 		DOF2_SetInt(File, "IDF", PlayerInfo[playerid][IDF]);
+		DOF2_SetString(File,"pEmail",PlayerInfo[playerid][pEmail]);
 		DOF2_SetInt(File, "pDinheiro", PlayerInfo[playerid][pDinheiro]);
+		DOF2_SetInt(File,"pSexo",PlayerInfo[playerid][pSexo]);
 		DOF2_SetInt(File, "pBanco", PlayerInfo[playerid][pBanco]);
 		DOF2_SetInt(File, "pIdade", PlayerInfo[playerid][pIdade]);
 		DOF2_SetInt(File, "pSegundosJogados", PlayerInfo[playerid][pSegundosJogados]);
@@ -9654,6 +10430,7 @@ public OnGameModeInit()
 		CreateDynamicPickup(19606,23,Entradas[i][0],Entradas[i][1],Entradas[i][2],0);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
 	}
+
 	TimerRelogio = SetTimer("Relogio",1000,true);
 	TimerCadeia = SetTimer("CheckCadeia", 2000, true);
 	TimerAfk = SetTimer("AntiAway", minutos(10), true);
@@ -9736,6 +10513,21 @@ public OnPlayerRequestClass(playerid, classid)
     TimerLogin[playerid] = SetTimerEx("mostrarTelaLogin", 50, false, "d", playerid);
  	PlayerPlaySound(playerid, 1098, 0.0, 0.0, 0.0);
 	LimparChat(playerid, 10);
+	Page[playerid] = 1;
+	if(Page[playerid] == 1){
+		Preview[playerid][0] = 1;
+		Preview[playerid][1] = 2;
+		Preview[playerid][2] = 3;
+		Preview[playerid][3] = 4;
+		Preview[playerid][4] = 5;
+		Preview[playerid][5] = 6;
+		PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][0], Preview[playerid][0]);
+		PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][1], Preview[playerid][1]);
+		PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][2], Preview[playerid][2]);
+		PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][3], Preview[playerid][3]);
+		PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
+		PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
+	}
 	return 0;
 }
 
@@ -12356,15 +13148,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			else
 			{
 				format(Str, 256, "Seja bem-vindo ao nosso servidor, %s!\nPara efetuar seu cadastro, insira uma senha abaixo.\n*Sua senha deve conter entre 4 e 20 caracteres.", Name(playerid));
-				if(!strlen(inputtext)) return ShowPlayerDialog(playerid, DIALOG_REGISTRO, DIALOG_STYLE_INPUT, "Eres nuevo aca.", Str, "Crear", "X");
+				if(!strlen(inputtext)) return ShowPlayerDialog(playerid, DIALOG_REGISTRO, DIALOG_STYLE_INPUT, "Voce e novo.", Str, "Criar", "X");
 				if(strlen(inputtext) < 4 || strlen(inputtext) > 20)
 				{
-					notificacao(playerid, "ERRO", "Sua senha dve ter de 4 a 20 caracteres.", ICONE_ERRO);
+					notificacao(playerid, "ERRO", "Sua senha deve ter de 4 a 20 caracteres.", ICONE_ERRO);
 					format(Str, 256, "Seja bem-vindo ao nosso servidor, %s!\nPara efetuar seu cadastro, insira uma senha abaixo.\n*Sua senha deve conter entre 4 e 20 caracteres.", Name(playerid));
-					return ShowPlayerDialog(playerid, DIALOG_REGISTRO, DIALOG_STYLE_INPUT, "Eres nuevo aca.", Str, "Crear", "X");
+					return ShowPlayerDialog(playerid, DIALOG_REGISTRO, DIALOG_STYLE_INPUT, "Voce e novo.", Str, "Criar", "X");
 				}
-
+				new SHA256_password[85];
 				format(PlayerInfo[playerid][pSenha], 20, inputtext);
+				SHA256_PassHash(PlayerInfo[playerid][pSenha], passwordSalt, SHA256_password, sizeof (SHA256_password));
+
 				new uid = GetIdfixo();
 				PlayerInfo[playerid][IDF] = uid;
 				if(!DOF2_FileExists(Account))
@@ -12372,7 +13166,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_CreateFile(Account); 
 					DOF2_SaveFile();
 					DOF2_SetString(Account, "pSenha", PlayerInfo[playerid][pSenha]);
+					DOF2_SetString(Account, "pEmail", "");
 					DOF2_SetInt(Account, "IDF", PlayerInfo[playerid][IDF]);
+					DOF2_SetInt(Account, "pSexo", 0);
 					DOF2_SetInt(Account, "pSkin", 0);
 					DOF2_SetInt(Account, "pDinheiro", 0);
 					PlayerInfo[playerid][pDinheiro] = 0;
@@ -12414,7 +13210,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
 				}
 				CancelSelectTextDraw(playerid);
-				ShowPlayerDialog(playerid, DIALOG_SELSEXO, DIALOG_STYLE_INPUT, "Escolhendo skin do personagem", "Voce precisar informar a skin do seu personagem.\nColoque id de 1 a 299", "Confirmar", #);
+				ShowPlayerDialog(playerid, DIALOG_EMAIL, DIALOG_STYLE_INPUT, "{FFFFFF}Email", "\n{FFFFFF}Digite seu email para seguir para o proximo passo do cadastro\n{FF0000}Voce deve colocar o email corretamente.", "Validar", "");
 			}
 		}
 		case D_VOIP:{
@@ -12473,7 +13269,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else
 			{
-				if(strcmp(inputtext, DOF2_GetString(Account, "pSenha"), true))
+				if(checkPasswordAccount(playerid, inputtext))
 				{
 					format(Str, sizeof(Str), "Desejo boas vindas novamente, %s.\nPara Entrar no servidor Digite sua senha abaixo.", Name(playerid));
 					ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Bem vindo de novo", Str, "Ingresar", "X");
@@ -12491,8 +13287,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(DOF2_FileExists(Account))
     	            {
 						format(PlayerInfo[playerid][pLastLogin], 24, DOF2_GetString(Account, "pLastLogin"));
+						format(PlayerInfo[playerid][pEmail],64,DOF2_GetString(Account,"pEmail"));
 						PlayerInfo[playerid][IDF] = DOF2_GetInt(Account, "IDF");
 						PlayerInfo[playerid][pSkin] = DOF2_GetInt(Account, "pSkin");
+						PlayerInfo[playerid][IDF] = DOF2_GetInt(Account, "pSexo");
 						SetPlayerSkin(playerid, DOF2_GetInt(Account, "pSkin"));
 						PlayerInfo[playerid][pDinheiro] = DOF2_GetInt(Account, "pDinheiro");
 						PlayerInfo[playerid][pBanco] = DOF2_GetInt(Account, "pBanco");
@@ -12565,37 +13363,46 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					CarregarMissoes(playerid);
 					CarregarArmas(playerid);
 					CarregarMortos(playerid);
+					SetPlayerVirtualWorld(playerid, 0);
 					pLogado[playerid] = true; 
 					pJogando[playerid] = true;
 					Erro[playerid] = 0;
 				}
 			}
 		}
-		case DIALOG_SELSEXO:
+		case DIALOG_EMAIL:
 		{
 			if(response)
 			{
-				if(!IsNumeric(inputtext)) return notificacao(playerid, "ERRO", "Somente numeros", ICONE_ERRO),ShowPlayerDialog(playerid, DIALOG_SELSEXO, DIALOG_STYLE_INPUT, "Escolhendo skin do personagem", "Voce precisar informar a skin do seu personagem.\nColoque id de 1 a 299", "Confirmar", #);
-				if(strval(inputtext) < 1 || strval(inputtext) > 299) return notificacao(playerid, "ERRO", "Escolha entre 1 a 299.", ICONE_ERRO),ShowPlayerDialog(playerid, DIALOG_SELSEXO, DIALOG_STYLE_INPUT, "Escolhendo skin do personagem", "Voce precisar informar a skin do seu personagem.\nColoque id de 1 a 299", "Confirmar", #);
-				if(strval(inputtext) == 217 || strval(inputtext) == 211 || strval(inputtext) == 265 || strval(inputtext) == 266 || strval(inputtext) == 267 || strval(inputtext) == 274 || strval(inputtext) == 275 || strval(inputtext) == 276 || strval(inputtext) == 277 || strval(inputtext) == 278 || strval(inputtext) == 279 || strval(inputtext) == 280 || strval(inputtext) == 281 || strval(inputtext) == 282 || strval(inputtext) == 283 || strval(inputtext) == 284 || strval(inputtext) == 285 || strval(inputtext) == 286 || strval(inputtext) == 287 || strval(inputtext) == 288) return notificacao(playerid, "ERRO", "Esse id esta proibido no servidor.", ICONE_ERRO),ShowPlayerDialog(playerid, DIALOG_SELSEXO, DIALOG_STYLE_INPUT, "Escolhendo skin do personagem", "Voce precisar informar a skin do seu personagem.\nColoque id de 1 a 299", "Confirmar", #);
-				SetPlayerSkin(playerid,  strval(inputtext));
-				PlayerInfo[playerid][pSkin] =  strval(inputtext);
-				ShowPlayerDialog(playerid, DIALOG_SELIDADE, DIALOG_STYLE_INPUT, "Escolha sua idade", "Voce precisa selecionar a idade\ndo seu personagem.", "Confirmar", #);
-			}
-		}
-		case DIALOG_SELIDADE:
-		{
-			if(response)
-			{
-				new string[50];
-				if(!IsNumeric(inputtext)) return SendClientMessage(playerid, CorErro, "Voce so pode digitar somente numeros"), ShowPlayerDialog(playerid, DIALOG_SELIDADE, DIALOG_STYLE_INPUT, "Escolha sua idade", "Voce precisa selecionar a idade\ndo seu personagem.", "Confirmar", #);
-				PlayerInfo[playerid][pIdade] = strval(inputtext);
-				format(string, sizeof(string), "Voce infomou que seu personagem tera %d anos.", PlayerInfo[playerid][pIdade]);
-				SendClientMessage(playerid, CorSucesso, string);
-				SalvarDadosSkin(playerid);
-				LimparChat(playerid, 10);
-				format(Str, sizeof(Str), "Desejo boas vindas, %s.\nPara Entrar no servidor Digite sua senha abaixo.", Name(playerid));
- 				ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Seja bem vindo ao servidor...", Str, "Validar", "Cancelar");
+				if(strlen(inputtext) >= 13 && strlen(inputtext) <= 40)
+				{
+					if(strfind(inputtext,"@gmail.com",true) != -1 || strfind(inputtext,"@hotmail.com",true) != -1 || strfind(inputtext,"@outlook.com",true) != -1 || strfind(inputtext,"@yahoo.com.br",true) != -1)
+					{
+						if(IsValidInput(inputtext))
+						{
+							format(PlayerInfo[playerid][pEmail], 40, inputtext);
+							actorcad[playerid] = CreateActor(0, 1984.0140,1194.2424,26.8835,135.6409);
+							SetPlayerCameraPos(playerid, 1981.038940, 1191.061401, 27.828259); 
+							SetPlayerCameraLookAt(playerid, 1985.139648, 1195.111572, 27.636171);
+							for(new i=0;i<18;i++){
+								TextDrawShowForPlayer(playerid, TDCadastro[i]);
+							}
+							for(new i=0;i<7;i++){
+								PlayerTextDrawShow(playerid, TDCadastro_p[playerid][i]);
+							}
+							MostrandoMenu[playerid] = true;
+							SelectTextDraw(playerid, 0xFF0000FF);
+						}
+					}else{
+						ShowPlayerDialog(playerid, DIALOG_EMAIL, DIALOG_STYLE_INPUT, "{FFFFFF}Email", "\n{FFFFFF}Digite seu email para seguir para o proximo passo do cadastro\n{FF0000}Voce deve colocar o email corretamente.", "Validar", "");
+						SendClientMessage(playerid, 0xFF0000FF, "Voce deve colocar um email valido");
+					}
+				}else{
+					SendClientMessage(playerid, 0xFF0000FF, "Voce deve colocar um email valido");
+					ShowPlayerDialog(playerid, DIALOG_EMAIL, DIALOG_STYLE_INPUT, "{FFFFFF}Email", "\n{FFFFFF}Digite seu email para seguir para o proximo passo do cadastro\n{FF0000}Voce deve colocar o email corretamente.", "Validar", "");
+				}
+			}else{
+				ShowPlayerDialog(playerid, DIALOG_EMAIL, DIALOG_STYLE_INPUT, "{FFFFFF}Email", "\n{FFFFFF}Digite seu email para seguir para o proximo passo do cadastro\n{FF0000}Voce deve colocar o email corretamente.", "Validar", "");
 			}
 		}
 		case DIALOG_BANIDO: Kick(playerid);
@@ -15198,6 +16005,60 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		}
 		CancelSelectTextDraw(playerid);
 	}
+	if(playertextid == TDCadastro_p[playerid][0]){
+		PlayerInfo[playerid][pSkin] = Preview[playerid][0];
+		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
+		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][0]);
+		SendClientMessage(playerid, -1, str);
+		DestroyActor(actorcad[playerid]);
+		actorcad[playerid] = CreateActor(Preview[playerid][0], 1984.0140,1194.2424,26.8835,135.6409);
+		SetActorInvulnerable(actorcad[playerid], true);
+	}
+	if(playertextid == TDCadastro_p[playerid][1]){
+		PlayerInfo[playerid][pSkin] = Preview[playerid][1];
+		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
+		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][1]);
+		SendClientMessage(playerid, -1, str);
+		DestroyActor(actorcad[playerid]);
+		actorcad[playerid] = CreateActor(Preview[playerid][1], 1984.0140,1194.2424,26.8835,135.6409);
+		SetActorInvulnerable(actorcad[playerid], true);
+	}
+	if(playertextid == TDCadastro_p[playerid][2]){
+		PlayerInfo[playerid][pSkin] = Preview[playerid][2];
+		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
+		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][2]);
+		SendClientMessage(playerid, -1, str);
+		DestroyActor(actorcad[playerid]);
+		actorcad[playerid] = CreateActor(Preview[playerid][2], 1984.0140,1194.2424,26.8835,135.6409);
+		SetActorInvulnerable(actorcad[playerid], true);
+	}
+	if(playertextid == TDCadastro_p[playerid][3]){
+		PlayerInfo[playerid][pSkin] = Preview[playerid][3];
+		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
+		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][3]);
+		SendClientMessage(playerid, -1, str);
+		DestroyActor(actorcad[playerid]);
+		actorcad[playerid] = CreateActor(Preview[playerid][3], 1984.0140,1194.2424,26.8835,135.6409);
+		SetActorInvulnerable(actorcad[playerid], true);
+	}
+	if(playertextid == TDCadastro_p[playerid][4]){
+		PlayerInfo[playerid][pSkin] = Preview[playerid][4];
+		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
+		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][4]);
+		SendClientMessage(playerid, -1, str);
+		DestroyActor(actorcad[playerid]);
+		actorcad[playerid] = CreateActor(Preview[playerid][4], 1984.0140,1194.2424,26.8835,135.6409);
+		SetActorInvulnerable(actorcad[playerid], true);
+	}
+	if(playertextid == TDCadastro_p[playerid][5]){
+		PlayerInfo[playerid][pSkin] = Preview[playerid][5];
+		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
+		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][5]);
+		SendClientMessage(playerid, -1, str);
+		DestroyActor(actorcad[playerid]);
+		actorcad[playerid] = CreateActor(Preview[playerid][5], 1984.0140,1194.2424,26.8835,135.6409);
+		SetActorInvulnerable(actorcad[playerid], true);
+	}
 	if(playertextid == TDEditor_PTD[playerid][5])
 	{
 		for(new i; i < 66; i++)
@@ -15232,14 +16093,14 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		{
 			FirstLogin[playerid] = false;
 			format(Str, sizeof(Str), "Desejo boas vindas novamente, %s.\nPara Entrar no servidor Digite sua senha abaixo.", Name(playerid));
-			ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Bem vindo de novo", Str, "Ingresar", "X");
+			ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Bem vindo de novo", Str, "Ingressar", "X");
 			return 0;
 		}
 		else
 		{
 			FirstLogin[playerid] = true;
 			format(Str, sizeof(Str), "Seja bem-vindo ao nosso servidor, %s!\nPara efetuar seu cadastro, insira uma senha abaixo.\n*Sua senha deve conter entre 4 e 20 caracteres.", Name(playerid));
-			ShowPlayerDialog(playerid, DIALOG_REGISTRO, DIALOG_STYLE_INPUT, "Bem vindo", Str, "Crear", "X");
+			ShowPlayerDialog(playerid, DIALOG_REGISTRO, DIALOG_STYLE_INPUT, "Bem vindo", Str, "Criar", "X");
 			return 0;
 		}
 	}
@@ -15821,6 +16682,54 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		{
 			PlayerTextDrawHide(playerid, TDEditor_PTD[playerid][i]);
 		}
+	}
+	if(clickedid == TDCadastro[2]){
+		new str[10];
+		if(Page[playerid] < 46){
+			Page[playerid]++;
+		}
+		format(str,sizeof(str),"%d/46",Page[playerid]);
+		PlayerTextDrawSetString(playerid, TDCadastro_p[playerid][6], str);
+		TimerCad[playerid] = SetTimerEx("AttCad",100,false,"i",playerid);
+		for(new i=0;i<7;i++){
+			PlayerTextDrawShow(playerid, TDCadastro_p[playerid][i]);
+		}
+	}
+	if(clickedid == TDCadastro[3]){
+		new str[10];
+		if(Page[playerid] > 1){
+			Page[playerid]--;
+		}
+		format(str,sizeof(str),"%d/46",Page[playerid]);
+		PlayerTextDrawSetString(playerid, TDCadastro_p[playerid][6], str);
+		TimerCad[playerid] = SetTimerEx("AttCad",100,false,"i",playerid);
+		for(new i=0;i<7;i++){
+			PlayerTextDrawShow(playerid, TDCadastro_p[playerid][i]);
+		}
+	}
+	if(clickedid == TDCadastro[11]){
+		PlayerInfo[playerid][pSexo] = 1;
+		SendClientMessage(playerid, -1, "Voce selecionou o Genero Masculino.");
+	}
+	if(clickedid == TDCadastro[12]){
+		PlayerInfo[playerid][pSexo] = 2;
+		SendClientMessage(playerid, -1, "Voce selecionou o Genero Feminino.");
+	}
+	if(clickedid == TDCadastro[14]){
+		if(PlayerInfo[playerid][pSexo] == 0) return SendClientMessage(playerid, 0xFF0000FF, "Voce precisa escolher um Genero.");
+		if(PlayerInfo[playerid][pSkin] == 0) return SendClientMessage(playerid, 0xFF0000FF, "Voce precisa escolher uma aparencia.");
+		CancelSelectTextDraw(playerid);
+		for(new i=0;i<18;i++){
+			TextDrawHideForPlayer(playerid, TDCadastro[i]);
+		}
+		for(new i=0;i<7;i++){
+			PlayerTextDrawDestroy(playerid, TDCadastro_p[playerid][i]);
+		}
+		DestroyActor(actorcad[playerid]);
+		MostrandoMenu[playerid] = false;
+		SendClientMessage(playerid, -1, "Voce concluiu o cadastro, agora realize o login em sua conta.");
+		format(Str, sizeof(Str), "Desejo boas vindas, %s.\nPara Entrar no servidor Digite sua senha abaixo.", Name(playerid));
+		ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Seja bem vindo ao servidor...", Str, "Logar", "Cancelar");
 	}
 	if(clickedid == Text:INVALID_TEXT_DRAW)
 	{
