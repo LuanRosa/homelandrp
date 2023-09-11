@@ -21,7 +21,7 @@
 #include        <   	ZCMD	   		>
 #include 		<	    mapfix		 	>
 #include 		< 		notificacao	 	>
-#include 		< 		enterfix 		>
+#include 		< 		enterfix 		> 
 #include		<		progress2		>
 #include		<		processo		> 
 
@@ -171,7 +171,6 @@ enum
 	DIALOG_BANIDO,
 	DIALOG_POS,
 	DIALOG_PRESOS,
-	DIALOG_CARTORIO,
 	DIALOG_BANCO,
 	DIALOG_BANCO1,
 	DIALOG_BANCO2,
@@ -586,6 +585,7 @@ new Text:Logo[8];
 new PlayerText:Registration_PTD[MAX_PLAYERS][23];
 new Text:TDCadastro[18];
 new PlayerText:TDCadastro_p[MAX_PLAYERS][7];
+new PlayerText:TDPref[7];
 
 //                          VARIAVEIS DA SLOTS
 
@@ -6215,6 +6215,88 @@ stock CarregarMortos(playerid)
 
 stock todastextdraw(playerid)
 {
+    TDPref[0] = CreatePlayerTextDraw(playerid,341.000000, 169.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDPref[0], 255);
+    PlayerTextDrawFont(playerid,TDPref[0], 4);
+    PlayerTextDrawLetterSize(playerid,TDPref[0], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDPref[0], -65281);
+    PlayerTextDrawSetOutline(playerid,TDPref[0], 0);
+    PlayerTextDrawSetProportional(playerid,TDPref[0], 1);
+    PlayerTextDrawSetShadow(playerid,TDPref[0], 1);
+    PlayerTextDrawUseBox(playerid,TDPref[0], 1);
+    PlayerTextDrawBoxColor(playerid,TDPref[0], 255);
+    PlayerTextDrawTextSize(playerid,TDPref[0], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDPref[0], 0);
+
+    TDPref[1] = CreatePlayerTextDraw(playerid,343.000000, 168.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDPref[1], 255);
+    PlayerTextDrawFont(playerid,TDPref[1], 4);
+    PlayerTextDrawLetterSize(playerid,TDPref[1], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDPref[1], 255);
+    PlayerTextDrawSetOutline(playerid,TDPref[1], 0);
+    PlayerTextDrawSetProportional(playerid,TDPref[1], 1);
+    PlayerTextDrawSetShadow(playerid,TDPref[1], 1);
+    PlayerTextDrawUseBox(playerid,TDPref[1], 1);
+    PlayerTextDrawBoxColor(playerid,TDPref[1], 255);
+    PlayerTextDrawTextSize(playerid,TDPref[1], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDPref[1], 0);
+
+    TDPref[2] = CreatePlayerTextDraw(playerid,342.000000, 199.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDPref[2], 255);
+    PlayerTextDrawFont(playerid,TDPref[2], 4);
+    PlayerTextDrawLetterSize(playerid,TDPref[2], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDPref[2], -65281);
+    PlayerTextDrawSetOutline(playerid,TDPref[2], 0);
+    PlayerTextDrawSetProportional(playerid,TDPref[2], 1);
+    PlayerTextDrawSetShadow(playerid,TDPref[2], 1);
+    PlayerTextDrawUseBox(playerid,TDPref[2], 1);
+    PlayerTextDrawBoxColor(playerid,TDPref[2], 255);
+    PlayerTextDrawTextSize(playerid,TDPref[2], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDPref[2], 0);
+
+    TDPref[3] = CreatePlayerTextDraw(playerid,344.000000, 198.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDPref[3], 255);
+    PlayerTextDrawFont(playerid,TDPref[3], 4);
+    PlayerTextDrawLetterSize(playerid,TDPref[3], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDPref[3], 255);
+    PlayerTextDrawSetOutline(playerid,TDPref[3], 0);
+    PlayerTextDrawSetProportional(playerid,TDPref[3], 1);
+    PlayerTextDrawSetShadow(playerid,TDPref[3], 1);
+    PlayerTextDrawUseBox(playerid,TDPref[3], 1);
+    PlayerTextDrawBoxColor(playerid,TDPref[3], 255);
+    PlayerTextDrawTextSize(playerid,TDPref[3], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDPref[3], 0);
+
+    TDPref[4] = CreatePlayerTextDraw(playerid,350.000000, 173.000000, "FAZER DOCUMENTOS");
+    PlayerTextDrawBackgroundColor(playerid,TDPref[4], 255);
+    PlayerTextDrawFont(playerid,TDPref[4], 1);
+    PlayerTextDrawLetterSize(playerid,TDPref[4], 0.270000, 1.600000);
+    PlayerTextDrawColor(playerid,TDPref[4], -1);
+    PlayerTextDrawSetOutline(playerid,TDPref[4], 0);
+    PlayerTextDrawSetProportional(playerid,TDPref[4], 1);
+    PlayerTextDrawSetShadow(playerid,TDPref[4], 0);
+    PlayerTextDrawSetSelectable(playerid,TDPref[4], 1);
+
+    TDPref[5] = CreatePlayerTextDraw(playerid,349.000000, 202.000000, "EMITIR CART. TRABALHO");
+    PlayerTextDrawBackgroundColor(playerid,TDPref[5], 255);
+    PlayerTextDrawFont(playerid,TDPref[5], 1);
+    PlayerTextDrawLetterSize(playerid,TDPref[5], 0.239999, 1.500000);
+    PlayerTextDrawColor(playerid,TDPref[5], -1);
+    PlayerTextDrawSetOutline(playerid,TDPref[5], 0);
+    PlayerTextDrawSetProportional(playerid,TDPref[5], 1);
+    PlayerTextDrawSetShadow(playerid,TDPref[5], 0);
+    PlayerTextDrawSetSelectable(playerid,TDPref[5], 1);
+
+    TDPref[6] = CreatePlayerTextDraw(playerid,413.000000, 154.000000, "FECHAR");
+    PlayerTextDrawBackgroundColor(playerid,TDPref[6], 255);
+    PlayerTextDrawFont(playerid,TDPref[6], 1);
+    PlayerTextDrawLetterSize(playerid,TDPref[6], 0.239999, 1.500000);
+    PlayerTextDrawColor(playerid,TDPref[6], -16776961);
+    PlayerTextDrawSetOutline(playerid,TDPref[6], 0);
+    PlayerTextDrawSetProportional(playerid,TDPref[6], 1);
+    PlayerTextDrawSetShadow(playerid,TDPref[6], 0);
+    PlayerTextDrawSetSelectable(playerid,TDPref[6], 1);
+
 	Registration_PTD[playerid][0] = CreatePlayerTextDraw(playerid, 269.6997, 149.4332, "LD_SPAC:white"); // ïóñòî
 	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][0], 99.0000, 158.8589);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][0], 1);
@@ -9542,16 +9624,16 @@ stock NpcText()
 	label[5] = Create3DTextLabel("{FFFF00}Pizzaria.\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 376.4162, -117.2733, 1001.4922, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[5], Actor[5], 0.0, 0.0, 0.7);
 
-	Actor[6] = CreateActor(182, -1620.058715, 1256.722900, 7.417592, 310.934478);  
-	label[6] = Create3DTextLabel("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, -1620.058715, 1256.722900, 7.417592, 15.0, 0);
+	Actor[6] = CreateActor(182, -2384.861328, -52.628452, 35.479644, 359.477355);  
+	label[6] = Create3DTextLabel("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, -2384.861328, -52.628452, 35.479644, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[6], Actor[6], 0.0, 0.0, 0.7);
 
-	Actor[7] = CreateActor(182, -2019.732910, 430.803985, 35.275424, 81.711692);  
-	label[7] = Create3DTextLabel("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, -2019.732910, 430.803985, 35.275424, 15.0, 0);
+	Actor[7] = CreateActor(182, -2447.427490, 1211.600341, 35.378139, 234.946456);  
+	label[7] = Create3DTextLabel("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, -2447.427490, 1211.600341, 35.378139, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[7], Actor[7], 0.0, 0.0, 0.7);
 
-	Actor[12] = CreateActor(182, -2383.864257, -58.333003, 35.423847, 3.704911);  
-	label[12] = Create3DTextLabel("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, -2383.864257, -58.333003, 35.423847, 15.0, 0);
+	Actor[12] = CreateActor(182, -2074.794921, 643.822570, 52.524303, 185.016860);  
+	label[12] = Create3DTextLabel("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, -2074.794921, 643.822570, 52.524303, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[12], Actor[12], 0.0, 0.0, 0.7);
 
 	Actor[8] = CreateActor(194, 617.928100, -1.965069, 1001.040832, 185.973175);  
@@ -12860,7 +12942,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		if(PlayerToPoint(3.0, playerid, -501.242370, 296.501190, 2001.094970))
 		{
-			ShowPlayerDialog(playerid, DIALOG_CARTORIO, DIALOG_STYLE_LIST,"Prefeitura", "{FFFF00}- {FFFFFF}Fazer Documentos\n{FFFF00}- {FFFFFF}Fazer Carteira de Trabalho\t{32CD32}R$8000", "Selecionar","X");
+			for(new i; i < 7; i++)
+			{
+				PlayerTextDrawShow(playerid, TDPref[i]);
+			}
+			SelectTextDraw(playerid, 0xFF0000FF);
 		}
 		if(PlayerToPoint(3.0, playerid, 514.767089, -2334.465820, 508.693756))
 		{
@@ -12914,7 +13000,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 			return ShowPlayerDialog(playerid, DIALOG_AUTO_ESCOLA, DIALOG_STYLE_TABLIST_HEADERS, "Auto Escola", string, "Confirmar", "X");
 		}
-		if(PlayerToPoint(3.0, playerid,  -1620.058715, 1256.722900, 7.417592) || PlayerToPoint(3.0, playerid,  -2019.732910, 430.803985, 35.275424) || PlayerToPoint(3.0, playerid,  -2383.864257, -58.333003, 35.423847))
+		if(PlayerToPoint(3.0, playerid, -2384.861328, -52.628452, 35.479644) || PlayerToPoint(3.0, playerid, -2447.427490, 1211.600341, 35.378139) || PlayerToPoint(3.0, playerid, -2074.794921, 643.822570, 52.524303))
 		{
 			ShowPlayerDialog(playerid, DIALOG_247, DIALOG_STYLE_LIST, "Loja 24/7", "{FFFF00}- {FFFFFF}Celular\t{32CD32}R$1200\n{FFFF00}- {FFFFFF}Capacete\t{32CD32}R$580\n{FFFF00}- {FFFFFF}Vara de pescar\t{32CD32}R$1200\n", "Selecionar", "X");
 		}
@@ -13414,29 +13500,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			SpawnPlayer(playerid);
 			if(response) SpawnPos[playerid] = true;
 			else SpawnPos[playerid] = false;
-		}
-		case DIALOG_CARTORIO:
-		{
-			if(response)
-			{
-				if(listitem == 0)
-				{
-					if(CheckInventario2(playerid, 1581)) return notificacao(playerid, "ERRO", "Ja possui documentos", ICONE_ERRO);
-					SetTimerEx("CriandoCpf", 7000, false, "i", playerid);		
-					TogglePlayerControllable(playerid, 0);
-					GanharItem(playerid, 1581, 1);
-
-				}
-				if(listitem == 1)
-				{
-					if(CheckInventario2(playerid, 19792)) return notificacao(playerid, "ERRO", "Ja possui carteira de trabalho", ICONE_ERRO);
-					if(GetPlayerMoney(playerid) < 8000) 	return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
-					PlayerInfo[playerid][pDinheiro] -= 8000;
-					notificacao(playerid, "EXITO", "Comprou carteira de trabalho e agora podera trabalhar com empregos que necessita disso.", ICONE_CERTO);
-					GanharItem(playerid, 19792, 1);
-					MissaoPlayer[playerid][MISSAO4] = 1;
-				}
-			}
 		}
 		case DIALOG_BANCO:
 		{
@@ -15995,6 +16058,40 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 {
 	new str[64], File[255];
 	new wVeiculo = GetPlayerVehicleID(playerid);
+	if(playertextid == TDPref[4])
+	{
+		if(CheckInventario2(playerid, 1581)) return notificacao(playerid, "ERRO", "Ja possui documentos", ICONE_ERRO);
+		SetTimerEx("CriandoCpf", 7000, false, "i", playerid);		
+		TogglePlayerControllable(playerid, 0);
+		GanharItem(playerid, 1581, 1);
+		for(new i; i < 7; i++)
+		{
+			PlayerTextDrawHide(playerid, TDPref[i]);
+		}
+		CancelSelectTextDraw(playerid);
+	}
+	if(playertextid == TDPref[5])
+	{
+		if(CheckInventario2(playerid, 19792)) return notificacao(playerid, "ERRO", "Ja possui carteira de trabalho", ICONE_ERRO);
+		if(GetPlayerMoney(playerid) < 8000) 	return notificacao(playerid, "ERRO", "Dinheiro insuficiente, nao possui 8mil.", ICONE_ERRO);
+		PlayerInfo[playerid][pDinheiro] -= 8000;
+		notificacao(playerid, "EXITO", "Comprou carteira de trabalho agora podera trabalhar em empregos que necessita disso e receber salario a cada PayDay.", ICONE_CERTO);
+		GanharItem(playerid, 19792, 1);
+		MissaoPlayer[playerid][MISSAO4] = 1;
+		for(new i; i < 7; i++)
+		{
+			PlayerTextDrawHide(playerid, TDPref[i]);
+		}
+		CancelSelectTextDraw(playerid);
+	}
+	if(playertextid == TDPref[6])
+	{
+		for(new i; i < 7; i++)
+		{
+			PlayerTextDrawHide(playerid, TDPref[i]);
+		}
+		CancelSelectTextDraw(playerid);
+	}
 	if(playertextid == TDEditor_PTD[playerid][4])
 	{
 		for(new i; i < 66; i++)

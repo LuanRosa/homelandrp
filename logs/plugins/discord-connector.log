@@ -1120,3 +1120,5 @@ porque o host conectado não respondeu
 [09/06/23 23:48:56] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
 [09/07/23 02:07:54] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [09/07/23 20:09:04] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/10/23 22:26:10] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/10/23 23:03:44] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream

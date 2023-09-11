@@ -419,3 +419,5 @@ porque o host conectado não respondeu
 [09/06/23 23:07:25] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
 [09/07/23 02:07:54] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [09/07/23 20:09:04] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/10/23 22:26:10] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/10/23 23:03:44] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
