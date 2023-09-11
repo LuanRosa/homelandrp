@@ -190,7 +190,6 @@ enum
 	DIALOG_CONFIRMA_ESCOLA2,
 	DIALOG_CONFIRMA_ESCOLA3,
 	DIALOG_CONFIRMA_ESCOLA4,
-	DIALOG_247,
 	D_VOIP,
 	DIALOG_CELULAR,
 	DIALOG_EMP1, 
@@ -586,6 +585,7 @@ new PlayerText:Registration_PTD[MAX_PLAYERS][23];
 new Text:TDCadastro[18];
 new PlayerText:TDCadastro_p[MAX_PLAYERS][7];
 new PlayerText:TDPref[7];
+new PlayerText:TDLoja[21];
 
 //                          VARIAVEIS DA SLOTS
 
@@ -4433,9 +4433,7 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 19580: name = "Pizza Grande";
 		case 19602: name = "Mina Terrestre";
 		case 1654: name = "Dinamite";
-		case 11736: name = "MedKit";
 		case 1650: name = "Galao de Gasolina";
-		case 1252: name = "C4";
 		case 19893: name = "Notebook";
 		case 2226: name = "Radio";
 		case 19054: name = "Caixa Pequena";
@@ -4510,6 +4508,7 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 19921: name = "Caixa de ferramentas";
 		case 18632: name = "Vara de Pescar";
 		case 11750: name = "Algema";
+		case 11736: name = "Bandagem";
 		default: name = "Desconhecido";
 	}
 	return name;
@@ -5122,7 +5121,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			AtualizarInventario(playerid, modelid);
 			cmd_inventario(playerid);
 		}
-		case 1252:
+		case 1654:
 		{
 			new caixa_id;
 			if(!(caixa_id=GetPlayerCaixa(playerid)))return notificacao(playerid, "ERRO", "Nao esta proximo de um caixa.", ICONE_ERRO);
@@ -5172,6 +5171,19 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			SendClientMessageInRange(30.0, playerid, string, -1,-1,-1,-1,-1);
 			notificacao(playerid, "INFO", "Voce esta colocando um explosivo.", ICONE_AVISO);
 			cmd_inventario(playerid);
+			return 1;
+		}
+		case 11736:
+		{
+			new Float:health;
+    		GetPlayerHealth(playerid,health);
+			if(health >= 80) return notificacao(playerid, "ERRO", "Voce nao pode usar bandagem agora.", ICONE_ERRO);
+			
+			SetPlayerHealth(playerid, health+10);
+			PlayerInventario[playerid][modelid][Unidades]--;
+			format(str, 128, "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) usou uma bandagem.", PlayerInfo[playerid][IDF],playerid, ItemNomeInv(PlayerInventario[playerid][modelid][Slot]));
+			SendClientMessageInRange(30, playerid, str, 0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA);
+			AtualizarInventario(playerid, modelid);
 			return 1;
 		}
 	}
@@ -6215,6 +6227,246 @@ stock CarregarMortos(playerid)
 
 stock todastextdraw(playerid)
 {
+    TDLoja[0] = CreatePlayerTextDraw(playerid,341.000000, 169.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[0], 255);
+    PlayerTextDrawFont(playerid,TDLoja[0], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[0], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[0], -65281);
+    PlayerTextDrawSetOutline(playerid,TDLoja[0], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[0], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[0], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[0], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[0], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[0], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[0], 0);
+
+    TDLoja[1] = CreatePlayerTextDraw(playerid,343.000000, 168.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[1], 255);
+    PlayerTextDrawFont(playerid,TDLoja[1], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[1], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[1], 255);
+    PlayerTextDrawSetOutline(playerid,TDLoja[1], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[1], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[1], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[1], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[1], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[1], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[1], 0);
+
+    TDLoja[2] = CreatePlayerTextDraw(playerid,342.000000, 199.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[2], 255);
+    PlayerTextDrawFont(playerid,TDLoja[2], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[2], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[2], -65281);
+    PlayerTextDrawSetOutline(playerid,TDLoja[2], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[2], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[2], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[2], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[2], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[2], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[2], 0);
+
+    TDLoja[3] = CreatePlayerTextDraw(playerid,344.000000, 198.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[3], 255);
+    PlayerTextDrawFont(playerid,TDLoja[3], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[3], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[3], 255);
+    PlayerTextDrawSetOutline(playerid,TDLoja[3], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[3], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[3], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[3], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[3], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[3], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[3], 0);
+
+    TDLoja[4] = CreatePlayerTextDraw(playerid,372.000000, 173.000000, "CELULAR");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[4], 255);
+    PlayerTextDrawFont(playerid,TDLoja[4], 1);
+    PlayerTextDrawLetterSize(playerid,TDLoja[4], 0.270000, 1.600000);
+    PlayerTextDrawColor(playerid,TDLoja[4], -1);
+    PlayerTextDrawSetOutline(playerid,TDLoja[4], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[4], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[4], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[4], 1);
+
+    TDLoja[5] = CreatePlayerTextDraw(playerid,369.000000, 202.000000, "BANDAGEM");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[5], 255);
+    PlayerTextDrawFont(playerid,TDLoja[5], 1);
+    PlayerTextDrawLetterSize(playerid,TDLoja[5], 0.270000, 1.600000);
+    PlayerTextDrawColor(playerid,TDLoja[5], -1);
+    PlayerTextDrawSetOutline(playerid,TDLoja[5], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[5], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[5], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[5], 1);
+
+    TDLoja[6] = CreatePlayerTextDraw(playerid,413.000000, 154.000000, "FECHAR");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[6], 255);
+    PlayerTextDrawFont(playerid,TDLoja[6], 1);
+    PlayerTextDrawLetterSize(playerid,TDLoja[6], 0.239998, 1.500000);
+    PlayerTextDrawColor(playerid,TDLoja[6], -16776961);
+    PlayerTextDrawSetOutline(playerid,TDLoja[6], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[6], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[6], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[6], 1);
+
+    TDLoja[7] = CreatePlayerTextDraw(playerid,342.000000, 228.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[7], 255);
+    PlayerTextDrawFont(playerid,TDLoja[7], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[7], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[7], -65281);
+    PlayerTextDrawSetOutline(playerid,TDLoja[7], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[7], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[7], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[7], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[7], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[7], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[7], 0);
+
+    TDLoja[8] = CreatePlayerTextDraw(playerid,344.000000, 227.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[8], 255);
+    PlayerTextDrawFont(playerid,TDLoja[8], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[8], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[8], 255);
+    PlayerTextDrawSetOutline(playerid,TDLoja[8], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[8], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[8], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[8], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[8], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[8], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[8], 0);
+
+    TDLoja[9] = CreatePlayerTextDraw(playerid,360.000000, 231.000000, "VARA DE PESCAR");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[9], 255);
+    PlayerTextDrawFont(playerid,TDLoja[9], 1);
+    PlayerTextDrawLetterSize(playerid,TDLoja[9], 0.270000, 1.600000);
+    PlayerTextDrawColor(playerid,TDLoja[9], -1);
+    PlayerTextDrawSetOutline(playerid,TDLoja[9], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[9], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[9], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[9], 1);
+
+    TDLoja[10] = CreatePlayerTextDraw(playerid,404.000000, 180.000000, "R$1500");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[10], 255);
+    PlayerTextDrawFont(playerid,TDLoja[10], 2);
+    PlayerTextDrawLetterSize(playerid,TDLoja[10], 0.189999, 1.199999);
+    PlayerTextDrawColor(playerid,TDLoja[10], 16711935);
+    PlayerTextDrawSetOutline(playerid,TDLoja[10], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[10], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[10], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[10], 0);
+
+    TDLoja[11] = CreatePlayerTextDraw(playerid,405.000000, 212.000000, "R$200");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[11], 255);
+    PlayerTextDrawFont(playerid,TDLoja[11], 2);
+    PlayerTextDrawLetterSize(playerid,TDLoja[11], 0.189999, 1.199999);
+    PlayerTextDrawColor(playerid,TDLoja[11], 16711935);
+    PlayerTextDrawSetOutline(playerid,TDLoja[11], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[11], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[11], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[11], 0);
+
+    TDLoja[12] = CreatePlayerTextDraw(playerid,406.000000, 241.000000, "R$300");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[12], 255);
+    PlayerTextDrawFont(playerid,TDLoja[12], 2);
+    PlayerTextDrawLetterSize(playerid,TDLoja[12], 0.189999, 1.199999);
+    PlayerTextDrawColor(playerid,TDLoja[12], 16711935);
+    PlayerTextDrawSetOutline(playerid,TDLoja[12], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[12], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[12], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[12], 0);
+
+    TDLoja[13] = CreatePlayerTextDraw(playerid,342.000000, 256.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[13], 255);
+    PlayerTextDrawFont(playerid,TDLoja[13], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[13], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[13], -65281);
+    PlayerTextDrawSetOutline(playerid,TDLoja[13], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[13], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[13], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[13], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[13], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[13], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[13], 0);
+
+    TDLoja[14] = CreatePlayerTextDraw(playerid,344.000000, 255.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[14], 255);
+    PlayerTextDrawFont(playerid,TDLoja[14], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[14], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[14], 255);
+    PlayerTextDrawSetOutline(playerid,TDLoja[14], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[14], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[14], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[14], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[14], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[14], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[14], 0);
+
+    TDLoja[15] = CreatePlayerTextDraw(playerid,372.000000, 259.000000, "CAPACETE");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[15], 255);
+    PlayerTextDrawFont(playerid,TDLoja[15], 1);
+    PlayerTextDrawLetterSize(playerid,TDLoja[15], 0.270000, 1.600000);
+    PlayerTextDrawColor(playerid,TDLoja[15], -1);
+    PlayerTextDrawSetOutline(playerid,TDLoja[15], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[15], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[15], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[15], 1);
+
+    TDLoja[16] = CreatePlayerTextDraw(playerid,407.000000, 269.000000, "R$500");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[16], 255);
+    PlayerTextDrawFont(playerid,TDLoja[16], 2);
+    PlayerTextDrawLetterSize(playerid,TDLoja[16], 0.189999, 1.199999);
+    PlayerTextDrawColor(playerid,TDLoja[16], 16711935);
+    PlayerTextDrawSetOutline(playerid,TDLoja[16], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[16], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[16], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[16], 0);
+
+    TDLoja[17] = CreatePlayerTextDraw(playerid,342.000000, 284.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[17], 255);
+    PlayerTextDrawFont(playerid,TDLoja[17], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[17], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[17], -65281);
+    PlayerTextDrawSetOutline(playerid,TDLoja[17], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[17], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[17], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[17], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[17], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[17], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[17], 0);
+
+    TDLoja[18] = CreatePlayerTextDraw(playerid,345.000000, 283.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[18], 255);
+    PlayerTextDrawFont(playerid,TDLoja[18], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[18], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[18], 255);
+    PlayerTextDrawSetOutline(playerid,TDLoja[18], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[18], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[18], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[18], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[18], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[18], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[18], 0);
+
+    TDLoja[19] = CreatePlayerTextDraw(playerid,375.000000, 287.000000, "RADINHO");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[19], 255);
+    PlayerTextDrawFont(playerid,TDLoja[19], 1);
+    PlayerTextDrawLetterSize(playerid,TDLoja[19], 0.270000, 1.600000);
+    PlayerTextDrawColor(playerid,TDLoja[19], -1);
+    PlayerTextDrawSetOutline(playerid,TDLoja[19], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[19], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[19], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[19], 1);
+
+    TDLoja[20] = CreatePlayerTextDraw(playerid,407.000000, 296.000000, "R$800");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[20], 255);
+    PlayerTextDrawFont(playerid,TDLoja[20], 2);
+    PlayerTextDrawLetterSize(playerid,TDLoja[20], 0.189999, 1.199999);
+    PlayerTextDrawColor(playerid,TDLoja[20], 16711935);
+    PlayerTextDrawSetOutline(playerid,TDLoja[20], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[20], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[20], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[20], 0);
+
     TDPref[0] = CreatePlayerTextDraw(playerid,341.000000, 169.000000, "LD_BUM:cd1c");
     PlayerTextDrawBackgroundColor(playerid,TDPref[0], 255);
     PlayerTextDrawFont(playerid,TDPref[0], 4);
@@ -13002,7 +13254,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		if(PlayerToPoint(3.0, playerid, -2384.861328, -52.628452, 35.479644) || PlayerToPoint(3.0, playerid, -2447.427490, 1211.600341, 35.378139) || PlayerToPoint(3.0, playerid, -2074.794921, 643.822570, 52.524303))
 		{
-			ShowPlayerDialog(playerid, DIALOG_247, DIALOG_STYLE_LIST, "Loja 24/7", "{FFFF00}- {FFFFFF}Celular\t{32CD32}R$1200\n{FFFF00}- {FFFFFF}Capacete\t{32CD32}R$580\n{FFFF00}- {FFFFFF}Vara de pescar\t{32CD32}R$1200\n", "Selecionar", "X");
+			for(new i; i < 21; i++)
+			{
+				PlayerTextDrawShow(playerid, TDLoja[i]);
+			}
+			SelectTextDraw(playerid, 0xFF0000FF);
 		}
 		for(new i; i < 1; i++)
 		if(PlayerToPoint(3.0, playerid, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]))
@@ -13259,7 +13515,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SetInt(Account, "pSexo", 0);
 					DOF2_SetInt(Account, "pSkin", 0);
 					DOF2_SetInt(Account, "pDinheiro", 0);
-					PlayerInfo[playerid][pDinheiro] = 0;
+					PlayerInfo[playerid][pDinheiro] = 500;
 					DOF2_SetInt(Account, "pBanco", 0);
 					PlayerInfo[playerid][pBanco] = 0;
 					DOF2_SetInt(Account, "pIdade", 0);
@@ -14430,34 +14686,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				strcat(string, mercada);
 
 				return ShowPlayerDialog(playerid, DIALOG_AUTO_ESCOLA, DIALOG_STYLE_TABLIST_HEADERS, "Testes de {FF2400}Habilitacoes", string, "Fazer", "X");
-			}
-		}
-		case DIALOG_247:
-		{
-			if(response)
-			{
-				if(listitem == 0)
-				{
-					if(GetPlayerMoney(playerid) < 1200) 			return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
-					notificacao(playerid, "EXITO", "Item comprado.", ICONE_CERTO);
-					PlayerInfo[playerid][pDinheiro] -= 1200;
-					GanharItem(playerid, 18870, 1);
-					MissaoPlayer[playerid][MISSAO6] = 1;
-				}
-				if(listitem == 1)
-				{
-					if(GetPlayerMoney(playerid) < 580) 	return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
-					PlayerInfo[playerid][pDinheiro] -= 580;
-					notificacao(playerid, "EXITO", "Item comprado.", ICONE_CERTO);
-					GanharItem(playerid, 18645, 1);
-				}
-				if(listitem == 2)
-				{
-					if(GetPlayerMoney(playerid) < 1200) 	return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
-					PlayerInfo[playerid][pDinheiro] -= 1200;
-					notificacao(playerid, "EXITO", "Item comprado.", ICONE_CERTO);
-					GanharItem(playerid, 18632, 1);
-				}
 			}
 		}
 		case DIALOG_CELULAR:
@@ -16058,11 +16286,53 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 {
 	new str[64], File[255];
 	new wVeiculo = GetPlayerVehicleID(playerid);
+	if(playertextid == TDLoja[6])
+	{
+		for(new i; i < 7; i++)
+		{
+			PlayerTextDrawHide(playerid, TDLoja[i]);
+		}
+		CancelSelectTextDraw(playerid);
+	}
+	if(playertextid == TDLoja[4])
+	{
+		if(GetPlayerMoney(playerid) < 1500) 			return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
+		notificacao(playerid, "EXITO", "Item comprado.", ICONE_CERTO);
+		PlayerInfo[playerid][pDinheiro] -= 1500;
+		GanharItem(playerid, 18870, 1);
+		MissaoPlayer[playerid][MISSAO6] = 1;
+	}
+	if(playertextid == TDLoja[5])
+	{
+		if(GetPlayerMoney(playerid) < 200) 			return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
+		notificacao(playerid, "EXITO", "Item comprado.", ICONE_CERTO);
+		PlayerInfo[playerid][pDinheiro] -= 200;
+		GanharItem(playerid, 11736, 1);
+	}
+	if(playertextid == TDLoja[9])
+	{
+		if(GetPlayerMoney(playerid) < 300) 			return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
+		notificacao(playerid, "EXITO", "Item comprado.", ICONE_CERTO);
+		PlayerInfo[playerid][pDinheiro] -= 300;
+		GanharItem(playerid, 18632, 1);
+	}
+	if(playertextid == TDLoja[15])
+	{
+		if(GetPlayerMoney(playerid) < 500) 			return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
+		notificacao(playerid, "EXITO", "Item comprado.", ICONE_CERTO);
+		PlayerInfo[playerid][pDinheiro] -= 500;
+		GanharItem(playerid, 18645, 1);
+	}
+	if(playertextid == TDLoja[19])
+	{
+		notificacao(playerid, "INFO", "Esse item ainda nao esta disponivel.", ICONE_AVISO);
+	}
 	if(playertextid == TDPref[4])
 	{
 		if(CheckInventario2(playerid, 1581)) return notificacao(playerid, "ERRO", "Ja possui documentos", ICONE_ERRO);
-		SetTimerEx("CriandoCpf", 7000, false, "i", playerid);		
 		TogglePlayerControllable(playerid, 0);
+		SetTimerEx("CriandoCpf", 7000, false, "i", playerid);	
+		notificacao(playerid, "EXITO", "Acabou de receber seus documentos, verifique seu inventario.", ICONE_CERTO);	
 		GanharItem(playerid, 1581, 1);
 		for(new i; i < 7; i++)
 		{
