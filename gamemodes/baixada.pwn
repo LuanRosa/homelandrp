@@ -4810,7 +4810,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return notificacao(playerid, "ERRO", "Quantidade insuficiente", ICONE_ERRO);
-				new dinpeixes = randomEx(0, 500);
+				new dinpeixes = randomEx(0, 550);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -4839,7 +4839,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return notificacao(playerid, "ERRO", "Quantidade insuficiente", ICONE_ERRO);
-				new dinpeixes = randomEx(0, 300);
+				new dinpeixes = randomEx(0, 200);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -4868,7 +4868,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return notificacao(playerid, "ERRO", "Quantidade insuficiente", ICONE_ERRO);
-				new dinpeixes = randomEx(0, 500);
+				new dinpeixes = randomEx(0, 250);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -4897,7 +4897,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return notificacao(playerid, "ERRO", "Quantidade insuficiente", ICONE_ERRO);
-				new dinpeixes = randomEx(0, 500);
+				new dinpeixes = randomEx(0, 250);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -4955,7 +4955,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return notificacao(playerid, "ERRO", "Quantidade insuficiente", ICONE_ERRO);
-				new dinpeixes = randomEx(0, 1200);
+				new dinpeixes = randomEx(0, 1000);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
