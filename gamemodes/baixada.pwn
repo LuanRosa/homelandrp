@@ -13202,7 +13202,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		if(PlayerToPoint(3.0, playerid, 514.767089, -2334.465820, 508.693756))
 		{
-			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_LIST,"Loja Ilegal", "{FFFF00}- {FFFFFF}C4\t{32CD32}R$25000\n{FFFF00}- {FFFFFF}Sementes de Maconha\t{32CD32}R$1000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_LIST,"Loja Ilegal", "{FFFF00}- {FFFFFF}Dinamite\t{32CD32}R$25000\n{FFFF00}- {FFFFFF}Sementes de Maconha\t{32CD32}R$1000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 1462.576904, 1407.553588, 14.206275) || PlayerToPoint(3.0, playerid, 1462.577392, 1405.711914, 14.206276) || PlayerToPoint(3.0, playerid,  1462.576660, 1403.018798, 14.206276) || PlayerToPoint(3.0, playerid, 1462.576660, 1400.825683, 14.206275))
 		{
@@ -15299,9 +15299,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 0)
 				{
 					if(GetPlayerMoney(playerid) < 25000) 			return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
-					notificacao(playerid, "EXITO", "Compro uma C4.", ICONE_CERTO);
+					notificacao(playerid, "EXITO", "Compro uma Dinamite.", ICONE_CERTO);
 					PlayerInfo[playerid][pDinheiro] -= 25000;
-					GanharItem(playerid, 1252, 1);
+					GanharItem(playerid, 1654, 1);
 				}
 				if(listitem == 1)
 				{
@@ -16288,7 +16288,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 	new wVeiculo = GetPlayerVehicleID(playerid);
 	if(playertextid == TDLoja[6])
 	{
-		for(new i; i < 7; i++)
+		for(new i; i < 21; i++)
 		{
 			PlayerTextDrawHide(playerid, TDLoja[i]);
 		}
