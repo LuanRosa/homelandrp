@@ -787,6 +787,8 @@ new Float:PosDesossa[8][4] =
 	{960.201782, 2128.311279, 1011.723022}
 };
 
+new EtapasMinerador[MAX_PLAYERS];
+
 new Float:PosEquipar[1][4] =
 {
 	{307.207489, 1833.923706, 2241.584960}//Policia Patrulla
@@ -797,6 +799,7 @@ new Float:PosEquiparORG[4][4] =
 	{2525.950927, -1663.797485, 15.148015},//Verde
 	{2349.565673, -1170.487670, 28.066040},//Rojos
 	{1673.485595, -2106.939697, 13.546875},//Azul
+
 	{2812.450683, -1188.466308, 25.257419}//Amarillo
 };
 
@@ -806,7 +809,7 @@ new Float:PosVeiculos[6][4] =
 	{-1707.393066, 1333.281982, 7.178680},//Spawn
 	{1179.630615, -1339.028686, 13.838010},//Hospital
 	{-478.623901, -506.406524, 25.517845},//Camionero
-	{926.562072, -1075.043457, 23.885242},//Transportador de Tumba
+	{590.086975, 871.486694, -42.734603},//Minerador
 	{2014.328125, -1770.929077, 13.543199}//Mecanica
 };
 new VehAlugado[MAX_PLAYERS];
@@ -1531,6 +1534,7 @@ Progresso:Minerar(playerid, progress)
 	if(progress >= 100)
 	{
 		new mineiro = randomEx(0,3);
+		new checkfinal = randomEx(1,2);
 		new s[255];
 		ClearAnimations(playerid);
 		if(mineiro == 0)
@@ -1540,27 +1544,63 @@ Progresso:Minerar(playerid, progress)
 		}
 		if(mineiro == 1)
 		{
-			SetPlayerCheckpoint(playerid, -371.239501, 2345.548095, 30.018764, 1.0);
-			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
-			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
-			SetPlayerAttachedObject(playerid, 1, 2936, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
-			TemMinerio[playerid] = 1;
+			if(checkfinal == 1)
+			{
+				SetPlayerCheckpoint(playerid, 693.332824, 844.813354, -26.768863, 1.0);
+				ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+				SetPlayerAttachedObject(playerid, 1, 2936, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+				TemMinerio[playerid] = 1;
+			}
+			if(checkfinal == 2)
+			{
+				SetPlayerCheckpoint(playerid, 681.241149, 823.651245, -26.795570, 1.0);
+				ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+				SetPlayerAttachedObject(playerid, 1, 2936, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+				TemMinerio[playerid] = 1;
+			}
+			
 		}
 		if(mineiro == 2)
 		{
-			SetPlayerCheckpoint(playerid, -371.239501, 2345.548095, 30.018764, 1.0);
-			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
-			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
-			SetPlayerAttachedObject(playerid, 1, 1303, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
-			TemMinerio[playerid] = 2;
+			if(checkfinal == 1)
+			{
+				SetPlayerCheckpoint(playerid, 693.332824, 844.813354, -26.768863, 1.0);
+				ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+				SetPlayerAttachedObject(playerid, 1, 1303, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+				TemMinerio[playerid] = 2;
+			}
+			if(checkfinal == 2)
+			{
+				SetPlayerCheckpoint(playerid, 681.241149, 823.651245, -26.795570, 1.0);
+				ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+				SetPlayerAttachedObject(playerid, 1, 1303, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+				TemMinerio[playerid] = 2;
+			}
+			
 		}
 		if(mineiro == 3)
 		{
-			SetPlayerCheckpoint(playerid, -371.239501, 2345.548095, 30.018764, 1.0);
-			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
-			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
-			SetPlayerAttachedObject(playerid, 1, 828, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
-			TemMinerio[playerid] = 3;
+			if(checkfinal == 1)
+			{
+				SetPlayerCheckpoint(playerid, 693.332824, 844.813354, -26.768863, 1.0);
+				ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+				SetPlayerAttachedObject(playerid, 1, 828, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+				TemMinerio[playerid] = 3;
+			}
+			if(checkfinal == 2)
+			{
+				SetPlayerCheckpoint(playerid, 681.241149, 823.651245, -26.795570, 1.0);
+				ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+				SetPlayerAttachedObject(playerid, 1, 828, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+				TemMinerio[playerid] = 3;
+			}
+			
 		}
 		UsouCMD[playerid] = false;
 		TogglePlayerControllable(playerid, 1);
@@ -2702,25 +2742,25 @@ RewardPrize(playerid)
 			PrizeJackpot[playerid] = DataSlotMachine[SmID[playerid]][Jackpot]+Prize[playerid]*10, GameTextForPlayer(playerid, "~p~JACKPOT", 1400, 6), format(String, sizeof(String), "Parabens, Voce acaba de fazer um JACKPOT e ganhou R$%i.", PrizeJackpot[playerid]), notificacao(playerid, "INFO", String, ICONE_AVISO);
 			PlayerInfo[playerid][pDinheiro] += PrizeJackpot[playerid], DOF2_SetInt(GetSlotMachine(SmID[playerid]), "Jackpot", DataSlotMachine[SmID[playerid]][Jackpot] = 0), DOF2_SaveFile(), ApplyAnimation(playerid, "CASINO", "Slot_win_out", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 5461, 0.0, 0.0, 0.0), SetTimerEx("StopAnim", segundos(7), false, "i", playerid);
 		}
-		if(RandLucky[0][playerid] != RandLucky[1][playerid] || RandLucky[1][playerid] != RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~r~PERDIO", 1400, 6), ApplyAnimation(playerid, "CASINO", "Slot_lose_out", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 4203, 0.0, 0.0, 0.0), DOF2_SetInt(GetSlotMachine(SmID[playerid]), "Jackpot", DataSlotMachine[SmID[playerid]][Jackpot]+Prize[playerid]), DOF2_SaveFile(), SetTimerEx("StopAnim", segundos(4), false, "i", playerid);
+		if(RandLucky[0][playerid] != RandLucky[1][playerid] || RandLucky[1][playerid] != RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~r~PERDEU", 1400, 6), ApplyAnimation(playerid, "CASINO", "Slot_lose_out", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 4203, 0.0, 0.0, 0.0), DOF2_SetInt(GetSlotMachine(SmID[playerid]), "Jackpot", DataSlotMachine[SmID[playerid]][Jackpot]+Prize[playerid]), DOF2_SaveFile(), SetTimerEx("StopAnim", segundos(4), false, "i", playerid);
 	}
 	if(RandLucky[0][playerid] == 4)
 	{
-		if(RandLucky[0][playerid] == RandLucky[1][playerid] && RandLucky[1][playerid] == RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~y~8X APUESTA", 1400, 6), format(String, sizeof(String), "Parabens recebeu R$%i.", Prize[playerid]*8), notificacao(playerid, "INFO", String, ICONE_AVISO), PlayerInfo[playerid][pDinheiro] += Prize[playerid]*8,
+		if(RandLucky[0][playerid] == RandLucky[1][playerid] && RandLucky[1][playerid] == RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~y~8X APOSTA", 1400, 6), format(String, sizeof(String), "Parabens recebeu R$%i.", Prize[playerid]*8), notificacao(playerid, "INFO", String, ICONE_AVISO), PlayerInfo[playerid][pDinheiro] += Prize[playerid]*8,
 		ApplyAnimation(playerid, "CASINO", "manwind", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 5448, 0.0, 0.0, 0.0), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
-		if(RandLucky[0][playerid] != RandLucky[1][playerid] || RandLucky[1][playerid] != RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~r~PERDIO", 1400, 6), ApplyAnimation(playerid, "CASINO", "Roulette_lose", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 4203, 0.0, 0.0, 0.0), DOF2_SetInt(GetSlotMachine(SmID[playerid]), "Jackpot", DataSlotMachine[SmID[playerid]][Jackpot]+Prize[playerid]), DOF2_SaveFile(), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
+		if(RandLucky[0][playerid] != RandLucky[1][playerid] || RandLucky[1][playerid] != RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~r~PERDEU", 1400, 6), ApplyAnimation(playerid, "CASINO", "Roulette_lose", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 4203, 0.0, 0.0, 0.0), DOF2_SetInt(GetSlotMachine(SmID[playerid]), "Jackpot", DataSlotMachine[SmID[playerid]][Jackpot]+Prize[playerid]), DOF2_SaveFile(), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
 	}
 	if(RandLucky[0][playerid] == 5)
 	{
-		if(RandLucky[0][playerid] == RandLucky[1][playerid] && RandLucky[1][playerid] == RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~b~6X APUESTA", 1400, 6), format(String, sizeof(String), "Parabens recebeu R$%i.", Prize[playerid]*6), notificacao(playerid, "INFO", String, ICONE_AVISO), PlayerInfo[playerid][pDinheiro] += Prize[playerid]*6,
+		if(RandLucky[0][playerid] == RandLucky[1][playerid] && RandLucky[1][playerid] == RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~b~6X APOSTA", 1400, 6), format(String, sizeof(String), "Parabens recebeu R$%i.", Prize[playerid]*6), notificacao(playerid, "INFO", String, ICONE_AVISO), PlayerInfo[playerid][pDinheiro] += Prize[playerid]*6,
 		ApplyAnimation(playerid, "CASINO", "manwind", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 5448, 0.0, 0.0, 0.0), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
-		if(RandLucky[0][playerid] != RandLucky[1][playerid] || RandLucky[1][playerid] != RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~r~PERDIO", 1400, 6), ApplyAnimation(playerid, "CASINO", "Roulette_lose", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 4203, 0.0, 0.0, 0.0), DOF2_SetInt(GetSlotMachine(SmID[playerid]), "Jackpot", DataSlotMachine[SmID[playerid]][Jackpot]+Prize[playerid]), DOF2_SaveFile(), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
+		if(RandLucky[0][playerid] != RandLucky[1][playerid] || RandLucky[1][playerid] != RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~r~PERDEU", 1400, 6), ApplyAnimation(playerid, "CASINO", "Roulette_lose", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 4203, 0.0, 0.0, 0.0), DOF2_SetInt(GetSlotMachine(SmID[playerid]), "Jackpot", DataSlotMachine[SmID[playerid]][Jackpot]+Prize[playerid]), DOF2_SaveFile(), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
 	}
 	if(RandLucky[0][playerid] == 1 || RandLucky[0][playerid] == 2 || RandLucky[0][playerid] == 3)
 	{
-		if(RandLucky[0][playerid] == RandLucky[1][playerid] && RandLucky[1][playerid] == RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~g~3X APUESTA", 1400, 6), format(String, sizeof(String), "Parabens recebeu R$%i.", Prize[playerid]*3), notificacao(playerid, "INFO", String, ICONE_AVISO), PlayerInfo[playerid][pDinheiro] += Prize[playerid]*3,
+		if(RandLucky[0][playerid] == RandLucky[1][playerid] && RandLucky[1][playerid] == RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~g~3X APOSTA", 1400, 6), format(String, sizeof(String), "Parabens recebeu R$%i.", Prize[playerid]*3), notificacao(playerid, "INFO", String, ICONE_AVISO), PlayerInfo[playerid][pDinheiro] += Prize[playerid]*3,
 		ApplyAnimation(playerid, "CASINO", "manwinb", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 5448, 0.0, 0.0, 0.0), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
-		if(RandLucky[0][playerid] != RandLucky[1][playerid] || RandLucky[1][playerid] != RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~r~PERDIO", 1400, 6), ApplyAnimation(playerid, "CASINO", "Roulette_lose", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 4203, 0.0, 0.0, 0.0), DOF2_SetInt(GetSlotMachine(SmID[playerid]), "Jackpot", DataSlotMachine[SmID[playerid]][Jackpot]+Prize[playerid]), DOF2_SaveFile(), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
+		if(RandLucky[0][playerid] != RandLucky[1][playerid] || RandLucky[1][playerid] != RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~r~PERDEU", 1400, 6), ApplyAnimation(playerid, "CASINO", "Roulette_lose", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 4203, 0.0, 0.0, 0.0), DOF2_SetInt(GetSlotMachine(SmID[playerid]), "Jackpot", DataSlotMachine[SmID[playerid]][Jackpot]+Prize[playerid]), DOF2_SaveFile(), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
 	}
 	return 1;
 }
@@ -3194,7 +3234,6 @@ CallBack::MainTimer()
 					if(Fuel[vehicleid] <= 0)
 					{
 						ToggleEngine(vehicleid, VEHICLE_PARAMS_OFF);
-						GameTextForPlayer(i,"~r~ Sem combustivel.", 3000, 3);
 						notificacao(i, "INFO", "Este veiculo esta sem gasolina!", ICONE_AVISO);
 					}
 				}
@@ -3214,9 +3253,7 @@ CallBack::MainTimer()
 					{
 						if(GetPlayerMoney(i) < cost) cost = GetPlayerMoney(i);
 						PlayerInfo[i][pDinheiro] -= cost;
-						format(string, sizeof(string), "~r~-R$%d", cost);
-						GameTextForPlayer(i, string, 2000, 3);
-						format(string, sizeof(string), "Usted paga R$%d por combustible", cost);
+						format(string, sizeof(string), "Voce pagou R$%d", cost);
 						notificacao(i, "INFO", string, ICONE_AVISO);
 						SetPVarInt(i, "FuelStation", 0);
 						SetPVarFloat(i, "Fuel", 0.0);
@@ -3224,8 +3261,6 @@ CallBack::MainTimer()
 					else
 					{
 						RefuelTime[i] = 5;
-						format(string, sizeof(string), "~w~repostaje...~n~~r~-R$%d", cost);
-						GameTextForPlayer(i, string, 2000, 3);
 					}
 				}
 			}
@@ -3673,13 +3708,11 @@ CallBack::PegarMoney(playerid, caixa_id)
 	if(!CaixaInfo[caixa_id][Caixa_Roubada])return 1;
 	if(!IsPlayerInRangeOfPoint(playerid, 5.0, GetPVarFloat(playerid, "RouboX"),GetPVarFloat(playerid, "RouboY"),GetPVarFloat(playerid, "RouboZ")))
 	{
-		return GameTextForPlayer(playerid, "~r~Nao esta em local de roubo.", 5000, 1);
+		return notificacao(playerid, "INFO", "Nao esta em nenhum local de roubo.", ICONE_AVISO);
 	}
 	new str[200];
 	new picks = CaixaInfo[caixa_id][Caixa_Pickups];
 	GanharItem(playerid,1212, CaixaInfo[caixa_id][Caixa_Dinheiro]/picks);
-	format(str, sizeof str, "~w~~h~Pegou do chao~n~~g~~h~~h~R$%i", CaixaInfo[caixa_id][Caixa_Dinheiro]/picks);
-	GameTextForPlayer(playerid, str, 5000, 1);
 
 	format(str, sizeof str, "Ganhou R$%i de dinheiro sujo.",CaixaInfo[caixa_id][Caixa_Dinheiro]/picks);
 	notificacao(playerid, "INFO", str, ICONE_AVISO);
@@ -4062,7 +4095,7 @@ CallBack::FomeBar(playerid)
 	FomePlayer[playerid] -= fome;
 	if(FomePlayer[playerid] == 10)
 	{
-		GameTextForPlayer(playerid, " ~y~Tem 10 de ~r~Fome", 3000, 3);
+		GameTextForPlayer(playerid, " ~y~esta com fome", 3000, 3);
 	}
 	if(FomePlayer[playerid] >= 5)
 	{
@@ -4079,7 +4112,7 @@ CallBack::SedeBar(playerid)
 	SedePlayer[playerid] -= sede;
 	if(SedePlayer[playerid] == 10)
 	{
-		GameTextForPlayer(playerid, "~y~Tienes 10 de ~b~Sed", 3000, 3);
+		GameTextForPlayer(playerid, "~y~esta com sede", 3000, 3);
 	}
 	if(SedePlayer[playerid] >= 5)
 	{
@@ -4799,7 +4832,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 			{
 				cmd_inventario(playerid);
-				CreateProgress(playerid, "Pesca","Pescando...", 150);
+				CreateProgress(playerid, "Pesca","Pescando...", 60);
 				TogglePlayerControllable(playerid, 0);
 				UsouCMD[playerid] = true;	
 			}
@@ -9908,8 +9941,8 @@ stock NpcText()
 	label[14] = Create3DTextLabel("{FFFF00}Loja de Pescados\n{FFFFFF}Use o {FFFF00}Inventario{FFFFFF}' para vender.", 0x008080FF, -2788.145996, 1312.905639, 7.622592, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[14], Actor[14], 0.0, 0.0, 0.7);
 
-	Actor[15] = CreateActor(34, -367.570373, 2348.615722, 29.772922, 73.008232);  
-	label[15] = Create3DTextLabel("{FFFF00}Minerador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -367.570373, 2348.615722, 29.772922, 15.0, 0);
+	Actor[15] = CreateActor(34, 584.859375, 877.046569, -42.497318, 266.847808);  
+	label[15] = Create3DTextLabel("{FFFF00}Minerador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 584.859375, 877.046569, -42.497318, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[15], Actor[15], 0.0, 0.0, 0.7);
 
 	Actor[16] = CreateActor(133, 960.607055, 2097.604003, 1011.023010, 358.121734);  
@@ -10182,6 +10215,7 @@ stock ZerarDados(playerid)
 	PlayerInfo[playerid][Entrada] = 0;
 	PlayerInfo[playerid][pAvaliacao] = 0;
 
+	EtapasMinerador[playerid] = 0;
 	TemMinerio[playerid] = 0;
 	Desossando[playerid] = 0;
 	BigEar[playerid] = 0;
@@ -11702,6 +11736,14 @@ public OnPlayerEnterCheckpoint(playerid)
 		DisablePlayerCheckpoint(playerid);
 		Desossando[playerid] = 0;
 	} 
+	if(EtapasMinerador[playerid] == 1)
+	{
+		if(PlayerInfo[playerid][pProfissao] != 2) 	return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
+
+		TogglePlayerControllable(playerid, 0);
+		DisablePlayerCheckpoint(playerid);
+		CreateProgress(playerid, "Minerar","Minerando...", 150);
+	}
 	return 1;
 }
 
@@ -12013,7 +12055,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						GameTextForPlayer(playerid, "~r~Reprovou!", 5001, 6);
 
 						notificacao(playerid, "AVISO", "Reprovou no teste de licenca.", ICONE_ERRO);
-						GameTextForPlayer(playerid, "~w~Desa~r~probado!", 5000, 0);
+						GameTextForPlayer(playerid, "~w~Reprovado!", 5000, 0);
 						SetPlayerVirtualWorld(playerid, 0);
 
 					}
@@ -12035,7 +12077,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						notificacao(playerid, "INFO", "Aprovado no teste de licenca.", ICONE_CERTO);
 						GanharItem(playerid, 1853, 1);
 						MissaoPlayer[playerid][MISSAO5] = 1;
-						GameTextForPlayer(playerid, "~w~A~g~probado!", 5000, 0);
+						GameTextForPlayer(playerid, "~w~Aprovado!", 5000, 0);
 						SetPlayerVirtualWorld(playerid, 0);
 
 					}
@@ -12275,7 +12317,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						GameTextForPlayer(playerid, "~r~Reprovou!", 5001, 6);
 
 						notificacao(playerid, "AVISO", "Reprovou no teste de licenca.", ICONE_ERRO);
-						GameTextForPlayer(playerid, "~w~Desa~r~probado!", 5000, 0);
+						GameTextForPlayer(playerid, "~w~Reprovado", 5000, 0);
 						SetPlayerVirtualWorld(playerid, 0);
 
 					}
@@ -12297,7 +12339,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						notificacao(playerid, "INFO", "Aprovado no teste de licenca.", ICONE_CERTO);
 						GanharItem(playerid, 1854, 1);
 						MissaoPlayer[playerid][MISSAO5] = 1;
-						GameTextForPlayer(playerid, "~w~A~g~probado!", 5000, 0);
+						GameTextForPlayer(playerid, "~w~Aprovado!", 5000, 0);
 						SetPlayerVirtualWorld(playerid, 0);
 
 					}
@@ -12558,7 +12600,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						notificacao(playerid, "INFO", "Aprovado no teste de licenca.", ICONE_CERTO);
 						GanharItem(playerid, 1855, 1);
 						MissaoPlayer[playerid][MISSAO5] = 1;
-						GameTextForPlayer(playerid, "~w~Para~g~bens!", 5000, 0);
+						GameTextForPlayer(playerid, "~w~Aprovado", 5000, 0);
 						SetPlayerVirtualWorld(playerid, 0);
 
 
@@ -12650,7 +12692,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						notificacao(playerid, "INFO", "Aprovado no teste de licenca.", ICONE_CERTO);
 						GanharItem(playerid, 1856,1);
 						MissaoPlayer[playerid][MISSAO5] = 1;
-						GameTextForPlayer(playerid, "~w~A~g~probado!", 5000, 0);
+						GameTextForPlayer(playerid, "~w~Aprovado", 5000, 0);
 						SetPlayerVirtualWorld(playerid, 0);
 
 					}
@@ -12789,6 +12831,21 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{
 				VehAlugado[playerid] = 1;
 				VeiculoCivil[playerid] = CreateVehicle(416, 1179.630615, -1339.028686, 13.838010, 272.896881, -1, -1, false);
+				PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
+				notificacao(playerid, "INFO", "Para devolver seu veiculo use /dveiculo.", ICONE_AVISO);
+			}
+			else
+			{
+				notificacao(playerid, "INFO", "Ja possui um veiculo use /dveiculo.", ICONE_ERRO);
+			}
+		}
+		else if(PlayerToPoint(3.0, playerid, 590.086975, 871.486694, -42.734603))
+		{
+			if(PlayerInfo[playerid][pProfissao] != 3)    		return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
+			if(VehAlugado[playerid] == 0)
+			{
+				VehAlugado[playerid] = 1;
+				VeiculoCivil[playerid] = CreateVehicle(530, 590.086975, 871.486694, -42.734603, 356.451873, -1, -1, false);
 				PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
 				notificacao(playerid, "INFO", "Para devolver seu veiculo use /dveiculo.", ICONE_AVISO);
 			}
@@ -13127,6 +13184,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(IsPlayerInRangeOfPoint(playerid, 1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2])){
 			cmd_desossar(playerid);
 		}
+		if(PlayerToPoint(3.0, playerid, -520.421813, -504.999450, 24.635631) || PlayerToPoint(3.0, playerid, -529.748168, -504.937561, 24.640802) || PlayerToPoint(3.0, playerid, -557.552368, -505.473480, 24.596021))
+		{
+			cmd_carregar(playerid);
+		}
 		if(IsPlayerInRangeOfPoint(playerid, 1, 942.577758, 2117.902099, 1011.030273)){
 			cmd_deixarcarne(playerid);
 		}
@@ -13141,9 +13202,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		if(IsPlayerInRangeOfPoint(playerid, 1, 942.288391, 2173.139404, 1011.023437)){
 			cmd_pegarcaixa2(playerid);
-		}
-		if(PlayerToPoint(3.0, playerid, -368.498535, 2378.540771, 33.939697)){
-			cmd_minerar(playerid);
 		}
 		if(PlayerToPoint(3.0, playerid, 934.1115,-1103.3857,24.3118)){
 			cmd_ltumba(playerid);
@@ -13346,7 +13404,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				MissaoPlayer[playerid][MISSAO3] = 1;
 			}
 		}
-		if(PlayerToPoint(3.0, playerid, -367.570373, 2348.615722, 29.772922))
+		if(PlayerToPoint(3.0, playerid, 584.859375, 877.046569, -42.497318))
 		{
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return notificacao(playerid, "INFO", "Ja possui um emprego /sairemprego.", ICONE_ERRO);
 			else
@@ -14046,28 +14104,32 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerInfo[playerid][pProfissao] == 1)
 					{
 						strcat(Str2, "\t{FFFF00}- {FFFFFF}Ajuda Pescador{FFFF00}- {FFFFFF}\n\n");
-						strcat(Str2, "\n{FFFF00}Nota:{FFFFFF} Compre uma vara de pescar na 24/7\n entao use a proximo do texto para comecar a pescar, para vender\n o peixe va para a peixaria.");
+						strcat(Str2, "\n{FFFF00}Paso 1:{FFFFFF} Compre uma vara de pescar na 24/7.\n{FFFF00}Paso 2:{FFFFFF} Use proximo do texto para comecar a pescar.\n{FFFF00}Paso 3:{FFFFFF} Venda os peixes na cabana ao lado.");
 						ShowPlayerDialog(playerid, DIALOG_EMP1, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
 					if(PlayerInfo[playerid][pProfissao] == 2)
 					{
-						strcat(Str2, "\t{FFFF00}- {FFFFFF}Ajuda Coveiro{FFFF00}- {FFFFFF}\n\n");
-						strcat(Str2, "\n{FFFF00}Comando valido:{FFFFFF} /ctumba\nConcertar uma cova.\n");
+						strcat(Str2, "\t{FFFF00}- {FFFFFF}Ajuda Minerador{FFFF00}- {FFFFFF}\n\n");
+						strcat(Str2, "\n{FFFF00}Passo 1:{FFFFFF} Use /iniciar para comecar o percurso.");
+						strcat(Str2, "\n{FFFF00}Passo 2:{FFFFFF} Siga todo o checkpoint ate chegar no processamento.");
 						ShowPlayerDialog(playerid, DIALOG_EMP2, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
 					if(PlayerInfo[playerid][pProfissao] == 3)
 					{
-						strcat(Str2, "\t{FFFF00}- {FFFFFF}Ajuda Enfermeiro{FFFF00}- {FFFFFF}\n\n");
-						strcat(Str2, "\n{FFFF00}Comando valido:{FFFFFF} /feridos /lferidos\n Para mirar los heridos y localizalos.\n");
-						strcat(Str2, "\n{FFFF00}Nota:{FFFFFF} Para reviver uma pessoa, basta usar o ");
-						strcat(Str2, "\n{FFFFFF}o kit de primeiros socorros disponível no vestiario e depois seguir para o hospital para finalizar o tratamento.");
+						strcat(Str2, "\t{FFFF00}- {FFFFFF}Ajuda Acogueiro{FFFF00}- {FFFFFF}\n\n");
+						strcat(Str2, "\n{FFFF00}Passo 1:{FFFFFF} Comece desossando a carne pendurada.");
+						strcat(Str2, "\n{FFFF00}Passo 2:{FFFFFF} Coloque na maquina.");
+						strcat(Str2, "\n{FFFF00}Passo 3:{FFFFFF} Pegue uma caixa.");
+						strcat(Str2, "\n{FFFF00}Passo 4:{FFFFFF} Coloque a carne da maquina na caixa.");
+						strcat(Str2, "\n{FFFF00}Passo 5:{FFFFFF} Leve a caixa para a outra maquina.");
+						strcat(Str2, "\n{FFFF00}Passo 6:{FFFFFF} Pegue a caixa e finalize.");
 						ShowPlayerDialog(playerid, DIALOG_EMP3, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
 					if(PlayerInfo[playerid][pProfissao] == 4)
 					{
 						strcat(Str2, "\t{FFFF00}- {FFFFFF}Ajuda Caminhoneiro{FFFF00}- {FFFFFF}\n\n");
-						strcat(Str2, "\n{FFFF00}Comando valido:{FFFFFF} /carregar\nCarregue o caminhao para uma entrega.\n");
-						strcat(Str2, "\n{FFFF00}Nota:{FFFFFF} Quando chegar use  {FFFF00}/descarregar.");
+						strcat(Str2, "\n{FFFF00}Passo 1:{FFFFFF} Carregue seu caminhao.");
+						strcat(Str2, "\n{FFFF00}Passo 2:{FFFFFF} Apos chegar no local use /descarregar.");
 						ShowPlayerDialog(playerid, DIALOG_EMP4, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
 					if(PlayerInfo[playerid][pProfissao] == 5)
@@ -14543,7 +14605,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PutPlayerInVehicle(playerid, AutoEscolaMoto[playerid], 0);
 
 				notificacao(playerid, "EXITO", "Va ate o ponto em seu mapa", ICONE_CERTO);
-				GameTextForPlayer(playerid, "~w~Prueba ~g~Comenzo!", 5000, 0);
+				GameTextForPlayer(playerid, "~w~Teste Iniciado", 5000, 0);
 
 				SetPlayerRaceCheckpoint(playerid, 0, AutoEscolaPosicao[0][0], AutoEscolaPosicao[0][1], AutoEscolaPosicao[0][2], AutoEscolaPosicao[1][0], AutoEscolaPosicao[1][1], AutoEscolaPosicao[1][2], 7);
 			}
@@ -14585,7 +14647,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PutPlayerInVehicle(playerid, AutoEscolaVeiculo[playerid], 0);
 
 				notificacao(playerid, "EXITO", "Va ate o ponto em seu mapa", ICONE_CERTO);
-				GameTextForPlayer(playerid, "~w~Teste ~g~Comecou!", 5000, 0);
+				GameTextForPlayer(playerid, "~w~Teste Iniciado", 5000, 0);
 
 				SetPlayerRaceCheckpoint(playerid, 0, AutoEscolaPosicao[0][0], AutoEscolaPosicao[0][1], AutoEscolaPosicao[0][2], AutoEscolaPosicao[1][0], AutoEscolaPosicao[1][1], AutoEscolaPosicao[1][2], 7);
 			}
@@ -14627,7 +14689,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PutPlayerInVehicle(playerid, AutoEscolaCaminhao[playerid], 0);
 
 				notificacao(playerid, "EXITO", "Va ate o ponto em seu mapa", ICONE_CERTO);
-				GameTextForPlayer(playerid, "~w~Teste ~g~Comecou!", 5000, 0);
+				GameTextForPlayer(playerid, "~w~Teste Iniciado", 5000, 0);
 
 				SetPlayerRaceCheckpoint(playerid, 0, AutoEscolaPosicao[0][0], AutoEscolaPosicao[0][1], AutoEscolaPosicao[0][2], AutoEscolaPosicao[1][0], AutoEscolaPosicao[1][1], AutoEscolaPosicao[1][2], 7);
 			}
@@ -14667,7 +14729,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SetPlayerVirtualWorld(playerid, 0);
 
 				notificacao(playerid, "EXITO", "Va ate o ponto em seu mapa", ICONE_CERTO);
-				GameTextForPlayer(playerid, "~w~Teste ~g~Comecou!", 5000, 0);
+				GameTextForPlayer(playerid, "~w~Teste Iniciado", 5000, 0);
 				PutPlayerInVehicle(playerid, AutoEscolaAerea[playerid], 0);
 
 				SetPlayerRaceCheckpoint(playerid, 0, AutoEscolaPosicaoAerea[0][0], AutoEscolaPosicaoAerea[0][1], AutoEscolaPosicaoAerea[0][2], AutoEscolaPosicaoAerea[1][0], AutoEscolaPosicaoAerea[1][1], AutoEscolaPosicaoAerea[1][2], 7);
@@ -14756,17 +14818,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 1)
 				{
-					notificacao(playerid, "EXITO", "Seu caminhao foi carregado para Wang Cars!", ICONE_EMPREGO);
-					notificacao(playerid, "EXITO", "Foi marcado um ponto para descarregar.", ICONE_EMPREGO);
-					GameTextForPlayer(playerid, "~y~~h~carregado", 1000, 0);
-					Cargase[playerid] = true;
-					Carregou[playerid] = 1;
-					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -1934.6858,259.0710,41.6420, 10.0);
-				}
-				if(listitem == 2)
-				{
 					notificacao(playerid, "EXITO", "Seu caminhao foi carregado para Michelin Pneus!", ICONE_EMPREGO);
 					notificacao(playerid, "EXITO", "Foi marcado um ponto para descarregar.", ICONE_EMPREGO);
 					GameTextForPlayer(playerid, "~y~~h~carregado", 1000, 0);
@@ -14776,7 +14827,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DisablePlayerCheckpoint(playerid);
 					SetPlayerCheckpoint(playerid, 1635.2142,2192.1284,11.4099, 10.0);
 				}
-				if(listitem == 3)
+				if(listitem == 2)
 				{
 					GameTextForPlayer(playerid, "~y~~h~carregado", 1000, 0);
 					notificacao(playerid, "EXITO", "Seu caminhao foi carregado para Sprunk!", ICONE_EMPREGO);
@@ -14787,7 +14838,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DisablePlayerCheckpoint(playerid);
 					SetPlayerCheckpoint(playerid, 1338.3881,286.8327,20.1563, 10.0);
 				}
-				if(listitem == 4)
+				if(listitem == 3)
 				{
 					notificacao(playerid, "EXITO", "Seu caminhao foi carregado para Xoomer!", ICONE_EMPREGO);
 					notificacao(playerid, "EXITO", "Foi marcado um ponto para descarregar.", ICONE_EMPREGO);
@@ -14798,7 +14849,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DisablePlayerCheckpoint(playerid);
 					SetPlayerCheckpoint(playerid, 219.3734,9.5520,3.1495, 10.0);
 				}
-				if(listitem == 5)
+				if(listitem == 4)
 			   {
 					notificacao(playerid, "EXITO", "Seu caminhao foi carregado para FlaischBerg!", ICONE_EMPREGO);
 					notificacao(playerid, "EXITO", "Foi marcado um ponto para descarregar.", ICONE_EMPREGO);
@@ -17231,6 +17282,7 @@ CMD:mvoip(playerid){
 
 CMD:cinto(playerid){
 	new str[128];
+	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return notificacao(playerid, "ERRO", "Nao esta em um veiculo!", ICONE_ERRO); 
 	if(TemCinto[playerid] == false){
 		TemCinto[playerid] = true;
 		notificacao(playerid, "EXITO", "Cinto de seguranca colocado", ICONE_CERTO);
@@ -18357,7 +18409,7 @@ CMD:carregar(playerid)
 	if(Cargase[playerid] == true) 	return notificacao(playerid, "ERRO", "Seu caminhao ja esta carregado.", ICONE_ERRO);
 	if(Carregou[playerid] == 1) 	return notificacao(playerid, "ERRO", "Ja tem uma carga.", ICONE_ERRO);
 	if(GetVehicleModel(GetPlayerVehicleID(playerid)) != 456)  	return notificacao(playerid, "ERRO", "Nao esta no veiculo de trabalho", ICONE_ERRO);
-	ShowPlayerDialog(playerid, DIALOG_CARGA, DIALOG_STYLE_LIST, "{FFFF00}Cargas Disponiveis.", "{FFFF00}- {FFFFFF}Ind. Solarion SF\t{32CD32}R$2250\n{FFFF00}- {FFFFFF}Wang Cars SF\t{32CD32}R$2500\n{FFFF00}- {FFFFFF}Michelin Pneus LV\t{32CD32}R$2400\n{FFFF00}- {FFFFFF}Sprunk LS\t{32CD32}R$2150\n{FFFF00}- {FFFFFF}Xoomer LS\t{32CD32}R$2150\n{FFFF00}- {FFFFFF}FlaischBerg LS\t{32CD32}R$2100\n", "Carregar", "");
+	ShowPlayerDialog(playerid, DIALOG_CARGA, DIALOG_STYLE_LIST, "{FFFF00}Cargas Disponiveis.", "{FFFF00}- {FFFFFF}Ind. Solarion SF\t{32CD32}R$2250\n{FFFF00}- {FFFFFF}Michelin Pneus LV\t{32CD32}R$2400\n{FFFF00}- {FFFFFF}Sprunk LS\t{32CD32}R$2150\n{FFFF00}- {FFFFFF}Xoomer LS\t{32CD32}R$2150\n{FFFF00}- {FFFFFF}FlaischBerg LS\t{32CD32}R$2100\n", "Carregar", "");
 	return 1;
 }
 
@@ -18369,7 +18421,7 @@ CMD:descarregar(playerid)
 	if(Cargase[playerid] == true) 
 
 	TogglePlayerControllable(playerid, 0);
-	CreateProgress(playerid, "DescarregarCarga","Descarregando caminhao...", 200);
+	CreateProgress(playerid, "DescarregarCarga","Descarregando caminhao...", 150);
 	return 1;
 }
 
@@ -21109,23 +21161,6 @@ CMD:atendimento(playerid)
 	return 1;
 }
 
-CMD:minerar(playerid)
-{
-	if(PlayerInfo[playerid][pProfissao] != 2) 	return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
-	if(UsouCMD[playerid] == true) 	return notificacao(playerid, "ERRO", "Ainda nao passou 30s.", ICONE_ERRO); 
-	if(TemMinerio[playerid] == 1 || TemMinerio[playerid] == 2 || TemMinerio[playerid] == 3) 	return notificacao(playerid, "ERRO", "Voce ja possui um minerio em maos.", ICONE_ERRO); 
-	if(IsPlayerInRangeOfPoint(playerid, 2.0, -368.498535, 2378.540771, 33.939697))
-	{
-		ApplyAnimation(playerid, "BASEBALL", "BAT_4", 4.1, 1, 0, 0, 1, 1, 1);
-		CreateProgress(playerid, "Minerar","Minerando...", 150);
-		TogglePlayerControllable(playerid, 0);
-		RemovePlayerAttachedObject(playerid, 1);
-		DisablePlayerCheckpoint(playerid);
-		UsouCMD[playerid] = true;
-	}
-	return 1;
-}
-
 CMD:desossar(playerid)
 {
 	
@@ -21135,7 +21170,7 @@ CMD:desossar(playerid)
 	for(new i; i < 8; i++)
 	if(IsPlayerInRangeOfPoint(playerid, 1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2]))
 	{
-		CreateProgress(playerid, "Desossar","Desossando...", 150);
+		CreateProgress(playerid, "Desossar","Desossando...", 100);
 		TogglePlayerControllable(playerid, 0);
 		RemovePlayerAttachedObject(playerid, 1);
 		UsouCMD[playerid] = true;
@@ -21228,6 +21263,39 @@ CMD:pegarcaixa2(playerid)
 			Desossando[playerid] = 6;
 			notificacao(playerid, "EXITO", "Caixa revisada, leve ate o ponto de entrega.", ICONE_EMPREGO);
 		}
+	}
+	return 1;
+}
+
+CMD:iniciarminerador(playerid)
+{
+	new procha = randomEx(1,4);
+	if(PlayerInfo[playerid][pProfissao] != 2) 	return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
+	if(GetVehicleModel(GetPlayerVehicleID(playerid)) != 530)  	return notificacao(playerid, "ERRO", "Nao esta no veiculo de trabalho", ICONE_ERRO);
+	
+	if(procha == 1)
+	{
+		SetPlayerCheckpoint(playerid, 638.114257, 831.205871, -42.960937, 2.0);  
+		notificacao(playerid, "EXITO", "Pegue uma rocha no local marcado.", ICONE_EMPREGO);
+		EtapasMinerador[playerid] = 1;
+	}
+	if(procha == 2)
+	{
+		SetPlayerCheckpoint(playerid, 638.953063, 851.907104, -42.960937, 2.0);  
+		notificacao(playerid, "EXITO", "Pegue uma rocha no local marcado.", ICONE_EMPREGO);
+		EtapasMinerador[playerid] = 1;
+	}
+	if(procha == 3)
+	{
+		SetPlayerCheckpoint(playerid, 602.181091, 867.931518, -42.960937, 2.0);  
+		notificacao(playerid, "EXITO", "Pegue uma rocha no local marcado.", ICONE_EMPREGO);
+		EtapasMinerador[playerid] = 1;
+	}
+	if(procha == 4)
+	{
+		SetPlayerCheckpoint(playerid, 602.180358, 867.173095, -42.960937, 2.0);  
+		notificacao(playerid, "EXITO", "Pegue uma rocha no local marcado.", ICONE_EMPREGO);
+		EtapasMinerador[playerid] = 1;
 	}
 	return 1;
 }
