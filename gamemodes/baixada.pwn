@@ -1550,7 +1550,7 @@ Progresso:Minerar(playerid, progress)
 				ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
 				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 				SetPlayerAttachedObject(playerid, 1, 2936, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
-				TemMinerio[playerid] = 1;
+				EtapasMinerador[playerid] = 2;
 			}
 			if(checkfinal == 2)
 			{
@@ -1558,7 +1558,7 @@ Progresso:Minerar(playerid, progress)
 				ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
 				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 				SetPlayerAttachedObject(playerid, 1, 2936, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
-				TemMinerio[playerid] = 1;
+				EtapasMinerador[playerid] = 2;
 			}
 			
 		}
@@ -1570,7 +1570,7 @@ Progresso:Minerar(playerid, progress)
 				ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
 				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 				SetPlayerAttachedObject(playerid, 1, 1303, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
-				TemMinerio[playerid] = 2;
+				EtapasMinerador[playerid] = 2;
 			}
 			if(checkfinal == 2)
 			{
@@ -1578,7 +1578,7 @@ Progresso:Minerar(playerid, progress)
 				ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
 				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 				SetPlayerAttachedObject(playerid, 1, 1303, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
-				TemMinerio[playerid] = 2;
+				EtapasMinerador[playerid] = 2;
 			}
 			
 		}
@@ -1590,7 +1590,7 @@ Progresso:Minerar(playerid, progress)
 				ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
 				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 				SetPlayerAttachedObject(playerid, 1, 828, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
-				TemMinerio[playerid] = 3;
+				EtapasMinerador[playerid] = 2;
 			}
 			if(checkfinal == 2)
 			{
@@ -1598,7 +1598,7 @@ Progresso:Minerar(playerid, progress)
 				ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
 				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 				SetPlayerAttachedObject(playerid, 1, 828, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
-				TemMinerio[playerid] = 3;
+				EtapasMinerador[playerid] = 2;
 			}
 			
 		}
@@ -11624,11 +11624,7 @@ public OnPlayerEnterCheckpoint(playerid)
 		DisablePlayerCheckpoint(playerid);
 		PegouMaterial[playerid] = false;
 	} 
-	if(TemMinerio[playerid] == 0)
-	{
-		//
-	}
-	else
+	if(EtapasMinerador[playerid] == 2)
 	{
 		new constrstr[500];
 		TogglePlayerControllable(playerid, 0);
@@ -11637,75 +11633,26 @@ public OnPlayerEnterCheckpoint(playerid)
 		RemovePlayerAttachedObject(playerid, 1);
 		ClearAnimations(playerid);
 		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-		if(TemMinerio[playerid] == 1)
+		new dinmateriale = randomEx(0, 500);
+		if(PlayerInfo[playerid][pVIP] == 0)
 		{
-			new dinmateriale = randomEx(0, 200);
-			if(PlayerInfo[playerid][pVIP] == 0)
-			{
-				PlayerInfo[playerid][pDinheiro] += dinmateriale;
-				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale);
-				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
-			}   
-			if(PlayerInfo[playerid][pVIP] == 2)
-			{
-				PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
-				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale*2);
-				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
-			}
-			if(PlayerInfo[playerid][pVIP] == 3)
-			{
-				PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
-				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale*2);
-				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
-			}
-			TemMinerio[playerid] = 0;
-		}
-		if(TemMinerio[playerid] == 2)
+			PlayerInfo[playerid][pDinheiro] += dinmateriale;
+			format(constrstr,sizeof(constrstr),"Ganhou %i com esta rocha.", dinmateriale);
+			notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
+		}   
+		if(PlayerInfo[playerid][pVIP] == 2)
 		{
-			new dinmateriale = randomEx(0, 400);
-			if(PlayerInfo[playerid][pVIP] == 0)
-			{
-				PlayerInfo[playerid][pDinheiro] += dinmateriale;
-				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale);
-				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
-			}   
-			if(PlayerInfo[playerid][pVIP] == 2)
-			{
-				PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
-				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale*2);
-				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
-			}
-			if(PlayerInfo[playerid][pVIP] == 3)
-			{
-				PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
-				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale*2);
-				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
-			}
-			TemMinerio[playerid] = 0;
+			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
+			format(constrstr,sizeof(constrstr),"Ganhou %i com esta rocha.", dinmateriale*2);
+			notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
 		}
-		if(TemMinerio[playerid] == 3)
+		if(PlayerInfo[playerid][pVIP] == 3)
 		{
-			new dinmateriale = randomEx(0, 500);
-			if(PlayerInfo[playerid][pVIP] == 0)
-			{
-				PlayerInfo[playerid][pDinheiro] += dinmateriale;
-				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale);
-				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
-			}   
-			if(PlayerInfo[playerid][pVIP] == 2)
-			{
-				PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
-				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale*2);
-				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
-			}
-			if(PlayerInfo[playerid][pVIP] == 3)
-			{
-				PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
-				format(constrstr,sizeof(constrstr),"Ganhou %i com este mineiro.", dinmateriale*2);
-				notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
-			}
-			TemMinerio[playerid] = 0;
+			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
+			format(constrstr,sizeof(constrstr),"Ganhou %i com esta rocha.", dinmateriale*2);
+			notificacao(playerid, "TRABALHO", constrstr, ICONE_EMPREGO); 
 		}
+		EtapasMinerador[playerid] = 0;
 		DisablePlayerCheckpoint(playerid);
 	} 
 	if(Desossando[playerid] == 6)
@@ -11742,7 +11689,7 @@ public OnPlayerEnterCheckpoint(playerid)
 
 		TogglePlayerControllable(playerid, 0);
 		DisablePlayerCheckpoint(playerid);
-		CreateProgress(playerid, "Minerar","Minerando...", 150);
+		CreateProgress(playerid, "Minerar","Coletando Rocha...", 150);
 	}
 	return 1;
 }
@@ -12841,11 +12788,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		else if(PlayerToPoint(3.0, playerid, 590.086975, 871.486694, -42.734603))
 		{
-			if(PlayerInfo[playerid][pProfissao] != 3)    		return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
+			if(PlayerInfo[playerid][pProfissao] != 2)    		return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
 			if(VehAlugado[playerid] == 0)
 			{
 				VehAlugado[playerid] = 1;
-				VeiculoCivil[playerid] = CreateVehicle(530, 590.086975, 871.486694, -42.734603, 356.451873, -1, -1, false);
+				VeiculoCivil[playerid] = CreateVehicle(530, 590.086975, 871.486694, -42.734603, 180.0, -1, -1, false);
 				PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
 				notificacao(playerid, "INFO", "Para devolver seu veiculo use /dveiculo.", ICONE_AVISO);
 			}
