@@ -24,6 +24,7 @@
 #include 		< 		enterfix 		> 
 #include		<		progress2		>
 #include		<		processo		> 
+#include		<		Fader			>
 
 #define CallBack::%0(%1) 		forward %0(%1);\
 							public %0(%1)
@@ -579,7 +580,8 @@ new PlayerText:HudCop[MAX_PLAYERS][4];
 new PlayerText:CopGuns[MAX_PLAYERS][6];
 new Text:Textdraw0,
 	Text:Textdraw1;
-new PlayerText:HudServer[MAX_PLAYERS][10];
+new Text:HudServer[17];
+new PlayerText:HudServer_p[MAX_PLAYERS][7];
 new Text:Logo[8];
 new PlayerText:Registration_PTD[MAX_PLAYERS][23];
 new Text:TDCadastro[18];
@@ -1288,7 +1290,7 @@ main()
 	ChatAdm = DCC_FindChannelById("1145558205775233044");
 	Sets = DCC_FindChannelById("1145712207049527407");
 
-	print("\n'---_.Baixada Roleplay by Luan_Rosa._---'");
+	print("\n'---_.Baixada Roleplay by Luan_Rosa & Allison_Gomes._---'");
 	print("--- Gamemode Iniciada Com Sucesso!  ---\n");
 }
 
@@ -2448,7 +2450,7 @@ CallBack::mortoxx(playerid)
 
 CallBack::mostrarTelaLogin(playerid)
 {
-	if(CarregandoTelaLogin[playerid] < 99){
+	if(CarregandoTelaLogin[playerid] < 100){
 	    CarregandoTelaLogin[playerid]++;
 	    new newtext[5];
 	    format(newtext, sizeof(newtext), "%d%", CarregandoTelaLogin[playerid]);
@@ -2644,22 +2646,40 @@ public SV_VOID:OnPlayerActivationKeyPress(SV_UINT:playerid, SV_UINT:keyid)
 	{
 		SvAttachSpeakerToStream(lstream[playerid], playerid); //local falando
 		Falou[playerid] = true;
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], 16711935);
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][5], 16711935);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
 	}
 	if(keyid == 0x42 && Susurrando[playerid] == true)
 	{
 		SvAttachSpeakerToStream(Susurrandos[playerid], playerid); //local susurrando
 		Susurrou[playerid] = true;
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], 16711935);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
 	}
 	if(keyid == 0x42 && Gritando[playerid] == true)
 	{
 		SvAttachSpeakerToStream(Gritandos[playerid], playerid); //local gritando
 		Gritou[playerid] = true;
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], 16711935);
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][5], 16711935);
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][6], 16711935);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][6]);
 	}
 	if(keyid == 0x5A && gstream)
 	{
 	    if(IsPlayerAdmin(playerid))
 	    {
 			SvAttachSpeakerToStream(gstream, playerid); //global
+			PlayerTextDrawColor(playerid, HudServer_p[playerid][4], 16711935);
+			PlayerTextDrawColor(playerid, HudServer_p[playerid][5], 16711935);
+			PlayerTextDrawColor(playerid, HudServer_p[playerid][6], 16711935);
+			PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
+			PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
+			PlayerTextDrawShow(playerid, HudServer_p[playerid][6]);
 		}
 	}
 	if(keyid == 0x42 && FrequenciaConectada[playerid] >= 1)
@@ -2667,6 +2687,10 @@ public SV_VOID:OnPlayerActivationKeyPress(SV_UINT:playerid, SV_UINT:keyid)
 		ApplyAnimation(playerid, "ped", "phone_talk", 4.1, 1, 1, 1, 0, 0, 0);
 		if(!IsPlayerAttachedObjectSlotUsed(playerid, 9)) SetPlayerAttachedObject(playerid, 9, 19942, 2, 0.0300, 0.1309, -0.1060, 118.8998, 19.0998, 164.2999);
 		SvAttachSpeakerToStream(Frequencia[FrequenciaConectada[playerid]], playerid);
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], 16711935);
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][5], 16711935);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
 	}
 }
 
@@ -2676,22 +2700,40 @@ public SV_VOID:OnPlayerActivationKeyRelease(SV_UINT:playerid,SV_UINT:keyid)
 	{
 		SvDetachSpeakerFromStream(lstream[playerid], playerid);
 		Falou[playerid] = false;
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], -16776961);
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][5], -16776961);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
 	}
 	if(keyid == 0x42 && Susurrando[playerid] == true)
 	{
 		SvDetachSpeakerFromStream(lstream[playerid], playerid);
 		Susurrou[playerid] = false;
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], -16776961);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
 	}
 	if(keyid == 0x42 && Gritando[playerid] == true)
 	{
 		SvDetachSpeakerFromStream(lstream[playerid], playerid);
 		Gritou[playerid] = false;
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], -16776961);
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][5], -16776961);
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][6], -16776961);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][6]);
 	}
 	if(keyid == 0x5A && gstream)
 	{
 	    if(IsPlayerAdmin(playerid))
 	    {
 			SvDetachSpeakerFromStream(gstream, playerid);
+			PlayerTextDrawColor(playerid, HudServer_p[playerid][4], -16776961);
+			PlayerTextDrawColor(playerid, HudServer_p[playerid][5], -16776961);
+			PlayerTextDrawColor(playerid, HudServer_p[playerid][6], -16776961);
+			PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
+			PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
+			PlayerTextDrawShow(playerid, HudServer_p[playerid][6]);
 		}
 	}
 	if(keyid == 0x42 && FrequenciaConectada[playerid] >= 1)
@@ -2699,6 +2741,10 @@ public SV_VOID:OnPlayerActivationKeyRelease(SV_UINT:playerid,SV_UINT:keyid)
 		SvDetachSpeakerFromStream(Frequencia[FrequenciaConectada[playerid]], playerid);
 		ClearAnimations(playerid);
 		if(IsPlayerAttachedObjectSlotUsed(playerid, 9)) RemovePlayerAttachedObject(playerid, 9);
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], -16776961);
+		PlayerTextDrawColor(playerid, HudServer_p[playerid][5], -16776961);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
 	}
 }
 
@@ -4093,13 +4139,9 @@ CallBack::FomeBar(playerid)
 
 	new fome = randomEx(1,3);
 	FomePlayer[playerid] -= fome;
-	if(FomePlayer[playerid] == 10)
+	if(FomePlayer[playerid] == 10 || FomePlayer[playerid] == 5)
 	{
-		GameTextForPlayer(playerid, " ~y~esta com fome", 3000, 3);
-	}
-	if(FomePlayer[playerid] >= 5)
-	{
-		
+		GameTextForPlayer(playerid, " ~y~voce esta com fome", 3000, 3);
 	}
 	return 1;
 }
@@ -4110,13 +4152,9 @@ CallBack::SedeBar(playerid)
 		return true;
 	new sede = randomEx(1,3);
 	SedePlayer[playerid] -= sede;
-	if(SedePlayer[playerid] == 10)
+	if(SedePlayer[playerid] == 10 || SedePlayer[playerid] == 5)
 	{
-		GameTextForPlayer(playerid, "~y~esta com sede", 3000, 3);
-	}
-	if(SedePlayer[playerid] >= 5)
-	{
-
+		GameTextForPlayer(playerid, "~y~voce esta com sede", 3000, 3);
 	}
 	return 1;
 }
@@ -4128,19 +4166,25 @@ CallBack::Colete(playerid)
 
 	new BankV[258], str[255];
 	new Hora, Minuto;
+	new Float:vida,Float:colete;
+	GetPlayerHealth(playerid,vida);
+	GetPlayerArmour(playerid,colete);
 	gettime(Hora, Minuto);
 
 	format(BankV, sizeof(BankV), "%i", PlayerInfo[playerid][pBanco]);
 	TextDrawSetString(TDEditor_TD[28], BankV);
 
 	format(str, sizeof(str), "%d", SedePlayer[playerid]);
-	PlayerTextDrawSetString(playerid, HudServer[playerid][8], str);
+	PlayerTextDrawSetString(playerid, HudServer_p[playerid][3], str);
 
 	format(str, sizeof(str), "%d", FomePlayer[playerid]);
-	PlayerTextDrawSetString(playerid, HudServer[playerid][7], str);
+	PlayerTextDrawSetString(playerid, HudServer_p[playerid][2], str);
 
-	format(str, sizeof(str), "bC: %d", PlayerInfo[playerid][pCoins]);
-	PlayerTextDrawSetString(playerid, HudServer[playerid][9], str);
+	format(str, sizeof(str), "%.0f", vida);
+	PlayerTextDrawSetString(playerid, HudServer_p[playerid][0], str);
+
+	format(str, sizeof(str), "%.0f", colete);
+	PlayerTextDrawSetString(playerid, HudServer_p[playerid][1], str);
 
 	return 1;
 }
@@ -4181,7 +4225,7 @@ GanharItem(playerid, itemid, quantia)
 			return 1;
 		}
 	}
-	notificacao(playerid, "ERRO", "Tu inventario esta lleno.", ICONE_ERRO);
+	notificacao(playerid, "ERRO", "Seu inventario esta cheio.", ICONE_ERRO);
 
 	return 1;
 }
@@ -6111,6 +6155,24 @@ stock checkPasswordAccount(playerid, password[]) {
 	return returnSucess;
 }
 
+stock IsABike(vehicleid)
+{
+    switch(GetVehicleModel(vehicleid)) {
+        case 448, 461..463, 468, 521..523, 581, 586, 481, 509, 510: 
+            return 1;
+    }
+    return 0;
+} 
+
+stock IsABoat(vehicleid)
+{
+    switch(GetVehicleModel(vehicleid)) {
+        case 472, 473, 493, 595, 484, 430, 453, 452, 446, 454: 
+            return 1;
+    }
+    return 0;
+} 
+
 stock IsValidInput(const ipstr[])
 {
     for(new i = 0; ipstr[i] != EOS; ++i)
@@ -6791,7 +6853,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][22], 0);
 
 	//Loadscreen strings e progressbar
-	Loadsc_p[playerid][0] = CreatePlayerTextDraw(playerid, 438.000000, 271.000000, "100%");
+	Loadsc_p[playerid][0] = CreatePlayerTextDraw(playerid, 438.000000, 271.000000, "0%");
 	PlayerTextDrawFont(playerid, Loadsc_p[playerid][0], 2);
 	PlayerTextDrawLetterSize(playerid, Loadsc_p[playerid][0], 0.208333, 1.300000);
 	PlayerTextDrawTextSize(playerid, Loadsc_p[playerid][0], 474.000000, -88.500000);
@@ -7031,117 +7093,104 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetProportional(playerid, TDCadastro_p[playerid][6], 1);
 	PlayerTextDrawSetSelectable(playerid, TDCadastro_p[playerid][6], 0);
 
-	HudServer[playerid][0] = CreatePlayerTextDraw(playerid,288.000000, -1.000000, "_"); //Logomarca antiga
-	PlayerTextDrawBackgroundColor(playerid,HudServer[playerid][0], 255);
-	PlayerTextDrawFont(playerid,HudServer[playerid][0], 1);
-	PlayerTextDrawLetterSize(playerid,HudServer[playerid][0], 0.519999, 3.300002);
-	PlayerTextDrawColor(playerid,HudServer[playerid][0], -1);
-	PlayerTextDrawSetOutline(playerid,HudServer[playerid][0], 0);
-	PlayerTextDrawSetProportional(playerid,HudServer[playerid][0], 1);
-	PlayerTextDrawSetShadow(playerid,HudServer[playerid][0], 0);
-	PlayerTextDrawSetSelectable(playerid,HudServer[playerid][0], 0);
+		//NEW HUD SERVER STRINGS
+	HudServer_p[playerid][0] = CreatePlayerTextDraw(playerid, 554.000000, 104.000000, "100"); //Batimento cardiaco
+	PlayerTextDrawFont(playerid, HudServer_p[playerid][0], 2);
+	PlayerTextDrawLetterSize(playerid, HudServer_p[playerid][0], 0.162498, 0.750000);
+	PlayerTextDrawTextSize(playerid, HudServer_p[playerid][0], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, HudServer_p[playerid][0], 0);
+	PlayerTextDrawSetShadow(playerid, HudServer_p[playerid][0], 0);
+	PlayerTextDrawAlignment(playerid, HudServer_p[playerid][0], 2);
+	PlayerTextDrawColor(playerid, HudServer_p[playerid][0], -1);
+	PlayerTextDrawBackgroundColor(playerid, HudServer_p[playerid][0], 255);
+	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][0], 50);
+	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][0], 0);
+	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][0], 1);
+	PlayerTextDrawSetSelectable(playerid, HudServer_p[playerid][0], 0);
 
-	HudServer[playerid][1] = CreatePlayerTextDraw(playerid,293.000000, 22.000000, "_"); //2
-	PlayerTextDrawBackgroundColor(playerid,HudServer[playerid][1], 255);
-	PlayerTextDrawFont(playerid,HudServer[playerid][1], 2);
-	PlayerTextDrawLetterSize(playerid,HudServer[playerid][1], 0.239999, 1.200003);
-	PlayerTextDrawColor(playerid,HudServer[playerid][1], -1);
-	PlayerTextDrawSetOutline(playerid,HudServer[playerid][1], 0);
-	PlayerTextDrawSetProportional(playerid,HudServer[playerid][1], 1);
-	PlayerTextDrawSetShadow(playerid,HudServer[playerid][1], 0);
-	PlayerTextDrawSetSelectable(playerid,HudServer[playerid][1], 0);
+	HudServer_p[playerid][1] = CreatePlayerTextDraw(playerid, 570.000000, 104.000000, "100"); //Colete
+	PlayerTextDrawFont(playerid, HudServer_p[playerid][1], 2);
+	PlayerTextDrawLetterSize(playerid, HudServer_p[playerid][1], 0.162498, 0.750000);
+	PlayerTextDrawTextSize(playerid, HudServer_p[playerid][1], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, HudServer_p[playerid][1], 0);
+	PlayerTextDrawSetShadow(playerid, HudServer_p[playerid][1], 0);
+	PlayerTextDrawAlignment(playerid, HudServer_p[playerid][1], 2);
+	PlayerTextDrawColor(playerid, HudServer_p[playerid][1], -1);
+	PlayerTextDrawBackgroundColor(playerid, HudServer_p[playerid][1], 255);
+	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][1], 50);
+	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][1], 0);
+	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][1], 1);
+	PlayerTextDrawSetSelectable(playerid, HudServer_p[playerid][1], 0);
 
-	HudServer[playerid][2] = CreatePlayerTextDraw(playerid,61.000000, 387.000000, "_");
-	PlayerTextDrawBackgroundColor(playerid,HudServer[playerid][2], 255);
-	PlayerTextDrawFont(playerid,HudServer[playerid][2], 1);
-	PlayerTextDrawLetterSize(playerid,HudServer[playerid][2], 0.469999, 2.300000);
-	PlayerTextDrawColor(playerid,HudServer[playerid][2], -1);
-	PlayerTextDrawSetOutline(playerid,HudServer[playerid][2], 0);
-	PlayerTextDrawSetProportional(playerid,HudServer[playerid][2], 1);
-	PlayerTextDrawSetShadow(playerid,HudServer[playerid][2], 1);
-	PlayerTextDrawUseBox(playerid,HudServer[playerid][2], 1);
-	PlayerTextDrawBoxColor(playerid,HudServer[playerid][2], 100);
-	PlayerTextDrawTextSize(playerid,HudServer[playerid][2], 0.000000, 0.000000);
-	PlayerTextDrawSetSelectable(playerid,HudServer[playerid][2], 0);
+	HudServer_p[playerid][2] = CreatePlayerTextDraw(playerid, 586.000000, 104.000000, "100"); //Fome
+	PlayerTextDrawFont(playerid, HudServer_p[playerid][2], 2);
+	PlayerTextDrawLetterSize(playerid, HudServer_p[playerid][2], 0.162498, 0.750000);
+	PlayerTextDrawTextSize(playerid, HudServer_p[playerid][2], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, HudServer_p[playerid][2], 0);
+	PlayerTextDrawSetShadow(playerid, HudServer_p[playerid][2], 0);
+	PlayerTextDrawAlignment(playerid, HudServer_p[playerid][2], 2);
+	PlayerTextDrawColor(playerid, HudServer_p[playerid][2], -1);
+	PlayerTextDrawBackgroundColor(playerid, HudServer_p[playerid][2], 255);
+	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][2], 50);
+	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][2], 0);
+	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][2], 1);
+	PlayerTextDrawSetSelectable(playerid, HudServer_p[playerid][2], 0);
 
-	HudServer[playerid][3] = CreatePlayerTextDraw(playerid,25.000000, 388.000000, "hud:radar_burgerShot");
-	PlayerTextDrawBackgroundColor(playerid,HudServer[playerid][3], 255);
-	PlayerTextDrawFont(playerid,HudServer[playerid][3], 4);
-	PlayerTextDrawLetterSize(playerid,HudServer[playerid][3], 0.500000, 1.000000);
-	PlayerTextDrawColor(playerid,HudServer[playerid][3], -1);
-	PlayerTextDrawSetOutline(playerid,HudServer[playerid][3], 0);
-	PlayerTextDrawSetProportional(playerid,HudServer[playerid][3], 1);
-	PlayerTextDrawSetShadow(playerid,HudServer[playerid][3], 0);
-	PlayerTextDrawUseBox(playerid,HudServer[playerid][3], 1);
-	PlayerTextDrawBoxColor(playerid,HudServer[playerid][3], 255);
-	PlayerTextDrawTextSize(playerid,HudServer[playerid][3], 14.000000, 13.000000);
-	PlayerTextDrawSetSelectable(playerid,HudServer[playerid][3], 0);
+	HudServer_p[playerid][3] = CreatePlayerTextDraw(playerid, 601.000000, 104.000000, "100"); //Sede
+	PlayerTextDrawFont(playerid, HudServer_p[playerid][3], 2);
+	PlayerTextDrawLetterSize(playerid, HudServer_p[playerid][3], 0.162498, 0.750000);
+	PlayerTextDrawTextSize(playerid, HudServer_p[playerid][3], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, HudServer_p[playerid][3], 0);
+	PlayerTextDrawSetShadow(playerid, HudServer_p[playerid][3], 0);
+	PlayerTextDrawAlignment(playerid, HudServer_p[playerid][3], 2);
+	PlayerTextDrawColor(playerid, HudServer_p[playerid][3], -1);
+	PlayerTextDrawBackgroundColor(playerid, HudServer_p[playerid][3], 255);
+	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][3], 50);
+	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][3], 0);
+	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][3], 1);
+	PlayerTextDrawSetSelectable(playerid, HudServer_p[playerid][3], 0);
 
-	HudServer[playerid][4] = CreatePlayerTextDraw(playerid,41.000000, 387.000000, "hud:radar_centre");
-	PlayerTextDrawBackgroundColor(playerid,HudServer[playerid][4], 255);
-	PlayerTextDrawFont(playerid,HudServer[playerid][4], 4);
-	PlayerTextDrawLetterSize(playerid,HudServer[playerid][4], 0.500000, 1.000000);
-	PlayerTextDrawColor(playerid,HudServer[playerid][4], -1);
-	PlayerTextDrawSetOutline(playerid,HudServer[playerid][4], 0);
-	PlayerTextDrawSetProportional(playerid,HudServer[playerid][4], 1);
-	PlayerTextDrawSetShadow(playerid,HudServer[playerid][4], 0);
-	PlayerTextDrawUseBox(playerid,HudServer[playerid][4], 1);
-	PlayerTextDrawBoxColor(playerid,HudServer[playerid][4], 255);
-	PlayerTextDrawTextSize(playerid,HudServer[playerid][4], 14.000000, 13.000000);
-	PlayerTextDrawSetSelectable(playerid,HudServer[playerid][4], 0);
+	HudServer_p[playerid][4] = CreatePlayerTextDraw(playerid, 559.000000, 119.000000, "ld_beat:chit"); //bolinha voip
+	PlayerTextDrawFont(playerid, HudServer_p[playerid][4], 4);
+	PlayerTextDrawLetterSize(playerid, HudServer_p[playerid][4], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, HudServer_p[playerid][4], 10.500000, 12.000000);
+	PlayerTextDrawSetOutline(playerid, HudServer_p[playerid][4], 0);
+	PlayerTextDrawSetShadow(playerid, HudServer_p[playerid][4], 0);
+	PlayerTextDrawAlignment(playerid, HudServer_p[playerid][4], 1);
+	PlayerTextDrawColor(playerid, HudServer_p[playerid][4], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, HudServer_p[playerid][4], 255);
+	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][4], 50);
+	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][4], 1);
+	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][4], 1);
+	PlayerTextDrawSetSelectable(playerid, HudServer_p[playerid][4], 0);
 
-	HudServer[playerid][5] = CreatePlayerTextDraw(playerid,23.000000, 390.000000, "_");
-	PlayerTextDrawBackgroundColor(playerid,HudServer[playerid][5], 255);
-	PlayerTextDrawFont(playerid,HudServer[playerid][5], 1);
-	PlayerTextDrawLetterSize(playerid,HudServer[playerid][5], 0.419999, 1.600000);
-	PlayerTextDrawColor(playerid,HudServer[playerid][5], -1);
-	PlayerTextDrawSetOutline(playerid,HudServer[playerid][5], 0);
-	PlayerTextDrawSetProportional(playerid,HudServer[playerid][5], 1);
-	PlayerTextDrawSetShadow(playerid,HudServer[playerid][5], 1);
-	PlayerTextDrawUseBox(playerid,HudServer[playerid][5], 1);
-	PlayerTextDrawBoxColor(playerid,HudServer[playerid][5], 100);
-	PlayerTextDrawTextSize(playerid,HudServer[playerid][5], 4.000000, 6.000000);
-	PlayerTextDrawSetSelectable(playerid,HudServer[playerid][5], 0);
+	HudServer_p[playerid][5] = CreatePlayerTextDraw(playerid, 575.000000, 119.000000, "ld_beat:chit"); //bolinha vermelha voip
+	PlayerTextDrawFont(playerid, HudServer_p[playerid][5], 4);
+	PlayerTextDrawLetterSize(playerid, HudServer_p[playerid][5], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, HudServer_p[playerid][5], 10.500000, 12.000000);
+	PlayerTextDrawSetOutline(playerid, HudServer_p[playerid][5], 0);
+	PlayerTextDrawSetShadow(playerid, HudServer_p[playerid][5], 0);
+	PlayerTextDrawAlignment(playerid, HudServer_p[playerid][5], 1);
+	PlayerTextDrawColor(playerid, HudServer_p[playerid][5], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, HudServer_p[playerid][5], 255);
+	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][5], 50);
+	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][5], 1);
+	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][5], 1);
+	PlayerTextDrawSetSelectable(playerid, HudServer_p[playerid][5], 0);
 
-	HudServer[playerid][6] = CreatePlayerTextDraw(playerid,10.000000, 386.000000, "F");
-	PlayerTextDrawBackgroundColor(playerid,HudServer[playerid][6], 255);
-	PlayerTextDrawFont(playerid,HudServer[playerid][6], 1);
-	PlayerTextDrawLetterSize(playerid,HudServer[playerid][6], 0.430000, 2.200002);
-	PlayerTextDrawColor(playerid,HudServer[playerid][6], -1);
-	PlayerTextDrawSetOutline(playerid,HudServer[playerid][6], 0);
-	PlayerTextDrawSetProportional(playerid,HudServer[playerid][6], 1);
-	PlayerTextDrawSetShadow(playerid,HudServer[playerid][6], 0);
-	PlayerTextDrawSetSelectable(playerid,HudServer[playerid][6], 0);
-
-	HudServer[playerid][7] = CreatePlayerTextDraw(playerid,25.000000, 399.000000, "100");
-	PlayerTextDrawBackgroundColor(playerid,HudServer[playerid][7], 255);
-	PlayerTextDrawFont(playerid,HudServer[playerid][7], 2);
-	PlayerTextDrawLetterSize(playerid,HudServer[playerid][7], 0.219999, 1.000002);
-	PlayerTextDrawColor(playerid,HudServer[playerid][7], -1);
-	PlayerTextDrawSetOutline(playerid,HudServer[playerid][7], 0);
-	PlayerTextDrawSetProportional(playerid,HudServer[playerid][7], 1);
-	PlayerTextDrawSetShadow(playerid,HudServer[playerid][7], 0);
-	PlayerTextDrawSetSelectable(playerid,HudServer[playerid][7], 0);
-
-	HudServer[playerid][8] = CreatePlayerTextDraw(playerid,41.000000, 399.000000, "100");
-	PlayerTextDrawBackgroundColor(playerid,HudServer[playerid][8], 255);
-	PlayerTextDrawFont(playerid,HudServer[playerid][8], 2);
-	PlayerTextDrawLetterSize(playerid,HudServer[playerid][8], 0.219999, 1.000002);
-	PlayerTextDrawColor(playerid,HudServer[playerid][8], -1);
-	PlayerTextDrawSetOutline(playerid,HudServer[playerid][8], 0);
-	PlayerTextDrawSetProportional(playerid,HudServer[playerid][8], 1);
-	PlayerTextDrawSetShadow(playerid,HudServer[playerid][8], 0);
-	PlayerTextDrawSetSelectable(playerid,HudServer[playerid][8], 0);
-
-	HudServer[playerid][9] = CreatePlayerTextDraw(playerid,1.000000, 375.000000, "bC: 10000");
-	PlayerTextDrawBackgroundColor(playerid,HudServer[playerid][9], 255);
-	PlayerTextDrawFont(playerid,HudServer[playerid][9], 2);
-	PlayerTextDrawLetterSize(playerid,HudServer[playerid][9], 0.219999, 1.000002);
-	PlayerTextDrawColor(playerid,HudServer[playerid][9], -1);
-	PlayerTextDrawSetOutline(playerid,HudServer[playerid][9], 0);
-	PlayerTextDrawSetProportional(playerid,HudServer[playerid][9], 1);
-	PlayerTextDrawSetShadow(playerid,HudServer[playerid][9], 0);
-	PlayerTextDrawSetSelectable(playerid,HudServer[playerid][9], 0);
+	HudServer_p[playerid][6] = CreatePlayerTextDraw(playerid, 592.000000, 119.000000, "ld_beat:chit"); //bolinha vermelha voip
+	PlayerTextDrawFont(playerid, HudServer_p[playerid][6], 4);
+	PlayerTextDrawLetterSize(playerid, HudServer_p[playerid][6], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, HudServer_p[playerid][6], 10.500000, 12.000000);
+	PlayerTextDrawSetOutline(playerid, HudServer_p[playerid][6], 0);
+	PlayerTextDrawSetShadow(playerid, HudServer_p[playerid][6], 0);
+	PlayerTextDrawAlignment(playerid, HudServer_p[playerid][6], 1);
+	PlayerTextDrawColor(playerid, HudServer_p[playerid][6], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, HudServer_p[playerid][6], 255);
+	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][6], 50);
+	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][6], 1);
+	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][6], 1);
+	PlayerTextDrawSetSelectable(playerid, HudServer_p[playerid][6], 0);
 
 	wMenu[0] = CreatePlayerTextDraw(playerid,123.000000, 61.000000+50, "Veiculo:");
 	PlayerTextDrawBackgroundColor(playerid,wMenu[0], 255);
@@ -8686,6 +8735,19 @@ stock todastextdraw(playerid)
     PlayerTextDrawSetProportional(playerid,TextDrawMorte[playerid][5], 1);
     PlayerTextDrawSetShadow(playerid,TextDrawMorte[playerid][5], 0);
     PlayerTextDrawSetSelectable(playerid,TextDrawMorte[playerid][5], 0);
+
+	// Fader (Ultimo sempre)
+	new tmp[E_PLAYER_FADE_INFO];
+	gPlayerFadeInfo[playerid] = tmp;
+
+	new PlayerText:text = CreatePlayerTextDraw(playerid, -20.0, -20.0, "_");
+	gPlayerFaderTextId = text;
+	gPlayerFadeInfo[playerid][fadeCurrentAlpha] = MAX_TRANSPARENCY;
+	// detalhes
+	PlayerTextDrawUseBox(playerid, text, 1);
+	PlayerTextDrawBoxColor(playerid, text, 0xFFFFFF00);
+	PlayerTextDrawLetterSize(playerid, text, 680.0, 500.0);
+	PlayerTextDrawTextSize(playerid, text, 680.0, 500.0);
 
 }
 stock CreateTelaLogin(){
@@ -10898,6 +10960,13 @@ public OnPlayerRequestClass(playerid, classid)
 		PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
 		PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
 	}
+	Falando[playerid] = true;
+	if(Susurrando[playerid] == true){
+		Susurrando[playerid] = false;
+	}
+	if(Gritando[playerid] == true){
+		Gritando[playerid] = false;
+	}
 	return 0;
 }
 
@@ -10919,13 +10988,6 @@ public OnPlayerConnect(playerid)
 	}
 	else
 	{
-		Falando[playerid] = true;
-		if(Susurrando[playerid] == true){
-			Susurrando[playerid] = false;
-		}
-		if(Gritando[playerid] == true){
-			Gritando[playerid] = false;
-		}
  		lstream[playerid] = SvCreateDLStreamAtPlayer(15.0, SV_INFINITY, playerid, 0xff0000ff, "L");
 		Susurrandos[playerid] = SvCreateDLStreamAtPlayer(5.0, SV_INFINITY, playerid, 0xff0000ff, "L");
 		Gritandos[playerid] = SvCreateDLStreamAtPlayer(30.0, SV_INFINITY, playerid, 0xff0000ff, "L");
@@ -11040,6 +11102,14 @@ public OnPlayerDisconnect(playerid, reason)
 	for(new i = 0; i < 8; i++)
 	{
 		TextDrawHideForPlayer(playerid, Logo[i]);
+	}
+	for(new i = 0; i < 7; i ++)
+	{
+		PlayerTextDrawDestroy(playerid, HudServer_p[playerid][i]);
+	}
+	for(new i = 0; i < 17; i ++)
+	{
+		TextDrawHideForPlayer(playerid, HudServer[i]);
 	}
 	PlayerTextDrawDestroy(playerid, Textdraw2[playerid]);
 	ZerarDados(playerid);
@@ -11166,20 +11236,36 @@ public OnVehicleDeath(vehicleid, killerid)
 }
 
 public OnVehicleDamageStatusUpdate(vehicleid, playerid){
-	if(TemCinto[playerid] == false){
-		new Float:PosP[4], Float:HV;
+	if(TemCinto[playerid] == false && !IsABike(GetPlayerVehicleID(playerid)) && !IsABoat(GetPlayerVehicleID(playerid))){
+		new Float:PosP[4], Float:HV,damageveh[MAX_PLAYERS];
 		GetPlayerPos(playerid, PosP[0], PosP[1], PosP[2]);
 		GetPlayerFacingAngle(playerid, PosP[3]);
 		GetVehicleHealth(vehicleid,HV);
-		SetPlayerHealth(playerid,HV/10);
-		SetPlayerPos(playerid,PosP[0]+2,PosP[1]+2,PosP[2]+1);
-		SetPlayerFacingAngle(playerid, PosP[3]);
-		RemovePlayerFromVehicle(playerid);
-		ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
-		ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
-		GameTextForPlayer(playerid, "~r~Voce esta tonto ~n~Aguarde...", 3000, 4);
-		SetTimerEx("CANIM",5000,false,"i",playerid);
+		format(damageveh[playerid],128,"%s",HV/10);
+		if(damageveh[playerid] >= 30){
+			SetPlayerHealth(playerid,HV/10);
+			SetPlayerPos(playerid,PosP[0]+2,PosP[1]+2,PosP[2]+1);
+			SetPlayerFacingAngle(playerid, PosP[3]);
+			RemovePlayerFromVehicle(playerid);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
+			GameTextForPlayer(playerid, "~r~DESMAIOU...", 14900, 4);
+			fadeOut(playerid, 15000);
+			SetTimerEx("CANIM",15200,false,"i",playerid);
+		}
     }
+	return 1;
+}
+
+public OnPlayerFadeIn(playerid){
+	if(pLogado[playerid] == true) {
+		// Retirar fade
+		PlayerTextDrawHide(playerid, gPlayerFaderTextId);
+	}
+	return 1;
+}
+
+public OnPlayerFadeOut(playerid){
 	return 1;
 }
 
@@ -11246,7 +11332,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			MotorOn[playerid] = 0;
 		}
 	}
-	if(TemCinto[playerid] == false){
+	if(TemCinto[playerid] == false && !IsABike(GetPlayerVehicleID(playerid)) && !IsABoat(GetPlayerVehicleID(playerid))){
 		for(new x=0;x<5;x++){
 			TextDrawShowForPlayer(playerid, Tdcinto[x]);
 		}
@@ -11364,7 +11450,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 		notificacao(playerid, "EXITO", "Cinto de seguranca removido", ICONE_CERTO);
 	}else{
 		for(new x=0;x<5;x++){
-			TextDrawHideForPlayer(playerid, Tdcinto[x]);
+			TextDrawHideForPlayer(playerid, Tdcinto[x]); 
 		}
 	}
 	return 1;
@@ -13573,7 +13659,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if(Gritando[playerid] == true){
 							Gritando[playerid] = false;
 						}
-						PlayerTextDrawSetString(playerid, HudServer[playerid][6], "F");
 						notificacao(playerid, "EXITO", "Voce mudou o modo do seu voip para (Falando)", ICONE_CERTO);
 					}
 					case 1:{
@@ -13584,7 +13669,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if(Gritando[playerid] == true){
 							Gritando[playerid] = false;
 						}
-						PlayerTextDrawSetString(playerid, HudServer[playerid][6], "S");
 						notificacao(playerid, "EXITO", "Voce mudou o modo do seu voip para (Susurrando)", ICONE_CERTO);
 					}
 					case 2:{
@@ -13595,7 +13679,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if(Susurrando[playerid] == true){
 							Susurrando[playerid] = false;
 						}
-						PlayerTextDrawSetString(playerid, HudServer[playerid][6], "G");
 						notificacao(playerid, "EXITO", "Voce mudou o modo do seu voip para (Gritando)", ICONE_CERTO);
 					}
 				}
@@ -13693,9 +13776,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);	
 					}
-					for(new i = 0; i < 10; i ++)
+					for(new i = 0; i < 7; i ++)
 					{
-						PlayerTextDrawShow(playerid, HudServer[playerid][i]);
+						PlayerTextDrawShow(playerid, HudServer_p[playerid][i]);
+					}
+					for(new i = 0; i < 17; i ++)
+					{
+						TextDrawShowForPlayer(playerid, HudServer[i]);
 					}
 					for(new i = 0; i < 8; i ++)
 					{
@@ -17229,7 +17316,8 @@ CMD:mvoip(playerid){
 
 CMD:cinto(playerid){
 	new str[128];
-	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return notificacao(playerid, "ERRO", "Nao esta em um veiculo!", ICONE_ERRO); 
+	if(!IsPlayerInAnyVehicle(playerid)) return notificacao(playerid, "ERRO", "Voce nao esta em um veiculo!", ICONE_ERRO); 
+	if(IsABike(GetPlayerVehicleID(playerid)) || IsABoat(GetPlayerVehicleID(playerid))) return notificacao(playerid, "ERRO", "Voce nao esta em um veiculo que possui cinto de seguranca!", ICONE_ERRO); 
 	if(TemCinto[playerid] == false){
 		TemCinto[playerid] = true;
 		notificacao(playerid, "EXITO", "Cinto de seguranca colocado", ICONE_CERTO);
