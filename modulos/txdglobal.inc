@@ -2135,5 +2135,132 @@ CarregarTxdGlobal()
 	TextDrawSetProportional(HudServer[16], 1);
 	TextDrawSetSelectable(HudServer[16], 0);
 
+		//TD MORTE
+	TDmorte[0] = TextDrawCreate(316.000000, -14.000000, "_");
+	TextDrawFont(TDmorte[0], 1);
+	TextDrawLetterSize(TDmorte[0], 0.766664, 54.350002);
+	TextDrawTextSize(TDmorte[0], 298.500000, 674.000000);
+	TextDrawSetOutline(TDmorte[0], 1);
+	TextDrawSetShadow(TDmorte[0], 0);
+	TextDrawAlignment(TDmorte[0], 2);
+	TextDrawColor(TDmorte[0], -1);
+	TextDrawBackgroundColor(TDmorte[0], 255);
+	TextDrawBoxColor(TDmorte[0], 202);
+	TextDrawUseBox(TDmorte[0], 1);
+	TextDrawSetProportional(TDmorte[0], 1);
+	TextDrawSetSelectable(TDmorte[0], 0);
+
+	TDmorte[1] = TextDrawCreate(323.000000, 337.000000, "REVIVER IMEDIATAMENTE");
+	TextDrawFont(TDmorte[1], 3);
+	TextDrawLetterSize(TDmorte[1], 0.408331, 1.750000);
+	TextDrawTextSize(TDmorte[1], 16.500000, 190.000000);
+	TextDrawSetOutline(TDmorte[1], 0);
+	TextDrawSetShadow(TDmorte[1], 0);
+	TextDrawAlignment(TDmorte[1], 2);
+	TextDrawColor(TDmorte[1], -65281);
+	TextDrawBackgroundColor(TDmorte[1], 255);
+	TextDrawBoxColor(TDmorte[1], 200);
+	TextDrawUseBox(TDmorte[1], 1);
+	TextDrawSetProportional(TDmorte[1], 1);
+	TextDrawSetSelectable(TDmorte[1], 1);
+
+	TDmorte[2] = TextDrawCreate(235.000000, 208.000000, "DESACORDADO");
+	TextDrawFont(TDmorte[2], 3);
+	TextDrawLetterSize(TDmorte[2], 0.774999, 3.199996);
+	TextDrawTextSize(TDmorte[2], 892.000000, 29.000000);
+	TextDrawSetOutline(TDmorte[2], 0);
+	TextDrawSetShadow(TDmorte[2], 0);
+	TextDrawAlignment(TDmorte[2], 1);
+	TextDrawColor(TDmorte[2], -65281);
+	TextDrawBackgroundColor(TDmorte[2], 255);
+	TextDrawBoxColor(TDmorte[2], 50);
+	TextDrawUseBox(TDmorte[2], 0);
+	TextDrawSetProportional(TDmorte[2], 0);
+	TextDrawSetSelectable(TDmorte[2], 0);
+
+	TDmorte[3] = TextDrawCreate(200.000000, 237.000000, "VOCE PRECISA BUSCAR AJUDA IMEDIATAMENTE");
+	TextDrawFont(TDmorte[3], 1);
+	TextDrawLetterSize(TDmorte[3], 0.333332, 1.750002);
+	TextDrawTextSize(TDmorte[3], 1566.500000, 17.000000);
+	TextDrawSetOutline(TDmorte[3], 0);
+	TextDrawSetShadow(TDmorte[3], 0);
+	TextDrawAlignment(TDmorte[3], 1);
+	TextDrawColor(TDmorte[3], -1);
+	TextDrawBackgroundColor(TDmorte[3], 255);
+	TextDrawBoxColor(TDmorte[3], 50);
+	TextDrawUseBox(TDmorte[3], 0);
+	TextDrawSetProportional(TDmorte[3], 1);
+	TextDrawSetSelectable(TDmorte[3], 0);
+
+	TDmorte[4] = TextDrawCreate(223.000000, 250.000000, "APOS A MORTE VOCE PERDERA TUDO");
+	TextDrawFont(TDmorte[4], 1);
+	TextDrawLetterSize(TDmorte[4], 0.333332, 1.750002);
+	TextDrawTextSize(TDmorte[4], 1566.500000, 17.000000);
+	TextDrawSetOutline(TDmorte[4], 0);
+	TextDrawSetShadow(TDmorte[4], 0);
+	TextDrawAlignment(TDmorte[4], 1);
+	TextDrawColor(TDmorte[4], -1);
+	TextDrawBackgroundColor(TDmorte[4], 255);
+	TextDrawBoxColor(TDmorte[4], 50);
+	TextDrawUseBox(TDmorte[4], 0);
+	TextDrawSetProportional(TDmorte[4], 1);
+	TextDrawSetSelectable(TDmorte[4], 0);
+
+	TDmorte[5] = TextDrawCreate(396.000000, 178.000000, "Z");
+	TextDrawFont(TDmorte[5], 2);
+	TextDrawLetterSize(TDmorte[5], 0.774999, 3.199996);
+	TextDrawTextSize(TDmorte[5], 892.000000, 29.000000);
+	TextDrawSetOutline(TDmorte[5], 0);
+	TextDrawSetShadow(TDmorte[5], 0);
+	TextDrawAlignment(TDmorte[5], 1);
+	TextDrawColor(TDmorte[5], -1);
+	TextDrawBackgroundColor(TDmorte[5], 255);
+	TextDrawBoxColor(TDmorte[5], 50);
+	TextDrawUseBox(TDmorte[5], 0);
+	TextDrawSetProportional(TDmorte[5], 0);
+	TextDrawSetSelectable(TDmorte[5], 0);
+
+	TDmorte[6] = TextDrawCreate(417.000000, 167.000000, "Z");
+	TextDrawFont(TDmorte[6], 2);
+	TextDrawLetterSize(TDmorte[6], 0.774999, 3.199996);
+	TextDrawTextSize(TDmorte[6], 892.000000, 29.000000);
+	TextDrawSetOutline(TDmorte[6], 0);
+	TextDrawSetShadow(TDmorte[6], 0);
+	TextDrawAlignment(TDmorte[6], 1);
+	TextDrawColor(TDmorte[6], -1);
+	TextDrawBackgroundColor(TDmorte[6], 255);
+	TextDrawBoxColor(TDmorte[6], 50);
+	TextDrawUseBox(TDmorte[6], 0);
+	TextDrawSetProportional(TDmorte[6], 0);
+	TextDrawSetSelectable(TDmorte[6], 0);
+
+	TDmorte[7] = TextDrawCreate(437.000000, 156.000000, "Z");
+	TextDrawFont(TDmorte[7], 2);
+	TextDrawLetterSize(TDmorte[7], 0.774999, 3.199996);
+	TextDrawTextSize(TDmorte[7], 892.000000, 29.000000);
+	TextDrawSetOutline(TDmorte[7], 0);
+	TextDrawSetShadow(TDmorte[7], 0);
+	TextDrawAlignment(TDmorte[7], 1);
+	TextDrawColor(TDmorte[7], -1);
+	TextDrawBackgroundColor(TDmorte[7], 255);
+	TextDrawBoxColor(TDmorte[7], 50);
+	TextDrawUseBox(TDmorte[7], 0);
+	TextDrawSetProportional(TDmorte[7], 0);
+	TextDrawSetSelectable(TDmorte[7], 0);
+
+	TDmorte[8] = TextDrawCreate(323.000000, 313.000000, "_");
+	TextDrawFont(TDmorte[8], 1);
+	TextDrawLetterSize(TDmorte[8], 0.600000, -0.449997);
+	TextDrawTextSize(TDmorte[8], 298.500000, 320.500000);
+	TextDrawSetOutline(TDmorte[8], 1);
+	TextDrawSetShadow(TDmorte[8], 0);
+	TextDrawAlignment(TDmorte[8], 2);
+	TextDrawColor(TDmorte[8], -1);
+	TextDrawBackgroundColor(TDmorte[8], 255);
+	TextDrawBoxColor(TDmorte[8], -1);
+	TextDrawUseBox(TDmorte[8], 1);
+	TextDrawSetProportional(TDmorte[8], 1);
+	TextDrawSetSelectable(TDmorte[8], 0);
+
 	print("[Arquivos Load] Todos as textdraws globais foram carregados.");
 }

@@ -440,7 +440,8 @@ new PlayerMorto[MAX_PLAYERS][pMorto];
 
 new Float:VarPlayerOldPos[MAX_PLAYERS][3];
 new TimerMorto[MAX_PLAYERS];
-new PlayerText:TextDrawMorte[MAX_PLAYERS][6];
+new Text:TDmorte[9];
+new PlayerText:TDmorte_p[MAX_PLAYERS][1];
 
 new VagasORG[][MAX_VAGAS] = 
 {
@@ -2422,7 +2423,7 @@ CallBack::mortoxx(playerid)
             PlayerMorto[playerid][pEstaMorto] = 0;
             return 1; 
         }
-        PlayerMorto[playerid][pSegMorto]-= 1;
+        PlayerMorto[playerid][pSegMorto]--;
         if(PlayerMorto[playerid][pSegMorto] <= 0)
         {
             PlayerMorto[playerid][pSegMorto] = 60;
@@ -2431,7 +2432,7 @@ CallBack::mortoxx(playerid)
     
         new Jtempo[90];
         format(Jtempo, sizeof(Jtempo),"~r~%s:%s", ConvertTimeX(PlayerMorto[playerid][pMinMorto]) ,ConvertTimeX(PlayerMorto[playerid][pSegMorto]));
-        PlayerTextDrawSetString(playerid,TextDrawMorte[playerid][5],Jtempo);
+        PlayerTextDrawSetString(playerid,TDmorte_p[playerid][0],Jtempo);
    
         SetPlayerHealth(playerid, 100);
         SetPlayerPos(playerid, PlayerMorto[playerid][pPosMt1], PlayerMorto[playerid][pPosMt2], PlayerMorto[playerid][pPosMt3]);
@@ -2439,11 +2440,8 @@ CallBack::mortoxx(playerid)
         SetPlayerVirtualWorld(playerid, PlayerMorto[playerid][pVirtual]);
         ApplyAnimation(playerid, "CRACK", "crckdeth3", 4.1, 0, 1, 1, 1, 60000, 1);
         return 1; 
-    }
-    if(PlayerMorto[playerid][pEstaMorto] == 0)
-    {
+    }else{
         KillTimer(TimerMorto[playerid]);
-        return 1; 
     }
     return 1; 
 }
@@ -6272,8 +6270,10 @@ stock VaiProHospital(playerid)
     SetPlayerPos(playerid, 1150.7927,-1324.8185,-43.4495);
     TogglePlayerControllable(playerid, true);
     ClearAnimations(playerid);
-    for(new idx=0; idx<6; idx++){
-    PlayerTextDrawHide(playerid,TextDrawMorte[playerid][idx]); }
+    for(new idx=0; idx<9; idx++){
+    TextDrawHideForPlayer(playerid,TDmorte[idx]); }
+	PlayerTextDrawHide(playerid, TDmorte_p[playerid][0]);
+	CancelSelectTextDraw(playerid);
 	return 1;
 }
 
@@ -8669,72 +8669,20 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetProportional(playerid, TDEditor_PTD[playerid][5], 1);
 	PlayerTextDrawSetSelectable(playerid, TDEditor_PTD[playerid][5], true);
 
-    //----Desmanhado -----//
-	TextDrawMorte[playerid][0] = CreatePlayerTextDraw(playerid,827.000000, -7.000000, "_");
-    PlayerTextDrawBackgroundColor(playerid,TextDrawMorte[playerid][0], 255);
-    PlayerTextDrawFont(playerid,TextDrawMorte[playerid][0], 1);
-    PlayerTextDrawLetterSize(playerid,TextDrawMorte[playerid][0], -5.039997, 56.599998);
-    PlayerTextDrawColor(playerid,TextDrawMorte[playerid][0], -1);
-    PlayerTextDrawSetOutline(playerid,TextDrawMorte[playerid][0], 0);
-    PlayerTextDrawSetProportional(playerid,TextDrawMorte[playerid][0], 1);
-    PlayerTextDrawSetShadow(playerid,TextDrawMorte[playerid][0], 1);
-    PlayerTextDrawUseBox(playerid,TextDrawMorte[playerid][0], 1);
-    PlayerTextDrawBoxColor(playerid,TextDrawMorte[playerid][0], 102);
-    PlayerTextDrawTextSize(playerid,TextDrawMorte[playerid][0], -82.000000, -52.000000);
-    PlayerTextDrawSetSelectable(playerid,TextDrawMorte[playerid][0], 0);
-
-    TextDrawMorte[playerid][1] = CreatePlayerTextDraw(playerid,827.000000, -7.000000, "_");
-    PlayerTextDrawBackgroundColor(playerid,TextDrawMorte[playerid][1], 255);
-    PlayerTextDrawFont(playerid,TextDrawMorte[playerid][1], 1);
-    PlayerTextDrawLetterSize(playerid,TextDrawMorte[playerid][1], -5.039997, 56.599998);
-    PlayerTextDrawColor(playerid,TextDrawMorte[playerid][1], -1);
-    PlayerTextDrawSetOutline(playerid,TextDrawMorte[playerid][1], 0);
-    PlayerTextDrawSetProportional(playerid,TextDrawMorte[playerid][1], 1);
-    PlayerTextDrawSetShadow(playerid,TextDrawMorte[playerid][1], 1);
-    PlayerTextDrawUseBox(playerid,TextDrawMorte[playerid][1], 1);
-    PlayerTextDrawBoxColor(playerid,TextDrawMorte[playerid][1], 102);
-    PlayerTextDrawTextSize(playerid,TextDrawMorte[playerid][1], -82.000000, -52.000000);
-    PlayerTextDrawSetSelectable(playerid,TextDrawMorte[playerid][1], 0);
-
-    TextDrawMorte[playerid][2] = CreatePlayerTextDraw(playerid,191.000000, 142.000000, "VOCE");
-    PlayerTextDrawBackgroundColor(playerid,TextDrawMorte[playerid][2], 255);
-    PlayerTextDrawFont(playerid,TextDrawMorte[playerid][2], 2);
-    PlayerTextDrawLetterSize(playerid,TextDrawMorte[playerid][2], 0.479999, 5.300001);
-    PlayerTextDrawColor(playerid,TextDrawMorte[playerid][2], -1);
-    PlayerTextDrawSetOutline(playerid,TextDrawMorte[playerid][2], 0);
-    PlayerTextDrawSetProportional(playerid,TextDrawMorte[playerid][2], 1);
-    PlayerTextDrawSetShadow(playerid,TextDrawMorte[playerid][2], 0);
-    PlayerTextDrawSetSelectable(playerid,TextDrawMorte[playerid][2], 0);
-
-    TextDrawMorte[playerid][3] = CreatePlayerTextDraw(playerid,299.000000, 141.000000, "DESMAIOU");
-    PlayerTextDrawBackgroundColor(playerid,TextDrawMorte[playerid][3], 255);
-    PlayerTextDrawFont(playerid,TextDrawMorte[playerid][3], 2);
-    PlayerTextDrawLetterSize(playerid,TextDrawMorte[playerid][3], 0.479999, 5.300001);
-    PlayerTextDrawColor(playerid,TextDrawMorte[playerid][3], -602653441);
-    PlayerTextDrawSetOutline(playerid,TextDrawMorte[playerid][3], 0);
-    PlayerTextDrawSetProportional(playerid,TextDrawMorte[playerid][3], 1);
-    PlayerTextDrawSetShadow(playerid,TextDrawMorte[playerid][3], 0);
-    PlayerTextDrawSetSelectable(playerid,TextDrawMorte[playerid][3], 0);
-
-    TextDrawMorte[playerid][4] = CreatePlayerTextDraw(playerid,242.000000, 189.000000, "AGUARDE");
-    PlayerTextDrawBackgroundColor(playerid,TextDrawMorte[playerid][4], 255);
-    PlayerTextDrawFont(playerid,TextDrawMorte[playerid][4], 1);
-    PlayerTextDrawLetterSize(playerid,TextDrawMorte[playerid][4], 0.409999, 1.600000);
-    PlayerTextDrawColor(playerid,TextDrawMorte[playerid][4], -1);
-    PlayerTextDrawSetOutline(playerid,TextDrawMorte[playerid][4], 0);
-    PlayerTextDrawSetProportional(playerid,TextDrawMorte[playerid][4], 1);
-    PlayerTextDrawSetShadow(playerid,TextDrawMorte[playerid][4], 0);
-    PlayerTextDrawSetSelectable(playerid,TextDrawMorte[playerid][4], 0);
-
-    TextDrawMorte[playerid][5] = CreatePlayerTextDraw(playerid,298.000000, 189.000000, "");
-    PlayerTextDrawBackgroundColor(playerid,TextDrawMorte[playerid][5], 255);
-    PlayerTextDrawFont(playerid,TextDrawMorte[playerid][5], 1);
-    PlayerTextDrawLetterSize(playerid,TextDrawMorte[playerid][5], 0.409999, 1.600000);
-    PlayerTextDrawColor(playerid,TextDrawMorte[playerid][5], -602653441);
-    PlayerTextDrawSetOutline(playerid,TextDrawMorte[playerid][5], 0);
-    PlayerTextDrawSetProportional(playerid,TextDrawMorte[playerid][5], 1);
-    PlayerTextDrawSetShadow(playerid,TextDrawMorte[playerid][5], 0);
-    PlayerTextDrawSetSelectable(playerid,TextDrawMorte[playerid][5], 0);
+    	//TD MORTE STRINGS
+	TDmorte_p[playerid][0] = CreatePlayerTextDraw(playerid, 283.000000, 273.000000, "00:00");
+	PlayerTextDrawFont(playerid, TDmorte_p[playerid][0], 2);
+	PlayerTextDrawLetterSize(playerid, TDmorte_p[playerid][0], 0.774999, 3.199996);
+	PlayerTextDrawTextSize(playerid, TDmorte_p[playerid][0], 892.000000, 29.000000);
+	PlayerTextDrawSetOutline(playerid, TDmorte_p[playerid][0], 0);
+	PlayerTextDrawSetShadow(playerid, TDmorte_p[playerid][0], 0);
+	PlayerTextDrawAlignment(playerid, TDmorte_p[playerid][0], 1);
+	PlayerTextDrawColor(playerid, TDmorte_p[playerid][0], -65281);
+	PlayerTextDrawBackgroundColor(playerid, TDmorte_p[playerid][0], 255);
+	PlayerTextDrawBoxColor(playerid, TDmorte_p[playerid][0], 50);
+	PlayerTextDrawUseBox(playerid, TDmorte_p[playerid][0], 0);
+	PlayerTextDrawSetProportional(playerid, TDmorte_p[playerid][0], 0);
+	PlayerTextDrawSetSelectable(playerid, TDmorte_p[playerid][0], 0);
 
 	// Fader (Ultimo sempre)
 	new tmp[E_PLAYER_FADE_INFO];
@@ -10775,7 +10723,7 @@ public OnGameModeInit()
 {
 	// CONFIG
 	AntiDeAMX();
-	SetGameModeText("Baixada v1.0");
+	SetGameModeText("RP | vBETA");
 	SendRconCommand("mapname Los Santos");
 
 	ShowPlayerMarkers(0);
@@ -11122,10 +11070,11 @@ public OnPlayerSpawn(playerid)
 	TogglePlayerSpectating(playerid, false);
 	TogglePlayerControllable(playerid, true);
 	SetTimerEx("Attplayer",1000,true,"i",playerid);
-	for(new idx=0; idx<6; idx++)
+	for(new idx=0; idx<9; idx++)
 	{
-    	PlayerTextDrawHide(playerid,TextDrawMorte[playerid][idx]); 
+    	TextDrawHideForPlayer(playerid,TDmorte[idx]); 
 	}
+	PlayerTextDrawHide(playerid, TDmorte_p[playerid][0]);
 	if(GetPVarInt(playerid, "PlayMine") == 1) HideCasinoTDs(playerid);
 	if(SpawnPos[playerid] == true) 
 	{
@@ -11154,11 +11103,13 @@ public OnPlayerSpawn(playerid)
             PlayerMorto[playerid][pSegMorto] = 60;
         }
         SalvarMortos(playerid);
-        for(new idx=0; idx<6; idx++)
+        for(new idx=0; idx<9; idx++)
         {
-       	 	PlayerTextDrawShow(playerid,TextDrawMorte[playerid][idx]);
+       	 	TextDrawShowForPlayer(playerid,TDmorte[idx]);
     	}
-        TimerMorto[playerid] = SetTimerEx("mortoxx", 1000, 1, "i", playerid);
+		PlayerTextDrawShow(playerid, TDmorte_p[playerid][0]);
+		SelectTextDraw(playerid, 0xFF0000FF);
+        TimerMorto[playerid] = SetTimerEx("mortoxx", 1000, true, "i", playerid);
         ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 1, 0, 0, 0, 13000, 1);
     }
 	new File[255];
@@ -11252,6 +11203,9 @@ public OnVehicleDamageStatusUpdate(vehicleid, playerid){
 			GameTextForPlayer(playerid, "~r~DESMAIOU...", 14900, 4);
 			fadeOut(playerid, 15000);
 			SetTimerEx("CANIM",15200,false,"i",playerid);
+			for(new x=0;x<5;x++){
+				TextDrawHideForPlayer(playerid, Tdcinto[x]);
+			}
 		}
     }
 	return 1;
@@ -14806,7 +14760,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(!IsNumeric(inputtext)) return notificacao(playerid, "ERRO", "Valor invalido.", ICONE_ERRO);
 				if(strlen(inputtext) > 3) return notificacao(playerid, "ERRO", "Valor invalido.", ICONE_ERRO);
 				if(!IsPlayerConnected(id)) return notificacao(playerid, "ERRO", "Jogador nao esta online.", ICONE_ERRO);
-				if(id == playerid) return notificacao(playerid, "ERRO", "Nao pode animar voce.", ICONE_ERRO);
+				if(id == playerid) return notificacao(playerid, "ERRO", "Voce nao pode se autoreanimar.", ICONE_ERRO);
 				/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 				if (ProxDetectorS(1.5, playerid,id))
 				{
@@ -14814,7 +14768,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if(PlayerMorto[id][pMinMorto] == 0)
 						{
-						    SendClientMessage(playerid, -1, "Esse jogador nao esta desmaiado!");
+						    SendClientMessage(playerid, -1, "Esse jogador nao esta inconsciente!");
 						    return 1;
 					    }
 					}
@@ -14824,14 +14778,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			        SetPlayerHealth(id, 50);
 			        PlayerMorto[id][pMinMorto] = 0;
 			        PlayerMorto[id][pSegMorto] = 0;
-			        for(new idx=0; idx<6; idx++){
-			        PlayerTextDrawHide(id,TextDrawMorte[playerid][idx]); }
+			        for(new idx=0; idx<9; idx++){
+			        TextDrawHideForPlayer(id,TDmorte[idx]); }
+					PlayerTextDrawHide(id, TDmorte_p[id][0]);
+					CancelSelectTextDraw(playerid);
 				    ClearAnimations(id, 1);
 				    ClearAnimations(id);
 			        SetPlayerPos(id, PlayerMorto[id][pPosMt1], PlayerMorto[id][pPosMt2], PlayerMorto[id][pPosMt3]);
 				    return 1;
 				}
-				notificacao(playerid, "ERRO", "Estas lejos de un jugador!", ICONE_ERRO);
+				notificacao(playerid, "ERRO", "Voce nao esta proximo a um jogador!", ICONE_ERRO);
 				/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 			}
 		}
@@ -17136,6 +17092,10 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		{
 			PlayerTextDrawHide(playerid, TDEditor_PTD[playerid][i]);
 		}
+	}
+	if(clickedid == TDmorte[1]){
+		VaiProHospital(playerid);
+        PlayerMorto[playerid][pEstaMorto] = 0;
 	}
 	if(clickedid == TDCadastro[2]){
 		new str[10];
