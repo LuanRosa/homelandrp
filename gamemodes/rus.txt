@@ -1,13 +1,19 @@
+E:\Baixada-Roleplay\gamemodes\baixada.pwn(1330) : íåïðàâèëüíàÿ òàáóëÿöèÿ
+../modulos/mapserver.inc(5590) : íåïðàâèëüíàÿ òàáóëÿöèÿ
+../modulos/mapserver.inc(5591) : íåïðàâèëüíàÿ òàáóëÿöèÿ
+../modulos/mapserver.inc(5881) : íåïðàâèëüíàÿ òàáóëÿöèÿ
+../modulos/mapserver.inc(7347) : íåïðàâèëüíàÿ òàáóëÿöèÿ
+../modulos/mapserver.inc(7348) : íåïðàâèëüíàÿ òàáóëÿöèÿ
+../modulos/mapserver.inc(7636) : íåïðàâèëüíàÿ òàáóëÿöèÿ
+../modulos/mapserver.inc(7637) : íåïðàâèëüíàÿ òàáóëÿöèÿ
+../modulos/mapserver.inc(7930) : íåïðàâèëüíàÿ òàáóëÿöèÿ
 ../modulos/txdglobal.inc(1018) : íåïðàâèëüíàÿ òàáóëÿöèÿ
 ../modulos/txdglobal.inc(1019) : íåïðàâèëüíàÿ òàáóëÿöèÿ
-E:\Baixada Roleplay\gamemodes\baixada.pwn(13181) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "string"
-E:\Baixada Roleplay\gamemodes\baixada.pwn(13312) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "string"
-E:\Baixada Roleplay\gamemodes\baixada.pwn(14879) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "string"
-E:\Baixada Roleplay\gamemodes\baixada.pwn(14886) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "string"
-E:\Baixada Roleplay\gamemodes\baixada.pwn(14896) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "string"
-E:\Baixada Roleplay\gamemodes\baixada.pwn(14906) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "string"
-E:\Baixada Roleplay\gamemodes\baixada.pwn(14916) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "string"
-E:\Baixada Roleplay\gamemodes\baixada.pwn(1261) : èäåíòèôèêàòîðó ïðèñâîåíî çíà÷åíèå, íî îí íå èñïîëüçóåòñÿ: "Report"
-E:\Baixada Roleplay\gamemodes\baixada.pwn(3443) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "RetirarItem"
+E:\Baixada-Roleplay\gamemodes\baixada.pwn(666) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "Etapa2Cozinheiro"
+E:\Baixada-Roleplay\gamemodes\baixada.pwn(667) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "Etapa3Cozinheiro"
+E:\Baixada-Roleplay\gamemodes\baixada.pwn(668) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "Etapa4Cozinheiro"
+E:\Baixada-Roleplay\gamemodes\baixada.pwn(669) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "Etapa5Cozinheiro"
+E:\Baixada-Roleplay\gamemodes\baixada.pwn(670) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "Etapa6Cozinheiro"
+E:\Baixada-Roleplay\gamemodes\baixada.pwn(4249) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "RetirarItem"
 Pawn compiler 3.2.3664	 	 	Copyright (c) 1997-2016, ITB CompuPhase
 

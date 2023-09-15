@@ -662,7 +662,7 @@ new TimerMaconha;
 new TimerMensagemAuto;
 
 //                          VARIAVEIS SEM COMENT
-new Etapa1Cozinheiro[MAX_PLAYERS];
+
 new RecentlyShot[MAX_PLAYERS];
 new	Assistindo[MAX_PLAYERS] = -1,
 	Erro[MAX_PLAYERS],
@@ -1313,84 +1313,6 @@ new RandomMSG[][] =
 };
 
 //                          PUBLICS
-
-Progresso:E1C(playerid, progress)
-{
-	if(progress >= 100)
-	{
-		if(Etapa1Cozinheiro[playerid] == 1)
-		{
-			RemovePlayerAttachedObject(playerid, 1);
-			Etapa1Cozinheiro[playerid] = 2;
-			SetPlayerCheckpoint(playerid, 375.283508, -64.622947, 1001.507812, 1);
-			SetPlayerAttachedObject(playerid, 1, 2768, 1, 0.2779, 0.4348, 0.0000, -95.3000, 0.0000, 0.0000, 0.1209, 0.0740, 0.1028);
-		}
-		if(Etapa1Cozinheiro[playerid] == 2)
-		{
-			RemovePlayerAttachedObject(playerid, 1);
-			Etapa1Cozinheiro[playerid] = 3;
-			SetPlayerCheckpoint(playerid, 375.588043, -57.648612, 1001.507812, 1);
-			SetPlayerAttachedObject(playerid, 1, 19835, 1, 0.2779, 0.4348, 0.0000, -95.3000, 0.0000, 0.0000, 0.1209, 0.0740, 0.1028);
-		}
-		if(Etapa1Cozinheiro[playerid] == 3)
-		{
-			RemovePlayerAttachedObject(playerid, 1);
-			Etapa1Cozinheiro[playerid] = 4;
-			SetPlayerCheckpoint(playerid, 379.936462, -57.635532, 1001.507812, 1);
-			SetPlayerAttachedObject(playerid, 1, 2769, 1, 0.2779, 0.4348, 0.0000, -95.3000, 0.0000, 0.0000, 0.1209, 0.0740, 0.1028);
-		}
-		if(Etapa1Cozinheiro[playerid] == 4)
-		{
-			RemovePlayerAttachedObject(playerid, 1);
-			Etapa1Cozinheiro[playerid] = 4;
-			SetPlayerCheckpoint(playerid, 377.190368, -65.847915, 1001.507812, 1);
-			SetPlayerAttachedObject(playerid, 1, 2212, 1, 0.2779, 0.4348, 0.0000, -95.3000, 0.0000, 0.0000, 0.1209, 0.0740, 0.1028);
-		}
-	}
-}
-Progresso:VerificarPedido(playerid, progress)
-{
-	if(progress >= 100)
-	{
-		new pedido = randomEx(1,6);
-		if(pedido == 1)
-		{
-			SetPlayerCheckpoint(playerid, 376.470214, -59.156124, 1001.507812, 2.0);  
-			notificacao(playerid, "EXITO", "Pegue uma rocha no local marcado.", ICONE_EMPREGO);
-			Etapa1Cozinheiro[playerid] = 1;
-		}
-		/*if(pedido == 2)
-		{
-			SetPlayerCheckpoint(playerid, 638.953063, 851.907104, -42.960937, 2.0);  
-			notificacao(playerid, "EXITO", "Pegue uma rocha no local marcado.", ICONE_EMPREGO);
-			Etapa2Cozinheiro[playerid] = 1;
-		}
-		if(pedido == 3)
-		{
-			SetPlayerCheckpoint(playerid, 602.181091, 867.931518, -42.960937, 2.0);  
-			notificacao(playerid, "EXITO", "Pegue uma rocha no local marcado.", ICONE_EMPREGO);
-			Etapa3Cozinheiro[playerid] = 1;
-		}
-		if(pedido == 4)
-		{
-			SetPlayerCheckpoint(playerid, 602.180358, 867.173095, -42.960937, 2.0);  
-			notificacao(playerid, "EXITO", "Pegue uma rocha no local marcado.", ICONE_EMPREGO);
-			Etapa4Cozinheiro[playerid] = 1;
-		}
-		if(pedido == 5)
-		{
-			SetPlayerCheckpoint(playerid, 602.180358, 867.173095, -42.960937, 2.0);  
-			notificacao(playerid, "EXITO", "Pegue uma rocha no local marcado.", ICONE_EMPREGO);
-			Etapa5Cozinheiro[playerid] = 1;
-		}
-		if(pedido == 6)
-		{
-			SetPlayerCheckpoint(playerid, 602.180358, 867.173095, -42.960937, 2.0);  
-			notificacao(playerid, "EXITO", "Pegue uma rocha no local marcado.", ICONE_EMPREGO);
-			Etapa6Cozinheiro[playerid] = 1;
-		}*/
-	}
-}
 
 Progresso:DescarregarCarga(playerid, progress)
 {
@@ -11597,21 +11519,6 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 public OnPlayerEnterCheckpoint(playerid)
 {
-	if(Etapa1Cozinheiro[playerid] == 1)
-	{
-		DisablePlayerCheckpoint(playerid); 
-		CreateProgress(playerid, "E1C","Preparando Hamburguer...", 100);
-	}
-	if(Etapa1Cozinheiro[playerid] == 2)
-	{
-		DisablePlayerCheckpoint(playerid); 
-		CreateProgress(playerid, "E1C","Preparando Refrigerante...", 100);
-	}
-	if(Etapa1Cozinheiro[playerid] == 3)
-	{
-		DisablePlayerCheckpoint(playerid); 
-		CreateProgress(playerid, "E1C","Preparando Rosquinha...", 100);
-	}
 	if(GPS[playerid] == true) 
 	{ 
 		DisablePlayerCheckpoint(playerid);
@@ -21386,18 +21293,6 @@ CMD:iniciarminerador(playerid)
 		SetPlayerCheckpoint(playerid, 602.180358, 867.173095, -42.960937, 2.0);  
 		notificacao(playerid, "EXITO", "Pegue uma rocha no local marcado.", ICONE_EMPREGO);
 		EtapasMinerador[playerid] = 1;
-	}
-	return 1;
-}
-
-CMD:iniciarcozinha(playerid)
-{
-	if(PlayerInfo[playerid][pProfissao] != 5) 	return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
-	//if(LavouMao[playerid] == false) 	return notificacao(playerid, "ERRO", "Voce ainda nao lavou as maos, lave no banheiro.", ICONE_ERRO);
-	if(IsPlayerInRangeOfPoint(playerid, 1, 377.190368, -65.847915, 1001.507812))
-	{
-		CreateProgress(playerid, "VerificarPedido","Verifica ndo Pedido...", 100);
-		TogglePlayerControllable(playerid, 0);
 	}
 	return 1;
 }
