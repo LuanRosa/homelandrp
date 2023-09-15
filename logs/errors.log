@@ -421,3 +421,16 @@ porque o host conectado não respondeu
 [09/07/23 20:09:04] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [09/10/23 22:26:10] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [09/10/23 23:03:44] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/14/23 18:48:27] [plugins/discord-connector] Can't read from Discord websocket gateway: O tempo limite do semáforo expirou (121)
+[09/14/23 18:48:27] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[09/14/23 18:48:27] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/14/23 18:48:32] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/14/23 18:48:42] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/14/23 18:48:57] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/14/23 18:49:17] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/14/23 18:49:42] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/14/23 18:50:12] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/14/23 18:50:47] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/14/23 18:51:27] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/14/23 18:52:12] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[09/14/23 19:07:25] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
