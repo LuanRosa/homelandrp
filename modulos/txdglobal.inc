@@ -2262,5 +2262,5 @@ CarregarTxdGlobal()
 	TextDrawSetProportional(TDmorte[8], 1);
 	TextDrawSetSelectable(TDmorte[8], 0);
 
-	print("[Arquivos Load] Todos as textdraws globais foram carregados.");
+	printf("=> Textdraws Globais       		: Carregados");
 }

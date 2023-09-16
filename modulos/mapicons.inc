@@ -21,5 +21,5 @@ CarregarMapIcons()
 	CreateDynamicMapIcon(937.6857, -1085.2791, 24.2891, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///T.TUMBA
 	CreateDynamicMapIcon(1281.080810, -1267.302612, 13.535926, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///CONSTRUCTOR
 	CreateDynamicMapIcon(1974.8208, -1779.0802, 13.5432, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///MECANICO
-    print("[Arquivos Load] Todos os MapIcon foram carregados");
+    printf("=> MapIcons       		: Carregados");
 }

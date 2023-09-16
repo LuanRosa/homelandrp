@@ -32,5 +32,5 @@ CarregarPickup3dLabel()
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nrevisar a caixa.", -1, 942.421325, 2153.745849, 1011.023437, 15.0);
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \npegar a caixa.", -1, 942.288391, 2173.139404, 1011.023437, 15.0);
 	CreateDynamic3DTextLabel("Ponto de entrega.", -1, 964.872192, 2159.816406, 1011.030273, 15.0);
-	print("[Arquivos Load] Todos os Pickups e 3DLabel foram carregados.");
+	printf("=> Pickups e 3DLabel       		: Carregados");
 }
