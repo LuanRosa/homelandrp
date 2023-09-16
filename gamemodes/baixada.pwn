@@ -586,6 +586,7 @@ new bool:PegouMaterial[MAX_PLAYERS] = false;
 new bool:TxdBAncoAb[MAX_PLAYERS] = false;
 new	bool:AparecendoNoAdmins[MAX_PLAYERS] = true;
 new bool:LavouMao[MAX_PLAYERS] = false;
+new bool:PegouLixo[MAX_PLAYERS] = false;
 //                          TEXTDRAWS
 
 new Text:TDEditor_TD[66];
@@ -842,80 +843,50 @@ new Float:PosPrender[1][4] =
 	{1565.309082, -1694.453125, 5.890625}//Policia Patrulla
 };
 
-new Float:Covas[72][3] = 
+new Float:Covas[42][3] = 
 {
-	{838.514343, -1120.070922, 24.028995},
-	{838.492248, -1112.102539, 24.161285},
-	{843.169799, -1119.531982, 24.030656},
-	{843.197021, -1111.562744, 24.170776},
-	{848.724182, -1111.063842, 24.179548},
-	{848.563354, -1119.039184, 24.039321},
-	{851.921630, -1119.228881, 24.035985},
-	{848.726867, -1111.066894, 24.179492},
-	{851.885192, -1111.270385, 24.175916},
-	{857.700134, -1111.258422, 24.183940},
-	{862.193725, -1111.259765, 24.183917},
-	{867.584045, -1111.255371, 24.183994},
-	{871.739318, -1111.152099, 24.177995},
-	{875.350402, -1112.102294, 24.161289},
-	{879.091247, -1110.783569, 24.184474},
-	{881.710205, -1116.761474, 24.123096},
-	{878.000793, -1118.220947, 24.053709},
-	{874.319885, -1119.562500, 24.030120},
-	{869.969177, -1118.612304, 24.046827},
-	{865.054687, -1118.719726, 24.044939},
-	{857.753295, -1118.719848, 24.052751},
-	{887.277954, -1116.763793, 24.185853},
-	{895.939270, -1117.318481, 24.188137},
-	{903.690490, -1121.058837, 24.052949},
-	{907.467895, -1121.057861, 24.052970},
-	{911.304260, -1121.054809, 24.015451},
-	{908.236328, -1110.870849, 24.196456},
-	{916.463073, -1093.511108, 24.296875},
-	{911.069763, -1093.596069, 24.296875},
-	{915.820983, -1086.327636, 24.296875},
-	{911.461425, -1086.280029, 24.296875},
-	{904.891601, -1086.752441, 24.296875},
-	{901.265380, -1086.375732, 24.296875},
-	{898.226989, -1086.025268, 24.296875},
-	{889.690551, -1087.238525, 24.296875},
-	{884.935363, -1087.238891, 24.296875},
-	{881.257019, -1086.855102, 24.303991},
-	{878.082641, -1087.638061, 24.296875},
-	{872.182556, -1087.627197, 24.296875},
-	{867.681274, -1087.716064, 24.296875},
-	{863.411743, -1087.715209, 24.296875},
-	{857.771301, -1087.715209, 24.296875},
-	{849.274719, -1087.527587, 24.296875},
-	{844.021667, -1088.019165, 24.303991},
-	{838.783874, -1087.444580, 24.303991},
-	{838.459289, -1096.225708, 24.303991},
-	{842.855407, -1096.473632, 24.303991},
-	{848.251647, -1095.981445, 24.303991},
-	{857.245178, -1096.170166, 24.296875},
-	{865.873596, -1096.168457, 24.296875},
-	{870.462158, -1096.061889, 24.296875},
-	{874.318542, -1095.788940, 24.296875},
-	{877.447753, -1095.691894, 24.303991},
-	{914.370361, -1079.848388, 24.296875},
-	{918.876892, -1079.138916, 24.293285},
-	{910.413146, -1080.277587, 24.296875},
-	{905.628784, -1079.737670, 24.296875},
-	{881.170593, -1079.338745, 24.296875},
-	{878.250671, -1079.310913, 24.296875},
-	{876.109191, -1079.392211, 24.296875},
-	{872.530944, -1078.522949, 24.296875},
-	{867.930541, -1078.628417, 24.296875},
-	{862.667053, -1074.790527, 24.308912},
-	{858.015686, -1076.194580, 24.296875},
-	{852.913391, -1077.910888, 24.296875},
-	{851.251708, -1077.043212, 24.296875},
-	{844.606445, -1074.848144, 24.305833},
-	{839.342895, -1075.449584, 24.296875},
-	{898.421386, -1068.702270, 24.481559},
-	{890.200439, -1067.922851, 24.602760},
-	{883.514099, -1067.509277, 24.798913},
-	{879.025329, -1068.310424, 24.867465}
+	{-28.7889300,1379.0467500,8.1596200},
+	{-24.5955100,1380.2988300,8.1596200},
+	{-20.5087100,1375.3441200,8.1596200},
+	{-25.4446900,1376.8653600,8.1596200},
+	{-19.6301300,1380.3686500,8.1596200},
+	{-16.0543500,1379.4997600,8.1596200},
+	{-16.5507200,1382.6367200,8.1596200},
+	{-19.6393900,1384.5189200,8.1596200},
+	{-15.7933800,1386.5805700,8.1596200},
+	{-12.2813800,1384.9256600,8.1596200},
+	{-6.8099400,1383.3078600,8.1596200},
+	{-6.8099400,1383.3078600,8.1596200},
+	{-6.8180500,1380.2120400,8.1596200},
+	{-14.5410700,1369.8890400,8.1596200},
+	{-11.4580600,1367.5421100,8.1596200},
+	{-16.2408800,1367.4298100,8.1596200},
+	{-20.6409000,1371.5003700,8.1596200},
+	{-17.0732400,1362.6203600,8.1596200},
+	{-13.3348200,1363.7563500,8.1596200},
+	{-9.4271600,1359.8040800,8.1596200},
+	{-7.6991100,1364.0034200,8.1596200},
+	{-4.3158500,1361.0543200,8.1596200},
+	{-19.4902400,1356.4051500,8.1596200},
+	{-14.7592200,1354.6652800,8.1596200},
+	{-15.5424700,1350.9129600,8.1596200},
+	{-10.4427400,1347.8689000,8.1596200},
+	{-8.6327400,1354.6868900,8.1596200},
+	{-4.2283800,1354.9172400,8.1596200},
+	{-1.7661200,1348.6899400,8.1596200},
+	{2.8387900,1353.7301000,8.1596200},
+	{10.1562200,1349.2440200,8.1596200},
+	{7.7120800,1345.6491700,8.1596200},
+	{14.6718700,1346.9879200,8.1596200},
+	{1.3651600,1360.3045700,8.1596200},
+	{0.6464000,1366.8504600,8.1596200},
+	{5.9902300,1369.4633800,8.1596200},
+	{15.3831400,1373.5233200,8.1596200},
+	{11.4213700,1378.0418700,8.1596200},
+	{11.4213700,1378.0418700,8.1596200},
+	{8.0537300,1384.1206100,8.1596200},
+	{13.9457200,1384.2580600,8.1596200},
+	{-1.0947900,1385.5531000,8.1596200}
 };
 new cova[MAX_PLAYERS];
 new bool:Covaconcerto[MAX_PLAYERS] = false;
@@ -1464,6 +1435,7 @@ Progresso:DescarregarCarga(playerid, progress)
 		}
 		TogglePlayerControllable(playerid, 1);
 	}
+	return 1;
 }
 
 Progresso:RotaCova1(playerid, progress)
@@ -1475,6 +1447,7 @@ Progresso:RotaCova1(playerid, progress)
 		SetPlayerCheckpoint(playerid, 934.1115,-1103.3857,24.3118, 10);
 		notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
 	}
+	return 1;
 }
 
 Progresso:RotaCova2(playerid, progress)
@@ -1486,6 +1459,7 @@ Progresso:RotaCova2(playerid, progress)
 		SetPlayerCheckpoint(playerid, 934.1115,-1103.3857,24.3118, 10);
 		notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
 	}
+	return 1;
 }
 
 Progresso:RotaCova3(playerid, progress)
@@ -1497,37 +1471,99 @@ Progresso:RotaCova3(playerid, progress)
 		SetPlayerCheckpoint(playerid, 934.1115,-1103.3857,24.3118, 10);
 		notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
 	}
+	return 1;
 }
 
-Progresso:Cova(playerid, progress)
+Progresso:BotouBau(playerid, progress)
 {
 	if(progress >= 100)
 	{
 		new covastr[500];
-		new dincova = randomEx(0,300);
-		PlayerInfo[playerid][pDinheiro] += dincova;
+		new dincova = randomEx(0,100);
 		if(PlayerInfo[playerid][pVIP] == 0)
 		{
 			PlayerInfo[playerid][pDinheiro] += dincova;
-			format(covastr,sizeof(covastr),"Ganhou %i concertando essa cova.", dincova);
+			format(covastr,sizeof(covastr),"Ganhou %i coletando esse lixo.", dincova);
 			notificacao(playerid, "TRABALHO", covastr, ICONE_EMPREGO); 
 		}   
 		if(PlayerInfo[playerid][pVIP] == 2)
 		{
 			PlayerInfo[playerid][pDinheiro] += dincova*2;
-			format(covastr,sizeof(covastr),"Ganhou %i concertando essa cova.", dincova*2);
+			format(covastr,sizeof(covastr),"Ganhou %i coletando esse lixo.", dincova*2);
 			notificacao(playerid, "TRABALHO", covastr, ICONE_EMPREGO); 
 		}
 		if(PlayerInfo[playerid][pVIP] == 3)
 		{
 			PlayerInfo[playerid][pDinheiro] += dincova*2;
-			format(covastr,sizeof(covastr),"Ganhou %i concertando essa cova.", dincova*2);
+			format(covastr,sizeof(covastr),"Ganhou %i coletando esse lixo.", dincova*2);
 			notificacao(playerid, "TRABALHO", covastr, ICONE_EMPREGO); 
 		}
 		ClearAnimations(playerid);
 		TogglePlayerControllable(playerid, 1);
 		Covaconcerto[playerid] = false;
+		PegouLixo[playerid] = false;
 	}
+	return 1;
+}
+Progresso:Cova(playerid, progress)
+{
+	if(progress >= 100)
+	{
+		new locallixo = randomEx(0,10);
+		if(locallixo == 1)
+		{	
+			SetPlayerCheckpoint(playerid, 24.118854, 1384.762695, 9.171875, 1);
+			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+		}
+		if(locallixo == 2)
+		{	
+			SetPlayerCheckpoint(playerid, 20.505460, 1387.800292, 9.171875, 1);
+			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+		}
+		if(locallixo == 3)
+		{	
+			SetPlayerCheckpoint(playerid, 33.100147, 1348.264160, 9.171875, 1);
+			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+		}
+		if(locallixo == 4)
+		{	
+			SetPlayerCheckpoint(playerid, 30.621374, 1345.285400, 9.171875, 1);
+			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+		}
+		if(locallixo == 5)
+		{	
+			SetPlayerCheckpoint(playerid, 28.793310, 1342.226318, 9.171875, 1);
+			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+		}
+		if(locallixo == 6)
+		{	
+			SetPlayerCheckpoint(playerid, 27.303512, 1339.422729, 9.171875, 1);
+			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+		}
+		if(locallixo == 7)
+		{	
+			SetPlayerCheckpoint(playerid, 26.155256, 1337.490844, 9.171875, 1);
+			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+		}
+		if(locallixo == 8)
+		{	
+			SetPlayerCheckpoint(playerid, 23.932958, 1336.910034, 9.171875, 1);
+			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+		}
+		if(locallixo == 9)
+		{	
+			SetPlayerCheckpoint(playerid, 21.434928, 1335.923828, 9.171875, 1);
+			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+		}
+		if(locallixo == 10)
+		{	
+			SetPlayerCheckpoint(playerid, 18.442813, 1334.873413, 9.171875, 1);
+			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+		}
+		TogglePlayerControllable(playerid, 1);
+		PegouLixo[playerid] = true;
+	}
+	return 1;
 }
 
 Progresso:Desossar(playerid, progress)
@@ -9842,7 +9878,7 @@ stock ConvertTimeX(number)
 stock AdminCargo(playerid)
 {
 	new LipeStrondaAdmin[64];
-	if(PlayerInfo[playerid][pAdmin] == 0) { LipeStrondaAdmin = "Civil"; }
+	if(PlayerInfo[playerid][pAdmin] == 0) { LipeStrondaAdmin = "  "; }
 	else if(PlayerInfo[playerid][pAdmin] == 1) { LipeStrondaAdmin = "Estagiario"; }
 	else if(PlayerInfo[playerid][pAdmin] == 2) { LipeStrondaAdmin = "Administrador"; }
 	else if(PlayerInfo[playerid][pAdmin] == 3) { LipeStrondaAdmin = "Administrador Geral"; }
@@ -9873,7 +9909,7 @@ stock VIP(playerid)
 	if(PlayerInfo[playerid][pVIP] != 0) { LipeStrondaVIP = " "; }
 	if(PlayerInfo[playerid][pVIP] == 1) { LipeStrondaVIP = "VIP PRATA"; }
 	else if(PlayerInfo[playerid][pVIP] == 2) { LipeStrondaVIP = "VIP OURO"; }
-	else if(PlayerInfo[playerid][pVIP] == 3) { LipeStrondaVIP = "VIP PATROCINADOR"; }
+	else if(PlayerInfo[playerid][pVIP] == 3) { LipeStrondaVIP = "VIP DIAMANTE"; }
 	return LipeStrondaVIP;
 }
 
@@ -10019,8 +10055,8 @@ stock NpcText()
 	label[17] = Create3DTextLabel("{FFFF00}Caminhoneiro\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -504.495117, -517.457763, 25.523437, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[17], Actor[17], 0.0, 0.0, 0.7);
 
-	Actor[18] = CreateActor(205, 380.100067, -72.050025, 1001.507812, 86.960296);  
-	label[18] = Create3DTextLabel("{FFFF00}Cozinheiro\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 380.100067, -72.050025, 1001.507812, 15.0, 0);
+	Actor[18] = CreateActor(79, -28.763319, 1363.971313, 9.171875, 37.998077);  
+	label[18] = Create3DTextLabel("{FFFF00}Coletor\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -28.763319, 1363.971313, 9.171875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[18], Actor[18], 0.0, 0.0, 0.7);
 
 	Actor[19] = CreateActor(188, -1634.807495, 1408.744750, 7.187500, 21.798501);  
@@ -11574,7 +11610,13 @@ public OnPlayerEnterCheckpoint(playerid)
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 1, 1, 0, 1, 0, 1);
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
-		CreateProgress(playerid, "Cova","Concertando cova...", 100);
+		CreateProgress(playerid, "Cova","Coletando...", 50);
+	}
+	if(PegouLixo[playerid] == true) 
+	{ 
+		DisablePlayerCheckpoint(playerid); 
+		TogglePlayerControllable(playerid, 0);
+		CreateProgress(playerid, "BotouBau","Colocando lixo...", 50);
 	}
 	if(ltumba[playerid] == true)
 	{
@@ -13527,7 +13569,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				MissaoPlayer[playerid][MISSAO3] = 1;
 			}
 		}
-		if(PlayerToPoint(3.0, playerid, 1282.408813, -1296.472167, 13.368761))
+		if(PlayerToPoint(3.0, playerid, -28.763319, 1363.971313, 9.171875))
 		{
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return notificacao(playerid, "INFO", "Ja possui um emprego /sairemprego.", ICONE_ERRO);
 			else
@@ -18489,13 +18531,13 @@ CMD:dveiculo(playerid)
 	return 1;
 }
 
-CMD:ctumba(playerid) 
+CMD:iniciarcoleta(playerid) 
 { 
-	if(PlayerInfo[playerid][pProfissao] != 2) 	return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
+	if(PlayerInfo[playerid][pProfissao] != 6) 	return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
 	cova[playerid] = random(sizeof(Covas));    
 	new index = cova[playerid];    
 	SetPlayerCheckpoint(playerid, Covas[index][0], Covas[index][1], Covas[index][2], 2.0);  
-	notificacao(playerid, "EXITO", "Concerte o ponto no seu mapa.", ICONE_CERTO);
+	notificacao(playerid, "EXITO", "Faca a coleta no ponto marcado.", ICONE_CERTO);
 	Covaconcerto[playerid] = true;
 	return 1; 
 }

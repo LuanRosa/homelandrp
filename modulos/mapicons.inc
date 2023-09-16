@@ -17,8 +17,8 @@ CarregarMapIcons()
 	CreateDynamicMapIcon(590.086975, 871.486694, -42.734603, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///MINEIRADOR
 	CreateDynamicMapIcon(-2521.626220, 2295.312988, 4.984375, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///ACOUGUEIRO
 	CreateDynamicMapIcon(-504.495117, -517.457763, 25.523437, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///CAMIONERO
-	
-	CreateDynamicMapIcon(937.6857, -1085.2791, 24.2891, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///T.TUMBA
+	CreateDynamicMapIcon(-28.763319, 1363.971313, 9.171875, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///COLETOR
+
 	CreateDynamicMapIcon(1281.080810, -1267.302612, 13.535926, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///CONSTRUCTOR
 	CreateDynamicMapIcon(1974.8208, -1779.0802, 13.5432, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///MECANICO
     printf("=> MapIcons       		: Carregados");

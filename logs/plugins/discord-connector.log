@@ -5,3 +5,5 @@
 [09/16/23 15:36:51] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
 [09/16/23 15:45:37] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [09/16/23 16:02:35] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/16/23 19:01:25] [ERROR] Discord terminated websocket connection; reason:  (1000)
+[09/16/23 19:01:25] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
