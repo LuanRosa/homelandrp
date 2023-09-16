@@ -47,10 +47,11 @@ new	UltimaFala[MAX_PLAYERS];
 
 //                          ICONES NOTIFICAÇÃO
 
-#define ICONE_ERRO 			"hud:thumbdn" // ICONE ERRO
-#define ICONE_AVISO 		"hud:badchat" //ICONE INFO
-#define ICONE_CERTO 		"hud:thumbup" //ICONE CORRETO
+#define ICONE_ERRO 			"ld_chat:thumbdn" // ICONE ERRO
+#define ICONE_AVISO 		"ld_chat:badchat" //ICONE INFO
+#define ICONE_CERTO 		"ld_chat:thumbup" //ICONE CORRETO
 #define ICONE_EMPREGO 		"hud:radar_TORENO" //ICONE TRABALHO
+
 
 //                          CONVERT-TEMPOS
 
@@ -14285,7 +14286,46 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_GPS1, DIALOG_STYLE_LIST, " Selecionar um local", "{FFFF00}- {FFFFFF}Prefeitura\n{FFFF00}- {FFFFFF}Banco\n{FFFF00}- {FFFFFF}Hospital\n{FFFF00}- {FFFFFF}Loja de Utilidades\n{FFFF00}- {FFFFFF}Central de Licencas\n{FFFF00}- {FFFFFF}Pizzaria\n{FFFF00}- {FFFFFF}Concesionaria\n{FFFF00}- {FFFFFF}Delegacia Central", "Selecionar", "X");
+					new Float:a = GetPlayerDistanceFromPoint(playerid, -2766.550781, 375.652496, 6.334682);
+					new Float:b = GetPlayerDistanceFromPoint(playerid, -1988.149658, 1039.089355, 55.726562);
+					new Float:c = GetPlayerDistanceFromPoint(playerid, -2653.636474, 640.163085, 14.453125);
+					new Float:d = GetPlayerDistanceFromPoint(playerid, -2384.861328, -52.628452, 35.479644);
+					new Float:e = GetPlayerDistanceFromPoint(playerid, -2447.427490, 1211.600341, 35.378139);
+					new Float:f = GetPlayerDistanceFromPoint(playerid, -2074.794921, 643.822570, 52.524303);
+					new Float:g = GetPlayerDistanceFromPoint(playerid, -2026.631591, -102.066413, 35.164062);
+					new Float:h = GetPlayerDistanceFromPoint(playerid, -1720.950439, 1359.725219, 7.185316);
+					new Float:i = GetPlayerDistanceFromPoint(playerid, -1973.108276, 288.896331, 35.171875);
+					new Float:l = GetPlayerDistanceFromPoint(playerid, -1605.569213, 710.272521, 13.867187);
+					new Float:m = GetPlayerDistanceFromPoint(playerid, -2201.102050, -2341.364013, 30.625000);
+					MEGAString[0] = EOS;
+					new string[800];
+					strcat(MEGAString, "Local\tDistancia\n");
+					format(string, 128, "{FFFFFF} Prefeitura \t{FFFF00} %.0f KM\n", a);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Banco Central \t{FFFF00} %.0f KM\n", b);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Hospital \t{FFFF00} %.0f KM\n", c);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Loja de Utilidades 1 \t{FFFF00} %.0f KM\n", d);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Loja de Utilidades 2 \t{FFFF00} %.0f KM\n", e);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Loja de Utilidades 3 \t{FFFF00} %.0f KM\n", f);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Centro de Licencas \t{FFFF00} %.0f KM\n", g);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Pizzaria \t{FFFF00} %.0f KM\n", h);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Concessionaria \t{FFFF00} %.0f KM\n", i);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Delegacia Central \t{FFFF00} %.0f KM\n", l);
+					strcat(MEGAString,string);
+					if(IsBandido(playerid))
+					{
+						format(string, 128, "{00FFFF} Navio de materiais \t{FFFF00} %.0f KM\n", m);
+						strcat(MEGAString,string);
+					}
+					ShowPlayerDialog(playerid, DIALOG_GPS1, DIALOG_STYLE_TABLIST_HEADERS, "Locais Importantes", MEGAString, "Localizar","X");
 				}
 				if(listitem == 1)
 				{
@@ -14322,24 +14362,38 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -1620.058715, 1256.722900, 7.417592, 8.0);
+					SetPlayerCheckpoint(playerid, -2384.861328, -52.628452, 35.479644, 8.0);
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 				if(listitem == 4)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -2026.631591, -102.066413, 35.164062, 8.0);
+					SetPlayerCheckpoint(playerid, -2447.427490, 1211.600341, 35.378139, 8.0);
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 				if(listitem == 5)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -1720.950439, 1359.725219, 7.185316, 8.0);
+					SetPlayerCheckpoint(playerid, -2074.794921, 643.822570, 52.524303, 8.0);
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 				if(listitem == 6)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -2026.631591, -102.066413, 35.164062, 8.0);
+					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
+				}
+				if(listitem == 7)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -1720.950439, 1359.725219, 7.185316, 8.0);
+					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
+				}
+				if(listitem == 8)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
@@ -14347,11 +14401,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
-				if(listitem == 7)
+				if(listitem == 9)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
 					SetPlayerCheckpoint(playerid, -1605.569213, 710.272521, 13.867187, 8.0);
+					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
+				}
+				if(listitem == 10)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -2201.102050, -2341.364013, 30.625000, 8.0);
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 			}
@@ -17329,7 +17390,7 @@ CMD:cinto(playerid){
 
 CMD:gps(playerid)
 {
-	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_LIST, "Onde deseja ir?", "{FFFF00}- {FFFFFF}Locais importantes\n{FFFF00}- {FFFFFF}Localizar uma Casa", "Selecionar", "X");
+	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_LIST, "Onde deseja ir?", "{FFFF00}GPS {FFFFFF}Importantes\n{FFFF00}GPS {FFFFFF}Casas", "Selecionar", "X");
 	MissaoPlayer[playerid][MISSAO8] = 1;
 	return 1;
 }
