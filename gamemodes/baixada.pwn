@@ -601,8 +601,8 @@ new Text:Logo[8];
 new PlayerText:Registration_PTD[MAX_PLAYERS][23];
 new Text:TDCadastro[18];
 new PlayerText:TDCadastro_p[MAX_PLAYERS][7];
-new PlayerText:TDPref[7];
-new PlayerText:TDLoja[21];
+new PlayerText:TDPref[MAX_PLAYERS][7];
+new PlayerText:TDLoja[MAX_PLAYERS][21];
 
 //                          VARIAVEIS DA SLOTS
 
@@ -1631,7 +1631,7 @@ Progresso:Pesca(playerid, progress)
 	if(progress >= 100)
 	{
 		new peixes = randomEx(1,5);
-		new peixe = randomEx(0,12);
+		new peixe = randomEx(1,12);
 		new s[255];
 		if(IsPlayerInRangeOfPoint(playerid, 15.0, 383.2907,-2088.7842,7.8359))
 		if(peixe == 0)
@@ -4515,6 +4515,7 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 1603: name = "Agua Viva";
 		case 1600: name = "Peixe Azul";
 		case 1599: name = "Peixe Amarelo";
+		case 18644: name = "Chaira";
 		case 1604: name = "Peixe Rain";
 		case 1608: name = "Tubarao";
 		case 19094: name = "Hamburger";
@@ -4883,7 +4884,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 		{
 			if(PlayerInfo[playerid][pProfissao] != 1) 	return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
 			if(PlayerInventario[playerid][modelid][Unidades] < 1) return notificacao(playerid, "ERRO", "Nao tem uma vara de pesca.", ICONE_ERRO);
-			if(UsouCMD[playerid] == true) 	return notificacao(playerid, "ERRO", "Ainda nao passou 30s.", ICONE_ERRO); 
+			if(UsouCMD[playerid] == true) 	return notificacao(playerid, "ERRO", "Ainda nao finalizou a pesca atual.", ICONE_ERRO); 
 			for(new i; i < 7; i++)
 			if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 			{
@@ -4893,6 +4894,21 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				UsouCMD[playerid] = true;	
 			}
 			return 1;		
+		}
+		case 18644:
+		{
+			if(PlayerInventario[playerid][modelid][Unidades] < 1) return notificacao(playerid, "ERRO", "Nao tem uma chaira.", ICONE_ERRO);
+			if(PlayerInfo[playerid][pProfissao] != 3) 	return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
+			if(UsouCMD[playerid] == true) 	return notificacao(playerid, "ERRO", "Ainda nao finalizou a desossamento atual.", ICONE_ERRO); 
+			if(Desossando[playerid] == 1 || Desossando[playerid] == 2 || Desossando[playerid] == 3) 	return notificacao(playerid, "ERRO", "Voce ja esta fazendo as etapas.", ICONE_ERRO); 
+			for(new i; i < 8; i++)
+			if(IsPlayerInRangeOfPoint(playerid, 1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2]))
+			{
+				CreateProgress(playerid, "Desossar","Desossando...", 100);
+				TogglePlayerControllable(playerid, 0);
+				RemovePlayerAttachedObject(playerid, 1);
+				UsouCMD[playerid] = true;
+			}
 		}
 		case 902:
 		{
@@ -4975,6 +4991,35 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
 					format(Str,sizeof(Str),"Vendeu 5 peixe amarelo e ganhou R$%i.", dinpeixes*2);
+					notificacao(playerid, "TRABALHO", Str, ICONE_EMPREGO); 
+				}
+				AtualizarInventario(playerid, modelid);
+			}
+			return 1;		
+		}
+		case 1609:
+		{
+			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
+			{
+				if(PlayerInventario[playerid][modelid][Unidades] < 5) return notificacao(playerid, "ERRO", "Quantidade insuficiente", ICONE_ERRO);
+				new dinpeixes = randomEx(0, 250);
+				PlayerInventario[playerid][modelid][Unidades] -= 5;
+				if(PlayerInfo[playerid][pVIP] == 0)
+				{
+					PlayerInfo[playerid][pDinheiro] += dinpeixes;
+					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes);
+					notificacao(playerid, "TRABALHO", Str, ICONE_EMPREGO); 
+				}   
+				if(PlayerInfo[playerid][pVIP] == 2)
+				{
+					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
+					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes*2);
+					notificacao(playerid, "TRABALHO", Str, ICONE_EMPREGO); 
+				}
+				if(PlayerInfo[playerid][pVIP] == 3)
+				{
+					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
+					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes*2);
 					notificacao(playerid, "TRABALHO", Str, ICONE_EMPREGO); 
 				}
 				AtualizarInventario(playerid, modelid);
@@ -5341,7 +5386,7 @@ IsValidItemInv(itemid) //AQUI VOCÊ DEVE DEFINIR OS ID'S DOS ITENS PARA SER VALI
 		19140, 19022, 19023, 19024, 19025, 19026, 19027, 19028, 19029, 19030, 19031, 19032, 19473, 3027, 3520,
 		19033, 19034, 19035, 2992, 3065, 11712, 18953, 18954, 19554, 18974, 2114, 1279, 3930, 19630, 902, 1603, 1600, 1599, 1604, 1608,
 		18894, 18903, 18898, 18899, 18891, 18909, 18908, 18907, 18906, 18905, 18904, 18901, 
-		18902, 18892, 18900, 18897, 18896, 18895, 18893, 18810, 18947, 18948, 18949, 18950, 
+		18902, 18892, 18900, 18897, 18896, 18895, 18893, 18810, 18947, 18948, 18949, 18950, 18644,
 		18951, 19488, 18921, 18922, 18923, 18924, 18925, 18939, 18940, 18941, 18942, 18943, 11750,
 		1314, 19578, 18636, 19942, 18646, 19141, 19558, 19801, 19330, 1210, 19528,
 		19134, 19904, 19515, 19142, 19315, 19527, 19317, 18688, 18702, 18728, 19605, 19606, 18632,
@@ -6336,327 +6381,327 @@ stock CarregarMortos(playerid)
 
 stock todastextdraw(playerid)
 {
-    TDLoja[0] = CreatePlayerTextDraw(playerid,341.000000, 169.000000, "LD_BUM:cd1c");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[0], 255);
-    PlayerTextDrawFont(playerid,TDLoja[0], 4);
-    PlayerTextDrawLetterSize(playerid,TDLoja[0], 0.500000, 1.000000);
-    PlayerTextDrawColor(playerid,TDLoja[0], -65281);
-    PlayerTextDrawSetOutline(playerid,TDLoja[0], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[0], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[0], 1);
-    PlayerTextDrawUseBox(playerid,TDLoja[0], 1);
-    PlayerTextDrawBoxColor(playerid,TDLoja[0], 255);
-    PlayerTextDrawTextSize(playerid,TDLoja[0], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[0], 0);
+    TDLoja[playerid][0] = CreatePlayerTextDraw(playerid,341.000000, 169.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][0], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][0], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][0], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][0], -65281);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][0], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][0], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][0], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[playerid][0], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[playerid][0], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[playerid][0], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][0], 0);
 
-    TDLoja[1] = CreatePlayerTextDraw(playerid,343.000000, 168.000000, "LD_BUM:cd1c");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[1], 255);
-    PlayerTextDrawFont(playerid,TDLoja[1], 4);
-    PlayerTextDrawLetterSize(playerid,TDLoja[1], 0.500000, 1.000000);
-    PlayerTextDrawColor(playerid,TDLoja[1], 255);
-    PlayerTextDrawSetOutline(playerid,TDLoja[1], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[1], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[1], 1);
-    PlayerTextDrawUseBox(playerid,TDLoja[1], 1);
-    PlayerTextDrawBoxColor(playerid,TDLoja[1], 255);
-    PlayerTextDrawTextSize(playerid,TDLoja[1], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[1], 0);
+    TDLoja[playerid][1] = CreatePlayerTextDraw(playerid,343.000000, 168.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][1], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][1], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][1], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][1], 255);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][1], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][1], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][1], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[playerid][1], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[playerid][1], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[playerid][1], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][1], 0);
 
-    TDLoja[2] = CreatePlayerTextDraw(playerid,342.000000, 199.000000, "LD_BUM:cd1c");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[2], 255);
-    PlayerTextDrawFont(playerid,TDLoja[2], 4);
-    PlayerTextDrawLetterSize(playerid,TDLoja[2], 0.500000, 1.000000);
-    PlayerTextDrawColor(playerid,TDLoja[2], -65281);
-    PlayerTextDrawSetOutline(playerid,TDLoja[2], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[2], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[2], 1);
-    PlayerTextDrawUseBox(playerid,TDLoja[2], 1);
-    PlayerTextDrawBoxColor(playerid,TDLoja[2], 255);
-    PlayerTextDrawTextSize(playerid,TDLoja[2], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[2], 0);
+    TDLoja[playerid][2] = CreatePlayerTextDraw(playerid,342.000000, 199.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][2], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][2], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][2], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][2], -65281);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][2], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][2], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][2], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[playerid][2], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[playerid][2], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[playerid][2], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][2], 0);
 
-    TDLoja[3] = CreatePlayerTextDraw(playerid,344.000000, 198.000000, "LD_BUM:cd1c");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[3], 255);
-    PlayerTextDrawFont(playerid,TDLoja[3], 4);
-    PlayerTextDrawLetterSize(playerid,TDLoja[3], 0.500000, 1.000000);
-    PlayerTextDrawColor(playerid,TDLoja[3], 255);
-    PlayerTextDrawSetOutline(playerid,TDLoja[3], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[3], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[3], 1);
-    PlayerTextDrawUseBox(playerid,TDLoja[3], 1);
-    PlayerTextDrawBoxColor(playerid,TDLoja[3], 255);
-    PlayerTextDrawTextSize(playerid,TDLoja[3], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[3], 0);
+    TDLoja[playerid][3] = CreatePlayerTextDraw(playerid,344.000000, 198.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][3], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][3], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][3], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][3], 255);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][3], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][3], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][3], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[playerid][3], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[playerid][3], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[playerid][3], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][3], 0);
 
-    TDLoja[4] = CreatePlayerTextDraw(playerid,372.000000, 173.000000, "CELULAR");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[4], 255);
-    PlayerTextDrawFont(playerid,TDLoja[4], 1);
-    PlayerTextDrawLetterSize(playerid,TDLoja[4], 0.270000, 1.600000);
-    PlayerTextDrawColor(playerid,TDLoja[4], -1);
-    PlayerTextDrawSetOutline(playerid,TDLoja[4], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[4], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[4], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[4], 1);
+    TDLoja[playerid][4] = CreatePlayerTextDraw(playerid,372.000000, 173.000000, "CELULAR");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][4], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][4], 1);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][4], 0.270000, 1.600000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][4], -1);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][4], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][4], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][4], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][4], 1);
 
-    TDLoja[5] = CreatePlayerTextDraw(playerid,369.000000, 202.000000, "BANDAGEM");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[5], 255);
-    PlayerTextDrawFont(playerid,TDLoja[5], 1);
-    PlayerTextDrawLetterSize(playerid,TDLoja[5], 0.270000, 1.600000);
-    PlayerTextDrawColor(playerid,TDLoja[5], -1);
-    PlayerTextDrawSetOutline(playerid,TDLoja[5], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[5], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[5], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[5], 1);
+    TDLoja[playerid][5] = CreatePlayerTextDraw(playerid,369.000000, 202.000000, "BANDAGEM");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][5], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][5], 1);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][5], 0.270000, 1.600000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][5], -1);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][5], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][5], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][5], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][5], 1);
 
-    TDLoja[6] = CreatePlayerTextDraw(playerid,413.000000, 154.000000, "FECHAR");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[6], 255);
-    PlayerTextDrawFont(playerid,TDLoja[6], 1);
-    PlayerTextDrawLetterSize(playerid,TDLoja[6], 0.239998, 1.500000);
-    PlayerTextDrawColor(playerid,TDLoja[6], -16776961);
-    PlayerTextDrawSetOutline(playerid,TDLoja[6], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[6], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[6], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[6], 1);
+    TDLoja[playerid][6] = CreatePlayerTextDraw(playerid,413.000000, 154.000000, "FECHAR");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][6], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][6], 1);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][6], 0.239998, 1.500000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][6], -16776961);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][6], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][6], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][6], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][6], 1);
 
-    TDLoja[7] = CreatePlayerTextDraw(playerid,342.000000, 228.000000, "LD_BUM:cd1c");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[7], 255);
-    PlayerTextDrawFont(playerid,TDLoja[7], 4);
-    PlayerTextDrawLetterSize(playerid,TDLoja[7], 0.500000, 1.000000);
-    PlayerTextDrawColor(playerid,TDLoja[7], -65281);
-    PlayerTextDrawSetOutline(playerid,TDLoja[7], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[7], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[7], 1);
-    PlayerTextDrawUseBox(playerid,TDLoja[7], 1);
-    PlayerTextDrawBoxColor(playerid,TDLoja[7], 255);
-    PlayerTextDrawTextSize(playerid,TDLoja[7], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[7], 0);
+    TDLoja[playerid][7] = CreatePlayerTextDraw(playerid,342.000000, 228.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][7], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][7], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][7], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][7], -65281);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][7], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][7], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][7], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[playerid][7], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[playerid][7], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[playerid][7], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][7], 0);
 
-    TDLoja[8] = CreatePlayerTextDraw(playerid,344.000000, 227.000000, "LD_BUM:cd1c");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[8], 255);
-    PlayerTextDrawFont(playerid,TDLoja[8], 4);
-    PlayerTextDrawLetterSize(playerid,TDLoja[8], 0.500000, 1.000000);
-    PlayerTextDrawColor(playerid,TDLoja[8], 255);
-    PlayerTextDrawSetOutline(playerid,TDLoja[8], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[8], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[8], 1);
-    PlayerTextDrawUseBox(playerid,TDLoja[8], 1);
-    PlayerTextDrawBoxColor(playerid,TDLoja[8], 255);
-    PlayerTextDrawTextSize(playerid,TDLoja[8], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[8], 0);
+    TDLoja[playerid][8] = CreatePlayerTextDraw(playerid,344.000000, 227.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][8], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][8], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][8], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][8], 255);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][8], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][8], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][8], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[playerid][8], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[playerid][8], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[playerid][8], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][8], 0);
 
-    TDLoja[9] = CreatePlayerTextDraw(playerid,360.000000, 231.000000, "VARA DE PESCAR");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[9], 255);
-    PlayerTextDrawFont(playerid,TDLoja[9], 1);
-    PlayerTextDrawLetterSize(playerid,TDLoja[9], 0.270000, 1.600000);
-    PlayerTextDrawColor(playerid,TDLoja[9], -1);
-    PlayerTextDrawSetOutline(playerid,TDLoja[9], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[9], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[9], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[9], 1);
+    TDLoja[playerid][9] = CreatePlayerTextDraw(playerid,360.000000, 231.000000, "VARA DE PESCAR");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][9], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][9], 1);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][9], 0.270000, 1.600000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][9], -1);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][9], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][9], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][9], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][9], 1);
 
-    TDLoja[10] = CreatePlayerTextDraw(playerid,404.000000, 180.000000, "R$1500");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[10], 255);
-    PlayerTextDrawFont(playerid,TDLoja[10], 2);
-    PlayerTextDrawLetterSize(playerid,TDLoja[10], 0.189999, 1.199999);
-    PlayerTextDrawColor(playerid,TDLoja[10], 16711935);
-    PlayerTextDrawSetOutline(playerid,TDLoja[10], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[10], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[10], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[10], 0);
+    TDLoja[playerid][10] = CreatePlayerTextDraw(playerid,404.000000, 180.000000, "R$1500");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][10], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][10], 2);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][10], 0.189999, 1.199999);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][10], 16711935);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][10], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][10], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][10], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][10], 0);
 
-    TDLoja[11] = CreatePlayerTextDraw(playerid,405.000000, 212.000000, "R$200");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[11], 255);
-    PlayerTextDrawFont(playerid,TDLoja[11], 2);
-    PlayerTextDrawLetterSize(playerid,TDLoja[11], 0.189999, 1.199999);
-    PlayerTextDrawColor(playerid,TDLoja[11], 16711935);
-    PlayerTextDrawSetOutline(playerid,TDLoja[11], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[11], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[11], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[11], 0);
+    TDLoja[playerid][11] = CreatePlayerTextDraw(playerid,405.000000, 212.000000, "R$200");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][11], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][11], 2);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][11], 0.189999, 1.199999);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][11], 16711935);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][11], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][11], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][11], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][11], 0);
 
-    TDLoja[12] = CreatePlayerTextDraw(playerid,406.000000, 241.000000, "R$300");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[12], 255);
-    PlayerTextDrawFont(playerid,TDLoja[12], 2);
-    PlayerTextDrawLetterSize(playerid,TDLoja[12], 0.189999, 1.199999);
-    PlayerTextDrawColor(playerid,TDLoja[12], 16711935);
-    PlayerTextDrawSetOutline(playerid,TDLoja[12], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[12], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[12], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[12], 0);
+    TDLoja[playerid][12] = CreatePlayerTextDraw(playerid,406.000000, 241.000000, "R$300");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][12], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][12], 2);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][12], 0.189999, 1.199999);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][12], 16711935);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][12], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][12], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][12], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][12], 0);
 
-    TDLoja[13] = CreatePlayerTextDraw(playerid,342.000000, 256.000000, "LD_BUM:cd1c");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[13], 255);
-    PlayerTextDrawFont(playerid,TDLoja[13], 4);
-    PlayerTextDrawLetterSize(playerid,TDLoja[13], 0.500000, 1.000000);
-    PlayerTextDrawColor(playerid,TDLoja[13], -65281);
-    PlayerTextDrawSetOutline(playerid,TDLoja[13], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[13], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[13], 1);
-    PlayerTextDrawUseBox(playerid,TDLoja[13], 1);
-    PlayerTextDrawBoxColor(playerid,TDLoja[13], 255);
-    PlayerTextDrawTextSize(playerid,TDLoja[13], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[13], 0);
+    TDLoja[playerid][13] = CreatePlayerTextDraw(playerid,342.000000, 256.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][13], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][13], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][13], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][13], -65281);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][13], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][13], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][13], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[playerid][13], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[playerid][13], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[playerid][13], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][13], 0);
 
-    TDLoja[14] = CreatePlayerTextDraw(playerid,344.000000, 255.000000, "LD_BUM:cd1c");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[14], 255);
-    PlayerTextDrawFont(playerid,TDLoja[14], 4);
-    PlayerTextDrawLetterSize(playerid,TDLoja[14], 0.500000, 1.000000);
-    PlayerTextDrawColor(playerid,TDLoja[14], 255);
-    PlayerTextDrawSetOutline(playerid,TDLoja[14], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[14], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[14], 1);
-    PlayerTextDrawUseBox(playerid,TDLoja[14], 1);
-    PlayerTextDrawBoxColor(playerid,TDLoja[14], 255);
-    PlayerTextDrawTextSize(playerid,TDLoja[14], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[14], 0);
+    TDLoja[playerid][14] = CreatePlayerTextDraw(playerid,344.000000, 255.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][14], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][14], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][14], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][14], 255);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][14], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][14], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][14], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[playerid][14], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[playerid][14], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[playerid][14], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][14], 0);
 
-    TDLoja[15] = CreatePlayerTextDraw(playerid,372.000000, 259.000000, "CAPACETE");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[15], 255);
-    PlayerTextDrawFont(playerid,TDLoja[15], 1);
-    PlayerTextDrawLetterSize(playerid,TDLoja[15], 0.270000, 1.600000);
-    PlayerTextDrawColor(playerid,TDLoja[15], -1);
-    PlayerTextDrawSetOutline(playerid,TDLoja[15], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[15], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[15], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[15], 1);
+    TDLoja[playerid][15] = CreatePlayerTextDraw(playerid,372.000000, 259.000000, "CAPACETE");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][15], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][15], 1);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][15], 0.270000, 1.600000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][15], -1);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][15], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][15], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][15], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][15], 1);
 
-    TDLoja[16] = CreatePlayerTextDraw(playerid,407.000000, 269.000000, "R$500");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[16], 255);
-    PlayerTextDrawFont(playerid,TDLoja[16], 2);
-    PlayerTextDrawLetterSize(playerid,TDLoja[16], 0.189999, 1.199999);
-    PlayerTextDrawColor(playerid,TDLoja[16], 16711935);
-    PlayerTextDrawSetOutline(playerid,TDLoja[16], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[16], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[16], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[16], 0);
+    TDLoja[playerid][16] = CreatePlayerTextDraw(playerid,407.000000, 269.000000, "R$500");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][16], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][16], 2);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][16], 0.189999, 1.199999);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][16], 16711935);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][16], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][16], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][16], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][16], 0);
 
-    TDLoja[17] = CreatePlayerTextDraw(playerid,342.000000, 284.000000, "LD_BUM:cd1c");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[17], 255);
-    PlayerTextDrawFont(playerid,TDLoja[17], 4);
-    PlayerTextDrawLetterSize(playerid,TDLoja[17], 0.500000, 1.000000);
-    PlayerTextDrawColor(playerid,TDLoja[17], -65281);
-    PlayerTextDrawSetOutline(playerid,TDLoja[17], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[17], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[17], 1);
-    PlayerTextDrawUseBox(playerid,TDLoja[17], 1);
-    PlayerTextDrawBoxColor(playerid,TDLoja[17], 255);
-    PlayerTextDrawTextSize(playerid,TDLoja[17], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[17], 0);
+    TDLoja[playerid][17] = CreatePlayerTextDraw(playerid,342.000000, 284.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][17], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][17], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][17], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][17], -65281);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][17], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][17], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][17], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[playerid][17], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[playerid][17], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[playerid][17], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][17], 0);
 
-    TDLoja[18] = CreatePlayerTextDraw(playerid,345.000000, 283.000000, "LD_BUM:cd1c");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[18], 255);
-    PlayerTextDrawFont(playerid,TDLoja[18], 4);
-    PlayerTextDrawLetterSize(playerid,TDLoja[18], 0.500000, 1.000000);
-    PlayerTextDrawColor(playerid,TDLoja[18], 255);
-    PlayerTextDrawSetOutline(playerid,TDLoja[18], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[18], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[18], 1);
-    PlayerTextDrawUseBox(playerid,TDLoja[18], 1);
-    PlayerTextDrawBoxColor(playerid,TDLoja[18], 255);
-    PlayerTextDrawTextSize(playerid,TDLoja[18], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[18], 0);
+    TDLoja[playerid][18] = CreatePlayerTextDraw(playerid,345.000000, 283.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][18], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][18], 4);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][18], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][18], 255);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][18], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][18], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][18], 1);
+    PlayerTextDrawUseBox(playerid,TDLoja[playerid][18], 1);
+    PlayerTextDrawBoxColor(playerid,TDLoja[playerid][18], 255);
+    PlayerTextDrawTextSize(playerid,TDLoja[playerid][18], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][18], 0);
 
-    TDLoja[19] = CreatePlayerTextDraw(playerid,375.000000, 287.000000, "RADINHO");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[19], 255);
-    PlayerTextDrawFont(playerid,TDLoja[19], 1);
-    PlayerTextDrawLetterSize(playerid,TDLoja[19], 0.270000, 1.600000);
-    PlayerTextDrawColor(playerid,TDLoja[19], -1);
-    PlayerTextDrawSetOutline(playerid,TDLoja[19], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[19], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[19], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[19], 1);
+    TDLoja[playerid][19] = CreatePlayerTextDraw(playerid,375.000000, 287.000000, "CHAIRA");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][19], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][19], 1);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][19], 0.270000, 1.600000);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][19], -1);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][19], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][19], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][19], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][19], 1);
 
-    TDLoja[20] = CreatePlayerTextDraw(playerid,407.000000, 296.000000, "R$800");
-    PlayerTextDrawBackgroundColor(playerid,TDLoja[20], 255);
-    PlayerTextDrawFont(playerid,TDLoja[20], 2);
-    PlayerTextDrawLetterSize(playerid,TDLoja[20], 0.189999, 1.199999);
-    PlayerTextDrawColor(playerid,TDLoja[20], 16711935);
-    PlayerTextDrawSetOutline(playerid,TDLoja[20], 0);
-    PlayerTextDrawSetProportional(playerid,TDLoja[20], 1);
-    PlayerTextDrawSetShadow(playerid,TDLoja[20], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[20], 0);
+    TDLoja[playerid][20] = CreatePlayerTextDraw(playerid,407.000000, 296.000000, "R$150");
+    PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][20], 255);
+    PlayerTextDrawFont(playerid,TDLoja[playerid][20], 2);
+    PlayerTextDrawLetterSize(playerid,TDLoja[playerid][20], 0.189999, 1.199999);
+    PlayerTextDrawColor(playerid,TDLoja[playerid][20], 16711935);
+    PlayerTextDrawSetOutline(playerid,TDLoja[playerid][20], 0);
+    PlayerTextDrawSetProportional(playerid,TDLoja[playerid][20], 1);
+    PlayerTextDrawSetShadow(playerid,TDLoja[playerid][20], 0);
+    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][20], 0);
 
-    TDPref[0] = CreatePlayerTextDraw(playerid,341.000000, 169.000000, "LD_BUM:cd1c");
-    PlayerTextDrawBackgroundColor(playerid,TDPref[0], 255);
-    PlayerTextDrawFont(playerid,TDPref[0], 4);
-    PlayerTextDrawLetterSize(playerid,TDPref[0], 0.500000, 1.000000);
-    PlayerTextDrawColor(playerid,TDPref[0], -65281);
-    PlayerTextDrawSetOutline(playerid,TDPref[0], 0);
-    PlayerTextDrawSetProportional(playerid,TDPref[0], 1);
-    PlayerTextDrawSetShadow(playerid,TDPref[0], 1);
-    PlayerTextDrawUseBox(playerid,TDPref[0], 1);
-    PlayerTextDrawBoxColor(playerid,TDPref[0], 255);
-    PlayerTextDrawTextSize(playerid,TDPref[0], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDPref[0], 0);
+    TDPref[playerid][0] = CreatePlayerTextDraw(playerid,341.000000, 169.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDPref[playerid][0], 255);
+    PlayerTextDrawFont(playerid,TDPref[playerid][0], 4);
+    PlayerTextDrawLetterSize(playerid,TDPref[playerid][0], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDPref[playerid][0], -65281);
+    PlayerTextDrawSetOutline(playerid,TDPref[playerid][0], 0);
+    PlayerTextDrawSetProportional(playerid,TDPref[playerid][0], 1);
+    PlayerTextDrawSetShadow(playerid,TDPref[playerid][0], 1);
+    PlayerTextDrawUseBox(playerid,TDPref[playerid][0], 1);
+    PlayerTextDrawBoxColor(playerid,TDPref[playerid][0], 255);
+    PlayerTextDrawTextSize(playerid,TDPref[playerid][0], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDPref[playerid][0], 0);
 
-    TDPref[1] = CreatePlayerTextDraw(playerid,343.000000, 168.000000, "LD_BUM:cd1c");
-    PlayerTextDrawBackgroundColor(playerid,TDPref[1], 255);
-    PlayerTextDrawFont(playerid,TDPref[1], 4);
-    PlayerTextDrawLetterSize(playerid,TDPref[1], 0.500000, 1.000000);
-    PlayerTextDrawColor(playerid,TDPref[1], 255);
-    PlayerTextDrawSetOutline(playerid,TDPref[1], 0);
-    PlayerTextDrawSetProportional(playerid,TDPref[1], 1);
-    PlayerTextDrawSetShadow(playerid,TDPref[1], 1);
-    PlayerTextDrawUseBox(playerid,TDPref[1], 1);
-    PlayerTextDrawBoxColor(playerid,TDPref[1], 255);
-    PlayerTextDrawTextSize(playerid,TDPref[1], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDPref[1], 0);
+    TDPref[playerid][1] = CreatePlayerTextDraw(playerid,343.000000, 168.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDPref[playerid][1], 255);
+    PlayerTextDrawFont(playerid,TDPref[playerid][1], 4);
+    PlayerTextDrawLetterSize(playerid,TDPref[playerid][1], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDPref[playerid][1], 255);
+    PlayerTextDrawSetOutline(playerid,TDPref[playerid][1], 0);
+    PlayerTextDrawSetProportional(playerid,TDPref[playerid][1], 1);
+    PlayerTextDrawSetShadow(playerid,TDPref[playerid][1], 1);
+    PlayerTextDrawUseBox(playerid,TDPref[playerid][1], 1);
+    PlayerTextDrawBoxColor(playerid,TDPref[playerid][1], 255);
+    PlayerTextDrawTextSize(playerid,TDPref[playerid][1], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDPref[playerid][1], 0);
 
-    TDPref[2] = CreatePlayerTextDraw(playerid,342.000000, 199.000000, "LD_BUM:cd1c");
-    PlayerTextDrawBackgroundColor(playerid,TDPref[2], 255);
-    PlayerTextDrawFont(playerid,TDPref[2], 4);
-    PlayerTextDrawLetterSize(playerid,TDPref[2], 0.500000, 1.000000);
-    PlayerTextDrawColor(playerid,TDPref[2], -65281);
-    PlayerTextDrawSetOutline(playerid,TDPref[2], 0);
-    PlayerTextDrawSetProportional(playerid,TDPref[2], 1);
-    PlayerTextDrawSetShadow(playerid,TDPref[2], 1);
-    PlayerTextDrawUseBox(playerid,TDPref[2], 1);
-    PlayerTextDrawBoxColor(playerid,TDPref[2], 255);
-    PlayerTextDrawTextSize(playerid,TDPref[2], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDPref[2], 0);
+    TDPref[playerid][2] = CreatePlayerTextDraw(playerid,342.000000, 199.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDPref[playerid][2], 255);
+    PlayerTextDrawFont(playerid,TDPref[playerid][2], 4);
+    PlayerTextDrawLetterSize(playerid,TDPref[playerid][2], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDPref[playerid][2], -65281);
+    PlayerTextDrawSetOutline(playerid,TDPref[playerid][2], 0);
+    PlayerTextDrawSetProportional(playerid,TDPref[playerid][2], 1);
+    PlayerTextDrawSetShadow(playerid,TDPref[playerid][2], 1);
+    PlayerTextDrawUseBox(playerid,TDPref[playerid][2], 1);
+    PlayerTextDrawBoxColor(playerid,TDPref[playerid][2], 255);
+    PlayerTextDrawTextSize(playerid,TDPref[playerid][2], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDPref[playerid][2], 0);
 
-    TDPref[3] = CreatePlayerTextDraw(playerid,344.000000, 198.000000, "LD_BUM:cd1c");
-    PlayerTextDrawBackgroundColor(playerid,TDPref[3], 255);
-    PlayerTextDrawFont(playerid,TDPref[3], 4);
-    PlayerTextDrawLetterSize(playerid,TDPref[3], 0.500000, 1.000000);
-    PlayerTextDrawColor(playerid,TDPref[3], 255);
-    PlayerTextDrawSetOutline(playerid,TDPref[3], 0);
-    PlayerTextDrawSetProportional(playerid,TDPref[3], 1);
-    PlayerTextDrawSetShadow(playerid,TDPref[3], 1);
-    PlayerTextDrawUseBox(playerid,TDPref[3], 1);
-    PlayerTextDrawBoxColor(playerid,TDPref[3], 255);
-    PlayerTextDrawTextSize(playerid,TDPref[3], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDPref[3], 0);
+    TDPref[playerid][3] = CreatePlayerTextDraw(playerid,344.000000, 198.000000, "LD_BUM:cd1c");
+    PlayerTextDrawBackgroundColor(playerid,TDPref[playerid][3], 255);
+    PlayerTextDrawFont(playerid,TDPref[playerid][3], 4);
+    PlayerTextDrawLetterSize(playerid,TDPref[playerid][3], 0.500000, 1.000000);
+    PlayerTextDrawColor(playerid,TDPref[playerid][3], 255);
+    PlayerTextDrawSetOutline(playerid,TDPref[playerid][3], 0);
+    PlayerTextDrawSetProportional(playerid,TDPref[playerid][3], 1);
+    PlayerTextDrawSetShadow(playerid,TDPref[playerid][3], 1);
+    PlayerTextDrawUseBox(playerid,TDPref[playerid][3], 1);
+    PlayerTextDrawBoxColor(playerid,TDPref[playerid][3], 255);
+    PlayerTextDrawTextSize(playerid,TDPref[playerid][3], 98.000000, 26.000000);
+    PlayerTextDrawSetSelectable(playerid,TDPref[playerid][3], 0);
 
-    TDPref[4] = CreatePlayerTextDraw(playerid,350.000000, 173.000000, "FAZER DOCUMENTOS");
-    PlayerTextDrawBackgroundColor(playerid,TDPref[4], 255);
-    PlayerTextDrawFont(playerid,TDPref[4], 1);
-    PlayerTextDrawLetterSize(playerid,TDPref[4], 0.270000, 1.600000);
-    PlayerTextDrawColor(playerid,TDPref[4], -1);
-    PlayerTextDrawSetOutline(playerid,TDPref[4], 0);
-    PlayerTextDrawSetProportional(playerid,TDPref[4], 1);
-    PlayerTextDrawSetShadow(playerid,TDPref[4], 0);
-    PlayerTextDrawSetSelectable(playerid,TDPref[4], 1);
+    TDPref[playerid][4] = CreatePlayerTextDraw(playerid,350.000000, 173.000000, "FAZER DOCUMENTOS");
+    PlayerTextDrawBackgroundColor(playerid,TDPref[playerid][4], 255);
+    PlayerTextDrawFont(playerid,TDPref[playerid][4], 1);
+    PlayerTextDrawLetterSize(playerid,TDPref[playerid][4], 0.270000, 1.600000);
+    PlayerTextDrawColor(playerid,TDPref[playerid][4], -1);
+    PlayerTextDrawSetOutline(playerid,TDPref[playerid][4], 0);
+    PlayerTextDrawSetProportional(playerid,TDPref[playerid][4], 1);
+    PlayerTextDrawSetShadow(playerid,TDPref[playerid][4], 0);
+    PlayerTextDrawSetSelectable(playerid,TDPref[playerid][4], 1);
 
-    TDPref[5] = CreatePlayerTextDraw(playerid,349.000000, 202.000000, "EMITIR CART. TRABALHO");
-    PlayerTextDrawBackgroundColor(playerid,TDPref[5], 255);
-    PlayerTextDrawFont(playerid,TDPref[5], 1);
-    PlayerTextDrawLetterSize(playerid,TDPref[5], 0.239999, 1.500000);
-    PlayerTextDrawColor(playerid,TDPref[5], -1);
-    PlayerTextDrawSetOutline(playerid,TDPref[5], 0);
-    PlayerTextDrawSetProportional(playerid,TDPref[5], 1);
-    PlayerTextDrawSetShadow(playerid,TDPref[5], 0);
-    PlayerTextDrawSetSelectable(playerid,TDPref[5], 1);
+    TDPref[playerid][5] = CreatePlayerTextDraw(playerid,349.000000, 202.000000, "EMITIR CART. TRABALHO");
+    PlayerTextDrawBackgroundColor(playerid,TDPref[playerid][5], 255);
+    PlayerTextDrawFont(playerid,TDPref[playerid][5], 1);
+    PlayerTextDrawLetterSize(playerid,TDPref[playerid][5], 0.239999, 1.500000);
+    PlayerTextDrawColor(playerid,TDPref[playerid][5], -1);
+    PlayerTextDrawSetOutline(playerid,TDPref[playerid][5], 0);
+    PlayerTextDrawSetProportional(playerid,TDPref[playerid][5], 1);
+    PlayerTextDrawSetShadow(playerid,TDPref[playerid][5], 0);
+    PlayerTextDrawSetSelectable(playerid,TDPref[playerid][5], 1);
 
-    TDPref[6] = CreatePlayerTextDraw(playerid,413.000000, 154.000000, "FECHAR");
-    PlayerTextDrawBackgroundColor(playerid,TDPref[6], 255);
-    PlayerTextDrawFont(playerid,TDPref[6], 1);
-    PlayerTextDrawLetterSize(playerid,TDPref[6], 0.239999, 1.500000);
-    PlayerTextDrawColor(playerid,TDPref[6], -16776961);
-    PlayerTextDrawSetOutline(playerid,TDPref[6], 0);
-    PlayerTextDrawSetProportional(playerid,TDPref[6], 1);
-    PlayerTextDrawSetShadow(playerid,TDPref[6], 0);
-    PlayerTextDrawSetSelectable(playerid,TDPref[6], 1);
+    TDPref[playerid][6] = CreatePlayerTextDraw(playerid,413.000000, 154.000000, "FECHAR");
+    PlayerTextDrawBackgroundColor(playerid,TDPref[playerid][6], 255);
+    PlayerTextDrawFont(playerid,TDPref[playerid][6], 1);
+    PlayerTextDrawLetterSize(playerid,TDPref[playerid][6], 0.239999, 1.500000);
+    PlayerTextDrawColor(playerid,TDPref[playerid][6], -16776961);
+    PlayerTextDrawSetOutline(playerid,TDPref[playerid][6], 0);
+    PlayerTextDrawSetProportional(playerid,TDPref[playerid][6], 1);
+    PlayerTextDrawSetShadow(playerid,TDPref[playerid][6], 0);
+    PlayerTextDrawSetSelectable(playerid,TDPref[playerid][6], 1);
 
 	Registration_PTD[playerid][0] = CreatePlayerTextDraw(playerid, 269.6997, 149.4332, "LD_SPAC:white"); // ïóñòî
 	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][0], 99.0000, 158.8589);
@@ -10790,7 +10835,7 @@ public OnGameModeInit()
 	}
 	for(new i; i < 7; i++)
 	{
-		CreateDynamic3DTextLabel("{FFFFFF}Use a'{FFFF00}Vara de Pescar{FFFFFF}'para\ncomecar a pescar.", -1, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2], 15.0);
+		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para\ncomecar a pescar.", -1, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2], 15.0);
 	}
 	for(new i; i < 8; i++)
 	{
@@ -13187,6 +13232,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	if(newkeys == KEY_SECONDARY_ATTACK)
 	{
 		cmd_pegaritem(playerid);
+		for(new i; i < 7; i++)
+		if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2])){
+			cmd_pescar(playerid);
+		}
 		for(new i; i < 8; i++)
 		if(IsPlayerInRangeOfPoint(playerid, 1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2])){
 			cmd_desossar(playerid);
@@ -13286,7 +13335,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		{
 			for(new i; i < 7; i++)
 			{
-				PlayerTextDrawShow(playerid, TDPref[i]);
+				PlayerTextDrawShow(playerid, TDPref[playerid][i]);
 			}
 			SelectTextDraw(playerid, 0xFF0000FF);
 		}
@@ -13346,7 +13395,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		{
 			for(new i; i < 21; i++)
 			{
-				PlayerTextDrawShow(playerid, TDLoja[i]);
+				PlayerTextDrawShow(playerid, TDLoja[playerid][i]);
 			}
 			SelectTextDraw(playerid, 0xFF0000FF);
 		}
@@ -16413,15 +16462,15 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 {
 	new str[64], File[255];
 	new wVeiculo = GetPlayerVehicleID(playerid);
-	if(playertextid == TDLoja[6])
+	if(playertextid == TDLoja[playerid][6])
 	{
 		for(new i; i < 21; i++)
 		{
-			PlayerTextDrawHide(playerid, TDLoja[i]);
+			PlayerTextDrawHide(playerid, TDLoja[playerid][i]);
 		}
 		CancelSelectTextDraw(playerid);
 	}
-	if(playertextid == TDLoja[4])
+	if(playertextid == TDLoja[playerid][4])
 	{
 		if(GetPlayerMoney(playerid) < 1500) 			return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
 		notificacao(playerid, "EXITO", "Item comprado.", ICONE_CERTO);
@@ -16429,32 +16478,35 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		GanharItem(playerid, 18870, 1);
 		MissaoPlayer[playerid][MISSAO6] = 1;
 	}
-	if(playertextid == TDLoja[5])
+	if(playertextid == TDLoja[playerid][5])
 	{
 		if(GetPlayerMoney(playerid) < 200) 			return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
 		notificacao(playerid, "EXITO", "Item comprado.", ICONE_CERTO);
 		PlayerInfo[playerid][pDinheiro] -= 200;
 		GanharItem(playerid, 11736, 1);
 	}
-	if(playertextid == TDLoja[9])
+	if(playertextid == TDLoja[playerid][9])
 	{
 		if(GetPlayerMoney(playerid) < 300) 			return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
 		notificacao(playerid, "EXITO", "Item comprado.", ICONE_CERTO);
 		PlayerInfo[playerid][pDinheiro] -= 300;
 		GanharItem(playerid, 18632, 1);
 	}
-	if(playertextid == TDLoja[15])
+	if(playertextid == TDLoja[playerid][15])
 	{
 		if(GetPlayerMoney(playerid) < 500) 			return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
 		notificacao(playerid, "EXITO", "Item comprado.", ICONE_CERTO);
 		PlayerInfo[playerid][pDinheiro] -= 500;
 		GanharItem(playerid, 18645, 1);
 	}
-	if(playertextid == TDLoja[19])
+	if(playertextid == TDLoja[playerid][19])
 	{
-		notificacao(playerid, "INFO", "Esse item ainda nao esta disponivel.", ICONE_AVISO);
+		if(GetPlayerMoney(playerid) < 150) 			return notificacao(playerid, "ERRO", "Dinheiro insuficiente.", ICONE_ERRO);
+		notificacao(playerid, "EXITO", "Item comprado.", ICONE_CERTO);
+		PlayerInfo[playerid][pDinheiro] -= 150;
+		GanharItem(playerid, 18644, 1);
 	}
-	if(playertextid == TDPref[4])
+	if(playertextid == TDPref[playerid][4])
 	{
 		if(CheckInventario2(playerid, 1581)) return notificacao(playerid, "ERRO", "Ja possui documentos", ICONE_ERRO);
 		TogglePlayerControllable(playerid, 0);
@@ -16463,11 +16515,11 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		GanharItem(playerid, 1581, 1);
 		for(new i; i < 7; i++)
 		{
-			PlayerTextDrawHide(playerid, TDPref[i]);
+			PlayerTextDrawHide(playerid, TDPref[playerid][i]);
 		}
 		CancelSelectTextDraw(playerid);
 	}
-	if(playertextid == TDPref[5])
+	if(playertextid == TDPref[playerid][5])
 	{
 		if(CheckInventario2(playerid, 19792)) return notificacao(playerid, "ERRO", "Ja possui carteira de trabalho", ICONE_ERRO);
 		if(GetPlayerMoney(playerid) < 8000) 	return notificacao(playerid, "ERRO", "Dinheiro insuficiente, nao possui 8mil.", ICONE_ERRO);
@@ -16477,15 +16529,15 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		MissaoPlayer[playerid][MISSAO4] = 1;
 		for(new i; i < 7; i++)
 		{
-			PlayerTextDrawHide(playerid, TDPref[i]);
+			PlayerTextDrawHide(playerid, TDPref[playerid][i]);
 		}
 		CancelSelectTextDraw(playerid);
 	}
-	if(playertextid == TDPref[6])
+	if(playertextid == TDPref[playerid][6])
 	{
 		for(new i; i < 7; i++)
 		{
-			PlayerTextDrawHide(playerid, TDPref[i]);
+			PlayerTextDrawHide(playerid, TDPref[playerid][i]);
 		}
 		CancelSelectTextDraw(playerid);
 	}
@@ -21248,9 +21300,9 @@ CMD:atendimento(playerid)
 
 CMD:desossar(playerid)
 {
-	
+	if(!CheckInventario2(playerid, 18644)) return notificacao(playerid, "ERRO", "Nao tem uma chaira.", ICONE_ERRO);
 	if(PlayerInfo[playerid][pProfissao] != 3) 	return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
-	if(UsouCMD[playerid] == true) 	return notificacao(playerid, "ERRO", "Ainda nao passou 30s.", ICONE_ERRO); 
+	if(UsouCMD[playerid] == true) 	return notificacao(playerid, "ERRO", "Ainda nao finalizou a pesca atual.", ICONE_ERRO); 
 	if(Desossando[playerid] == 1 || Desossando[playerid] == 2 || Desossando[playerid] == 3) 	return notificacao(playerid, "ERRO", "Voce ja esta fazendo as etapas.", ICONE_ERRO); 
 	for(new i; i < 8; i++)
 	if(IsPlayerInRangeOfPoint(playerid, 1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2]))
@@ -21383,4 +21435,19 @@ CMD:iniciarminerador(playerid)
 		EtapasMinerador[playerid] = 1;
 	}
 	return 1; 
+}
+
+CMD:pescar(playerid)
+{
+	if(PlayerInfo[playerid][pProfissao] != 1) 	return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
+	if(!CheckInventario2(playerid, 18632)) return notificacao(playerid, "ERRO", "Nao tem uma vara de pesca.", ICONE_ERRO);
+	if(UsouCMD[playerid] == true) 	return notificacao(playerid, "ERRO", "Ainda nao finalizou a pesca atual.", ICONE_ERRO); 
+	for(new i; i < 7; i++)
+	if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
+	{
+		CreateProgress(playerid, "Pesca","Pescando...", 60);
+		TogglePlayerControllable(playerid, 0);
+		UsouCMD[playerid] = true;	
+	}
+	return 1;
 }
