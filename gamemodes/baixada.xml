@@ -1079,7 +1079,6 @@
 			<member name="C:acSpeed" value="15">
 			</member>
 			<member name="C:acHealth" value="16">
-				<tagname value="Float"/>
 			</member>
 			<member name="C:acArmour" value="17">
 			</member>
@@ -1307,7 +1306,6 @@
 				<tagname value="Float"/>
 			</member>
 			<member name="C:acHealth" value="15">
-				<tagname value="Float"/>
 			</member>
 			<member name="C:acLastSpeed" value="16">
 			</member>
@@ -1846,9 +1844,6 @@
 		<member name="C:DIALOG_EMAIL" value="2">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_EMP0" value="60">
-			<referrer name="ac_OnDialogResponse"/>
-		</member>
 		<member name="C:DIALOG_EMP1" value="27">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
@@ -1868,6 +1863,7 @@
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_FAQ" value="58">
+			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_FAQ1" value="65">
@@ -1996,6 +1992,7 @@
 		</member>
 		<member name="C:EOS" value="0">
 			<referrer name="IsValidInput"/>
+			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_ajuda"/>
 		</member>
@@ -2282,7 +2279,7 @@
 			<referrer name="IsValidPlayerProgressBar"/>
 			<referrer name="SetPlayerProgressBarPos"/>
 			<referrer name="Progress_DescarregarCarga"/>
-			<referrer name="Progress_Cova"/>
+			<referrer name="Progress_BotouBau"/>
 			<referrer name="Progress_Desossar"/>
 			<referrer name="Progress_Minerar"/>
 			<referrer name="Progress_Pesca"/>
@@ -2468,6 +2465,7 @@
 			<referrer name="_RenderBar"/>
 			<referrer name="SetPlayerProgressBarPos"/>
 			<referrer name="CreateProgress"/>
+			<referrer name="Progress_Cova"/>
 			<referrer name="AttCad"/>
 			<referrer name="Attplayer"/>
 			<referrer name="GetVehicleModelEx"/>
@@ -2576,7 +2574,7 @@
 			<referrer name="cmd_gmx"/>
 			<referrer name="cmd_vips"/>
 			<referrer name="cmd_setvip"/>
-			<referrer name="cmd_ctumba"/>
+			<referrer name="cmd_iniciarcoleta"/>
 			<referrer name="cmd_lferidos"/>
 			<referrer name="cmd_carregar"/>
 			<referrer name="cmd_descarregar"/>
@@ -2598,6 +2596,7 @@
 			<referrer name="cmd_editcn"/>
 			<referrer name="cmd_tunar"/>
 			<referrer name="cmd_desossar"/>
+			<referrer name="cmd_pescar"/>
 		</member>
 
 		<!-- variables -->
@@ -3069,14 +3068,14 @@
 		</member>
 		<member name="F:Covaconcerto">
 			<tagname value="bool"/>
-			<referrer name="Progress_Cova"/>
+			<referrer name="Progress_BotouBau"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
-			<referrer name="cmd_ctumba"/>
+			<referrer name="cmd_iniciarcoleta"/>
 		</member>
 		<member name="F:Covas">
 			<tagname value="Float"/>
-			<referrer name="cmd_ctumba"/>
+			<referrer name="cmd_iniciarcoleta"/>
 		</member>
 		<member name="F:CurrentFile">
 			<referrer name="DOF2_SetFile"/>
@@ -3152,6 +3151,7 @@
 		</member>
 		<member name="F:Desossando">
 			<referrer name="Progress_Desossar"/>
+			<referrer name="FuncaoItens"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="cmd_desossar"/>
@@ -3254,20 +3254,6 @@
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerText"/>
 			<referrer name="ac_OnDialogResponse"/>
-		</member>
-		<member name="F:Etapa1Cozinheiro">
-			<referrer name="Progress_VerificarPedido"/>
-			<referrer name="ac_OnPlayerEnterCheckpoint"/>
-		</member>
-		<member name="F:Etapa2Cozinheiro">
-		</member>
-		<member name="F:Etapa3Cozinheiro">
-		</member>
-		<member name="F:Etapa4Cozinheiro">
-		</member>
-		<member name="F:Etapa5Cozinheiro">
-		</member>
-		<member name="F:Etapa6Cozinheiro">
 		</member>
 		<member name="F:EtapasMinerador">
 			<referrer name="Progress_Minerar"/>
@@ -4723,6 +4709,7 @@
 			<referrer name="ac_OnCheatDetected"/>
 		</member>
 		<member name="F:MEGAString">
+			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_ajuda"/>
 		</member>
@@ -4898,6 +4885,12 @@
 			<referrer name="cmd_multar"/>
 			<referrer name="cmd_verdocumentos"/>
 		</member>
+		<member name="F:PegouLixo">
+			<tagname value="bool"/>
+			<referrer name="Progress_BotouBau"/>
+			<referrer name="Progress_Cova"/>
+			<referrer name="ac_OnPlayerEnterCheckpoint"/>
+		</member>
 		<member name="F:PegouMaterial">
 			<tagname value="bool"/>
 			<referrer name="ZerarDados"/>
@@ -4977,7 +4970,7 @@
 		</member>
 		<member name="F:PlayerInfo">
 			<referrer name="Progress_DescarregarCarga"/>
-			<referrer name="Progress_Cova"/>
+			<referrer name="Progress_BotouBau"/>
 			<referrer name="Attplayer"/>
 			<referrer name="RewardPrize"/>
 			<referrer name="TimerHack"/>
@@ -5068,7 +5061,7 @@
 			<referrer name="cmd_vips"/>
 			<referrer name="cmd_setvip"/>
 			<referrer name="cmd_lojavip"/>
-			<referrer name="cmd_ctumba"/>
+			<referrer name="cmd_iniciarcoleta"/>
 			<referrer name="cmd_sairemprego"/>
 			<referrer name="cmd_lferidos"/>
 			<referrer name="cmd_carregar"/>
@@ -5128,7 +5121,7 @@
 			<referrer name="cmd_verpontos"/>
 			<referrer name="cmd_desossar"/>
 			<referrer name="cmd_iniciarminerador"/>
-			<referrer name="cmd_iniciarcozinha"/>
+			<referrer name="cmd_pescar"/>
 		</member>
 		<member name="F:PlayerInventario">
 			<referrer name="GanharItem"/>
@@ -5184,6 +5177,7 @@
 		</member>
 		<member name="F:PosDesossa">
 			<tagname value="Float"/>
+			<referrer name="FuncaoItens"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="cmd_desossar"/>
@@ -5207,6 +5201,8 @@
 			<tagname value="Float"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="mf_OnGameModeInit"/>
+			<referrer name="ac_OnPlayerKeyStateChange"/>
+			<referrer name="cmd_pescar"/>
 		</member>
 		<member name="F:PosPrender">
 			<tagname value="Float"/>
@@ -5935,6 +5931,7 @@
 			<referrer name="FuncaoItens"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="cmd_desossar"/>
+			<referrer name="cmd_pescar"/>
 		</member>
 		<member name="F:VEHICLE">
 			<remarks>  Future-compatible tag definitions.  <c>VEHICLE:</c> is defined as <c>_:</c>  when enhanced tags are disabled, and <c>E_VEHICLE:</c> when they are enabled.  </remarks> 
@@ -6461,7 +6458,7 @@
 		</member>
 		<member name="F:cova">
 			<referrer name="ZerarDados"/>
-			<referrer name="cmd_ctumba"/>
+			<referrer name="cmd_iniciarcoleta"/>
 		</member>
 		<member name="F:do_not_use_tabsize_0">
 			<remarks>  Breaks <c>#pragma tabsize 0</c> in such a way that the compiler gives the  following error:  <code>  error 017: undefined symbol "do_not_use_tabsize_0"  </code>  There is ZERO reason to use it.  There are ocassionally times when an  indentation reset is required, usually because of macros containing code that  would otherwise appear correct.  For example:  <code>  #define TEST_MACRO  main()  {  new a = 42;  if (a)  {  print("true");  }  #if defined TEST_MACRO  else  {  print("false");  }  a = 42;  #endif  printf("a = %d", a);  }  </code>  Even that can be fixed without <c>tabsize 0</c>, simply by restating the  correct indentation level, which resets the internal depth tracking:  <code>  #define TEST_MACRO  main()  {  new a = 42;  if (a)  {  print("true");  }  #if defined TEST_MACRO  else  {  print("false");  }  #pragma tabsize 4  a = 42;  #endif  printf("a = %d", a);  }  </code>  There is just no excuse.  </remarks> 
@@ -7170,6 +7167,7 @@
 			<referrer name="Progress_RotaCova1"/>
 			<referrer name="Progress_RotaCova2"/>
 			<referrer name="Progress_RotaCova3"/>
+			<referrer name="Progress_Cova"/>
 			<referrer name="mortoxx"/>
 			<referrer name="mostrarTelaLogin"/>
 			<referrer name="UpdateVehicleLabel"/>
@@ -7188,7 +7186,6 @@
 			<referrer name="CarregarMapas"/>
 			<referrer name="CarregarMapIcons"/>
 			<referrer name="mf_OnGameModeInit"/>
-			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnPlayerWeaponShot"/>
 			<referrer name="ac_OnPlayerEnterRaceCheckpoint"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
@@ -7215,7 +7212,6 @@
 			<referrer name="cmd_empacotarcarne"/>
 			<referrer name="cmd_deixarcaixa"/>
 			<referrer name="cmd_pegarcaixa2"/>
-			<referrer name="cmd_iniciarcozinha"/>
 			<param name="oper">
 			</param>
 		</member>
@@ -7322,11 +7318,11 @@
 		<member name="M:operator&gt;=(Float:,_:)" syntax="operator&gt;=(Float:,_:)(oper1, oper2)">
 			<tagname value="bool"/>
 			<stacksize value="4"/>
-			<referrer name="Progress_VerificarPedido"/>
 			<referrer name="Progress_DescarregarCarga"/>
 			<referrer name="Progress_RotaCova1"/>
 			<referrer name="Progress_RotaCova2"/>
 			<referrer name="Progress_RotaCova3"/>
+			<referrer name="Progress_BotouBau"/>
 			<referrer name="Progress_Cova"/>
 			<referrer name="Progress_Desossar"/>
 			<referrer name="Progress_Minerar"/>
@@ -8284,7 +8280,7 @@
 			</param>
 		</member>
 		<member name="M:AntiDeAMX" syntax="AntiDeAMX()">
-			<stacksize value="35"/>
+			<stacksize value="37"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<dependency name="printf"/>
 		</member>
@@ -9686,7 +9682,7 @@
 			<stacksize value="10"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<dependency name="CreateCaixa"/>
-			<dependency name="print"/>
+			<dependency name="printf"/>
 		</member>
 		<member name="M:CarregarCofre" syntax="CarregarCofre(idorg)">
 			<stacksize value="10467"/>
@@ -9712,7 +9708,6 @@
 			<dependency name="TextoCofreOrg"/>
 			<dependency name="fexist"/>
 			<dependency name="format"/>
-			<dependency name="printf"/>
 			<param name="idorg">
 			</param>
 		</member>
@@ -9721,7 +9716,7 @@
 			<referrer name="mf_OnGameModeInit"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="CreateDynamicMapIcon"/>
-			<dependency name="print"/>
+			<dependency name="printf"/>
 		</member>
 		<member name="M:CarregarMapas" syntax="CarregarMapas()">
 			<stacksize value="26"/>
@@ -9799,7 +9794,7 @@
 			<referrer name="mf_OnGameModeInit"/>
 			<dependency name="CreateDynamic3DTextLabel"/>
 			<dependency name="acc_CreateDynamicPickup"/>
-			<dependency name="print"/>
+			<dependency name="printf"/>
 		</member>
 		<member name="M:CarregarPlantacao" syntax="CarregarPlantacao()">
 			<attribute name="public"/>
@@ -9825,6 +9820,7 @@
 			<dependency name="mX"/>
 			<dependency name="mY"/>
 			<dependency name="mZ"/>
+			<dependency name="printf"/>
 		</member>
 		<member name="M:CarregarTxdGlobal" syntax="CarregarTxdGlobal()">
 			<stacksize value="7"/>
@@ -9855,7 +9851,7 @@
 			<dependency name="Textdraw0"/>
 			<dependency name="Textdraw1"/>
 			<dependency name="VeloC_G"/>
-			<dependency name="print"/>
+			<dependency name="printf"/>
 			<dependency name="true"/>
 		</member>
 		<member name="M:CarregarVIP" syntax="CarregarVIP(playerid)">
@@ -9970,6 +9966,8 @@
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
+			<referrer name="cmd_desossar"/>
+			<referrer name="cmd_pescar"/>
 			<dependency name="PlayerInventario"/>
 			<dependency name="Slot"/>
 			<param name="playerid">
@@ -10189,42 +10187,6 @@
 			<param name="attachedvehicle">
 			</param>
 			<param name="testlos">
-			</param>
-			<param name="worldid">
-			</param>
-			<param name="interiorid">
-			</param>
-			<param name="playerid">
-			</param>
-			<param name="streamdistance">
-				<paraminfo>Float </paraminfo>
-			</param>
-			<param name="areaid">
-			</param>
-			<param name="priority">
-			</param>
-		</member>
-		<member name="M:CreateDynamicActor" syntax="CreateDynamicActor(modelid, x, y, z, r, invulnerable, health, worldid, interiorid, playerid, streamdistance, areaid, priority)">
-			<attribute name="native"/>
-			<referrer name="NpcText"/>
-			<param name="modelid">
-			</param>
-			<param name="x">
-				<paraminfo>Float </paraminfo>
-			</param>
-			<param name="y">
-				<paraminfo>Float </paraminfo>
-			</param>
-			<param name="z">
-				<paraminfo>Float </paraminfo>
-			</param>
-			<param name="r">
-				<paraminfo>Float </paraminfo>
-			</param>
-			<param name="invulnerable">
-			</param>
-			<param name="health">
-				<paraminfo>Float </paraminfo>
 			</param>
 			<param name="worldid">
 			</param>
@@ -10628,7 +10590,7 @@
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="cmd_descarregar"/>
 			<referrer name="cmd_desossar"/>
-			<referrer name="cmd_iniciarcozinha"/>
+			<referrer name="cmd_pescar"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="CreateTDProgress"/>
 			<dependency name="FIXES_PlayerTextDrawSetString"/>
@@ -12909,7 +12871,7 @@
 			<stacksize value="13"/>
 			<referrer name="On_PlayerUpdate"/>
 			<referrer name="ENTER_Stop"/>
-			<referrer name="Progress_Cova"/>
+			<referrer name="Progress_BotouBau"/>
 			<referrer name="Progress_Minerar"/>
 			<referrer name="CANIM"/>
 			<referrer name="OnPlayerActivationKeyRelease"/>
@@ -14016,17 +13978,16 @@
 		</member>
 		<member name="M:FIXES_SetPlayerCheckpoint" syntax="FIXES_SetPlayerCheckpoint(playerid, x, y, z, size)">
 			<stacksize value="12"/>
-			<referrer name="Progress_VerificarPedido"/>
 			<referrer name="Progress_RotaCova1"/>
 			<referrer name="Progress_RotaCova2"/>
 			<referrer name="Progress_RotaCova3"/>
+			<referrer name="Progress_Cova"/>
 			<referrer name="Progress_Minerar"/>
 			<referrer name="MainTimer"/>
 			<referrer name="LocalizarPlayer"/>
-			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
-			<referrer name="cmd_ctumba"/>
+			<referrer name="cmd_iniciarcoleta"/>
 			<referrer name="cmd_deixarcarne"/>
 			<referrer name="cmd_pegarcaixa2"/>
 			<referrer name="cmd_iniciarminerador"/>
@@ -14733,7 +14694,7 @@
 			<dependency name="Dinn"/>
 			<dependency name="EntradaeSaida"/>
 			<dependency name="Sets"/>
-			<dependency name="print"/>
+			<dependency name="printf"/>
 		</member>
 		<member name="M:FIXES_random" syntax="FIXES_random(max)">
 			<stacksize value="3"/>
@@ -14747,7 +14708,7 @@
 			<referrer name="randomEx"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
-			<referrer name="cmd_ctumba"/>
+			<referrer name="cmd_iniciarcoleta"/>
 			<dependency name="random"/>
 			<param name="max">
 			</param>
@@ -14995,6 +14956,7 @@
 			<dependency name="DepositarCrackOrg"/>
 			<dependency name="DepositarGranaOrg"/>
 			<dependency name="DepositarMaconhaOrg"/>
+			<dependency name="Desossando"/>
 			<dependency name="Dinheiro"/>
 			<dependency name="EquipouCasco"/>
 			<dependency name="ExpiraVIP"/>
@@ -15033,6 +14995,7 @@
 			<dependency name="PlayerToPoint"/>
 			<dependency name="PodeUsar"/>
 			<dependency name="Pos"/>
+			<dependency name="PosDesossa"/>
 			<dependency name="PosEquiparORG"/>
 			<dependency name="PosPesca"/>
 			<dependency name="Profs"/>
@@ -15423,6 +15386,7 @@
 			<referrer name="ac_Timer"/>
 			<referrer name="SendClientMessageInRange"/>
 			<referrer name="GetClosestVehicle"/>
+			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_remolcar"/>
 			<param name="playerid">
 			</param>
@@ -16953,7 +16917,7 @@
 			<referrer name="cmd_empacotarcarne"/>
 			<referrer name="cmd_deixarcaixa"/>
 			<referrer name="cmd_pegarcaixa2"/>
-			<referrer name="cmd_iniciarcozinha"/>
+			<referrer name="cmd_pescar"/>
 			<param name="playerid">
 			</param>
 			<param name="range">
@@ -17466,6 +17430,7 @@
 			<dependency name="Equipar"/>
 			<dependency name="Maconha"/>
 			<dependency name="format"/>
+			<dependency name="printf"/>
 		</member>
 		<member name="M:LoadDealerships" syntax="LoadDealerships()">
 			<stacksize value="397"/>
@@ -17543,6 +17508,7 @@
 			<dependency name="TextoSm"/>
 			<dependency name="fexist"/>
 			<dependency name="format"/>
+			<dependency name="printf"/>
 		</member>
 		<member name="M:LoadVehicles" syntax="LoadVehicles()">
 			<stacksize value="462"/>
@@ -17965,12 +17931,12 @@
 			</param>
 		</member>
 		<member name="M:NpcText" syntax="NpcText()">
-			<stacksize value="77"/>
+			<stacksize value="72"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<dependency name="Attach3DTextLabelToPlayer"/>
 			<dependency name="CST_Create3DTextLabel"/>
-			<dependency name="CreateDynamicActor"/>
 			<dependency name="FIXES_CreateActor"/>
+			<dependency name="printf"/>
 		</member>
 		<member name="M:ORGCarrega" syntax="ORGCarrega()">
 			<attribute name="public"/>
@@ -17982,7 +17948,7 @@
 			<dependency name="VagasORG"/>
 			<dependency name="fexist"/>
 			<dependency name="format"/>
-			<dependency name="print"/>
+			<dependency name="printf"/>
 			<dependency name="true"/>
 		</member>
 		<member name="M:OnActorStreamIn" syntax="OnActorStreamIn(actorid, forplayerid)">
@@ -21453,12 +21419,13 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:Progress_Cova" syntax="Progress_Cova(playerid, progress)">
+		<member name="M:Progress_BotouBau" syntax="Progress_BotouBau(playerid, progress)">
 			<attribute name="public"/>
-			<stacksize value="508"/>
+			<stacksize value="263"/>
 			<dependency name="operator&gt;=(Float:,_:)"/>
 			<dependency name="Covaconcerto"/>
 			<dependency name="FIXES_ClearAnimations"/>
+			<dependency name="PegouLixo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="acc_TogglePlayerControllable"/>
@@ -21468,6 +21435,23 @@
 			<dependency name="pDinheiro"/>
 			<dependency name="pVIP"/>
 			<dependency name="randomEx"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:Progress_Cova" syntax="Progress_Cova(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="9"/>
+			<dependency name="Float:operator=(_:)"/>
+			<dependency name="operator&gt;=(Float:,_:)"/>
+			<dependency name="FIXES_SetPlayerCheckpoint"/>
+			<dependency name="PegouLixo"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="notificacao"/>
+			<dependency name="randomEx"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 			<param name="progress">
@@ -21593,20 +21577,6 @@
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="operator&gt;=(Float:,_:)"/>
 			<dependency name="CargoTumba"/>
-			<dependency name="FIXES_SetPlayerCheckpoint"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="notificacao"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_VerificarPedido" syntax="Progress_VerificarPedido(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="Etapa1Cozinheiro"/>
 			<dependency name="FIXES_SetPlayerCheckpoint"/>
 			<dependency name="acc_TogglePlayerControllable"/>
 			<dependency name="notificacao"/>
@@ -23134,7 +23104,6 @@
 			<referrer name="Progress_Minerar"/>
 			<referrer name="OnPlayerActivationKeyPress"/>
 			<referrer name="FuncaoItens"/>
-			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="cmd_algemar"/>
 			<referrer name="cmd_pegarcaixa"/>
@@ -27464,7 +27433,6 @@
 			<dependency name="DIALOG_CONVITE"/>
 			<dependency name="DIALOG_EDITVEHICLE"/>
 			<dependency name="DIALOG_EMAIL"/>
-			<dependency name="DIALOG_EMP0"/>
 			<dependency name="DIALOG_EMP1"/>
 			<dependency name="DIALOG_EMP2"/>
 			<dependency name="DIALOG_EMP3"/>
@@ -27554,6 +27522,7 @@
 			<dependency name="GetIdfixo"/>
 			<dependency name="GetPlayer2DZone2"/>
 			<dependency name="GetPlayerAmmo"/>
+			<dependency name="GetPlayerDistanceFromPoint"/>
 			<dependency name="GetPlayerFacingAngle"/>
 			<dependency name="GetPlayerName"/>
 			<dependency name="GetPlayerOrg"/>
@@ -28061,27 +28030,24 @@
 		<member name="M:ac_OnPlayerEnterCheckpoint" syntax="ac_OnPlayerEnterCheckpoint(playerid)">
 			<attribute name="public"/>
 			<stacksize value="514"/>
-			<dependency name="Float:operator=(_:)"/>
 			<dependency name="CargoTumba"/>
 			<dependency name="Covaconcerto"/>
 			<dependency name="CreateProgress"/>
 			<dependency name="Desossando"/>
-			<dependency name="Etapa1Cozinheiro"/>
 			<dependency name="EtapasMinerador"/>
 			<dependency name="FIXES_ApplyAnimation"/>
 			<dependency name="FIXES_ClearAnimations"/>
 			<dependency name="FIXES_DisablePlayerCheckpoint"/>
-			<dependency name="FIXES_SetPlayerCheckpoint"/>
 			<dependency name="FIXES_SetTimerEx"/>
 			<dependency name="GPS"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="GetVehicleModel"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="PegouLixo"/>
 			<dependency name="PegouMaterial"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="RemovePlayerAttachedObject"/>
-			<dependency name="SetPlayerAttachedObject"/>
 			<dependency name="acc_SetPlayerSpecialAction"/>
 			<dependency name="acc_TogglePlayerControllable"/>
 			<dependency name="false"/>
@@ -28285,6 +28251,7 @@
 			<dependency name="DIALOG_CASAS"/>
 			<dependency name="DIALOG_CATLANCHE"/>
 			<dependency name="DIALOG_COFREORG"/>
+			<dependency name="DIALOG_FAQ"/>
 			<dependency name="DIALOG_SLOTMACHINE"/>
 			<dependency name="DIALOG_TIENDAILEGAL"/>
 			<dependency name="DIALOG_VEHICLE"/>
@@ -28294,6 +28261,7 @@
 			<dependency name="DataSlotMachine"/>
 			<dependency name="DataSlotMachine"/>
 			<dependency name="DestroyDynamic3DTextLabel"/>
+			<dependency name="EOS"/>
 			<dependency name="EditingSM"/>
 			<dependency name="Entrada"/>
 			<dependency name="Equipar"/>
@@ -28317,6 +28285,7 @@
 			<dependency name="IsBicycle"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="IsPolicial"/>
+			<dependency name="MEGAString"/>
 			<dependency name="MISSAO12"/>
 			<dependency name="MISSAO2"/>
 			<dependency name="MISSAO3"/>
@@ -28335,6 +28304,7 @@
 			<dependency name="PosEquipar"/>
 			<dependency name="PosEquiparORG"/>
 			<dependency name="PosPVeiculos"/>
+			<dependency name="PosPesca"/>
 			<dependency name="RecentlyShot"/>
 			<dependency name="SelectTextDraw"/>
 			<dependency name="SetPlayerAttachedObject"/>
@@ -28369,6 +28339,7 @@
 			<dependency name="cmd_pegarcaixa"/>
 			<dependency name="cmd_pegarcaixa2"/>
 			<dependency name="cmd_pegaritem"/>
+			<dependency name="cmd_pescar"/>
 			<dependency name="false"/>
 			<dependency name="fexist"/>
 			<dependency name="format"/>
@@ -30408,11 +30379,11 @@
 		<member name="M:acc_TogglePlayerControllable" syntax="acc_TogglePlayerControllable(playerid, toggle)">
 			<stacksize value="5"/>
 			<referrer name="On_PlayerInteriorChange"/>
-			<referrer name="Progress_VerificarPedido"/>
 			<referrer name="Progress_DescarregarCarga"/>
 			<referrer name="Progress_RotaCova1"/>
 			<referrer name="Progress_RotaCova2"/>
 			<referrer name="Progress_RotaCova3"/>
+			<referrer name="Progress_BotouBau"/>
 			<referrer name="Progress_Cova"/>
 			<referrer name="Progress_Desossar"/>
 			<referrer name="Progress_Minerar"/>
@@ -30449,7 +30420,7 @@
 			<referrer name="cmd_gotodealership"/>
 			<referrer name="cmd_gotofuelstation"/>
 			<referrer name="cmd_desossar"/>
-			<referrer name="cmd_iniciarcozinha"/>
+			<referrer name="cmd_pescar"/>
 			<dependency name="ac_TogglePlayerControllable"/>
 			<param name="playerid">
 			</param>
@@ -31366,21 +31337,6 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:cmd_ctumba" syntax="cmd_ctumba(playerid)">
-			<attribute name="public"/>
-			<stacksize value="9"/>
-			<dependency name="Covaconcerto"/>
-			<dependency name="Covas"/>
-			<dependency name="FIXES_SetPlayerCheckpoint"/>
-			<dependency name="FIXES_random"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="cova"/>
-			<dependency name="notificacao"/>
-			<dependency name="pProfissao"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-		</member>
 		<member name="M:cmd_cv" syntax="cmd_cv(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="12"/>
@@ -31858,6 +31814,7 @@
 			<stacksize value="8"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<dependency name="Float:operator=(_:)"/>
+			<dependency name="CheckInventario2"/>
 			<dependency name="CreateProgress"/>
 			<dependency name="Desossando"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
@@ -32310,16 +32267,18 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:cmd_iniciarcozinha" syntax="cmd_iniciarcozinha(playerid)">
+		<member name="M:cmd_iniciarcoleta" syntax="cmd_iniciarcoleta(playerid)">
 			<attribute name="public"/>
-			<stacksize value="7"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="CreateProgress"/>
-			<dependency name="IsPlayerInRangeOfPoint"/>
+			<stacksize value="9"/>
+			<dependency name="Covaconcerto"/>
+			<dependency name="Covas"/>
+			<dependency name="FIXES_SetPlayerCheckpoint"/>
+			<dependency name="FIXES_random"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="cova"/>
 			<dependency name="notificacao"/>
 			<dependency name="pProfissao"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -32963,6 +32922,23 @@
 			<dependency name="Virtual"/>
 			<dependency name="format"/>
 			<dependency name="notificacao"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:cmd_pescar" syntax="cmd_pescar(playerid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<referrer name="ac_OnPlayerKeyStateChange"/>
+			<dependency name="CheckInventario2"/>
+			<dependency name="CreateProgress"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PosPesca"/>
+			<dependency name="UsouCMD"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="notificacao"/>
+			<dependency name="pProfissao"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -34423,7 +34399,7 @@
 			<referrer name="UpdateProgress"/>
 			<referrer name="KillProgress"/>
 			<referrer name="ConvertTime"/>
-			<referrer name="Progress_Cova"/>
+			<referrer name="Progress_BotouBau"/>
 			<referrer name="Progress_Minerar"/>
 			<referrer name="Progress_Pesca"/>
 			<referrer name="Attplayer"/>
@@ -34729,6 +34705,8 @@
 			<referrer name="SalvarDados"/>
 			<referrer name="SalvarDadosSkin"/>
 			<referrer name="Log"/>
+			<referrer name="mf_OnGameModeInit"/>
+			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="cmd_tempban"/>
 			<param name="year">
 				<paraminfo> &amp; </paraminfo>
@@ -34773,6 +34751,8 @@
 			<referrer name="SalvarDados"/>
 			<referrer name="SalvarDadosSkin"/>
 			<referrer name="Log"/>
+			<referrer name="mf_OnGameModeInit"/>
+			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ac_OnPlayerSpawn"/>
 			<referrer name="ac_OnPlayerText"/>
 			<referrer name="cmd_tempban"/>
@@ -34872,7 +34852,7 @@
 		</member>
 		<member name="M:mf_OnGameModeInit" syntax="mf_OnGameModeInit()">
 			<attribute name="public"/>
-			<stacksize value="18"/>
+			<stacksize value="23"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="AntiDeAMX"/>
 			<dependency name="CST_SendRconCommand"/>
@@ -34926,8 +34906,12 @@
 			<dependency name="acc_DisableInteriorEnterExits"/>
 			<dependency name="acc_EnableStuntBonusForAll"/>
 			<dependency name="acc_UsePlayerPedAnims"/>
+			<dependency name="getdate"/>
+			<dependency name="gettime"/>
 			<dependency name="gstream"/>
 			<dependency name="maintimer"/>
+			<dependency name="print"/>
+			<dependency name="printf"/>
 			<dependency name="savetimer"/>
 			<dependency name="true"/>
 		</member>
@@ -35052,11 +35036,11 @@
 		</member>
 		<member name="M:notificacao" syntax="notificacao(playerid, titulo[], mensagem[], icon[])">
 			<stacksize value="10"/>
-			<referrer name="Progress_VerificarPedido"/>
 			<referrer name="Progress_DescarregarCarga"/>
 			<referrer name="Progress_RotaCova1"/>
 			<referrer name="Progress_RotaCova2"/>
 			<referrer name="Progress_RotaCova3"/>
+			<referrer name="Progress_BotouBau"/>
 			<referrer name="Progress_Cova"/>
 			<referrer name="Progress_Desossar"/>
 			<referrer name="Progress_Minerar"/>
@@ -35137,7 +35121,7 @@
 			<referrer name="cmd_gmx"/>
 			<referrer name="cmd_setvip"/>
 			<referrer name="cmd_dveiculo"/>
-			<referrer name="cmd_ctumba"/>
+			<referrer name="cmd_iniciarcoleta"/>
 			<referrer name="cmd_sairemprego"/>
 			<referrer name="cmd_lferidos"/>
 			<referrer name="cmd_carregar"/>
@@ -35223,7 +35207,7 @@
 			<referrer name="cmd_deixarcaixa"/>
 			<referrer name="cmd_pegarcaixa2"/>
 			<referrer name="cmd_iniciarminerador"/>
-			<referrer name="cmd_iniciarcozinha"/>
+			<referrer name="cmd_pescar"/>
 			<dependency name="operator*(Float:,_:)"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="FIXES_SetTimerEx"/>
@@ -35635,7 +35619,7 @@
 		</member>
 		<member name="M:ppb_OnGameModeExit" syntax="ppb_OnGameModeExit()">
 			<attribute name="public"/>
-			<stacksize value="5"/>
+			<stacksize value="13"/>
 			<dependency name="DOF2_Exit"/>
 			<dependency name="DealershipCreated"/>
 			<dependency name="DealershipLabel"/>
@@ -35662,9 +35646,10 @@
 			<dependency name="VehicleID"/>
 			<dependency name="VehicleLabel"/>
 			<dependency name="acc_DestroyVehicle"/>
+			<dependency name="getdate"/>
+			<dependency name="gettime"/>
 			<dependency name="maintimer"/>
 			<dependency name="pLogado"/>
-			<dependency name="print"/>
 			<dependency name="printf"/>
 			<dependency name="savetimer"/>
 			<dependency name="true"/>
@@ -36051,13 +36036,7 @@
 			<referrer name="DOF2_PrintFile"/>
 			<referrer name="zcmd_OnGameModeInit"/>
 			<referrer name="CreatePlayerProgressBar"/>
-			<referrer name="FIXES_main"/>
-			<referrer name="ORGCarrega"/>
-			<referrer name="CarregarMapIcons"/>
-			<referrer name="CarregarCaixas"/>
-			<referrer name="CarregarPickup3dLabel"/>
-			<referrer name="CarregarTxdGlobal"/>
-			<referrer name="ppb_OnGameModeExit"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<param name="string">
 				<paraminfo> [] </paraminfo>
 			</param>
@@ -36098,15 +36077,25 @@
 			<referrer name="DOF2_PrintFile"/>
 			<referrer name="zcmd_OnGameModeInit"/>
 			<referrer name="ac_OnGameModeExit"/>
+			<referrer name="FIXES_main"/>
+			<referrer name="LoadSlotMachines"/>
 			<referrer name="LoadVehicles"/>
 			<referrer name="LoadDealerships"/>
 			<referrer name="LoadFuelStations"/>
 			<referrer name="AntiDeAMX"/>
-			<referrer name="CarregarCofre"/>
+			<referrer name="CarregarPlantacao"/>
+			<referrer name="LoadCofreOrg"/>
+			<referrer name="ORGCarrega"/>
 			<referrer name="CriarRadares"/>
 			<referrer name="CriarCasas"/>
+			<referrer name="NpcText"/>
 			<referrer name="DeletarLog"/>
 			<referrer name="CarregarMapas"/>
+			<referrer name="CarregarMapIcons"/>
+			<referrer name="CarregarCaixas"/>
+			<referrer name="CarregarPickup3dLabel"/>
+			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<param name="format">
 				<paraminfo> [] </paraminfo>
@@ -36124,6 +36113,7 @@
 		</member>
 		<member name="M:randomEx" syntax="randomEx(minnum, maxnum)">
 			<stacksize value="4"/>
+			<referrer name="Progress_BotouBau"/>
 			<referrer name="Progress_Cova"/>
 			<referrer name="Progress_Minerar"/>
 			<referrer name="Progress_Pesca"/>
@@ -36464,7 +36454,9 @@
 			<dependency name="TDEditor_PTD"/>
 			<dependency name="TDEditor_PTD"/>
 			<dependency name="TDLoja"/>
+			<dependency name="TDLoja"/>
 			<dependency name="TDLucky"/>
+			<dependency name="TDPref"/>
 			<dependency name="TDPref"/>
 			<dependency name="TDmorte_p"/>
 			<dependency name="TDmorte_p"/>

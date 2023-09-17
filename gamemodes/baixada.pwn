@@ -1478,7 +1478,7 @@ Progresso:BotouBau(playerid, progress)
 {
 	if(progress >= 100)
 	{
-		new covastr[500];
+		new covastr[255];
 		new dincova = randomEx(0,100);
 		if(PlayerInfo[playerid][pVIP] == 0)
 		{
@@ -1513,55 +1513,56 @@ Progresso:Cova(playerid, progress)
 		if(locallixo == 1)
 		{	
 			SetPlayerCheckpoint(playerid, 24.118854, 1384.762695, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
 		}
 		if(locallixo == 2)
 		{	
 			SetPlayerCheckpoint(playerid, 20.505460, 1387.800292, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
 		}
 		if(locallixo == 3)
 		{	
 			SetPlayerCheckpoint(playerid, 33.100147, 1348.264160, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
 		}
 		if(locallixo == 4)
 		{	
 			SetPlayerCheckpoint(playerid, 30.621374, 1345.285400, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
 		}
 		if(locallixo == 5)
 		{	
 			SetPlayerCheckpoint(playerid, 28.793310, 1342.226318, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
 		}
 		if(locallixo == 6)
 		{	
 			SetPlayerCheckpoint(playerid, 27.303512, 1339.422729, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
 		}
 		if(locallixo == 7)
 		{	
 			SetPlayerCheckpoint(playerid, 26.155256, 1337.490844, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
 		}
 		if(locallixo == 8)
 		{	
 			SetPlayerCheckpoint(playerid, 23.932958, 1336.910034, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
 		}
 		if(locallixo == 9)
 		{	
 			SetPlayerCheckpoint(playerid, 21.434928, 1335.923828, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
 		}
 		if(locallixo == 10)
 		{	
 			SetPlayerCheckpoint(playerid, 18.442813, 1334.873413, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Pegou uma cadaver agora volte ao cemiterio.", ICONE_EMPREGO);
+			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
 		}
 		TogglePlayerControllable(playerid, 1);
 		PegouLixo[playerid] = true;
+		Covaconcerto[playerid] = false;
 	}
 	return 1;
 }
@@ -11610,7 +11611,7 @@ public OnPlayerEnterCheckpoint(playerid)
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 1, 1, 0, 1, 0, 1);
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
-		CreateProgress(playerid, "Cova","Coletando...", 50);
+		CreateProgress(playerid, "Cova","Coletando...", 80);
 	}
 	if(PegouLixo[playerid] == true) 
 	{ 
