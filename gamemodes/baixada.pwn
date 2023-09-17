@@ -4907,13 +4907,13 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		case 1581:
 		{
 			new megastrings[500], String2[500];
-			format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\t{FFFFFF}Idade: {FFFF00}%d {FFFFFF}anos\t{FFFFFF}VIP: {FFFF00}%s\n", Name(playerid),PlayerInfo[playerid][pIdade], VIP(playerid));
+			format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\t{FFFFFF}VIP: {FFFF00}%s\n", Name(playerid),VIP(playerid));
 			strcat(megastrings, String2);
 			format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\t{FFFFFF}Org:{FFFF00} %s\t{FFFFFF}Cargo:{FFFF00} %s\n", Profs(playerid), NomeOrg(playerid), NomeCargo(playerid));
 			strcat(megastrings, String2);
 			format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\t{FFFFFF}N°Casa:{FFFF00} %d\n", PlayerInfo[playerid][pMultas], PlayerInfo[playerid][Casa]);
 			strcat(megastrings, String2);
-			format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\t{FFFFFF}Expira VIP:{FFFF00} %s\n", ConvertTimeX(PlayerInfo[playerid][pSegundosJogados]), convertNumber(PlayerInfo[playerid][ExpiraVIP]-gettime()));
+			format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\t{FFFFFF}Expira VIP:{FFFF00} %s\n", convertNumber(PlayerInfo[playerid][pSegundosJogados]), convertNumber(PlayerInfo[playerid][ExpiraVIP]-gettime()));
 			strcat(megastrings, String2);
 			ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
 		}
@@ -14421,6 +14421,28 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 1)
 				{
+					new Float:a = GetPlayerDistanceFromPoint(playerid, -2790.296142, 1321.418212, 7.098842);
+					new Float:b = GetPlayerDistanceFromPoint(playerid, -2521.626220, 2295.312988, 4.984375);
+					new Float:c = GetPlayerDistanceFromPoint(playerid, -28.763319, 1363.971313, 9.171875);
+					new Float:d = GetPlayerDistanceFromPoint(playerid, 590.086975, 871.486694, -42.734603);
+					new Float:e = GetPlayerDistanceFromPoint(playerid, -504.495117, -517.457763, 25.523437);
+					MEGAString[0] = EOS;
+					new string[800];
+					strcat(MEGAString, "Local\tDistancia\n");
+					format(string, 128, "{FFFFFF} Pescador \t{FFFF00} %.0f KM\n", a);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Acogueiro \t{FFFF00} %.0f KM\n", b);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Coletor \t{FFFF00} %.0f KM\n", c);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Minerador \t{FFFF00} %.0f KM\n", d);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Caminhoneiro \t{FFFF00} %.0f KM\n", e);
+					strcat(MEGAString,string);
+					ShowPlayerDialog(playerid, DIALOG_GPS2, DIALOG_STYLE_TABLIST_HEADERS, "Empregos", MEGAString, "Localizar","X");
+				}
+				if(listitem == 2)
+				{
 					ShowPlayerDialog(playerid, DIALOG_LOCALIZARCASA, DIALOG_STYLE_INPUT, "Localizar Casas", "{FFFF00}- {FFFFFF}Introduza o ID da casa que queira localizar", "Localizar", "X");
 				}
 			}
@@ -14505,6 +14527,47 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
 					SetPlayerCheckpoint(playerid, -2201.102050, -2341.364013, 30.625000, 8.0);
+					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
+				}
+			}
+		}
+		case DIALOG_GPS2:
+		{
+			if(response)
+			{
+				if(listitem == 0)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -2790.296142, 1321.418212, 7.098842, 8.0);
+					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
+				}
+				if(listitem == 1)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid,-2521.626220, 2295.312988, 4.984375, 8.0);
+					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
+				}
+				if(listitem == 2)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -28.763319, 1363.971313, 9.171875, 8.0);
+					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
+				}
+				if(listitem == 3)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, 590.086975, 871.486694, -42.734603, 8.0);
+					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
+				}
+				if(listitem == 4)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -504.495117, -517.457763, 25.523437, 8.0);
 					notificacao(playerid, "INFO", "Ponto marcado no mapa.", ICONE_CERTO);
 				}
 			}
@@ -16497,7 +16560,6 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 
 public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 {
-	SetPlayerPos(playerid, fX,fY,fZ);
 	return 1;
 }
 
@@ -17485,7 +17547,7 @@ CMD:cinto(playerid){
 
 CMD:gps(playerid)
 {
-	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_LIST, "Onde deseja ir?", "{FFFF00}GPS {FFFFFF}Importantes\n{FFFF00}GPS {FFFFFF}Casas", "Selecionar", "X");
+	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_LIST, "Onde deseja ir?", "{FFFF00}GPS {FFFFFF}Importantes\n{FFFF00}GPS {FFFFFF}Empregos\n{FFFF00}GPS {FFFFFF}Casas", "Selecionar", "X");
 	MissaoPlayer[playerid][MISSAO8] = 1;
 	return 1;
 }
@@ -19364,13 +19426,13 @@ CMD:verdocumentos(playerid, params[])
 	if(!IsPerto(playerid,ID))return notificacao(playerid, "ERRO", "Nao esta proximo do jogador.", ICONE_ERRO);
 	//
 	new megastrings[500], String2[500];
-	format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\t{FFFFFF}Idade: {FFFF00}%d {FFFFFF}anos\t{FFFFFF}VIP: {FFFF00}%s\n", Name(ID),PlayerInfo[ID][pIdade], VIP(ID));
+	format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\t{FFFFFF}VIP: {FFFF00}%s\n", Name(ID), VIP(ID));
 	strcat(megastrings, String2);
 	format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\t{FFFFFF}Org:{FFFF00} %s\t{FFFFFF}Cargo:{FFFF00} %s\n", Profs(playerid), NomeOrg(ID), NomeCargo(ID));
 	strcat(megastrings, String2);
 	format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\t{FFFFFF}N°Casa:{FFFF00} %d\n", PlayerInfo[ID][pMultas], PlayerInfo[ID][Casa]);
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\t{FFFFFF}Expira VIP:{FFFF00} %s\n", ConvertTimeX(PlayerInfo[ID][pSegundosJogados]), convertNumber(PlayerInfo[ID][ExpiraVIP]-gettime()));
+	format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\t{FFFFFF}Expira VIP:{FFFF00} %s\n", convertNumber(PlayerInfo[ID][pSegundosJogados]), convertNumber(PlayerInfo[ID][ExpiraVIP]-gettime()));
 	strcat(megastrings, String2);
 	ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
 	return 1;

@@ -7,7 +7,6 @@ CarregarMapIcons()
 	CreateDynamicMapIcon(-1605.569213, 710.272521, 13.867187, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///POLICIA
 	CreateDynamicMapIcon(-1988.149658, 1039.089355, 55.726562, 52, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///BANCO
 	CreateDynamicMapIcon(-2026.631591, -102.066413, 35.164062, 36, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///AUTO ESCOLA
-	CreateDynamicMapIcon(2014.328125, -1770.929077, 13.543199, 27, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///MECANICA
 	CreateDynamicMapIcon(-2384.861328, -52.628452, 35.479644, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///27-7
 	CreateDynamicMapIcon(-2447.427490, 1211.600341, 35.378139, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///27-7
 	CreateDynamicMapIcon(-2074.794921, 643.822570, 52.524303, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///27-7
@@ -18,8 +17,5 @@ CarregarMapIcons()
 	CreateDynamicMapIcon(-2521.626220, 2295.312988, 4.984375, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///ACOUGUEIRO
 	CreateDynamicMapIcon(-504.495117, -517.457763, 25.523437, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///CAMIONERO
 	CreateDynamicMapIcon(-28.763319, 1363.971313, 9.171875, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///COLETOR
-
-	CreateDynamicMapIcon(1281.080810, -1267.302612, 13.535926, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///CONSTRUCTOR
-	CreateDynamicMapIcon(1974.8208, -1779.0802, 13.5432, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///MECANICO
     printf("=> MapIcons       		: Carregados");
 }
