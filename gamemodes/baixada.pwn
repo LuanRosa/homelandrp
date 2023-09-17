@@ -6254,6 +6254,8 @@ stock IsABike(vehicleid)
     switch(GetVehicleModel(vehicleid)) {
         case 448, 461..463, 468, 521..523, 581, 586, 481, 509, 510: 
             return 1;
+		default:
+			return 0;
     }
     return 0;
 } 
