@@ -158,6 +158,9 @@ static DCC_Channel:Dinn;
 static DCC_Channel:EntradaeSaida;
 static DCC_Channel:ChatAdm;
 static DCC_Channel:Sets;
+static DCC_Channel:Reports;
+static DCC_Channel:AtivarCoins;
+static DCC_Channel:VIPAtivado;
 
 //                          SAMP VOICE
 
@@ -675,9 +678,10 @@ new TimerCadeia;
 new TimerAfk;
 new TimerMaconha;
 new TimerMensagemAuto;
+new TimerMensagemAutoBot;
 
 //                          VARIAVEIS SEM COMENT
-
+new jogadoreson;
 new RecentlyShot[MAX_PLAYERS];
 new	Assistindo[MAX_PLAYERS] = -1,
 	Erro[MAX_PLAYERS],
@@ -1274,10 +1278,21 @@ main()
 	Chat = DCC_FindChannelById("1145712079861452850");
 	Dinn = DCC_FindChannelById("1145712172794642442");
 	EntradaeSaida = DCC_FindChannelById("1145712303124254743");
+	Reports = DCC_FindChannelById("1145712239614107760");
+	AtivarCoins = DCC_FindChannelById("1149056591711174797");
 	ChatAdm = DCC_FindChannelById("1145558205775233044");
+	VIPAtivado = DCC_FindChannelById("1149056733105369242");
 	Sets = DCC_FindChannelById("1145712207049527407");
 	printf("=> Canais DC       		: Carregados");
 }
+
+new RandomPresence[][] = 
+{
+	"Servidor Online",
+	"Baixada Roleplay v1.0",
+	"San Andreas Multiplayer",
+	"Estamos na versao v1.0 do servidor"
+};
 
 new RandomMSG[][] =
 {
@@ -2887,6 +2902,21 @@ CallBack::SendMSG()
 	}
 	return 1;
 }
+
+CallBack::SendMSGBot()
+{
+	for(new i = GetPlayerPoolSize(); i != -1; --i) //Loop through all players
+	{
+		if(pLogado[i] == true)
+		{
+			LimparChat(i, 50);
+			SendClientMessage(i, -1, RandomMSG[random(sizeof(RandomMSG))]);
+		}
+	}
+	DCC_SetBotActivity(RandomPresence[random(sizeof(RandomPresence))]);
+	return 1;
+}
+
 
 CallBack::TimerHack(playerid)
 {
@@ -10897,6 +10927,7 @@ public OnGameModeInit()
 	TimerAfk = SetTimer("AntiAway", minutos(10), true);
 	TimerMaconha = SetTimer("UpdateDrogas", minutos(15), true);
 	TimerMensagemAuto = SetTimer("SendMSG", minutos(5), true);
+	TimerMensagemAutoBot = SetTimer("SendMSGBot", minutos(1), true);
 	maintimer = SetTimer("MainTimer", 1000, true);
 	savetimer = SetTimer("SaveTimer", 2222, true);
 	return 1;
@@ -10911,6 +10942,7 @@ public OnGameModeExit()
 	KillTimer(TimerAfk);
 	KillTimer(TimerMaconha);
 	KillTimer(TimerMensagemAuto);
+	KillTimer(TimerMensagemAutoBot);
 	SalvarPlantacao();
 	IniciarCasas = 0;
 	IniciarRadares = 0;
@@ -11004,13 +11036,11 @@ public OnPlayerRequestClass(playerid, classid)
 	return 0;
 }
 
+
 public OnPlayerConnect(playerid)
 {	
-	new string[255];
 	SetPlayerCameraPos(playerid, 1981.038940, 1191.061401, 27.828259); 
 	SetPlayerCameraLookAt(playerid, 1985.139648, 1195.111572, 27.636171);
-	format(string,sizeof(string),"%s entrou no servidor!", Name(playerid));
-	DCC_SendChannelMessage(EntradaeSaida, string);
 	todastextdraw(playerid);
 	if(!SvGetVersion(playerid))
 	{
@@ -11038,9 +11068,15 @@ public OnPlayerDisconnect(playerid, reason)
 {
 	if(pLogado[playerid] == true)
 	{
+		jogadoreson--;
+
 		new string[255];
-		format(string,sizeof(string),"%s saiu do servidor!", Name(playerid));
-		DCC_SendChannelMessage(EntradaeSaida, string);
+		new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+		format(string,sizeof(string),"O jogador %04d(%d) saiu no servidor!\n\nAgora temos **%d** jogadores na cidade.", PlayerInfo[playerid][IDF],playerid, jogadoreson);
+		DCC_SetEmbedColor(embed, 0xFFFF00);
+		DCC_SetEmbedDescription(embed, string);
+		DCC_SetEmbedImage(embed, "https://i.gruposwhats.app/620d596007e61.jpg");
+		DCC_SendChannelEmbedMessage(EntradaeSaida, embed);
 		SalvarDados(playerid);
 		SalvarMortos(playerid);
 		SalvarMissoes(playerid);
@@ -11338,7 +11374,7 @@ public OnPlayerText(playerid, text[])
 		format(string, sizeof(string), "{FFFFFF}%04d({FFFF00}%d{FFFFFF}) falou {FFFF00}%s",PlayerInfo[playerid][IDF],playerid,text);
 		ProxDetector(30.0, playerid, string, -1, -1, -1, -1, -1);
 
-		format(string,sizeof(string),"%s falou %s", Name(playerid), text);
+		format(string,sizeof(string),"%04d(%d) falou %s", PlayerInfo[playerid][IDF],playerid, text);
 		DCC_SendChannelMessage(Chat, string);
 		return 0;
 	}
@@ -13879,6 +13915,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					pLogado[playerid] = true; 
 					pJogando[playerid] = true;
 					Erro[playerid] = 0;
+					jogadoreson++;
+
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                                                                                                                  -  
+					format(string,sizeof(string),"O jogador %04d(%d) entrou no servidor!\n\nAgora temos **%d** jogadores na cidade.", PlayerInfo[playerid][IDF],playerid, jogadoreson);
+					DCC_SetEmbedColor(embed, 0xFFFF00);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedImage(embed, "https://i.gruposwhats.app/620d596007e61.jpg");
+					DCC_SendChannelEmbedMessage(EntradaeSaida, embed);
 				}
 			}
 		}
@@ -14619,11 +14664,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{FFFF00}- {FFFFFF}VIP PRATA{32CD32}\tBCR$5,000\n{FFFF00}- {FFFFFF}VIP OURO{32CD32}\tBCR$10,000\n{FFFF00}- {FFFFFF}VIP PATROCINADOR{32CD32}\tBCR$20,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{FFFF00}- {FFFFFF}VIP PRATA{32CD32}\tBC$5,000\n{FFFF00}- {FFFFFF}VIP OURO{32CD32}\tBC$10,000\n{FFFF00}- {FFFFFF}VIP DIAMANTE{32CD32}\tBC$20,000", "Selecionar", "X");	
 				}
 				if(listitem == 1)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATVEHINV, DIALOG_STYLE_LIST, "CATALOGO VEH INV", "{FFFF00}- {FFFFFF}Sultan{FFFF00}\tBCR$5,000\n{FFFF00}- {FFFFFF}HotKnife{FFFF00}\tBCR$5,000\n{FFFF00}- {FFFFFF}RC Bandit{FFFF00}\tBCR$2,000\n{FFFF00}- {FFFFFF}RC Baron{FFFF00}\tBCR$2,000\n{FFFF00}- {FFFFFF}RC Raider{FFFF00}\tBCR$2,000\n{FFFF00}- {FFFFFF}Hotring{FFFF00}\tBCR$5,000\n{FFFF00}- {FFFFFF}RC Goblin{FFFF00}\tBCR$2,000\n{FFFF00}- {FFFFFF}Monster{FFFF00}\tBCR$5,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATVEHINV, DIALOG_STYLE_LIST, "CATALOGO VEH INV", "{FFFF00}- {FFFFFF}Sultan{FFFF00}\tBC$5,000\n{FFFF00}- {FFFFFF}HotKnife{FFFF00}\tBC$5,000\n{FFFF00}- {FFFFFF}RC Bandit{FFFF00}\tBC$2,000\n{FFFF00}- {FFFFFF}RC Baron{FFFF00}\tBC$2,000\n{FFFF00}- {FFFFFF}RC Raider{FFFF00}\tBC$2,000\n{FFFF00}- {FFFFFF}Hotring{FFFF00}\tBC$5,000\n{FFFF00}- {FFFFFF}RC Goblin{FFFF00}\tBC$2,000\n{FFFF00}- {FFFFFF}Monster{FFFF00}\tBC$5,000", "Selecionar", "X");	
 				}
 				if(listitem == 2)
 				{
@@ -14639,74 +14684,130 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 0)
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}SULTAN{FFFFFF} por{FFFF00} BCR$5.000", PlayerInfo[playerid][IDF],playerid);
+					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}SULTAN{FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 560, 1);
 					notificacao(playerid, "EXITO", "Comprou um veiculo de inventario.", ICONE_CERTO);
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d(%d) acaba de comprar um veiculo de inventario\nValor: 5000\nNome Veh: Sultan", PlayerInfo[playerid][IDF],playerid);
+					DCC_SetEmbedColor(embed, 0xFFFF00);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_560.jpg");
+					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
 				if(listitem == 1)
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}HOTKNIFE{FFFFFF} por{FFFF00} BCR$5.000", PlayerInfo[playerid][IDF],playerid);
+					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}HOTKNIFE{FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 434, 1);
 					notificacao(playerid, "EXITO", "Comprou um veiculo de inventario.", ICONE_CERTO);
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d(%d) acaba de comprar um veiculo de inventario\nValor: 5000\nNome Veh: HotKnife", PlayerInfo[playerid][IDF],playerid);
+					DCC_SetEmbedColor(embed, 0xFFFF00);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_434.jpg");
+					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
 				if(listitem == 2)
 				{
 					if(PlayerInfo[playerid][pCoins] < 2000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}RC BANDIT{FFFFFF} por{FFFF00} BCR$2.000", PlayerInfo[playerid][IDF],playerid);
+					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}RC BANDIT{FFFFFF} por{FFFF00} BC$2.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 441, 1);
 					notificacao(playerid, "EXITO", "Comprou um veiculo de inventario.", ICONE_CERTO);
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d(%d) acaba de comprar um veiculo de inventario\nValor: 2000\nNome Veh: RC Bandit", PlayerInfo[playerid][IDF],playerid);
+					DCC_SetEmbedColor(embed, 0xFFFF00);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_441.jpg");
+					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
 				if(listitem == 3)
 				{
 					if(PlayerInfo[playerid][pCoins] < 2000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}RC BARON{FFFFFF} por{FFFF00} BCR$2.000", PlayerInfo[playerid][IDF],playerid);
+					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}RC BARON{FFFFFF} por{FFFF00} BC$2.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 464, 1);
 					notificacao(playerid, "EXITO", "Comprou um vip e recebeu seus beneficios.", ICONE_CERTO);
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d(%d) acaba de comprar um veiculo de inventario\nValor: 2000\nNome Veh: RC Baron", PlayerInfo[playerid][IDF],playerid);
+					DCC_SetEmbedColor(embed, 0xFFFF00);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_464.jpg");
+					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
 				if(listitem == 4)
 				{
 					if(PlayerInfo[playerid][pCoins] < 2000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}RC RAIDER{FFFFFF} por{FFFF00} BCR$2.000", PlayerInfo[playerid][IDF],playerid);
+					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}RC RAIDER{FFFFFF} por{FFFF00} BC$2.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 465, 1);
 					notificacao(playerid, "EXITO", "Comprou um veiculo de inventario.", ICONE_CERTO);
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d(%d) acaba de comprar um veiculo de inventario\nValor: 2000\nNome Veh: RC Raider", PlayerInfo[playerid][IDF],playerid);
+					DCC_SetEmbedColor(embed, 0xFFFF00);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_465.jpg");
+					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
 				if(listitem == 5)
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}HOTRING{FFFFFF} por{FFFF00} BCR$5.000", PlayerInfo[playerid][IDF],playerid);
+					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}HOTRING{FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 502, 1);
 					notificacao(playerid, "EXITO", "Comprou um veiculo de inventario.", ICONE_CERTO);
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d(%d) acaba de comprar um veiculo de inventario\nValor: 5000\nNome Veh: Hotring", PlayerInfo[playerid][IDF],playerid);
+					DCC_SetEmbedColor(embed, 0xFFFF00);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_502.jpg");
+					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
 				if(listitem == 6)
 				{
 					if(PlayerInfo[playerid][pCoins] < 2000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}RC GOBLIN{FFFFFF} por{FFFF00} BCR$2.000", PlayerInfo[playerid][IDF],playerid);
+					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}RC GOBLIN{FFFFFF} por{FFFF00} BC$2.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 501, 1);
 					notificacao(playerid, "EXITO", "Comprou um veiculo de inventario.", ICONE_CERTO);
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d(%d) acaba de comprar um veiculo de inventario\nValor: 2000\nNome Veh: Goblin", PlayerInfo[playerid][IDF],playerid);
+					DCC_SetEmbedColor(embed, 0xFFFF00);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_501.jpg");
+					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
 				if(listitem == 7)
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}MONSTER{FFFFFF} por{FFFF00} BCR$5.000", PlayerInfo[playerid][IDF],playerid);
+					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}MONSTER{FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 556, 1);
 					notificacao(playerid, "EXITO", "Comprou um veiculo de inventario.", ICONE_CERTO);
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d(%d) acaba de comprar um veiculo de inventario\nValor: 5000\nNome Veh: Monster", PlayerInfo[playerid][IDF],playerid);
+					DCC_SetEmbedColor(embed, 0xFFFF00);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_556.jpg");
+					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
 			}
 		}
@@ -14718,7 +14819,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 0)
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}VIP PRATA {FFFFFF} por{FFFF00} BCR$5.000", PlayerInfo[playerid][IDF],playerid);
+					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}VIP PRATA {FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 5000;
 					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
@@ -14728,11 +14829,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SetInt(string,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
 					DOF2_SaveFile(); 
 					notificacao(playerid, "EXITO", "Comprou um vip e recebeu seus beneficios.", ICONE_CERTO);
+					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d(%d) acaba de comprar VIP PRATA\nValor: 5000", PlayerInfo[playerid][IDF],playerid);
+					DCC_SetEmbedColor(embed, 0xFFFF00);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
 				if(listitem == 1)
 				{
 					if(PlayerInfo[playerid][pCoins] < 10000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}VIP GOLD {FFFFFF} por{FFFF00} BCR$10.000", PlayerInfo[playerid][IDF],playerid);
+					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}VIP OURO {FFFFFF} por{FFFF00} BC$10.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pBanco] += 5000;
 					PlayerInfo[playerid][pCoins] -= 10000;
@@ -14742,12 +14848,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_CreateFile(string); 
 					DOF2_SetInt(string,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
 					DOF2_SaveFile(); 
-					notificacao(playerid, "EXITO", "Comprou um vip e recebeu seus beneficios.", ICONE_CERTO);
+					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d(%d) acaba de comprar VIP OURO\nValor: 10000", PlayerInfo[playerid][IDF],playerid);
+					DCC_SetEmbedColor(embed, 0xFFFF00);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
 				if(listitem == 2)
 				{
 					if(PlayerInfo[playerid][pCoins] < 20000) 	return notificacao(playerid, "ERRO", "Coins insuficiente.", ICONE_ERRO);
-					format(String, sizeof(String), "FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}VIP PATROCINADOR por{FFFF00} BCR$20.000", PlayerInfo[playerid][IDF],playerid);
+					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d({FFFF00}%d{FFFFFF}) compro  {0080FF}VIP DIAMANTE por{FFFF00} BC$20.000", PlayerInfo[playerid][IDF],playerid);
 					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pBanco] += 25000;
 					PlayerInfo[playerid][pCoins] -= 20000;
@@ -14758,6 +14868,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SetInt(string,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
 					DOF2_SaveFile(); 
 					notificacao(playerid, "EXITO", "Comprou um vip e recebeu seus beneficios.", ICONE_CERTO);
+					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d(%d) acaba de comprar VIP DIAMANTE\nValor: 20000", PlayerInfo[playerid][IDF],playerid);
+					DCC_SetEmbedColor(embed, 0xFFFF00);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
 			}
 		}
@@ -17654,6 +17769,14 @@ CMD:report(playerid, params[])
 	//
 	format(Str, sizeof(Str), "{FFFFFF}%04d({FFFF00}%d{FFFFFF}) report {FFFFFF}%04d({FFFF00}%d{FFFFFF}) Motivo: {FFFF00}%s", PlayerInfo[playerid][IDF],playerid, PlayerInfo[ID][IDF],ID, Motivo);
 	SendAdminMessage(AzulClaro, Str);
+
+	new string[255];
+	new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+	format(string,sizeof(string),"### NOVO REPORT\n\nReporte de %04d(%d) \nReportou o %04d(%d)\nMotivo: %s", PlayerInfo[playerid][IDF],playerid, PlayerInfo[ID][IDF],ID, Motivo);
+	DCC_SetEmbedColor(embed, 0xFFFF00);
+	DCC_SetEmbedDescription(embed, string);
+	DCC_SetEmbedImage(embed, "https://i.gruposwhats.app/620d596007e61.jpg");
+	DCC_SendChannelEmbedMessage(Reports, embed);
 	//
 	return 1;
 }
@@ -17663,7 +17786,7 @@ CMD:duvida(playerid, params[])
 	if(pLogado[playerid] == false)              				return notificacao(playerid, "ERRO", "Nao fez login.", ICONE_ERRO);
 	if(sscanf(params, "s[56]", Str))							return SendClientMessage(playerid, CorErroNeutro, "USE: /duvida [TEXTO]");
 	//
-	format(Str, sizeof(Str), "{07fc03}(Duvida){FFFFFF} %s{FFFF00} disse {FFFFFF}%s", Name(playerid), Str);
+	format(Str, sizeof(Str), "{FFFF00}(Duvida){FFFFFF} %s{FFFFFF} disse {FFFF00}%s", Name(playerid), Str);
 	SendClientMessageToAll(-1, Str);
 	return 1;
 }
@@ -17830,7 +17953,7 @@ CMD:setcolete(playerid, params[])
 	format(Str, sizeof(Str), "{FFFFFF}O Administrador {FFFF00}%s {FFFFFF}colocou seu colete para: {FFFF00}%d", Name(playerid), Numero);
 	SendClientMessage(playerid, CorSucesso, Str);
 	//
-	format(Str, sizeof(Str), "O Administrador %s dio a %s %d de chaleco.", Name(playerid), Name(ID), Numero);
+	format(Str, sizeof(Str), "O Administrador %s deu a %s %d de chaleco.", Name(playerid), Name(ID), Numero);
 	DCC_SendChannelMessage(Sets, Str);
 	return 1;
 }
@@ -18487,14 +18610,14 @@ CMD:setadmin(playerid, params[])
 	if(pJogando[playerid] == true) 				return notificacao(playerid, "ERRO", "Nao iniciou trabalho staff", ICONE_ERRO);
 	if(sscanf(params, "ii", ID, Numero))		return SendClientMessage(playerid, CorErroNeutro, "USE: /setadmin [ID] [LEVEL]");
 	if(!IsPlayerConnected(ID))					return notificacao(playerid, "ERRO", "Jogador nao esta online.", ICONE_ERRO);
-	if(Numero > 9)				return notificacao(playerid, "ERRO", "El numero debe ser entre 0 y 6.", ICONE_ERRO);
+	if(Numero > 9)				return notificacao(playerid, "ERRO", "El numero debe ser entre 0 y 9.", ICONE_ERRO);
 	format(Str, sizeof(Str), "{FFFFFF}Deu a {FFFF00}%s {FFFFFF}, {FFFF00}%i{FFFFFF} level de Administrador.", Name(ID), Numero);
 	SendClientMessage(playerid, Azul, Str);
 	//
 	format(Str, sizeof(Str), "{FFFFFF}Te deu {FFFF00}%i {FFFFFF}Level de Administrador por {FFFF00}%s.", Numero, Name(playerid));
 	SendClientMessage(ID, Azul, Str);
 	//
-	format(Str, sizeof(Str), "O Administrador %s dio administrador level %i para %s.", Name(playerid), Numero, Name(ID));
+	format(Str, sizeof(Str), "O Administrador %s deu administrador level %i para %s.", Name(playerid), Numero, Name(ID));
 	DCC_SendChannelMessage(Sets, Str);
 	PlayerInfo[ID][pAdmin] = Numero;
 	//
@@ -18511,7 +18634,7 @@ CMD:gmx(playerid)
 	}
 	format(Str, sizeof(Str), "{FFFF00}ANUNCIO{FFFFFF} Se realizara um reinicio no servidor.");
 	SendClientMessageToAll(-1, Str);
-	SendRconCommand("gmx");
+	SendRconCommand("exit");
 	return 1;
 }
 
@@ -18575,11 +18698,11 @@ CMD:setvip(playerid, params[])
 CMD:lojavip(playerid)
 {
 	new StrCash[550],StrCashh[550], String[500];
-	format(StrCashh, sizeof(StrCashh), "{FFFF00}- {FFFFFF}Compra um VIP\n");
+	format(StrCashh, sizeof(StrCashh), "{FFFF00}LOJA {FFFFFF}VIP's\n");
 	strcat(StrCash,StrCashh);
-	format(StrCashh, sizeof(StrCashh), "{FFFF00}- {FFFFFF}Compra veiculo de inventario\n");
+	format(StrCashh, sizeof(StrCashh), "{FFFF00}LOJA {FFFFFF}Veiculos de Inventario\n");
 	strcat(StrCash,StrCashh);
-	format(StrCashh, sizeof(StrCashh), "{FFFF00}- {FFFFFF}Beneficios VIP\n");
+	format(StrCashh, sizeof(StrCashh), "{FFFF00}LOJA {FFFFFF}Verifique os Beneficios\n");
 	strcat(StrCash,StrCashh);
 	format(String, sizeof(String), "SEUS COINS {0080FF}(CR$%i)", PlayerInfo[playerid][pCoins]);
 	ShowPlayerDialog(playerid, DIALOG_CATCOINS, DIALOG_STYLE_LIST, String , StrCash, "Selecionar", "X");	
@@ -19543,17 +19666,16 @@ CMD:reanimar(playerid)
 CMD:criarkey(playerid, params[])
 {
 	new File[255];
-	new vl, UsoR;  
+	new vl;  
 	if(PlayerInfo[playerid][pAdmin] < 7)		return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
-	if(sscanf(params, "dd", vl, UsoR)) return SendClientMessage(playerid, 0xF22F13FF, "[ERRO] {FFFFFF}Use: /criarkey [Valor] [Disponiveis]");
+	if(sscanf(params, "d", vl)) return SendClientMessage(playerid, 0xF22F13FF, "[ERRO] {FFFFFF}Use: /criarkey [Valor]");
 	{
 		new Cod = randomEx(0,999999);
 		format(File, sizeof(File), PASTA_KEYS, Cod);
 		DOF2_CreateFile(File);
 		DOF2_SetInt(File, "Valor", vl);
-		DOF2_SetInt(File, "UsoRestante", UsoR);
 		DOF2_SaveFile();
-		new str[180];format(str, sizeof(str), "{FFFF00}[INFO] {FFFFFF}O cupom %d se criou com %d e %d jogadores podem usar", Cod, vl, UsoR);
+		new str[180];format(str, sizeof(str), "{FFFF00}[INFO] {FFFFFF}O cupom %d se criou com %i de coins.", Cod, vl);
 		SendClientMessage(playerid, -1, str);
 	}
 	return 1;
@@ -19562,27 +19684,23 @@ CMD:criarkey(playerid, params[])
 CMD:ativarkey(playerid, params[])
 {
 	new File[255];
-	new Cod, Din, CupomR;
+	new Cod, Din;
 	if(sscanf(params, "d", Cod)) return SendClientMessage(playerid, 0xF22F13FF, "[ERRO] {FFFFFF}Use: /ativarkey [Codigo]");
 	{
 		format(File, sizeof(File), PASTA_KEYS, Cod);
 		if(DOF2_FileExists(File)) 
 		{
-			CupomR = DOF2_GetInt(File, "UsoRestante");
-			if(CupomR > 0)
-			{
-				Din = DOF2_GetInt(File, "Valor");
-				PlayerInfo[playerid][pCoins] += Din;
-				CupomR -- ;
-				notificacao(playerid, "EXITO", "Codigo utilizado!", ICONE_CERTO);
-				DOF2_SetInt(File,"UsoRestante", CupomR);
-				DOF2_SaveFile();
-			}
-			else
-			{
-				DOF2_RemoveFile(File);
-				CupomR = 0;
-			}
+			Din = DOF2_GetInt(File, "Valor");
+			new string[255];
+			new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+			format(string,sizeof(string),"### COINS ATIVADOS\n\nJogador: %04d(%d)\nQuantidade Agora: %s\nQuantidade Antes: %s\nCod: %d", PlayerInfo[playerid][IDF],playerid,ConvertMoney(PlayerInfo[playerid][pCoins]+Din),ConvertMoney(PlayerInfo[playerid][pCoins]), Cod);
+			DCC_SetEmbedColor(embed, 0xFFFF00);
+			DCC_SetEmbedDescription(embed, string);
+			DCC_SetEmbedImage(embed, "https://i.gruposwhats.app/620d596007e61.jpg");
+			DCC_SendChannelEmbedMessage(AtivarCoins, embed);
+			PlayerInfo[playerid][pCoins] += Din;
+			notificacao(playerid, "EXITO", "Codigo utilizado!", ICONE_CERTO);
+			DOF2_RemoveFile(File);
 		}
 		else
 		{
