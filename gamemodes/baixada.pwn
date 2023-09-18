@@ -587,6 +587,7 @@ new bool:TxdBAncoAb[MAX_PLAYERS] = false;
 new	bool:AparecendoNoAdmins[MAX_PLAYERS] = true;
 new bool:LavouMao[MAX_PLAYERS] = false;
 new bool:PegouLixo[MAX_PLAYERS] = false;
+new bool:Podecmd[MAX_PLAYERS] = true;
 //                          TEXTDRAWS
 
 new Text:TDEditor_TD[66];
@@ -1479,28 +1480,22 @@ Progresso:BotouBau(playerid, progress)
 	if(progress >= 100)
 	{
 		new covastr[255];
-		new dincova = randomEx(0,100);
-		if(PlayerInfo[playerid][pVIP] == 0)
+		new dincova = random(100);
+		if(PlayerInfo[playerid][pVIP] >= 1)
 		{
+			PlayerInfo[playerid][pDinheiro] += dincova*2;
+			format(covastr,sizeof(covastr),"Ganhou R$%i coletando esse lixo.", dincova*2);
+			notificacao(playerid, "TRABALHO", covastr, ICONE_EMPREGO); 
+		}else{
 			PlayerInfo[playerid][pDinheiro] += dincova;
-			format(covastr,sizeof(covastr),"Ganhou %i coletando esse lixo.", dincova);
-			notificacao(playerid, "TRABALHO", covastr, ICONE_EMPREGO); 
-		}   
-		if(PlayerInfo[playerid][pVIP] == 2)
-		{
-			PlayerInfo[playerid][pDinheiro] += dincova*2;
-			format(covastr,sizeof(covastr),"Ganhou %i coletando esse lixo.", dincova*2);
+			format(covastr,sizeof(covastr),"Ganhou R$%i coletando esse lixo.", dincova);
 			notificacao(playerid, "TRABALHO", covastr, ICONE_EMPREGO); 
 		}
-		if(PlayerInfo[playerid][pVIP] == 3)
-		{
-			PlayerInfo[playerid][pDinheiro] += dincova*2;
-			format(covastr,sizeof(covastr),"Ganhou %i coletando esse lixo.", dincova*2);
-			notificacao(playerid, "TRABALHO", covastr, ICONE_EMPREGO); 
-		}
+		RemovePlayerAttachedObject(playerid, 5);
 		ClearAnimations(playerid);
 		TogglePlayerControllable(playerid, 1);
 		PegouLixo[playerid] = false;
+		SetTimerEx("ExpireAntComannd",5000,false,"i",playerid);
 	}
 	return 1;
 }
@@ -1508,59 +1503,57 @@ Progresso:Cova(playerid, progress)
 {
 	if(progress >= 100)
 	{
-		new locallixo = randomEx(0,10);
-		if(locallixo == 1)
-		{	
-			SetPlayerCheckpoint(playerid, 24.118854, 1384.762695, 9.171875, 1);
+		new locallixo = random(10);
+		switch(locallixo){
+			case 0:{
+				SetPlayerCheckpoint(playerid, 24.118854, 1384.762695, 9.171875, 1);
+				notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
+			}
+			case 1:{
+				SetPlayerCheckpoint(playerid, 24.118854, 1384.762695, 9.171875, 1);
+				notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
+			}
+			case 2:{
+				SetPlayerCheckpoint(playerid, 20.505460, 1387.800292, 9.171875, 1);
+				notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
+			}
+			case 3:{
+				SetPlayerCheckpoint(playerid, 33.100147, 1348.264160, 9.171875, 1);
+				notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
+			}
+			case 4:{
+				SetPlayerCheckpoint(playerid, 30.621374, 1345.285400, 9.171875, 1);
 			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
-		}
-		if(locallixo == 2)
-		{	
-			SetPlayerCheckpoint(playerid, 20.505460, 1387.800292, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
-		}
-		if(locallixo == 3)
-		{	
-			SetPlayerCheckpoint(playerid, 33.100147, 1348.264160, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
-		}
-		if(locallixo == 4)
-		{	
-			SetPlayerCheckpoint(playerid, 30.621374, 1345.285400, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
-		}
-		if(locallixo == 5)
-		{	
-			SetPlayerCheckpoint(playerid, 28.793310, 1342.226318, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
-		}
-		if(locallixo == 6)
-		{	
-			SetPlayerCheckpoint(playerid, 27.303512, 1339.422729, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
-		}
-		if(locallixo == 7)
-		{	
-			SetPlayerCheckpoint(playerid, 26.155256, 1337.490844, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
-		}
-		if(locallixo == 8)
-		{	
-			SetPlayerCheckpoint(playerid, 23.932958, 1336.910034, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
-		}
-		if(locallixo == 9)
-		{	
-			SetPlayerCheckpoint(playerid, 21.434928, 1335.923828, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
-		}
-		if(locallixo == 10)
-		{	
-			SetPlayerCheckpoint(playerid, 18.442813, 1334.873413, 9.171875, 1);
-			notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
+			}
+			case 5:{
+				SetPlayerCheckpoint(playerid, 28.793310, 1342.226318, 9.171875, 1);
+				notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
+			}
+			case 6:{
+				SetPlayerCheckpoint(playerid, 27.303512, 1339.422729, 9.171875, 1);
+				notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
+			}
+			case 7:{
+				SetPlayerCheckpoint(playerid, 26.155256, 1337.490844, 9.171875, 1);
+				notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
+			}
+			case 8:{
+				SetPlayerCheckpoint(playerid, 23.932958, 1336.910034, 9.171875, 1);
+				notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
+			}
+			case 9:{
+				SetPlayerCheckpoint(playerid, 21.434928, 1335.923828, 9.171875, 1);
+				notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
+			}
+			case 10:{
+				SetPlayerCheckpoint(playerid, 18.442813, 1334.873413, 9.171875, 1);
+				notificacao(playerid, "TRABALHO", "Leve o lixo ate o bau.", ICONE_EMPREGO);
+			}
 		}
 		TogglePlayerControllable(playerid, 1);
+		SetPlayerAttachedObject(playerid, 5, 1265, 5);
 		PegouLixo[playerid] = true;
+		Covaconcerto[playerid] = false;
 	}
 	return 1;
 }
@@ -1750,6 +1743,12 @@ Progresso:Pesca(playerid, progress)
 CallBack::AntiSpam(playerid) 
 {
 	RecentlyShot[playerid] = 0;
+	return 1;
+}
+CallBack::ExpireAntComannd(playerid){
+	if(Podecmd[playerid] == false){
+		Podecmd[playerid] = true;
+	}
 	return 1;
 }
 
@@ -10371,6 +10370,7 @@ stock ZerarDados(playerid)
 	AutoEscolaAerea[playerid] = 0;	
 	VeiculoCivil[playerid] = 0;
 	Covaconcerto[playerid] = false;
+	Podecmd[playerid] = true;
 	ltumba[playerid] = false;
 	RecentlyShot[playerid] = 0;
 	InventarioAberto[playerid] = 0;
@@ -11610,18 +11610,17 @@ public OnPlayerEnterCheckpoint(playerid)
 	}
 	if(Covaconcerto[playerid] == true) 
 	{ 
-		Covaconcerto[playerid] = false;
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 1, 1, 0, 1, 0, 1);
+		ApplyAnimation(playerid,"ROB_BANK", "CAT_Safe_Rob",4.1, 0, 0, 0, 0, 0, 1);
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
-		CreateProgress(playerid, "Cova","Coletando...", 80);
+		CreateProgress(playerid, "Cova","Coletando lixo...", 130);
 	}
 	if(PegouLixo[playerid] == true) 
 	{ 
-		PegouLixo[playerid] = false;
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
-		CreateProgress(playerid, "BotouBau","Colocando lixo...", 50);
+		CreateProgress(playerid, "BotouBau","Colocando lixo...", 100);
 	}
 	if(ltumba[playerid] == true)
 	{
@@ -18601,11 +18600,14 @@ CMD:dveiculo(playerid)
 CMD:iniciarcoleta(playerid) 
 { 
 	if(PlayerInfo[playerid][pProfissao] != 6) 	return notificacao(playerid, "ERRO", "Nao possui permissao.", ICONE_ERRO);
+	if(Covaconcerto[playerid] == true || PegouLixo[playerid] == true) return notificacao(playerid, "ERRO", "Termine esta coleta para iniciar outra.", ICONE_ERRO);
+	if(Podecmd[playerid] == false) return notificacao(playerid, "ERRO", "Voce podera iniciar outra coleta novamente em 5s..", ICONE_ERRO);
 	cova[playerid] = random(sizeof(Covas));    
 	new index = cova[playerid];    
 	SetPlayerCheckpoint(playerid, Covas[index][0], Covas[index][1], Covas[index][2], 2.0);  
 	notificacao(playerid, "EXITO", "Faca a coleta no ponto marcado.", ICONE_CERTO);
 	Covaconcerto[playerid] = true;
+	Podecmd[playerid] = false;
 	return 1; 
 }
 
