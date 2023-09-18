@@ -1500,7 +1500,6 @@ Progresso:BotouBau(playerid, progress)
 		}
 		ClearAnimations(playerid);
 		TogglePlayerControllable(playerid, 1);
-		Covaconcerto[playerid] = false;
 		PegouLixo[playerid] = false;
 	}
 	return 1;
@@ -1562,7 +1561,6 @@ Progresso:Cova(playerid, progress)
 		}
 		TogglePlayerControllable(playerid, 1);
 		PegouLixo[playerid] = true;
-		Covaconcerto[playerid] = false;
 	}
 	return 1;
 }
@@ -6265,6 +6263,8 @@ stock IsABoat(vehicleid)
     switch(GetVehicleModel(vehicleid)) {
         case 472, 473, 493, 595, 484, 430, 453, 452, 446, 454: 
             return 1;
+		default:
+			return 0;
     }
     return 0;
 } 
@@ -11610,6 +11610,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	}
 	if(Covaconcerto[playerid] == true) 
 	{ 
+		Covaconcerto[playerid] = false;
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 1, 1, 0, 1, 0, 1);
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
@@ -11617,6 +11618,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	}
 	if(PegouLixo[playerid] == true) 
 	{ 
+		PegouLixo[playerid] = false;
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
 		CreateProgress(playerid, "BotouBau","Colocando lixo...", 50);
