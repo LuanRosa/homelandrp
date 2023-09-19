@@ -6279,10 +6279,7 @@ stock checkPasswordAccount(playerid, password[]) {
 stock IsABike(vehicleid)
 {
     switch(GetVehicleModel(vehicleid)) {
-        case 448, 461..463, 468, 521..523, 581, 586, 481, 509, 510: 
-            return 1;
-		default:
-			return 0;
+        case 448, 461..463, 468, 521..523, 581, 586, 481, 509, 510:{ return 1; }
     }
     return 0;
 } 
@@ -6290,10 +6287,7 @@ stock IsABike(vehicleid)
 stock IsABoat(vehicleid)
 {
     switch(GetVehicleModel(vehicleid)) {
-        case 472, 473, 493, 595, 484, 430, 453, 452, 446, 454: 
-            return 1;
-		default:
-			return 0;
+        case 472, 473, 493, 595, 484, 430, 453, 452, 446, 454:{ return 1; }
     }
     return 0;
 } 
@@ -11408,11 +11402,6 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			MotorOn[playerid] = 0;
 		}
 	}
-	if(TemCinto[playerid] == false && !IsABike(GetPlayerVehicleID(playerid)) && !IsABoat(GetPlayerVehicleID(playerid))){
-		for(new x=0;x<5;x++){
-			TextDrawShowForPlayer(playerid, Tdcinto[x]);
-		}
-	}
 	return 1;
 }
 
@@ -11422,7 +11411,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 	{
 		new motor, luzes, alarmev, portas, capo, mala, objective;
 		GetVehicleParamsEx(vehicleid, motor, luzes, alarmev, portas, capo, mala, objective);
-		SetVehicleParamsEx(vehicleid, false, luzes,alarmev, portas, capo, mala, objective);
+		SetVehicleParamsEx(vehicleid, false, false,alarmev, portas, capo, mala, objective);
 		MotorOn[playerid] = 0;
 	}
 	if(IniciouTesteHabilitacaoA[playerid] == 1)
@@ -11521,7 +11510,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 	if(TemCinto[playerid] == true){
 		new string3[128];
 		TemCinto[playerid] = false;
-		format(string3, sizeof(string3), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) tirou o cinto de seguranca", PlayerInfo[playerid][IDF],playerid);
+		format(string3, sizeof(string3), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) retirou o cinto de seguranca", PlayerInfo[playerid][IDF],playerid);
 		ProxDetector(20.0, playerid, string3, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 		notificacao(playerid, "EXITO", "Cinto de seguranca removido", ICONE_CERTO);
 	}else{
@@ -11602,6 +11591,11 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			format(Str, sizeof(Str), "Veiculo ID: %i", GetPlayerVehicleID(playerid));
 			notificacao(playerid, "INFO", Str, ICONE_AVISO);
 		}
+		if(TemCinto[playerid] == false && !IsABike(GetPlayerVehicleID(playerid)) && !IsABoat(GetPlayerVehicleID(playerid))){
+			for(new x=0;x<5;x++){
+				TextDrawShowForPlayer(playerid, Tdcinto[x]);
+			}
+		}
 		foreach(new i: Player)
 		{
 			if(IsPlayerConnected(i) && Assistindo[i] == playerid && IsAssistindo[i] == true)
@@ -11620,6 +11614,13 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 				TogglePlayerSpectating(i, 1);
 				PlayerSpectatePlayer(i, playerid);
 			}
+		}
+		if(TemCinto[playerid] == false){
+			for(new x=0;x<5;x++){
+				TextDrawHideForPlayer(playerid, Tdcinto[x]);
+			}
+		}else{
+			TemCinto[playerid] = false;
 		}
 	}
 	if(newstate == PLAYER_STATE_DRIVER)
@@ -11646,16 +11647,16 @@ public OnPlayerEnterCheckpoint(playerid)
 	}
 	if(Covaconcerto[playerid] == true) 
 	{ 
-		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 1, 1, 0, 1, 0, 1);
-		ApplyAnimation(playerid,"ROB_BANK", "CAT_Safe_Rob",4.1, 0, 0, 0, 0, 0, 1);
-		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
+		ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.1, 1, 0, 0, 0, 0, 1);
+		DisablePlayerCheckpoint(playerid); 
 		CreateProgress(playerid, "Cova","Coletando lixo...", 130);
 	}
 	if(PegouLixo[playerid] == true) 
 	{ 
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
+		ApplyAnimation(playerid, "BUDDY", "BUDDY_CROUCHRELOAD", 4.1, 1, 0, 0, 0, 0, 1);
 		CreateProgress(playerid, "BotouBau","Colocando lixo...", 100);
 	}
 	if(ltumba[playerid] == true)
@@ -14256,7 +14257,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerInfo[playerid][pProfissao] == 1)
 					{
 						strcat(Str2, "\t{FFFF00}- {FFFFFF}Ajuda Pescador{FFFF00}- {FFFFFF}\n\n");
-						strcat(Str2, "\n{FFFF00}Paso 1:{FFFFFF} Compre uma vara de pescar na 24/7.\n{FFFF00}Paso 2:{FFFFFF} Use proximo do texto para comecar a pescar.\n{FFFF00}Paso 3:{FFFFFF} Venda os peixes na cabana ao lado.");
+						strcat(Str2, "\n{FFFF00}Passo 1:{FFFFFF} Compre uma vara de pescar na 24/7.\n{FFFF00}Passo 2:{FFFFFF} Use proximo do texto para comecar a pescar.\n{FFFF00}Passo 3:{FFFFFF} Venda os peixes na cabana ao lado.");
 						ShowPlayerDialog(playerid, DIALOG_EMP1, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
 					if(PlayerInfo[playerid][pProfissao] == 2)
@@ -14289,6 +14290,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						strcat(Str2, "\t{FFFF00}- {FFFFFF}Ajuda Entregador de Tumba{FFFF00}- {FFFFFF}\n\n");
 						strcat(Str2, "\n{FFFF00}Comando valido:{FFFFFF} /ltumba\nLocalizar uma tumba em um hospital.\n");
 						ShowPlayerDialog(playerid, DIALOG_EMP5, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
+					}
+					if(PlayerInfo[playerid][pProfissao] == 6)
+					{
+						strcat(Str2, "\t{FFFF00}- {FFFFFF}Ajuda Coletor de Lixo{FFFF00}- {FFFFFF}\n\n");
+						strcat(Str2, "\n{FFFF00}Passo 1:{FFFFFF} Use /iniciarcoleta para comecar o percurso.");
+						strcat(Str2, "\n{FFFF00}Passo 2:{FFFFFF} Colete todos os lixos e jogue nos baus de lixo.");
+						ShowPlayerDialog(playerid, DIALOG_EMP2, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
 				}
 				if(listitem == 3)
@@ -20402,7 +20410,7 @@ CMD:vendercasa(playerid, params[])
 
 CMD:menuanim(playerid)
 {
-	ShowPlayerDialog(playerid, DIALOG_MENUANIM, DIALOG_STYLE_LIST, "Menu Anim", "{FFFF00}-{FFFFFF} HANDSUP\n{FFFF00}+{FFFFFF} Sentarse\n{FFFF00}+{FFFFFF} Tumbarse\n{FFFF00}+{FFFFFF} Apuntar\n{FFFF00}+{FFFFFF} Bajar\n{FFFF00}+{FFFFFF} Brazos Cruzados\n{FFFF00}+{FFFFFF} Salir Animacion", "Selecionar", "X");
+	ShowPlayerDialog(playerid, DIALOG_MENUANIM, DIALOG_STYLE_LIST, "Menu Anim", "{FFFF00}-{FFFFFF} Maos para cima\n{FFFF00}+{FFFFFF} Sentar-se\n{FFFF00}+{FFFFFF} Deitar-se\n{FFFF00}+{FFFFFF} Apontar\n{FFFF00}+{FFFFFF} Abaixar\n{FFFF00}+{FFFFFF} Bracos Cruzados\n{FFFF00}+{FFFFFF} Parar animacoes", "Selecionar", "X");
 	return 1;
 }
 
