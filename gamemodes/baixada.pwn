@@ -32,6 +32,7 @@
 #include        <   	ZCMD	   		>
 #include 		<	    mapfix		 	>
 #include 		< 		notificacao	 	>
+#include 		< 		notify2	 		>
 #include 		< 		enterfix 		> 
 #include		<		progress2		>
 #include		<		processo		> 
@@ -51,7 +52,6 @@ new	UltimaFala[MAX_PLAYERS];
 #define ICONE_AVISO 		"ld_chat:badchat" //ICONE INFO
 #define ICONE_CERTO 		"ld_chat:thumbup" //ICONE CORRETO
 #define ICONE_EMPREGO 		"hud:radar_TORENO" //ICONE TRABALHO
-
 
 //                          CONVERT-TEMPOS
 
@@ -1323,17 +1323,17 @@ Progresso:DescarregarCarga(playerid, progress)
 			if(PlayerInfo[playerid][pVIP] == 0)
 			{
 				PlayerInfo[playerid][pDinheiro] += 2100;
-				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$2100.", ICONE_EMPREGO); 
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$2100.");
 			}   
 			if(PlayerInfo[playerid][pVIP] == 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 2100*2;
-				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4200.", ICONE_EMPREGO); 
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$4200.");
 			}
 			if(PlayerInfo[playerid][pVIP] == 3)
 			{
 				PlayerInfo[playerid][pDinheiro] += 2100*2;
-				notificacao(playerid, "TRABALHO", "Entregou a carga e ganhou R$4200.", ICONE_EMPREGO); 
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$4200.");
 			}
 			DisablePlayerCheckpoint(playerid);
 			Carregou[playerid] = 0;
@@ -21678,5 +21678,31 @@ CMD:pescar(playerid)
 		TogglePlayerControllable(playerid, 0);
 		UsouCMD[playerid] = true;	
 	}
+	return 1;
+}
+
+CMD:testen1(playerid, param[])
+{
+	InfoMsg(playerid, "Teste de mensagem da notificacao.");
+	return 1;
+}
+CMD:testen2(playerid, param[])
+{
+	ErrorMsg(playerid, "Teste de mensagem da notificacao.");
+	return 1;
+}
+CMD:testen3(playerid, param[])
+{
+	SuccesMsg(playerid, "Teste de mensagem da notificacao.");
+	return 1;
+}
+CMD:testen4(playerid, param[])
+{
+	SyntaxMsg(playerid, "Teste de mensagem da notificacao.");
+	return 1;
+}
+CMD:testen5(playerid, param[])
+{
+	WarningMsg(playerid, "Teste de mensagem da notificacao.");
 	return 1;
 }

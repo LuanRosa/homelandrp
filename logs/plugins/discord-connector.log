@@ -1,3 +1,1 @@
-[09/18/23 19:29:41] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
-[09/18/23 20:01:44] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
-[09/18/23 20:01:45] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[09/18/23 22:57:05] [WARNING] Unknown gateway event 'INTERACTION_CREATE'
