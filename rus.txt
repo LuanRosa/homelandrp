@@ -1,3 +1,2 @@
-E:\Baixada-Roleplay\gamemodes\baixada.pwn(4309) : èäåíòèôèêàòîð íå èñïîëüçóåòñÿ: "RetirarItem"
 Pawn compiler 3.2.3664	 	 	Copyright (c) 1997-2016, ITB CompuPhase
 
