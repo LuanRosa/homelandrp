@@ -11059,11 +11059,13 @@ public OnPlayerDisconnect(playerid, reason)
 {
 	if(pLogado[playerid] == true)
 	{
+		new hora, minuto;
+		gettime(hora, minuto);
 		jogadoreson--;
 
 		new string[255];
 		new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
-		format(string,sizeof(string),"O jogador %04d(%d) saiu no servidor!\n\nAgora temos **%d** jogadores na cidade.", PlayerInfo[playerid][IDF],playerid, jogadoreson);
+		format(string,sizeof(string),"O jogador %04d(%d) saiu no servidor!\n\nJogadores **%d**/500\nHorario: %02d:%02d", PlayerInfo[playerid][IDF],playerid, jogadoreson, hora, minuto);
 		DCC_SetEmbedColor(embed, 0xFFFF00);
 		DCC_SetEmbedDescription(embed, string);
 		DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.BAIXADARP.COM.BR7777_20230919_225304_0000.png");
@@ -13913,11 +13915,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					pLogado[playerid] = true; 
 					pJogando[playerid] = true;
 					Erro[playerid] = 0;
+					new hora, minuto;
+					gettime(hora, minuto);
 					jogadoreson++;
 
 					new string[255];
-					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                                                                                                                  -  
-					format(string,sizeof(string),"O jogador %04d(%d) entrou no servidor!\n\nAgora temos **%d** jogadores na cidade.", PlayerInfo[playerid][IDF],playerid, jogadoreson);
+					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+					format(string,sizeof(string),"O jogador %04d(%d) entrou no servidor!\n\nJogadores **%d**/500\nHorario: %02d:%02d", PlayerInfo[playerid][IDF],playerid, jogadoreson, hora, minuto);
 					DCC_SetEmbedColor(embed, 0xFFFF00);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.BAIXADARP.COM.BR7777_20230919_225304_0000.png");
