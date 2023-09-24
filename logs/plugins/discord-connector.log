@@ -79,3 +79,7 @@
 [09/23/23 22:14:14] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1149056591711174797/messages': end of stream
 [09/23/23 22:32:06] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712172794642442/messages': end of stream
 [09/23/23 23:11:57] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/24/23 02:04:23] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[09/24/23 02:11:44] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[09/24/23 02:18:59] [ERROR] Can't read from Discord websocket gateway: O tempo limite do semáforo expirou (121)
+[09/24/23 02:18:59] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)

@@ -4675,7 +4675,7 @@ ItemNomeInv(itemid) // AQUI VOCÃŠ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 2601: name = "Sprunk";
 		case 18645: name = "Capacete";
 		case 18870: name = "Celular";
-		case 11738: name = "Ciaxa Primeiros Socorros";
+		case 11738: name = "Caixa Primeiros Socorros";
 		case 3027: name = "Maconha";
 		case 1279: name = "Cocaine";
 		case 3930: name = "Crack";
@@ -6277,6 +6277,13 @@ CallBack::PlayerTextDraw( playerid )
 }
 
 //                          STOCKS
+
+stock CreateAurea(textaur[], Float:aurx, Float:aury, Float:aurz)
+{
+	CreateDynamicPickup(2992, 23, aurx, aury, aurz-0.8);
+	Create3DTextLabel(textaur, -1, aurx, aury, aurz, 15.0, 0);
+	return 1;
+}
 
 stock darxp(playerid, XP, XP_Prox, Float:XP_Porc = 0.0, masganho = _:0.0)
 {
@@ -10269,91 +10276,67 @@ stock NpcText()
 	label[0] = Create3DTextLabel("{FFFFFF}Ola, Use {FFFF00}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, -1639.563720, 1410.743530, 7.187500, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[0], Actor[0], 0.0, 0.0, 0.7);
 
-	Actor[1] = CreateActor(76, -501.242370, 296.501190, 2001.094970, 179.496414); 
-	label[1] = Create3DTextLabel("{FFFF00}Prefeitura\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, -501.242370, 296.501190, 2001.094970, 15.0, 0);
+	Actor[1] = CreateActor(35, -2790.296142, 1321.418212, 7.098842, 98.350013);  
+	label[1] = Create3DTextLabel("{FFFF00}Pescador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -2790.296142, 1321.418212, 7.098842, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[1], Actor[1], 0.0, 0.0, 0.7);
 
-	Actor[2] = CreateActor(147, 1462.576904, 1407.553588, 14.206275, 100.548011);  
-	label[2] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1462.576904, 1407.553588, 14.206275, 15.0, 0);
+	Actor[2] = CreateActor(32, -2788.145996, 1312.905639, 7.622592, 78.640907);  
+	label[2] = Create3DTextLabel("{FFFF00}Loja de Pescados\n{FFFFFF}Use o {FFFF00}Inventario{FFFFFF}' para vender.", 0x008080FF, -2788.145996, 1312.905639, 7.622592, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[2], Actor[2], 0.0, 0.0, 0.7);
 
-	Actor[3] = CreateActor(147, 1462.577392, 1405.711914, 14.206276, 89.946968);  
-	label[3] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1462.577392, 1405.711914, 14.206276, 15.0, 0);
+	Actor[3] = CreateActor(34, 584.859375, 877.046569, -42.497318, 266.847808);  
+	label[3] = Create3DTextLabel("{FFFF00}Minerador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 584.859375, 877.046569, -42.497318, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[3], Actor[3], 0.0, 0.0, 0.7);
 
-	Actor[4] = CreateActor(147, 1462.576660, 1403.018798, 14.206276, 94.979888);  
-	label[4] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1462.576660, 1403.018798, 14.206276, 15.0, 0);
+	Actor[4] = CreateActor(133, 960.607055, 2097.604003, 1011.023010, 358.121734);  
+	label[4] = Create3DTextLabel("{FFFF00}Acougueiro\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 960.607055, 2097.604003, 1011.023010, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[4], Actor[4], 0.0, 0.0, 0.7);
 
-	Actor[5] = CreateActor(155, 376.4162, -117.2733, 1001.4922, 180.0);  
-	label[5] = Create3DTextLabel("{FFFF00}Pizzaria.\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 376.4162, -117.2733, 1001.4922, 15.0, 0);
+	Actor[5] = CreateActor(78, -504.495117, -517.457763, 25.523437, 258.582305);  
+	label[5] = Create3DTextLabel("{FFFF00}Caminhoneiro\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -504.495117, -517.457763, 25.523437, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[5], Actor[5], 0.0, 0.0, 0.7);
 
-	Actor[6] = CreateActor(182, -2384.861328, -52.628452, 35.479644, 359.477355);  
-	label[6] = Create3DTextLabel("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, -2384.861328, -52.628452, 35.479644, 15.0, 0);
+	Actor[6] = CreateActor(79, -28.763319, 1363.971313, 9.171875, 37.998077);  
+	label[6] = Create3DTextLabel("{FFFF00}Coletor\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -28.763319, 1363.971313, 9.171875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[6], Actor[6], 0.0, 0.0, 0.7);
 
-	Actor[7] = CreateActor(182, -2447.427490, 1211.600341, 35.378139, 234.946456);  
-	label[7] = Create3DTextLabel("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, -2447.427490, 1211.600341, 35.378139, 15.0, 0);
+	Actor[7] = CreateActor(188, -1634.807495, 1408.744750, 7.187500, 21.798501);  
+	label[7] = Create3DTextLabel("{FFFFFF}Olá, eu sou o {FFFF00}Luan_Rosa!\n{FFFFFF}Aprenda como jogar no servidor \nUse '{FFFF00}F{FFFFFF}' para se informar", 0x008080FF, -1634.807495, 1408.744750, 7.187500, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[7], Actor[7], 0.0, 0.0, 0.7);
 
-	Actor[8] = CreateActor(194, 617.928100, -1.965069, 1001.040832, 185.973175);  
-	label[8] = Create3DTextLabel("{FFFF00}Central de Licencas\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 617.928100, -1.965069, 1001.040832, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[8], Actor[8], 0.0, 0.0, 0.7);
+	CreateAurea("{FFFF00}Prefeitura\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -501.146118, 294.354156, 2001.094970);
+	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1460.741333, 1407.444091, 14.206276);
+	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1460.740112, 1405.557373, 14.206276);
+	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1460.740966, 1403.308959, 14.206276);
+	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1460.741333, 1400.766357, 14.206276);
+	CreateAurea("{FFFF00}Pizzaria\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 376.122161, -118.803634, 1001.499511);
+	CreateAurea("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -2446.167236, 1210.474975, 35.375167);
+	CreateAurea("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -2075.559082, 642.136169, 52.521308);
+	CreateAurea("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -2384.933105, -50.937610, 35.476680);
+	CreateAurea("{FFFF00}Centro de Licenca\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 617.717346, -3.359961, 1000.990295);
+	CreateAurea("{FFFF00}Loja Ilegal\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 514.712341, -2333.011474, 508.693756);
 
-	Actor[9] = CreateActor(147, 1462.576660, 1400.825683, 14.206275, 89.875282);  
-	label[9] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1462.576660, 1400.825683, 14.206275, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[9], Actor[9], 0.0, 0.0, 0.7);
+	CreateAurea("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nprocessar a peca de carne.", 942.577758, 2117.902099, 1011.030273);
+	CreateAurea("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \npegar uma embalagem.", 938.006469, 2144.264892, 1011.023437);
+	CreateAurea("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \ncolocar a carne na caixa.",942.416259, 2137.294921, 1011.023437);
+	CreateAurea("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nrevisar a caixa.", 942.421325, 2153.745849, 1011.023437);
+	CreateAurea("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \npegar a caixa.", 942.288391, 2173.139404, 1011.023437);
+	CreateAurea("Ponto de entrega.", 964.872192, 2159.816406, 1011.030273);
 
-	Actor[10] = CreateActor(28, 514.767089, -2334.465820, 508.693756,1.0);  
-	label[10] = Create3DTextLabel("{FFFF00}Loja Ilegal\n{FFFFFF}Use '{00FFFF}F{FFFFFF}' para abrir o menu.", 0x008080FF, 514.767089, -2334.465820, 508.693756, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[10], Actor[10], 0.0, 0.0, 0.7);
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -520.421813, -504.999450, 24.635631, 25.0); // Carregamento Caminhoneiro
+	CreateDynamicPickup(1220, 23, -520.421813, -504.999450, 24.635631); //Carregamento Caminhoneiro
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -529.748168, -504.937561, 24.640802, 25.0); // Carregamento Caminhoneiro
+	CreateDynamicPickup(1220, 23, -529.748168, -504.937561, 24.640802); //Carregamento Caminhoneiro
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -557.552368, -505.473480, 24.596021, 25.0); // Carregamento Caminhoneiro
+	CreateDynamicPickup(1220, 23, -557.552368, -505.473480, 24.596021); //Carregamento Caminhoneiro
 
-	Actor[11] = CreateActor(147, 1526.1862,-1798.9884,16.8121, 92.23461);  
-	label[11] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1526.1862,-1798.9884,17.028537, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[11], Actor[11], 0.0, 0.0, 0.7); 
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \npegar uma camera.", -1, -5467.627441, -4536.831054, 4046.774902, 25.0); // Camera
+	CreateDynamicPickup(1275, 23, -5467.627441, -4536.831054, 4046.774902);//Camera
 
-	Actor[12] = CreateActor(182, -2074.794921, 643.822570, 52.524303, 185.016860);  
-	label[12] = Create3DTextLabel("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, -2074.794921, 643.822570, 52.524303, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[12], Actor[12], 0.0, 0.0, 0.7);
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nabrir o menu.", -1, 1679.127563, -2290.863525, 13.529936, 15.0);
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nabrir o menu.", -1, 1686.527221, -2288.146728, 13.510719, 15.0);
 
-	Actor[13] = CreateActor(35, -2790.296142, 1321.418212, 7.098842, 98.350013);  
-	label[13] = Create3DTextLabel("{FFFF00}Pescador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -2790.296142, 1321.418212, 7.098842, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[13], Actor[13], 0.0, 0.0, 0.7);
-
-	Actor[14] = CreateActor(32, -2788.145996, 1312.905639, 7.622592, 78.640907);  
-	label[14] = Create3DTextLabel("{FFFF00}Loja de Pescados\n{FFFFFF}Use o {FFFF00}Inventario{FFFFFF}' para vender.", 0x008080FF, -2788.145996, 1312.905639, 7.622592, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[14], Actor[14], 0.0, 0.0, 0.7);
-
-	Actor[15] = CreateActor(34, 584.859375, 877.046569, -42.497318, 266.847808);  
-	label[15] = Create3DTextLabel("{FFFF00}Minerador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 584.859375, 877.046569, -42.497318, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[15], Actor[15], 0.0, 0.0, 0.7);
-
-	Actor[16] = CreateActor(133, 960.607055, 2097.604003, 1011.023010, 358.121734);  
-	label[16] = Create3DTextLabel("{FFFF00}Acougueiro\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 960.607055, 2097.604003, 1011.023010, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[16], Actor[16], 0.0, 0.0, 0.7);
-
-	Actor[17] = CreateActor(78, -504.495117, -517.457763, 25.523437, 258.582305);  
-	label[17] = Create3DTextLabel("{FFFF00}Caminhoneiro\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -504.495117, -517.457763, 25.523437, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[17], Actor[17], 0.0, 0.0, 0.7);
-
-	Actor[18] = CreateActor(79, -28.763319, 1363.971313, 9.171875, 37.998077);  
-	label[18] = Create3DTextLabel("{FFFF00}Coletor\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -28.763319, 1363.971313, 9.171875, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[18], Actor[18], 0.0, 0.0, 0.7);
-
-	Actor[19] = CreateActor(188, -1634.807495, 1408.744750, 7.187500, 21.798501);  
-	label[19] = Create3DTextLabel("{FFFFFF}Olá, eu sou o {FFFF00}Luan_Rosa!\n{FFFFFF}Aprenda como jogar no servidor \nUse '{FFFF00}F{FFFFFF}' para se informar", 0x008080FF, -1634.807495, 1408.744750, 7.187500, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[19], Actor[19], 0.0, 0.0, 0.7);
-
-	Actor[20] = CreateActor(50, 1974.8208,-1779.0802,13.5432,91.2385);  
-	label[20] = Create3DTextLabel("{FFFF00}Mecanico\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 1974.8208,-1779.0802,13.5432, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[20], Actor[20], 0.0, 0.0, 0.7);
-	
-	Actor[21] = CreateActor(147, 1244.8408, -1657.1215, 17.028537, -95.5000);  
-	label[21] = Create3DTextLabel("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 0x008080FF, 1244.8408, -1657.1215, 17.028537, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[21], Actor[21], 0.0, 0.0, 0.7);
-
-	printf("=> NPC's       		: Carregados");
+	printf("=> Textos       		: Carregados");
 	return 1;
 }
 
@@ -11067,7 +11050,6 @@ stock GetXYInFrontOfCaixa(objectid, &Float:q, &Float:w, Float:distance)
 #include 		"../modulos/mapserver.inc" 
 #include 		"../modulos/mapicons.inc" 
 #include 		"../modulos/caixas.inc"
-#include 		"../modulos/pickup3dlabel.inc"
 #include 		"../modulos/txdglobal.inc"
 
 public OnGameModeInit()
@@ -11091,7 +11073,6 @@ public OnGameModeInit()
 	ORGCarrega();
 	CarregarMapIcons();
 	CarregarCaixas();
-	CarregarPickup3dLabel();
 	CarregarTxdGlobal();
 	LoadVehicles();
 	LoadDealerships();
@@ -13678,7 +13659,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][pProfissao] != 7) 		return ErrorMsg(playerid, "Nao possui permissao.");
 			ShowPlayerDialog(playerid, DIALOG_ARMARIOMEC, DIALOG_STYLE_LIST,"Menu Mecanico", "{FFFF00}- {FFFFFF}Caixa de Ferramientas\t{32CD32}R$800\n", "Selecionar","X");
 		}
-		if(PlayerToPoint(3.0, playerid, -501.242370, 296.501190, 2001.094970))
+		if(PlayerToPoint(3.0, playerid, -501.146118, 294.354156, 2001.094970))
 		{
 			for(new i; i < 7; i++)
 			{
@@ -13737,7 +13718,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			strcat(string, mercada);
 
 			return ShowPlayerDialog(playerid, DIALOG_AUTO_ESCOLA, DIALOG_STYLE_TABLIST_HEADERS, "Auto Escola", string, "Confirmar", "X");*/
-			if(GetPlayerMoney(playerid) < 2500)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+			if(GetPlayerMoney(playerid) < 4000)	return ErrorMsg(playerid, "Dinheiro insuficiente (R$4000).");
 			if(PlayerInfo[playerid][LicencaConduzir] == 1) return ErrorMsg(playerid, "Ja possui licenca");
 			new StrHab[15000];
 			strcat(StrHab,  "{FFFF00}x{FFFFFF} Voce esta prestes a iniciar seu teste de conducao\n");
