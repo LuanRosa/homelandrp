@@ -902,120 +902,26 @@ CarregarTxdGlobal()
 	TextDrawSetProportional(TDEditor_TD[65], 1);
 
 	//Nova logomarca
-	Logo[0] = TextDrawCreate(314.000000, 9.000000, "_");
-	TextDrawFont(Logo[0], 1);
-	TextDrawLetterSize(Logo[0], 0.583333, 5.650000);
-	TextDrawTextSize(Logo[0], 290.500000, 27.500000);
-	TextDrawSetOutline(Logo[0], 1);
-	TextDrawSetShadow(Logo[0], 0);
-	TextDrawAlignment(Logo[0], 2);
-	TextDrawColor(Logo[0], -1);
+	Logo[0] = TextDrawCreate(288.000000, -1.000000, "BAIXADA");
 	TextDrawBackgroundColor(Logo[0], 255);
-	TextDrawBoxColor(Logo[0], -65468);
-	TextDrawUseBox(Logo[0], 1);
+	TextDrawFont(Logo[0], 1);
+	TextDrawLetterSize(Logo[0], 0.519999, 3.300002);
+	TextDrawColor(Logo[0], -1);
+	TextDrawSetOutline(Logo[0], 0);
 	TextDrawSetProportional(Logo[0], 1);
-	TextDrawSetSelectable(Logo[0], 0);
+	TextDrawSetShadow(Logo[0], 0);
 
-	Logo[1] = TextDrawCreate(314.000000, 11.000000, "_");
-	TextDrawFont(Logo[1], 1);
-	TextDrawLetterSize(Logo[1], 0.583333, 5.199998);
-	TextDrawTextSize(Logo[1], 290.500000, 24.000000);
-	TextDrawSetOutline(Logo[1], 1);
-	TextDrawSetShadow(Logo[1], 0);
-	TextDrawAlignment(Logo[1], 2);
-	TextDrawColor(Logo[1], -1);
+	Logo[1] = TextDrawCreate(293.000000, 22.000000, "- ROLEPLAY -");
 	TextDrawBackgroundColor(Logo[1], 255);
-	TextDrawBoxColor(Logo[1], 100);
-	TextDrawUseBox(Logo[1], 1);
+	TextDrawFont(Logo[1], 2);
+	TextDrawLetterSize(Logo[1], 0.239999, 1.200003);
+	TextDrawColor(Logo[1], -1);
+	TextDrawSetOutline(Logo[1], 0);
 	TextDrawSetProportional(Logo[1], 1);
-	TextDrawSetSelectable(Logo[1], 0);
-
-	Logo[2] = TextDrawCreate(305.000000, 6.000000, "B");
-	TextDrawFont(Logo[2], 1);
-	TextDrawLetterSize(Logo[2], 0.470833, 2.599999);
-	TextDrawTextSize(Logo[2], 400.000000, 17.000000);
-	TextDrawSetOutline(Logo[2], 0);
-	TextDrawSetShadow(Logo[2], 0);
-	TextDrawAlignment(Logo[2], 2);
-	TextDrawColor(Logo[2], -65436);
-	TextDrawBackgroundColor(Logo[2], 255);
-	TextDrawBoxColor(Logo[2], 50);
-	TextDrawUseBox(Logo[2], 0);
-	TextDrawSetProportional(Logo[2], 1);
-	TextDrawSetSelectable(Logo[2], 0);
-
-	Logo[3] = TextDrawCreate(320.000000, 24.000000, "C");
-	TextDrawFont(Logo[3], 3);
-	TextDrawLetterSize(Logo[3], 0.604166, 2.049999);
-	TextDrawTextSize(Logo[3], 400.000000, 17.000000);
-	TextDrawSetOutline(Logo[3], 0);
-	TextDrawSetShadow(Logo[3], 0);
-	TextDrawAlignment(Logo[3], 2);
-	TextDrawColor(Logo[3], -65436);
-	TextDrawBackgroundColor(Logo[3], 255);
-	TextDrawBoxColor(Logo[3], 50);
-	TextDrawUseBox(Logo[3], 0);
-	TextDrawSetProportional(Logo[3], 1);
-	TextDrawSetSelectable(Logo[3], 0);
-
-	Logo[4] = TextDrawCreate(308.000000, 24.000000, "C");
-	TextDrawFont(Logo[4], 3);
-	TextDrawLetterSize(Logo[4], -0.583333, 2.049999);
-	TextDrawTextSize(Logo[4], 400.000000, 17.000000);
-	TextDrawSetOutline(Logo[4], 0);
-	TextDrawSetShadow(Logo[4], 0);
-	TextDrawAlignment(Logo[4], 2);
-	TextDrawColor(Logo[4], -65436);
-	TextDrawBackgroundColor(Logo[4], 255);
-	TextDrawBoxColor(Logo[4], 50);
-	TextDrawUseBox(Logo[4], 0);
-	TextDrawSetProportional(Logo[4], 1);
-	TextDrawSetSelectable(Logo[4], 0);
-
-	Logo[5] = TextDrawCreate(314.000000, 38.000000, "ADA");
-	TextDrawFont(Logo[5], 1);
-	TextDrawLetterSize(Logo[5], 0.408333, 2.599999);
-	TextDrawTextSize(Logo[5], 400.000000, 17.000000);
-	TextDrawSetOutline(Logo[5], 0);
-	TextDrawSetShadow(Logo[5], 0);
-	TextDrawAlignment(Logo[5], 2);
-	TextDrawColor(Logo[5], -65436);
-	TextDrawBackgroundColor(Logo[5], 255);
-	TextDrawBoxColor(Logo[5], 50);
-	TextDrawUseBox(Logo[5], 0);
-	TextDrawSetProportional(Logo[5], 1);
-	TextDrawSetSelectable(Logo[5], 0);
-
-	Logo[6] = TextDrawCreate(315.000000, 4.000000, "A");
-	TextDrawFont(Logo[6], 1);
-	TextDrawLetterSize(Logo[6], 0.470833, 2.599999);
-	TextDrawTextSize(Logo[6], 400.000000, 17.000000);
-	TextDrawSetOutline(Logo[6], 0);
-	TextDrawSetShadow(Logo[6], 0);
-	TextDrawAlignment(Logo[6], 2);
-	TextDrawColor(Logo[6], -65436);
-	TextDrawBackgroundColor(Logo[6], 255);
-	TextDrawBoxColor(Logo[6], 50);
-	TextDrawUseBox(Logo[6], 0);
-	TextDrawSetProportional(Logo[6], 1);
-	TextDrawSetSelectable(Logo[6], 0);
-
-	Logo[7] = TextDrawCreate(324.000000, 6.000000, "I");
-	TextDrawFont(Logo[7], 1);
-	TextDrawLetterSize(Logo[7], 0.470833, 2.599999);
-	TextDrawTextSize(Logo[7], 400.000000, 17.000000);
-	TextDrawSetOutline(Logo[7], 0);
-	TextDrawSetShadow(Logo[7], 0);
-	TextDrawAlignment(Logo[7], 2);
-	TextDrawColor(Logo[7], -65436);
-	TextDrawBackgroundColor(Logo[7], 255);
-	TextDrawBoxColor(Logo[7], 100);
-	TextDrawUseBox(Logo[7], 0);
-	TextDrawSetProportional(Logo[7], 1);
-	TextDrawSetSelectable(Logo[7], 0);
+	TextDrawSetShadow(Logo[1], 0);
 
 	//VELOCIMETRO
-		VeloC_G[0] = TextDrawCreate(595.007385, 364.416839, "box");
+	VeloC_G[0] = TextDrawCreate(595.007385, 364.416839, "box");
 	TextDrawLetterSize(VeloC_G[0], -0.001398, 4.130434);
 	TextDrawTextSize(VeloC_G[0], 590.000000, 0.000000);
 	TextDrawAlignment(VeloC_G[0], 1);
@@ -1582,7 +1488,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(Tdcinto[0], 50);
 	TextDrawUseBox(Tdcinto[0], 1);
 	TextDrawSetProportional(Tdcinto[0], 1);
-	TextDrawSetSelectable(Tdcinto[0], 0);
 
 	Tdcinto[1] = TextDrawCreate(535.000000, 310.000000, "ld_beat:chit");
 	TextDrawFont(Tdcinto[1], 4);
@@ -1596,7 +1501,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(Tdcinto[1], 50);
 	TextDrawUseBox(Tdcinto[1], 1);
 	TextDrawSetProportional(Tdcinto[1], 1);
-	TextDrawSetSelectable(Tdcinto[1], 0);
 
 	Tdcinto[2] = TextDrawCreate(538.000000, 304.000000, "ld_beat:chit");
 	TextDrawFont(Tdcinto[2], 4);
@@ -1610,7 +1514,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(Tdcinto[2], 50);
 	TextDrawUseBox(Tdcinto[2], 1);
 	TextDrawSetProportional(Tdcinto[2], 1);
-	TextDrawSetSelectable(Tdcinto[2], 0);
 
 	Tdcinto[3] = TextDrawCreate(538.000000, 311.000000, "/");
 	TextDrawFont(Tdcinto[3], 1);
@@ -1624,7 +1527,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(Tdcinto[3], 50);
 	TextDrawUseBox(Tdcinto[3], 0);
 	TextDrawSetProportional(Tdcinto[3], 1);
-	TextDrawSetSelectable(Tdcinto[3], 0);
 
 	Tdcinto[4] = TextDrawCreate(515.000000, 326.000000, "COLOQUE O ~y~/CINTO");
 	TextDrawFont(Tdcinto[4], 2);
@@ -1638,7 +1540,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(Tdcinto[4], 50);
 	TextDrawUseBox(Tdcinto[4], 0);
 	TextDrawSetProportional(Tdcinto[4], 1);
-	TextDrawSetSelectable(Tdcinto[4], 0);
 
 		//TEXTDRAW CADASTRO
 	TDCadastro[0] = TextDrawCreate(150.000000, 117.000000, "_");
@@ -1653,7 +1554,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDCadastro[0], 218959359);
 	TextDrawUseBox(TDCadastro[0], 1);
 	TextDrawSetProportional(TDCadastro[0], 1);
-	TextDrawSetSelectable(TDCadastro[0], 0);
 
 	TDCadastro[1] = TextDrawCreate(150.000000, 324.000000, "_");
 	TextDrawFont(TDCadastro[1], 1);
@@ -1667,7 +1567,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDCadastro[1], 2094792959);
 	TextDrawUseBox(TDCadastro[1], 1);
 	TextDrawSetProportional(TDCadastro[1], 1);
-	TextDrawSetSelectable(TDCadastro[1], 0);
 
 	TDCadastro[2] = TextDrawCreate(202.000000, 304.000000, "ld_beat:right");
 	TextDrawFont(TDCadastro[2], 4);
@@ -1709,7 +1608,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDCadastro[4], 2094792754);
 	TextDrawUseBox(TDCadastro[4], 1);
 	TextDrawSetProportional(TDCadastro[4], 1);
-	TextDrawSetSelectable(TDCadastro[4], 0);
 
 	TDCadastro[5] = TextDrawCreate(80.000000, 334.000000, "ld_beat:chit");
 	TextDrawFont(TDCadastro[5], 4);
@@ -1723,7 +1621,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDCadastro[5], 2094792754);
 	TextDrawUseBox(TDCadastro[5], 1);
 	TextDrawSetProportional(TDCadastro[5], 1);
-	TextDrawSetSelectable(TDCadastro[5], 0);
 
 	TDCadastro[6] = TextDrawCreate(150.000000, 328.000000, "_");
 	TextDrawFont(TDCadastro[6], 1);
@@ -1737,7 +1634,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDCadastro[6], 2094792959);
 	TextDrawUseBox(TDCadastro[6], 1);
 	TextDrawSetProportional(TDCadastro[6], 1);
-	TextDrawSetSelectable(TDCadastro[6], 0);
 
 	TDCadastro[7] = TextDrawCreate(209.000000, 106.000000, "ld_beat:chit");
 	TextDrawFont(TDCadastro[7], 4);
@@ -1751,7 +1647,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDCadastro[7], 2094792754);
 	TextDrawUseBox(TDCadastro[7], 1);
 	TextDrawSetProportional(TDCadastro[7], 1);
-	TextDrawSetSelectable(TDCadastro[7], 0);
 
 	TDCadastro[8] = TextDrawCreate(80.000000, 106.000000, "ld_beat:chit");
 	TextDrawFont(TDCadastro[8], 4);
@@ -1765,7 +1660,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDCadastro[8], 2094792754);
 	TextDrawUseBox(TDCadastro[8], 1);
 	TextDrawSetProportional(TDCadastro[8], 1);
-	TextDrawSetSelectable(TDCadastro[8], 0);
 
 	TDCadastro[9] = TextDrawCreate(150.000000, 112.000000, "_");
 	TextDrawFont(TDCadastro[9], 1);
@@ -1779,7 +1673,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDCadastro[9], 218959359);
 	TextDrawUseBox(TDCadastro[9], 1);
 	TextDrawSetProportional(TDCadastro[9], 1);
-	TextDrawSetSelectable(TDCadastro[9], 0);
 
 	TDCadastro[10] = TextDrawCreate(52.000000, 131.000000, "ld_beat:chit");
 	TextDrawFont(TDCadastro[10], 4);
@@ -1793,7 +1686,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDCadastro[10], 2094792754);
 	TextDrawUseBox(TDCadastro[10], 1);
 	TextDrawSetProportional(TDCadastro[10], 1);
-	TextDrawSetSelectable(TDCadastro[10], 0);
 
 	TDCadastro[11] = TextDrawCreate(118.000000, 151.000000, "HOMEM");
 	TextDrawFont(TDCadastro[11], 2);
@@ -1835,7 +1727,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDCadastro[13], 512819199);
 	TextDrawUseBox(TDCadastro[13], 0);
 	TextDrawSetProportional(TDCadastro[13], 1);
-	TextDrawSetSelectable(TDCadastro[13], 0);
 
 	TDCadastro[14] = TextDrawCreate(149.000000, 325.000000, "SELECIONAR");
 	TextDrawFont(TDCadastro[14], 2);
@@ -1863,7 +1754,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDCadastro[15], 512819199);
 	TextDrawUseBox(TDCadastro[15], 0);
 	TextDrawSetProportional(TDCadastro[15], 1);
-	TextDrawSetSelectable(TDCadastro[15], 0);
 
 	TDCadastro[16] = TextDrawCreate(52.000000, 178.000000, "ld_beat:chit");
 	TextDrawFont(TDCadastro[16], 4);
@@ -1877,7 +1767,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDCadastro[16], 2094792754);
 	TextDrawUseBox(TDCadastro[16], 1);
 	TextDrawSetProportional(TDCadastro[16], 1);
-	TextDrawSetSelectable(TDCadastro[16], 0);
 
 	TDCadastro[17] = TextDrawCreate(149.000000, 179.000000, "SELECIONE SEU PERSONAGEM");
 	TextDrawFont(TDCadastro[17], 2);
@@ -1891,7 +1780,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDCadastro[17], 512819199);
 	TextDrawUseBox(TDCadastro[17], 0);
 	TextDrawSetProportional(TDCadastro[17], 1);
-	TextDrawSetSelectable(TDCadastro[17], 0);
 
 		//NEW HUD SERVER
 	HudServer[0] = TextDrawCreate(545.000000, 88.000000, "ld_beat:chit");
@@ -1906,7 +1794,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[0], 50);
 	TextDrawUseBox(HudServer[0], 1);
 	TextDrawSetProportional(HudServer[0], 1);
-	TextDrawSetSelectable(HudServer[0], 0);
 
 	HudServer[1] = TextDrawCreate(546.000000, 90.000000, "ld_beat:chit");
 	TextDrawFont(HudServer[1], 4);
@@ -1920,7 +1807,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[1], 50);
 	TextDrawUseBox(HudServer[1], 1);
 	TextDrawSetProportional(HudServer[1], 1);
-	TextDrawSetSelectable(HudServer[1], 0);
 
 	HudServer[2] = TextDrawCreate(551.000000, 95.000000, "HUD:radar_girlfriend");
 	TextDrawFont(HudServer[2], 4);
@@ -1934,7 +1820,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[2], 50);
 	TextDrawUseBox(HudServer[2], 1);
 	TextDrawSetProportional(HudServer[2], 1);
-	TextDrawSetSelectable(HudServer[2], 0);
 
 	HudServer[3] = TextDrawCreate(560.000000, 88.000000, "ld_beat:chit");
 	TextDrawFont(HudServer[3], 4);
@@ -1948,7 +1833,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[3], 50);
 	TextDrawUseBox(HudServer[3], 1);
 	TextDrawSetProportional(HudServer[3], 1);
-	TextDrawSetSelectable(HudServer[3], 0);
 
 	HudServer[4] = TextDrawCreate(562.000000, 90.000000, "ld_beat:chit");
 	TextDrawFont(HudServer[4], 4);
@@ -1962,7 +1846,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[4], 50);
 	TextDrawUseBox(HudServer[4], 1);
 	TextDrawSetProportional(HudServer[4], 1);
-	TextDrawSetSelectable(HudServer[4], 0);
 
 	HudServer[5] = TextDrawCreate(564.000000, 94.000000, "Preview_Model");
 	TextDrawFont(HudServer[5], 5);
@@ -1976,7 +1859,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[5], 255);
 	TextDrawUseBox(HudServer[5], 0);
 	TextDrawSetProportional(HudServer[5], 1);
-	TextDrawSetSelectable(HudServer[5], 0);
 	TextDrawSetPreviewModel(HudServer[5], 1242);
 	TextDrawSetPreviewRot(HudServer[5], -10.000000, 0.000000, 0.000000, 1.000000);
 	TextDrawSetPreviewVehCol(HudServer[5], 1, 1);
@@ -1993,7 +1875,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[6], 50);
 	TextDrawUseBox(HudServer[6], 1);
 	TextDrawSetProportional(HudServer[6], 1);
-	TextDrawSetSelectable(HudServer[6], 0);
 
 	HudServer[7] = TextDrawCreate(577.000000, 90.000000, "ld_beat:chit");
 	TextDrawFont(HudServer[7], 4);
@@ -2007,7 +1888,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[7], 50);
 	TextDrawUseBox(HudServer[7], 1);
 	TextDrawSetProportional(HudServer[7], 1);
-	TextDrawSetSelectable(HudServer[7], 0);
 
 	HudServer[8] = TextDrawCreate(582.000000, 95.000000, "HUD:radar_burgershot");
 	TextDrawFont(HudServer[8], 4);
@@ -2021,7 +1901,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[8], 50);
 	TextDrawUseBox(HudServer[8], 1);
 	TextDrawSetProportional(HudServer[8], 1);
-	TextDrawSetSelectable(HudServer[8], 0);
 
 	HudServer[9] = TextDrawCreate(591.000000, 88.000000, "ld_beat:chit");
 	TextDrawFont(HudServer[9], 4);
@@ -2035,7 +1914,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[9], 50);
 	TextDrawUseBox(HudServer[9], 1);
 	TextDrawSetProportional(HudServer[9], 1);
-	TextDrawSetSelectable(HudServer[9], 0);
 
 	HudServer[10] = TextDrawCreate(592.000000, 90.000000, "ld_beat:chit");
 	TextDrawFont(HudServer[10], 4);
@@ -2049,7 +1927,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[10], 50);
 	TextDrawUseBox(HudServer[10], 1);
 	TextDrawSetProportional(HudServer[10], 1);
-	TextDrawSetSelectable(HudServer[10], 0);
 
 	HudServer[11] = TextDrawCreate(597.000000, 94.000000, "HUD:radar_centre");
 	TextDrawFont(HudServer[11], 4);
@@ -2063,7 +1940,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[11], 50);
 	TextDrawUseBox(HudServer[11], 1);
 	TextDrawSetProportional(HudServer[11], 1);
-	TextDrawSetSelectable(HudServer[11], 0);
 
 	HudServer[12] = TextDrawCreate(577.000000, 121.000000, "_");
 	TextDrawFont(HudServer[12], 1);
@@ -2077,7 +1953,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[12], 255);
 	TextDrawUseBox(HudServer[12], 1);
 	TextDrawSetProportional(HudServer[12], 1);
-	TextDrawSetSelectable(HudServer[12], 0);
 
 	HudServer[13] = TextDrawCreate(545.000000, 113.000000, "ld_beat:chit");
 	TextDrawFont(HudServer[13], 4);
@@ -2091,7 +1966,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[13], 50);
 	TextDrawUseBox(HudServer[13], 1);
 	TextDrawSetProportional(HudServer[13], 1);
-	TextDrawSetSelectable(HudServer[13], 0);
 
 	HudServer[14] = TextDrawCreate(601.000000, 113.000000, "ld_beat:chit");
 	TextDrawFont(HudServer[14], 4);
@@ -2105,7 +1979,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[14], 50);
 	TextDrawUseBox(HudServer[14], 1);
 	TextDrawSetProportional(HudServer[14], 1);
-	TextDrawSetSelectable(HudServer[14], 0);
 
 	HudServer[15] = TextDrawCreate(552.000000, 127.000000, "U");
 	TextDrawFont(HudServer[15], 1);
@@ -2119,7 +1992,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[15], 50);
 	TextDrawUseBox(HudServer[15], 0);
 	TextDrawSetProportional(HudServer[15], 1);
-	TextDrawSetSelectable(HudServer[15], 0);
 
 	HudServer[16] = TextDrawCreate(552.000000, 124.000000, "T");
 	TextDrawFont(HudServer[16], 1);
@@ -2133,7 +2005,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(HudServer[16], 50);
 	TextDrawUseBox(HudServer[16], 0);
 	TextDrawSetProportional(HudServer[16], 1);
-	TextDrawSetSelectable(HudServer[16], 0);
 
 		//TD MORTE
 	TDmorte[0] = TextDrawCreate(316.000000, -14.000000, "_");
@@ -2148,7 +2019,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDmorte[0], 202);
 	TextDrawUseBox(TDmorte[0], 1);
 	TextDrawSetProportional(TDmorte[0], 1);
-	TextDrawSetSelectable(TDmorte[0], 0);
 
 	TDmorte[1] = TextDrawCreate(323.000000, 337.000000, "REVIVER IMEDIATAMENTE");
 	TextDrawFont(TDmorte[1], 3);
@@ -2176,7 +2046,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDmorte[2], 50);
 	TextDrawUseBox(TDmorte[2], 0);
 	TextDrawSetProportional(TDmorte[2], 0);
-	TextDrawSetSelectable(TDmorte[2], 0);
 
 	TDmorte[3] = TextDrawCreate(200.000000, 237.000000, "VOCE PRECISA BUSCAR AJUDA IMEDIATAMENTE");
 	TextDrawFont(TDmorte[3], 1);
@@ -2190,7 +2059,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDmorte[3], 50);
 	TextDrawUseBox(TDmorte[3], 0);
 	TextDrawSetProportional(TDmorte[3], 1);
-	TextDrawSetSelectable(TDmorte[3], 0);
 
 	TDmorte[4] = TextDrawCreate(223.000000, 250.000000, "APOS A MORTE VOCE PERDERA TUDO");
 	TextDrawFont(TDmorte[4], 1);
@@ -2204,7 +2072,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDmorte[4], 50);
 	TextDrawUseBox(TDmorte[4], 0);
 	TextDrawSetProportional(TDmorte[4], 1);
-	TextDrawSetSelectable(TDmorte[4], 0);
 
 	TDmorte[5] = TextDrawCreate(396.000000, 178.000000, "Z");
 	TextDrawFont(TDmorte[5], 2);
@@ -2218,7 +2085,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDmorte[5], 50);
 	TextDrawUseBox(TDmorte[5], 0);
 	TextDrawSetProportional(TDmorte[5], 0);
-	TextDrawSetSelectable(TDmorte[5], 0);
 
 	TDmorte[6] = TextDrawCreate(417.000000, 167.000000, "Z");
 	TextDrawFont(TDmorte[6], 2);
@@ -2232,7 +2098,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDmorte[6], 50);
 	TextDrawUseBox(TDmorte[6], 0);
 	TextDrawSetProportional(TDmorte[6], 0);
-	TextDrawSetSelectable(TDmorte[6], 0);
 
 	TDmorte[7] = TextDrawCreate(437.000000, 156.000000, "Z");
 	TextDrawFont(TDmorte[7], 2);
@@ -2246,7 +2111,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDmorte[7], 50);
 	TextDrawUseBox(TDmorte[7], 0);
 	TextDrawSetProportional(TDmorte[7], 0);
-	TextDrawSetSelectable(TDmorte[7], 0);
 
 	TDmorte[8] = TextDrawCreate(323.000000, 313.000000, "_");
 	TextDrawFont(TDmorte[8], 1);
@@ -2260,7 +2124,5 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDmorte[8], -1);
 	TextDrawUseBox(TDmorte[8], 1);
 	TextDrawSetProportional(TDmorte[8], 1);
-	TextDrawSetSelectable(TDmorte[8], 0);
-
 	printf("=> Textdraws Globais       		: Carregados");
 }

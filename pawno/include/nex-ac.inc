@@ -119,7 +119,7 @@
 #endif
 
 #if !defined AC_MAX_CONNECTS_FROM_IP
-	#define AC_MAX_CONNECTS_FROM_IP			1
+	#define AC_MAX_CONNECTS_FROM_IP			3
 #endif
 
 #if !defined AC_MAX_RCON_LOGIN_ATTEMPT
@@ -289,7 +289,7 @@ static bool:ac_ACAllow[] =
 	true,	//46 Anti-Attached object crasher
 	false,	//47 Anti-Weapon Crasher
 
-	true,	//48 Protection from connection flood in one slot
+	false,	//48 Protection from connection flood in one slot
 	true,	//49 Anti-callback functions flood
 	false,	//50 Anti-flood by seat changing
 

@@ -13,7 +13,6 @@
 
 #define SSCANF_NO_NICE_FEATURES
 #define DEBUG
-
 #include        <  	    a_samp  		>
 #define FIXES_Single 1
 #include        <  	    fixes  		    >
@@ -37,20 +36,27 @@
 #include		<		processo		> 
 #include		<		Fader			>
 
+
 #define CallBack::%0(%1) 		forward %0(%1);\
 							public %0(%1)
+#define XP_::%1(%2) forward %1(%2); public %1(%2)
 
 new	UltimaFala[MAX_PLAYERS];
 #define SEGUNDOS_SEM_FALAR  		2  
 // Encrypt de password
 #define passwordSalt                "akjhf2bh36s"
 
-//                          ICONES NOTIFICAÇÃO
+#if !defined( TEXT_SIZE_DEFAULT )
+	#define TEXT_SIZE_DEFAULT (1.5)
+#endif
 
-#define ICONE_ERRO 			"ld_chat:thumbdn" // ICONE ERRO
-#define ICONE_AVISO 		"ld_chat:badchat" //ICONE INFO
-#define ICONE_CERTO 		"ld_chat:thumbup" //ICONE CORRETO
-#define ICONE_EMPREGO 		"hud:radar_TORENO" //ICONE TRABALHO
+#if !defined( TEXT_SOUND_DEFAULT )
+	#define TEXT_SOUND_DEFAULT (true)
+#endif
+
+#if !defined( TEXT_TIME_DEFAULT )
+	#define TEXT_TIME_DEFAULT (5000) //2s
+#endif
 
 //                          CONVERT-TEMPOS
 
@@ -316,7 +322,10 @@ enum pInfo
 	pMultas,
 	Casa,
 	Entrada,
-	pAvaliacao
+	pAvaliacao,
+	pLevel,
+	pXP,
+	LicencaConduzir
 }
 new PlayerInfo[MAX_PLAYERS][pInfo];
 new FomePlayer[MAX_PLAYERS], SedePlayer[MAX_PLAYERS];
@@ -592,6 +601,7 @@ new bool:PegouLixo[MAX_PLAYERS] = false;
 new bool:Podecmd[MAX_PLAYERS] = true;
 //                          TEXTDRAWS
 
+static PlayerText:XPTXD[MAX_PLAYERS][20];
 new Text:TDEditor_TD[66];
 new PlayerText:TDEditor_PTD[MAX_PLAYERS][6];
 new	PlayerText:Textdraw2[MAX_PLAYERS];
@@ -1310,6 +1320,15 @@ new RandomMSG[][] =
 };
 
 //                          PUBLICS
+
+XP_::XP_Hide(playerid)
+{
+    for(new i; i < 20; i++)
+    {
+        PlayerTextDrawHide(playerid, XPTXD[playerid][i]);
+    }
+    PlayerPlaySound(playerid, 6402, 0.0, 0.0, 0.0);
+}
 
 Progresso:DescarregarCarga(playerid, progress)
 {
@@ -4195,6 +4214,16 @@ CallBack::PlayerToPoint(Float:radi, playerid, Float:x, Float:y, Float:z)
 
 CallBack::CriandoCpf(playerid)
 {
+	new megastrings[500], String2[500];
+	format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n{FFFFFF}VIP: {FFFF00}%s\n", Name(playerid), VIP(playerid));
+	strcat(megastrings, String2);
+	format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\n{FFFFFF}Org:{FFFF00} %s\n{FFFFFF}Cargo:{FFFF00} %s\n", Profs(playerid), NomeOrg(playerid), NomeCargo(playerid));
+	strcat(megastrings, String2);
+	format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\n{FFFFFF}N�Casa:{FFFF00} %d\n", PlayerInfo[playerid][pMultas], PlayerInfo[playerid][Casa]);
+	strcat(megastrings, String2);
+	format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\n{FFFFFF}Expira VIP:{FFFF00} %s\n{FFFFFF}Licenca Conduzir: {FFFF00}%s", convertNumber(PlayerInfo[ID][pSegundosJogados]), convertNumber(PlayerInfo[ID][ExpiraVIP]-gettime()), temlicenca(playerid));
+	strcat(megastrings, String2);
+	ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
 	SuccesMsg(playerid, "Documentos feitos");
 	MissaoPlayer[playerid][MISSAO1] = 1;
 	TogglePlayerControllable(playerid, 1);
@@ -4644,13 +4673,9 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 1644: name = "Suco";
 		case 1546: name = "Sprite";
 		case 2601: name = "Sprunk";
-		case 1853: name = "Licenca A";
-		case 1854: name = "Licenca B";
-		case 1855: name = "Licenca C";
-		case 1856: name = "Licenca D";
 		case 18645: name = "Capacete";
 		case 18870: name = "Celular";
-		case 11738: name = "Bau";
+		case 11738: name = "Ciaxa Primeiros Socorros";
 		case 3027: name = "Maconha";
 		case 1279: name = "Cocaine";
 		case 3930: name = "Crack";
@@ -4729,25 +4754,18 @@ DroparItem(playerid, modelid)
 			{
 				if(DropItemSlot[i][DropItem] == 0)
 				{
-					if( modelid < 400 || modelid > 611 || modelid == 902 || modelid == 19630 || modelid == 1599 || modelid == 1600 || modelid == 1603 || modelid == 1604 || modelid == 1608 || modelid == 19792 || modelid == 1581)
-					{
-						RetirarItem(playerid, modelid);
-					}
-					else
-					{
-						DropItemSlot[i][DropItem] = CreateDynamicObject(PlayerInventario[playerid][modelid][Slot], x,y,z-1, 0, 0, 0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-						DropItemSlot[i][DropItemUni] = PlayerInventario[playerid][modelid][Unidades];
-						DropItemSlot[i][DropItemID] = PlayerInventario[playerid][modelid][Slot];
-						DropItemSlot[i][Virtual] = GetPlayerVirtualWorld(playerid);
-						DropItemSlot[i][Interior] = GetPlayerInterior(playerid);
-						format(str, sizeof(str), "Item: %s\nUnidades: %s", ItemNomeInv(PlayerInventario[playerid][modelid][Slot]), ConvertMoney(PlayerInventario[playerid][modelid][Unidades]));
-						DropItemSlot[i][LabelItem] = CreateDynamic3DTextLabel(str, -1, x,y,z-1, 5, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-						format(str, sizeof(str), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) soltou {FFFF00}%s {FFFFFF}com {FFFF00}%s {FFFFFF}unidades no chao.", PlayerInfo[playerid][IDF],playerid, ItemNomeInv(PlayerInventario[playerid][modelid][Slot]), ConvertMoney(PlayerInventario[playerid][modelid][Unidades]));
-						SendClientMessageInRange(30, playerid, str, 0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA);
-						PlayerInventario[playerid][modelid][Unidades] = 0;
-						AtualizarInventario(playerid, modelid);
-						ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.1, 0, 0, 0, 0, 0, 1);
-					}
+					DropItemSlot[i][DropItem] = CreateDynamicObject(18631, x,y,z-1, 0, 0, 0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+					DropItemSlot[i][DropItemUni] = PlayerInventario[playerid][modelid][Unidades];
+					DropItemSlot[i][DropItemID] = PlayerInventario[playerid][modelid][Slot];
+					DropItemSlot[i][Virtual] = GetPlayerVirtualWorld(playerid);
+					DropItemSlot[i][Interior] = GetPlayerInterior(playerid);
+					format(str, sizeof(str), "{FFFF00}%s\n{FFFFFF}X%s", ItemNomeInv(PlayerInventario[playerid][modelid][Slot]), ConvertMoney(PlayerInventario[playerid][modelid][Unidades]));
+					DropItemSlot[i][LabelItem] = CreateDynamic3DTextLabel(str, -1, x,y,z-1, 5, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+					format(str, sizeof(str), "* {FFFFFF}%04d({FFFF00}%d{FFFFFF}) soltou {FFFF00}%s {FFFFFF}com {FFFF00}%s {FFFFFF}unidades no chao.", PlayerInfo[playerid][IDF],playerid, ItemNomeInv(PlayerInventario[playerid][modelid][Slot]), ConvertMoney(PlayerInventario[playerid][modelid][Unidades]));
+					SendClientMessageInRange(30, playerid, str, 0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA,0xB384FFAA);
+					PlayerInventario[playerid][modelid][Unidades] = 0;
+					AtualizarInventario(playerid, modelid);
+					ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.1, 0, 0, 0, 0, 0, 1);
 					return 1;
 				}
 			}
@@ -4930,14 +4948,15 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 		}
 		case 1581:
 		{
+			cmd_inventario(playerid);
 			new megastrings[500], String2[500];
-			format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\t{FFFFFF}VIP: {FFFF00}%s\n", Name(playerid),VIP(playerid));
+			format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n{FFFFFF}VIP: {FFFF00}%s\n", Name(playerid), VIP(playerid));
 			strcat(megastrings, String2);
-			format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\t{FFFFFF}Org:{FFFF00} %s\t{FFFFFF}Cargo:{FFFF00} %s\n", Profs(playerid), NomeOrg(playerid), NomeCargo(playerid));
+			format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\n{FFFFFF}Org:{FFFF00} %s\n{FFFFFF}Cargo:{FFFF00} %s\n", Profs(playerid), NomeOrg(playerid), NomeCargo(playerid));
 			strcat(megastrings, String2);
-			format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\t{FFFFFF}N�Casa:{FFFF00} %d\n", PlayerInfo[playerid][pMultas], PlayerInfo[playerid][Casa]);
+			format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\n{FFFFFF}N�Casa:{FFFF00} %d\n", PlayerInfo[playerid][pMultas], PlayerInfo[playerid][Casa]);
 			strcat(megastrings, String2);
-			format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\t{FFFFFF}Expira VIP:{FFFF00} %s\n", convertNumber(PlayerInfo[playerid][pSegundosJogados]), convertNumber(PlayerInfo[playerid][ExpiraVIP]-gettime()));
+			format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\n{FFFFFF}Expira VIP:{FFFF00} %s\n{FFFFFF}Licenca Conduzir: {FFFF00}%s", convertNumber(PlayerInfo[ID][pSegundosJogados]), convertNumber(PlayerInfo[ID][ExpiraVIP]-gettime()), temlicenca(playerid));
 			strcat(megastrings, String2);
 			ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
 		}
@@ -6259,6 +6278,294 @@ CallBack::PlayerTextDraw( playerid )
 
 //                          STOCKS
 
+stock darxp(playerid, XP, XP_Prox, Float:XP_Porc = 0.0, masganho = _:0.0)
+{
+    new string[20] = _:0.0; //const string[20] = _:0.0;
+
+	PlayerInfo[playerid][pXP] += masganho;
+    if(XP_Porc >= 100)
+    {
+        SetPlayerScore(playerid,GetPlayerScore(playerid)+1);
+		PlayerInfo[playerid][pXP] = 0;
+		InfoMsg(playerid, "Voce upou de nivel.");
+    }
+
+    for(new i; i < sizeof XPTXD[]; i++){ PlayerTextDrawDestroy(playerid, XPTXD[playerid][i]); }
+    XPTXD[playerid][0] = CreatePlayerTextDraw(playerid, 241.000000, 12.044451, "box");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][0], 0.000000, 0.127000);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][0], 405.000000, 0.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][0], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][0], -1);
+    PlayerTextDrawUseBox(playerid, XPTXD[playerid][0], 1);
+    PlayerTextDrawBoxColor(playerid, XPTXD[playerid][0], -76);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][0], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][0], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][0], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][0], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][0], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][0], 0);
+
+    XPTXD[playerid][1] = CreatePlayerTextDraw(playerid, 241.800048, 13.344456, "xp_progress");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][1], 0.000000, -0.043000);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][1], 239.597900+(XP_Porc*1.62), 1.0);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][1], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][1], -1);
+    PlayerTextDrawUseBox(playerid, XPTXD[playerid][1], 1);
+    PlayerTextDrawBoxColor(playerid, XPTXD[playerid][1], 512819114);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][1], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][1], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][1], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][1], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][1], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][1], 0);
+
+    XPTXD[playerid][2] = CreatePlayerTextDraw(playerid, 256.100921, 12.844454, "box_rp");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][2], 0.000000, 0.013999);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][2], 253.100677, 0.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][2], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][2], -1);
+    PlayerTextDrawUseBox(playerid, XPTXD[playerid][2], 1);
+    PlayerTextDrawBoxColor(playerid, XPTXD[playerid][2], -76);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][2], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][2], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][2], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][2], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][2], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][2], 0);
+
+    XPTXD[playerid][3] = CreatePlayerTextDraw(playerid, 271.801879, 12.844454, "box_rp");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][3], 0.000000, 0.013999);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][3], 268.801635, 0.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][3], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][3], -1);
+    PlayerTextDrawUseBox(playerid, XPTXD[playerid][3], 1);
+    PlayerTextDrawBoxColor(playerid, XPTXD[playerid][3], -76);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][3], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][3], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][3], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][3], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][3], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][3], 0);
+
+    XPTXD[playerid][4] = CreatePlayerTextDraw(playerid, 288.102874, 12.844454, "box_rp");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][4], 0.000000, 0.013999);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][4], 285.102630, 0.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][4], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][4], -1);
+    PlayerTextDrawUseBox(playerid, XPTXD[playerid][4], 1);
+    PlayerTextDrawBoxColor(playerid, XPTXD[playerid][4], -76);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][4], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][4], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][4], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][4], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][4], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][4], 0);
+
+    XPTXD[playerid][5] = CreatePlayerTextDraw(playerid, 304.003845, 12.844454, "box_rp");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][5], 0.000000, 0.013999);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][5], 301.003601, 0.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][5], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][5], -1);
+    PlayerTextDrawUseBox(playerid, XPTXD[playerid][5], 1);
+    PlayerTextDrawBoxColor(playerid, XPTXD[playerid][5], -76);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][5], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][5], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][5], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][5], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][5], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][5], 0);
+
+    XPTXD[playerid][6] = CreatePlayerTextDraw(playerid, 319.804809, 12.844454, "box_rp");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][6], 0.000000, 0.013999);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][6], 316.804565, 0.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][6], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][6], -1);
+    PlayerTextDrawUseBox(playerid, XPTXD[playerid][6], 1);
+    PlayerTextDrawBoxColor(playerid, XPTXD[playerid][6], -76);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][6], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][6], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][6], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][6], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][6], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][6], 0);
+
+    XPTXD[playerid][7] = CreatePlayerTextDraw(playerid, 334.805725, 12.844454, "box_rp");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][7], 0.000000, 0.013999);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][7], 331.805480, 0.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][7], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][7], -1);
+    PlayerTextDrawUseBox(playerid, XPTXD[playerid][7], 1);
+    PlayerTextDrawBoxColor(playerid, XPTXD[playerid][7], -76);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][7], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][7], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][7], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][7], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][7], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][7], 0);
+
+    XPTXD[playerid][8] = CreatePlayerTextDraw(playerid, 349.706634, 12.844454, "box_rp");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][8], 0.000000, 0.013999);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][8], 346.706390, 0.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][8], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][8], -1);
+    PlayerTextDrawUseBox(playerid, XPTXD[playerid][8], 1);
+    PlayerTextDrawBoxColor(playerid, XPTXD[playerid][8], -76);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][8], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][8], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][8], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][8], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][8], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][8], 0);
+
+    XPTXD[playerid][9] = CreatePlayerTextDraw(playerid, 366.000000, 13.000000, "box_rp");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][9], 0.000000, 0.013999);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][9], 363.000000, 0.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][9], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][9], -1);
+    PlayerTextDrawUseBox(playerid, XPTXD[playerid][9], 1);
+    PlayerTextDrawBoxColor(playerid, XPTXD[playerid][9], -76);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][9], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][9], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][9], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][9], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][9], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][9], 0);
+
+    XPTXD[playerid][10] = CreatePlayerTextDraw(playerid, 382.000000, 13.000000, "box_rp");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][10], 0.000000, 0.013999);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][10], 379.000000, 0.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][10], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][10], -1);
+    PlayerTextDrawUseBox(playerid, XPTXD[playerid][10], 1);
+    PlayerTextDrawBoxColor(playerid, XPTXD[playerid][10], -76);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][10], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][10], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][10], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][10], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][10], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][10], 0);
+
+    XPTXD[playerid][11] = CreatePlayerTextDraw(playerid, 395.000000, 13.000000, "box_rp");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][11], 0.000000, 0.013999);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][11], 392.000000, 0.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][11], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][11], -1);
+    PlayerTextDrawUseBox(playerid, XPTXD[playerid][11], 1);
+    PlayerTextDrawBoxColor(playerid, XPTXD[playerid][11], -76);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][11], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][11], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][11], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][11], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][11], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][11], 0);
+
+/*    XPTXD[playerid][12] = CreatePlayerTextDraw(playerid, 218.000000, 2.555553, "LD_POOL:ball");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][12], 0.000000, 0.000000);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][12], 18.000000, 21.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][12], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][12], 512819114);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][12], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][12], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][12], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][12], 4);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][12], 0);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][12], 0);
+
+    XPTXD[playerid][13] = CreatePlayerTextDraw(playerid, 218.700042, 3.688885, "LD_POOL:ball");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][13], 0.000000, 0.000000);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][13], 16.810018, 19.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][13], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][13], -1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][13], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][13], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][13], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][13], 4);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][13], 0);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][13], 0);
+
+    XPTXD[playerid][14] = CreatePlayerTextDraw(playerid, 410.711761, 2.555553, "LD_POOL:ball");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][14], 0.000000, 0.000000);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][14], 18.000000, 21.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][14], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][14], 512819114);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][14], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][14], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][14], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][14], 4);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][14], 0);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][14], 0);
+
+    XPTXD[playerid][15] = CreatePlayerTextDraw(playerid, 411.100067, 3.533331, "LD_POOL:ball");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][15], 0.000000, 0.000000);
+    PlayerTextDrawTextSize(playerid, XPTXD[playerid][15], 16.810018, 19.000000);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][15], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][15], -1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][15], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][15], 0);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][15], 255);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][15], 4);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][15], 0);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][15], 0);*/
+
+    format(string, 20, "%d", XP); XPTXD[playerid][16] = CreatePlayerTextDraw(playerid, 216.700042+TEXT_SIZE_DEFAULT, 5.599997, string);
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][16], 0.296999, 1.494222);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][16], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][16], 512819199);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][16], 1);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][16], 1);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][16], -1);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][16], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][16], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][16], 1);
+
+    format(string, 20, "%d", XP_Prox); XPTXD[playerid][17] = CreatePlayerTextDraw(playerid, 409.799987+TEXT_SIZE_DEFAULT, 5.700000, string);
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][17], 0.296999, 1.494222);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][17], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][17], 512819199);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][17], 1);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][17], 1);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][17], -1);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][17], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][17], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][17], 1);
+
+    format(string, 20, "+%d de Respeito", masganho); XPTXD[playerid][18] = CreatePlayerTextDraw(playerid, 295.899688, 17.500005, string);
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][18], 0.189500, 0.983999);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][18], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][18], 512819114);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][18], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][18], 1);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][18], -1);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][18], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][18], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][18], 0);
+
+    XPTXD[playerid][19] = CreatePlayerTextDraw(playerid, 318.000000, 2.000000, "XP");
+    PlayerTextDrawLetterSize(playerid, XPTXD[playerid][19], 0.184000, 0.815999);
+    PlayerTextDrawAlignment(playerid, XPTXD[playerid][19], 1);
+    PlayerTextDrawColor(playerid, XPTXD[playerid][19], 512819114);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][19], 0);
+    PlayerTextDrawSetOutline(playerid, XPTXD[playerid][19], 1);
+    PlayerTextDrawBackgroundColor(playerid, XPTXD[playerid][19], -1);
+    PlayerTextDrawFont(playerid, XPTXD[playerid][19], 1);
+    PlayerTextDrawSetProportional(playerid, XPTXD[playerid][19], 1);
+    PlayerTextDrawSetShadow(playerid, XPTXD[playerid][19], 0);
+    
+    for(new i; i < sizeof XPTXD[]; i++){ 
+    	PlayerTextDrawShow(playerid, XPTXD[playerid][i]); 
+	}
+	
+	#if TEXT_SOUND_DEFAULT == true
+		PlayerPlaySound(playerid, 5202, 0.0, 0.0, 0.0);
+	#endif
+
+	#if defined TEXT_TIME_DEFAULT
+		SetTimerEx("XP_Hide", TEXT_TIME_DEFAULT, 0, "i", playerid);
+	#endif
+
+    return 1;
+}
+
 stock checkPasswordAccount(playerid, password[]) {
 	new SHA256_password[95],Account[256], returnSucess = 0;
 
@@ -6451,7 +6758,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawUseBox(playerid,TDLoja[playerid][0], 1);
     PlayerTextDrawBoxColor(playerid,TDLoja[playerid][0], 255);
     PlayerTextDrawTextSize(playerid,TDLoja[playerid][0], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][0], 0);
 
     TDLoja[playerid][1] = CreatePlayerTextDraw(playerid,343.000000, 168.000000, "LD_BUM:cd1c");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][1], 255);
@@ -6464,7 +6770,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawUseBox(playerid,TDLoja[playerid][1], 1);
     PlayerTextDrawBoxColor(playerid,TDLoja[playerid][1], 255);
     PlayerTextDrawTextSize(playerid,TDLoja[playerid][1], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][1], 0);
 
     TDLoja[playerid][2] = CreatePlayerTextDraw(playerid,342.000000, 199.000000, "LD_BUM:cd1c");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][2], 255);
@@ -6477,7 +6782,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawUseBox(playerid,TDLoja[playerid][2], 1);
     PlayerTextDrawBoxColor(playerid,TDLoja[playerid][2], 255);
     PlayerTextDrawTextSize(playerid,TDLoja[playerid][2], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][2], 0);
 
     TDLoja[playerid][3] = CreatePlayerTextDraw(playerid,344.000000, 198.000000, "LD_BUM:cd1c");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][3], 255);
@@ -6490,7 +6794,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawUseBox(playerid,TDLoja[playerid][3], 1);
     PlayerTextDrawBoxColor(playerid,TDLoja[playerid][3], 255);
     PlayerTextDrawTextSize(playerid,TDLoja[playerid][3], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][3], 0);
 
     TDLoja[playerid][4] = CreatePlayerTextDraw(playerid,372.000000, 173.000000, "CELULAR");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][4], 255);
@@ -6533,7 +6836,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawUseBox(playerid,TDLoja[playerid][7], 1);
     PlayerTextDrawBoxColor(playerid,TDLoja[playerid][7], 255);
     PlayerTextDrawTextSize(playerid,TDLoja[playerid][7], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][7], 0);
 
     TDLoja[playerid][8] = CreatePlayerTextDraw(playerid,344.000000, 227.000000, "LD_BUM:cd1c");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][8], 255);
@@ -6546,7 +6848,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawUseBox(playerid,TDLoja[playerid][8], 1);
     PlayerTextDrawBoxColor(playerid,TDLoja[playerid][8], 255);
     PlayerTextDrawTextSize(playerid,TDLoja[playerid][8], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][8], 0);
 
     TDLoja[playerid][9] = CreatePlayerTextDraw(playerid,360.000000, 231.000000, "VARA DE PESCAR");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][9], 255);
@@ -6566,7 +6867,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawSetOutline(playerid,TDLoja[playerid][10], 0);
     PlayerTextDrawSetProportional(playerid,TDLoja[playerid][10], 1);
     PlayerTextDrawSetShadow(playerid,TDLoja[playerid][10], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][10], 0);
 
     TDLoja[playerid][11] = CreatePlayerTextDraw(playerid,405.000000, 212.000000, "R$200");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][11], 255);
@@ -6576,7 +6876,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawSetOutline(playerid,TDLoja[playerid][11], 0);
     PlayerTextDrawSetProportional(playerid,TDLoja[playerid][11], 1);
     PlayerTextDrawSetShadow(playerid,TDLoja[playerid][11], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][11], 0);
 
     TDLoja[playerid][12] = CreatePlayerTextDraw(playerid,406.000000, 241.000000, "R$300");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][12], 255);
@@ -6586,7 +6885,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawSetOutline(playerid,TDLoja[playerid][12], 0);
     PlayerTextDrawSetProportional(playerid,TDLoja[playerid][12], 1);
     PlayerTextDrawSetShadow(playerid,TDLoja[playerid][12], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][12], 0);
 
     TDLoja[playerid][13] = CreatePlayerTextDraw(playerid,342.000000, 256.000000, "LD_BUM:cd1c");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][13], 255);
@@ -6599,7 +6897,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawUseBox(playerid,TDLoja[playerid][13], 1);
     PlayerTextDrawBoxColor(playerid,TDLoja[playerid][13], 255);
     PlayerTextDrawTextSize(playerid,TDLoja[playerid][13], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][13], 0);
 
     TDLoja[playerid][14] = CreatePlayerTextDraw(playerid,344.000000, 255.000000, "LD_BUM:cd1c");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][14], 255);
@@ -6612,7 +6909,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawUseBox(playerid,TDLoja[playerid][14], 1);
     PlayerTextDrawBoxColor(playerid,TDLoja[playerid][14], 255);
     PlayerTextDrawTextSize(playerid,TDLoja[playerid][14], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][14], 0);
 
     TDLoja[playerid][15] = CreatePlayerTextDraw(playerid,372.000000, 259.000000, "CAPACETE");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][15], 255);
@@ -6632,7 +6928,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawSetOutline(playerid,TDLoja[playerid][16], 0);
     PlayerTextDrawSetProportional(playerid,TDLoja[playerid][16], 1);
     PlayerTextDrawSetShadow(playerid,TDLoja[playerid][16], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][16], 0);
 
     TDLoja[playerid][17] = CreatePlayerTextDraw(playerid,342.000000, 284.000000, "LD_BUM:cd1c");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][17], 255);
@@ -6645,7 +6940,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawUseBox(playerid,TDLoja[playerid][17], 1);
     PlayerTextDrawBoxColor(playerid,TDLoja[playerid][17], 255);
     PlayerTextDrawTextSize(playerid,TDLoja[playerid][17], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][17], 0);
 
     TDLoja[playerid][18] = CreatePlayerTextDraw(playerid,345.000000, 283.000000, "LD_BUM:cd1c");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][18], 255);
@@ -6658,7 +6952,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawUseBox(playerid,TDLoja[playerid][18], 1);
     PlayerTextDrawBoxColor(playerid,TDLoja[playerid][18], 255);
     PlayerTextDrawTextSize(playerid,TDLoja[playerid][18], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][18], 0);
 
     TDLoja[playerid][19] = CreatePlayerTextDraw(playerid,375.000000, 287.000000, "CHAIRA");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][19], 255);
@@ -6678,7 +6971,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawSetOutline(playerid,TDLoja[playerid][20], 0);
     PlayerTextDrawSetProportional(playerid,TDLoja[playerid][20], 1);
     PlayerTextDrawSetShadow(playerid,TDLoja[playerid][20], 0);
-    PlayerTextDrawSetSelectable(playerid,TDLoja[playerid][20], 0);
 
     TDPref[playerid][0] = CreatePlayerTextDraw(playerid,341.000000, 169.000000, "LD_BUM:cd1c");
     PlayerTextDrawBackgroundColor(playerid,TDPref[playerid][0], 255);
@@ -6691,7 +6983,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawUseBox(playerid,TDPref[playerid][0], 1);
     PlayerTextDrawBoxColor(playerid,TDPref[playerid][0], 255);
     PlayerTextDrawTextSize(playerid,TDPref[playerid][0], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDPref[playerid][0], 0);
 
     TDPref[playerid][1] = CreatePlayerTextDraw(playerid,343.000000, 168.000000, "LD_BUM:cd1c");
     PlayerTextDrawBackgroundColor(playerid,TDPref[playerid][1], 255);
@@ -6704,7 +6995,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawUseBox(playerid,TDPref[playerid][1], 1);
     PlayerTextDrawBoxColor(playerid,TDPref[playerid][1], 255);
     PlayerTextDrawTextSize(playerid,TDPref[playerid][1], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDPref[playerid][1], 0);
 
     TDPref[playerid][2] = CreatePlayerTextDraw(playerid,342.000000, 199.000000, "LD_BUM:cd1c");
     PlayerTextDrawBackgroundColor(playerid,TDPref[playerid][2], 255);
@@ -6717,7 +7007,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawUseBox(playerid,TDPref[playerid][2], 1);
     PlayerTextDrawBoxColor(playerid,TDPref[playerid][2], 255);
     PlayerTextDrawTextSize(playerid,TDPref[playerid][2], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDPref[playerid][2], 0);
 
     TDPref[playerid][3] = CreatePlayerTextDraw(playerid,344.000000, 198.000000, "LD_BUM:cd1c");
     PlayerTextDrawBackgroundColor(playerid,TDPref[playerid][3], 255);
@@ -6730,7 +7019,6 @@ stock todastextdraw(playerid)
     PlayerTextDrawUseBox(playerid,TDPref[playerid][3], 1);
     PlayerTextDrawBoxColor(playerid,TDPref[playerid][3], 255);
     PlayerTextDrawTextSize(playerid,TDPref[playerid][3], 98.000000, 26.000000);
-    PlayerTextDrawSetSelectable(playerid,TDPref[playerid][3], 0);
 
     TDPref[playerid][4] = CreatePlayerTextDraw(playerid,350.000000, 173.000000, "FAZER DOCUMENTOS");
     PlayerTextDrawBackgroundColor(playerid,TDPref[playerid][4], 255);
@@ -6983,7 +7271,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBoxColor(playerid, Loadsc_p[playerid][0], 50);
 	PlayerTextDrawUseBox(playerid, Loadsc_p[playerid][0], 0);
 	PlayerTextDrawSetProportional(playerid, Loadsc_p[playerid][0], 1);
-	PlayerTextDrawSetSelectable(playerid, Loadsc_p[playerid][0], 0);
 	Loadsc_b[playerid][0] = CreatePlayerProgressBar(playerid, 224.000000, 284.000000, 200.000000, -13.000000, -65281, 100.000000, 0);
 	SetPlayerProgressBarValue(playerid, Loadsc_b[playerid][0], 0);
 
@@ -7209,7 +7496,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBoxColor(playerid, TDCadastro_p[playerid][6], 512819199);
 	PlayerTextDrawUseBox(playerid, TDCadastro_p[playerid][6], 0);
 	PlayerTextDrawSetProportional(playerid, TDCadastro_p[playerid][6], 1);
-	PlayerTextDrawSetSelectable(playerid, TDCadastro_p[playerid][6], 0);
 
 		//NEW HUD SERVER STRINGS
 	HudServer_p[playerid][0] = CreatePlayerTextDraw(playerid, 554.000000, 104.000000, "100"); //Batimento cardiaco
@@ -7224,7 +7510,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][0], 50);
 	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][0], 0);
 	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][0], 1);
-	PlayerTextDrawSetSelectable(playerid, HudServer_p[playerid][0], 0);
 
 	HudServer_p[playerid][1] = CreatePlayerTextDraw(playerid, 570.000000, 104.000000, "100"); //Colete
 	PlayerTextDrawFont(playerid, HudServer_p[playerid][1], 2);
@@ -7238,7 +7523,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][1], 50);
 	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][1], 0);
 	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][1], 1);
-	PlayerTextDrawSetSelectable(playerid, HudServer_p[playerid][1], 0);
 
 	HudServer_p[playerid][2] = CreatePlayerTextDraw(playerid, 586.000000, 104.000000, "100"); //Fome
 	PlayerTextDrawFont(playerid, HudServer_p[playerid][2], 2);
@@ -7252,7 +7536,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][2], 50);
 	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][2], 0);
 	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][2], 1);
-	PlayerTextDrawSetSelectable(playerid, HudServer_p[playerid][2], 0);
 
 	HudServer_p[playerid][3] = CreatePlayerTextDraw(playerid, 601.000000, 104.000000, "100"); //Sede
 	PlayerTextDrawFont(playerid, HudServer_p[playerid][3], 2);
@@ -7266,7 +7549,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][3], 50);
 	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][3], 0);
 	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][3], 1);
-	PlayerTextDrawSetSelectable(playerid, HudServer_p[playerid][3], 0);
 
 	HudServer_p[playerid][4] = CreatePlayerTextDraw(playerid, 559.000000, 119.000000, "ld_beat:chit"); //bolinha voip
 	PlayerTextDrawFont(playerid, HudServer_p[playerid][4], 4);
@@ -7280,7 +7562,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][4], 50);
 	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][4], 1);
 	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][4], 1);
-	PlayerTextDrawSetSelectable(playerid, HudServer_p[playerid][4], 0);
 
 	HudServer_p[playerid][5] = CreatePlayerTextDraw(playerid, 575.000000, 119.000000, "ld_beat:chit"); //bolinha vermelha voip
 	PlayerTextDrawFont(playerid, HudServer_p[playerid][5], 4);
@@ -7294,7 +7575,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][5], 50);
 	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][5], 1);
 	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][5], 1);
-	PlayerTextDrawSetSelectable(playerid, HudServer_p[playerid][5], 0);
 
 	HudServer_p[playerid][6] = CreatePlayerTextDraw(playerid, 592.000000, 119.000000, "ld_beat:chit"); //bolinha vermelha voip
 	PlayerTextDrawFont(playerid, HudServer_p[playerid][6], 4);
@@ -7308,7 +7588,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][6], 50);
 	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][6], 1);
 	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][6], 1);
-	PlayerTextDrawSetSelectable(playerid, HudServer_p[playerid][6], 0);
 
 	wMenu[0] = CreatePlayerTextDraw(playerid,123.000000, 61.000000+50, "Veiculo:");
 	PlayerTextDrawBackgroundColor(playerid,wMenu[0], 255);
@@ -7570,32 +7849,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawTextSize(playerid,wMenuRodas[10], 282.000000, 10.000000);
 	PlayerTextDrawSetSelectable(playerid,wMenuRodas[10], 0);
 	
-/*	wMenuRodas[11] = CreatePlayerTextDraw(playerid,123.000000, 350.000000+50, "Grove");
-	PlayerTextDrawBackgroundColor(playerid,wMenuRodas[11], 255);
-	PlayerTextDrawFont(playerid,wMenuRodas[11], 2);
-	PlayerTextDrawLetterSize(playerid,wMenuRodas[11], 0.209998, 1.200000);
-	PlayerTextDrawColor(playerid,wMenuRodas[11], -1);
-	PlayerTextDrawSetOutline(playerid,wMenuRodas[11], 0);
-	PlayerTextDrawSetProportional(playerid,wMenuRodas[11], 1);
-	PlayerTextDrawSetShadow(playerid,wMenuRodas[11], 0);
-	PlayerTextDrawUseBox(playerid,wMenuRodas[11], 1);
-	PlayerTextDrawBoxColor(playerid,wMenuRodas[11], 0);
-	PlayerTextDrawTextSize(playerid,wMenuRodas[11], 282.000000, 10.000000);
-	PlayerTextDrawSetSelectable(playerid,wMenuRodas[11], 0);
-	
-	wMenuRodas[12] = CreatePlayerTextDraw(playerid,123.000000, 410.000000+50, "Switch");
-	PlayerTextDrawBackgroundColor(playerid,wMenuRodas[12], 255);
-	PlayerTextDrawFont(playerid,wMenuRodas[12], 2);
-	PlayerTextDrawLetterSize(playerid,wMenuRodas[12], 0.209998, 1.200000);
-	PlayerTextDrawColor(playerid,wMenuRodas[12], -1);
-	PlayerTextDrawSetOutline(playerid,wMenuRodas[12], 0);
-	PlayerTextDrawSetProportional(playerid,wMenuRodas[12], 1);
-	PlayerTextDrawSetShadow(playerid,wMenuRodas[12], 0);
-	PlayerTextDrawUseBox(playerid,wMenuRodas[12], 1);
-	PlayerTextDrawBoxColor(playerid,wMenuRodas[12], 0);
-	PlayerTextDrawTextSize(playerid,wMenuRodas[12], 282.000000, 10.000000);
-	PlayerTextDrawSetSelectable(playerid,wMenuRodas[12], 0);
-*/
     for(new i = 1; i < 11; ++i) PlayerTextDrawSetSelectable(playerid, PlayerText:wMenuRodas[i], true);
 
 	/*--------------------------------------------------------------------------------------------------------*/
@@ -8800,7 +9053,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBoxColor(playerid, TDmorte_p[playerid][0], 50);
 	PlayerTextDrawUseBox(playerid, TDmorte_p[playerid][0], 0);
 	PlayerTextDrawSetProportional(playerid, TDmorte_p[playerid][0], 0);
-	PlayerTextDrawSetSelectable(playerid, TDmorte_p[playerid][0], 0);
 
 	// Fader (Ultimo sempre)
 	new tmp[E_PLAYER_FADE_INFO];
@@ -9926,6 +10178,13 @@ stock Profs(playerid)
 	return LipeStrondaProfs;
 }
 
+stock temlicenca(playerid)
+{
+	new LipeStrongLicenca[64];
+	if(PlayerInfo[playerid][LicencaConduzir] == 0) { LipeStrongLicenca = "Sem Licenca"; }
+	else if(PlayerInfo[playerid][LicencaConduzir] == 1) { LipeStrongLicenca = "Tem Licenca"; }
+	return LipeStrongLicenca;
+}
 stock VIP(playerid)
 {
 	new LipeStrondaVIP[64];
@@ -10451,6 +10710,9 @@ stock SalvarDados(playerid)
 		DOF2_SetInt(File, "pProcurado", GetPlayerWantedLevel(playerid));
 		DOF2_SetInt(File, "pMultas", PlayerInfo[playerid][pMultas]);
 		DOF2_SetInt(File, "pCasa", PlayerInfo[playerid][Casa]);
+		DOF2_SetInt(File, "pLevel", GetPlayerScore(playerid));
+		DOF2_SetInt(File, "pXP", PlayerInfo[playerid][pXP]);
+		DOF2_SetInt(File, "LicencaConduzir", PlayerInfo[playerid][LicencaConduzir]);
 		DOF2_SaveFile();
 	}
 	return 1;
@@ -10502,6 +10764,9 @@ stock SalvarDadosSkin(playerid)
 		DOF2_SetInt(File, "pProcurado", GetPlayerWantedLevel(playerid));
 		DOF2_SetInt(File, "pMultas", PlayerInfo[playerid][pMultas]);
 		DOF2_SetInt(File, "pCasa", PlayerInfo[playerid][Casa]);
+		DOF2_SetInt(File, "pLevel", GetPlayerScore(playerid));
+		DOF2_SetInt(File, "pXP", PlayerInfo[playerid][pXP]);
+		DOF2_SetInt(File, "LicencaConduzir", PlayerInfo[playerid][LicencaConduzir]);
 		DOF2_SaveFile();
 	}
 	return 1;
@@ -12453,7 +12718,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 						IniciouTesteHabilitacaoB[playerid] = 0;
 
 						InfoMsg(playerid, "Aprovado no teste de licenca.");
-						GanharItem(playerid, 1854, 1);
+						PlayerInfo[playerid][LicencaConduzir] = 1;
 						MissaoPlayer[playerid][MISSAO5] = 1;
 						GameTextForPlayer(playerid, "~w~Aprovado!", 5000, 0);
 						SetPlayerVirtualWorld(playerid, 0);
@@ -13460,7 +13725,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		if(PlayerToPoint(2.0, playerid, 617.928100, -1.965069, 1001.040832))
 		{
-			new string[1000], mercada[1000];
+			/*new string[1000], mercada[1000];
 			strcat(string, "Habilitacao\tValor\n");
 			format(mercada, sizeof(mercada), "{FFFF00}- {BEBEBE}Categoria A\t{00FF00}R$2.000\n");
 			strcat(string, mercada);
@@ -13471,7 +13736,16 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			format(mercada, sizeof(mercada), "{FFFF00}- {BEBEBE}Categoria Aerea\t{00FF00}R$50.000");
 			strcat(string, mercada);
 
-			return ShowPlayerDialog(playerid, DIALOG_AUTO_ESCOLA, DIALOG_STYLE_TABLIST_HEADERS, "Auto Escola", string, "Confirmar", "X");
+			return ShowPlayerDialog(playerid, DIALOG_AUTO_ESCOLA, DIALOG_STYLE_TABLIST_HEADERS, "Auto Escola", string, "Confirmar", "X");*/
+			if(GetPlayerMoney(playerid) < 2500)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+			if(PlayerInfo[playerid][LicencaConduzir] == 1) return ErrorMsg(playerid, "Ja possui licenca");
+			new StrHab[15000];
+			strcat(StrHab,  "{FFFF00}x{FFFFFF} Voce esta prestes a iniciar seu teste de conducao\n");
+			strcat(StrHab,  "{FFFF00}x{FFFFFF} Para iniciar o teste, clique em {FFFFFF}'{FFFF00}COMECAR{FFFFFF}'\n");
+			strcat(StrHab,  "{FFFF00}x{FFFFFF} Lembrando! Apos clicar no botao, o teste sera iniciado automaticamente.\n");
+			strcat(StrHab,  "{FFFF00}x{FFFFFF} A cobrancaa sera feita assim que o teste comecar.\n");
+			strcat(StrHab,  "{FFFF00}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
+			ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA2, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "COMECAR","X");
 		}
 		if(PlayerToPoint(3.0, playerid, -2384.861328, -52.628452, 35.479644) || PlayerToPoint(3.0, playerid, -2447.427490, 1211.600341, 35.378139) || PlayerToPoint(3.0, playerid, -2074.794921, 643.822570, 52.524303))
 		{
@@ -13592,7 +13866,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");    		
 			else
 			{
-				if(!CheckInventario2(playerid, 1855)) return ErrorMsg(playerid, "Nao possui Licenca C");
+				if(PlayerInfo[playerid][LicencaConduzir] == 0) return ErrorMsg(playerid, "Nao possui licenca");
 				if(!CheckInventario2(playerid, 19792)) 	return ErrorMsg(playerid, "Nao possui carteira de trabalho.");
 				PlayerInfo[playerid][pProfissao] = 4;
 				SuccesMsg(playerid, "Aceitou em emprego novo.");
@@ -13624,7 +13898,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
 			else
 			{
-				if(!CheckInventario2(playerid, 1854)) return ErrorMsg(playerid, "Nao possui Licenca B");
+				if(PlayerInfo[playerid][LicencaConduzir] == 0) return ErrorMsg(playerid, "Nao possui licenca");
 				PlayerInfo[playerid][pProfissao] = 7;
 				SuccesMsg(playerid, "Aceitou em emprego novo.");
 				MissaoPlayer[playerid][MISSAO3] = 1;
@@ -13749,6 +14023,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SetInt(Account, "pProcurado", 0);
 					DOF2_SetInt(Account, "pMultas", 0);
 					DOF2_SetInt(Account, "pCasa", -1);
+					DOF2_SetInt(Account, "pLevel", 0);
+					DOF2_SetInt(Account, "pXP", 0);
+					DOF2_SetInt(Account, "LicencaConduzir", 0);
 					PlayerInfo[playerid][Casa] = -1;
 					DOF2_SaveFile();
 				}
@@ -13864,6 +14141,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						SetPlayerWantedLevel(playerid, DOF2_GetInt(Account, "pProcurado"));
 						PlayerInfo[playerid][pMultas] = DOF2_GetInt(Account, "pMultas");
 						PlayerInfo[playerid][Casa] = DOF2_GetInt(Account, "pCasa");
+						SetPlayerScore(playerid, DOF2_GetInt(Account, "pLevel"));
+						PlayerInfo[playerid][pXP] = DOF2_GetInt(Account, "pXP");
+						PlayerInfo[playerid][LicencaConduzir] = DOF2_GetInt(Account, "LicencaConduzir");
 						DOF2_SaveFile();
 						//
 					}
@@ -14236,6 +14516,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					new stg[15000];
 					strcat(stg, "{FFFF00}/report{FFFFFF} Para denunciar um jogador.\n");
+					strcat(stg, "{FFFF00}/atendimento{FFFFFF} Para denunciar um jogador.\n");
 					strcat(stg, "{FFFF00}/duvida{FFFFFF} Para falar no chat de duvida.\n");
 					strcat(stg, "{FFFF00}/lojavip{FFFFFF} Para verificar menu de coins.\n");
 					strcat(stg, "{FFFF00}/sairemprego{FFFFFF} deixar seu emprego.\n");
@@ -14244,7 +14525,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(stg, "{FFFF00}/cmaconha{FFFFFF} Colher plantacoes.\n");
 					strcat(stg, "{FFFF00}/orgs{FFFFFF} Verificar orgs.\n");
 					strcat(stg, "{FFFF00}/menuanim{FFFFFF} Menu de animacoes.\n");
-					strcat(stg, "{FFFF00}/missoes{FFFFFF} Menu de missoes.\n\n");
+					strcat(stg, "{FFFF00}/missoes{FFFFFF} Menu de missoes.\n");
+					strcat(stg, "{FFFF00}/mvoip{FFFFFF} Configurar seu voip.\n\n");
 					strcat(stg, "{FFFFFF} Para cada 30min de jogo voce recebera um PayDay,\ncada PayDay lhe dara bonus nos empregos e caixa PayDay.");
 					ShowPlayerDialog(playerid, DIALOG_AJUDACOMANDOS, DIALOG_STYLE_MSGBOX, "Comandos Servidor", stg, "Ok", #);
 				}
@@ -14285,12 +14567,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						strcat(Str2, "\n{FFFF00}Passo 1:{FFFFFF} Carregue seu caminhao.");
 						strcat(Str2, "\n{FFFF00}Passo 2:{FFFFFF} Apos chegar no local use /descarregar.");
 						ShowPlayerDialog(playerid, DIALOG_EMP4, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
-					}
-					if(PlayerInfo[playerid][pProfissao] == 5)
-					{
-						strcat(Str2, "\t{FFFF00}- {FFFFFF}Ajuda Entregador de Tumba{FFFF00}- {FFFFFF}\n\n");
-						strcat(Str2, "\n{FFFF00}Comando valido:{FFFFFF} /ltumba\nLocalizar uma tumba em um hospital.\n");
-						ShowPlayerDialog(playerid, DIALOG_EMP5, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
 					if(PlayerInfo[playerid][pProfissao] == 6)
 					{
@@ -14360,6 +14636,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(stg, "{FFFF00}/ejetar{FFFFFF} Remova o jogador do seu veiculo.\n");
 					strcat(stg, "{FFFF00}/ejetarAll{FFFFFF} Remova todos os jogadores do seu veiculo.\n");
 					strcat(stg, "{FFFF00}/limparmods{FFFFFF} Limpar modificações do seu veiculo.\n\n");
+					strcat(stg, "{FFFF00}/cinto{FFFFFF} colocar cinto.\n\n");
 					strcat(stg, "{FFFFFF} Alguns comandos nao ira funcionar em todos os veiculos,\nPode nao funcionar bem em veiculos que nao sao da concessionaria.");
 					ShowPlayerDialog(playerid, DIALOG_AJUDAVEH, DIALOG_STYLE_MSGBOX, "Comandos Veiculo", stg, "Ok", "");
 				}
@@ -14894,11 +15171,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(GetPlayerMoney(playerid) < 2000)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					if(CheckInventario2(playerid,1853)) return ErrorMsg(playerid, "Ja possui essa licenca");
 					new StrHab[15000];
-					strcat(StrHab,  "{BEBEBE}: Você está prestes a iniciar um test drive\n");
-					strcat(StrHab,  "{BEBEBE}: Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
-					strcat(StrHab,  "{BEBEBE}: Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
-					strcat(StrHab,  "{BEBEBE}: A cobrança será feita assim que o teste começar.\n");
-					strcat(StrHab,  "{BEBEBE}: Siga a rota sem bater ou danificar o veiculo.\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Você está prestes a iniciar um test drive\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} A cobrança será feita assim que o teste começar.\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
 					ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA1, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "Fazer Teste","X");
 				}
 				if(listitem == 1)
@@ -14906,11 +15183,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(GetPlayerMoney(playerid) < 2500)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					if(CheckInventario2(playerid,1854)) return ErrorMsg(playerid, "Ja possui essa licenca");
 					new StrHab[15000];
-					strcat(StrHab,  "{BEBEBE}: Você está prestes a iniciar um test drive\n");
-					strcat(StrHab,  "{BEBEBE}: Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
-					strcat(StrHab,  "{BEBEBE}: Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
-					strcat(StrHab,  "{BEBEBE}: A cobrança será feita assim que o teste começar.\n");
-					strcat(StrHab,  "{BEBEBE}: Siga a rota sem bater ou danificar o veiculo.\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Você está prestes a iniciar um test drive\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} A cobrança será feita assim que o teste começar.\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
 					ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA2, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "Fazer Teste","X");
 				}
 				if(listitem == 2)
@@ -14918,11 +15195,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(GetPlayerMoney(playerid) < 5000)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					if(CheckInventario2(playerid,1855)) return ErrorMsg(playerid, "Ja possui essa licenca");
 					new StrHab[15000];
-					strcat(StrHab,  "{BEBEBE}: Você está prestes a iniciar um test drive\n");
-					strcat(StrHab,  "{BEBEBE}: Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
-					strcat(StrHab,  "{BEBEBE}: Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
-					strcat(StrHab,  "{BEBEBE}: A cobrança será feita assim que o teste começar.\n");
-					strcat(StrHab,  "{BEBEBE}: Siga a rota sem bater ou danificar o veiculo.\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Você está prestes a iniciar um test drive\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} A cobrança será feita assim que o teste começar.\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
 					ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA3, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "Fazer Teste","X");
 				}
 				if(listitem == 3)
@@ -14930,11 +15207,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(GetPlayerMoney(playerid) < 50000)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					if(CheckInventario2(playerid,1856)) return ErrorMsg(playerid, "Ja possui essa licenca");
 					new StrHab[15000];
-					strcat(StrHab,  "{BEBEBE}: Você está prestes a iniciar um test drive\n");
-					strcat(StrHab,  "{BEBEBE}: Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
-					strcat(StrHab,  "{BEBEBE}: Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
-					strcat(StrHab,  "{BEBEBE}: A cobrança será feita assim que o teste começar.\n");
-					strcat(StrHab,  "{BEBEBE}: Siga a rota sem bater ou danificar o veiculo.\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Você está prestes a iniciar um test drive\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} A cobrança será feita assim que o teste começar.\n");
+					strcat(StrHab,  "{FFFF00}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
 					ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA4, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "Fazer Teste","X");
 				}
 			}
@@ -14998,7 +15275,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SetPlayerVirtualWorld(playerid, 0);
 
 				new indx2 = random(sizeof(SpawnAT));
-				AutoEscolaVeiculo[playerid] = CreateVehicle(589, SpawnAT[indx2][0], SpawnAT[indx2][1], SpawnAT[indx2][2], SpawnAT[indx2][3], 6, 6, 2400000);
+				AutoEscolaVeiculo[playerid] = CreateVehicle(410, SpawnAT[indx2][0], SpawnAT[indx2][1], SpawnAT[indx2][2], SpawnAT[indx2][3], 6, 6, 2400000);
 				SetVehicleVirtualWorld(AutoEscolaVeiculo[playerid], 0);
 				PutPlayerInVehicle(playerid, AutoEscolaVeiculo[playerid], 0);
 
@@ -15006,21 +15283,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				GameTextForPlayer(playerid, "~w~Teste Iniciado", 5000, 0);
 
 				SetPlayerRaceCheckpoint(playerid, 0, AutoEscolaPosicao[0][0], AutoEscolaPosicao[0][1], AutoEscolaPosicao[0][2], AutoEscolaPosicao[1][0], AutoEscolaPosicao[1][1], AutoEscolaPosicao[1][2], 7);
-			}
-			else
-			{
-				new string[1000], mercada[1000];
-				strcat(string, "Habilitacion\tValor\n");
-				format(mercada, sizeof(mercada), "{FFFF00}- {BEBEBE}Categoria A\t{00FF00}R$2.000\n");
-				strcat(string, mercada);
-				format(mercada, sizeof(mercada), "{FFFF00}- {BEBEBE}Categoria B\t{00FF00}R$2.500\n");
-				strcat(string, mercada);
-				format(mercada, sizeof(mercada), "{FFFF00}- {BEBEBE}Categoria C\t{00FF00}R$5.000\n");
-				strcat(string, mercada);
-				format(mercada, sizeof(mercada), "{FFFF00}- {BEBEBE}Categoria Aerea\t{00FF00}R$50.000");
-				strcat(string, mercada);
-
-				return ShowPlayerDialog(playerid, DIALOG_AUTO_ESCOLA, DIALOG_STYLE_TABLIST_HEADERS, "Testes de {FF2400}Habilitacoes", string, "Fazer", "X");
 			}
 		}
 		case DIALOG_CONFIRMA_ESCOLA3:
@@ -19565,13 +19827,13 @@ CMD:verdocumentos(playerid, params[])
 	if(!IsPerto(playerid,ID))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
 	//
 	new megastrings[500], String2[500];
-	format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\t{FFFFFF}VIP: {FFFF00}%s\n", Name(ID), VIP(ID));
+	format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n{FFFFFF}VIP: {FFFF00}%s\n", Name(ID), VIP(ID));
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\t{FFFFFF}Org:{FFFF00} %s\t{FFFFFF}Cargo:{FFFF00} %s\n", Profs(playerid), NomeOrg(ID), NomeCargo(ID));
+	format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\n{FFFFFF}Org:{FFFF00} %s\n{FFFFFF}Cargo:{FFFF00} %s\n", Profs(ID), NomeOrg(ID), NomeCargo(ID));
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\t{FFFFFF}N�Casa:{FFFF00} %d\n", PlayerInfo[ID][pMultas], PlayerInfo[ID][Casa]);
+	format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\n{FFFFFF}N�Casa:{FFFF00} %d\n", PlayerInfo[ID][pMultas], PlayerInfo[ID][Casa]);
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\t{FFFFFF}Expira VIP:{FFFF00} %s\n", convertNumber(PlayerInfo[ID][pSegundosJogados]), convertNumber(PlayerInfo[ID][ExpiraVIP]-gettime()));
+	format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\n{FFFFFF}Expira VIP:{FFFF00} %s\n{FFFFFF}Licenca Conduzir: {FFFF00}%s", convertNumber(PlayerInfo[ID][pSegundosJogados]), convertNumber(PlayerInfo[ID][ExpiraVIP]-gettime()), temlicenca(playerid));
 	strcat(megastrings, String2);
 	ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
 	return 1;
@@ -19719,24 +19981,6 @@ CMD:ativarkey(playerid, params[])
 	}
 	return 1;
 }
-
-CMD:me(playerid, params[])
-{
-	new string3[500];
-	if(!isnull(params))
-	format(string3, sizeof(string3), "* %s %s", Name(playerid), params);
-	ProxDetector(30.0, playerid, string3, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-	return 1;
-} 
-
-CMD:do(playerid, params[])
-{
-	new string3[500];
-	if(!isnull(params))
-	format(string3, sizeof(string3), "* %s ((%s))", params, Name(playerid));
-	ProxDetector(30.0, playerid, string3, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-	return 1;
-} 
 
 CMD:ltumba(playerid)
 {
@@ -21689,4 +21933,10 @@ CMD:pescar(playerid)
 		UsouCMD[playerid] = true;	
 	}
 	return 1;
+}
+
+CMD:test(playerid)
+{
+	darxp(playerid, GetPlayerScore(playerid), GetPlayerScore(playerid)+1, PlayerInfo[playerid][pXP], 50);
+	return true;
 }

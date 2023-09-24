@@ -74,3 +74,8 @@
 [09/22/23 01:22:03] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [09/22/23 19:58:06] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
 [09/22/23 20:45:11] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[09/23/23 20:52:11] [ERROR] Can't read from Discord websocket gateway: O tempo limite do semáforo expirou (121)
+[09/23/23 20:52:11] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[09/23/23 22:14:14] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1149056591711174797/messages': end of stream
+[09/23/23 22:32:06] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712172794642442/messages': end of stream
+[09/23/23 23:11:57] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
