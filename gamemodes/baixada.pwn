@@ -4322,6 +4322,7 @@ GanharItem(playerid, itemid, quantia)
 			PlayerInventario[playerid][i][Unidades] = quantia;
 			return 1;
 		}
+		ShowItemBox(playerid, ItemNomeInv(itemid), "Recebeu", itemid, 3);
 	}
 	ErrorMsg(playerid, "Inventario cheio.");
 
@@ -4754,6 +4755,7 @@ DroparItem(playerid, modelid)
 			{
 				if(DropItemSlot[i][DropItem] == 0)
 				{
+					ShowItemBox(playerid, ItemNomeInv(PlayerInventario[playerid][modelid][Slot]), "Removeu", modelid, 3);
 					DropItemSlot[i][DropItem] = CreateDynamicObject(18631, x,y,z-1, 0, 0, 0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
 					DropItemSlot[i][DropItemUni] = PlayerInventario[playerid][modelid][Unidades];
 					DropItemSlot[i][DropItemID] = PlayerInventario[playerid][modelid][Slot];
@@ -14443,7 +14445,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 1)
 				{
 					if(GetPlayerMoney(playerid) < 5) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
-					SuccesMsg(playerid, "Voce comprou Jugo.");
+					SuccesMsg(playerid, "Voce comprou Suco.");
 					PlayerInfo[playerid][pDinheiro] -= 5;
 					GanharItem(playerid, 1644, 1);
 				}
@@ -21914,10 +21916,4 @@ CMD:pescar(playerid)
 		UsouCMD[playerid] = true;	
 	}
 	return 1;
-}
-
-CMD:test(playerid)
-{
-	darxp(playerid, GetPlayerScore(playerid), GetPlayerScore(playerid)+1, PlayerInfo[playerid][pXP], 50);
-	return true;
 }

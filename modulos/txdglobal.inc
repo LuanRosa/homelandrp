@@ -2124,5 +2124,6 @@ CarregarTxdGlobal()
 	TextDrawBoxColor(TDmorte[8], -1);
 	TextDrawUseBox(TDmorte[8], 1);
 	TextDrawSetProportional(TDmorte[8], 1);
+
 	printf("=> Textdraws Globais       		: Carregados");
 }
