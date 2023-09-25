@@ -13985,6 +13985,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					pLogado[playerid] = true; 
 					pJogando[playerid] = true;
 					Erro[playerid] = 0;
+					StopAudioStreamForPlayer(playerid);
 					new hora, minuto;
 					gettime(hora, minuto);
 					jogadoreson++;
