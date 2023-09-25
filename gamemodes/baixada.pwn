@@ -601,6 +601,7 @@ new bool:PegouLixo[MAX_PLAYERS] = false;
 new bool:Podecmd[MAX_PLAYERS] = true;
 //                          TEXTDRAWS
 
+new Text:gServerTextdraws;
 static PlayerText:XPTXD[MAX_PLAYERS][20];
 new Text:TDEditor_TD[66];
 new PlayerText:TDEditor_PTD[MAX_PLAYERS][6];
@@ -611,7 +612,7 @@ new Text:Textdraw0,
 	Text:Textdraw1;
 new Text:HudServer[17];
 new PlayerText:HudServer_p[MAX_PLAYERS][7];
-new Text:Logo[8];
+new Text:Logo[2];
 new PlayerText:Registration_PTD[MAX_PLAYERS][23];
 new Text:TDCadastro[18];
 new PlayerText:TDCadastro_p[MAX_PLAYERS][7];
@@ -2403,7 +2404,7 @@ CallBack::CANIM(playerid){
 CallBack::Attplayer(playerid){
 	static str[300];
 	if(pJogando[playerid] == false && Falou[playerid] == false && Susurrou[playerid] == false && Gritou[playerid] == false){
-		format(str,sizeof(str),"STAFF\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
+		format(str,sizeof(str),"%s\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",AdminCargo(playerid), PlayerInfo[playerid][IDF],playerid);
 	}else if(Falou[playerid] == true){
 		format(str,sizeof(str),"FALANDO\n{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
 	}else if(Susurrou[playerid] == true){
@@ -2413,7 +2414,7 @@ CallBack::Attplayer(playerid){
 	}else{
 		format(str,sizeof(str),"{FFFFFF}%04d({FFFF00}%d{FFFFFF})",PlayerInfo[playerid][IDF],playerid);
 	}
-	SetPlayerChatBubble(playerid, str, 0xFFFF00FF, 8.0, 20000);
+	SetPlayerChatBubble(playerid, str, 0xFFFF00FF, 30.0, 20000);
 	return 1;
 }
 
@@ -5705,7 +5706,7 @@ CallBack::ProxDetector(Float:radi, playerid, string[],col1,col2,col3,col4,col5)
 
 CallBack::Relogio()
 {
-	new minuto, hora, segundo;
+	new minuto, hora, segundo, string[155];
 
 	gettime(hora, minuto, segundo);
 
@@ -5738,6 +5739,8 @@ CallBack::Relogio()
 		case 5:
 			{ SetWorldTime(2); }
 	}
+	format(string, sizeof(string), "%02d:%02d", hora, minuto);
+    TextDrawSetString(gServerTextdraws, string);
 	return 1;
 }
 
@@ -9094,174 +9097,6 @@ stock CreateTelaLogin(){
 	TextDrawSetProportional(Loadsc[0], 1);
 	TextDrawSetSelectable(Loadsc[0], 0);
 
-	Loadsc[1] = TextDrawCreate(293.000000, 146.000000, "B");
-	TextDrawFont(Loadsc[1], 1);
-	TextDrawLetterSize(Loadsc[1], 0.849999, 3.299998);
-	TextDrawTextSize(Loadsc[1], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[1], 2);
-	TextDrawSetShadow(Loadsc[1], 2);
-	TextDrawAlignment(Loadsc[1], 1);
-	TextDrawColor(Loadsc[1], -65281);
-	TextDrawBackgroundColor(Loadsc[1], 255);
-	TextDrawBoxColor(Loadsc[1], 50);
-	TextDrawUseBox(Loadsc[1], 0);
-	TextDrawSetProportional(Loadsc[1], 1);
-	TextDrawSetSelectable(Loadsc[1], 0);
-
-	Loadsc[2] = TextDrawCreate(309.000000, 144.000000, "A");
-	TextDrawFont(Loadsc[2], 1);
-	TextDrawLetterSize(Loadsc[2], 0.849999, 3.299998);
-	TextDrawTextSize(Loadsc[2], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[2], 2);
-	TextDrawSetShadow(Loadsc[2], 0);
-	TextDrawAlignment(Loadsc[2], 1);
-	TextDrawColor(Loadsc[2], -65281);
-	TextDrawBackgroundColor(Loadsc[2], 255);
-	TextDrawBoxColor(Loadsc[2], 50);
-	TextDrawUseBox(Loadsc[2], 0);
-	TextDrawSetProportional(Loadsc[2], 1);
-	TextDrawSetSelectable(Loadsc[2], 0);
-
-	Loadsc[3] = TextDrawCreate(330.000000, 146.000000, "I");
-	TextDrawFont(Loadsc[3], 1);
-	TextDrawLetterSize(Loadsc[3], 0.849999, 3.299998);
-	TextDrawTextSize(Loadsc[3], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[3], 2);
-	TextDrawSetShadow(Loadsc[3], 0);
-	TextDrawAlignment(Loadsc[3], 1);
-	TextDrawColor(Loadsc[3], -65281);
-	TextDrawBackgroundColor(Loadsc[3], 255);
-	TextDrawBoxColor(Loadsc[3], 50);
-	TextDrawUseBox(Loadsc[3], 0);
-	TextDrawSetProportional(Loadsc[3], 1);
-	TextDrawSetSelectable(Loadsc[3], 0);
-
-	Loadsc[4] = TextDrawCreate(319.000000, 167.000000, "C");
-	TextDrawFont(Loadsc[4], 3);
-	TextDrawLetterSize(Loadsc[4], 1.079167, 3.299998);
-	TextDrawTextSize(Loadsc[4], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[4], 2);
-	TextDrawSetShadow(Loadsc[4], 0);
-	TextDrawAlignment(Loadsc[4], 1);
-	TextDrawColor(Loadsc[4], -65281);
-	TextDrawBackgroundColor(Loadsc[4], 255);
-	TextDrawBoxColor(Loadsc[4], 50);
-	TextDrawUseBox(Loadsc[4], 0);
-	TextDrawSetProportional(Loadsc[4], 1);
-	TextDrawSetSelectable(Loadsc[4], 0);
-
-	Loadsc[5] = TextDrawCreate(318.000000, 167.000000, "C");
-	TextDrawFont(Loadsc[5], 3);
-	TextDrawLetterSize(Loadsc[5], -1.104168, 3.299998);
-	TextDrawTextSize(Loadsc[5], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[5], 2);
-	TextDrawSetShadow(Loadsc[5], 0);
-	TextDrawAlignment(Loadsc[5], 1);
-	TextDrawColor(Loadsc[5], -65281);
-	TextDrawBackgroundColor(Loadsc[5], 255);
-	TextDrawBoxColor(Loadsc[5], 50);
-	TextDrawUseBox(Loadsc[5], 0);
-	TextDrawSetProportional(Loadsc[5], 1);
-	TextDrawSetSelectable(Loadsc[5], 0);
-
-	Loadsc[6] = TextDrawCreate(291.000000, 191.000000, "A");
-	TextDrawFont(Loadsc[6], 1);
-	TextDrawLetterSize(Loadsc[6], 0.849999, 3.299998);
-	TextDrawTextSize(Loadsc[6], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[6], 2);
-	TextDrawSetShadow(Loadsc[6], 0);
-	TextDrawAlignment(Loadsc[6], 1);
-	TextDrawColor(Loadsc[6], -65281);
-	TextDrawBackgroundColor(Loadsc[6], 255);
-	TextDrawBoxColor(Loadsc[6], 50);
-	TextDrawUseBox(Loadsc[6], 0);
-	TextDrawSetProportional(Loadsc[6], 1);
-	TextDrawSetSelectable(Loadsc[6], 0);
-
-	Loadsc[7] = TextDrawCreate(310.000000, 190.000000, "D");
-	TextDrawFont(Loadsc[7], 1);
-	TextDrawLetterSize(Loadsc[7], 0.849999, 3.299998);
-	TextDrawTextSize(Loadsc[7], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[7], 2);
-	TextDrawSetShadow(Loadsc[7], 0);
-	TextDrawAlignment(Loadsc[7], 1);
-	TextDrawColor(Loadsc[7], -65281);
-	TextDrawBackgroundColor(Loadsc[7], 255);
-	TextDrawBoxColor(Loadsc[7], 50);
-	TextDrawUseBox(Loadsc[7], 0);
-	TextDrawSetProportional(Loadsc[7], 1);
-	TextDrawSetSelectable(Loadsc[7], 0);
-
-	Loadsc[8] = TextDrawCreate(326.000000, 191.000000, "A");
-	TextDrawFont(Loadsc[8], 1);
-	TextDrawLetterSize(Loadsc[8], 0.849999, 3.299998);
-	TextDrawTextSize(Loadsc[8], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[8], 2);
-	TextDrawSetShadow(Loadsc[8], 0);
-	TextDrawAlignment(Loadsc[8], 1);
-	TextDrawColor(Loadsc[8], -65281);
-	TextDrawBackgroundColor(Loadsc[8], 255);
-	TextDrawBoxColor(Loadsc[8], 50);
-	TextDrawUseBox(Loadsc[8], 0);
-	TextDrawSetProportional(Loadsc[8], 1);
-	TextDrawSetSelectable(Loadsc[8], 0);
-
-	Loadsc[9] = TextDrawCreate(278.000000, 217.000000, "ROLEPLAY");
-	TextDrawFont(Loadsc[9], 3);
-	TextDrawLetterSize(Loadsc[9], 0.600000, 2.000000);
-	TextDrawTextSize(Loadsc[9], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[9], 0);
-	TextDrawSetShadow(Loadsc[9], 0);
-	TextDrawAlignment(Loadsc[9], 1);
-	TextDrawColor(Loadsc[9], -1);
-	TextDrawBackgroundColor(Loadsc[9], 255);
-	TextDrawBoxColor(Loadsc[9], 50);
-	TextDrawUseBox(Loadsc[9], 0);
-	TextDrawSetProportional(Loadsc[9], 1);
-	TextDrawSetSelectable(Loadsc[9], 0);
-
-	Loadsc[10] = TextDrawCreate(363.000000, 207.000000, "]");
-	TextDrawFont(Loadsc[10], 0);
-	TextDrawLetterSize(Loadsc[10], 0.354166, 1.350000);
-	TextDrawTextSize(Loadsc[10], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[10], 0);
-	TextDrawSetShadow(Loadsc[10], 0);
-	TextDrawAlignment(Loadsc[10], 1);
-	TextDrawColor(Loadsc[10], -65281);
-	TextDrawBackgroundColor(Loadsc[10], 255);
-	TextDrawBoxColor(Loadsc[10], 50);
-	TextDrawUseBox(Loadsc[10], 0);
-	TextDrawSetProportional(Loadsc[10], 1);
-	TextDrawSetSelectable(Loadsc[10], 0);
-
-	Loadsc[11] = TextDrawCreate(372.000000, 199.000000, "]");
-	TextDrawFont(Loadsc[11], 0);
-	TextDrawLetterSize(Loadsc[11], 0.354166, 1.350000);
-	TextDrawTextSize(Loadsc[11], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[11], 0);
-	TextDrawSetShadow(Loadsc[11], 0);
-	TextDrawAlignment(Loadsc[11], 1);
-	TextDrawColor(Loadsc[11], -65281);
-	TextDrawBackgroundColor(Loadsc[11], 255);
-	TextDrawBoxColor(Loadsc[11], 50);
-	TextDrawUseBox(Loadsc[11], 0);
-	TextDrawSetProportional(Loadsc[11], 1);
-	TextDrawSetSelectable(Loadsc[11], 0);
-
-	Loadsc[12] = TextDrawCreate(382.000000, 194.000000, "]");
-	TextDrawFont(Loadsc[12], 0);
-	TextDrawLetterSize(Loadsc[12], 0.354166, 1.350000);
-	TextDrawTextSize(Loadsc[12], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[12], 0);
-	TextDrawSetShadow(Loadsc[12], 0);
-	TextDrawAlignment(Loadsc[12], 1);
-	TextDrawColor(Loadsc[12], -65281);
-	TextDrawBackgroundColor(Loadsc[12], 255);
-	TextDrawBoxColor(Loadsc[12], 50);
-	TextDrawUseBox(Loadsc[12], 0);
-	TextDrawSetProportional(Loadsc[12], 1);
-	TextDrawSetSelectable(Loadsc[12], 0);
-
 	Loadsc[13] = TextDrawCreate(230.000000, 248.000000, "BAIXANDO DADOS DO SERVIDOR, AGUARDE...");
 	TextDrawFont(Loadsc[13], 2);
 	TextDrawLetterSize(Loadsc[13], 0.208333, 1.300000);
@@ -9275,49 +9110,6 @@ stock CreateTelaLogin(){
 	TextDrawUseBox(Loadsc[13], 0);
 	TextDrawSetProportional(Loadsc[13], 1);
 	TextDrawSetSelectable(Loadsc[13], 0);
-
-	Loadsc[14] = TextDrawCreate(265.000000, 207.000000, "]");
-	TextDrawFont(Loadsc[14], 0);
-	TextDrawLetterSize(Loadsc[14], 0.354166, 1.350000);
-	TextDrawTextSize(Loadsc[14], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[14], 0);
-	TextDrawSetShadow(Loadsc[14], 0);
-	TextDrawAlignment(Loadsc[14], 1);
-	TextDrawColor(Loadsc[14], -65281);
-	TextDrawBackgroundColor(Loadsc[14], 255);
-	TextDrawBoxColor(Loadsc[14], 50);
-	TextDrawUseBox(Loadsc[14], 0);
-	TextDrawSetProportional(Loadsc[14], 1);
-	TextDrawSetSelectable(Loadsc[14], 0);
-
-	Loadsc[15] = TextDrawCreate(255.000000, 199.000000, "]");
-	TextDrawFont(Loadsc[15], 0);
-	TextDrawLetterSize(Loadsc[15], 0.354166, 1.350000);
-	TextDrawTextSize(Loadsc[15], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[15], 0);
-	TextDrawSetShadow(Loadsc[15], 0);
-	TextDrawAlignment(Loadsc[15], 1);
-	TextDrawColor(Loadsc[15], -65281);
-	TextDrawBackgroundColor(Loadsc[15], 255);
-	TextDrawBoxColor(Loadsc[15], 50);
-	TextDrawUseBox(Loadsc[15], 0);
-	TextDrawSetProportional(Loadsc[15], 1);
-	TextDrawSetSelectable(Loadsc[15], 0);
-
-	Loadsc[16] = TextDrawCreate(245.000000, 193.000000, "]");
-	TextDrawFont(Loadsc[16], 0);
-	TextDrawLetterSize(Loadsc[16], 0.354166, 1.350000);
-	TextDrawTextSize(Loadsc[16], 400.000000, 17.000000);
-	TextDrawSetOutline(Loadsc[16], 0);
-	TextDrawSetShadow(Loadsc[16], 0);
-	TextDrawAlignment(Loadsc[16], 1);
-	TextDrawColor(Loadsc[16], -65281);
-	TextDrawBackgroundColor(Loadsc[16], 255);
-	TextDrawBoxColor(Loadsc[16], 50);
-	TextDrawUseBox(Loadsc[16], 0);
-	TextDrawSetProportional(Loadsc[16], 1);
-	TextDrawSetSelectable(Loadsc[16], 0);
-
 }
 
 stock GetPlayerSerial(playerid)
@@ -11110,6 +10902,20 @@ public OnGameModeInit()
 	AllowInteriorWeapons(1);
 	ManualVehicleEngineAndLights();
 	
+	gServerTextdraws = TextDrawCreate(576.998962, 16.244453, "16:04");
+	TextDrawLetterSize(gServerTextdraws, 0.363750, 1.496297);
+	TextDrawTextSize(gServerTextdraws, 1280.000000, 1280.000000);
+	TextDrawAlignment(gServerTextdraws, 2);
+	TextDrawColor(gServerTextdraws, 0xFFFFFFFF);
+	TextDrawUseBox(gServerTextdraws, 0);
+	TextDrawBoxColor(gServerTextdraws, 0x80808080);
+	TextDrawSetShadow(gServerTextdraws, 0);
+	TextDrawSetOutline(gServerTextdraws, 1);
+	TextDrawBackgroundColor(gServerTextdraws, 0x00000020);
+	TextDrawFont(gServerTextdraws, 3);
+	TextDrawSetProportional(gServerTextdraws, 1);
+	TextDrawSetSelectable(gServerTextdraws, 0);
+
 	gstream = SvCreateGStream(0xFF0000FF, "[]");
 	for(new i = 0; i < MAX_FREQUENCIAS; i++)
 	{
@@ -11165,7 +10971,7 @@ public OnGameModeInit()
 	TimerCadeia = SetTimer("CheckCadeia", 2000, true);
 	TimerAfk = SetTimer("AntiAway", minutos(10), true);
 	TimerMaconha = SetTimer("UpdateDrogas", minutos(15), true);
-	TimerMensagemAuto = SetTimer("SendMSG", minutos(5), true);
+	TimerMensagemAuto = SetTimer("SendMSG", minutos(10), true);
 	TimerMensagemAutoBot = SetTimer("SendMSGBot", segundos(10), true);
 	maintimer = SetTimer("MainTimer", 1000, true);
 	savetimer = SetTimer("SaveTimer", 2222, true);
@@ -11240,7 +11046,7 @@ public OnGameModeExit()
 public OnPlayerRequestClass(playerid, classid)
 {
 	ZerarDados(playerid);
-	PlayAudioStreamForPlayer(playerid, "https://www.dropbox.com/scl/fi/bfd11qfhhh1mnostowgmn/Plug-Production-Baixada-Roleplay-Prod.-TKD.mp3?rlkey=kz6680s3e7gisl713gnorxksg&dl=0");
+	PlayAudioStreamForPlayer(playerid, "http://k.top4top.io/m_2685nhtv30.mp3");
 	for(new t=0;t<17;t++){
 		TextDrawShowForPlayer(playerid, Loadsc[t]);
 	}
@@ -11410,7 +11216,7 @@ public OnPlayerDisconnect(playerid, reason)
 	{
 	    PlayerTextDrawDestroy(playerid, VeloC[playerid][t]);
 	}
-	for(new i = 0; i < 8; i++)
+	for(new i = 0; i < 2; i++)
 	{
 		TextDrawHideForPlayer(playerid, Logo[i]);
 	}
@@ -14159,10 +13965,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						TextDrawShowForPlayer(playerid, HudServer[i]);
 					}
-					for(new i = 0; i < 8; i ++)
+					for(new i = 0; i < 2; i ++)
 					{
 						TextDrawShowForPlayer(playerid, Logo[i]);
 					}
+					TextDrawShowForPlayer(playerid, gServerTextdraws);
 					CancelSelectTextDraw(playerid);
 					Timers(playerid);
 					PlayerTextDraw(playerid);
