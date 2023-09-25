@@ -2911,7 +2911,7 @@ CallBack::SendMSG()
 	{
 		if(pLogado[i] == true)
 		{
-			LimparChat(i, 50);
+			LimparChat(i, 10);
 			SendClientMessage(i, -1, RandomMSG[random(sizeof(RandomMSG))]);
 		}
 	}
@@ -2920,14 +2920,6 @@ CallBack::SendMSG()
 
 CallBack::SendMSGBot()
 {
-	for(new i = GetPlayerPoolSize(); i != -1; --i) //Loop through all players
-	{
-		if(pLogado[i] == true)
-		{
-			LimparChat(i, 50);
-			SendClientMessage(i, -1, RandomMSG[random(sizeof(RandomMSG))]);
-		}
-	}
 	DCC_SetBotActivity(RandomPresence[random(sizeof(RandomPresence))]);
 	return 1;
 }
