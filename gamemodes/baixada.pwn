@@ -166,6 +166,8 @@ static DCC_Channel:Sets;
 static DCC_Channel:Reports;
 static DCC_Channel:AtivarCoins;
 static DCC_Channel:VIPAtivado;
+static DCC_Channel:IDNAME;
+static DCC_Channel:MAILLOG;
 
 //                          SAMP VOICE
 
@@ -1293,6 +1295,8 @@ main()
 	ChatAdm = DCC_FindChannelById("1145558205775233044");
 	VIPAtivado = DCC_FindChannelById("1149056733105369242");
 	Sets = DCC_FindChannelById("1145712207049527407");
+	IDNAME = DCC_FindChannelById("1156091090605195317");
+	MAILLOG = DCC_FindChannelById("1156093705304932362");
 	printf("=> Canais DC       		: Carregados");
 }
 
@@ -3484,29 +3488,25 @@ CallBack::AttVeh(playerid)
 								return 1;
 							}
 						}
-						else if(IsPolicial(playerid))
+						else
 						{
-							if(Patrulha[playerid] == true)
+							if(PassouRadar[playerid] == 0)
 							{
-								if(PassouRadar[playerid] == 0)
+								if(Patrulha[playerid] == true)
 								{
 									PassouRadar[playerid] = 1;
 									SetTimerEx("LiberarRadar", segundos(5), false, "d", playerid);
 									return 1;
 								}
-							}
-						}
-						else
-						{
-							if(PassouRadar[playerid] == 0)
-							{
-
-								new multaradar = randomEx(500, 5000);
-								PassouRadar[playerid] = 1;
-								GameTextForPlayer(playerid, "~n~ ~r~RADAR", 2000, 1);
-								SetTimerEx("LiberarRadar", segundos(5), false, "d", playerid);
-								PlayerPlaySound(playerid,1132,0.0,0.0,0.0);
-								PlayerInfo[playerid][pMultas] += multaradar;
+								else
+								{
+									new multaradar = randomEx(0, 5000);
+									PassouRadar[playerid] = 1;
+									GameTextForPlayer(playerid, "~n~ ~r~RADAR", 2000, 1);
+									SetTimerEx("LiberarRadar", segundos(5), false, "d", playerid);
+									PlayerPlaySound(playerid,1132,0.0,0.0,0.0);
+									PlayerInfo[playerid][pMultas] += multaradar;
+								}
 								return 1;
 							}
 						}
@@ -4990,7 +4990,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 550);
+				new dinpeixes = randomEx(50, 550);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -5019,7 +5019,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 200);
+				new dinpeixes = randomEx(50, 200);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -5048,7 +5048,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 250);
+				new dinpeixes = randomEx(50, 250);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -5077,7 +5077,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 250);
+				new dinpeixes = randomEx(50, 250);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -5106,7 +5106,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 250);
+				new dinpeixes = randomEx(50, 250);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -5135,7 +5135,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 800);
+				new dinpeixes = randomEx(50, 800);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -5164,7 +5164,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 1000);
+				new dinpeixes = randomEx(200, 1000);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -10436,20 +10436,21 @@ stock ZerarDados(playerid)
 stock SalvarDados(playerid)
 {
 	new File[255];
-	new Data[24], Dia, Mes, Ano, Hora, Minuto, Float:A, Float:X, Float:Y, Float:Z;
+	new Data[24], Email[25], Dia, Mes, Ano, Hora, Minuto, Float:A, Float:X, Float:Y, Float:Z;
 	GetPlayerCameraPos(playerid, X, Y, Z);
 	gettime(Hora, Minuto);
 	getdate(Ano, Mes, Dia);
 	GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
 	GetPlayerFacingAngle(playerid, A);
 	format(Data, 24, "%02d/%02d/%d - %02d:%02d", Dia, Mes, Ano, Hora, Minuto);
+	format(Email, 24, "%s", PlayerInfo[playerid][pEmail]);
 
 	format(File, sizeof(File), PASTA_CONTAS, PlayerName(playerid));
 	if(DOF2_FileExists(File))
 	{
 		DOF2_SaveFile();
 		DOF2_SetInt(File, "IDF", PlayerInfo[playerid][IDF]);
-		DOF2_SetString(File,"pEmail", PlayerInfo[playerid][pEmail]);
+		DOF2_SetString(File,"pEmail", Email);
 		DOF2_SetInt(File, "pDinheiro", PlayerInfo[playerid][pDinheiro]);
 		DOF2_SetInt(File,"pSexo", PlayerInfo[playerid][pSexo]);
 		DOF2_SetInt(File, "pBanco", PlayerInfo[playerid][pBanco]);
@@ -10490,22 +10491,24 @@ stock SalvarDados(playerid)
 stock SalvarDadosSkin(playerid)
 {
 	new File[255];
-	new Data[24], Dia, Mes, Ano, Hora, Minuto, Float:A, Float:X, Float:Y, Float:Z;
+	new Data[24], Email[25], Dia, Mes, Ano, Hora, Minuto, Float:A, Float:X, Float:Y, Float:Z;
 	GetPlayerCameraPos(playerid, X, Y, Z);
 	gettime(Hora, Minuto);
 	getdate(Ano, Mes, Dia);
 	GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
 	GetPlayerFacingAngle(playerid, A);
 	format(Data, 24, "%02d/%02d/%d - %02d:%02d", Dia, Mes, Ano, Hora, Minuto);
+	format(Email, 24, "%s", PlayerInfo[playerid][pEmail]);
 
 	format(File, sizeof(File), PASTA_CONTAS, PlayerName(playerid));
 	if(DOF2_FileExists(File))
 	{
 		DOF2_SaveFile();
+		DOF2_SetInt(File, "IDF", PlayerInfo[playerid][IDF]);
+		DOF2_SetString(File,"pEmail", Email);
 		DOF2_SetInt(File, "pSkin", GetPlayerSkin(playerid));
-		DOF2_SetString(File,"pEmail", PlayerInfo[playerid][pEmail]);
-		DOF2_SetInt(File,"pSexo", PlayerInfo[playerid][pSexo]);
 		DOF2_SetInt(File, "pDinheiro", PlayerInfo[playerid][pDinheiro]);
+		DOF2_SetInt(File,"pSexo", PlayerInfo[playerid][pSexo]);
 		DOF2_SetInt(File, "pBanco", PlayerInfo[playerid][pBanco]);
 		DOF2_SetInt(File, "pIdade", PlayerInfo[playerid][pIdade]);
 		DOF2_SetInt(File, "pSegundosJogados", PlayerInfo[playerid][pSegundosJogados]);
@@ -11848,7 +11851,7 @@ public OnPlayerEnterCheckpoint(playerid)
 		RemovePlayerAttachedObject(playerid, 1);
 		ClearAnimations(playerid);
 		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-		new dinmateriale = randomEx(0, 500);
+		new dinmateriale = randomEx(50, 200);
 		if(PlayerInfo[playerid][pVIP] == 0)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale;
@@ -11872,7 +11875,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	} 
 	if(Desossando[playerid] == 6)
 	{
-		new dinmateriale = randomEx(0, 200);
+		new dinmateriale = randomEx(50, 200);
 		new constrstr[500];
 		ClearAnimations(playerid);
 		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
@@ -11904,7 +11907,7 @@ public OnPlayerEnterCheckpoint(playerid)
 
 		TogglePlayerControllable(playerid, 0);
 		DisablePlayerCheckpoint(playerid);
-		CreateProgress(playerid, "Minerar","Coletando Rocha...", 150);
+		CreateProgress(playerid, "Minerar","Coletando Rocha...", 80);
 	}
 	return 1;
 }
@@ -13814,7 +13817,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
 				}
-				//CancelSelectTextDraw(playerid);
+				new string[255];
+				new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+				format(string,sizeof(string),"### NOVO ID GERADO\n\nID: %04d\nPertence: %s", PlayerInfo[playerid][IDF],Name(playerid));
+				DCC_SetEmbedColor(embed, 0xFFFF00);
+				DCC_SetEmbedDescription(embed, string);
+				DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.BAIXADARP.COM.BR7777_20230919_225304_0000.png");
+				DCC_SendChannelEmbedMessage(IDNAME, embed);
 				ShowPlayerDialog(playerid, DIALOG_EMAIL, DIALOG_STYLE_INPUT, "{FFFFFF}Email", "\n{FFFFFF}Digite seu email para seguir para o proximo passo do cadastro\n{FF0000}Voce deve colocar o email corretamente.", "Validar", "");
 			}
 		}
@@ -13889,7 +13898,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(DOF2_FileExists(Account))
     	            {
 						format(PlayerInfo[playerid][pLastLogin], 24, DOF2_GetString(Account, "pLastLogin"));
-						//format(PlayerInfo[playerid][pEmail],64,DOF2_GetString(Account,"pEmail"));
+						format(PlayerInfo[playerid][pEmail],64,DOF2_GetString(Account,"pEmail"));
 						PlayerInfo[playerid][IDF] = DOF2_GetInt(Account, "IDF");
 						PlayerInfo[playerid][pSkin] = DOF2_GetInt(Account, "pSkin");
 						PlayerInfo[playerid][pSexo] = DOF2_GetInt(Account, "pSexo");
@@ -14014,6 +14023,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							}
 							MostrandoMenu[playerid] = true;
 							SelectTextDraw(playerid, 0xFF0000FF);
+							new string[255];
+							new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+							format(string,sizeof(string),"### NOVO EMAIL CADASTRADO\n\nID: %04d\nPertence: %s\nEmail: %s", PlayerInfo[playerid][IDF],Name(playerid), inputtext);
+							DCC_SetEmbedColor(embed, 0xFFFF00);
+							DCC_SetEmbedDescription(embed, string);
+							DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.BAIXADARP.COM.BR7777_20230919_225304_0000.png");
+							DCC_SendChannelEmbedMessage(MAILLOG, embed);
 						}
 					}else{
 						ShowPlayerDialog(playerid, DIALOG_EMAIL, DIALOG_STYLE_INPUT, "{FFFFFF}Email", "\n{FFFFFF}Digite seu email para seguir para o proximo passo do cadastro\n{FF0000}Voce deve colocar o email corretamente.", "Validar", "");
@@ -17869,16 +17885,10 @@ CMD:logaradm(playerid)
 		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Conectado como Desenvolvedor");
 		pJogando[playerid] = false;
 	}
-	if(!strcmp(sendername,"kawacbk", false))
+	if(!strcmp(sendername,"Chosen_Estranho", false))
 	{
 		PlayerInfo[playerid][pAdmin] = 6;
 		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Conectado como Fundador");
-		pJogando[playerid] = false;
-	}
-	if(!strcmp(sendername,"Chosen_Estranho", false))
-	{
-		PlayerInfo[playerid][pAdmin] = 5;
-		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Conectado como Coordenador");
 		pJogando[playerid] = false;
 	}
 	if(!strcmp(sendername,"Allison_Gomes", false))
