@@ -9,7 +9,7 @@ CarregarMapIcons()
 	CreateDynamicMapIcon(-2026.631591, -102.066413, 35.164062, 36, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///AUTO ESCOLA
 	CreateDynamicMapIcon(-2384.861328, -52.628452, 35.479644, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///27-7
 	CreateDynamicMapIcon(-2447.427490, 1211.600341, 35.378139, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///27-7
-	CreateDynamicMapIcon(-2074.794921, 643.822570, 52.524303, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///27-7
+	CreateDynamicMapIcon(-2074.794921, 643.822570, 52.524303, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///27-7-------------------------*************
 	CreateDynamicMapIcon(-2521.187744, -624.952026, 132.781982, 34, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//SAN NEWS
 
 	CreateDynamicMapIcon(-2790.296142, 1321.418212, 7.098842, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);///PESCADOR

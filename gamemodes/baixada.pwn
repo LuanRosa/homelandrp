@@ -710,7 +710,6 @@ new bool:MostrandoMenu[MAX_PLAYERS];
 new TimerCad[MAX_PLAYERS];
 new RepairCar[MAX_PLAYERS];
 new bool:TemCinto[MAX_PLAYERS] = false;
-new ProxID;
 new TemMinerio[MAX_PLAYERS];
 new Desossando[MAX_PLAYERS];
 new Page[MAX_PLAYERS];
@@ -6618,13 +6617,18 @@ stock IsValidInput(const ipstr[])
 stock GetPlayerIdfixo(playerid) return PlayerInfo[playerid][IDF];
 stock GetIdfixo()
 {
-	new id;
-	ProxID ++;
-	id  = ProxID;
-	new File[150];format(File, sizeof(File), "IDs/ProxID.ini");
-	DOF2_SetInt(File,"ProxID",ProxID);
-	DOF2_SaveFile();
-	return id;
+	static controlFile[] = "IDs/Control.ini";
+
+	if(!DOF2_FileExists(controlFile))
+	{
+		DOF2_CreateFile(controlFile);
+		DOF2_SetInt(controlFile, "Last", 10000);
+	}
+
+	new currentTag = DOF2_GetInt(controlFile, "Last") + 1;
+	DOF2_SetInt(controlFile, "Last", currentTag);
+
+	return currentTag;
 }
 
 stock Timers(playerid)
@@ -13765,14 +13769,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SHA256_PassHash(PlayerInfo[playerid][pSenha], passwordSalt, SHA256_password, sizeof (SHA256_password));
 
 				new uid = GetIdfixo();
-				PlayerInfo[playerid][IDF] = uid;
 				if(!DOF2_FileExists(Account))
 				{
 					DOF2_CreateFile(Account); 
 					DOF2_SaveFile();
 					DOF2_SetString(Account, "pSenha", SHA256_password);
 					DOF2_SetString(Account, "pEmail", "");
-					DOF2_SetInt(Account, "IDF", PlayerInfo[playerid][IDF]);
+					DOF2_SetInt(Account, "IDF", uid);
+					PlayerInfo[playerid][IDF] = uid;
 					DOF2_SetInt(Account, "pSexo", 0);
 					DOF2_SetInt(Account, "pSkin", 0);
 					DOF2_SetInt(Account, "pDinheiro", 0);
@@ -13816,6 +13820,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				for(new i = 0; i < 23; ++i)
 				{
 					PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
+				}
+				new tarquivo[64];
+				format(tarquivo, sizeof(tarquivo), "IDs/%d.ini",uid);
+				if(!DOF2_FileExists(tarquivo))
+				{
+					DOF2_CreateFile(tarquivo);
+					DOF2_SetString(tarquivo,"IDF de:", Name(playerid));
+
 				}
 				new string[255];
 				new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
