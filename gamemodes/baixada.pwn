@@ -13592,7 +13592,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		for(new i; i < 4; i++)
 		if(PlayerToPoint(3.0, playerid, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]))
 		{
-			if(!IsPolicial(playerid))						return ErrorMsg(playerid, "Nao possui permissao.");
+			if(IsPolicial(playerid))	
 			{
 				PlayerTextDrawShow(playerid, HudCop[playerid][0]);
 				PlayerTextDrawShow(playerid, HudCop[playerid][1]);
@@ -13600,6 +13600,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				PlayerTextDrawShow(playerid, HudCop[playerid][3]);
 				SelectTextDraw(playerid, 0xFF0000FF);
 				return 1;
+			}
+			else
+			{
+				ErrorMsg(playerid, "Nao possui permissao.");
 			}
 		}
 		if(GetPlayerCaixa(playerid))
