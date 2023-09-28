@@ -2483,11 +2483,11 @@ stock CarregarMapas()
         tmpobjid = CreateDynamicObject(1547, 322.873992, 1836.180053, 2242.654296, 89.999992, 179.999984, -90.000007, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0x00000000);
         tmpobjid = CreateDynamicObject(19476, 322.861145, 1840.068115, 2242.386962, 0.000014, 0.000014, -0.000060, object_world, object_int, -1, 300.00, 300.00);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "ELEVATOR", 120, "Arial Black", 55, 1, 0xFF000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "ELEVADOR", 120, "Arial Black", 55, 1, 0xFF000000, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(1547, 322.854003, 1840.050048, 2242.374023, 90.000000, 0.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0x00000000);
         tmpobjid = CreateDynamicObject(19476, 328.581237, 1843.449096, 2242.306884, 0.000014, 0.000014, 269.999938, object_world, object_int, -1, 300.00, 300.00);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "NADIE", 120, "Arial Black", 55, 1, 0xFF000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "ESTACIONAMENTO", 120, "Arial Black", 55, 1, 0xFF000000, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(1547, 335.569000, 1829.005004, 2242.342041, 90.000000, 0.000000, 180.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0x00000000);
         tmpobjid = CreateDynamicObject(1547, 335.569000, 1829.005004, 2242.072021, 90.000000, 0.000000, 180.000000, object_world, object_int, -1, 300.00, 300.00);
@@ -2508,7 +2508,7 @@ stock CarregarMapas()
         SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
         tmpobjid = CreateDynamicObject(2661, 309.899993, 1825.843994, 2243.572021, 0.000000, 0.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "PROHIBIDA ENTRADA", 130, "Arial", 50, 1, 0xFFFFFFFF, 0xFF000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "ENTRADA PROIBIDA", 130, "Arial", 50, 1, 0xFFFFFFFF, 0xFF000000, 1);
         tmpobjid = CreateDynamicObject(2661, 309.872009, 1825.859985, 2243.572021, 0.000000, 0.000000, -90.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
         tmpobjid = CreateDynamicObject(18981, 348.709991, 1830.326049, 2245.904052, 0.000000, 90.000000, 0.000000, object_world, object_int, -1, 300.00, 300.00);
@@ -2543,7 +2543,7 @@ stock CarregarMapas()
         SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
         tmpobjid = CreateDynamicObject(2661, 342.239013, 1828.913940, 2244.405029, 0.000000, 0.000000, 180.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "RECEPCION", 130, "Calibri", 95, 1, 0xFFFFFFFF, 0xFF000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "RECEPÇÃO", 130, "Calibri", 95, 1, 0xFFFFFFFF, 0xFF000000, 1);
         tmpobjid = CreateDynamicObject(19443, 308.095001, 1831.297973, 2244.867919, 90.000000, 0.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 3786, "missiles_sfs", "ws_greyfoam", 0x00000000);
         tmpobjid = CreateDynamicObject(19443, 312.895996, 1831.595947, 2244.867919, 90.000000, 0.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00);
@@ -2557,9 +2557,9 @@ stock CarregarMapas()
         tmpobjid = CreateDynamicObject(18075, 336.683013, 1834.651000, 2245.466064, 0.000000, 0.000000, 0.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
         tmpobjid = CreateDynamicObject(19482, 343.431732, 1822.380859, 2243.325927, 0.000000, 0.000000, 90.501007, object_world, object_int, -1, 300.00, 300.00);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "Â«", 130, "Wingdings", 60, 0, 0xFFFFBB00, 0x00000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "«", 130, "Wingdings", 60, 0, 0xFFFFBB00, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(19482, 336.992004, 1822.324340, 2243.325927, 0.000000, 0.000000, 90.501007, object_world, object_int, -1, 300.00, 300.00);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "Â«", 130, "Wingdings", 60, 0, 0xFFFFBB00, 0x00000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "«", 130, "Wingdings", 60, 0, 0xFFFFBB00, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(19449, 339.528015, 1837.453002, 2240.499023, 0.000000, 90.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 18646, "matcolours", "grey-93-percent", 0x00000000);
         tmpobjid = CreateDynamicObject(19449, 339.528015, 1840.953002, 2240.499023, 0.000000, 90.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00);
@@ -2603,7 +2603,7 @@ stock CarregarMapas()
         tmpobjid = CreateDynamicObject(19866, 332.665008, 1842.598999, 2242.955078, 90.000000, 0.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 3897, "libertyhi", "wallmix64HV", 0x00000000);
         tmpobjid = CreateDynamicObject(1522, 322.755004, 1838.109008, 2240.583007, 0.000000, 0.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00);
-        SetDynamicObjectMaterial(tmpobjid, 0, 14577, "casinovault01", "dts_elevator_door", 0x00000000);
+        SetDynamicObjectMaterial(tmpobjid, 0, 14577, "casinovault01", "dts_ELEVADOR_door", 0x00000000);
         tmpobjid = CreateDynamicObject(19443, 322.763000, 1840.425048, 2242.344970, 0.000000, 0.000000, 0.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 3786, "missiles_sfs", "ws_greyfoam", 0x00000000);
         tmpobjid = CreateDynamicObject(19443, 322.763000, 1837.321044, 2242.344970, 0.000000, 0.000000, 0.000000, object_world, object_int, -1, 300.00, 300.00);
@@ -2611,17 +2611,17 @@ stock CarregarMapas()
         tmpobjid = CreateDynamicObject(19379, 306.282989, 1839.280029, 2242.605957, 0.000000, 0.000000, 0.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 3786, "missiles_sfs", "ws_greyfoam", 0x00000000);
         tmpobjid = CreateDynamicObject(19482, 340.231933, 1822.353027, 2243.325927, 0.000000, 0.000000, 90.501007, object_world, object_int, -1, 300.00, 300.00);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "DELEGACIA POLICIA GENERAL", 130, "Arial Black", 32, 1, 0xFF000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "DELEGACIA POLICIA CENTRAL", 130, "Arial Black", 32, 1, 0xFF000000, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(19476, 335.551147, 1829.017944, 2242.326660, 0.000007, 0.000000, 89.999977, object_world, object_int, -1, 300.00, 300.00);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "JEFE", 120, "Georgia", 50, 1, 0xFF000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "LIDER", 120, "Georgia", 50, 1, 0xFF000000, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(19476, 335.551147, 1829.017944, 2242.096435, 0.000007, 0.000000, 89.999977, object_world, object_int, -1, 300.00, 300.00);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "SUBJEFE", 120, "Georgia", 50, 1, 0xFF000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "SUBLIDER", 120, "Georgia", 50, 1, 0xFF000000, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(19327, 343.898010, 1842.432983, 2242.806884, 0.000000, 0.000000, -0.100000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterialText(tmpobjid, 0, "1DP", 130, "Arial Black", 150, 1, 0xFFFFFFFF, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(19327, 336.168945, 1824.275878, 2242.564941, -0.000007, 0.000000, -89.299949, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterialText(tmpobjid, 0, "1DP", 130, "Arial Black", 150, 1, 0xFFFFFFFF, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(19476, 326.391204, 1829.017944, 2242.326660, 0.000014, 0.000000, 89.999954, object_world, object_int, -1, 300.00, 300.00);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "JEFE", 120, "Georgia", 50, 1, 0xFF000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "LIDER", 120, "Georgia", 50, 1, 0xFF000000, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(19476, 326.391204, 1829.017944, 2242.096435, 0.000014, 0.000000, 89.999954, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterialText(tmpobjid, 0, "POLICIA", 120, "Georgia", 45, 1, 0xFF000000, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(1753, 323.397796, 1824.557983, 2240.583007, 0.000000, 0.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00);
@@ -2691,32 +2691,32 @@ stock CarregarMapas()
         tmpobjid = CreateDynamicObject(1547, 322.873992, 1836.180053, 2242.013671, 89.999992, 179.999984, -89.999969, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0x00000000);
         tmpobjid = CreateDynamicObject(19476, 322.881134, 1836.197998, 2242.656982, 0.000014, 0.000007, -0.000060, object_world, object_int, -1, 300.00, 300.00);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "INTIMACION", 120, "Arial Black", 34, 1, 0xFF000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "INTIMAÇÃO", 120, "Arial Black", 34, 1, 0xFF000000, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(19476, 328.581237, 1843.449096, 2242.037109, -0.000007, 0.000014, -89.999992, object_world, object_int, -1, 300.00, 300.00);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "CADENA", 120, "Arial Black", 55, 1, 0xFF000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "CADEIA", 120, "Arial Black", 55, 1, 0xFF000000, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(1547, 328.568176, 1843.459960, 2242.024169, 89.999992, 90.000000, -89.999969, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0x00000000);
         tmpobjid = CreateDynamicObject(2661, 334.380126, 1829.033691, 2243.511962, 0.000000, 0.000000, -180.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "PROHIBIDA ENTRADA", 130, "Arial", 50, 1, 0xFFFFFFFF, 0xFF000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "ENTRADA PROIBIDA", 130, "Arial", 50, 1, 0xFFFFFFFF, 0xFF000000, 1);
         tmpobjid = CreateDynamicObject(2661, 325.070129, 1829.033691, 2243.511962, 0.000000, 0.000000, -180.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "PROHIBIDA ENTRADA", 130, "Arial", 50, 1, 0xFFFFFFFF, 0xFF000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "ENTRADA PROIBIDA", 130, "Arial", 50, 1, 0xFFFFFFFF, 0xFF000000, 1);
         tmpobjid = CreateDynamicObject(1547, 309.884979, 1824.212768, 2242.210449, 89.999992, 135.000015, -45.000045, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0x00000000);
         tmpobjid = CreateDynamicObject(1547, 309.884979, 1824.212768, 2241.940429, 89.999992, 135.000015, -45.000045, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0x00000000);
         tmpobjid = CreateDynamicObject(19476, 309.897918, 1824.230834, 2242.195068, 0.000014, 0.000000, -0.000082, object_world, object_int, -1, 300.00, 300.00);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "JEFE", 120, "Georgia", 50, 1, 0xFF000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "LIDER", 120, "Georgia", 50, 1, 0xFF000000, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(19476, 309.897918, 1824.230834, 2241.964843, 0.000014, 0.000000, -0.000082, object_world, object_int, -1, 300.00, 300.00);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "SUBJEFE", 120, "Georgia", 45, 1, 0xFF000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "SUBLIDER", 120, "Georgia", 45, 1, 0xFF000000, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(1547, 313.412536, 1831.478759, 2241.940429, 89.999992, 376.533325, -16.533451, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0x00000000);
         tmpobjid = CreateDynamicObject(19476, 313.430603, 1831.465820, 2241.954833, 0.000014, 0.000000, -90.000129, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterialText(tmpobjid, 0, "---", 120, "Georgia", 32, 1, 0xFF000000, 0x00000000, 1);
         tmpobjid = CreateDynamicObject(2661, 312.210205, 1831.474121, 2243.572021, 0.000000, 0.000000, 0.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
-        SetDynamicObjectMaterialText(tmpobjid, 0, "PROHIBIDA ENTRADA", 130, "Arial", 50, 1, 0xFFFFFFFF, 0xFF000000, 1);
+        SetDynamicObjectMaterialText(tmpobjid, 0, "ENTRADA PROIBIDA", 130, "Arial", 50, 1, 0xFFFFFFFF, 0xFF000000, 1);
         tmpobjid = CreateDynamicObject(18766, 320.045349, 1823.780151, 2241.805664, 0.000000, 0.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00);
         SetDynamicObjectMaterialText(tmpobjid, 0, "1DP", 140, "Arial Black", 120, 1, 0xFF000000, 0xFFFFFFFF, 1);
         tmpobjid = CreateDynamicObject(19089, 328.839752, 1828.911132, 2243.596435, 0.000000, 0.000007, 0.000000, object_world, object_int, -1, 300.00, 300.00);
@@ -8239,12 +8239,133 @@ stock CarregarMapas()
 	CreateDynamicObject(1364,-107.8212700,1371.4088100,9.6989900,0.0000000,0.0000000,95.6999700); //
 	CreateDynamicObject(1364,-107.2836200,1367.1497800,9.6989900,0.0000000,0.0000000,95.6999700); //
 	CreateDynamicObject(8131,-94.4347700,1372.0721400,19.8270200,0.0000000,0.0000000,8.6400000); //
+
+        new pmrodoviariaext;
+	pmrodoviariaext = CreateDynamicObject(18284, -265.700012, -2184.500000, 30.399999, 0.000000, 0.000000, 21.993999);
+	SetDynamicObjectMaterial(pmrodoviariaext, 0, 18646, "matcolours", "grey-30-percent", 0x00000000);
+	SetDynamicObjectMaterial(pmrodoviariaext, 1, 18646, "matcolours", "grey-30-percent", 0x00000000);
+	SetDynamicObjectMaterial(pmrodoviariaext, 2, 18646, "matcolours", "grey-30-percent", 0x00000000);
+	SetDynamicObjectMaterial(pmrodoviariaext, 3, 18646, "matcolours", "grey-30-percent", 0x00000000);
+	SetDynamicObjectMaterial(pmrodoviariaext, 4, 18646, "matcolours", "grey-30-percent", 0x00000000);
+	SetDynamicObjectMaterial(pmrodoviariaext, 5, 18646, "matcolours", "grey-30-percent", 0x00000000);
+	pmrodoviariaext = CreateDynamicObject(19479, -269.660949, -2186.042480, 32.866836, 0.000000, 0.000000, -157.999984);
+	SetDynamicObjectMaterialText(pmrodoviariaext, 0, "POLÍCIA MILITAR RODOVIÁRIA", 130, "Arial Black", 25, 1, 0xFF000000, 0x00000000, 1);
+	pmrodoviariaext = CreateDynamicObject(6148,-257.2998000,-2181.0996000,25.3000000,0.0000000,0.0000000,21.9950000); //object(gaz19_law) (1)
+	pmrodoviariaext = CreateDynamicObject(8168,-310.2002000,-2183.3994000,31.5000000,0.0000000,0.0000000,125.9960000); //object(vgs_guardhouse01) (1)
+	pmrodoviariaext = CreateDynamicObject(18284,-298.1000100,-2217.3000000,31.1000000,0.0000000,0.0000000,205.9950000); //object(cw_tscanopy) (2)
+	pmrodoviariaext = CreateDynamicObject(1483,-302.0000000,-2180.2000000,26.7000000,0.0000000,20.0000000,22.0000000); //object(dyn_garrage2) (1)
+	pmrodoviariaext = CreateDynamicObject(994,-304.2000100,-2177.7000000,27.8000000,0.0000000,0.0000000,292.0000000); //object(lhouse_barrier2) (1)
+ 	pmrodoviariaext = CreateDynamicObject(1228,-281.3999900,-2262.7000000,29.5000000,0.0000000,0.0000000,290.0000000); //object(roadworkbarrier1) (1)
+	pmrodoviariaext = CreateDynamicObject(1251,-273.7999900,-2213.3000000,27.5000000,0.0000000,0.0000000,28.0000000); //object(smashbar) (1)
+	pmrodoviariaext = CreateDynamicObject(1251,-279.5000000,-2202.3999000,27.5000000,0.0000000,0.0000000,25.9990000); //object(smashbar) (3)
+	pmrodoviariaext = CreateDynamicObject(1251,-285.1000100,-2190.7000000,27.5000000,0.0000000,0.0000000,23.9940000); //object(smashbar) (5)
+	pmrodoviariaext = CreateDynamicObject(1251,-289.5000000,-2180.1001000,27.5000000,0.0000000,0.0000000,21.9840000); //object(smashbar) (7)
+	pmrodoviariaext = CreateDynamicObject(1251,-294.0000000,-2168.0000000,27.5000000,0.0000000,0.0000000,19.9780000); //object(smashbar) (9)
+	pmrodoviariaext = CreateDynamicObject(1251,-298.5000000,-2155.7000000,27.5000000,0.0000000,0.0000000,19.9730000); //object(smashbar) (12)
+	pmrodoviariaext = CreateDynamicObject(1251,-267.3999900,-2225.0000000,27.5000000,0.0000000,0.0000000,29.9990000); //object(smashbar) (13)
+	pmrodoviariaext = CreateDynamicObject(1251,-273.7999900,-2213.3000000,27.5000000,0.0000000,0.0000000,27.9990000); //object(smashbar) (15)
+	pmrodoviariaext = CreateDynamicObject(7933,-258.0000000,-2224.3999000,28.0000000,0.0000000,0.0000000,294.0000000); //object(vegascrashbar06) (1)
+	pmrodoviariaext = CreateDynamicObject(3091,-297.6000100,-2249.3000000,27.3000000,1.9990000,2.0010000,115.9300000); //object(imy_track_barrier) (1)
+	pmrodoviariaext = CreateDynamicObject(984,-290.2000100,-2207.3999000,27.9000000,0.0000000,0.0000000,26.0000000); //object(fenceshit2) (1)
+	pmrodoviariaext = CreateDynamicObject(984,-284.3999900,-2218.8000000,27.9000000,0.0000000,0.0000000,27.9990000); //object(fenceshit2) (2)
+	pmrodoviariaext = CreateDynamicObject(1434,-262.7000100,-2233.3000000,27.3000000,0.0000000,0.0000000,301.9870000); //object(dyn_roadbarrier_5a) (6)
+	pmrodoviariaext = CreateDynamicObject(18284,-265.7000100,-2184.5000000,30.4000000,0.0000000,0.0000000,21.9940000); //object(cw_tscanopy) (5)
+	pmrodoviariaext = CreateDynamicObject(18284,-272.8999900,-2151.8000000,29.9000000,0.0000000,0.0000000,291.9890000); //object(cw_tscanopy) (6)
+	pmrodoviariaext = CreateDynamicObject(3037,-265.0000000,-2184.3000000,26.6000000,270.0000000,180.0000000,22.0000000); //object(warehouse_door2b) (1)
+	pmrodoviariaext = CreateDynamicObject(16101,-255.7000000,-2203.3000000,31.9000000,0.0000000,0.0000000,0.0000000); //object(des_windsockpole) (1)
+	pmrodoviariaext = CreateDynamicObject(3666,-303.5000000,-2252.3000000,28.8000000,0.0000000,0.0000000,0.0000000); //object(airuntest_las) (1)
+	pmrodoviariaext = CreateDynamicObject(970,-268.2000100,-2185.5000000,28.3000000,0.0000000,0.0000000,292.0000000); //object(fencesmallb) (1)
+	pmrodoviariaext = CreateDynamicObject(978,-266.2000100,-2179.8000000,33.7000000,0.0000000,0.0000000,111.9950000); //object(sub_roadright) (3)
+	pmrodoviariaext = CreateDynamicObject(978,-262.7999900,-2188.2000000,33.7000000,0.0000000,0.0000000,111.9950000); //object(sub_roadright) (4)
+	pmrodoviariaext = CreateDynamicObject(1237,-318.8999900,-2230.2000000,27.9000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (9)
+	pmrodoviariaext = CreateDynamicObject(7933,-252.6000100,-2236.8000000,28.0000000,0.0000000,0.0000000,294.0000000); //object(vegascrashbar06) (2)
+	pmrodoviariaext = CreateDynamicObject(17065,-246.1000100,-2220.3999000,31.3000000,0.0000000,0.0000000,202.0000000); //object(cw2_garagecanopy) (2)
+	pmrodoviariaext = CreateDynamicObject(17065,-241.2000000,-2232.7000000,31.3000000,0.0000000,0.0000000,201.9950000); //object(cw2_garagecanopy) (3)
+	pmrodoviariaext = CreateDynamicObject(3578,-276.7999900,-2167.8999000,33.0000000,90.0000000,0.2580000,291.7420000); //object(dockbarr1_la) (1)
+	pmrodoviariaext = CreateDynamicObject(3578,-261.6000100,-2205.3000000,33.0000000,90.0000000,0.2530000,291.7420000); //object(dockbarr1_la) (2)
+	pmrodoviariaext = CreateDynamicObject(4100,-238.1000100,-2227.3000000,29.7000000,0.0000000,0.0000000,72.0000000); //object(meshfence1_lan) (1)
+	pmrodoviariaext = CreateDynamicObject(4100,-241.1000100,-2219.8999000,29.7000000,0.0000000,0.0000000,71.9990000); //object(meshfence1_lan) (3)
+	pmrodoviariaext = CreateDynamicObject(4100,-266.2000100,-2144.6001000,29.2000000,0.0000000,0.0000000,71.9930000); //object(meshfence1_lan) (5)
+	pmrodoviariaext = CreateDynamicObject(4100,-274.7999900,-2140.8999000,29.2000000,0.0000000,0.0000000,341.9930000); //object(meshfence1_lan) (7)
+	pmrodoviariaext = CreateDynamicObject(4100,-288.0000000,-2146.2000000,29.2000000,0.0000000,0.0000000,161.9880000); //object(meshfence1_lan) (8)
+	pmrodoviariaext = CreateDynamicObject(997,-303.2000100,-2210.5000000,28.9000000,0.0000000,0.0000000,24.0000000); //object(lhouse_barrier3) (1)
+	pmrodoviariaext = CreateDynamicObject(997,-304.2000100,-2250.7000000,28.5000000,0.0000000,0.0000000,113.9990000); //object(lhouse_barrier3) (2)
+	pmrodoviariaext = CreateDynamicObject(3398,-266.2999900,-2207.6001000,26.4000000,0.0000000,0.0000000,291.9940000); //object(cxrf_floodlite_) (5)
+	pmrodoviariaext = CreateDynamicObject(3398,-282.3999900,-2170.3999000,26.1000000,0.0000000,0.0000000,291.9940000); //object(cxrf_floodlite_) (6)
+	pmrodoviariaext = CreateDynamicObject(3398,-299.5000000,-2208.8000000,24.0000000,0.0000000,0.0000000,115.9890000); //object(cxrf_floodlite_) (7)
+	pmrodoviariaext = CreateDynamicObject(3398,-292.2000100,-2223.6001000,24.0000000,0.0000000,0.0000000,115.9840000); //object(cxrf_floodlite_) (9)
+	pmrodoviariaext = CreateDynamicObject(984,-295.6000100,-2195.8000000,27.9000000,0.0000000,0.0000000,23.9990000); //object(fenceshit2) (5)
+	pmrodoviariaext = CreateDynamicObject(984,-278.2000100,-2230.0000000,27.9000000,0.0000000,0.0000000,29.9940000); //object(fenceshit2) (6)
+	pmrodoviariaext = CreateDynamicObject(1238,-261.4003900,-2246.2998000,27.6000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (3)
+	pmrodoviariaext = CreateDynamicObject(1238,-281.3999900,-2211.0000000,27.7000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (4)
+	pmrodoviariaext = CreateDynamicObject(1238,-271.7000100,-2228.8000000,27.7000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (5)
+	pmrodoviariaext = CreateDynamicObject(1238,-321.5000000,-2104.5000000,27.1000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (8)
+	pmrodoviariaext = CreateDynamicObject(1238,-291.7000100,-2189.3000000,27.7000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (9)
+	pmrodoviariaext = CreateDynamicObject(1238,-310.7002000,-2139.0996000,27.5000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (11)
+	pmrodoviariaext = CreateDynamicObject(1238,-300.3999900,-2167.0000000,27.7000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (13)
+	pmrodoviariaext = CreateDynamicObject(8168,-293.6000100,-2246.7000000,30.5000000,0.0000000,0.0000000,311.9960000); //object(vgs_guardhouse01) (2)
+	pmrodoviariaext = CreateDynamicObject(1238,-306.0000000,-2232.2000000,28.4000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (14)
+	pmrodoviariaext = CreateDynamicObject(1238,-313.7999900,-2237.2000000,28.4000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (15)
+	pmrodoviariaext = CreateDynamicObject(1238,-311.0000000,-2238.8994000,28.5000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (16)
+	pmrodoviariaext = CreateDynamicObject(1238,-316.7000100,-2235.5000000,28.4000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (17)
+	pmrodoviariaext = CreateDynamicObject(1237,-331.7000100,-2196.6001000,27.4000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (12)
+	pmrodoviariaext = CreateDynamicObject(1237,-325.4003900,-2213.3994000,27.6000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (13)
+	pmrodoviariaext = CreateDynamicObject(1237,-314.3999900,-2241.2000000,28.2000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (15)
+	pmrodoviariaext = CreateDynamicObject(1237,-307.0000000,-2244.1001000,28.3000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (16)
+	pmrodoviariaext = CreateDynamicObject(1237,-310.5000000,-2242.7002000,28.3000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (17)
+	pmrodoviariaext = CreateDynamicObject(1237,-334.8999900,-2146.1001000,27.4000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (21)
+	pmrodoviariaext = CreateDynamicObject(1237,-332.6000100,-2174.0000000,27.4000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (23)
+	pmrodoviariaext = CreateDynamicObject(1237,-331.0000000,-2161.2998000,27.4000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (24)
+	pmrodoviariaext = CreateDynamicObject(1237,-331.8999900,-2167.7000000,27.4000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (25)
+	pmrodoviariaext = CreateDynamicObject(1237,-338.3999900,-2132.0000000,27.4000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (26)
+	pmrodoviariaext = CreateDynamicObject(997,-295.7998000,-2225.2998000,28.4000000,0.0000000,0.0000000,25.9990000); //object(lhouse_barrier3) (3)
+ 	pmrodoviariaext = CreateDynamicObject(1228,-307.7002000,-2190.2998000,30.2000000,0.0000000,0.0000000,289.9950000); //object(roadworkbarrier1) (2)
+	pmrodoviariaext = CreateDynamicObject(1483,-297.3999900,-2248.8000000,27.7000000,1.9560000,12.0020000,205.5790000); //object(dyn_garrage2) (3)
+	pmrodoviariaext = CreateDynamicObject(3666,-296.2998000,-2177.8994000,27.6000000,0.0000000,0.0000000,0.0000000); //object(airuntest_las) (2)
+	pmrodoviariaext = CreateDynamicObject(3091,-300.4003900,-2179.8994000,26.0000000,0.0000000,0.0000000,109.9950000); //object(imy_track_barrier) (2)
+	pmrodoviariaext = CreateDynamicObject(3398,-294.5000000,-2257.3999000,26.1000000,0.0000000,0.0000000,297.9890000); //object(cxrf_floodlite_) (10)
+	pmrodoviariaext = CreateDynamicObject(3398,-302.5000000,-2239.3000000,26.1000000,0.0000000,0.0000000,297.9880000); //object(cxrf_floodlite_) (11)
+	pmrodoviariaext = CreateDynamicObject(1238,-307.4003900,-2241.0000000,28.6000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (18)
+	pmrodoviariaext = CreateDynamicObject(1238,-309.2000100,-2224.6001000,28.2000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (19)
+	pmrodoviariaext = CreateDynamicObject(1238,-312.3999900,-2216.3999000,28.0000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (21)
+	pmrodoviariaext = CreateDynamicObject(1238,-316.2000100,-2206.3000000,27.8000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (24)
+	pmrodoviariaext = CreateDynamicObject(1238,-320.2000100,-2195.3999000,27.8000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (26)
+	pmrodoviariaext = CreateDynamicObject(1434,-254.4994800,-2246.7046000,27.3996700,0.0000000,0.0000000,301.9870000); //object(dyn_roadbarrier_5a) (7)
+	pmrodoviariaext = CreateDynamicObject(1434,-258.2002000,-2240.7002000,27.3000000,0.0000000,0.0000000,301.9870000); //object(dyn_roadbarrier_5a) (9)
+	pmrodoviariaext = CreateDynamicObject(4100,-229.8999900,-2237.5000000,29.7000000,0.0000000,0.0000000,107.9990000); //object(meshfence1_lan) (10)
+	pmrodoviariaext = CreateDynamicObject(4100,-221.6000100,-2247.3999000,29.7000000,0.0000000,0.0000000,69.9960000); //object(meshfence1_lan) (11)
+	pmrodoviariaext = CreateDynamicObject(4100,-217.0000000,-2260.3000000,29.7000000,0.0000000,0.0000000,69.9940000); //object(meshfence1_lan) (12)
+	pmrodoviariaext = CreateDynamicObject(4100,-233.8000000,-2267.6001000,29.7000000,0.0000000,0.0000000,295.9940000); //object(meshfence1_lan) (13)
+	pmrodoviariaext = CreateDynamicObject(4100,-220.9003900,-2268.5996000,29.7000000,0.0000000,0.0000000,333.9900000); //object(meshfence1_lan) (14)
+	pmrodoviariaext = CreateDynamicObject(4100,-243.8000000,-2259.1001000,29.7000000,0.0000000,0.0000000,261.9940000); //object(meshfence1_lan) (15)*/
         printf("=> Objetos       		: Carregados");
         return 1;
 }
 
 stock MapRemocao(playerid)
 {
+        //POLICIA RODOVIARIA
+        RemoveBuildingForPlayer(playerid, 17040, -257.53125, -2202.8359, 27.57813, 17.99968); // removeWorldObject (cuntw_weefact1_) (1)
+	RemoveBuildingForPlayer(playerid, 17039, -260.53906, -2182.6094, 26.6875, 10.785467); // removeWorldObject (cuntw_weebarn1_) (1)
+	RemoveBuildingForPlayer(playerid, 17038, -280.1875, -2167.7031, 27.78906, 14.162302); // removeWorldObject (cuntw_weefactory1_) (1)
+	RemoveBuildingForPlayer(playerid, 17037, -288.27344, -2163.5, 30.09375, 7.3575039); // removeWorldObject (cuntw_carport2_) (1)
+	RemoveBuildingForPlayer(playerid, 17036, -285.39844, -2151.0469, 27.38281, 6.9159627); // removeWorldObject (cuntw_carport1_) (1)
+	RemoveBuildingForPlayer(playerid, 3276, -259.76147, -2238.2344, 28.1376, 8.2899265); // removeWorldObject (cxreffencesld) (1)
+	RemoveBuildingForPlayer(playerid, 3276, -251.26373, -2245.3921, 28.76403, 8.2899265); // removeWorldObject (cxreffencesld) (2)
+	RemoveBuildingForPlayer(playerid, 3276, -245.95889, -2235.2129, 28.42753, 8.2899265); // removeWorldObject (cxreffencesld) (3)
+	RemoveBuildingForPlayer(playerid, 3276, -244.45027, -2220.8943, 29.48196, 8.2899265); // removeWorldObject (cxreffencesld) (4)
+	RemoveBuildingForPlayer(playerid, 3276, -244.85587, -2204.3083, 29.6943, 8.2899265); // removeWorldObject (cxreffencesld) (5)
+	RemoveBuildingForPlayer(playerid, 3276, -247.80112, -2194.0452, 29.16458, 8.2899265); // removeWorldObject (cxreffencesld) (6)
+	RemoveBuildingForPlayer(playerid, 3276, -251.56389, -2180.6594, 29.70958, 8.2899265); // removeWorldObject (cxreffencesld) (7)
+	RemoveBuildingForPlayer(playerid, 3276, -255.66699, -2161.8645, 29.23856, 8.2899265); // removeWorldObject (cxreffencesld) (8)
+	RemoveBuildingForPlayer(playerid, 3276, -253.13121, -2175.6416, 29.47779, 8.2899265); // removeWorldObject (cxreffencesld) (9)
+	RemoveBuildingForPlayer(playerid, 3276, -257.91891, -2147.8079, 29.13529, 8.2899265); // removeWorldObject (cxreffencesld) (10)
+	RemoveBuildingForPlayer(playerid, 3276, -299.41901, -2152.8315, 28.05268, 8.2899265); // removeWorldObject (cxreffencesld) (11)
+	RemoveBuildingForPlayer(playerid, 3276, -299.90295, -2142.335, 28.45692, 8.2899265); // removeWorldObject (cxreffencesld) (12)
+	RemoveBuildingForPlayer(playerid, 3276, -288.13196, -2139.7532, 28.28035, 8.2899265); // removeWorldObject (cxreffencesld) (13)
+	RemoveBuildingForPlayer(playerid, 3276, -274.61624, -2138.7405, 28.09671, 8.2899265); // removeWorldObject (cxreffencesld) (14)
+	RemoveBuildingForPlayer(playerid, 3276, -265.74985, -2140.0532, 28.6364, 8.2899265); // removeWorldObject (cxreffencesld) (15)
+	
         //24 SPAWN
         RemoveBuildingForPlayer(playerid, 759, -1620.380, 1279.479, 5.921, 0.250);
         RemoveBuildingForPlayer(playerid, 759, -1622.400, 1273.329, 5.921, 0.250);

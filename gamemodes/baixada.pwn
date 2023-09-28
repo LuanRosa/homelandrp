@@ -88,7 +88,7 @@ new	UltimaFala[MAX_PLAYERS];
 #define MAX_CAIXAS              	50
 #define MAX_ZONE_NAME 				28
 #define MAX_VAGAS          			20+1
-#define MAX_ORGS           			13
+#define MAX_ORGS           			14
 #define MAX_MACONHA        			300
 #define Max_Crescida       			10
 #define MAX_CASAS        			500
@@ -230,9 +230,6 @@ enum
 	DIALOG_MEMBROSORG,
 	DIALOG_AJUDA_ADMIN,
 	DIALOG_ROPACOP,
-	DIALOG_2LIST,
-	DIALOG_3LIST,
-	DIALOG_4LIST,
 	DIALOG_COFREORG,
 	DIALOG_COFREORG1,
 	DIALOG_COFREORG12,
@@ -281,7 +278,12 @@ enum
 	DIALOG_ARMAS2,
 	DIALOG_ARMAS12,
 	DIALOG_BENEVIP,
-	DIALOG_AVALIAR
+	DIALOG_AVALIAR,
+	DIALOG_TELEPORTARMAP,
+	DIALOG_VEHCORP1,
+	DIALOG_VEHCORP2,
+	DIALOG_VEHCORP3,
+	DIALOG_VEHCORP4
 }
 
 //                          VARIAVEIS
@@ -734,11 +736,11 @@ new PlayerBar:Loadsc_b[MAX_PLAYERS][1];
 
 //                          FLOATS E LOCAIS DEFINIDOS
 
-new Float:Entradas[11][3] =
+new Float:Entradas[12][3] =
 {
 	{-2653.636474, 640.163085, 14.453125},//Hospital
 	{-2695.638183, 640.165405, 14.453125},//Hospital
-	{-1605.569213, 710.272521, 13.867187},//Policia de Patrulla
+	{-1605.569213, 710.272521, 13.867187},//Policia Militar
 	{-2201.102050, -2341.364013, 30.625000},//Mercado Negro
 	{-2766.550781, 375.652496, 6.334682},//Prefeitura
 	{-1720.950439, 1359.725219, 7.185316},//Pizzaria
@@ -746,7 +748,8 @@ new Float:Entradas[11][3] =
 	{-1988.149658, 1039.089355, 55.726562},//BANCO
 	{-2026.631591, -102.066413, 35.164062},//LICENCAS
 	{-2521.626220, 2295.312988, 4.984375},//AÇOUGUE
-	{-2355.818115, 1008.084472, 50.898437}//BURGUER SHOT
+	{-2355.818115, 1008.084472, 50.898437},//BURGUER SHOT
+	{-1594.212402, 716.171325, -4.906250}//ENTRADA POLICIA MILITAR
 };
 
 new Float:AutoEscolaPosicao[13][3] =
@@ -823,9 +826,12 @@ new Float:PosDesossa[8][4] =
 
 new EtapasMinerador[MAX_PLAYERS];
 
-new Float:PosEquipar[1][4] =
+new Float:PosEquipar[4][4] =
 {
-	{307.207489, 1833.923706, 2241.584960}//Policia Patrulla
+	{307.207489, 1833.923706, 2241.584960},//Policia Militar
+	{-2454.447998, 503.778869, 30.079460},//ROTA
+	{-268.811340, -2185.336425, 28.858205},//PRF
+	{-1389.769042, 2634.827636, 55.984375}//BAEP
 };
 
 new Float:PosEquiparORG[4][4] =
@@ -833,31 +839,23 @@ new Float:PosEquiparORG[4][4] =
 	{2525.950927, -1663.797485, 15.148015},//Verde
 	{2349.565673, -1170.487670, 28.066040},//Rojos
 	{1673.485595, -2106.939697, 13.546875},//Azul
-
 	{2812.450683, -1188.466308, 25.257419}//Amarillo
 };
 
-new Float:PosVeiculos[6][4] =
+new Float:PosVeiculos[9][4] =
 {
-	{1592.244384, -1614.151855, 13.382812},//Policia Patrulla
+	{-1574.971923, 718.538818, -5.242187},//Policia Militar
+	{-2441.137939, 522.140869, 29.486917},//ROTA
+	{-272.153289, -2204.821533, 28.666120},//PRF
 	{-1707.393066, 1333.281982, 7.178680},//Spawn
 	{1179.630615, -1339.028686, 13.838010},//Hospital
 	{-478.623901, -506.406524, 25.517845},//Camionero
 	{590.086975, 871.486694, -42.734603},//Minerador
-	{2014.328125, -1770.929077, 13.543199}//Mecanica
+	{2014.328125, -1770.929077, 13.543199},//Mecanica
+	{-1405.247436, 2640.490478, 55.687500}//BAEP
 };
 new VehAlugado[MAX_PLAYERS];
 new VeiculoCivil[MAX_PLAYERS];
-
-new Float:PosPVeiculos[1][4] =
-{
-	{1592.244384, -1614.151855, 13.382812}//Policia Patrulla
-};
-
-new Float:PosPrender[1][4] =
-{
-	{1565.309082, -1694.453125, 5.890625}//Policia Patrulla
-};
 
 new Float:Covas[42][3] = 
 {
@@ -3775,7 +3773,33 @@ CallBack::IsBandido(playerid)
 	if(IsPlayerConnected(playerid))
 	{
 		new member = PlayerInfo[playerid][Org];
-		if(member == 5 || member == 6 || member == 7 || member == 8 || member == 10 || member == 11)
+		if(member == 5 || member == 6 || member == 7 || member == 8)
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
+
+CallBack::IsNeutra(playerid)
+{
+	if(IsPlayerConnected(playerid))
+	{
+		new member = PlayerInfo[playerid][Org];
+		if(member == 9 || member == 10 || member == 11)
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
+
+CallBack::IsMafia(playerid)
+{
+	if(IsPlayerConnected(playerid))
+	{
+		new member = PlayerInfo[playerid][Org];
+		if(member == 12 || member == 13)
 		{
 			return 1;
 		}
@@ -3817,7 +3841,7 @@ CallBack::ORGCarrega()
 		   DOF2_SaveFile();
 	   }
 	}
-	printf("=> Organizações       		: Carregadas");
+	printf("=> Organizações       		: %d Carregadas", MAX_ORGS);
 	return true;
 }
 
@@ -9810,47 +9834,51 @@ stock NomeOrg(playerid)
 	}
 	if(org == 2)
 	{
-		orG = "Exercito";
+		orG = "Policia Rodoviaria";
 	}
 	if(org == 3)
 	{
-		orG = "Policia Federal";
+		orG = "Rota";
 	}
 	if(org == 4)
 	{
-		orG = "BOPE";
+		orG = "Baep";
 	}
 	if(org == 5)
 	{
-		orG = "Ballas";
+		orG = "Tropa dos Vermelho";
 	}
 	if(org == 6)
 	{
-		orG = "Los Aztecas";
+		orG = "Tropa dos Amarelo";
 	}
 	if(org == 7)
 	{
-		orG = "Los Vagos";
+		orG = "Tropa dos Azul";
 	}
 	if(org == 8)
 	{
-		orG = "Reportagem";
+		orG = "Tropa dos Verde";
 	}
 	if(org == 9)
 	{
-		orG = "Groove Street";
+		orG = "Medicos";
 	}
 	if(org == 10)
 	{
-		orG = "Republica";
+		orG = "Reportagem";
 	}
 	if(org == 11)
 	{
-		orG = "Mafia Triad";
+		orG = "Mecanico";
 	}
 	if(org == 12)
 	{
 		orG = "Mafia Russa";
+	}
+	if(org == 13)
+	{
+		orG = "Mafia Triad";
 	}
 	return orG;
 }
@@ -10125,6 +10153,9 @@ stock NpcText()
 
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nabrir o menu.", -1, 1679.127563, -2290.863525, 13.529936, 15.0);
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nabrir o menu.", -1, 1686.527221, -2288.146728, 13.510719, 15.0);
+
+	CreateDynamicPickup(19606,23,-1606.267578, 733.912414, -5.234413,0);
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}/prender{FFFFFF}'para \nprender o jogador.",-1,-1606.267578, 733.912414, -5.234413,15);
 
 	printf("=> Textos       		: Carregados");
 	return 1;
@@ -10724,6 +10755,14 @@ stock SendGangMessage(Cor, Mensagem[])
 		{
 			SendClientMessage(i, Cor, Mensagem);
 		}
+		if(PlayerInfo[i][Org] == 12)
+		{
+			SendClientMessage(i, Cor, Mensagem);
+		}
+		if(PlayerInfo[i][Org] == 13)
+		{
+			SendClientMessage(i, Cor, Mensagem);
+		}
 	}
 	return 1;
 }
@@ -10933,14 +10972,15 @@ public OnGameModeInit()
 		UpdateFuelStation(i, 0);
 	}
 	for(new slot = 0; slot < MAX_MACONHA; slot++)MaconhaInfo[slot][PodeUsar] = true;
-	for(new i; i < 6; i++)
+	for(new i; i < 9; i++)
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}H{FFFFFF}'para \npegar um veiculo.", -1, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2], 10.0);
 		CreateDynamicPickup(1083, 23, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2]); // Veh Spawn
 	}
-	for(new i; i < 1; i++)
+	for(new i; i < 4; i++)
 	{
 		CreateDynamicPickup(1275, 23, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]);
+		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \npegar os equipamentos.",-1,PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2],15);
 	}
 	for(new i; i < 4; i++)
 	{
@@ -10954,13 +10994,7 @@ public OnGameModeInit()
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \niniciar o desossamento.", -1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2], 15.0);
 	}
-	for(new i; i < 1; i++)
-	{
-		CreateDynamicPickup(19606,23,PosPrender[i][0],PosPrender[i][1],PosPrender[i][2],0);
-		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}/prender{FFFFFF}'para \nprender o jogador.",-1,PosPrender[i][0],PosPrender[i][1],PosPrender[i][2],15);
-	}
-
-	for(new i; i < 11; i++)
+	for(new i; i < 12; i++)
 	{
 		CreateDynamicPickup(19606,23,Entradas[i][0],Entradas[i][1],Entradas[i][2],0);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
@@ -13068,13 +13102,25 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
 			}
 		}
-		for(new i; i < 1; i++)
-		if(PlayerToPoint(3.0, playerid, PosPVeiculos[i][0], PosPVeiculos[i][1], PosPVeiculos[i][2]))
+		else if(PlayerToPoint(3.0, playerid, -1574.971923, 718.538818, -5.242187))
 		{
-			if(PlayerInfo[playerid][pProfissao] == 1)    
-			{
-				ShowPlayerDialog(playerid, DIALOG_2LIST, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FFFF00}- {FFFFFF}CopCarla\t{FFFF00}596\n{FFFF00}- {FFFFFF}SwatVan\t{FFFF00}601\n{FFFF00}- {FFFFFF}CopBike\t{FFFF00}523", "Selecionar", "X");
-			}
+			if(PlayerInfo[playerid][Org] != 1)    		return ErrorMsg(playerid, "Nao possui permissao.");
+			ShowPlayerDialog(playerid, DIALOG_VEHCORP1, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}SwatVan\t{FF0000}601\n{FF0000}- {FFFFFF}CopBike\t{FF0000}523", "Selecionar", "X");
+		}
+		else if(PlayerToPoint(3.0, playerid, -272.153289, -2204.821533, 28.666120))
+		{
+			if(PlayerInfo[playerid][Org] != 2)    		return ErrorMsg(playerid, "Nao possui permissao.");
+			ShowPlayerDialog(playerid, DIALOG_VEHCORP2, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}FBI Rrancher\t{FF0000}490\n{FF0000}- {FFFFFF}CopBike\t{FF0000}523", "Selecionar", "X");
+		}
+		else if(PlayerToPoint(3.0, playerid, -2441.137939, 522.140869, 29.486917))
+		{
+			if(PlayerInfo[playerid][Org] != 3)    		return ErrorMsg(playerid, "Nao possui permissao.");
+			ShowPlayerDialog(playerid, DIALOG_VEHCORP3, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}FBI Rancher\t{FF0000}490", "Selecionar", "X");
+		}
+		else if(PlayerToPoint(3.0, playerid, -1405.247436, 2640.490478, 55.687500))
+		{
+			if(PlayerInfo[playerid][Org] != 4)    		return ErrorMsg(playerid, "Nao possui permissao.");
+			ShowPlayerDialog(playerid, DIALOG_VEHCORP4, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}FBI Rancher\t{FF0000}490", "Selecionar", "X");
 		}
 	}
 	if(newkeys == KEY_YES)
@@ -13099,20 +13145,20 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		{
 			//
 		}
-		//JOIALHERIA ENTRADA
-		if(IsPlayerInRangeOfPoint(playerid,2.0, 1799.426391, -1253.051757, 13.668602))
+		//ESTACIONAMENTO ENTRADA
+		if(IsPlayerInRangeOfPoint(playerid,2.0, 330.382019, 1843.160156, 2241.584960))
 		{
-			SetPlayerPos(playerid,  1800.504150, -1245.274780, 14.635800);
+			SetPlayerPos(playerid,  -1594.212402, 716.171325, -4.906250);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
-		//JOIALHERIA SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,1800.504150, -1245.274780, 14.635800))
+		//ESTACIONAMENTO SAIDA
+		else if(IsPlayerInRangeOfPoint(playerid,2.0,-1594.212402, 716.171325, -4.906250))
 		{
-			SetPlayerPos(playerid, 1799.426391, -1253.051757, 13.668602);
-			SetPlayerInterior(playerid, 0);
+			SetPlayerPos(playerid, 330.382019, 1843.160156, 2241.584960);
+			SetPlayerInterior(playerid, 1);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
@@ -13543,7 +13589,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			}
 			SelectTextDraw(playerid, 0xFF0000FF);
 		}
-		for(new i; i < 1; i++)
+		for(new i; i < 4; i++)
 		if(PlayerToPoint(3.0, playerid, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]))
 		{
 			if(!IsPolicial(playerid))						return ErrorMsg(playerid, "Nao possui permissao.");
@@ -14423,7 +14469,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						strcat(stg, "{FFFF00}/qplantacao{FFFFFF} Queimar uma plantacao de maconha.\n\n");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAORG, DIALOG_STYLE_MSGBOX, "Comandos Organizacao", stg, "Ok", "");
 					}
-					if(IsBandido(playerid)) 
+					if(IsBandido(playerid) || IsMafia(playerid)) 
 					{
 						new stg[1100];
 						strcat(stg, "{FFFF00}/ga{FFFFFF} Radio de gang\n\n");
@@ -15383,7 +15429,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 9)
 				{
-					SetPlayerSkin(playerid, 286);
+					SetPlayerSkin(playerid, 288);
 				}
 				if(listitem == 10)
 				{
@@ -15407,203 +15453,19 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 15)
 				{
-					SetPlayerSkin(playerid, 308);
+					SetPlayerSkin(playerid, 309);
 				}
 				if(listitem == 16)
 				{
-					SetPlayerSkin(playerid, 309);
+					SetPlayerSkin(playerid, 310);
 				}
 				if(listitem == 17)
 				{
-					SetPlayerSkin(playerid, 310);
+					SetPlayerSkin(playerid, 311);
 				}
 				if(listitem == 18)
 				{
-					SetPlayerSkin(playerid, 311);
-				}
-				if(listitem == 19)
-				{
 					SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
-				}
-			}
-		}
-		case DIALOG_2LIST:
-		{
-			if(response)
-			{
-				if(listitem == 0)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(596, X, Y, Z, ROT, 127, 152, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-				if(listitem == 1)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(601, X, Y, Z, ROT, 127, 152, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-				if(listitem == 2)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(523, X, Y, Z, ROT, 127, 152, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-			}
-		}
-		case DIALOG_3LIST:
-		{
-			if(response)
-			{
-				if(listitem == 0)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(596, X, Y, Z, ROT, 127, 6, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-				if(listitem == 1)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(523, X, Y, Z, ROT, 127, 6, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-				if(listitem == 2)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(525, X, Y, Z, ROT, 127, 6, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-			}
-		}
-		case DIALOG_4LIST:
-		{
-			if(response)
-			{
-				if(listitem == 0)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(490, X, Y, Z, ROT, 127, 127, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-				if(listitem == 1)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(599, X, Y, Z, ROT, 127, 127, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-				if(listitem == 2)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(560, X, Y, Z, ROT, 127, 127, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
 				}
 			}
 		}
@@ -16734,6 +16596,203 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SuccesMsg(playerid, "Voce decidiu nao dar ponto de avaliacao para o administrador.");
 			}
 		}
+		case DIALOG_TELEPORTARMAP:
+		{
+			if(response)
+			{
+				if(PlayerInfo[playerid][pAdmin] > 0)
+				{
+					SetPlayerPos(playerid, GetPVarFloat(playerid, "FindX"), GetPVarFloat(playerid, "FindY"), GetPVarFloat(playerid, "FindZ")+4);
+				}
+			}
+			return true;
+		}
+		case DIALOG_VEHCORP1:
+		{
+			if(response)
+			{
+				if(listitem == 0)
+				{
+					new Float:X,Float:Y,Float:Z,Float:ROT;
+					GetPlayerPos(playerid,X,Y,Z);
+					GetPlayerFacingAngle(playerid,ROT);
+					if(VehAlugado[playerid] == 0)
+					{
+						VehAlugado[playerid] = 1;
+						VeiculoCivil[playerid] = CreateVehicle(597, X, Y, Z, ROT, 127, 152, false);
+						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
+						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
+					}
+					else
+					{
+						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
+					}
+					return 1;
+				}
+				if(listitem == 1)
+				{
+					new Float:X,Float:Y,Float:Z,Float:ROT;
+					GetPlayerPos(playerid,X,Y,Z);
+					GetPlayerFacingAngle(playerid,ROT);
+					if(VehAlugado[playerid] == 0)
+					{
+						VehAlugado[playerid] = 1;
+						VeiculoCivil[playerid] = CreateVehicle(601, X, Y, Z, ROT, 127, 152, false);
+						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
+						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
+					}
+					else
+					{
+						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
+					}
+					return 1;
+				}
+				if(listitem == 2)
+				{
+					new Float:X,Float:Y,Float:Z,Float:ROT;
+					GetPlayerPos(playerid,X,Y,Z);
+					GetPlayerFacingAngle(playerid,ROT);
+					if(VehAlugado[playerid] == 0)
+					{
+						VehAlugado[playerid] = 1;
+						VeiculoCivil[playerid] = CreateVehicle(523, X, Y, Z, ROT, 127, 152, false);
+						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
+						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
+					}
+					else
+					{
+						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
+					}
+					return 1;
+				}
+			}
+		}
+		case DIALOG_VEHCORP2:
+		{
+			if(response)
+			{
+				if(listitem == 0)
+				{
+					new Float:X,Float:Y,Float:Z,Float:ROT;
+					GetPlayerPos(playerid,X,Y,Z);
+					GetPlayerFacingAngle(playerid,ROT);
+					if(VehAlugado[playerid] == 0)
+					{
+						VehAlugado[playerid] = 1;
+						VeiculoCivil[playerid] = CreateVehicle(490, X, Y, Z, ROT, 6, 152, false);
+						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
+						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
+					}
+					else
+					{
+						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
+					}
+					return 1;
+				}
+				if(listitem == 1)
+				{
+					new Float:X,Float:Y,Float:Z,Float:ROT;
+					GetPlayerPos(playerid,X,Y,Z);
+					GetPlayerFacingAngle(playerid,ROT);
+					if(VehAlugado[playerid] == 0)
+					{
+						VehAlugado[playerid] = 1;
+						VeiculoCivil[playerid] = CreateVehicle(523, X, Y, Z, ROT, 6, 152, false);
+						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
+						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
+					}
+					else
+					{
+						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
+					}
+					return 1;
+				}
+			}
+		}
+		case DIALOG_VEHCORP3:
+		{
+			if(response)
+			{
+				if(listitem == 0)
+				{
+					new Float:X,Float:Y,Float:Z,Float:ROT;
+					GetPlayerPos(playerid,X,Y,Z);
+					GetPlayerFacingAngle(playerid,ROT);
+					if(VehAlugado[playerid] == 0)
+					{
+						VehAlugado[playerid] = 1;
+						VeiculoCivil[playerid] = CreateVehicle(597, X, Y, Z, ROT, 0, 0, false);
+						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
+						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
+					}
+					else
+					{
+						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
+					}
+					return 1;
+				}
+				if(listitem == 1)
+				{
+					new Float:X,Float:Y,Float:Z,Float:ROT;
+					GetPlayerPos(playerid,X,Y,Z);
+					GetPlayerFacingAngle(playerid,ROT);
+					if(VehAlugado[playerid] == 0)
+					{
+						VehAlugado[playerid] = 1;
+						VeiculoCivil[playerid] = CreateVehicle(490, X, Y, Z, ROT, 0, 0, false);
+						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
+						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
+					}
+					else
+					{
+						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
+					}
+					return 1;
+				}
+			}
+		}
+		case DIALOG_VEHCORP4:
+		{
+			if(response)
+			{
+				if(listitem == 0)
+				{
+					new Float:X,Float:Y,Float:Z,Float:ROT;
+					GetPlayerPos(playerid,X,Y,Z);
+					GetPlayerFacingAngle(playerid,ROT);
+					if(VehAlugado[playerid] == 0)
+					{
+						VehAlugado[playerid] = 1;
+						VeiculoCivil[playerid] = CreateVehicle(597, X, Y, Z, ROT, 34, 34, false);
+						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
+						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
+					}
+					else
+					{
+						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
+					}
+					return 1;
+				}
+				if(listitem == 1)
+				{
+					new Float:X,Float:Y,Float:Z,Float:ROT;
+					GetPlayerPos(playerid,X,Y,Z);
+					GetPlayerFacingAngle(playerid,ROT);
+					if(VehAlugado[playerid] == 0)
+					{
+						VehAlugado[playerid] = 1;
+						VeiculoCivil[playerid] = CreateVehicle(490, X, Y, Z, ROT, 34, 34, false);
+						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
+						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
+					}
+					else
+					{
+						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
+					}
+					return 1;
+				}
+			}
+		}
 	}
 	return 1;
 }
@@ -16760,6 +16819,13 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 
 public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 {
+	if(PlayerInfo[playerid][pAdmin] >= 4)
+	{
+	    SetPVarFloat(playerid, "FindX", fX);
+	    SetPVarFloat(playerid, "FindY", fY);
+	    SetPVarFloat(playerid, "FindZ", fZ);
+		ShowPlayerDialog(playerid, DIALOG_TELEPORTARMAP, DIALOG_STYLE_MSGBOX, "Teleporte Mapa", "Voce deseja ir ao local que voce marcou no mapa?", #Sim, #Nï¿½o);
+	}
 	return 1;
 }
 
@@ -17013,7 +17079,6 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		if(Patrulha[playerid] == false)
 		{
 			Patrulha[playerid] = true;
-			SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
 			format(strings, sizeof(strings), "*{FFFFFF} Oficial %04d({FFFF00}%d{FFFFFF}) se identificou e iniciou o trabalho.", PlayerInfo[playerid][IDF],playerid);
 			ProxDetector(30.0, playerid, strings, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);    
 			SetPlayerColor(playerid, 0x0012FFFF);
@@ -17023,7 +17088,8 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		{
 			Patrulha[playerid] = false;
 			SetPlayerHealth(playerid, 100);
-			SetPlayerArmour(playerid, 0);	
+			SetPlayerArmour(playerid, 0);
+			SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);	
 			format(strings, sizeof(strings), "* {FFFFFF}Oficial %04d({FFFF00}%d{FFFFFF}) se identificou como policial e deixou o trabado.", PlayerInfo[playerid][IDF],playerid);
 			ProxDetector(30.0, playerid, strings, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);    
 			SetPlayerColor(playerid, 0xFFFFFFFF);
@@ -17046,7 +17112,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 	{
 		SetPlayerArmour(playerid, 100);
 		RemovePlayerWeapon(playerid, 34);
-		GivePlayerWeapon(playerid, 22, 100);
+		GivePlayerWeapon(playerid, 22, 32);
 	}
 	if(playertextid == CopGuns[playerid][1])
 	{
@@ -17055,7 +17121,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		RemovePlayerWeapon(playerid, 25);
 		RemovePlayerWeapon(playerid, 29);
 		RemovePlayerWeapon(playerid, 31);
-		GivePlayerWeapon(playerid, 31, 250);
+		GivePlayerWeapon(playerid, 31, 150);
 	}
 	if(playertextid == CopGuns[playerid][2])
 	{
@@ -17064,7 +17130,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		RemovePlayerWeapon(playerid, 29);
 		RemovePlayerWeapon(playerid, 31);
 		RemovePlayerWeapon(playerid, 25);
-		GivePlayerWeapon(playerid, 25, 15);
+		GivePlayerWeapon(playerid, 25, 10);
 	}
 	if(playertextid == CopGuns[playerid][3])
 	{
@@ -17073,7 +17139,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		RemovePlayerWeapon(playerid, 25);
 		RemovePlayerWeapon(playerid, 31);
 		RemovePlayerWeapon(playerid, 29);
-		GivePlayerWeapon(playerid, 29, 250);
+		GivePlayerWeapon(playerid, 29, 100);
 	}
 	if(playertextid == CopGuns[playerid][4])
 	{
@@ -17082,33 +17148,32 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		RemovePlayerWeapon(playerid, 25);
 		RemovePlayerWeapon(playerid, 31);
 		RemovePlayerWeapon(playerid, 34);
-		GivePlayerWeapon(playerid, 34, 25);
+		GivePlayerWeapon(playerid, 34, 10);
 	}
 	if(playertextid == HudCop[playerid][2])
 	{
 		new Ropa[800];
 		if(Patrulha[playerid] == false) 		return InfoMsg(playerid, "Nao esta em servico");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}265\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}266\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}267\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}280\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}281\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}282\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}283\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}284\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}285\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}286\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}300\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}301\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}302\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}306\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}307\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}308\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}309\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}310\n");
-		strcat(Ropa, "{FFFF00}- {FFFFFF}Roupa\t{FFFF00}311\n");
-		strcat(Ropa, "{FFFFFF}- {FFFF00}Sacar Uniform\n");
-		ShowPlayerDialog(playerid, DIALOG_ROPACOP, DIALOG_STYLE_LIST, "Roupas de Policia", Ropa, "Selecionar", "X");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}Policia Militar 1\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}Policia Militar 2\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}Policia Militar 3\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}Policia Militar 4\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}Policia Militar 5\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}Policia Rodoviaria 1\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}Policia Rodoviaria 2\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}Batedores\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}Operações Especiais 1\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}Policia Rodoviaria 3\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}ROTA 1\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}ROTA 2\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}BAEP 1\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}FEMININA 1\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}FEMININA 2\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}FEMININA 3\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}BAEP 2\n");
+		strcat(Ropa, "{FFFF00}- {FFFFFF}BAEP 3\n");
+		strcat(Ropa, "{FFFFFF}- {FFFF00}Retirar Uniforme\n");
+		ShowPlayerDialog(playerid, DIALOG_ROPACOP, DIALOG_STYLE_LIST, "Fardamentos", Ropa, "Selecionar", "X");
 	}
 	if(GetPVarInt(playerid, "PlayMine") == 1) 
 	{
@@ -18962,27 +19027,29 @@ CMD:orgs(playerid)
 	new StringsG[10000],StringsG1[11000];
 	format(StringsG,sizeof(StringsG),"{4CBB17}1{FFFFFF} - Policia Militar: %s\n", DOF2_GetString("InfoOrg/1.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}2{FFFFFF} - Exercito: %s\n", DOF2_GetString("InfoOrg/2.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}2{FFFFFF} - Policia Rodoviaria: %s\n", DOF2_GetString("InfoOrg/2.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}3{FFFFFF} - Policia Federal: %s\n", DOF2_GetString("InfoOrg/3.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}3{FFFFFF} - ROTA: %s\n", DOF2_GetString("InfoOrg/3.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}4{FFFFFF} - BOPE: %s\n", DOF2_GetString("InfoOrg/4.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}4{FFFFFF} - BAEP: %s\n", DOF2_GetString("InfoOrg/4.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}5{FFFFFF} - Ballas: %s\n", DOF2_GetString("InfoOrg/5.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}5{FFFFFF} - TROPA DOS AMARELOS: %s\n", DOF2_GetString("InfoOrg/5.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}6{FFFFFF} - Los Aztecas: %s\n", DOF2_GetString("InfoOrg/6.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}6{FFFFFF} - TROPA DOS AZUIS: %s\n", DOF2_GetString("InfoOrg/6.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}7{FFFFFF} - Los Vagos: %s\n", DOF2_GetString("InfoOrg/7.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}7{FFFFFF} - TROPA DOS VERMELHOS: %s\n", DOF2_GetString("InfoOrg/7.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}8{FFFFFF} - Reportagem: %s\n", DOF2_GetString("InfoOrg/8.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}8{FFFFFF} - TROPA DOS VERDES %s\n", DOF2_GetString("InfoOrg/8.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}9{FFFFFF} - Groove Street: %s\n", DOF2_GetString("InfoOrg/9.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}9{FFFFFF} - Medicos: %s\n", DOF2_GetString("InfoOrg/9.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}10{FFFFFF} - Republica: %s\n", DOF2_GetString("InfoOrg/10.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}10{FFFFFF} - Mecanicos: %s\n", DOF2_GetString("InfoOrg/10.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}11{FFFFFF} - Mafia Triad: %s\n", DOF2_GetString("InfoOrg/11.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}11{FFFFFF} - Reportagem: %s\n", DOF2_GetString("InfoOrg/11.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}12{FFFFFF} - Mafia Russa: %s\n", DOF2_GetString("InfoOrg/12.ini",VagasORG[0]));
+	strcat(StringsG1, StringsG);
+	format(StringsG,sizeof(StringsG),"{4CBB17}13{FFFFFF} - Mafia Triads: %s\n", DOF2_GetString("InfoOrg/13.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
 	ShowPlayerDialog(playerid,DIALOG_ORGS,DIALOG_STYLE_MSGBOX,"Organizacoes do Servidor",StringsG1,"X",#);
 	return 1;
@@ -19410,7 +19477,7 @@ CMD:prender(playerid, params[])
 	if(!IsPlayerInAnyVehicle(playerid))			return ErrorMsg(playerid, "Voce nao esta em um veiculo.");
 	if(!IsPerto(playerid,ID))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
 	for(new i; i < 1; i++)
-	if(PlayerToPoint(3.0, playerid, PosPrender[i][0], PosPrender[i][1], PosPrender[i][2]))
+	if(PlayerToPoint(3.0, playerid, -1606.267578, 733.912414, -5.234413))
 	{
 
 		if(Numero != 0)
@@ -21723,7 +21790,7 @@ CMD:iniciarminerador(playerid)
 		EtapasMinerador[playerid] = 1;
 	}
 	return 1; 
-}
+} 
 
 CMD:pescar(playerid)
 {
