@@ -836,7 +836,7 @@ new Float:PosEquipar[4][4] =
 
 new Float:PosEquiparORG[4][4] =
 {
-	{2525.950927, -1663.797485, 15.148015},//Verde
+	{-692.224487, 939.126525, 13.632812},//Mafia Russa
 	{2349.565673, -1170.487670, 28.066040},//Rojos
 	{1673.485595, -2106.939697, 13.546875},//Azul
 	{2812.450683, -1188.466308, 25.257419}//Amarillo
@@ -3658,7 +3658,8 @@ CallBack::UpdateDrogas()
 		{
 			if(MaconhaInfo[maconhaid][Crescida] < Max_Crescida)
 			{
-				MaconhaInfo[maconhaid][GramasProntas] += random(10)+5;
+				new updrogas = randomEx(0, 10);
+				MaconhaInfo[maconhaid][GramasProntas] += updrogas;
 				MaconhaInfo[maconhaid][Crescida]++;
 			}
 			format(string, sizeof string, "Maconha\nDono: %s\nPlantacao ID: %d\nCrescendo: %d/%d\nGramas: %dg",
@@ -5249,7 +5250,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]))
 			{
 				new string[300];
-				if(!IsBandido(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
+				if(!IsBandido(playerid) || !IsMafia(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 				new org = GetPlayerOrg(playerid);
 				
 				DepositarGranaOrg(org,PlayerInventario[playerid][modelid][Unidades]);
@@ -5268,7 +5269,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]))
 			{
 				new string[300];
-				if(!IsBandido(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
+				if(!IsBandido(playerid) || !IsMafia(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 				new org = GetPlayerOrg(playerid);
 				
 				DepositarMaconhaOrg(org,PlayerInventario[playerid][modelid][Unidades]);
@@ -5286,7 +5287,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]))
 			{
 				new string[300];
-				if(!IsBandido(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
+				if(!IsBandido(playerid) || !IsMafia(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 				new org = GetPlayerOrg(playerid);
 				
 				DepositarCocainaOrg(org,PlayerInventario[playerid][modelid][Unidades]);
@@ -5304,7 +5305,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]))
 			{
 				new string[300];
-				if(!IsBandido(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
+				if(!IsBandido(playerid) || !IsMafia(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 				new org = GetPlayerOrg(playerid);
 				
 				DepositarCrackOrg(org,PlayerInventario[playerid][modelid][Unidades]);
@@ -9233,8 +9234,8 @@ stock CarregarCofre(idorg)
 		CofreInfo[idorg][CofrePosZ] = DOF2_GetInt(Arq, "CofrePosZ");
 		CofreInfo[idorg][CofrePosR] = DOF2_GetInt(Arq, "CofrePosR");
 
-		ObjetoCofre[idorg] = CreateDynamicObject(3796, CofreInfo[idorg][CofrePosX], CofreInfo[idorg][CofrePosY], CofreInfo[idorg][CofrePosZ]+0.5, 0.0, 0.0, CofreInfo[idorg][CofrePosR]);
-		format(string, sizeof(string), "{FFFFFF}Bau ID: %d\nAperte {00FFFF}F\n{FFFFFF}para verifaicar o bau.", CofreInfo[idorg][CofreID]);
+		ObjetoCofre[idorg] = CreateDynamicObject(2332, CofreInfo[idorg][CofrePosX], CofreInfo[idorg][CofrePosY], CofreInfo[idorg][CofrePosZ]+0.5, 0.0, 0.0, CofreInfo[idorg][CofrePosR]);
+		format(string, sizeof(string), "{FFFFFF}Bau ID: %d\nAperte {FFFF00}F\n{FFFFFF}para verifaicar o bau.", CofreInfo[idorg][CofreID]);
 		TextoCofreOrg[idorg] = CreateDynamic3DTextLabel(string, -1, CofreInfo[idorg][CofrePosX], CofreInfo[idorg][CofrePosY], CofreInfo[idorg][CofrePosZ]+1, 25.0);
 		return 1;
 	}
@@ -10985,6 +10986,7 @@ public OnGameModeInit()
 	for(new i; i < 4; i++)
 	{
 		CreateDynamicPickup(1314, 23, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]);
+		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2],15);
 	}
 	for(new i; i < 7; i++)
 	{
@@ -13484,7 +13486,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		if(IsPlayerInRangeOfPoint(playerid, 10.0, CofreInfo[orgid][CofrePosX], CofreInfo[orgid][CofrePosY], CofreInfo[orgid][CofrePosZ]))
 		{
-            if(IsBandido(playerid) && IsPolicial(playerid))
+            if(!IsBandido(playerid) || !IsPolicial(playerid) || !IsMafia(playerid)) return ErrorMsg(playerid, "Nao possui permissao.");
             {
 				for(new ii = 0; ii != 20; ii++)
 				{
@@ -13496,11 +13498,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				ShowPlayerDialog(playerid, DIALOG_ARMAS2, DIALOG_STYLE_LIST, "Bau de Armas", Inv, "Selecionar", "X");
 				return 1;
 			}
-            else
-            {
-                ErrorMsg(playerid, "Nao possui permissao.");
-                return 1;
-            }
 		}
 		if(PlayerToPoint(3.0, playerid, -5467.627441, -4536.831054, 4046.774902))
 		{
@@ -13957,6 +13954,22 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else
 				{
+					for(new i = 0; i < 23; ++i)
+					{
+						PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);	
+					}
+					for(new i = 0; i < 7; i ++)
+					{
+						PlayerTextDrawShow(playerid, HudServer_p[playerid][i]);
+					}
+					for(new i = 0; i < 17; i ++)
+					{
+						TextDrawShowForPlayer(playerid, HudServer[i]);
+					}
+					for(new i = 0; i < 2; i ++)
+					{
+						TextDrawShowForPlayer(playerid, Logo[i]);
+					}
 					if(DOF2_FileExists(Account))
     	            {
 						format(PlayerInfo[playerid][pLastLogin], 24, DOF2_GetString(Account, "pLastLogin"));
@@ -14016,22 +14029,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						SpawnPlayer(playerid);
 						FirstLogin[playerid] = false;
 					}	
-					for(new i = 0; i < 23; ++i)
-					{
-						PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);	
-					}
-					for(new i = 0; i < 7; i ++)
-					{
-						PlayerTextDrawShow(playerid, HudServer_p[playerid][i]);
-					}
-					for(new i = 0; i < 17; i ++)
-					{
-						TextDrawShowForPlayer(playerid, HudServer[i]);
-					}
-					for(new i = 0; i < 2; i ++)
-					{
-						TextDrawShowForPlayer(playerid, Logo[i]);
-					}
 					TextDrawShowForPlayer(playerid, gServerTextdraws);
 					CancelSelectTextDraw(playerid);
 					Timers(playerid);
