@@ -216,6 +216,11 @@ enum
 	DIALOG_CONFIRMA_ESCOLA4,
 	D_VOIP,
 	DIALOG_CELULAR,
+	DIALOG_RG1,
+	DIALOG_RG2,
+	DIALOG_RG3,
+	DIALOG_RG4,
+	DIALOG_RG5,
 	DIALOG_EMP1, 
 	DIALOG_EMP2, 
 	DIALOG_EMP3,
@@ -329,7 +334,13 @@ enum pInfo
 	pAvaliacao,
 	pLevel,
 	pXP,
-	LicencaConduzir
+	LicencaConduzir,
+	pNome[80],
+	pNascimento[30],
+	pPai[80],
+	pMae[80],
+	pRG,
+	pCarteiraT
 }
 new PlayerInfo[MAX_PLAYERS][pInfo];
 new FomePlayer[MAX_PLAYERS], SedePlayer[MAX_PLAYERS];
@@ -470,6 +481,8 @@ new Float:VarPlayerOldPos[MAX_PLAYERS][3];
 new TimerMorto[MAX_PLAYERS];
 new Text:TDmorte[9];
 new PlayerText:TDmorte_p[MAX_PLAYERS][1];
+new Text:TD_RG[24];
+new PlayerText:RG_p[MAX_PLAYERS][6];
 
 new VagasORG[][MAX_VAGAS] = 
 {
@@ -603,6 +616,7 @@ new	bool:AparecendoNoAdmins[MAX_PLAYERS] = true;
 new bool:LavouMao[MAX_PLAYERS] = false;
 new bool:PegouLixo[MAX_PLAYERS] = false;
 new bool:Podecmd[MAX_PLAYERS] = true;
+new bool:MostrandoRG[MAX_PLAYERS] = false;
 //                          TEXTDRAWS
 
 new Text:gServerTextdraws;
@@ -1770,6 +1784,14 @@ Progresso:Pesca(playerid, progress)
 		TogglePlayerControllable(playerid, 1);
 		UsouCMD[playerid] = false;
 	}
+	return 1;
+}
+
+CallBack::criandorg(playerid){
+	SuccesMsg(playerid, "Acabou de receber seus documentos, verifique seu inventario.");	
+	GanharItem(playerid, 1581, 1);
+	PlayerInfo[playerid][pRG] = 1;
+	ShowPlayerDialog(playerid, DIALOG_RG5, DIALOG_STYLE_MSGBOX, "EMITIR RG", "{00FF00}PARABENS!\n{FFFFFF}Seu RG foi emitido com sucesso.\nUse /rg para ver seu rg.", "Ok", "");
 	return 1;
 }
 
@@ -9087,6 +9109,95 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, TDmorte_p[playerid][0], 0);
 	PlayerTextDrawSetProportional(playerid, TDmorte_p[playerid][0], 0);
 
+	//TD RG STRINGS
+	RG_p[playerid][0] = CreatePlayerTextDraw(playerid, 275.000000, 205.000000, "Guilherme Derrite da Silva");
+	PlayerTextDrawFont(playerid, RG_p[playerid][0], 1);
+	PlayerTextDrawLetterSize(playerid, RG_p[playerid][0], 0.191666, 1.150000);
+	PlayerTextDrawTextSize(playerid, RG_p[playerid][0], 400.000000, 320.500000);
+	PlayerTextDrawSetOutline(playerid, RG_p[playerid][0], 0);
+	PlayerTextDrawSetShadow(playerid, RG_p[playerid][0], 0);
+	PlayerTextDrawAlignment(playerid, RG_p[playerid][0], 1);
+	PlayerTextDrawColor(playerid, RG_p[playerid][0], 255);
+	PlayerTextDrawBackgroundColor(playerid, RG_p[playerid][0], 255);
+	PlayerTextDrawBoxColor(playerid, RG_p[playerid][0], 50);
+	PlayerTextDrawUseBox(playerid, RG_p[playerid][0], 0);
+	PlayerTextDrawSetProportional(playerid, RG_p[playerid][0], 1);
+	PlayerTextDrawSetSelectable(playerid, RG_p[playerid][0], 0);
+
+	RG_p[playerid][1] = CreatePlayerTextDraw(playerid, 233.000000, 218.000000, "Preview_Model");
+	PlayerTextDrawFont(playerid, RG_p[playerid][1], 5);
+	PlayerTextDrawLetterSize(playerid, RG_p[playerid][1], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RG_p[playerid][1], 51.500000, 66.000000);
+	PlayerTextDrawSetOutline(playerid, RG_p[playerid][1], 0);
+	PlayerTextDrawSetShadow(playerid, RG_p[playerid][1], 0);
+	PlayerTextDrawAlignment(playerid, RG_p[playerid][1], 1);
+	PlayerTextDrawColor(playerid, RG_p[playerid][1], -1);
+	PlayerTextDrawBackgroundColor(playerid, RG_p[playerid][1], -1);
+	PlayerTextDrawBoxColor(playerid, RG_p[playerid][1], 255);
+	PlayerTextDrawUseBox(playerid, RG_p[playerid][1], 0);
+	PlayerTextDrawSetProportional(playerid, RG_p[playerid][1], 1);
+	PlayerTextDrawSetSelectable(playerid, RG_p[playerid][1], 0);
+	PlayerTextDrawSetPreviewModel(playerid, RG_p[playerid][1], 0);
+	PlayerTextDrawSetPreviewRot(playerid, RG_p[playerid][1], -7.000000, 0.000000, -3.000000, 0.890000);
+	PlayerTextDrawSetPreviewVehCol(playerid, RG_p[playerid][1], 1, 1);
+
+	RG_p[playerid][2] = CreatePlayerTextDraw(playerid, 288.000000, 226.000000, "Charles Derrite da Silva");
+	PlayerTextDrawFont(playerid, RG_p[playerid][2], 1);
+	PlayerTextDrawLetterSize(playerid, RG_p[playerid][2], 0.162500, 0.850000);
+	PlayerTextDrawTextSize(playerid, RG_p[playerid][2], 400.000000, 320.500000);
+	PlayerTextDrawSetOutline(playerid, RG_p[playerid][2], 0);
+	PlayerTextDrawSetShadow(playerid, RG_p[playerid][2], 0);
+	PlayerTextDrawAlignment(playerid, RG_p[playerid][2], 1);
+	PlayerTextDrawColor(playerid, RG_p[playerid][2], 255);
+	PlayerTextDrawBackgroundColor(playerid, RG_p[playerid][2], 255);
+	PlayerTextDrawBoxColor(playerid, RG_p[playerid][2], 50);
+	PlayerTextDrawUseBox(playerid, RG_p[playerid][2], 0);
+	PlayerTextDrawSetProportional(playerid, RG_p[playerid][2], 1);
+	PlayerTextDrawSetSelectable(playerid, RG_p[playerid][2], 0);
+
+	RG_p[playerid][3] = CreatePlayerTextDraw(playerid, 288.000000, 232.000000, "Creuza Maria da Silva");
+	PlayerTextDrawFont(playerid, RG_p[playerid][3], 1);
+	PlayerTextDrawLetterSize(playerid, RG_p[playerid][3], 0.162500, 0.850000);
+	PlayerTextDrawTextSize(playerid, RG_p[playerid][3], 400.000000, 320.500000);
+	PlayerTextDrawSetOutline(playerid, RG_p[playerid][3], 0);
+	PlayerTextDrawSetShadow(playerid, RG_p[playerid][3], 0);
+	PlayerTextDrawAlignment(playerid, RG_p[playerid][3], 1);
+	PlayerTextDrawColor(playerid, RG_p[playerid][3], 255);
+	PlayerTextDrawBackgroundColor(playerid, RG_p[playerid][3], 255);
+	PlayerTextDrawBoxColor(playerid, RG_p[playerid][3], 50);
+	PlayerTextDrawUseBox(playerid, RG_p[playerid][3], 0);
+	PlayerTextDrawSetProportional(playerid, RG_p[playerid][3], 1);
+	PlayerTextDrawSetSelectable(playerid, RG_p[playerid][3], 0);
+
+	RG_p[playerid][4] = CreatePlayerTextDraw(playerid, 288.000000, 258.000000, "04/03/1996");
+	PlayerTextDrawFont(playerid, RG_p[playerid][4], 1);
+	PlayerTextDrawLetterSize(playerid, RG_p[playerid][4], 0.162500, 0.850000);
+	PlayerTextDrawTextSize(playerid, RG_p[playerid][4], 400.000000, 320.500000);
+	PlayerTextDrawSetOutline(playerid, RG_p[playerid][4], 0);
+	PlayerTextDrawSetShadow(playerid, RG_p[playerid][4], 0);
+	PlayerTextDrawAlignment(playerid, RG_p[playerid][4], 1);
+	PlayerTextDrawColor(playerid, RG_p[playerid][4], 255);
+	PlayerTextDrawBackgroundColor(playerid, RG_p[playerid][4], 255);
+	PlayerTextDrawBoxColor(playerid, RG_p[playerid][4], 50);
+	PlayerTextDrawUseBox(playerid, RG_p[playerid][4], 0);
+	PlayerTextDrawSetProportional(playerid, RG_p[playerid][4], 1);
+	PlayerTextDrawSetSelectable(playerid, RG_p[playerid][4], 0);
+
+	RG_p[playerid][5] = CreatePlayerTextDraw(playerid, 340.000000, 268.000000, "Guilherme Derrite da Silva");
+	PlayerTextDrawFont(playerid, RG_p[playerid][5], 0);
+	PlayerTextDrawLetterSize(playerid, RG_p[playerid][5], 0.195833, 1.000000);
+	PlayerTextDrawTextSize(playerid, RG_p[playerid][5], 481.500000, -248.000000);
+	PlayerTextDrawSetOutline(playerid, RG_p[playerid][5], 0);
+	PlayerTextDrawSetShadow(playerid, RG_p[playerid][5], 0);
+	PlayerTextDrawAlignment(playerid, RG_p[playerid][5], 1);
+	PlayerTextDrawColor(playerid, RG_p[playerid][5], 255);
+	PlayerTextDrawBackgroundColor(playerid, RG_p[playerid][5], 255);
+	PlayerTextDrawBoxColor(playerid, RG_p[playerid][5], 50);
+	PlayerTextDrawUseBox(playerid, RG_p[playerid][5], 0);
+	PlayerTextDrawSetProportional(playerid, RG_p[playerid][5], 1);
+	PlayerTextDrawSetSelectable(playerid, RG_p[playerid][5], 0);
+
+
 	// Fader (Ultimo sempre)
 	new tmp[E_PLAYER_FADE_INFO];
 	gPlayerFadeInfo[playerid] = tmp;
@@ -10432,6 +10543,7 @@ stock ZerarDados(playerid)
 	Assistindo[playerid] = -1;
 	Erro[playerid] = 0;
 	Cargase[playerid] = false;
+	MostrandoRG[playerid] = false;
 	Carregou[playerid] = 0;
 	ocupadodemais[playerid] = 0;
 	RepairCar[playerid] = 0;
@@ -10519,6 +10631,12 @@ stock SalvarDados(playerid)
 		DOF2_SetInt(File, "pLevel", GetPlayerScore(playerid));
 		DOF2_SetInt(File, "pXP", PlayerInfo[playerid][pXP]);
 		DOF2_SetInt(File, "LicencaConduzir", PlayerInfo[playerid][LicencaConduzir]);
+		DOF2_SetString(File, "pNome", PlayerInfo[playerid][pNome]);
+		DOF2_SetString(File, "pNascimento", PlayerInfo[playerid][pNascimento]);
+		DOF2_SetString(File, "pPai", PlayerInfo[playerid][pPai]);
+		DOF2_SetString(File, "pMae", PlayerInfo[playerid][pMae]);
+		DOF2_SetInt(File, "pRG", PlayerInfo[playerid][pRG]);
+		DOF2_SetInt(File, "pCarteiraT", PlayerInfo[playerid][pCarteiraT]);
 		DOF2_SaveFile();
 	}
 	return 1;
@@ -10575,6 +10693,12 @@ stock SalvarDadosSkin(playerid)
 		DOF2_SetInt(File, "pLevel", GetPlayerScore(playerid));
 		DOF2_SetInt(File, "pXP", PlayerInfo[playerid][pXP]);
 		DOF2_SetInt(File, "LicencaConduzir", PlayerInfo[playerid][LicencaConduzir]);
+		DOF2_SetString(File, "pNome", PlayerInfo[playerid][pNome]);
+		DOF2_SetString(File, "pNascimento", PlayerInfo[playerid][pNascimento]);
+		DOF2_SetString(File, "pPai", PlayerInfo[playerid][pPai]);
+		DOF2_SetString(File, "pMae", PlayerInfo[playerid][pMae]);
+		DOF2_SetInt(File, "pRG", PlayerInfo[playerid][pRG]);
+		DOF2_SetInt(File, "pCarteiraT", PlayerInfo[playerid][pCarteiraT]);
 		DOF2_SaveFile();
 	}
 	return 1;
@@ -10794,9 +10918,9 @@ stock GetVehiclePassenger(vehicleid)
 
 stock Name(playerid)
 {
-	new pNome[MAX_PLAYER_NAME];
-	GetPlayerName(playerid, pNome, 24);
-	return pNome;
+	new pNameVar[MAX_PLAYER_NAME];
+	GetPlayerName(playerid, pNameVar, 24);
+	return pNameVar;
 }
 stock VelocidadeDoVeiculo(vehicleid)
 {
@@ -11154,7 +11278,7 @@ public OnPlayerDisconnect(playerid, reason)
 
 		new string[255];
 		new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
-		format(string,sizeof(string),"O jogador %04d(%d) saiu no servidor!\n\nJogadores **%d**/500\nHorario: %02d:%02d", PlayerInfo[playerid][IDF],playerid, jogadoreson, hora, minuto);
+		format(string,sizeof(string),"O jogador %04d(%d) saiu do servidor!\n\nJogadores **%d**/500\nHorario: %02d:%02d", PlayerInfo[playerid][IDF],playerid, jogadoreson, hora, minuto);
 		DCC_SetEmbedColor(embed, 0xFFFF00);
 		DCC_SetEmbedDescription(embed, string);
 		DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.BAIXADARP.COM.BR7777_20230919_225304_0000.png");
@@ -13861,6 +13985,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SetInt(Account, "pLevel", 0);
 					DOF2_SetInt(Account, "pXP", 0);
 					DOF2_SetInt(Account, "LicencaConduzir", 0);
+					DOF2_SetString(Account,"pNome","");
+					DOF2_SetString(Account,"pNascimento","");
+					DOF2_SetString(Account,"pPai","");
+					DOF2_SetString(Account,"pMae","");
+					DOF2_SetInt(Account, "pRG", 0);
+					DOF2_SetInt(Account, "pCarteiraT", 0);
+
 					PlayerInfo[playerid][Casa] = -1;
 					DOF2_SaveFile();
 				}
@@ -14009,6 +14140,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						SetPlayerScore(playerid, DOF2_GetInt(Account, "pLevel"));
 						PlayerInfo[playerid][pXP] = DOF2_GetInt(Account, "pXP");
 						PlayerInfo[playerid][LicencaConduzir] = DOF2_GetInt(Account, "LicencaConduzir");
+						format(PlayerInfo[playerid][pNome],80,DOF2_GetString(Account,"pNome"));
+						format(PlayerInfo[playerid][pNascimento],30,DOF2_GetString(Account,"pNascimento"));
+						format(PlayerInfo[playerid][pPai],80,DOF2_GetString(Account,"pPai"));
+						format(PlayerInfo[playerid][pMae],80,DOF2_GetString(Account,"pMae"));
+						PlayerInfo[playerid][pRG] = DOF2_GetInt(Account, "pRG");
+						PlayerInfo[playerid][pCarteiraT] = DOF2_GetInt(Account, "pCarteiraT");
 						DOF2_SaveFile();
 						//
 					}
@@ -14256,6 +14393,42 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SetPlayerCheckpoint(playerid, 1974.8153, -1779.7526, 13.5432, 3.0);
 					SuccesMsg(playerid, "Foi marcado no seu mapa.");
 				}
+			}
+		}
+		case DIALOG_RG1:{
+			if(response){
+				format(PlayerInfo[playerid][pNome],80,inputtext);
+				SuccesMsg(playerid,"Voce deu seu nome para a criacao do RG");
+				ShowPlayerDialog(playerid, DIALOG_RG2, DIALOG_STYLE_INPUT, "EMITIR RG", "Diga sua data de nascimento:\nEx: 06/02/1998", "Confirmar", "Voltar");
+			}
+		}
+		case DIALOG_RG2:{
+			if(response){
+				format(PlayerInfo[playerid][pNascimento],30,inputtext);
+				SuccesMsg(playerid,"Voce deu sua data de nascimento para a criacao do RG");
+				ShowPlayerDialog(playerid, DIALOG_RG3, DIALOG_STYLE_INPUT, "EMITIR RG", "Diga o nome do seu pai:\nEx: Jose Ribeiro da Silva", "Confirmar", "Voltar");
+			}else{
+				ShowPlayerDialog(playerid, DIALOG_RG1, DIALOG_STYLE_INPUT, "EMITIR RG", "Diga seu nome:\nEx: Marcos Junior dos Santos", "Confirmar", "X");
+			}
+		}
+		case DIALOG_RG3:{
+			if(response){
+				format(PlayerInfo[playerid][pPai],80,inputtext);
+				SuccesMsg(playerid,"Voce deu o nome do seu pai para a criacao do RG");
+				ShowPlayerDialog(playerid, DIALOG_RG4, DIALOG_STYLE_INPUT, "EMITIR RG", "Diga o nome da sua mae:\nEx: Maria Jose de Barros", "Confirmar", "Voltar");
+			}else{
+				ShowPlayerDialog(playerid, DIALOG_RG2, DIALOG_STYLE_INPUT, "EMITIR RG", "Diga sua data de nascimento:\nEx: 06/02/1998", "Confirmar", "Voltar");
+			}
+		}
+		case DIALOG_RG4:{
+			if(response){
+				format(PlayerInfo[playerid][pMae],80,inputtext);
+				SuccesMsg(playerid,"Voce deu o nome da sua mae para a criacao do RG");
+				SuccesMsg(playerid, "Seu RG esta sendo emitido aguarde...");
+				SetTimerEx("criandorg", 7000, false, "i", playerid);
+				
+			}else{
+				ShowPlayerDialog(playerid, DIALOG_RG3, DIALOG_STYLE_INPUT, "EMITIR RG", "Diga o nome do seu pai:\nEx: Jose Ribeiro da Silva", "Confirmar", "Voltar");
 			}
 		}
 		case DIALOG_CATLANCHE:
@@ -16880,23 +17053,20 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 	}
 	if(playertextid == TDPref[playerid][4])
 	{
-		if(CheckInventario2(playerid, 1581)) return ErrorMsg(playerid, "Ja possui documentos");
-		TogglePlayerControllable(playerid, 0);
-		SetTimerEx("CriandoCpf", 7000, false, "i", playerid);	
-		SuccesMsg(playerid, "Acabou de receber seus documentos, verifique seu inventario.");	
-		GanharItem(playerid, 1581, 1);
-		for(new i; i < 7; i++)
-		{
-			PlayerTextDrawHide(playerid, TDPref[playerid][i]);
-		}
-		CancelSelectTextDraw(playerid);
+		if(CheckInventario2(playerid, 1581)) return ErrorMsg(playerid, "Ja possui RG");
+			for(new i; i < 7; i++)
+			{
+				PlayerTextDrawHide(playerid, TDPref[playerid][i]);
+			}
+		ShowPlayerDialog(playerid, DIALOG_RG1, DIALOG_STYLE_INPUT, "EMITIR RG", "Diga seu nome completo:\nEx: Joao Paulo Viera da Silva", "Confirmar", "X");
+		//CancelSelectTextDraw(playerid);
 	}
 	if(playertextid == TDPref[playerid][5])
 	{
 		if(CheckInventario2(playerid, 19792)) return ErrorMsg(playerid, "Ja possui carteira de trabalho");
-		if(GetPlayerMoney(playerid) < 8000) 	return ErrorMsg(playerid, "Dinheiro insuficiente, nao possui 8mil.");
-		PlayerInfo[playerid][pDinheiro] -= 8000;
-		SuccesMsg(playerid, "Comprou carteira de trabalho agora podera trabalhar em empregos que necessita disso e receber salario a cada PayDay.");
+		//if(GetPlayerMoney(playerid) < 8000) 	return ErrorMsg(playerid, "Dinheiro insuficiente, nao possui 8mil.");
+		//PlayerInfo[playerid][pDinheiro] -= 8000;
+		SuccesMsg(playerid, "Fez a carteira de trabalho agora podera trabalhar em empregos que necessita disso e receber salario a cada PayDay.");
 		GanharItem(playerid, 19792, 1);
 		MissaoPlayer[playerid][MISSAO4] = 1;
 		for(new i; i < 7; i++)
@@ -17603,6 +17773,16 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 			PlayerTextDrawHide(playerid, TDEditor_PTD[playerid][i]);
 		}
 	}
+	if(clickedid == TD_RG[23]){
+		for(new r=0;r<24;r++){
+			TextDrawHideForPlayer(playerid, TD_RG[r]);
+		}
+		for(new r=0;r<6;r++){
+			PlayerTextDrawHide(playerid, RG_p[playerid][r]);
+		}
+		MostrandoRG[playerid] = false;
+		CancelSelectTextDraw(playerid);
+	}
 	if(clickedid == TDmorte[1]){
 		VaiProHospital(playerid);
         PlayerMorto[playerid][pEstaMorto] = 0;
@@ -17780,6 +17960,35 @@ CMD:ajuda(playerid, params[])
 	strcat(MEGAString, "{FFFF00}Ajuda {FFFFFF}Casa\n");
 	ShowPlayerDialog(playerid, DIALOG_AJUDA, DIALOG_STYLE_LIST, "Central de Ajuda", MEGAString, "Confirmar", "X");
 	MissaoPlayer[playerid][MISSAO11] = 1;
+	return 1;
+}
+CMD:rg(playerid){
+	if(PlayerInfo[playerid][pRG] == 1){
+		if(MostrandoRG[playerid] == false){
+			new str[128];
+			PlayerTextDrawSetPreviewModel(playerid, RG_p[playerid][1], PlayerInfo[playerid][pSkin]);
+			format(str,sizeof(str),"%s",PlayerInfo[playerid][pNome]);
+			PlayerTextDrawSetString(playerid,RG_p[playerid][0],str);
+			format(str,sizeof(str),"%s",PlayerInfo[playerid][pPai]);
+			PlayerTextDrawSetString(playerid,RG_p[playerid][2],str);
+			format(str,sizeof(str),"%s",PlayerInfo[playerid][pMae]);
+			PlayerTextDrawSetString(playerid,RG_p[playerid][3],str);
+			format(str,sizeof(str),"%s",PlayerInfo[playerid][pNascimento]);
+			PlayerTextDrawSetString(playerid,RG_p[playerid][4],str);
+			format(str,sizeof(str),"%s",PlayerInfo[playerid][pNome]);
+			PlayerTextDrawSetString(playerid,RG_p[playerid][5],str);
+			for(new t=0;t<24;t++){
+				TextDrawShowForPlayer(playerid, TD_RG[t]);
+			}
+			for(new t=0;t<6;t++){
+				PlayerTextDrawShow(playerid, RG_p[playerid][t]);
+			}
+			MostrandoRG[playerid] = true;
+			SelectTextDraw(playerid, 0xFF0000FF);
+		}
+	}else{
+		ErrorMsg(playerid, "Voce nao possui um RG");
+	}
 	return 1;
 }
 CMD:mvoip(playerid){
