@@ -483,6 +483,8 @@ new Text:TDmorte[9];
 new PlayerText:TDmorte_p[MAX_PLAYERS][1];
 new Text:TD_RG[24];
 new PlayerText:RG_p[MAX_PLAYERS][6];
+new Text:Velomob[5];
+new PlayerText:Velomob_p[MAX_PLAYERS][2];
 
 new VagasORG[][MAX_VAGAS] = 
 {
@@ -2644,6 +2646,7 @@ CallBack::VelocimetroEx(playerid)
 {
 	if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 	{
+		//if(IsPlayerMobile(playerid))
 		new engine, lights, alarm, doors, bonnet, boot, objective;
 		GetVehicleParamsEx(GetPlayerVehicleID(playerid), engine, lights, alarm, doors, bonnet, boot, objective);
 
@@ -4399,7 +4402,7 @@ CallBack::SalvarInventario(playerid)
 	return 1;
 }
 
-SendClientMessageInRange(Float:_r, playerid, const _s[],c1,c2,c3,c4,c5)
+stock SendClientMessageInRange(Float:_r, playerid, const _s[],c1,c2,c3,c4,c5)
 {
 	new Float:_x, Float:_y, Float:_z;
 	GetPlayerPos(playerid, _x, _y, _z);
@@ -7364,6 +7367,36 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][9], 255);
 	PlayerTextDrawFont(playerid, VeloC[playerid][9], 2);
 	PlayerTextDrawSetProportional(playerid, VeloC[playerid][9], 1);
+
+		//STRINGS VELOMOB
+	Velomob_p[playerid][0] = CreatePlayerTextDraw(playerid, 320.000000, 399.000000, "000");
+	PlayerTextDrawFont(playerid, Velomob_p[playerid][0], 2);
+	PlayerTextDrawLetterSize(playerid, Velomob_p[playerid][0], 0.174999, 1.449998);
+	PlayerTextDrawTextSize(playerid, Velomob_p[playerid][0], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, Velomob_p[playerid][0], 0);
+	PlayerTextDrawSetShadow(playerid, Velomob_p[playerid][0], 0);
+	PlayerTextDrawAlignment(playerid, Velomob_p[playerid][0], 2);
+	PlayerTextDrawColor(playerid, Velomob_p[playerid][0], -1);
+	PlayerTextDrawBackgroundColor(playerid, Velomob_p[playerid][0], 255);
+	PlayerTextDrawBoxColor(playerid, Velomob_p[playerid][0], 50);
+	PlayerTextDrawUseBox(playerid, Velomob_p[playerid][0], 0);
+	PlayerTextDrawSetProportional(playerid, Velomob_p[playerid][0], 1);
+	PlayerTextDrawSetSelectable(playerid, Velomob_p[playerid][0], 0);
+
+	Velomob_p[playerid][1] = CreatePlayerTextDraw(playerid, 320.000000, 389.000000, "N");
+	PlayerTextDrawFont(playerid, Velomob_p[playerid][1], 2);
+	PlayerTextDrawLetterSize(playerid, Velomob_p[playerid][1], 0.224998, 1.100000);
+	PlayerTextDrawTextSize(playerid, Velomob_p[playerid][1], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, Velomob_p[playerid][1], 0);
+	PlayerTextDrawSetShadow(playerid, Velomob_p[playerid][1], 0);
+	PlayerTextDrawAlignment(playerid, Velomob_p[playerid][1], 2);
+	PlayerTextDrawColor(playerid, Velomob_p[playerid][1], -1);
+	PlayerTextDrawBackgroundColor(playerid, Velomob_p[playerid][1], 255);
+	PlayerTextDrawBoxColor(playerid, Velomob_p[playerid][1], 50);
+	PlayerTextDrawUseBox(playerid, Velomob_p[playerid][1], 0);
+	PlayerTextDrawSetProportional(playerid, Velomob_p[playerid][1], 1);
+	PlayerTextDrawSetSelectable(playerid, Velomob_p[playerid][1], 0);
+
 
 		//STRINGS TD CADASTRO
 	TDCadastro_p[playerid][0] = CreatePlayerTextDraw(playerid, 94.000000, 197.000000, "Preview_Model");
@@ -10387,6 +10420,11 @@ stock ZerarDados(playerid)
 	PlayerInfo[playerid][pIdade] = 0;
 	PlayerInfo[playerid][pSegundosJogados] = 0;
 	PlayerInfo[playerid][pAvisos] = 0;
+	PlayerInfo[playerid][pRG] = 0;
+	PlayerInfo[playerid][pNome] = 0;
+	PlayerInfo[playerid][pNascimento] = 0;
+	PlayerInfo[playerid][pPai] = 0;
+	PlayerInfo[playerid][pMae] = 0;
 	PlayerInfo[playerid][pCadeia] = 0;
 	PlayerInfo[playerid][pAdmin] = 0;
 	PlayerInfo[playerid][pInterior] = 0;
@@ -17917,6 +17955,65 @@ CMD:rg(playerid)
 			}
 			MostrandoRG[playerid] = true;
 			SelectTextDraw(playerid, 0xFF0000FF);
+		}else{
+			ErrorMsg(playerid,"Voce ja esta vendo um RG");
+		}
+	}
+	else
+	{
+		ErrorMsg(playerid, "Voce nao possui um RG");
+	}
+	return 1;
+}
+CMD:mostrarrg(playerid,params[])
+{
+	new id,str[128];
+	if(sscanf(params,"d",id)) return ErrorMsg(playerid, "Voce precisa colocar o id do jogador");
+	if(PlayerInfo[playerid][pRG] == 1)
+	{
+		if(MostrandoRG[playerid] == false)
+		{
+			foreach(Player,i){
+				if(PlayerInfo[i][IDF] == id){
+					static Float:XYZ[3];
+					GetPlayerPos(i,XYZ[0],XYZ[1],XYZ[2]);
+					if(IsPlayerInRangeOfPoint(playerid, 3.0, XYZ[0],XYZ[1],XYZ[2])) return ErrorMsg(playerid, "Voce nao esta proximo do Jogador");
+					if(PlayerInfo[i][IDF] == playerid) return ErrorMsg(playerid,"Voce nao pode mostrar o RG a si mesmo, use /rg");
+					if(MostrandoRG[i] == false){
+						PlayerTextDrawSetPreviewModel(playerid, RG_p[playerid][1], PlayerInfo[playerid][pSkin]);
+						format(str,sizeof(str),"%s",PlayerInfo[playerid][pNome]);
+						PlayerTextDrawSetString(playerid,RG_p[playerid][0],str);
+						format(str,sizeof(str),"%s",PlayerInfo[playerid][pPai]);
+						PlayerTextDrawSetString(playerid,RG_p[playerid][2],str);
+						format(str,sizeof(str),"%s",PlayerInfo[playerid][pMae]);
+						PlayerTextDrawSetString(playerid,RG_p[playerid][3],str);
+						format(str,sizeof(str),"%s",PlayerInfo[playerid][pNascimento]);
+						PlayerTextDrawSetString(playerid,RG_p[playerid][4],str);
+						format(str,sizeof(str),"%s",PlayerInfo[playerid][pNome]);
+						PlayerTextDrawSetString(playerid,RG_p[playerid][5],str);
+						for(new t=0;t<24;t++)
+						{
+							TextDrawShowForPlayer(i, TD_RG[t]);
+						}	
+						for(new t=0;t<6;t++)
+						{
+							PlayerTextDrawShow(i, RG_p[playerid][t]);
+						}
+						MostrandoRG[i] = true;
+						SelectTextDraw(i, 0xFF0000FF);
+						format(str,sizeof(str),"Voce mostrou seu rg para %s",PlayerName(i));
+						SuccesMsg(playerid,str);
+						format(str,sizeof(str),"%s mostrou seu rg para voce",PlayerName(playerid));
+						SuccesMsg(i,str);
+					}else{
+						ErrorMsg(playerid,"O jogador ja esta vendo um RG");
+					}
+				}else{
+					ErrorMsg(playerid,"Jogador nao conectado");
+				}
+			}
+		}else{
+			ErrorMsg(playerid, "Voce nao pode mostrar seu RG enquanto o ve");	
 		}
 	}
 	else

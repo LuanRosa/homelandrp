@@ -8240,104 +8240,995 @@ stock CarregarMapas()
 	CreateDynamicObject(1364,-107.2836200,1367.1497800,9.6989900,0.0000000,0.0000000,95.6999700); //
 	CreateDynamicObject(8131,-94.4347700,1372.0721400,19.8270200,0.0000000,0.0000000,8.6400000); //
 
-        new pmrodoviariaext;
-	pmrodoviariaext = CreateDynamicObject(18284, -265.700012, -2184.500000, 30.399999, 0.000000, 0.000000, 21.993999);
-	SetDynamicObjectMaterial(pmrodoviariaext, 0, 18646, "matcolours", "grey-30-percent", 0x00000000);
-	SetDynamicObjectMaterial(pmrodoviariaext, 1, 18646, "matcolours", "grey-30-percent", 0x00000000);
-	SetDynamicObjectMaterial(pmrodoviariaext, 2, 18646, "matcolours", "grey-30-percent", 0x00000000);
-	SetDynamicObjectMaterial(pmrodoviariaext, 3, 18646, "matcolours", "grey-30-percent", 0x00000000);
-	SetDynamicObjectMaterial(pmrodoviariaext, 4, 18646, "matcolours", "grey-30-percent", 0x00000000);
-	SetDynamicObjectMaterial(pmrodoviariaext, 5, 18646, "matcolours", "grey-30-percent", 0x00000000);
-	pmrodoviariaext = CreateDynamicObject(19479, -269.660949, -2186.042480, 32.866836, 0.000000, 0.000000, -157.999984);
-	SetDynamicObjectMaterialText(pmrodoviariaext, 0, "POLÍCIA MILITAR RODOVIÁRIA", 130, "Arial Black", 25, 1, 0xFF000000, 0x00000000, 1);
-	pmrodoviariaext = CreateDynamicObject(6148,-257.2998000,-2181.0996000,25.3000000,0.0000000,0.0000000,21.9950000); //object(gaz19_law) (1)
-	pmrodoviariaext = CreateDynamicObject(8168,-310.2002000,-2183.3994000,31.5000000,0.0000000,0.0000000,125.9960000); //object(vgs_guardhouse01) (1)
-	pmrodoviariaext = CreateDynamicObject(18284,-298.1000100,-2217.3000000,31.1000000,0.0000000,0.0000000,205.9950000); //object(cw_tscanopy) (2)
-	pmrodoviariaext = CreateDynamicObject(1483,-302.0000000,-2180.2000000,26.7000000,0.0000000,20.0000000,22.0000000); //object(dyn_garrage2) (1)
-	pmrodoviariaext = CreateDynamicObject(994,-304.2000100,-2177.7000000,27.8000000,0.0000000,0.0000000,292.0000000); //object(lhouse_barrier2) (1)
- 	pmrodoviariaext = CreateDynamicObject(1228,-281.3999900,-2262.7000000,29.5000000,0.0000000,0.0000000,290.0000000); //object(roadworkbarrier1) (1)
-	pmrodoviariaext = CreateDynamicObject(1251,-273.7999900,-2213.3000000,27.5000000,0.0000000,0.0000000,28.0000000); //object(smashbar) (1)
-	pmrodoviariaext = CreateDynamicObject(1251,-279.5000000,-2202.3999000,27.5000000,0.0000000,0.0000000,25.9990000); //object(smashbar) (3)
-	pmrodoviariaext = CreateDynamicObject(1251,-285.1000100,-2190.7000000,27.5000000,0.0000000,0.0000000,23.9940000); //object(smashbar) (5)
-	pmrodoviariaext = CreateDynamicObject(1251,-289.5000000,-2180.1001000,27.5000000,0.0000000,0.0000000,21.9840000); //object(smashbar) (7)
-	pmrodoviariaext = CreateDynamicObject(1251,-294.0000000,-2168.0000000,27.5000000,0.0000000,0.0000000,19.9780000); //object(smashbar) (9)
-	pmrodoviariaext = CreateDynamicObject(1251,-298.5000000,-2155.7000000,27.5000000,0.0000000,0.0000000,19.9730000); //object(smashbar) (12)
-	pmrodoviariaext = CreateDynamicObject(1251,-267.3999900,-2225.0000000,27.5000000,0.0000000,0.0000000,29.9990000); //object(smashbar) (13)
-	pmrodoviariaext = CreateDynamicObject(1251,-273.7999900,-2213.3000000,27.5000000,0.0000000,0.0000000,27.9990000); //object(smashbar) (15)
-	pmrodoviariaext = CreateDynamicObject(7933,-258.0000000,-2224.3999000,28.0000000,0.0000000,0.0000000,294.0000000); //object(vegascrashbar06) (1)
-	pmrodoviariaext = CreateDynamicObject(3091,-297.6000100,-2249.3000000,27.3000000,1.9990000,2.0010000,115.9300000); //object(imy_track_barrier) (1)
-	pmrodoviariaext = CreateDynamicObject(984,-290.2000100,-2207.3999000,27.9000000,0.0000000,0.0000000,26.0000000); //object(fenceshit2) (1)
-	pmrodoviariaext = CreateDynamicObject(984,-284.3999900,-2218.8000000,27.9000000,0.0000000,0.0000000,27.9990000); //object(fenceshit2) (2)
-	pmrodoviariaext = CreateDynamicObject(1434,-262.7000100,-2233.3000000,27.3000000,0.0000000,0.0000000,301.9870000); //object(dyn_roadbarrier_5a) (6)
-	pmrodoviariaext = CreateDynamicObject(18284,-265.7000100,-2184.5000000,30.4000000,0.0000000,0.0000000,21.9940000); //object(cw_tscanopy) (5)
-	pmrodoviariaext = CreateDynamicObject(18284,-272.8999900,-2151.8000000,29.9000000,0.0000000,0.0000000,291.9890000); //object(cw_tscanopy) (6)
-	pmrodoviariaext = CreateDynamicObject(3037,-265.0000000,-2184.3000000,26.6000000,270.0000000,180.0000000,22.0000000); //object(warehouse_door2b) (1)
-	pmrodoviariaext = CreateDynamicObject(16101,-255.7000000,-2203.3000000,31.9000000,0.0000000,0.0000000,0.0000000); //object(des_windsockpole) (1)
-	pmrodoviariaext = CreateDynamicObject(3666,-303.5000000,-2252.3000000,28.8000000,0.0000000,0.0000000,0.0000000); //object(airuntest_las) (1)
-	pmrodoviariaext = CreateDynamicObject(970,-268.2000100,-2185.5000000,28.3000000,0.0000000,0.0000000,292.0000000); //object(fencesmallb) (1)
-	pmrodoviariaext = CreateDynamicObject(978,-266.2000100,-2179.8000000,33.7000000,0.0000000,0.0000000,111.9950000); //object(sub_roadright) (3)
-	pmrodoviariaext = CreateDynamicObject(978,-262.7999900,-2188.2000000,33.7000000,0.0000000,0.0000000,111.9950000); //object(sub_roadright) (4)
-	pmrodoviariaext = CreateDynamicObject(1237,-318.8999900,-2230.2000000,27.9000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (9)
-	pmrodoviariaext = CreateDynamicObject(7933,-252.6000100,-2236.8000000,28.0000000,0.0000000,0.0000000,294.0000000); //object(vegascrashbar06) (2)
-	pmrodoviariaext = CreateDynamicObject(17065,-246.1000100,-2220.3999000,31.3000000,0.0000000,0.0000000,202.0000000); //object(cw2_garagecanopy) (2)
-	pmrodoviariaext = CreateDynamicObject(17065,-241.2000000,-2232.7000000,31.3000000,0.0000000,0.0000000,201.9950000); //object(cw2_garagecanopy) (3)
-	pmrodoviariaext = CreateDynamicObject(3578,-276.7999900,-2167.8999000,33.0000000,90.0000000,0.2580000,291.7420000); //object(dockbarr1_la) (1)
-	pmrodoviariaext = CreateDynamicObject(3578,-261.6000100,-2205.3000000,33.0000000,90.0000000,0.2530000,291.7420000); //object(dockbarr1_la) (2)
-	pmrodoviariaext = CreateDynamicObject(4100,-238.1000100,-2227.3000000,29.7000000,0.0000000,0.0000000,72.0000000); //object(meshfence1_lan) (1)
-	pmrodoviariaext = CreateDynamicObject(4100,-241.1000100,-2219.8999000,29.7000000,0.0000000,0.0000000,71.9990000); //object(meshfence1_lan) (3)
-	pmrodoviariaext = CreateDynamicObject(4100,-266.2000100,-2144.6001000,29.2000000,0.0000000,0.0000000,71.9930000); //object(meshfence1_lan) (5)
-	pmrodoviariaext = CreateDynamicObject(4100,-274.7999900,-2140.8999000,29.2000000,0.0000000,0.0000000,341.9930000); //object(meshfence1_lan) (7)
-	pmrodoviariaext = CreateDynamicObject(4100,-288.0000000,-2146.2000000,29.2000000,0.0000000,0.0000000,161.9880000); //object(meshfence1_lan) (8)
-	pmrodoviariaext = CreateDynamicObject(997,-303.2000100,-2210.5000000,28.9000000,0.0000000,0.0000000,24.0000000); //object(lhouse_barrier3) (1)
-	pmrodoviariaext = CreateDynamicObject(997,-304.2000100,-2250.7000000,28.5000000,0.0000000,0.0000000,113.9990000); //object(lhouse_barrier3) (2)
-	pmrodoviariaext = CreateDynamicObject(3398,-266.2999900,-2207.6001000,26.4000000,0.0000000,0.0000000,291.9940000); //object(cxrf_floodlite_) (5)
-	pmrodoviariaext = CreateDynamicObject(3398,-282.3999900,-2170.3999000,26.1000000,0.0000000,0.0000000,291.9940000); //object(cxrf_floodlite_) (6)
-	pmrodoviariaext = CreateDynamicObject(3398,-299.5000000,-2208.8000000,24.0000000,0.0000000,0.0000000,115.9890000); //object(cxrf_floodlite_) (7)
-	pmrodoviariaext = CreateDynamicObject(3398,-292.2000100,-2223.6001000,24.0000000,0.0000000,0.0000000,115.9840000); //object(cxrf_floodlite_) (9)
-	pmrodoviariaext = CreateDynamicObject(984,-295.6000100,-2195.8000000,27.9000000,0.0000000,0.0000000,23.9990000); //object(fenceshit2) (5)
-	pmrodoviariaext = CreateDynamicObject(984,-278.2000100,-2230.0000000,27.9000000,0.0000000,0.0000000,29.9940000); //object(fenceshit2) (6)
-	pmrodoviariaext = CreateDynamicObject(1238,-261.4003900,-2246.2998000,27.6000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (3)
-	pmrodoviariaext = CreateDynamicObject(1238,-281.3999900,-2211.0000000,27.7000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (4)
-	pmrodoviariaext = CreateDynamicObject(1238,-271.7000100,-2228.8000000,27.7000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (5)
-	pmrodoviariaext = CreateDynamicObject(1238,-321.5000000,-2104.5000000,27.1000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (8)
-	pmrodoviariaext = CreateDynamicObject(1238,-291.7000100,-2189.3000000,27.7000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (9)
-	pmrodoviariaext = CreateDynamicObject(1238,-310.7002000,-2139.0996000,27.5000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (11)
-	pmrodoviariaext = CreateDynamicObject(1238,-300.3999900,-2167.0000000,27.7000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (13)
-	pmrodoviariaext = CreateDynamicObject(8168,-293.6000100,-2246.7000000,30.5000000,0.0000000,0.0000000,311.9960000); //object(vgs_guardhouse01) (2)
-	pmrodoviariaext = CreateDynamicObject(1238,-306.0000000,-2232.2000000,28.4000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (14)
-	pmrodoviariaext = CreateDynamicObject(1238,-313.7999900,-2237.2000000,28.4000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (15)
-	pmrodoviariaext = CreateDynamicObject(1238,-311.0000000,-2238.8994000,28.5000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (16)
-	pmrodoviariaext = CreateDynamicObject(1238,-316.7000100,-2235.5000000,28.4000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (17)
-	pmrodoviariaext = CreateDynamicObject(1237,-331.7000100,-2196.6001000,27.4000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (12)
-	pmrodoviariaext = CreateDynamicObject(1237,-325.4003900,-2213.3994000,27.6000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (13)
-	pmrodoviariaext = CreateDynamicObject(1237,-314.3999900,-2241.2000000,28.2000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (15)
-	pmrodoviariaext = CreateDynamicObject(1237,-307.0000000,-2244.1001000,28.3000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (16)
-	pmrodoviariaext = CreateDynamicObject(1237,-310.5000000,-2242.7002000,28.3000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (17)
-	pmrodoviariaext = CreateDynamicObject(1237,-334.8999900,-2146.1001000,27.4000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (21)
-	pmrodoviariaext = CreateDynamicObject(1237,-332.6000100,-2174.0000000,27.4000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (23)
-	pmrodoviariaext = CreateDynamicObject(1237,-331.0000000,-2161.2998000,27.4000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (24)
-	pmrodoviariaext = CreateDynamicObject(1237,-331.8999900,-2167.7000000,27.4000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (25)
-	pmrodoviariaext = CreateDynamicObject(1237,-338.3999900,-2132.0000000,27.4000000,0.0000000,0.0000000,0.0000000); //object(strtbarrier01) (26)
-	pmrodoviariaext = CreateDynamicObject(997,-295.7998000,-2225.2998000,28.4000000,0.0000000,0.0000000,25.9990000); //object(lhouse_barrier3) (3)
- 	pmrodoviariaext = CreateDynamicObject(1228,-307.7002000,-2190.2998000,30.2000000,0.0000000,0.0000000,289.9950000); //object(roadworkbarrier1) (2)
-	pmrodoviariaext = CreateDynamicObject(1483,-297.3999900,-2248.8000000,27.7000000,1.9560000,12.0020000,205.5790000); //object(dyn_garrage2) (3)
-	pmrodoviariaext = CreateDynamicObject(3666,-296.2998000,-2177.8994000,27.6000000,0.0000000,0.0000000,0.0000000); //object(airuntest_las) (2)
-	pmrodoviariaext = CreateDynamicObject(3091,-300.4003900,-2179.8994000,26.0000000,0.0000000,0.0000000,109.9950000); //object(imy_track_barrier) (2)
-	pmrodoviariaext = CreateDynamicObject(3398,-294.5000000,-2257.3999000,26.1000000,0.0000000,0.0000000,297.9890000); //object(cxrf_floodlite_) (10)
-	pmrodoviariaext = CreateDynamicObject(3398,-302.5000000,-2239.3000000,26.1000000,0.0000000,0.0000000,297.9880000); //object(cxrf_floodlite_) (11)
-	pmrodoviariaext = CreateDynamicObject(1238,-307.4003900,-2241.0000000,28.6000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (18)
-	pmrodoviariaext = CreateDynamicObject(1238,-309.2000100,-2224.6001000,28.2000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (19)
-	pmrodoviariaext = CreateDynamicObject(1238,-312.3999900,-2216.3999000,28.0000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (21)
-	pmrodoviariaext = CreateDynamicObject(1238,-316.2000100,-2206.3000000,27.8000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (24)
-	pmrodoviariaext = CreateDynamicObject(1238,-320.2000100,-2195.3999000,27.8000000,0.0000000,0.0000000,0.0000000); //object(trafficcone) (26)
-	pmrodoviariaext = CreateDynamicObject(1434,-254.4994800,-2246.7046000,27.3996700,0.0000000,0.0000000,301.9870000); //object(dyn_roadbarrier_5a) (7)
-	pmrodoviariaext = CreateDynamicObject(1434,-258.2002000,-2240.7002000,27.3000000,0.0000000,0.0000000,301.9870000); //object(dyn_roadbarrier_5a) (9)
-	pmrodoviariaext = CreateDynamicObject(4100,-229.8999900,-2237.5000000,29.7000000,0.0000000,0.0000000,107.9990000); //object(meshfence1_lan) (10)
-	pmrodoviariaext = CreateDynamicObject(4100,-221.6000100,-2247.3999000,29.7000000,0.0000000,0.0000000,69.9960000); //object(meshfence1_lan) (11)
-	pmrodoviariaext = CreateDynamicObject(4100,-217.0000000,-2260.3000000,29.7000000,0.0000000,0.0000000,69.9940000); //object(meshfence1_lan) (12)
-	pmrodoviariaext = CreateDynamicObject(4100,-233.8000000,-2267.6001000,29.7000000,0.0000000,0.0000000,295.9940000); //object(meshfence1_lan) (13)
-	pmrodoviariaext = CreateDynamicObject(4100,-220.9003900,-2268.5996000,29.7000000,0.0000000,0.0000000,333.9900000); //object(meshfence1_lan) (14)
-	pmrodoviariaext = CreateDynamicObject(4100,-243.8000000,-2259.1001000,29.7000000,0.0000000,0.0000000,261.9940000); //object(meshfence1_lan) (15)*/
+        //POSTO PRF
+        new postoprf;
+	postoprf = CreateDynamicObject(2774, 1671.750976, -281.335113, 42.352027, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1665.941650, -281.344116, 42.352027, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1684.150878, -281.325134, 43.851005, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1649.150878, -281.363098, 43.951976, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1662.150878, -281.325134, 55.451980, 0.000000, -90.000000, -180.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1671.150878, -281.325134, 55.452980, 0.000000, -90.000000, 0.010998, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(3095, 1635.810424, -281.872772, 44.563163, 90.000000, 0.000000, -180.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 10101, "2notherbuildsfe", "sl_vicwall01", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 1, 19607, "enexmarkers", "enexmarker4-4", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1649.150878, -245.363098, 43.951976, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1649.150878, -257.363098, 43.951976, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(1649, 1646.819702, -245.655212, 44.918518, 0.000000, -180.000000, -0.000003, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(1649, 1642.375610, -245.655212, 44.918518, 0.000000, -180.000000, -0.000003, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1671.750976, -269.335113, 42.382022, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1665.941650, -269.344116, 42.352027, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1684.150878, -269.325134, 43.851005, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1671.750976, -257.335113, 42.352027, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1665.941650, -257.344116, 42.352027, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1684.150878, -257.325134, 43.851005, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1671.750976, -245.335113, 42.352027, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1665.941650, -245.344116, 42.352027, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1684.150878, -245.325134, 43.851005, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1662.150878, -269.325134, 55.451980, 0.000000, -90.000000, -180.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1671.150878, -269.325134, 55.452980, 0.000000, -90.000000, 0.010998, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1662.150878, -257.325134, 55.451980, 0.000000, -90.000000, -180.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1671.150878, -257.325134, 55.452980, 0.000000, -90.000000, 0.010998, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1662.150878, -245.325134, 55.451980, 0.000000, -90.000000, -180.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1671.149902, -245.326141, 55.452980, 0.000000, -90.000000, 0.000999, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1649.114746, -268.114562, 55.440986, 0.000000, -90.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1649.138916, -258.551452, 55.438987, 0.000000, -90.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(18981, 1660.824584, -257.262481, 55.396770, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 19607, "enexmarkers", "enexmarker4-4", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1666.114746, -268.114562, 55.440986, 0.000000, -90.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1666.138916, -258.551452, 55.438987, 0.000000, -90.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1671.414794, -268.114562, 55.440986, 0.000000, -90.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1671.438964, -258.551452, 55.438987, 0.000000, -90.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1684.114746, -268.114562, 55.440986, 0.000000, -90.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1684.138916, -258.551452, 55.438987, 0.000000, -90.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(18766, 1668.599731, -281.260772, 44.163825, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 19607, "enexmarkers", "enexmarker4-4", 0x00000000);
+	postoprf = CreateDynamicObject(18766, 1668.597778, -281.262786, 51.163825, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 19607, "enexmarkers", "enexmarker4-4", 0x00000000);
+	postoprf = CreateDynamicObject(19363, 1655.428710, -282.091033, 55.414806, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(postoprf, 0, "{0000FF}POL", 30, "Ariel", 39, 1, 0x00000000, 0x00000000, 1);
+	postoprf = CreateDynamicObject(19363, 1658.228759, -282.091033, 55.414806, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(postoprf, 0, "ICI", 30, "Ariel", 39, 1, 0xFF0000FF, 0x00000000, 1);
+	postoprf = CreateDynamicObject(19363, 1663.228759, -282.091033, 55.414806, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(postoprf, 0, "RO", 30, "Ariel", 39, 1, 0xFF0000FF, 0x00000000, 1);
+	postoprf = CreateDynamicObject(19363, 1665.828857, -282.091033, 55.414806, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(postoprf, 0, "DO", 30, "Ariel", 39, 1, 0xFF0000FF, 0x00000000, 1);
+	postoprf = CreateDynamicObject(19363, 1668.528930, -282.091033, 55.414806, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(postoprf, 0, "VIA", 30, "Ariel", 39, 1, 0xFF0000FF, 0x00000000, 1);
+	postoprf = CreateDynamicObject(19363, 1671.428710, -282.091033, 55.414806, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(postoprf, 0, "RIA", 30, "Ariel", 39, 1, 0xFF0000FF, 0x00000000, 1);
+	postoprf = CreateDynamicObject(19363, 1675.428466, -282.081024, 55.414806, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(postoprf, 0, "{0000FF}FED", 30, "Ariel", 39, 1, 0x00000000, 0x00000000, 1);
+	postoprf = CreateDynamicObject(19363, 1678.288574, -282.050994, 55.414806, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(postoprf, 0, "ER", 30, "Ariel", 39, 1, 0xFF0000FF, 0x00000000, 1);
+	postoprf = CreateDynamicObject(19363, 1680.688476, -282.050994, 55.414806, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(postoprf, 0, "AL", 30, "Ariel", 39, 1, 0xFF0000FF, 0x00000000, 1);
+	postoprf = CreateDynamicObject(3851, 1643.137695, -281.485809, 46.255947, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(3851, 1649.437622, -275.445770, 45.655948, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(3851, 1649.437622, -263.445770, 45.655948, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(3851, 1649.437622, -251.445770, 45.655948, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(3851, 1649.437622, -275.445770, 49.655941, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(3851, 1649.437622, -263.445770, 49.655941, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(3851, 1649.437622, -251.445770, 49.655941, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(3851, 1649.437622, -275.445770, 53.655879, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(3851, 1649.437622, -263.445770, 53.655879, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(3851, 1649.437622, -251.445770, 53.655879, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1649.114746, -268.114562, 48.140987, 0.000000, -90.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(2774, 1649.138916, -258.551452, 48.138988, 0.000000, -90.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 1, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 2, 5168, "lashops6_las2", "yellow2_128", 0x00000000);
+	postoprf = CreateDynamicObject(18762, 1645.883544, -281.667694, 48.204448, 0.000000, -90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 14776, "genintintcarint3", "yellowvertical_64HV", 0x00000000);
+	postoprf = CreateDynamicObject(18762, 1641.984497, -281.665679, 48.206447, 0.000000, -90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 14776, "genintintcarint3", "yellowvertical_64HV", 0x00000000);
+	postoprf = CreateDynamicObject(18762, 1639.984985, -281.667694, 46.204479, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 14776, "genintintcarint3", "yellowvertical_64HV", 0x00000000);
+	postoprf = CreateDynamicObject(18762, 1639.984985, -281.667694, 41.204479, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 14776, "genintintcarint3", "yellowvertical_64HV", 0x00000000);
+	postoprf = CreateDynamicObject(18766, 1668.599731, -245.260772, 43.163825, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 19607, "enexmarkers", "enexmarker4-4", 0x00000000);
+	postoprf = CreateDynamicObject(18766, 1668.597778, -245.262786, 50.163825, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 19607, "enexmarkers", "enexmarker4-4", 0x00000000);
+	postoprf = CreateDynamicObject(1649, 1642.375854, -245.628204, 44.918518, 0.000003, -180.000000, 179.999984, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(19455, 1630.098388, -254.441772, 44.268497, 90.000000, -90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 10101, "2notherbuildsfe", "sl_vicwall01", 0x00000000);
+	postoprf = CreateDynamicObject(19455, 1628.246582, -254.443786, 44.268497, 90.000000, -90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 10101, "2notherbuildsfe", "sl_vicwall01", 0x00000000);
+	postoprf = CreateDynamicObject(18762, 1645.883544, -245.667694, 48.204448, 0.000000, -90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 14776, "genintintcarint3", "yellowvertical_64HV", 0x00000000);
+	postoprf = CreateDynamicObject(18981, 1643.824584, -257.262481, 55.396770, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 19607, "enexmarkers", "enexmarker4-4", 0x00000000);
+	postoprf = CreateDynamicObject(18762, 1641.984497, -245.665679, 48.206447, 0.000000, -90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 14776, "genintintcarint3", "yellowvertical_64HV", 0x00000000);
+	postoprf = CreateDynamicObject(18762, 1639.984985, -245.667694, 46.204479, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 14776, "genintintcarint3", "yellowvertical_64HV", 0x00000000);
+	postoprf = CreateDynamicObject(18762, 1639.984985, -245.667694, 41.204479, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 14776, "genintintcarint3", "yellowvertical_64HV", 0x00000000);
+	postoprf = CreateDynamicObject(3095, 1635.813354, -245.367752, 50.563163, 90.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 10101, "2notherbuildsfe", "sl_vicwall01", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 1, 19607, "enexmarkers", "enexmarker4-4", 0x00000000);
+	postoprf = CreateDynamicObject(19363, 1659.928344, -282.091033, 55.414806, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(postoprf, 0, "A", 30, "Ariel", 39, 1, 0xFF0000FF, 0x00000000, 1);
+	postoprf = CreateDynamicObject(3095, 1631.010375, -245.365737, 50.563163, 90.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 10101, "2notherbuildsfe", "sl_vicwall01", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 1, 19607, "enexmarkers", "enexmarker4-4", 0x00000000);
+	postoprf = CreateDynamicObject(19363, 1649.928833, -281.391052, 40.414821, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(postoprf, 0, "13DPT", 140, "Ariel", 35, 1, 0xFF0000FF, 0x00000000, 1);
+	postoprf = CreateDynamicObject(3095, 1635.814331, -281.871734, 50.563163, 90.000000, 9.735610, 170.264389, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 10101, "2notherbuildsfe", "sl_vicwall01", 0x00000000);
+	SetDynamicObjectMaterial(postoprf, 1, 19607, "enexmarkers", "enexmarker4-4", 0x00000000);
+	postoprf = CreateDynamicObject(19363, 1649.928833, -281.391052, 40.714817, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(postoprf, 0, "POSTO 02", 140, "Ariel", 45, 1, 0xFF0000FF, 0x00000000, 1);
+	postoprf = CreateDynamicObject(1649, 1646.819702, -245.628204, 44.918518, 0.000003, -180.000000, 179.999984, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(19455, 1644.337524, -281.401824, 50.448474, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 10101, "2notherbuildsfe", "sl_vicwall01", 0x00000000);
+	postoprf = CreateDynamicObject(18981, 1643.824584, -269.262481, 55.398769, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 19607, "enexmarkers", "enexmarker4-4", 0x00000000);
+	postoprf = CreateDynamicObject(19455, 1628.246582, -254.441772, 50.268497, 90.000000, -90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 10101, "2notherbuildsfe", "sl_vicwall01", 0x00000000);
+	postoprf = CreateDynamicObject(19455, 1630.103027, -254.440765, 50.268497, 90.000000, -90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 10101, "2notherbuildsfe", "sl_vicwall01", 0x00000000);
+	postoprf = CreateDynamicObject(19455, 1644.337524, -281.401824, 53.948467, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 10101, "2notherbuildsfe", "sl_vicwall01", 0x00000000);
+	postoprf = CreateDynamicObject(19455, 1644.337524, -245.901855, 50.448474, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 10101, "2notherbuildsfe", "sl_vicwall01", 0x00000000);
+	postoprf = CreateDynamicObject(19455, 1644.337524, -245.901855, 53.948467, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 10101, "2notherbuildsfe", "sl_vicwall01", 0x00000000);
+	postoprf = CreateDynamicObject(1649, 1646.819702, -245.655212, 48.251510, 0.000000, -180.000000, -0.000003, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(1649, 1642.375610, -245.655212, 48.251510, 0.000000, -180.000000, -0.000003, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(1649, 1642.375854, -245.628204, 48.251510, 0.000003, -180.000000, 179.999984, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	postoprf = CreateDynamicObject(1649, 1646.819702, -245.628204, 48.251510, 0.000003, -180.000000, 179.999984, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(postoprf, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	postoprf = CreateDynamicObject(3095, 1644.710449, -267.971740, 42.763145, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1635.791748, -267.971740, 42.761146, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1635.791748, -276.971740, 42.761146, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1644.710449, -276.971740, 42.763145, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1644.710449, -249.971740, 42.763145, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1635.710449, -249.971740, 42.763145, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1635.791748, -258.971740, 42.761146, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1644.710449, -258.971740, 42.763145, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1644.810424, -245.371765, 39.808155, 90.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(10244, 1642.452148, -243.430862, 39.750946, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1635.810424, -245.371765, 38.563163, 90.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1631.300048, -267.971740, 44.563152, -89.999984, 89.999710, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1644.810424, -281.871765, 39.794158, 90.000000, 0.000000, -180.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1635.810424, -281.871765, 37.563163, 90.000000, 0.000000, -180.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1631.300048, -276.971740, 44.563152, -89.999984, 89.999710, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1626.511474, -249.971755, 44.563076, 0.000012, 89.999710, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1631.300048, -258.972808, 44.563152, -89.999984, 89.999710, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(18766, 1631.558471, -245.414413, 45.298728, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1671.710693, -258.971435, 45.763145, -0.000044, 89.999710, 179.999801, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1649.710327, -249.971481, 39.163143, -0.000044, 89.999710, 179.999801, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1649.710693, -276.971954, 39.163150, -0.000044, 89.999710, 179.999801, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1649.710571, -267.972045, 39.163146, -0.000044, 89.999710, 179.999801, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19379, 1644.203002, -276.711120, 47.916519, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1631.511474, -249.971740, 42.761146, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2774, 1649.150878, -269.363098, 43.951976, 0.000000, -180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1659.493041, -283.997772, 38.525569, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1659.393066, -264.397857, 37.725582, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1659.293090, -257.397857, 37.425586, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1659.093139, -250.397857, 37.225589, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1660.392822, -292.497863, 39.025562, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1660.492797, -299.397857, 39.225559, 5.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1660.992675, -306.397857, 39.225559, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1658.993164, -236.397857, 36.625598, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1658.993164, -229.397857, 36.325603, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1658.993164, -222.397857, 36.025608, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1677.593139, -285.397857, 43.525569, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1677.493164, -278.397857, 43.125576, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1658.993164, -243.397857, 36.925594, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1677.593139, -271.397857, 42.825580, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1677.493164, -264.397857, 42.625583, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1677.593139, -257.397857, 42.325588, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1677.593139, -250.397857, 42.125591, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1677.693115, -292.497863, 43.725566, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1677.893066, -299.397857, 43.925563, 5.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1678.292968, -306.397857, 43.925563, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1677.493164, -236.397857, 41.525600, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1677.493164, -229.397857, 41.225605, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1677.493164, -222.397857, 40.925609, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1677.493164, -243.397857, 41.825595, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1671.710327, -249.971481, 45.763141, -0.000044, 89.999710, 179.999801, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1671.710693, -276.971954, 45.763149, -0.000044, 89.999710, 179.999801, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1671.710571, -267.972045, 45.763145, -0.000044, 89.999710, 179.999801, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1649.710693, -258.971435, 39.163146, -0.000044, 89.999710, 179.999801, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1665.710205, -267.972015, 42.763145, -0.000046, 89.999710, -0.000224, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1665.710693, -276.972015, 42.763141, -0.000046, 89.999710, -0.000224, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1665.710205, -249.971527, 42.263149, -0.000046, 89.999710, -0.000224, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1665.710449, -258.971405, 42.763145, -0.000046, 89.999710, -0.000224, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(18981, 1671.784545, -257.262481, 55.400768, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(18981, 1671.811889, -269.263488, 55.402767, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(18981, 1660.811889, -269.263488, 55.398769, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1671.709716, -258.968414, 50.763145, -0.000044, 89.999710, 179.999801, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1671.709350, -249.968460, 50.763141, -0.000044, 89.999710, 179.999801, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1671.709716, -276.968933, 50.763149, -0.000044, 89.999710, 179.999801, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1665.710693, -276.972015, 50.763141, -0.000046, 89.999710, -0.000224, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1665.710205, -249.971527, 50.263149, -0.000046, 89.999710, -0.000224, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1665.710449, -258.971405, 50.763145, -0.000046, 89.999710, -0.000224, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1671.709716, -267.968414, 50.763145, -0.000044, 89.999710, 179.999801, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1665.710693, -267.972015, 50.763141, -0.000046, 89.999710, -0.000224, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19379, 1644.203002, -267.075073, 47.916519, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19379, 1644.203002, -257.445037, 47.916519, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19379, 1644.203002, -250.445037, 47.914520, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(18880, 1683.942626, -283.345550, 42.457000, 0.000000, 0.000000, -10.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(18880, 1684.502929, -243.575820, 41.562377, 0.000000, 0.000000, -160.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(18880, 1648.358032, -226.717910, 36.258377, 0.000000, 0.000000, 140.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(18880, 1649.271484, -282.804931, 38.763683, 0.000000, 0.000000, 15.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(8615, 1632.503295, -277.361816, 46.218513, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1631.292236, -276.971740, 35.763278, 0.000012, 89.999710, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19379, 1638.602905, -276.711120, 47.914520, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19379, 1637.003051, -267.075073, 47.918518, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19379, 1637.003051, -257.445037, 47.918518, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19379, 1633.703002, -250.445037, 47.914520, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19379, 1631.796508, -250.445037, 47.913520, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1631.299072, -258.972808, 50.561153, -89.999984, 89.999710, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1626.512695, -249.971740, 50.581146, 90.000007, 90.009712, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(18766, 1643.350708, -245.419403, 51.098701, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1631.299072, -267.971740, 50.561153, -89.999984, 89.999710, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(3095, 1631.299072, -276.971740, 50.561153, -89.999984, 89.999710, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19304, 1631.795166, -252.696731, 43.818504, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(18766, 1643.350708, -245.421417, 53.098701, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1659.792968, -277.296936, 38.152565, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1660.792724, -277.296936, 38.152565, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1661.792480, -277.296936, 38.152565, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1662.792236, -277.296936, 38.152565, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1663.791992, -277.296936, 38.152565, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1237, 1653.994384, -271.598297, 37.925582, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(18766, 1631.558471, -245.314407, 45.298728, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(18766, 1628.958618, -249.764389, 55.415775, -90.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(18766, 1643.350708, -281.819366, 51.198699, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(18766, 1643.350708, -281.821380, 53.198699, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2777, 1627.393310, -249.373168, 43.816505, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2777, 1627.393310, -248.373168, 43.816505, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2777, 1627.393310, -247.373168, 43.816505, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2777, 1627.393310, -250.373168, 43.816505, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2777, 1627.393310, -251.373168, 43.816505, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19304, 1631.795166, -252.696731, 45.018486, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19304, 1631.795166, -252.696731, 46.218467, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19304, 1631.794189, -252.696731, 46.918457, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19304, 1631.795166, -249.396713, 43.818504, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19304, 1631.795166, -249.396713, 45.018486, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19304, 1631.795166, -249.396713, 46.218467, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19304, 1631.794189, -249.395706, 46.918457, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2007, 1630.835937, -246.425262, 48.000457, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19304, 1631.794189, -247.296707, 46.218467, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19304, 1631.793212, -247.295700, 46.918457, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2007, 1630.835937, -246.425262, 49.400451, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2007, 1629.836914, -246.425262, 48.000457, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2007, 1629.836914, -246.425262, 49.400451, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2169, 1627.533081, -247.420578, 48.000457, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(14782, 1627.434204, -251.228103, 48.804443, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19515, 1627.260498, -248.534179, 50.100425, 0.000000, -90.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19142, 1627.310180, -247.634124, 49.050441, 0.000000, -90.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19142, 1627.310180, -247.134094, 49.050441, 0.000000, -90.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19142, 1627.310180, -246.634063, 49.050441, 0.000000, -90.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19142, 1627.610107, -246.334045, 49.050441, 0.000000, -90.000000, -140.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1703, 1638.656127, -280.526855, 43.316513, 0.000000, 0.000000, -180.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1703, 1635.656127, -280.526855, 43.316513, 0.000000, 0.000000, -180.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2606, 1631.917114, -264.126403, 46.316513, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2184, 1634.078002, -268.000793, 43.316513, 0.000000, 0.000000, 26.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2184, 1636.477905, -266.500823, 43.318511, 0.000000, 0.000000, 72.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2184, 1637.082763, -263.668762, 43.316513, -0.000000, -0.000001, 115.999992, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2184, 1635.582763, -261.268859, 43.318511, -0.000001, 0.000000, 162.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1671, 1635.348754, -265.251129, 43.770500, 0.000000, 0.000000, 55.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1671, 1635.348754, -263.251007, 43.770500, 0.000000, 0.000000, 135.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2190, 1636.272827, -266.370483, 44.080505, 0.000000, 0.000000, -150.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2190, 1636.472778, -262.370239, 44.080505, 0.000000, 0.000000, -70.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19808, 1635.930541, -265.711395, 44.107501, 0.000000, 0.000000, -130.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19808, 1635.790649, -262.711395, 44.107501, 0.000000, 0.000000, -50.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2059, 1636.522460, -263.930084, 44.104507, 0.000000, 0.000000, -96.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(11705, 1635.098388, -261.633911, 44.090415, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(11705, 1635.398315, -266.733917, 44.090415, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19994, 1637.803955, -263.366912, 43.316513, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19994, 1637.803955, -265.167022, 43.316513, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2615, 1631.890380, -257.622772, 45.216484, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2267, 1631.895263, -260.024230, 45.416481, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2195, 1647.869873, -269.263732, 43.918502, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2195, 1647.869873, -257.363708, 43.918502, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2611, 1638.401733, -245.964279, 50.000457, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2612, 1636.176147, -245.974136, 50.000427, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1632.362060, -259.153594, 48.004455, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1632.362060, -261.153717, 48.004455, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1632.362060, -263.153839, 48.004455, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1632.362060, -265.153839, 48.004455, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1632.362060, -267.153839, 48.004455, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1636.362060, -266.153839, 48.004455, -0.000001, -0.000001, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1636.362060, -264.153717, 48.004455, -0.000001, -0.000001, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1636.362060, -262.153594, 48.004455, -0.000001, -0.000001, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1636.362060, -260.153594, 48.004455, -0.000001, -0.000001, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1636.362060, -258.153594, 48.004455, -0.000001, -0.000001, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1715, 1633.375854, -266.143035, 48.004455, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1715, 1633.375854, -264.143035, 48.004455, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1715, 1633.375854, -262.143035, 48.004455, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1715, 1633.375854, -260.143035, 48.004455, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1715, 1633.375854, -258.143035, 48.004455, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1715, 1635.425903, -263.093048, 48.004455, 0.000004, 0.000004, 89.999969, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1715, 1635.425903, -265.093048, 48.004455, 0.000004, 0.000004, 89.999969, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1715, 1635.425903, -267.093048, 48.004455, 0.000004, 0.000004, 89.999969, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1637.426025, -259.162719, 48.004455, 0.000000, 0.000000, 89.999969, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1715, 1635.425903, -259.093048, 48.004455, 0.000004, 0.000004, 89.999969, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1715, 1635.425903, -261.093048, 48.004455, 0.000004, 0.000004, 89.999969, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1637.426025, -261.162841, 48.004455, 0.000000, 0.000000, 89.999969, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1637.426025, -263.162963, 48.004455, 0.000000, 0.000000, 89.999969, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1637.426025, -265.162963, 48.004455, 0.000000, 0.000000, 89.999969, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1999, 1637.426025, -267.162963, 48.004455, 0.000000, 0.000000, 89.999969, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1715, 1638.362060, -260.223510, 48.004455, 0.000001, 0.000001, -90.000030, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1715, 1638.362060, -258.223510, 48.004455, 0.000001, 0.000001, -90.000030, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1715, 1638.362060, -266.223510, 48.004455, 0.000001, 0.000001, -90.000030, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1715, 1638.362060, -264.223510, 48.004455, 0.000001, 0.000001, -90.000030, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19455, 1636.893432, -262.662475, 49.597255, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19999, 1645.211791, -259.387847, 48.002456, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(2357, 1645.186035, -262.191253, 48.402450, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19999, 1645.211791, -264.987884, 48.002456, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19999, 1644.011840, -260.987823, 48.002456, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19999, 1644.011840, -262.087829, 48.002456, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19999, 1644.011840, -263.187835, 48.002456, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19999, 1646.211303, -263.187805, 48.002456, 0.000000, -0.000010, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19999, 1646.211303, -262.087829, 48.002456, 0.000000, -0.000010, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(19999, 1646.211303, -260.987854, 48.002456, 0.000000, -0.000010, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1704, 1643.072753, -250.895263, 48.002456, 0.000000, 0.000000, -180.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1704, 1645.572143, -250.895263, 48.002456, 0.000000, 0.000000, -180.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(948, 1643.890258, -251.036117, 48.000457, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1703, 1642.859741, -246.694732, 48.000457, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(948, 1645.890258, -247.036117, 48.000457, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(948, 1641.890258, -247.036117, 48.000457, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1826, 1643.272094, -248.867843, 48.000457, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1704, 1642.208496, -276.435668, 48.002456, 0.000002, 0.000002, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(948, 1643.890380, -276.294799, 48.000457, -0.000002, -0.000002, -179.999984, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1703, 1644.920898, -280.636230, 48.000457, -0.000002, -0.000002, -179.999984, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(948, 1641.890380, -280.294799, 48.000457, -0.000002, -0.000002, -179.999984, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(948, 1645.890380, -280.294799, 48.000457, -0.000002, -0.000002, -179.999984, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1826, 1644.508544, -278.463134, 48.000457, -0.000002, -0.000002, -179.999984, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1704, 1644.707885, -276.435668, 48.002456, 0.000002, 0.000002, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(936, 1647.732910, -269.543884, 48.402454, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(936, 1647.732910, -271.426849, 48.402454, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00); 
+	postoprf = CreateDynamicObject(1223, 1639.986328, -246.063232, 42.526611, 0.000027, -0.000029, -89.999809, -1, -1, -1, 300.00, 300.00); 
+
+        //BAEP
+        	new QGBAEP;
+	QGBAEP = CreateDynamicObject(997, -1265.293457, 2705.282714, 48.482135, 0.000013, -0.000013, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 19853, "mihouse1", "greenwall1", 0x00000000);
+	QGBAEP = CreateDynamicObject(997, -1268.732910, 2703.360351, 48.482135, 0.000013, -0.000013, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 19853, "mihouse1", "greenwall1", 0x00000000);
+	QGBAEP = CreateDynamicObject(997, -1271.944824, 2701.564941, 48.482135, 0.000013, -0.000013, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 19853, "mihouse1", "greenwall1", 0x00000000);
+	QGBAEP = CreateDynamicObject(997, -1275.148925, 2699.774414, 48.482135, 0.000013, -0.000013, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 19853, "mihouse1", "greenwall1", 0x00000000);
+	QGBAEP = CreateDynamicObject(997, -1278.414794, 2697.949462, 48.482135, 0.000013, -0.000013, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 19853, "mihouse1", "greenwall1", 0x00000000);
+	QGBAEP = CreateDynamicObject(2789, -1281.632324, 2695.128417, 51.063388, -0.000013, 0.000013, 29.200042, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterialText(QGBAEP, 0, "{FFFfff}B", 30, "Ariel", 95, 0, 0x00000000, 0x00000000, 1);
+	QGBAEP = CreateDynamicObject(2789, -1278.148925, 2697.075439, 51.063388, -0.000013, 0.000013, 29.200042, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterialText(QGBAEP, 0, "{FFFfff}A", 30, "Ariel", 95, 0, 0x00000000, 0x00000000, 1);
+	QGBAEP = CreateDynamicObject(2789, -1274.568847, 2699.076171, 51.063388, -0.000013, 0.000013, 29.200042, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterialText(QGBAEP, 0, "{FFFfff}E", 30, "Ariel", 95, 0, 0x00000000, 0x00000000, 1);
+	QGBAEP = CreateDynamicObject(2789, -1271.233398, 2700.940185, 51.063388, -0.000013, 0.000013, 29.200042, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterialText(QGBAEP, 0, "{FFFfff}P", 30, "Ariel", 95, 0, 0x00000000, 0x00000000, 1);
+	QGBAEP = CreateDynamicObject(19700, -1295.390136, 2708.819824, 47.256622, 0.000013, 90.000000, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19700, -1289.334228, 2697.983886, 47.256622, 0.000013, 90.000000, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19700, -1292.874023, 2717.267578, 47.256622, 0.000006, 89.999984, -60.800067, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19700, -1282.037841, 2723.323730, 47.256622, 0.000006, 89.999984, -60.800067, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19700, -1271.145996, 2729.410888, 47.256622, 0.000006, 89.999984, -60.800067, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19700, -1268.087646, 2731.120117, 47.256622, 0.000006, 89.999984, -60.800067, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19700, -1253.659912, 2717.921875, 53.346641, 0.000013, 90.000000, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19700, -1259.682128, 2728.697753, 53.356628, 0.000013, 90.000000, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19700, -1281.009277, 2695.618652, 47.256622, -0.000006, 89.999977, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19700, -1270.102783, 2701.713378, 47.256622, -0.000006, 89.999977, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19741, -1266.142333, 2707.367187, 50.372169, 0.000013, 90.000000, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	QGBAEP = CreateDynamicObject(19741, -1253.273437, 2711.052734, 50.372169, -0.000006, 89.999977, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(14409, -1264.666503, 2730.516601, 51.012157, 0.000006, 0.000013, 119.199958, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18234, "cuntwbtxcs_t", "offwhitebrix", 0x00000000);
+	SetDynamicObjectMaterial(QGBAEP, 1, 18234, "cuntwbtxcs_t", "offwhitebrix", 0x00000000);
+	QGBAEP = CreateDynamicObject(18766, -1255.616943, 2711.575439, 53.674671, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1256.595458, 2711.028320, 53.674671, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1258.046142, 2715.922119, 53.674671, 89.999992, 818.424560, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(19741, -1285.439208, 2696.910400, 52.957092, -10.000008, 360.000000, -59.799877, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18241, "cw_tempstuffcs_t", "roof11new", 0x00000000);
+	QGBAEP = CreateDynamicObject(19741, -1288.574218, 2702.298583, 52.957092, -10.000008, 360.000000, -59.799877, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18241, "cw_tempstuffcs_t", "roof11new", 0x00000000);
+	QGBAEP = CreateDynamicObject(19741, -1288.574218, 2702.298583, 52.957092, -10.000008, 360.000000, -59.799877, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18241, "cw_tempstuffcs_t", "roof11new", 0x00000000);
+	QGBAEP = CreateDynamicObject(19741, -1291.716796, 2707.702148, 52.957092, -10.000008, 360.000000, -59.799877, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18241, "cw_tempstuffcs_t", "roof11new", 0x00000000);
+	QGBAEP = CreateDynamicObject(19741, -1294.608886, 2712.673828, 52.966941, -10.000008, 360.000000, -59.799877, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18241, "cw_tempstuffcs_t", "roof11new", 0x00000000);
+	QGBAEP = CreateDynamicObject(3440, -1283.983154, 2700.673339, 50.062160, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(3440, -1290.316162, 2712.005371, 50.062160, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1259.024902, 2715.375000, 53.674671, 89.999992, 818.424560, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(19741, -1263.280761, 2728.958007, 50.372169, -0.000006, 89.999977, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(18762, -1256.411621, 2709.313476, 51.002162, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 10765, "airportgnd_sfse", "black64", 0xFF666666);
+	QGBAEP = CreateDynamicObject(19435, -1257.447753, 2708.546386, 49.642139, 89.999992, 548.424499, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	QGBAEP = CreateDynamicObject(19435, -1259.743896, 2709.166503, 49.642139, 89.999992, 638.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	QGBAEP = CreateDynamicObject(19360, -1259.242919, 2711.388671, 48.182098, 0.000006, 0.000013, 119.199958, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18996, "mattextures", "sampwhite", 0x00000000);
+	QGBAEP = CreateDynamicObject(19435, -1257.447753, 2708.546386, 52.712165, 89.999992, 548.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	QGBAEP = CreateDynamicObject(19435, -1259.743896, 2709.166503, 52.712165, 89.999992, 638.424621, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	QGBAEP = CreateDynamicObject(18766, -1264.602783, 2724.966796, 58.924671, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(19391, -1256.904052, 2710.901367, 50.842147, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18996, "mattextures", "sampwhite", 0x00000000);
+	QGBAEP = CreateDynamicObject(19435, -1256.852294, 2710.782958, 52.712165, 89.999992, 638.424621, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18996, "mattextures", "sampwhite", 0x00000000);
+	QGBAEP = CreateDynamicObject(19435, -1259.718505, 2709.181152, 51.212158, 89.999992, 638.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 17588, "lae2coast_alpha", "plainglass", 0x00000000);
+	QGBAEP = CreateDynamicObject(19435, -1257.454345, 2708.554931, 51.212158, 89.999992, 728.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 17588, "lae2coast_alpha", "plainglass", 0x00000000);
+	QGBAEP = CreateDynamicObject(18766, -1263.458251, 2725.605957, 58.924671, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18762, -1257.964111, 2712.090576, 50.992160, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 10765, "airportgnd_sfse", "black64", 0xFF666666);
+	QGBAEP = CreateDynamicObject(19741, -1253.273437, 2711.052734, 56.582176, -0.000006, 89.999977, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(18766, -1260.483886, 2720.283691, 53.674671, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1261.462646, 2719.737060, 53.674671, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1262.912841, 2724.630371, 53.674671, 89.999992, 818.424621, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1263.891601, 2724.083496, 53.674671, 89.999992, 818.424621, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(19741, -1257.494140, 2708.694335, 56.582176, -0.000006, 89.999977, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(18762, -1260.026367, 2707.843750, 56.002159, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF666666);
+	QGBAEP = CreateDynamicObject(18766, -1257.117431, 2711.573242, 58.924671, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1255.973388, 2712.212890, 58.924671, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1259.562988, 2715.948730, 58.924671, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1258.418457, 2716.587890, 58.924671, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1262.006591, 2720.320800, 58.924671, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1260.861816, 2720.960449, 58.924671, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1264.451904, 2724.696533, 58.924671, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1263.306884, 2725.335693, 58.924671, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(19741, -1265.349365, 2732.660156, 56.582176, -0.000006, 89.999977, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19391, -1268.890380, 2725.843261, 50.842147, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18996, "mattextures", "sampwhite", 0x00000000);
+	QGBAEP = CreateDynamicObject(18762, -1266.352050, 2727.038085, 50.992160, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 10765, "airportgnd_sfse", "black64", 0xFF666666);
+	QGBAEP = CreateDynamicObject(19741, -1270.416015, 2726.367675, 50.372169, -0.000013, 90.000000, 29.200012, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19741, -1264.708007, 2715.294433, 56.592197, 0.000013, 90.000000, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	QGBAEP = CreateDynamicObject(19360, -1259.242919, 2711.388671, 51.682155, 0.000006, 0.000013, 119.199958, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18996, "mattextures", "sampwhite", 0x00000000);
+	QGBAEP = CreateDynamicObject(18766, -1267.047851, 2729.341552, 58.924671, 89.999992, 818.424560, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1265.903808, 2729.980957, 58.924671, 89.999992, 818.424560, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(19741, -1269.560302, 2730.306152, 56.582176, -0.000006, 89.999977, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(18766, -1264.080078, 2724.031250, 58.924671, 89.999992, 818.424560, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1262.935791, 2724.670654, 58.924671, 89.999992, 818.424560, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1266.525878, 2728.406738, 58.924671, 89.999992, 818.424621, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1265.381103, 2729.046630, 58.924671, 89.999992, 818.424621, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1259.181396, 2715.266601, 58.924671, 89.999992, 818.424621, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1258.037109, 2715.905761, 58.924671, 89.999992, 818.424621, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1261.626708, 2719.641601, 58.924671, 89.999992, 818.424621, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1260.482177, 2720.281250, 58.924671, 89.999992, 818.424621, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(19741, -1270.768066, 2726.136718, 56.592197, -0.000013, 90.000000, 29.200012, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19741, -1261.659912, 2709.839355, 56.592197, -0.000013, 90.000000, 29.200012, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(18980, -1265.841308, 2718.119140, 53.602146, -0.000006, 89.999977, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18762, -1258.096679, 2708.371826, 53.582176, 0.000013, 90.000000, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0xFF666666);
+	QGBAEP = CreateDynamicObject(18762, -1261.315185, 2710.845703, 50.992160, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 10765, "airportgnd_sfse", "black64", 0xFF666666);
+	QGBAEP = CreateDynamicObject(18762, -1269.907226, 2725.050781, 50.992160, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 10765, "airportgnd_sfse", "black64", 0xFF666666);
+	QGBAEP = CreateDynamicObject(19741, -1267.314208, 2719.956542, 56.592197, 0.000013, 90.000000, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	QGBAEP = CreateDynamicObject(1251, -1263.194824, 2712.579101, 56.544719, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF000000);
+	QGBAEP = CreateDynamicObject(1251, -1269.210449, 2723.342285, 56.544719, 89.999992, 818.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF000000);
+	QGBAEP = CreateDynamicObject(1251, -1267.513183, 2720.305664, 57.304721, -0.000013, 360.000000, 29.200056, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF000000);
+	QGBAEP = CreateDynamicObject(1251, -1264.854003, 2715.547851, 57.304721, -0.000013, 360.000000, 29.200056, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF000000);
+	QGBAEP = CreateDynamicObject(1251, -1264.854003, 2715.547851, 58.394706, -0.000013, 360.000000, 29.200056, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF000000);
+	QGBAEP = CreateDynamicObject(1251, -1267.514892, 2720.308105, 58.394706, -0.000013, 360.000000, 29.200056, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF000000);
+	QGBAEP = CreateDynamicObject(19741, -1267.477050, 2726.578125, 56.582176, -0.000006, 89.999977, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19741, -1264.795654, 2728.076171, 56.582176, -0.000006, 89.999977, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(19741, -1267.477050, 2726.578125, 55.652160, -0.000006, 89.999977, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	QGBAEP = CreateDynamicObject(18766, -1263.631103, 2725.915039, 53.684673, 89.999992, 818.424621, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18766, -1264.580078, 2725.315917, 53.674671, 89.999992, 818.424621, -69.224594, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, -1, "none", "none", 0xFF333333);
+	QGBAEP = CreateDynamicObject(18762, -1267.225830, 2726.549804, 50.992160, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 10765, "airportgnd_sfse", "black64", 0xFF666666);
+	QGBAEP = CreateDynamicObject(18762, -1268.823974, 2723.112060, 50.992160, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 10765, "airportgnd_sfse", "black64", 0xFF666666);
+	QGBAEP = CreateDynamicObject(2789, -1253.684814, 2710.370361, 51.223388, -0.000013, 0.000013, 29.200042, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterialText(QGBAEP, 0, "{FFFFFF}<RECEPCAO", 140, "Ariel", 75, 0, 0x00000000, 0x00000000, 1);
+	QGBAEP = CreateDynamicObject(2789, -1253.684814, 2710.370361, 50.013381, -0.000013, 0.000013, 29.200042, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterialText(QGBAEP, 0, "{FFFFFF}p", 60, "Webdings", 90, 0, 0x00000000, 0x00000000, 1);
+	QGBAEP = CreateDynamicObject(1499, -1269.522460, 2725.465087, 49.122142, -0.000013, 0.000006, 29.200012, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 13077, "cunte_bar1", "black16", 0x00000000);
+	SetDynamicObjectMaterial(QGBAEP, 1, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	QGBAEP = CreateDynamicObject(1499, -1256.488769, 2710.246093, 49.122142, 0.000006, 0.000013, 119.199958, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(QGBAEP, 0, 13077, "cunte_bar1", "black16", 0x00000000);
+	SetDynamicObjectMaterial(QGBAEP, 1, 1717, "cj_tv", "green_glass_64", 0x00000000);
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	QGBAEP = CreateDynamicObject(1697, -1259.269287, 2709.436035, 61.025638, 0.000013, -0.000013, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1697, -1255.367675, 2711.616699, 61.025638, 0.000013, -0.000013, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1697, -1253.211669, 2712.844726, 61.025638, 0.000013, -0.000013, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2630, -1260.757324, 2729.381347, 49.092144, -0.000013, 0.000013, 29.200042, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2630, -1262.312255, 2728.512207, 49.092144, -0.000013, 0.000013, 29.200042, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2630, -1263.892578, 2727.629394, 49.092144, -0.000013, 0.000013, 29.200042, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2627, -1259.813964, 2726.475585, 49.122142, -0.000013, -0.000013, -60.799976, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2627, -1258.931152, 2724.895263, 49.122142, -0.000013, -0.000013, -60.799976, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2627, -1258.037841, 2723.297119, 49.122142, -0.000013, -0.000013, -60.799976, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2628, -1256.828369, 2721.521240, 49.122142, -0.000013, -0.000013, -60.799976, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2628, -1256.062500, 2720.150634, 49.122142, -0.000013, -0.000013, -60.799976, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2628, -1255.364746, 2718.901855, 49.122142, -0.000013, -0.000013, -60.799976, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(11730, -1254.052734, 2717.779296, 49.122142, -0.000013, -0.000013, -60.799976, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(11730, -1253.735839, 2717.211669, 49.122142, -0.000013, -0.000013, -60.799976, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(19425, -1262.238037, 2710.143310, 49.122142, 0.000013, -0.000013, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(19425, -1264.953125, 2708.625732, 49.122142, 0.000013, -0.000013, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(19817, -1289.243164, 2708.280761, 47.692092, 0.000013, 0.000013, 119.199943, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(19817, -1286.232421, 2702.894042, 47.692092, 0.000013, 0.000013, 119.199943, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(927, -1292.580322, 2704.815185, 50.722141, 0.000013, 0.000013, 119.199943, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1558, -1282.238037, 2696.070800, 49.712139, 0.000013, -0.000013, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1558, -1283.111328, 2695.583007, 49.712139, 0.000013, -0.000013, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1558, -1283.984619, 2695.094726, 49.712139, 0.000013, -0.000013, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(939, -1286.611328, 2696.135253, 50.002140, -0.000013, -0.000013, -60.799976, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1886, -1282.494628, 2695.965820, 52.642150, 0.000019, -0.000001, 169.499786, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(19899, -1291.274658, 2703.114501, 49.132141, -0.000013, 0.000013, 29.200042, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(19917, -1291.324707, 2703.555175, 50.262142, -0.000014, 0.000013, 27.600145, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(12957, -1295.094482, 2713.923339, 49.782138, 0.000013, 0.000013, 119.199943, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(910, -1295.330322, 2710.096923, 50.402141, 0.000013, 0.000013, 119.199943, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18981, -1267.518798, 2717.328613, 48.622142, 0.000013, 90.000000, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18981, -1281.612060, 2709.451660, 48.632141, 0.000013, 90.000000, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1279.690917, 2703.098632, 48.362129, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1269.306152, 2702.357910, 48.362129, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1278.291503, 2697.335937, 48.362129, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1281.822021, 2695.363281, 48.372131, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1288.897705, 2697.564697, 48.372131, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1293.917968, 2706.547851, 48.372131, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1295.675537, 2709.692871, 48.372131, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1293.394775, 2716.706542, 48.362129, -0.000013, 0.000006, 29.200012, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1284.410400, 2721.728027, 48.362129, -0.000013, 0.000006, 29.200012, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1283.795654, 2700.416015, 48.352130, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1288.817138, 2709.401855, 48.352130, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1290.394287, 2712.222656, 48.352130, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1272.093017, 2707.345214, 48.362129, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1281.153320, 2723.556640, 48.362129, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1270.873046, 2707.638183, 48.352130, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1274.096923, 2705.836425, 48.352130, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1277.277343, 2704.058593, 48.352130, 0.000000, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1280.501953, 2702.256835, 48.352130, 0.000000, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1277.558349, 2719.599609, 48.352130, 0.000000, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1280.781982, 2717.797851, 48.352130, 0.000000, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1283.962402, 2716.020507, 48.352130, 0.000006, -0.000013, -60.800052, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1287.186767, 2714.218261, 48.352130, 0.000006, -0.000013, -60.800052, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1274.359863, 2721.386718, 48.352130, 0.000000, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1278.388427, 2718.609375, 48.362129, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(3578, -1285.995849, 2714.357421, 48.362129, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18764, -1274.717529, 2717.484130, 46.642101, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18764, -1271.116699, 2711.041015, 46.642101, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18764, -1281.133056, 2713.898925, 46.642101, 0.000013, 0.000000, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18764, -1277.531982, 2707.455566, 46.642101, 0.000013, 0.000000, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18764, -1284.373046, 2712.088378, 46.642101, 0.000013, 0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18764, -1280.771972, 2705.645019, 46.642101, 0.000013, 0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18075, -1259.547851, 2717.252441, 58.394706, -0.000013, 0.000006, 29.200012, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18075, -1264.627929, 2726.342529, 58.394706, -0.000013, 0.000006, 29.200012, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18075, -1258.268554, 2714.963867, 53.124694, -0.000013, 0.000006, 29.200012, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18075, -1262.099853, 2721.818603, 53.124694, -0.000013, 0.000006, 29.200012, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(966, -1258.921386, 2707.673339, 49.062149, -0.000013, 0.000006, 29.200012, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1237, -1257.645263, 2706.447509, 49.072147, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1237, -1264.753417, 2702.474853, 49.072147, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(11729, -1251.534179, 2712.426269, 54.174671, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(11729, -1252.163330, 2712.074462, 54.174671, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(11729, -1252.783935, 2711.727539, 54.174671, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(11729, -1253.395507, 2711.385742, 54.174671, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(11729, -1254.024169, 2711.034179, 54.174671, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(11729, -1254.644775, 2710.687500, 54.174671, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(19142, -1251.351074, 2713.409179, 55.774669, 0.000006, 630.000000, 119.199958, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(19142, -1251.614501, 2713.880859, 55.774669, 0.000006, 630.000000, 119.199958, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(19142, -1251.883300, 2714.361328, 55.774669, 0.000006, 630.000000, 119.199958, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(19142, -1252.176513, 2714.885498, 55.774669, 0.000006, 630.000000, 119.199958, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2612, -1253.262695, 2716.871093, 56.364677, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18637, -1251.341796, 2713.592773, 54.814674, 89.999992, 1088.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18637, -1251.639648, 2714.125488, 54.814674, 89.999992, 1088.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18637, -1251.961181, 2714.701416, 54.814674, 89.999992, 1088.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(18637, -1252.269287, 2715.252197, 54.814674, 89.999992, 1088.424560, -69.224617, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2311, -1253.963623, 2717.354736, 54.694675, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2041, -1253.796630, 2717.406494, 55.394695, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2041, -1253.723876, 2716.745117, 55.394695, 0.000008, -0.000012, -120.199981, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2358, -1254.047119, 2717.610351, 54.244670, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2358, -1253.602783, 2716.815185, 54.244670, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2358, -1253.207519, 2716.107421, 54.244670, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(356, -1255.896972, 2709.717773, 56.164669, 0.000013, -46.799995, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(356, -1256.703125, 2709.267089, 56.243247, 0.000013, -46.799995, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(356, -1257.646484, 2708.740234, 56.298442, 0.000013, -46.799995, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(346, -1256.010498, 2709.632324, 55.614677, 0.000014, -0.000005, -155.800003, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(346, -1256.357421, 2709.476074, 55.614677, 0.000014, -0.000005, -155.800003, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(346, -1256.913085, 2709.226318, 55.614677, 0.000014, -0.000005, -155.800003, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2010, -1260.529541, 2708.643554, 54.174671, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2010, -1259.333007, 2708.429199, 54.174671, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2010, -1269.479248, 2724.983886, 54.174671, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1703, -1260.641845, 2710.076416, 54.174671, 0.000006, 0.000013, 119.199958, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1703, -1262.839599, 2717.841308, 54.174671, 0.000006, 0.000013, 119.199958, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1703, -1260.359619, 2721.358886, 54.174671, -0.000006, -0.000013, -60.799991, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1827, -1261.755371, 2719.583496, 54.174671, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2165, -1267.829345, 2725.792968, 54.184669, -0.000013, 0.000006, 29.200012, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2165, -1265.855468, 2726.895996, 54.184669, -0.000013, 0.000006, 29.200012, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2165, -1263.759033, 2728.067871, 54.184669, -0.000013, 0.000006, 29.200012, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1714, -1266.740478, 2724.890380, 54.184669, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1714, -1264.662109, 2726.052734, 54.184669, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(1714, -1262.714599, 2727.140625, 54.184669, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2010, -1261.432617, 2721.676513, 54.174671, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+	QGBAEP = CreateDynamicObject(2010, -1259.549316, 2718.306640, 54.174671, 0.000013, -0.000006, -150.800018, -1, -1, -1, 1000.00, 1000.00); 
+        
+        //mecanica
+        	new mecanica;
+	mecanica = CreateDynamicObject(997, -2085.885498, 1413.344482, 5.381554, 0.000000, 0.000000, 90.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(997, -2085.885498, 1410.242919, 5.381554, 0.000000, 0.000000, 90.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2084.560058, 1410.348999, 4.398416, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(19447, -2086.125732, 1431.829589, 7.360195, 0.000007, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19447, -2086.177246, 1412.095947, 7.360195, 0.000007, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19447, -2086.156250, 1402.499023, 7.360195, 0.000007, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19447, -2086.152832, 1392.915771, 7.360195, 0.000007, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19447, -2072.829101, 1388.043457, 7.360195, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19447, -2081.227294, 1436.552490, 7.360195, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19447, -2071.601806, 1436.552490, 7.360195, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19430, -2070.552734, 1393.370849, 9.879991, -89.999992, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19430, -2070.513183, 1388.951660, 7.361094, 0.000007, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19430, -2070.552734, 1431.352050, 9.879991, -89.999992, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19430, -2070.552734, 1434.835205, 9.879991, -89.999992, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19430, -2070.552734, 1424.541015, 9.879991, -89.999992, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19430, -2070.552734, 1427.996337, 9.879991, -89.999992, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19430, -2070.552734, 1417.533935, 9.879991, -89.999992, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19430, -2070.552734, 1421.036376, 9.879991, -89.999992, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19430, -2070.552734, 1414.034667, 9.879991, -89.999992, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19430, -2070.552734, 1403.569580, 9.879991, -89.999992, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19430, -2070.552734, 1407.050781, 9.879991, -89.999992, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19430, -2070.552734, 1396.821533, 9.879991, -89.999992, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19430, -2070.532714, 1400.075927, 9.879990, -89.999992, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2070.558105, 1428.105224, 7.328296, 0.000007, 0.000000, -179.639968, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2070.545410, 1418.973876, 7.328296, 0.000007, 0.000000, -179.639968, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2070.548583, 1409.620605, 7.328296, 0.000007, 0.000000, -179.639968, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2070.534912, 1400.386474, 7.328296, 0.000007, 0.000000, -179.639968, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2070.544433, 1391.302001, 7.328296, 0.000007, 0.000000, -179.639968, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19377, -2065.811035, 1436.254882, 5.448094, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19377, -2063.664306, 1431.453369, 5.628097, 0.000007, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19377, -2063.677734, 1421.822021, 5.628097, 0.000007, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19377, -2063.669433, 1412.196533, 5.628097, 0.000007, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19377, -2063.669433, 1402.579589, 5.628097, 0.000007, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19377, -2063.643066, 1392.944091, 5.628097, 0.000007, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19377, -2065.839355, 1388.035888, 5.628097, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19377, -2065.785156, 1393.177001, 10.828092, 0.000000, 90.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19377, -2065.732421, 1403.640869, 10.828092, 0.000000, 90.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19377, -2065.778320, 1414.103027, 10.828092, 0.000000, 90.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19377, -2065.850585, 1431.491699, 10.828092, 0.000000, 90.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19377, -2065.719726, 1421.010009, 10.828092, 0.000000, 90.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19815, -2063.482666, 1431.306640, 7.992555, 0.000000, -0.000007, -90.300155, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19387, -2065.654785, 1392.833740, 7.871374, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2068.870361, 1392.825927, 7.868295, 0.000000, 0.000007, 89.879974, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	mecanica = CreateDynamicObject(1523, -2064.929687, 1392.914306, 6.137996, 0.000007, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18646, "matcolours", "grey-80-percent", 0x00000000);
+	mecanica = CreateDynamicObject(997, -2085.885498, 1404.030883, 5.381554, 0.000000, 0.000000, 90.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2084.560058, 1404.136962, 4.398416, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(997, -2085.885498, 1400.919555, 5.381554, 0.000000, 0.000000, 90.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2084.560058, 1401.006591, 4.398416, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(997, -2085.885498, 1397.818969, 5.381554, 0.000000, 0.000000, 90.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2084.560058, 1397.865478, 4.398416, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(997, -2085.885498, 1393.578857, 5.381554, 0.000000, 0.000000, 90.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(997, -2085.885498, 1407.152343, 5.381554, 0.000000, 0.000000, 90.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2084.560058, 1413.410888, 4.398416, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2084.619873, 1416.505249, 4.398416, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(16779, -2067.000976, 1432.255615, 10.735391, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(16779, -2067.126708, 1423.357177, 10.735391, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19447, -2086.177246, 1421.477783, 7.360195, 0.000007, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19447, -2086.177246, 1425.258178, 7.360195, 0.000007, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	mecanica = CreateDynamicObject(19329, -2075.835937, 1387.948730, 8.000673, 0.000000, 0.000000, 0.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterialText(mecanica, 0, "{FFFF00}BAIXAD", 130, "Ariel", 150, 0, 0x00000000, 0x00000000, 0);
+	mecanica = CreateDynamicObject(19329, -2073.774414, 1387.948730, 8.000673, 0.000000, 0.000000, 0.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterialText(mecanica, 0, "{FFFF00}A", 130, "Ariel", 150, 0, 0x00000000, 0x00000000, 0);
+	mecanica = CreateDynamicObject(19329, -2073.774414, 1387.948730, 7.350670, 0.000000, 0.000000, 0.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterialText(mecanica, 0, "{FFFF00}MECÂNI", 130, "Ariel", 150, 0, 0x00000000, 0x00000000, 0);
+	mecanica = CreateDynamicObject(19357, -2084.560058, 1407.208496, 4.398416, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(997, -2085.885498, 1390.468261, 5.381554, 0.000000, 0.000000, 90.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2084.560058, 1396.735107, 4.398416, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2084.560058, 1395.214599, 4.398416, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2084.560058, 1393.653442, 4.398416, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2084.560058, 1392.072753, 4.398416, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(19357, -2084.560058, 1390.511596, 4.398416, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(19329, -2071.612548, 1387.948730, 7.350670, 0.000000, 0.000000, 0.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterialText(mecanica, 0, "{FFFF00}CA", 130, "Ariel", 150, 0, 0x00000000, 0x00000000, 0);
+	mecanica = CreateDynamicObject(2691, -2067.423339, 1387.908447, 9.640666, 0.000000, 0.000000, 0.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 5774, "garag3_lawn", "sprysig1", 0x00000000);
+	mecanica = CreateDynamicObject(18452, -2082.544921, 1420.156616, 8.070703, 0.000000, 0.000000, 0.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	SetDynamicObjectMaterial(mecanica, 1, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	SetDynamicObjectMaterial(mecanica, 2, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	SetDynamicObjectMaterial(mecanica, 3, 18835, "mickytextures", "smileyface1", 0x00000000);
+	mecanica = CreateDynamicObject(18452, -2082.544921, 1431.890991, 8.070703, 0.000000, 0.000000, 0.000000, -1, -1, -1, 1000.00, 1000.00); 
+	SetDynamicObjectMaterial(mecanica, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	SetDynamicObjectMaterial(mecanica, 1, 10765, "airportgnd_sfse", "black64", 0x00000000);
+	SetDynamicObjectMaterial(mecanica, 2, 18835, "mickytextures", "whiteforletters", 0x00000000);
+	SetDynamicObjectMaterial(mecanica, 3, 18835, "mickytextures", "smileyface1", 0x00000000);
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	mecanica = CreateDynamicObject(19430, -2070.552734, 1389.875000, 9.879991, -89.999992, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19430, -2070.552734, 1435.801025, 7.321094, 0.000007, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19430, -2070.552734, 1410.538818, 9.879991, -89.999992, 0.000000, 179.999954, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19377, -2065.815917, 1436.655029, 5.448094, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19817, -2069.125244, 1432.867919, 4.413084, 0.000000, -0.000007, -90.539825, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19817, -2069.212890, 1423.548095, 4.413085, 0.000000, -0.000007, -90.539825, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19817, -2069.237792, 1414.306640, 4.413085, 0.000000, -0.000007, -90.539825, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19817, -2069.273437, 1404.865966, 4.413085, 0.000000, -0.000007, -90.539825, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19817, -2069.318603, 1396.074462, 4.413085, 0.000000, -0.000007, -90.539825, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19899, -2065.094482, 1435.656494, 6.136354, 0.000000, -0.000007, -89.519882, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19899, -2065.062500, 1427.603027, 6.136354, 0.000000, -0.000007, -89.519882, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19899, -2065.074707, 1418.288330, 6.136354, 0.000000, -0.000007, -89.519882, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19899, -2065.095703, 1408.921630, 6.136354, 0.000000, -0.000007, -89.519882, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19899, -2065.067138, 1400.027343, 6.136354, 0.000000, -0.000007, -89.519882, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19815, -2063.763671, 1432.426025, 7.992555, 0.000000, -0.000007, -90.300155, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19815, -2063.772460, 1423.565917, 7.992555, 0.000000, -0.000007, -90.300155, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19815, -2063.788085, 1414.278564, 7.992555, 0.000000, -0.000007, -90.300155, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19815, -2062.491455, 1405.458007, 7.992555, 0.000000, -0.000007, -90.300155, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19815, -2063.771484, 1404.805664, 7.992555, 0.000000, -0.000007, -90.300155, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19815, -2063.716796, 1396.039794, 7.992555, 0.000000, -0.000007, -90.300155, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(10281, -2071.974853, 1401.997436, 10.725172, 0.000000, -0.000007, -87.479949, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(10281, -2072.424072, 1412.217529, 10.725172, 0.000000, -0.000007, -87.479949, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(10281, -2072.786132, 1420.430297, 10.725172, 0.000000, -0.000007, -87.479949, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(10281, -2073.174316, 1429.221923, 10.725172, 0.000000, -0.000007, -87.479949, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19903, -2064.086181, 1398.098144, 6.140727, 0.099996, -0.000007, 178.699554, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19387, -2062.453125, 1392.847412, 7.871374, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(1098, -2065.554199, 1399.368896, 6.538064, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19903, -2064.084716, 1402.020141, 6.133882, 0.099996, -0.000007, 178.699554, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19903, -2064.096679, 1412.104736, 6.116285, 0.099996, -0.000007, 178.699554, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19903, -2064.083251, 1421.036865, 6.100699, 0.099996, -0.000007, 178.699554, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19903, -2064.063232, 1430.129394, 6.084834, 0.099996, -0.000007, 178.699554, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(1714, -2069.939697, 1391.617675, 6.136744, -0.000006, 0.000003, 30.839969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(1344, -2072.236328, 1388.733154, 6.840394, 0.000007, 0.000000, -179.699935, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(1344, -2075.046630, 1388.802001, 6.840394, 0.000007, 0.000000, -179.699935, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(11729, -2064.145751, 1388.447509, 6.138346, 0.000007, 0.000000, -179.519943, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(11729, -2064.810302, 1388.427001, 6.138346, 0.000007, 0.000000, -179.519943, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(11729, -2065.480957, 1388.446044, 6.138346, 0.000007, 0.000000, -179.519943, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19900, -2066.342773, 1388.364501, 6.138124, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19466, -2067.222412, 1391.621337, 6.969095, -0.000007, 0.000000, -0.959998, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19978, -2086.057128, 1388.089355, 6.134274, 0.000000, 0.000007, 359.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(16779, -2066.983886, 1414.439697, 10.735391, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(16779, -2067.204833, 1405.000000, 10.735391, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(16779, -2067.008300, 1395.868896, 10.735391, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(16779, -2066.950927, 1390.804443, 10.735391, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19124, -2071.294433, 1400.268554, 6.743555, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19124, -2071.151611, 1391.103271, 6.743555, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19124, -2071.133544, 1409.682128, 6.743555, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19124, -2071.230468, 1418.894287, 6.743555, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19124, -2071.345703, 1428.065673, 6.743555, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19124, -2071.311035, 1435.742675, 6.743555, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19295, -2071.321777, 1400.430419, 7.052265, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19295, -2071.184326, 1409.827636, 7.028584, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19295, -2071.211914, 1391.248779, 6.925594, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19295, -2071.372070, 1418.918212, 6.855494, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19295, -2071.445800, 1428.191650, 6.585205, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19295, -2071.452392, 1435.800048, 6.936484, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19295, -2086.218750, 1427.662841, 7.013916, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19295, -2086.265625, 1422.497070, 6.809977, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19295, -2086.364746, 1417.235107, 7.195896, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19124, -2077.667480, 1388.062744, 6.743555, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19124, -2085.954589, 1388.005126, 6.743555, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19295, -2086.118652, 1387.671142, 6.697565, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19295, -2077.809814, 1388.049072, 6.654244, 0.000000, 0.000007, 89.999969, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(10281, -2071.459960, 1390.319091, 10.725173, 0.000000, -0.000007, -87.479949, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(2165, -2068.951416, 1390.450317, 6.031562, 0.000000, 0.000000, 180.000000, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(2638, -2069.391113, 1400.501098, 6.661564, 0.000000, 0.000000, 0.000000, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(2638, -2069.391113, 1409.441772, 6.661564, 0.000000, 0.000000, 0.000000, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(2638, -2069.391113, 1418.763671, 6.661564, 0.000000, 0.000000, 0.000000, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(2638, -2069.391113, 1428.016479, 6.661564, 0.000000, 0.000000, 0.000000, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(12957, -2083.668701, 1433.593994, 6.841569, 0.000000, 0.000000, 0.000000, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(3593, -2082.538818, 1426.863403, 7.721558, 0.000000, 0.000000, 90.000000, -1, -1, -1, 1000.00, 1000.00); 
+	mecanica = CreateDynamicObject(19872, -2082.006835, 1426.835693, 5.310660, 0.000000, 0.000000, 90.000000, -1, -1, -1, 1000.00, 1000.00); 
+
+        //hqs de org
+        CreateDynamicObject(12938, -97.328575, 1052.386474, 25.741989, 0.000000, -0.000136, 0.099797, -1, -1, -1, 300.00, 300.00); 
+	CreateDynamicObject(12938, -128.324432, 1050.333496, 25.741981, -0.000000, 0.000136, -179.899642, -1, -1, -1, 300.00, 300.00); 
+	CreateDynamicObject(12938, 1352.968139, 435.630187, 21.283378, -0.000007, 0.000098, -29.500576, -1, -1, -1, 300.00, 300.00); 
+	CreateDynamicObject(12938, 1324.767700, 449.230407, 21.283378, -0.000028, 0.000132, 150.499252, -1, -1, -1, 300.00, 300.00);
+	CreateDynamicObject(12938, -2064.800781, -2555.157226, 33.602157, 0.000000, -0.000018, 320.000000, -1, -1, -1, 300.00, 300.00); 
+	CreateDynamicObject(12938, -2090.000732, -2536.356933, 33.602157, -0.000000, 0.000018, -220.999923, -1, -1, -1, 300.00, 300.00); 
+
+
         //FAVELA 
         CreateDynamicObject(3655,667.5999800,-645.5999800,18.2000000,0.0000000,0.0000000,1.2500000); //object(ganghous03_lax) (1)
         CreateDynamicObject(3655,668.7000100,-634.2000100,18.2000000,0.0000000,0.0000000,348.2480000); //object(ganghous03_lax) (2)
@@ -8739,27 +9630,37 @@ stock CarregarMapas()
 
 stock MapRemocao(playerid)
 {
-        //POLICIA RODOVIARIA
-        RemoveBuildingForPlayer(playerid, 17040, -257.53125, -2202.8359, 27.57813, 17.99968); // removeWorldObject (cuntw_weefact1_) (1)
-	RemoveBuildingForPlayer(playerid, 17039, -260.53906, -2182.6094, 26.6875, 10.785467); // removeWorldObject (cuntw_weebarn1_) (1)
-	RemoveBuildingForPlayer(playerid, 17038, -280.1875, -2167.7031, 27.78906, 14.162302); // removeWorldObject (cuntw_weefactory1_) (1)
-	RemoveBuildingForPlayer(playerid, 17037, -288.27344, -2163.5, 30.09375, 7.3575039); // removeWorldObject (cuntw_carport2_) (1)
-	RemoveBuildingForPlayer(playerid, 17036, -285.39844, -2151.0469, 27.38281, 6.9159627); // removeWorldObject (cuntw_carport1_) (1)
-	RemoveBuildingForPlayer(playerid, 3276, -259.76147, -2238.2344, 28.1376, 8.2899265); // removeWorldObject (cxreffencesld) (1)
-	RemoveBuildingForPlayer(playerid, 3276, -251.26373, -2245.3921, 28.76403, 8.2899265); // removeWorldObject (cxreffencesld) (2)
-	RemoveBuildingForPlayer(playerid, 3276, -245.95889, -2235.2129, 28.42753, 8.2899265); // removeWorldObject (cxreffencesld) (3)
-	RemoveBuildingForPlayer(playerid, 3276, -244.45027, -2220.8943, 29.48196, 8.2899265); // removeWorldObject (cxreffencesld) (4)
-	RemoveBuildingForPlayer(playerid, 3276, -244.85587, -2204.3083, 29.6943, 8.2899265); // removeWorldObject (cxreffencesld) (5)
-	RemoveBuildingForPlayer(playerid, 3276, -247.80112, -2194.0452, 29.16458, 8.2899265); // removeWorldObject (cxreffencesld) (6)
-	RemoveBuildingForPlayer(playerid, 3276, -251.56389, -2180.6594, 29.70958, 8.2899265); // removeWorldObject (cxreffencesld) (7)
-	RemoveBuildingForPlayer(playerid, 3276, -255.66699, -2161.8645, 29.23856, 8.2899265); // removeWorldObject (cxreffencesld) (8)
-	RemoveBuildingForPlayer(playerid, 3276, -253.13121, -2175.6416, 29.47779, 8.2899265); // removeWorldObject (cxreffencesld) (9)
-	RemoveBuildingForPlayer(playerid, 3276, -257.91891, -2147.8079, 29.13529, 8.2899265); // removeWorldObject (cxreffencesld) (10)
-	RemoveBuildingForPlayer(playerid, 3276, -299.41901, -2152.8315, 28.05268, 8.2899265); // removeWorldObject (cxreffencesld) (11)
-	RemoveBuildingForPlayer(playerid, 3276, -299.90295, -2142.335, 28.45692, 8.2899265); // removeWorldObject (cxreffencesld) (12)
-	RemoveBuildingForPlayer(playerid, 3276, -288.13196, -2139.7532, 28.28035, 8.2899265); // removeWorldObject (cxreffencesld) (13)
-	RemoveBuildingForPlayer(playerid, 3276, -274.61624, -2138.7405, 28.09671, 8.2899265); // removeWorldObject (cxreffencesld) (14)
-	RemoveBuildingForPlayer(playerid, 3276, -265.74985, -2140.0532, 28.6364, 8.2899265); // removeWorldObject (cxreffencesld) (15)
+        //PRF
+        RemoveBuildingForPlayer(playerid, 709, 1623.089, -268.414, 38.992, 0.250);
+
+        //BAEP
+        RemoveBuildingForPlayer(playerid, 11545, -1270.449, 2719.439, 49.265, 0.250);
+	RemoveBuildingForPlayer(playerid, 11612, -1270.449, 2719.439, 49.265, 0.250);
+
+
+        //hqs de org
+        RemoveBuildingForPlayer(playerid, 791, 1322.010, 437.593, 17.398, 0.250);
+	RemoveBuildingForPlayer(playerid, 785, 1322.010, 437.593, 17.398, 0.250);
+	RemoveBuildingForPlayer(playerid, 3170, -2099.610, -2534.159, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3341, -2099.610, -2534.159, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3167, -2085.699, -2548.379, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3340, -2085.699, -2548.379, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3169, -2067.260, -2563.110, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3339, -2067.260, -2563.110, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3170, -2076.590, -2524.520, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3341, -2076.590, -2524.520, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3167, -2064.040, -2536.659, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3340, -2064.040, -2536.659, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3173, -2051.389, -2545.979, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3342, -2051.389, -2545.979, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3169, -2067.260, -2563.110, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3339, -2067.260, -2563.110, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 1447, -315.492, 809.289, 15.398, 0.250);
+	RemoveBuildingForPlayer(playerid, 3170, -2099.610, -2534.159, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3341, -2099.610, -2534.159, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3167, -2085.699, -2548.379, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 3340, -2085.699, -2548.379, 29.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 1308, -2081.750, -2528.090, 29.804, 0.250);
 	
         //24 SPAWN
         RemoveBuildingForPlayer(playerid, 759, -1620.380, 1279.479, 5.921, 0.250);

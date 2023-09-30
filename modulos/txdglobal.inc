@@ -2462,6 +2462,78 @@ CarregarTxdGlobal()
 	TextDrawSetProportional(TD_RG[23], 1);
 	TextDrawSetSelectable(TD_RG[23], 1);
 
+	//VELOCIMETRO MOBILE
+	Velomob[0] = TextDrawCreate(293.000000, 384.000000, "(");
+	TextDrawFont(Velomob[0], 1);
+	TextDrawLetterSize(Velomob[0], 0.670832, 5.350002);
+	TextDrawTextSize(Velomob[0], 400.000000, 17.000000);
+	TextDrawSetOutline(Velomob[0], 0);
+	TextDrawSetShadow(Velomob[0], 0);
+	TextDrawAlignment(Velomob[0], 1);
+	TextDrawColor(Velomob[0], -16776961);
+	TextDrawBackgroundColor(Velomob[0], 255);
+	TextDrawBoxColor(Velomob[0], 50);
+	TextDrawUseBox(Velomob[0], 0);
+	TextDrawSetProportional(Velomob[0], 1);
+	TextDrawSetSelectable(Velomob[0], 0);
+
+	Velomob[1] = TextDrawCreate(338.000000, 384.000000, ")");
+	TextDrawFont(Velomob[1], 1);
+	TextDrawLetterSize(Velomob[1], 0.670832, 5.200002);
+	TextDrawTextSize(Velomob[1], 400.000000, 17.000000);
+	TextDrawSetOutline(Velomob[1], 0);
+	TextDrawSetShadow(Velomob[1], 0);
+	TextDrawAlignment(Velomob[1], 1);
+	TextDrawColor(Velomob[1], -16776961);
+	TextDrawBackgroundColor(Velomob[1], 255);
+	TextDrawBoxColor(Velomob[1], 50);
+	TextDrawUseBox(Velomob[1], 0);
+	TextDrawSetProportional(Velomob[1], 1);
+	TextDrawSetSelectable(Velomob[1], 0);
+
+	Velomob[2] = TextDrawCreate(312.000000, 387.000000, "ld_beat:chit");
+	TextDrawFont(Velomob[2], 4);
+	TextDrawLetterSize(Velomob[2], 0.600000, 2.000000);
+	TextDrawTextSize(Velomob[2], 15.500000, 15.500000);
+	TextDrawSetOutline(Velomob[2], 1);
+	TextDrawSetShadow(Velomob[2], 0);
+	TextDrawAlignment(Velomob[2], 1);
+	TextDrawColor(Velomob[2], -16776961);
+	TextDrawBackgroundColor(Velomob[2], 255);
+	TextDrawBoxColor(Velomob[2], 50);
+	TextDrawUseBox(Velomob[2], 1);
+	TextDrawSetProportional(Velomob[2], 1);
+	TextDrawSetSelectable(Velomob[2], 0);
+
+	Velomob[3] = TextDrawCreate(320.000000, 410.000000, "KM/H");
+	TextDrawFont(Velomob[3], 2);
+	TextDrawLetterSize(Velomob[3], 0.150000, 1.049999);
+	TextDrawTextSize(Velomob[3], 400.000000, 17.000000);
+	TextDrawSetOutline(Velomob[3], 0);
+	TextDrawSetShadow(Velomob[3], 0);
+	TextDrawAlignment(Velomob[3], 2);
+	TextDrawColor(Velomob[3], -1);
+	TextDrawBackgroundColor(Velomob[3], 255);
+	TextDrawBoxColor(Velomob[3], 50);
+	TextDrawUseBox(Velomob[3], 0);
+	TextDrawSetProportional(Velomob[3], 1);
+	TextDrawSetSelectable(Velomob[3], 0);
+
+	Velomob[4] = TextDrawCreate(320.000000, 417.000000, "~r~F:~w~ 100%");
+	TextDrawFont(Velomob[4], 2);
+	TextDrawLetterSize(Velomob[4], 0.150000, 1.049999);
+	TextDrawTextSize(Velomob[4], 400.000000, 62.500000);
+	TextDrawSetOutline(Velomob[4], 0);
+	TextDrawSetShadow(Velomob[4], 0);
+	TextDrawAlignment(Velomob[4], 2);
+	TextDrawColor(Velomob[4], -1);
+	TextDrawBackgroundColor(Velomob[4], 255);
+	TextDrawBoxColor(Velomob[4], 50);
+	TextDrawUseBox(Velomob[4], 0);
+	TextDrawSetProportional(Velomob[4], 1);
+	TextDrawSetSelectable(Velomob[4], 0);
+
+
 
 	printf("=> Textdraws Globais       		: Carregados");
 }
