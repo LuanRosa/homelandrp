@@ -4027,7 +4027,6 @@ CallBack::PayDay(playerid)
 	if(!IsPlayerConnected(playerid))
 		return true;
 
-	new megastrings[500], String2[500];
 	if(pLogado[playerid] == true)
 	{
 		if(GetPlayerMoney(playerid) < 100000)
@@ -4035,9 +4034,9 @@ CallBack::PayDay(playerid)
 			MissaoPlayer[playerid][MISSAO9] = 1;
 		}
 		new g; g = random(1000);
-		new gjuros; gjuros = random(100);
-		new gimposto; gimposto = random(200);
-		new gi; gi = random(350);
+		new gjuros; gjuros = random(2000);
+		new gimposto; gimposto = random(5000);
+		new gi; gi = random(1500);
 		new saldoantigo[MAX_PLAYERS];
 		saldoantigo[playerid] = PlayerInfo[playerid][pBanco];
 		if(PlayerInfo[playerid][pVIP] > 0)
@@ -4048,59 +4047,21 @@ CallBack::PayDay(playerid)
 		PlayerInfo[playerid][pBanco] -= gi;
 		PlayerInfo[playerid][pBanco] -= gjuros;
 		PlayerInfo[playerid][pBanco] += g;
-		strcat(megastrings,"{FFFFFF}---------------------------------- PayDay ----------------------------------\n\n");
-		format(String2,sizeof(String2), "{FFFFFF}Salario Civil: {00FF00}R$%i\n", g);
-		strcat(megastrings, String2);
-		if(PlayerInfo[playerid][pProfissao] == 3)
-		{
-			PlayerInfo[playerid][pBanco] += 2500;
-			format(String2,sizeof(String2), "{FFFFFF}Salario Emprego: {00FF00}R$2500\n");
-			strcat(megastrings, String2);
-		}
-		if(PlayerInfo[playerid][pProfissao] == 4)
-		{
-			PlayerInfo[playerid][pBanco] += 3200;
-			format(String2,sizeof(String2), "{FFFFFF}Salario Emprego: {00FF00}R$3200\n");
-			strcat(megastrings, String2);
-		}
 		if(PlayerInfo[playerid][pVIP] == 1)
 		{
-			PlayerInfo[playerid][pBanco] += 500;
-			format(String2,sizeof(String2), "{FFFFFF}Ganho beneficio do seu VIP\n");
-			strcat(megastrings, String2);
+			PlayerInfo[playerid][pBanco] += 1500;
 		}
 		if(PlayerInfo[playerid][pVIP] == 2)
 		{
-			PlayerInfo[playerid][pBanco] += 800;
-			format(String2,sizeof(String2), "{FFFFFF}Ganho beneficio de seu VIP\n");
-			strcat(megastrings, String2);
-		}
-		if(PlayerInfo[playerid][pVIP] == 3)
-		{
 			PlayerInfo[playerid][pBanco] += 3000;
-			format(String2,sizeof(String2), "{FFFFFF}Ganho beneficio de seu VIP\n");
-			strcat(megastrings, String2);
 		}
-		format(String2,sizeof(String2), "{FFFFFF}Taxa Bancaria: {FFFF00}-R$%i\n", gjuros);
-		strcat(megastrings, String2);
-		format(String2,sizeof(String2), "{FFFFFF}Imposto Governo: {FFFF00}-R$%i\n", gimposto);
-		strcat(megastrings, String2);
-		format(String2,sizeof(String2), "{FFFFFF}Plano de Saude: {FFFF00}-R$%i\n", gi);
-		strcat(megastrings, String2);
-		format(String2,sizeof(String2), "{FFFFFF}Saldo anterior: {FFFF00}R$%i\n", saldoantigo);
-		strcat(megastrings, String2);
-		format(String2,sizeof(String2), "{FFFFFF}Novo Saldo: {00FF00}R$%i\n", PlayerInfo[playerid][pBanco]);
-		strcat(megastrings, String2);
-		strcat(megastrings,"{FFFFFF}---------------------------------- PayDay ----------------------------------\n\n");
-		ShowPlayerDialog(playerid, DIALOG_PAYDAY,DIALOG_STYLE_MSGBOX,"PAYDAY",megastrings,"X","");
 		PlayerPlaySound(playerid,1139,0.0,0.0,0.0);
 		SalvarDados(playerid);
-
 		TimerPayDay[playerid] = SetTimerEx("PayDay", minutos(30), false, "i", playerid); 
-
 		new string[100];
 		format(string,sizeof(string),"%04d agora tem R$%i na mao e R$%i no banco", PlayerInfo[playerid][IDF],PlayerInfo[playerid][pDinheiro], PlayerInfo[playerid][pBanco]);
 		DCC_SendChannelMessage(Dinn, string);
+		InfoMsg(playerid, "Agradecemos por colaborar com a cidade, foi depositado seu pagamento de 30min ativo.");
 	}
 	return true;
 }
@@ -14952,7 +14913,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{FFFF00}- {FFFFFF}VIP PRATA{32CD32}\tBC$5,000\n{FFFF00}- {FFFFFF}VIP OURO{32CD32}\tBC$10,000\n{FFFF00}- {FFFFFF}VIP DIAMANTE{32CD32}\tBC$20,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{FFFF00}- {FFFFFF}VIP BASICO{32CD32}\tBC$10,000\n{FFFF00}- {FFFFFF}VIP PREMIUM{32CD32}\tBC$10,000", "Selecionar", "X");	
 				}
 				if(listitem == 1)
 				{
@@ -15106,10 +15067,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new String[500], string[500];
 				if(listitem == 0)
 				{
-					if(PlayerInfo[playerid][pCoins] < 5000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}VIP PRATA {FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF]);
+					if(PlayerInfo[playerid][pCoins] < 10000) 	return ErrorMsg(playerid, "Coins insuficiente.");
+					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}VIP BASICO {FFFFFF} por{FFFF00} BC$10.000", PlayerInfo[playerid][IDF]);
 					SendClientMessageToAll(-1, String);
-					PlayerInfo[playerid][pCoins] -= 5000;
+					PlayerInfo[playerid][pCoins] -= 10000;
 					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
 					PlayerInfo[playerid][pVIP] = 1;
 					format(string, sizeof(string), PASTA_VIPS, Name(playerid)); 
@@ -15118,17 +15079,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SaveFile(); 
 					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
-					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP PRATA\nValor: 5000", PlayerInfo[playerid][IDF]);
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
 					DCC_SetEmbedColor(embed, 0xFFFF00);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
 				if(listitem == 1)
 				{
-					if(PlayerInfo[playerid][pCoins] < 10000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}VIP OURO {FFFFFF} por{FFFF00} BC$10.000", PlayerInfo[playerid][IDF]);
+					if(PlayerInfo[playerid][pCoins] < 25000) 	return ErrorMsg(playerid, "Coins insuficiente.");
+					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}VIP PREMIUM {FFFFFF} por{FFFF00} BC$25.000", PlayerInfo[playerid][IDF]);
 					SendClientMessageToAll(-1, String);
-					PlayerInfo[playerid][pBanco] += 5000;
+					PlayerInfo[playerid][pBanco] += 25000;
 					PlayerInfo[playerid][pCoins] -= 10000;
 					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
 					PlayerInfo[playerid][pVIP] = 2;
@@ -15137,27 +15098,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SetInt(string,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
 					DOF2_SaveFile(); 
 					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
-					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP OURO\nValor: 10000", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0xFFFF00);
-					DCC_SetEmbedDescription(embed, string);
-					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
-				}
-				if(listitem == 2)
-				{
-					if(PlayerInfo[playerid][pCoins] < 20000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}VIP DIAMANTE por{FFFF00} BC$20.000", PlayerInfo[playerid][IDF]);
-					SendClientMessageToAll(-1, String);
-					PlayerInfo[playerid][pBanco] += 25000;
-					PlayerInfo[playerid][pCoins] -= 20000;
-					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
-					PlayerInfo[playerid][pVIP] = 3;
-					format(string, sizeof(string), PASTA_VIPS, Name(playerid)); 
-					DOF2_CreateFile(string); 
-					DOF2_SetInt(string,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
-					DOF2_SaveFile(); 
-					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
-					new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
-					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP DIAMANTE\nValor: 20000", PlayerInfo[playerid][IDF]);
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP PREMIUM\nValor: 25000", PlayerInfo[playerid][IDF]);
 					DCC_SetEmbedColor(embed, 0xFFFF00);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -17055,8 +16996,6 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 	if(playertextid == TDPref[playerid][5])
 	{
 		if(CheckInventario2(playerid, 19792)) return ErrorMsg(playerid, "Ja possui carteira de trabalho");
-		//if(GetPlayerMoney(playerid) < 8000) 	return ErrorMsg(playerid, "Dinheiro insuficiente, nao possui 8mil.");
-		//PlayerInfo[playerid][pDinheiro] -= 8000;
 		SuccesMsg(playerid, "Fez a carteira de trabalho agora podera trabalhar em empregos que necessita disso e receber salario a cada PayDay.");
 		GanharItem(playerid, 19792, 1);
 		MissaoPlayer[playerid][MISSAO4] = 1;
