@@ -4280,24 +4280,6 @@ CallBack::PlayerToPoint(Float:radi, playerid, Float:x, Float:y, Float:z)
 	return 0;
 }
 
-CallBack::CriandoCpf(playerid)
-{
-	new megastrings[500], String2[500];
-	format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n{FFFFFF}VIP: {FFFF00}%s\n", Name(playerid), VIP(playerid));
-	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\n{FFFFFF}Org:{FFFF00} %s\n{FFFFFF}Cargo:{FFFF00} %s\n", Profs(playerid), NomeOrg(playerid), NomeCargo(playerid));
-	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\n{FFFFFF}N°Casa:{FFFF00} %d\n", PlayerInfo[playerid][pMultas], PlayerInfo[playerid][Casa]);
-	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\n{FFFFFF}Expira VIP:{FFFF00} %s\n{FFFFFF}Licenca Conduzir: {FFFF00}%s", convertNumber(PlayerInfo[ID][pSegundosJogados]), convertNumber(PlayerInfo[ID][ExpiraVIP]-gettime()), temlicenca(playerid));
-	strcat(megastrings, String2);
-	ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
-	SuccesMsg(playerid, "Documentos feitos");
-	MissaoPlayer[playerid][MISSAO1] = 1;
-	TogglePlayerControllable(playerid, 1);
-	return 1;
-}
-
 CallBack::FomeBar(playerid)
 {
 	if(!IsPlayerConnected(playerid))
@@ -4944,20 +4926,6 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 			AtualizarInventario(playerid, modelid);
 			cmd_inventario(playerid);
 			return true;
-		}
-		case 1581:
-		{
-			cmd_inventario(playerid);
-			new megastrings[500], String2[500];
-			format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n{FFFFFF}VIP: {FFFF00}%s\n", Name(playerid), VIP(playerid));
-			strcat(megastrings, String2);
-			format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\n{FFFFFF}Org:{FFFF00} %s\n{FFFFFF}Cargo:{FFFF00} %s\n", Profs(playerid), NomeOrg(playerid), NomeCargo(playerid));
-			strcat(megastrings, String2);
-			format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\n{FFFFFF}N°Casa:{FFFF00} %d\n", PlayerInfo[playerid][pMultas], PlayerInfo[playerid][Casa]);
-			strcat(megastrings, String2);
-			format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\n{FFFFFF}Expira VIP:{FFFF00} %s\n{FFFFFF}Licenca Conduzir: {FFFF00}%s", convertNumber(PlayerInfo[ID][pSegundosJogados]), convertNumber(PlayerInfo[ID][ExpiraVIP]-gettime()), temlicenca(playerid));
-			strcat(megastrings, String2);
-			ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
 		}
 		case 18632:
 		{
@@ -9979,15 +9947,15 @@ stock NomeOrg(playerid)
 	}
 	if(org == 5)
 	{
-		orG = "Tropa dos Vermelho";
+		orG = "Tropa dos Amarelos";
 	}
 	if(org == 6)
 	{
-		orG = "Tropa dos Amarelo";
+		orG = "Tropa dos Azuis";
 	}
 	if(org == 7)
 	{
-		orG = "Tropa dos Azul";
+		orG = "Tropa dos Vermelhos";
 	}
 	if(org == 8)
 	{
@@ -9999,11 +9967,11 @@ stock NomeOrg(playerid)
 	}
 	if(org == 10)
 	{
-		orG = "Reportagem";
+		orG = "Mecanicos";
 	}
 	if(org == 11)
 	{
-		orG = "Mecanico";
+		orG = "Reportagem";
 	}
 	if(org == 12)
 	{
@@ -13659,7 +13627,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		if(IsPlayerInRangeOfPoint(playerid, 10.0, CofreInfo[orgid][CofrePosX], CofreInfo[orgid][CofrePosY], CofreInfo[orgid][CofrePosZ]))
 		{
-            if(!IsBandido(playerid) || !IsPolicial(playerid) || !IsMafia(playerid)) return ErrorMsg(playerid, "Nao possui permissao.");
+            if(IsBandido(playerid) || IsPolicial(playerid) || IsMafia(playerid))
             {
 				for(new ii = 0; ii != 20; ii++)
 				{
@@ -14601,13 +14569,20 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(stg, "{FFFF00}/duvida{FFFFFF} Para falar no chat de duvida.\n");
 					strcat(stg, "{FFFF00}/lojavip{FFFFFF} Para verificar menu de coins.\n");
 					strcat(stg, "{FFFF00}/sairemprego{FFFFFF} deixar seu emprego.\n");
+					strcat(stg, "{FFFF00}/pedircontas{FFFFFF} Sair de sua org.\n");
 					strcat(stg, "{FFFF00}/pagar{FFFFFF} Envia dinheiro a um jogador.\n");
 					strcat(stg, "{FFFF00}/maconhas{FFFFFF} Verificar plantacoes.\n");
 					strcat(stg, "{FFFF00}/cmaconha{FFFFFF} Colher plantacoes.\n");
 					strcat(stg, "{FFFF00}/orgs{FFFFFF} Verificar orgs.\n");
 					strcat(stg, "{FFFF00}/menuanim{FFFFFF} Menu de animacoes.\n");
 					strcat(stg, "{FFFF00}/missoes{FFFFFF} Menu de missoes.\n");
-					strcat(stg, "{FFFF00}/mvoip{FFFFFF} Configurar seu voip.\n\n");
+					strcat(stg, "{FFFF00}/minhaconta{FFFFFF} Informacoes da sua conta.\n");
+					strcat(stg, "{FFFF00}/rg{FFFFFF} Ver seu registro geral.\n");
+					strcat(stg, "{FFFF00}/mostrarrg{FFFFFF} Mostrar seu rg a outro jogador.\n");
+					strcat(stg, "{FFFF00}/mvoip{FFFFFF} Configurar seu voip.\n");
+					strcat(stg, "{FFFF00}/limparchat{FFFFFF} Limpar o seu chat.\n");
+					strcat(stg, "{FFFF00}/admins{FFFFFF} Verifica admins online.\n");
+					strcat(stg, "{FFFF00}/presos{FFFFFF} Verificar os presos do servidor.\n\n");
 					strcat(stg, "{FFFFFF} Para cada 30min de jogo voce recebera um PayDay,\ncada PayDay lhe dara bonus nos empregos e caixa PayDay.");
 					ShowPlayerDialog(playerid, DIALOG_AJUDACOMANDOS, DIALOG_STYLE_MSGBOX, "Comandos Servidor", stg, "Ok", #);
 				}
@@ -14662,11 +14637,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerInfo[playerid][Cargo] == 3) return 0;
 					{
 						new stg[1100];
-						strcat(stg, "{FFFF00}/infoorg{FFFFFF} Abrir o menu\n\n");
-						strcat(stg, "{FFFF00}/convidar{FFFFFF} Convide um jogador para sua organizacao.\n\n");
-						strcat(stg, "{FFFF00}/limparvagas{FFFFFF} Remova todos os membros da sua organizacao.\n\n");
-						strcat(stg, "{FFFF00}/demitir{FFFFFF} Demitir um membro da organizacao.\n\n");
-						strcat(stg, "{FFFF00}/promover{FFFFFF} Subir cargo de um jogador.\n\n");
+						strcat(stg, "{FFFF00}/infoorg{FFFFFF} Abrir o menu\n");
+						strcat(stg, "{FFFF00}/convidar{FFFFFF} Convide um jogador para sua organizacao.\n");
+						strcat(stg, "{FFFF00}/limparvagas{FFFFFF} Remova todos os membros da sua organizacao.\n");
+						strcat(stg, "{FFFF00}/demitir{FFFFFF} Demitir um membro da organizacao.\n");
+						strcat(stg, "{FFFF00}/promover{FFFFFF} Subir cargo de um jogador.\n");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAJEFORG, DIALOG_STYLE_MSGBOX, "Comandos Chefes Orgs", stg, "Ok", #);
 					}
 				}
@@ -14675,32 +14650,33 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(IsPolicial(playerid)) 
 					{
 						new stg[1100];
-						strcat(stg, "{FFFF00}/d{FFFFFF} Central de Policia\n\n");
-						strcat(stg, "{FFFF00}/algemar{FFFFFF} Colocar uma algema em um jogador.\n\n");
-						strcat(stg, "{FFFF00}/desalgemar{FFFFFF} Remove uma algema de um jogador.\n\n");
-						strcat(stg, "{FFFF00}/pveiculo{FFFFFF} Coloque um jogador no veiculo.\n\n");
-						strcat(stg, "{FFFF00}/rveiculo{FFFFFF} Remova um jogador no veiculo.\n\n");
-						strcat(stg, "{FFFF00}/prender{FFFFFF} Acorrentar um jogador.\n\n");
-						strcat(stg, "{FFFF00}/ab{FFFFFF} Anuncia o embarque de um jogador.\n\n");
-						strcat(stg, "{FFFF00}/su{FFFFFF} Coloque o nÃ­vel de procurado.\n\n");
-						strcat(stg, "{FFFF00}/verinv{FFFFFF} Verificar o inventÃ¡rio de um jogador.\n\n");
-						strcat(stg, "{FFFF00}/patrulhar{FFFFFF} Informe de uma patrulha na cidade.\n\n");
-						strcat(stg, "{FFFF00}/rarmas{FFFFFF} Remover armas de um jogador.\n\n");
-						strcat(stg, "{FFFF00}/lprocurados{FFFFFF} Localize um jogador procurado.\n\n");
-						strcat(stg, "{FFFF00}/procurados{FFFFFF} Todos os jogadores pesquisados.\n\n");
-						strcat(stg, "{FFFF00}/multar{FFFFFF} Colocar uma multa em um jogador.\n\n");
-						strcat(stg, "{FFFF00}/olhardocumentos{FFFFFF} Veja os documentos de um jogador.\n\n");
-						strcat(stg, "{FFFF00}/qplantacao{FFFFFF} Queimar uma plantacao de maconha.\n\n");
+						strcat(stg, "{FFFF00}/d{FFFFFF} Central de Policia\n");
+						strcat(stg, "{FFFF00}/algemar{FFFFFF} Colocar uma algema em um jogador.\n");
+						strcat(stg, "{FFFF00}/desalgemar{FFFFFF} Remove uma algema de um jogador.\n");
+						strcat(stg, "{FFFF00}/pveiculo{FFFFFF} Coloque um jogador no veiculo.\n");
+						strcat(stg, "{FFFF00}/rveiculo{FFFFFF} Remova um jogador no veiculo.\n");
+						strcat(stg, "{FFFF00}/prender{FFFFFF} Acorrentar um jogador.\n");
+						strcat(stg, "{FFFF00}/ab{FFFFFF} Anuncia o embarque de um jogador.\n");
+						strcat(stg, "{FFFF00}/su{FFFFFF} Coloque nivel de procurado.\n");
+						strcat(stg, "{FFFF00}/revistar{FFFFFF} Verificar o inventario de um jogador.\n");
+						strcat(stg, "{FFFF00}/patrulhar{FFFFFF} Informe de uma patrulha na cidade.\n");
+						strcat(stg, "{FFFF00}/rarmas{FFFFFF} Remover armas de um jogador.\n");
+						strcat(stg, "{FFFF00}/lprocurados{FFFFFF} Localize um jogador procurado.\n");
+						strcat(stg, "{FFFF00}/procurados{FFFFFF} Todos os jogadores pesquisados.\n");
+						strcat(stg, "{FFFF00}/multar{FFFFFF} Colocar uma multa em um jogador.\n");
+						strcat(stg, "{FFFF00}/qplantacao{FFFFFF} Queimar uma plantacao de maconha.\n");
+						strcat(stg, "{FFFF00}/verdocumentos{FFFFFF} Verificar documento de um jogador.\n");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAORG, DIALOG_STYLE_MSGBOX, "Comandos Organizacao", stg, "Ok", "");
 					}
 					if(IsBandido(playerid) || IsMafia(playerid)) 
 					{
 						new stg[1100];
-						strcat(stg, "{FFFF00}/ga{FFFFFF} Radio de gang\n\n");
-						strcat(stg, "{FFFF00}/ab{FFFFFF} Anuncio de abordagem.\n\n");
-						strcat(stg, "{FFFF00}/pveiculo{FFFFFF} Coloque um jogador no veiculo.\n\n");
-						strcat(stg, "{FFFF00}/rveiculo{FFFFFF} Remova um jogador no veiculo.\n\n");
-						strcat(stg, "{FFFF00}/verinv{FFFFFF} Verificar inventario de um jogador.\n\n");
+						strcat(stg, "{FFFF00}/ga{FFFFFF} Radio de gang\n");
+						strcat(stg, "{FFFF00}/ab{FFFFFF} Anuncio de abordagem.\n");
+						strcat(stg, "{FFFF00}/pveiculo{FFFFFF} Coloque um jogador no veiculo.\n");
+						strcat(stg, "{FFFF00}/rveiculo{FFFFFF} Remova um jogador no veiculo.\n");
+						strcat(stg, "{FFFF00}/revistar{FFFFFF} Verificar inventario de um jogador.\n");
+						strcat(stg, "{FFFF00}/verdocumentos{FFFFFF} Verificar documento de um jogador.\n");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAORG, DIALOG_STYLE_MSGBOX, "Comandos Organizacao", stg, "Ok", "");
 					}
 				}
@@ -17028,31 +17004,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(response)
 			{
-				new anuncio[75];
-				if(strlen(inputtext) >= 74) return SendClientMessage(playerid,-1,"Ha muitos caracteres no anuncio.");
-				new string[200];
-				if(TiempoAnuncio[playerid] > 0)
-				{
-					format(string,100,"Espera %d segundos para poder fazer outro anuncio.",TiempoAnuncio[playerid]);
-					SendClientMessage(playerid,-1,string);
-					return true;
-				}
-				TiempoAnuncio[playerid] = 60;
-				PlayerInfo[playerid][pBanco] -= 5000;
-				for(new a; a < NA-1; a++)
-				{
-					if(strlen(Anuncio[a+1][Texto]) > 0)
-					{
-						format(Anuncio[a][Texto],75,"%s",Anuncio[a+1][Texto]);
-						format(string,sizeof(string),"~g~Anuncio:~w~ %s ~g~",Anuncio[a][Texto]);
-						TextDrawSetString(TextDraw[a],string);
-						TextDrawShowForAll(TextDraw[a]);
-					}
-				}
-				Anuncio[NA-1][Texto] = strval(inputtext);
-				format(string,sizeof(string),"~g~Anuncio:~w~ %s ~g~",anuncio);
-				TextDrawSetString(TextDraw[NA-1],string);
-				TextDrawShowForAll(TextDraw[NA-1]);
+				cmd_anuncio(playerid, inputtext);
 				
 			}
 		}
@@ -18186,16 +18138,16 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 
 //                          COMANDOS
 
-CMD:perfil(playerid)
+CMD:minhaconta(playerid)
 {
 	new megastrings[500], String2[500];
-	format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n{FFFFFF}VIP: {FFFF00}%s\n", Name(playerid), VIP(playerid));
+	format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n{FFFFFF}VIP: {FFFF00}%s\n{FFFFFF}Dinheiro: {FFFF00}%s\n{FFFFFF}Banco: {FFFF00}%s", Name(playerid), VIP(playerid),ConvertMoney(PlayerInfo[playerid][pDinheiro]),ConvertMoney(PlayerInfo[playerid][pBanco]));
 	strcat(megastrings, String2);
 	format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\n{FFFFFF}Org:{FFFF00} %s\n{FFFFFF}Cargo:{FFFF00} %s\n", Profs(playerid), NomeOrg(playerid), NomeCargo(playerid));
 	strcat(megastrings, String2);
 	format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\n{FFFFFF}N°Casa:{FFFF00} %d\n", PlayerInfo[playerid][pMultas], PlayerInfo[playerid][Casa]);
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\n{FFFFFF}Expira VIP:{FFFF00} %s\n{FFFFFF}Licenca Conduzir: {FFFF00}%s", convertNumber(PlayerInfo[ID][pSegundosJogados]), convertNumber(PlayerInfo[ID][ExpiraVIP]-gettime()), temlicenca(playerid));
+	format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\n{FFFFFF}Expira VIP:{FFFF00} %s\n{FFFFFF}Licenca Conduzir: {FFFF00}%s", convertNumber(PlayerInfo[playerid][pSegundosJogados]), convertNumber(PlayerInfo[playerid][ExpiraVIP]-gettime()), temlicenca(playerid));
 	strcat(megastrings, String2);
 	ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
 	return 1;
@@ -18311,6 +18263,7 @@ CMD:mostrarrg(playerid,params[])
 	}
 	return 1;
 }
+
 CMD:mvoip(playerid)
 {
 	ShowPlayerDialog(playerid, D_VOIP, DIALOG_STYLE_LIST, "Config VOIP", "{FFFF00}VOIP{FFFFFF} Falando\n{FFFF00}VOIP{FFFFFF} Susurrando\n\
@@ -19474,6 +19427,15 @@ CMD:sairemprego(playerid)
 	return 1;
 }
 
+CMD:pedircontas(playerid)
+{
+	if(PlayerInfo[playerid][Cargo] == 3) 	return ErrorMsg(playerid, "Peca a um admin remover sua org, pos voce e o lider dela.");
+	PlayerInfo[playerid][Org] = 0;
+	PlayerInfo[playerid][Cargo] = 0;
+	SuccesMsg(playerid, "Deixou seu emprego.");
+	return 1;
+}
+
 CMD:lferidos(playerid, params[])
 {
 	new id;
@@ -20129,51 +20091,55 @@ CMD:desalgemar(playerid, params[])
 CMD:pveiculo(playerid, params[])
 {
 	new carid = GetPlayerVehicleID(playerid);
-	if(!IsPolicial(playerid) || !IsBandido(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
-	if(sscanf(params, "i", ID))					return SendClientMessage(playerid, CorErroNeutro, "USE: /pveiculo [ID]");
-	foreach(Player,i)
-  	{
-		if(pLogado[i] == true)
+	if(IsPolicial(playerid) || IsBandido(playerid))
+	{
+		if(sscanf(params, "i", ID))					return SendClientMessage(playerid, CorErroNeutro, "USE: /pveiculo [ID]");
+		foreach(Player,i)
 		{
-			if(PlayerInfo[i][IDF] == ID)
+			if(pLogado[i] == true)
 			{
-				if(!IsPlayerInAnyVehicle(playerid))			return ErrorMsg(playerid, "Voce nao esta em um veiculo.");
-				if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) 		return ErrorMsg(playerid, "Voce nao esta.");
-				if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
-				TogglePlayerControllable(i, 0);
-				PutPlayerInVehicle(i, carid, 4);
+				if(PlayerInfo[i][IDF] == ID)
+				{
+					if(!IsPlayerInAnyVehicle(playerid))			return ErrorMsg(playerid, "Voce nao esta em um veiculo.");
+					if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) 		return ErrorMsg(playerid, "Voce nao esta.");
+					if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
+					TogglePlayerControllable(i, 0);
+					PutPlayerInVehicle(i, carid, 4);
+				}
+			}
+			else
+			{
+				ErrorMsg(playerid, "Jogador nao conectado.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
-  	}
+	}
 	return 1;
 }
 
 CMD:rveiculo(playerid, params[])
 {
-	if(!IsPolicial(playerid) || !IsBandido(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
-	if(sscanf(params, "i", ID))					return SendClientMessage(playerid, CorErroNeutro, "USE: /rveiculo [ID]");
-	foreach(Player,i)
-  	{
-		if(pLogado[i] == true)
+	if(IsPolicial(playerid) || IsBandido(playerid))
+	{
+		if(sscanf(params, "i", ID))					return SendClientMessage(playerid, CorErroNeutro, "USE: /rveiculo [ID]");
+		foreach(Player,i)
 		{
-			if(PlayerInfo[i][IDF] == ID)
+			if(pLogado[i] == true)
 			{
-				if(!IsPlayerInAnyVehicle(playerid))			return ErrorMsg(playerid, "Voce nao esta em um veiculo.");
-				if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) 		return ErrorMsg(playerid, "Voce nao esta como motorista.");
-				if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta perto do jogador.");
-				TogglePlayerControllable(i, true);
-				RemovePlayerFromVehicle(i);
+				if(PlayerInfo[i][IDF] == ID)
+				{
+					if(!IsPlayerInAnyVehicle(playerid))			return ErrorMsg(playerid, "Voce nao esta em um veiculo.");
+					if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) 		return ErrorMsg(playerid, "Voce nao esta como motorista.");
+					if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta perto do jogador.");
+					TogglePlayerControllable(i, true);
+					RemovePlayerFromVehicle(i);
+				}
+			}
+			else
+			{
+				ErrorMsg(playerid, "Jogador nao conectado.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
-  	}
+	}
 	return 1;
 }
 
@@ -20270,62 +20236,64 @@ CMD:su(playerid, params[])
 	return 1;
 }
 
-CMD:verinv(playerid, params[])
+CMD:revistar(playerid, params[])
 {
 	new str[64];
-	if(!IsPolicial(playerid) || !IsBandido(playerid))        return ErrorMsg(playerid, "Nao possui permissao.");
-	if(Patrulha[playerid] == false)                 return ErrorMsg(playerid, "Nao esta em servico");
-	if(sscanf(params, "d", ID))                        return SendClientMessage(playerid, CorErroNeutro, "USE: /verinv [ID]");
-	foreach(Player,i)
-  	{
-		if(pLogado[i] == true)
+	if(IsPolicial(playerid) || IsBandido(playerid))	
+	{
+		if(sscanf(params, "d", ID))                        return SendClientMessage(playerid, CorErroNeutro, "USE: /verinv [ID]");
+		foreach(Player,i)
 		{
-			if(PlayerInfo[i][IDF] == ID)
+			if(pLogado[i] == true)
 			{
-				if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
-				if(InventarioAberto[playerid])
+				if(PlayerInfo[i][IDF] == ID)
 				{
-					for(new in = 0; in < 40; ++i)
+					if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
+					if(InventarioAberto[playerid])
 					{
-						PlayerTextDrawHide(playerid, DrawInv[playerid][in]);
-					}
-					InventarioAberto[playerid] = 0;
-					CancelSelectTextDraw(playerid);
-					return 1;
-				}
-				else
-				{
-					format(str, sizeof(str), "Inventario: %s", Name(i));
-					PlayerTextDrawSetString(playerid, DrawInv[playerid][34], str);
-					PlayerTextDrawSetString(playerid, DrawInv[playerid][38], "");
-					for(new in = 1; in < 33; ++i)
-					{
-						PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][in], PlayerInventario[i][in][Slot]);
-						if(PlayerInventario[i][in][Slot] == -1)
+						for(new in = 0; in < 40; ++i)
 						{
-							PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][in], 0.000000, 0.000000, 0.000000, 999);
+							PlayerTextDrawHide(playerid, DrawInv[playerid][in]);
 						}
-						else
-						{
-							PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][in], 0.000000, 0.000000, 0.000000, 1);
-						}
+						InventarioAberto[playerid] = 0;
+						CancelSelectTextDraw(playerid);
+						return 1;
 					}
-					for(new in = 0; in < 40; ++i)
+					else
 					{
-						PlayerTextDrawShow(playerid, DrawInv[playerid][in]);
+						format(str, sizeof(str), "Inventario: %s", Name(i));
+						PlayerTextDrawSetString(playerid, DrawInv[playerid][34], str);
+						PlayerTextDrawSetString(playerid, DrawInv[playerid][38], "");
+						for(new in = 1; in < 33; ++i)
+						{
+							PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][in], PlayerInventario[i][in][Slot]);
+							if(PlayerInventario[i][in][Slot] == -1)
+							{
+								PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][in], 0.000000, 0.000000, 0.000000, 999);
+							}
+							else
+							{
+								PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][in], 0.000000, 0.000000, 0.000000, 1);
+							}
+						}
+						for(new in = 0; in < 40; ++i)
+						{
+							PlayerTextDrawShow(playerid, DrawInv[playerid][in]);
+						}
+						SelectTextDraw(playerid, 0xC4C4C4AA);
+						InventarioAberto[playerid] = 1;
 					}
-					SelectTextDraw(playerid, 0xC4C4C4AA);
-					InventarioAberto[playerid] = 1;
 				}
 			}
+			else
+			{
+				ErrorMsg(playerid, "Jogador nao conectado.");
+			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
-  	}
+	}
 	return 1;
 }
+
 CMD:patrulha(playerid)
 {
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
@@ -20464,34 +20432,36 @@ CMD:multar(playerid, params[])
 
 CMD:verdocumentos(playerid, params[])
 {
-	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
-	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
-	if(sscanf(params, "dd", ID))		return SendClientMessage(playerid, CorErroNeutro, "USE: /verdocumentos [ID] ");
-	foreach(Player,i)
-  	{
-		if(pLogado[i] == true)
+	if(IsPolicial(playerid) || IsBandido(playerid))
+	{
+		if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
+		if(sscanf(params, "dd", ID))		return SendClientMessage(playerid, CorErroNeutro, "USE: /verdocumentos [ID] ");
+		foreach(Player,i)
 		{
-			if(PlayerInfo[i][IDF] == ID)
+			if(pLogado[i] == true)
 			{
-				if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
-				//
-				new megastrings[500], String2[500];
-				format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n{FFFFFF}VIP: {FFFF00}%s\n", Name(i), VIP(i));
-				strcat(megastrings, String2);
-				format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\n{FFFFFF}Org:{FFFF00} %s\n{FFFFFF}Cargo:{FFFF00} %s\n", Profs(i), NomeOrg(i), NomeCargo(i));
-				strcat(megastrings, String2);
-				format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\n{FFFFFF}N°Casa:{FFFF00} %d\n", PlayerInfo[i][pMultas], PlayerInfo[i][Casa]);
-				strcat(megastrings, String2);
-				format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\n{FFFFFF}Expira VIP:{FFFF00} %s\n{FFFFFF}Licenca Conduzir: {FFFF00}%s", convertNumber(PlayerInfo[i][pSegundosJogados]), convertNumber(PlayerInfo[i][ExpiraVIP]-gettime()), temlicenca(i));
-				strcat(megastrings, String2);
-				ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
+				if(PlayerInfo[i][IDF] == ID)
+				{
+					if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
+					//
+					new megastrings[500], String2[500];
+					format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n{FFFFFF}VIP: {FFFF00}%s\n{FFFFFF}Dinheiro: {FFFF00}%s\n{FFFFFF}Banco: {FFFF00}%s", Name(i), VIP(i),ConvertMoney(PlayerInfo[i][pDinheiro]),ConvertMoney(PlayerInfo[i][pBanco]));
+					strcat(megastrings, String2);
+					format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\n{FFFFFF}Org:{FFFF00} %s\n{FFFFFF}Cargo:{FFFF00} %s\n", Profs(i), NomeOrg(i), NomeCargo(i));
+					strcat(megastrings, String2);
+					format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\n{FFFFFF}N°Casa:{FFFF00} %d\n", PlayerInfo[i][pMultas], PlayerInfo[i][Casa]);
+					strcat(megastrings, String2);
+					format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\n{FFFFFF}Expira VIP:{FFFF00} %s\n{FFFFFF}Licenca Conduzir: {FFFF00}%s", convertNumber(PlayerInfo[i][pSegundosJogados]), convertNumber(PlayerInfo[i][ExpiraVIP]-gettime()), temlicenca(i));
+					strcat(megastrings, String2);
+					ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
+				}
+			}
+			else
+			{
+				ErrorMsg(playerid, "Jogador nao conectado.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
-  	}
+	}
 	return 1;
 }
 
@@ -22632,6 +22602,7 @@ CMD:anuncio(playerid,params[])
 		return true;
 	}
 	TiempoAnuncio[playerid] = 60;
+	PlayerInfo[playerid][pBanco] -= 5000;
 	for(new a; a < NA-1; a++)
 	{
 	    if(strlen(Anuncio[a+1][Texto]) > 0)
