@@ -273,7 +273,7 @@ static bool:ac_ACAllow[] =
 	true,	//32 Anti-CarJack
 	false,	//33 Anti-UnFreeze
 	false,	//34 Anti-AFK Ghost
-	true,	//35 Anti-Full Aiming
+	false,	//35 Anti-Full Aiming
 
 	false,	//36 Anti-Fake NPC
 	false,	//37 Anti-Reconnect

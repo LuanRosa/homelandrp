@@ -2519,20 +2519,6 @@ CarregarTxdGlobal()
 	TextDrawSetProportional(Velomob[3], 1);
 	TextDrawSetSelectable(Velomob[3], 0);
 
-	Velomob[4] = TextDrawCreate(320.000000, 417.000000, "~r~F:~w~ 100%");
-	TextDrawFont(Velomob[4], 2);
-	TextDrawLetterSize(Velomob[4], 0.150000, 1.049999);
-	TextDrawTextSize(Velomob[4], 400.000000, 62.500000);
-	TextDrawSetOutline(Velomob[4], 0);
-	TextDrawSetShadow(Velomob[4], 0);
-	TextDrawAlignment(Velomob[4], 2);
-	TextDrawColor(Velomob[4], -1);
-	TextDrawBackgroundColor(Velomob[4], 255);
-	TextDrawBoxColor(Velomob[4], 50);
-	TextDrawUseBox(Velomob[4], 0);
-	TextDrawSetProportional(Velomob[4], 1);
-	TextDrawSetSelectable(Velomob[4], 0);
-
 	TextDraw[0] = TextDrawCreate(360.625000, 363.833374, "~g~Anuncio:~w~ Se vende un pito de goma a gran precio ~g~(Movil: 3250)");
 	TextDrawLetterSize(TextDraw[0], 0.152500, 1.232499);
 	TextDrawAlignment(TextDraw[0], 1);

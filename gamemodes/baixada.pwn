@@ -493,8 +493,8 @@ new Text:TDmorte[9];
 new PlayerText:TDmorte_p[MAX_PLAYERS][1];
 new Text:TD_RG[24];
 new PlayerText:RG_p[MAX_PLAYERS][6];
-new Text:Velomob[5];
-new PlayerText:Velomob_p[MAX_PLAYERS][2];
+new Text:Velomob[4];
+new PlayerText:Velomob_p[MAX_PLAYERS][3];
 
 new VagasORG[][MAX_VAGAS] = 
 {
@@ -2676,88 +2676,129 @@ CallBack::VelocimetroEx(playerid)
 {
 	if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 	{
-		//if(IsPlayerMobile(playerid))
-		new engine, lights, alarm, doors, bonnet, boot, objective;
-		GetVehicleParamsEx(GetPlayerVehicleID(playerid), engine, lights, alarm, doors, bonnet, boot, objective);
-
-		if(engine == 1){
-			PlayerTextDrawColor(playerid, VeloC[playerid][5], 16711935); //bolinha verde
-   		}else{
-			PlayerTextDrawColor(playerid, VeloC[playerid][5], -16776961); //bolinha vermelha
-		}
-		if(TemCinto[playerid] == true){
-			PlayerTextDrawColor(playerid, VeloC[playerid][6], 16711935); //bolinha verde
-   		}else{
-			PlayerTextDrawColor(playerid, VeloC[playerid][6], -16776961); //bolinha vermelha
-		}
-  		if(doors != 0 && VehicleLock[GetPlayerVehicleID(playerid)] != 0){
-			PlayerTextDrawColor(playerid, VeloC[playerid][7], 16711935);
-		}else{
-			PlayerTextDrawColor(playerid, VeloC[playerid][7], -16776961);
-   		}
-
-		if(Fuel[GetPlayerVehicleID(playerid)] >= 80){
-  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][0], 16711935);
-		}else{
-  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][0], -16776961);
-		}
-		if(Fuel[GetPlayerVehicleID(playerid)] >= 60){
-  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][1], 16711935);
-		}else{
-  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][1], -16776961);
-		}
-		if(Fuel[GetPlayerVehicleID(playerid)] >= 40){
-  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][2], 16711935);
-		}else{
-  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][2], -16776961);
-		}
-		if(Fuel[GetPlayerVehicleID(playerid)] >= 20){
-			PlayerTextDrawBoxColor(playerid, VeloC[playerid][3], 16711935);
-		}else{
-  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][3], -16776961);
-		}
-		if(Fuel[GetPlayerVehicleID(playerid)] > 19){
- 			PlayerTextDrawBoxColor(playerid, VeloC[playerid][4], 16711935); 
-		}else{
- 			PlayerTextDrawBoxColor(playerid, VeloC[playerid][4], -65281); //amarelo critico
-		}if(Fuel[GetPlayerVehicleID(playerid)] == 0){
-  			PlayerTextDrawBoxColor(playerid, VeloC[playerid][4], -16776961);
-		}
 		new str[60];
-		format(str, sizeof(str), "%03d", VelocidadeDoVeiculo(GetPlayerVehicleID(playerid)));
-		PlayerTextDrawSetString(playerid, VeloC[playerid][8], str);
-		new velo = VelocidadeDoVeiculo(GetPlayerVehicleID(playerid));
-		if(velo >= 110){
-			PlayerTextDrawSetString(playerid, VeloC[playerid][9], "5");
-		}else if(velo >= 80){
-			PlayerTextDrawSetString(playerid, VeloC[playerid][9], "4");
-		}else if(velo >= 60){
-			PlayerTextDrawSetString(playerid, VeloC[playerid][9], "3");
-		}else if(velo >= 30){
-			PlayerTextDrawSetString(playerid, VeloC[playerid][9], "2");
-		}else if(velo > 0){
-			PlayerTextDrawSetString(playerid, VeloC[playerid][9], "1");
-		}else{
-			PlayerTextDrawSetString(playerid, VeloC[playerid][9], "N");
-		}
-		for(new t=0;t<10;t++){
-  			PlayerTextDrawShow(playerid,VeloC[playerid][t]);
-		}
-		if(mostrandovelo[playerid] == 0){
-			for(new t=0;t<52;t++){
-  				TextDrawShowForPlayer(playerid,VeloC_G[t]);
+		if(IsPlayerMobile(playerid)){
+			format(str,sizeof(str),"%02d",VelocidadeDoVeiculo(GetPlayerVehicleID(playerid)));
+			PlayerTextDrawSetString(playerid, Velomob_p[playerid][0], str);
+			format(str,sizeof(str),"~r~F:~w~ %d",Fuel[GetPlayerVehicleID(playerid)]);
+			PlayerTextDrawSetString(playerid, Velomob_p[playerid][2], str);
+			new velo = VelocidadeDoVeiculo(GetPlayerVehicleID(playerid));
+			if(velo >= 110){
+				PlayerTextDrawSetString(playerid, Velomob_p[playerid][1], "5");
+			}else if(velo >= 80){
+				PlayerTextDrawSetString(playerid, Velomob_p[playerid][1], "4");
+			}else if(velo >= 60){
+				PlayerTextDrawSetString(playerid, Velomob_p[playerid][1], "3");
+			}else if(velo >= 30){
+				PlayerTextDrawSetString(playerid, Velomob_p[playerid][1], "2");
+			}else if(velo > 0){
+				PlayerTextDrawSetString(playerid, Velomob_p[playerid][1], "1");
+			}else{
+				PlayerTextDrawSetString(playerid, Velomob_p[playerid][1], "N");
 			}
-			mostrandovelo[playerid] = 1;
+			PlayerTextDrawShow(playerid,Velomob_p[playerid][0]);
+			PlayerTextDrawShow(playerid,Velomob_p[playerid][1]);
+			PlayerTextDrawShow(playerid,Velomob_p[playerid][2]);
+			if(mostrandovelo[playerid] == 0){
+				for(new t=0;t<4;t++){
+					TextDrawShowForPlayer(playerid,Velomob[t]);
+				}
+				mostrandovelo[playerid] = 1;
+			}
+		}else{
+			new engine, lights, alarm, doors, bonnet, boot, objective;
+			GetVehicleParamsEx(GetPlayerVehicleID(playerid), engine, lights, alarm, doors, bonnet, boot, objective);
+
+			if(engine == 1){
+				PlayerTextDrawColor(playerid, VeloC[playerid][5], 16711935); //bolinha verde
+			}else{
+				PlayerTextDrawColor(playerid, VeloC[playerid][5], -16776961); //bolinha vermelha
+			}
+			if(TemCinto[playerid] == true){
+				PlayerTextDrawColor(playerid, VeloC[playerid][6], 16711935); //bolinha verde
+			}else{
+				PlayerTextDrawColor(playerid, VeloC[playerid][6], -16776961); //bolinha vermelha
+			}
+			if(doors != 0 && VehicleLock[GetPlayerVehicleID(playerid)] != 0){
+				PlayerTextDrawColor(playerid, VeloC[playerid][7], 16711935);
+			}else{
+				PlayerTextDrawColor(playerid, VeloC[playerid][7], -16776961);
+			}
+
+			if(Fuel[GetPlayerVehicleID(playerid)] >= 80){
+				PlayerTextDrawBoxColor(playerid, VeloC[playerid][0], 16711935);
+			}else{
+				PlayerTextDrawBoxColor(playerid, VeloC[playerid][0], -16776961);
+			}
+			if(Fuel[GetPlayerVehicleID(playerid)] >= 60){
+				PlayerTextDrawBoxColor(playerid, VeloC[playerid][1], 16711935);
+			}else{
+				PlayerTextDrawBoxColor(playerid, VeloC[playerid][1], -16776961);
+			}
+			if(Fuel[GetPlayerVehicleID(playerid)] >= 40){
+				PlayerTextDrawBoxColor(playerid, VeloC[playerid][2], 16711935);
+			}else{
+				PlayerTextDrawBoxColor(playerid, VeloC[playerid][2], -16776961);
+			}
+			if(Fuel[GetPlayerVehicleID(playerid)] >= 20){
+				PlayerTextDrawBoxColor(playerid, VeloC[playerid][3], 16711935);
+			}else{
+				PlayerTextDrawBoxColor(playerid, VeloC[playerid][3], -16776961);
+			}
+			if(Fuel[GetPlayerVehicleID(playerid)] > 19){
+				PlayerTextDrawBoxColor(playerid, VeloC[playerid][4], 16711935); 
+			}else{
+				PlayerTextDrawBoxColor(playerid, VeloC[playerid][4], -65281); //amarelo critico
+			}if(Fuel[GetPlayerVehicleID(playerid)] == 0){
+				PlayerTextDrawBoxColor(playerid, VeloC[playerid][4], -16776961);
+			}
+			format(str, sizeof(str), "%03d", VelocidadeDoVeiculo(GetPlayerVehicleID(playerid)));
+			PlayerTextDrawSetString(playerid, VeloC[playerid][8], str);
+			new velo = VelocidadeDoVeiculo(GetPlayerVehicleID(playerid));
+			if(velo >= 110){
+				PlayerTextDrawSetString(playerid, VeloC[playerid][9], "5");
+			}else if(velo >= 80){
+				PlayerTextDrawSetString(playerid, VeloC[playerid][9], "4");
+			}else if(velo >= 60){
+				PlayerTextDrawSetString(playerid, VeloC[playerid][9], "3");
+			}else if(velo >= 30){
+				PlayerTextDrawSetString(playerid, VeloC[playerid][9], "2");
+			}else if(velo > 0){
+				PlayerTextDrawSetString(playerid, VeloC[playerid][9], "1");
+			}else{
+				PlayerTextDrawSetString(playerid, VeloC[playerid][9], "N");
+			}
+			for(new t=0;t<10;t++){
+				PlayerTextDrawShow(playerid,VeloC[playerid][t]);
+			}
+			if(mostrandovelo[playerid] == 0){
+				for(new t=0;t<52;t++){
+					TextDrawShowForPlayer(playerid,VeloC_G[t]);
+				}
+				mostrandovelo[playerid] = 1;
+			}
 		}
 	}else{
-	    if(mostrandovelo[playerid] != 0){
-	    	for(new t=0;t<10;t++){
-  				PlayerTextDrawHide(playerid,VeloC[playerid][t]);
+		if(IsPlayerMobile(playerid)){
+			if(mostrandovelo[playerid] != 0){
+				for(new t=0;t<3;t++){
+					PlayerTextDrawHide(playerid,Velomob_p[playerid][t]);
+				}
+				for(new t=0;t<4;t++){
+					TextDrawHideForPlayer(playerid,Velomob[t]);
+				}
+				mostrandovelo[playerid] = 0;
 			}
-			for(new t=0;t<52;t++){
-  				TextDrawHideForPlayer(playerid,VeloC_G[t]);
+		}else{
+			if(mostrandovelo[playerid] != 0){
+				for(new t=0;t<10;t++){
+					PlayerTextDrawHide(playerid,VeloC[playerid][t]);
+				}
+				for(new t=0;t<52;t++){
+					TextDrawHideForPlayer(playerid,VeloC_G[t]);
+				}
+				mostrandovelo[playerid] = 0;
 			}
-			mostrandovelo[playerid] = 0;
 		}
 		KillTimer(TimerVelo[playerid]);
 	}
@@ -7401,6 +7442,20 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetProportional(playerid, Velomob_p[playerid][1], 1);
 	PlayerTextDrawSetSelectable(playerid, Velomob_p[playerid][1], 0);
 
+	Velomob_p[playerid][2] = CreatePlayerTextDraw(playerid, 320.000000, 417.000000, "~r~F:~w~ 100%");
+	PlayerTextDrawFont(playerid, Velomob_p[playerid][2], 2);
+	PlayerTextDrawLetterSize(playerid, Velomob_p[playerid][2], 0.150000, 1.049999);
+	PlayerTextDrawTextSize(playerid, Velomob_p[playerid][2], 400.000000, 62.500000);
+	PlayerTextDrawSetOutline(playerid, Velomob_p[playerid][2], 0);
+	PlayerTextDrawSetShadow(playerid, Velomob_p[playerid][2], 0);
+	PlayerTextDrawAlignment(playerid, Velomob_p[playerid][2], 2);
+	PlayerTextDrawColor(playerid, Velomob_p[playerid][2], -1);
+	PlayerTextDrawBackgroundColor(playerid, Velomob_p[playerid][2], 255);
+	PlayerTextDrawBoxColor(playerid, Velomob_p[playerid][2], 50);
+	PlayerTextDrawUseBox(playerid, Velomob_p[playerid][2], 0);
+	PlayerTextDrawSetProportional(playerid, Velomob_p[playerid][2], 1);
+	PlayerTextDrawSetSelectable(playerid, Velomob_p[playerid][2], 0);
+
 
 		//STRINGS TD CADASTRO
 	TDCadastro_p[playerid][0] = CreatePlayerTextDraw(playerid, 94.000000, 197.000000, "Preview_Model");
@@ -11730,14 +11785,27 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 {
 	if(oldstate == PLAYER_STATE_ONFOOT && newstate == PLAYER_STATE_DRIVER)//O jogador entrou no veiculo como motorista
     {
-		if(mostrandovelo[playerid] == 0){
-			for(new t=0;t<52;t++){
-  				TextDrawShowForPlayer(playerid,VeloC_G[t]);
+		if(IsPlayerMobile(playerid)){
+			if(mostrandovelo[playerid] == 0){
+				for(new t=0;t<4;t++){
+					TextDrawShowForPlayer(playerid,Velomob[t]);
+				}
+				for(new t=0;t<3;t++){
+					PlayerTextDrawShow(playerid,Velomob_p[playerid][t]);
+				}
+				mostrandovelo[playerid] = 1;
 			}
-			for(new t=0;t<10;t++){
-  				PlayerTextDrawShow(playerid,VeloC[playerid][t]);
+		}else{
+			if(mostrandovelo[playerid] == 0){
+				for(new t=0;t<52;t++){
+					TextDrawShowForPlayer(playerid,VeloC_G[t]);
+				}
+				for(new t=0;t<10;t++){
+					PlayerTextDrawShow(playerid,VeloC[playerid][t]);
+				}
+				mostrandovelo[playerid] = 1;
 			}
-			mostrandovelo[playerid] = 1;
+
 		}
 		
 		TimerVelo[playerid] = SetTimerEx("VelocimetroEx", 250, true, "d", playerid);
@@ -14639,7 +14707,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 5)
 				{
 					new stg[1100];
-					strcat(stg, "{FFFF00}/mv{FFFFFF} Abre un menu\n");
+					strcat(stg, "{FFFF00}/mv{FFFFFF} Abre um menu\n");
 					strcat(stg, "{FFFF00}/localizarv{FFFFFF} Lozaliza seu veiculo no mapa.\n");
 					strcat(stg, "{FFFF00}/trancar{FFFFFF} Tranque seu veiculo.\n");
 					strcat(stg, "{FFFF00}/alarmev{FFFFFF} Ligue o alarme do veiculo.\n");
