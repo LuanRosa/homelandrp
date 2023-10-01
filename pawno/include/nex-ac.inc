@@ -249,12 +249,12 @@ static bool:ac_ACAllow[] =
 	true,	//8 Anti-FlyHack (in vehicle)
 	true,	//9 Anti-SpeedHack (onfoot)
 	true,	//10 Anti-SpeedHack (in vehicle)
-	false,	//11 Anti-Health hack (in vehicle)
-	false,	//12 Anti-Health hack (onfoot)
+	true,	//11 Anti-Health hack (in vehicle)
+	true,	//12 Anti-Health hack (onfoot)
 	false,	//13 Anti-Armour hack
 	false,	//14 Anti-Money hack
 	true,	//15 Anti-Weapon hack
-	false,	//16 Anti-Ammo hack (add)
+	true,	//16 Anti-Ammo hack (add)
 	true,	//17 Anti-Ammo hack (infinite)
 	false,	//18 Anti-Special actions hack
 	false,	//19 Anti-GodMode from bullets (onfoot)

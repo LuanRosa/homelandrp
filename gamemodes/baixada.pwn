@@ -9,6 +9,7 @@
 	*	Base: Gamemode Inside Roleplay Espanhol por Luan Rosa.
 	*
 */
+
 //                          INCLUDES
 
 #define SSCANF_NO_NICE_FEATURES
@@ -73,6 +74,7 @@ new	UltimaFala[MAX_PLAYERS];
 #define Controle 					TogglePlayerControllable
 #define SERVERFORUM     			"discord.gg/QYpxa5SvNB"
 #define VERSAOSERVER     			"Baixada v1.0" 
+#define NA 5
 
 //                          SISTEMA DEALERSHIP (CONCE E POSTO)
 
@@ -97,7 +99,7 @@ new	UltimaFala[MAX_PLAYERS];
 #define MAX_DVEHICLES 				500
 #define MAX_DEALERSHIPS 			100
 #define MAX_FUEL_STATIONS 			100
-#define MAX_PLAYER_VEHICLES 		1
+#define MAX_PLAYER_VEHICLES 		10
 #define MAX_SLOTMACHINE 			50
 #define MAX_FREQUENCIAS				1000
 
@@ -185,6 +187,13 @@ new bool:Falando[MAX_PLAYERS] = true;
 new bool:Falou[MAX_PLAYERS] = false;
 
 //                          DIALOGS
+
+enum anuncios
+{
+	Texto[75]
+};
+new Anuncio[NA][anuncios];
+new TiempoAnuncio[MAX_PLAYERS],Text:TextDraw[5];
 
 enum
 {
@@ -288,7 +297,8 @@ enum
 	DIALOG_VEHCORP1,
 	DIALOG_VEHCORP2,
 	DIALOG_VEHCORP3,
-	DIALOG_VEHCORP4
+	DIALOG_VEHCORP4,
+	DIALOG_ANUNCIOOLX
 }
 
 //                          VARIAVEIS
@@ -846,8 +856,8 @@ new Float:PosEquipar[4][4] =
 {
 	{307.207489, 1833.923706, 2241.584960},//Policia Militar
 	{-2454.447998, 503.778869, 30.079460},//ROTA
-	{-268.811340, -2185.336425, 28.858205},//PRF
-	{-1389.769042, 2634.827636, 55.984375}//BAEP
+	{1628.541625, -251.347473, 49.000457},//PRF
+	{-1253.534545, 2712.009521, 55.174671}//BAEP
 };
 
 new Float:PosEquiparORG[4][4] =
@@ -862,13 +872,13 @@ new Float:PosVeiculos[9][4] =
 {
 	{-1574.971923, 718.538818, -5.242187},//Policia Militar
 	{-2441.137939, 522.140869, 29.486917},//ROTA
-	{-272.153289, -2204.821533, 28.666120},//PRF
-	{-1707.393066, 1333.281982, 7.178680},//Spawn
+	{1662.606811, -285.948333, 39.627510},//PRF
+	{-1992.423828, 138.479736, 27.539062},//Spawn
 	{1179.630615, -1339.028686, 13.838010},//Hospital
 	{-478.623901, -506.406524, 25.517845},//Camionero
 	{590.086975, 871.486694, -42.734603},//Minerador
-	{2014.328125, -1770.929077, 13.543199},//Mecanica
-	{-1405.247436, 2640.490478, 55.687500}//BAEP
+	{-2074.854492, 1428.281982, 7.101562},//Mecanica
+	{-1278.216552, 2711.282714, 50.132141}//BAEP
 };
 new VehAlugado[MAX_PLAYERS];
 new VeiculoCivil[MAX_PLAYERS];
@@ -1340,6 +1350,14 @@ new RandomMSG[][] =
 
 //                          PUBLICS
 
+CallBack::TimerAn()
+{
+	for(new i, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+	    if(IsPlayerConnected(i) && TiempoAnuncio[i] > 0) TiempoAnuncio[i] --;
+	}
+	return true;
+}
 XP_::XP_Hide(playerid)
 {
     for(new i; i < 20; i++)
@@ -1349,6 +1367,18 @@ XP_::XP_Hide(playerid)
     PlayerPlaySound(playerid, 6402, 0.0, 0.0, 0.0);
 }
 
+Progresso:RepararVeh(playerid, progress)
+{
+	if(progress >= 100)
+	{
+		new wVeiculo = GetPlayerVehicleID(playerid);
+		SuccesMsg(playerid, "Veiculo reparado.");
+		RepairVehicle(wVeiculo);
+		SetVehicleHealth(wVeiculo, 1000.0);
+		TogglePlayerControllable(playerid, 1);
+	}
+	return 1;
+}
 Progresso:DescarregarCarga(playerid, progress)
 {
 	if(progress >= 100)
@@ -3487,6 +3517,22 @@ CallBack::AttVeh(playerid)
 		GetVehicleHealth(veiculoidb, vhealth);
 		if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 		{
+			new vehicle = GetPlayerVehicleID(playerid);
+			new Float:vida;
+			GetVehicleHealth(vehicle, vida);
+			new vehicleid = GetPlayerVehicleID(playerid);
+			new engine, lights, alarm, doors, bonnet, boot, objective;
+			GetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet, boot, objective);
+			if(vida < 300.0)
+			{
+				GetVehicleParamsEx(vehicle,engine,lights,alarm,doors,bonnet,boot,objective);
+				SetVehicleParamsEx(vehicle,VEHICLE_PARAMS_OFF,lights,alarm,doors,bonnet,boot,objective);
+				RepairCar[playerid] = GetPlayerVehicleID(playerid);
+				SetVehicleHealth(RepairCar[playerid], 299.0);
+				ShowErrorDialog(playerid, "Veiculo quebrado\nchame um mecanico");
+				RemovePlayerFromVehicle(playerid);
+				return 1;
+			}
 			new Account[255];
 			new carid = GetVehicleModel(GetPlayerVehicleID(playerid));
 			for(new i; i < MAX_RADAR; i++)
@@ -3537,18 +3583,6 @@ CallBack::AttVeh(playerid)
 			}
 		}
 	}
-	return 1;
-}
-
-CallBack::Reparar(playerid, id) 
-{
-	ApplyAnimation(playerid, "CAR", "Fixn_Car_Loop", 4.0, 0, 0, 0, 0, 1, 1);
-	ClearAnimations(playerid);
-	SuccesMsg(playerid, "Veiculo reparado.");
-	RepairVehicle(id);
-	SetVehicleHealth(id, 1000.0);
-	TogglePlayerControllable(playerid, 1);
-	ocupadodemais[playerid] = 0;
 	return 1;
 }
 
@@ -4679,6 +4713,7 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 18632: name = "Vara de Pescar";
 		case 11750: name = "Algema";
 		case 11736: name = "Bandagem";
+		case 1010: name = "Kit de Tunagem";
 		default: name = "Desconhecido";
 	}
 	return name;
@@ -4799,85 +4834,19 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 	{
 		case 19921:
 		{
-			GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
-			new counter = 0;
-			new result;
-			for(new i; i != MAX_VEHICLES; i++)
-			{
-				new dist = Checarveiculo(5, playerid, i);
-				if(dist)
-				{
-					result = i;
-					counter++;
-				}
-			}
-			switch(counter)
-			{
-				case 0:
-				{
-					ErrorMsg(playerid, "Nao esta perto de um veiculo.");
-				}
-				case 1:
-				{
-					if(PlayerInfo[playerid][pProfissao] == 7)
-					{
-						if(IsPlayerInRangeOfPoint(playerid, 10.0, 2016.0741,-1781.5780,13.7402) || IsPlayerInRangeOfPoint(playerid, 10.0, 2007.1235,-1781.4824,13.7402) || IsPlayerInRangeOfPoint(playerid, 10.0, 1998.0106,-1781.4078,13.7402) || IsPlayerInRangeOfPoint(playerid, 10.0, 1988.7588,-1781.4812,13.7402) || IsPlayerInRangeOfPoint(playerid, 10.0, 1979.9341,-1781.5359,13.7402))
-						{					
-							if(IsPlayerInAnyVehicle(playerid)) return InfoMsg(playerid, "Voce esta em um veiculo.");
-							ApplyAnimation(playerid, "CAR", "Fixn_Car_Loop", 4.0, 0, 1, 1, 0, 0, 1);
-							SetTimerEx("Reparar",10000,0,"dd",playerid,result);
-							ocupadodemais[playerid] = 1;
-							if(PlayerInfo[playerid][pVIP] == 0)
-							{
-								PlayerInfo[playerid][pDinheiro] += 800;
-								SuccesMsg(playerid, "Ganhou R$800 consertando este veiculo."); 
-							}   
-							if(PlayerInfo[playerid][pVIP] == 2)
-							{
-								PlayerInfo[playerid][pDinheiro] += 800*2;
-								SuccesMsg(playerid, "Ganhou R$1600 consertando este veiculo."); 
-							}
-							if(PlayerInfo[playerid][pVIP] == 3)
-							{
-								PlayerInfo[playerid][pDinheiro] += 800*2;
-								SuccesMsg(playerid, "Ganhou R$1600 consertando este veiculo."); 
-							}
-							PlayerInventario[playerid][modelid][Unidades] --;
-							AtualizarInventario(playerid, modelid);
-							cmd_inventario(playerid);
-							return 1;
-						}
-						if(IsPlayerInAnyVehicle(playerid)) return InfoMsg(playerid, "Voce nao esta em um veiculo.");
-						ApplyAnimation(playerid, "CAR", "Fixn_Car_Loop", 4.0, 0, 1, 1, 0, 0, 1);
-						SetTimerEx("Reparar",10000,0,"dd",playerid,result);
-						ocupadodemais[playerid] = 1;
-						if(PlayerInfo[playerid][pVIP] == 0)
-						{
-							PlayerInfo[playerid][pDinheiro] += 500;
-							SuccesMsg(playerid, "Ganhou R$500 consertando este veiculo."); 
-						}   
-						if(PlayerInfo[playerid][pVIP] == 2)
-						{
-							PlayerInfo[playerid][pDinheiro] += 500*2;
-							SuccesMsg(playerid, "Ganhou R$1000 consertando este veiculo."); 
-						}
-						if(PlayerInfo[playerid][pVIP] == 3)
-						{
-							PlayerInfo[playerid][pDinheiro] += 500*2;
-							SuccesMsg(playerid, "Ganhou R$1000 consertando este veiculo."); 
-						}
-						PlayerInventario[playerid][modelid][Unidades] --;
-						AtualizarInventario(playerid, modelid);
-						cmd_inventario(playerid);
-					}
-				}
-				default:
-				{
-					ErrorMsg(playerid, "Tem muitos veiculos proximos.");
-				}
-			}
+			if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Voce nao esta em um veiculo!"); 
+			if(GetPlayerVehicleSeat(playerid) != 0)	return ErrorMsg(playerid, "Nao esta dentro do veiculo.");
+			if(IsPlayerInAnyVehicle(playerid)) return InfoMsg(playerid, "Voce esta em um veiculo.");
+
+			TogglePlayerControllable(playerid, 0);
+			CreateProgress(playerid, "RepararVeh","Reparando Veiculo...", 100);
+			ocupadodemais[playerid] = 1;
+			PlayerInventario[playerid][modelid][Unidades] --;
+			AtualizarInventario(playerid, modelid);
+			cmd_inventario(playerid);
 			return true;
 		}
+		
 		case 400..611:
 		{
 			new Float:X,Float:Y,Float:Z,Float:A;
@@ -5190,6 +5159,41 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			cmd_inventario(playerid);
 			return 1;
 		}
+		case 1010:
+		{
+			if(IsPlayerInRangeOfPoint(playerid, 10.0, -2067.039306, 1396.001342, 7.334959) || IsPlayerInRangeOfPoint(playerid, 10.0, -2067.137695, 1404.691040, 7.334959) || IsPlayerInRangeOfPoint(playerid, 10.0, -2067.062255, 1414.094726, 7.334959) || IsPlayerInRangeOfPoint(playerid, 10.0, -2067.082519, 1423.175659, 7.334959) || IsPlayerInRangeOfPoint(playerid, 10.0, -2066.899169, 1432.542114, 7.334959))
+			{
+				if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Voce nao esta em um veiculo!"); 
+
+				if(GetPlayerVehicleSeat(playerid) != 0)
+					return SendClientMessage(playerid,  0x27408BFF, "Nao esta dentro do veiculo.");
+
+				if(!GetVehicleModelEx(GetVehicleModel(GetPlayerVehicleID(playerid))))
+					return SendClientMessage(playerid,  0x27408BFF, "Este veiculo nao pode ser tunado.");
+				if(wTuning[playerid] == true)
+					return SendClientMessage(playerid,  0x27408BFF, "Ja esta tunando.");
+
+				static
+					nome_veiculo[40]
+				;
+
+				cmd_inventario(playerid);
+				format(nome_veiculo, sizeof(nome_veiculo), "veiculo: %s", VehicleNames[GetVehicleModel(GetPlayerVehicleID(playerid)) - 400]);
+				PlayerTextDrawSetString(playerid, PlayerText:wMenu[0], nome_veiculo);
+
+				SendClientMessage(playerid,  0x27408BFF, "Tunando Veiculo.");
+
+				for(new i; i < sizeof(wBase); i++) { TextDrawShowForPlayer(playerid, Text:wBase[i]); }
+				for(new i; i < sizeof(wMenu); i++) { PlayerTextDrawShow(playerid, PlayerText:wMenu[i]); }
+				for(new i; i < sizeof(wMenuRodas); i++) { PlayerTextDrawShow(playerid, PlayerText:wMenuRodas[i]); }
+
+				SelectTextDraw(playerid, 0x4F4F4FFF);
+				wTuning[playerid] = true;
+				PlayerInventario[playerid][modelid][Unidades]--;
+				AtualizarInventario(playerid, modelid);
+			}
+			return 1;
+		}
 		case 1484, 1644, 1546, 2601:
 		{
 			if(SedePlayer[playerid] >= 80) return ErrorMsg(playerid, "Nao esta com sede.");
@@ -5301,7 +5305,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 		case 18870:
 		{
 			AtualizarInventario(playerid, modelid);
-			ShowPlayerDialog(playerid, DIALOG_CELULAR, DIALOG_STYLE_LIST, "Telefone", "Transferencia PIX", "Confirmar", "X");
+			ShowPlayerDialog(playerid, DIALOG_CELULAR, DIALOG_STYLE_LIST, "Telefone", "Transferencia PIX\nFazer Anuncio\t{32CD32}R$5000", "Confirmar", "X");
 			return 1;
 		}
 		case 11738:
@@ -5438,7 +5442,7 @@ IsValidItemInv(itemid) //AQUI VOCÊ DEVE DEFINIR OS ID'S DOS ITENS PARA SER VALI
 		18645, 1856, 18868, 18869, 18870, 18871, 18872, 18873, 18874, 19513, 18875, 19874, 19138, 19139, 
 		19140, 19022, 19023, 19024, 19025, 19026, 19027, 19028, 19029, 19030, 19031, 19032, 19473, 3027, 3520,
 		19033, 19034, 19035, 2992, 3065, 11712, 18953, 18954, 19554, 18974, 2114, 1279, 3930, 19630, 902, 1603, 1600, 1599, 1604, 1608,
-		18894, 18903, 18898, 18899, 18891, 18909, 18908, 18907, 18906, 18905, 18904, 18901, 
+		18894, 18903, 18898, 18899, 18891, 18909, 18908, 18907, 18906, 18905, 18904, 18901, 1010,
 		18902, 18892, 18900, 18897, 18896, 18895, 18893, 18810, 18947, 18948, 18949, 18950, 18644,
 		18951, 19488, 18921, 18922, 18923, 18924, 18925, 18939, 18940, 18941, 18942, 18943, 11750,
 		1314, 19578, 18636, 19942, 18646, 19141, 19558, 19801, 19330, 1210, 19528,
@@ -10164,8 +10168,8 @@ stock NpcText()
 {
 	new Actor[30+1],Text3D:label[30+1];
 
-	Actor[0] = CreateActor(217, -1639.563720, 1410.743530, 7.187500, 318.422424); 
-	label[0] = Create3DTextLabel("{FFFFFF}Ola, Use {FFFF00}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, -1639.563720, 1410.743530, 7.187500, 15.0, 0);
+	Actor[0] = CreateActor(217, -1978.672119, 134.947509, 27.687500, 273.983703); 
+	label[0] = Create3DTextLabel("{FFFFFF}Ola, Use {FFFF00}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, -1978.672119, 134.947509, 27.687500, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[0], Actor[0], 0.0, 0.0, 0.7);
 
 	Actor[1] = CreateActor(35, -2790.296142, 1321.418212, 7.098842, 98.350013);  
@@ -10192,8 +10196,8 @@ stock NpcText()
 	label[6] = Create3DTextLabel("{FFFF00}Coletor\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -28.763319, 1363.971313, 9.171875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[6], Actor[6], 0.0, 0.0, 0.7);
 
-	Actor[7] = CreateActor(188, -1634.807495, 1408.744750, 7.187500, 21.798501);  
-	label[7] = Create3DTextLabel("{FFFFFF}Ol�, eu sou o {FFFF00}Luan_Rosa!\n{FFFFFF}Aprenda como jogar no servidor \nUse '{FFFF00}F{FFFFFF}' para se informar", 0x008080FF, -1634.807495, 1408.744750, 7.187500, 15.0, 0);
+	Actor[7] = CreateActor(188, -1978.764526, 140.253753, 27.687500, 252.403045);  
+	label[7] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {FFFF00}Luan_Rosa!\n{FFFFFF}Aprenda como jogar no servidor \nUse '{FFFF00}F{FFFFFF}' para se informar", 0x008080FF, -1978.764526, 140.253753, 27.687500, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[7], Actor[7], 0.0, 0.0, 0.7);
 
 	CreateAurea("{FFFF00}Prefeitura\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -501.146118, 294.354156, 2001.094970);
@@ -10214,6 +10218,12 @@ stock NpcText()
 	CreateAurea("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nrevisar a caixa.", 942.421325, 2153.745849, 1011.023437);
 	CreateAurea("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \npegar a caixa.", 942.288391, 2173.139404, 1011.023437);
 	CreateAurea("Ponto de entrega.", 964.872192, 2159.816406, 1011.030273);
+	
+	CreateAurea("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.961181, 1434.810058, 7.101562);
+	CreateAurea("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.800048, 1426.759521, 7.101562);
+	CreateAurea("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.942382, 1417.446289, 7.101562);
+	CreateAurea("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.715820, 1408.081909, 7.101562);
+	CreateAurea("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.961425, 1399.184448, 7.101562);
 
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -520.421813, -504.999450, 24.635631, 25.0); // Carregamento Caminhoneiro
 	CreateDynamicPickup(1220, 23, -520.421813, -504.999450, 24.635631); //Carregamento Caminhoneiro
@@ -10451,6 +10461,7 @@ stock ZerarDados(playerid)
 	PlayerInfo[playerid][Entrada] = 0;
 	PlayerInfo[playerid][pAvaliacao] = 0;
 
+	TiempoAnuncio[playerid] = 0;
 	LavouMao[playerid] = false;
 	EtapasMinerador[playerid] = 0;
 	TemMinerio[playerid] = 0;
@@ -11101,6 +11112,7 @@ public OnGameModeInit()
 	TimerMensagemAutoBot = SetTimer("SendMSGBot", segundos(10), true);
 	maintimer = SetTimer("MainTimer", 1000, true);
 	savetimer = SetTimer("SaveTimer", 2222, true);
+	SetTimer("TimerAn", 1000, true);
 	return 1;
 }
 
@@ -13106,12 +13118,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
  	}
 	if(newkeys == KEY_CTRL_BACK)
 	{
-		if(PlayerToPoint(3.0, playerid, -1707.393066, 1333.281982, 7.178680))
+		if(PlayerToPoint(3.0, playerid, -1992.423828, 138.479736, 27.539062))
 		{
 			if(VehAlugado[playerid] == 0)
 			{
 				VehAlugado[playerid] = 1;
-				VeiculoCivil[playerid] = CreateVehicle(462, -1707.393066, 1333.281982, 7.178680, 90, -1, -1, false);
+				VeiculoCivil[playerid] = CreateVehicle(462, -1992.423828, 138.479736, 27.539062, 90, -1, -1, false);
 				PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
 				InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
 				MissaoPlayer[playerid][MISSAO12] = 1;
@@ -13182,13 +13194,13 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
 			}
 		}
-		else if(PlayerToPoint(3.0, playerid, 2014.328125, -1770.929077, 13.543199))
+		else if(PlayerToPoint(3.0, playerid, -2074.854492, 1428.281982, 7.101562))
 		{
-			if(PlayerInfo[playerid][pProfissao] != 7)    		return ErrorMsg(playerid, "Nao possui permissao.");
+			if(PlayerInfo[playerid][Org] != 10)    		return ErrorMsg(playerid, "Nao possui permissao.");
 			if(VehAlugado[playerid] == 0)
 			{
 				VehAlugado[playerid] = 1;
-				VeiculoCivil[playerid] = CreateVehicle(525, 2014.328125, -1770.929077, 13.543199, 88.247947, -1, -1, false);
+				VeiculoCivil[playerid] = CreateVehicle(525, -2074.854492, 1428.281982, 7.101562, 170.0, -1, -1, false);
 				PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
 				InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
 			}
@@ -13202,7 +13214,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][Org] != 1)    		return ErrorMsg(playerid, "Nao possui permissao.");
 			ShowPlayerDialog(playerid, DIALOG_VEHCORP1, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}SwatVan\t{FF0000}601\n{FF0000}- {FFFFFF}CopBike\t{FF0000}523", "Selecionar", "X");
 		}
-		else if(PlayerToPoint(3.0, playerid, -272.153289, -2204.821533, 28.666120))
+		else if(PlayerToPoint(3.0, playerid, 1662.606811, -285.948333, 39.627510))
 		{
 			if(PlayerInfo[playerid][Org] != 2)    		return ErrorMsg(playerid, "Nao possui permissao.");
 			ShowPlayerDialog(playerid, DIALOG_VEHCORP2, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}FBI Rrancher\t{FF0000}490\n{FF0000}- {FFFFFF}CopBike\t{FF0000}523", "Selecionar", "X");
@@ -13212,7 +13224,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][Org] != 3)    		return ErrorMsg(playerid, "Nao possui permissao.");
 			ShowPlayerDialog(playerid, DIALOG_VEHCORP3, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}FBI Rancher\t{FF0000}490", "Selecionar", "X");
 		}
-		else if(PlayerToPoint(3.0, playerid, -1405.247436, 2640.490478, 55.687500))
+		else if(PlayerToPoint(3.0, playerid, -1278.216552, 2711.282714, 50.132141))
 		{
 			if(PlayerInfo[playerid][Org] != 4)    		return ErrorMsg(playerid, "Nao possui permissao.");
 			ShowPlayerDialog(playerid, DIALOG_VEHCORP4, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}FBI Rancher\t{FF0000}490", "Selecionar", "X");
@@ -13597,10 +13609,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][Org] != 9) 		return ErrorMsg(playerid, "Nao possui permissao.");
 			GivePlayerWeapon(playerid, 43, 20);
 		}
-		if(PlayerToPoint(3.0, playerid, 1972.6611,-1783.9337,13.5432))
+		if(PlayerToPoint(3.0, playerid, -2064.961181, 1434.810058, 7.101562) || PlayerToPoint(3.0, playerid, -2064.800048, 1426.759521, 7.101562) || PlayerToPoint(3.0, playerid, -2064.942382, 1417.446289, 7.101562) || PlayerToPoint(3.0, playerid, -2064.715820, 1408.081909, 7.101562) || PlayerToPoint(3.0, playerid, -2064.961425, 1399.184448, 7.101562))
 		{
-			if(PlayerInfo[playerid][pProfissao] != 7) 		return ErrorMsg(playerid, "Nao possui permissao.");
-			ShowPlayerDialog(playerid, DIALOG_ARMARIOMEC, DIALOG_STYLE_LIST,"Menu Mecanico", "{FFFF00}- {FFFFFF}Caixa de Ferramientas\t{32CD32}R$800\n", "Selecionar","X");
+			if(PlayerInfo[playerid][Org] != 10) 		return ErrorMsg(playerid, "Nao possui permissao.");
+			ShowPlayerDialog(playerid, DIALOG_ARMARIOMEC, DIALOG_STYLE_LIST,"Menu Mecanico", "{FFFF00}- {FFFFFF}Caixa de Ferramientas\t{32CD32}R$1200\n{FFFF00}- {FFFFFF}Ferramentas de Tunagem\t{32CD32}R$15000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, -501.146118, 294.354156, 2001.094970))
 		{
@@ -14132,7 +14144,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					else
 					{ 
-						SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -1636.031250, 1412.865600, 7.187500, 136.470169, 0, 0, 0, 0, 0, 0);
+						SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -1972.100463, 137.953506, 27.687500, 90.036911, 0, 0, 0, 0, 0, 0);
 						SpawnPlayer(playerid);
 						FirstLogin[playerid] = false;
 					}	
@@ -14212,7 +14224,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		case DIALOG_BANIDO: Kick(playerid);
 		case DIALOG_POS:
 		{
-			SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -1636.031250, 1412.865600, 7.187500, 136.470169, 0, 0, 0, 0, 0, 0);
+			SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -1972.100463, 137.953506, 27.687500, 90.036911, 0, 0, 0, 0, 0, 0);
 			SpawnPlayer(playerid);
 			if(response) SpawnPos[playerid] = true;
 			else SpawnPos[playerid] = false;
@@ -15358,6 +15370,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					format(Str, sizeof(Str),"Introduza o ID do jogador que queira transferir o dinheiro",PlayerInfo[playerid][pBanco]);
 					ShowPlayerDialog(playerid,DIALOG_BANCO4,1,"Transferir", Str, "Selecionar","X");
 				}
+				if(listitem == 1)
+				{
+					format(Str, sizeof(Str),"Oque voce deseja anunciar? Seu anuncio deve conter\n74 caracteres ou nao sera enviado.");
+					ShowPlayerDialog(playerid,DIALOG_ANUNCIOOLX,1,"Transferir", Str, "Selecionar","X");
+				}
 			}
 		}
 		case DIALOG_REANIMAR:
@@ -15992,10 +16009,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					if(GetPlayerMoney(playerid) < 800) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
-					PlayerInfo[playerid][pDinheiro] -= 800;
+					if(GetPlayerMoney(playerid) < 1200) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					PlayerInfo[playerid][pDinheiro] -= 1200;
 					GanharItem(playerid, 19921, 1);
-					SuccesMsg(playerid, "Compro una caja de herramientas.");
+					SuccesMsg(playerid, "Comprou uma caixa de ferramientas.");
+				}
+				if(listitem == 1)
+				{
+					if(GetPlayerMoney(playerid) < 15000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					PlayerInfo[playerid][pDinheiro] -= 15000;
+					GanharItem(playerid, 1010, 1);
+					SuccesMsg(playerid, "Comprou una kit de tunagem.");
 				}
 			}
 		}
@@ -16382,18 +16406,21 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(GetPlayerVehicles(playerid) >= MAX_PLAYER_VEHICLES)
 				{
 					ShowErrorDialog(playerid, "Nao pode comprar mais veiculo:" #MAX_PLAYER_VEHICLES );
+					RemovePlayerFromVehicle(playerid);
 					return 1;
 				}
 				new id = GetPVarInt(playerid, "DialogValue1");
 				if(GetPlayerMoney(playerid) < VehicleValue[id])
 				{
 					ShowErrorDialog(playerid, "Dinheiro insuficiente");
+					RemovePlayerFromVehicle(playerid);
 					return 1;
 				}
 				new freeid = GetFreeVehicleID();
 				if(!freeid)
 				{
 					ShowErrorDialog(playerid, "Veiculos esgotados");
+					RemovePlayerFromVehicle(playerid);
 					return 1;
 				}
 				PlayerInfo[playerid][pDinheiro] -= VehicleValue[id];
@@ -16424,6 +16451,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new msg[128];
 				format(msg, sizeof(msg), "Voce comprou este veiculo por R$%d", VehicleValue[id]);
 				SuccesMsg(playerid, msg);
+				RemovePlayerFromVehicle(playerid);
 			}
 			else
 			{
@@ -16926,6 +16954,38 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					return 1;
 				}
+			}
+		}
+		case DIALOG_ANUNCIOOLX:
+		{
+			if(response)
+			{
+				new anuncio[75];
+				if(strlen(inputtext) >= 74) return SendClientMessage(playerid,-1,"Ha muitos caracteres no anuncio.");
+				new string[200];
+				if(TiempoAnuncio[playerid] > 0)
+				{
+					format(string,100,"Espera %d segundos para poder fazer outro anuncio.",TiempoAnuncio[playerid]);
+					SendClientMessage(playerid,-1,string);
+					return true;
+				}
+				TiempoAnuncio[playerid] = 60;
+				PlayerInfo[playerid][pBanco] -= 5000;
+				for(new a; a < NA-1; a++)
+				{
+					if(strlen(Anuncio[a+1][Texto]) > 0)
+					{
+						format(Anuncio[a][Texto],75,"%s",Anuncio[a+1][Texto]);
+						format(string,sizeof(string),"~g~Anuncio:~w~ %s ~g~",Anuncio[a][Texto]);
+						TextDrawSetString(TextDraw[a],string);
+						TextDrawShowForAll(TextDraw[a]);
+					}
+				}
+				Anuncio[NA-1][Texto] = strval(inputtext);
+				format(string,sizeof(string),"~g~Anuncio:~w~ %s ~g~",anuncio);
+				TextDrawSetString(TextDraw[NA-1],string);
+				TextDrawShowForAll(TextDraw[NA-1]);
+				
 			}
 		}
 	}
@@ -17431,37 +17491,37 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 
 	if(playertextid == wMenu[7]) AddVehicleComponent(wVeiculo,1087);
 
-	if(playertextid == wMenuRodas[1]) AddVehicleComponent(wVeiculo,1073);         // SHADOW
-    if(playertextid == wMenuRodas[2]) AddVehicleComponent(wVeiculo, 1074);        // MEGA
-    if(playertextid == wMenuRodas[3]) AddVehicleComponent(wVeiculo,1075);         // RINSHIME
-    if(playertextid == wMenuRodas[4]) AddVehicleComponent(wVeiculo,1076);         // WIRES
-    if(playertextid == wMenuRodas[5]) AddVehicleComponent(wVeiculo,1077);         // CLASSIC
-    if(playertextid == wMenuRodas[6]) AddVehicleComponent(wVeiculo,1078);         // TWIST
-    if(playertextid == wMenuRodas[7]) AddVehicleComponent(wVeiculo,1079);         // CUTTER
-    if(playertextid == wMenuRodas[8]) AddVehicleComponent(wVeiculo,1083);         // DOLLAR
-    if(playertextid == wMenuRodas[9]) AddVehicleComponent(wVeiculo,1085);         // ATOMIC
-    if(playertextid == wMenuRodas[10]) AddVehicleComponent(wVeiculo,1097);        // VIRTUAL
+	if(playertextid == wMenuRodas[1]) AddVehicleComponent(wVeiculo,1073), OnVehicleMod(playerid, wVeiculo, 1073);         // SHADOW
+    if(playertextid == wMenuRodas[2]) AddVehicleComponent(wVeiculo, 1074), OnVehicleMod(playerid, wVeiculo, 1074);        // MEGA
+    if(playertextid == wMenuRodas[3]) AddVehicleComponent(wVeiculo,1075), OnVehicleMod(playerid, wVeiculo, 1075);         // RINSHIME
+    if(playertextid == wMenuRodas[4]) AddVehicleComponent(wVeiculo,1076), OnVehicleMod(playerid, wVeiculo, 1076);         // WIRES
+    if(playertextid == wMenuRodas[5]) AddVehicleComponent(wVeiculo,1077), OnVehicleMod(playerid, wVeiculo, 1077);         // CLASSIC
+    if(playertextid == wMenuRodas[6]) AddVehicleComponent(wVeiculo,1078), OnVehicleMod(playerid, wVeiculo, 1078);         // TWIST
+    if(playertextid == wMenuRodas[7]) AddVehicleComponent(wVeiculo,1079), OnVehicleMod(playerid, wVeiculo, 1079);         // CUTTER
+    if(playertextid == wMenuRodas[8]) AddVehicleComponent(wVeiculo,1083), OnVehicleMod(playerid, wVeiculo, 1083);         // DOLLAR
+    if(playertextid == wMenuRodas[9]) AddVehicleComponent(wVeiculo,1085), OnVehicleMod(playerid, wVeiculo, 1085);         // ATOMIC
+    if(playertextid == wMenuRodas[10]) AddVehicleComponent(wVeiculo,1097), OnVehicleMod(playerid, wVeiculo, 1097);        // VIRTUAL
     //if(playertextid == wMenuRodas[11]) AddVehicleComponent(wVeiculo,1081);        // GROVE
     //if(playertextid == wMenuRodas[12]) AddVehicleComponent(wVeiculo,1080);        // SWIST
 
-    if(playertextid == wMenuCores[1]) ChangeVehicleColor(wVeiculo, 1, 1);         // BRANCO
-    if(playertextid == wMenuCores[2]) ChangeVehicleColor(wVeiculo, 79, 79);       // AZUL
-    if(playertextid == wMenuCores[3]) ChangeVehicleColor(wVeiculo, 194, 194);     // AMARELO
-    if(playertextid == wMenuCores[4]) ChangeVehicleColor(wVeiculo, 211, 211);     // ROXO
-    if(playertextid == wMenuCores[5]) ChangeVehicleColor(wVeiculo, 137, 137);     // VERDE
-    if(playertextid == wMenuCores[6]) ChangeVehicleColor(wVeiculo, 75, 75);       // CINZA
-    if(playertextid == wMenuCores[7]) ChangeVehicleColor(wVeiculo, 136, 136);     // ROSA
-    if(playertextid == wMenuCores[8]) ChangeVehicleColor(wVeiculo, 129, 129);     // MARROM
-    if(playertextid == wMenuCores[9]) ChangeVehicleColor(wVeiculo, 3, 3);         // VERMELHO
-    if(playertextid == wMenuCores[10]) ChangeVehicleColor(wVeiculo, 158, 158);    // LARANJA
+    if(playertextid == wMenuCores[1]) ChangeVehicleColor(wVeiculo, 1, 1), OnVehicleRespray(playerid, wVeiculo, 1, 1);         // BRANCO
+    if(playertextid == wMenuCores[2]) ChangeVehicleColor(wVeiculo, 79, 79), OnVehicleRespray(playerid, wVeiculo, 79, 79);       // AZUL
+    if(playertextid == wMenuCores[3]) ChangeVehicleColor(wVeiculo, 194, 194), OnVehicleRespray(playerid, wVeiculo, 194, 194);     // AMARELO
+    if(playertextid == wMenuCores[4]) ChangeVehicleColor(wVeiculo, 211, 211), OnVehicleRespray(playerid, wVeiculo, 211, 211);     // ROXO
+    if(playertextid == wMenuCores[5]) ChangeVehicleColor(wVeiculo, 137, 137), OnVehicleRespray(playerid, wVeiculo, 137, 137);     // VERDE
+    if(playertextid == wMenuCores[6]) ChangeVehicleColor(wVeiculo, 75, 75), OnVehicleRespray(playerid, wVeiculo, 75, 75);       // CINZA
+    if(playertextid == wMenuCores[7]) ChangeVehicleColor(wVeiculo, 136, 136), OnVehicleRespray(playerid, wVeiculo, 136, 136);     // ROSA
+    if(playertextid == wMenuCores[8]) ChangeVehicleColor(wVeiculo, 129, 129), OnVehicleRespray(playerid, wVeiculo, 129, 129);     // MARROM
+    if(playertextid == wMenuCores[9]) ChangeVehicleColor(wVeiculo, 3, 3), OnVehicleRespray(playerid, wVeiculo, 3, 3);        // VERMELHO
+    if(playertextid == wMenuCores[10]) ChangeVehicleColor(wVeiculo, 158, 158), OnVehicleRespray(playerid, wVeiculo, 158, 158);    // LARANJA
 
-    if(playertextid == wMenuPaintJobs[1])  ChangeVehiclePaintjob(wVeiculo, 0);    // PAINTJOBS 1
-    if(playertextid == wMenuPaintJobs[2])   ChangeVehiclePaintjob(wVeiculo, 1);   // PAINTJOBS 2
-    if(playertextid == wMenuPaintJobs[3])   ChangeVehiclePaintjob(wVeiculo, 2);   // PAINTJOBS 3
+    if(playertextid == wMenuPaintJobs[1])  ChangeVehiclePaintjob(wVeiculo, 0), OnVehiclePaintjob(playerid, wVeiculo, 0);    // PAINTJOBS 1
+    if(playertextid == wMenuPaintJobs[2])   ChangeVehiclePaintjob(wVeiculo, 1), OnVehiclePaintjob(playerid, wVeiculo, 1);   // PAINTJOBS 2
+    if(playertextid == wMenuPaintJobs[3])   ChangeVehiclePaintjob(wVeiculo, 2), OnVehiclePaintjob(playerid, wVeiculo, 2);   // PAINTJOBS 3
 
-    if(playertextid == wMenuNitro[1])      AddVehicleComponent(wVeiculo,1009);    // NITRO 1
-    if(playertextid == wMenuNitro[2])      AddVehicleComponent(wVeiculo,1008);    // NITRO 2
-    if(playertextid == wMenuNitro[3])      AddVehicleComponent(wVeiculo,1010);    // NITRO 3
+    if(playertextid == wMenuNitro[1])      AddVehicleComponent(wVeiculo,1009), OnVehicleMod(playerid, wVeiculo, 1009);    // NITRO 1
+    if(playertextid == wMenuNitro[2])      AddVehicleComponent(wVeiculo,1008), OnVehicleMod(playerid, wVeiculo, 1008);    // NITRO 2
+    if(playertextid == wMenuNitro[3])      AddVehicleComponent(wVeiculo,1010), OnVehicleMod(playerid, wVeiculo, 1010);    // NITRO 3
 
     if(playertextid == wMenuNeon[1])
     {
@@ -17529,196 +17589,342 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		    case 483:
 		    {
 		      	AddVehicleComponent(wVeiculo,1027);
+				OnVehicleMod(playerid, wVeiculo, 1027);
 	            ChangeVehiclePaintjob(wVeiculo, 0);
+				OnVehiclePaintjob(playerid, wVeiculo, 0);
 	            AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 	            AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 	            AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 		    }
 		    case 562:
 		    {
 		  		AddVehicleComponent(wVeiculo,1046);
+				OnVehicleMod(playerid, wVeiculo, 1046);
 	            AddVehicleComponent(wVeiculo,1171);
+				OnVehicleMod(playerid, wVeiculo, 1171);
 	            AddVehicleComponent(wVeiculo,1149);
+				OnVehicleMod(playerid, wVeiculo, 1149);
 	            AddVehicleComponent(wVeiculo,1035);
+				OnVehicleMod(playerid, wVeiculo, 1035);
 	            AddVehicleComponent(wVeiculo,1147);
+				OnVehicleMod(playerid, wVeiculo, 1147);
 	            AddVehicleComponent(wVeiculo,1036);
+				OnVehicleMod(playerid, wVeiculo, 1036);
 	            AddVehicleComponent(wVeiculo,1040);
+				OnVehicleMod(playerid, wVeiculo, 1040);
 	            ChangeVehiclePaintjob(wVeiculo, 2);
+				OnVehiclePaintjob(playerid, wVeiculo, 2);
 	            ChangeVehicleColor(wVeiculo, 6, 6);
+				OnVehicleRespray(playerid, wVeiculo, 6, 6);
 	            AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 	            AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 	            AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 		  	}
 		  	case 560:
 		  	{
 		  	   	AddVehicleComponent(wVeiculo,1028);
+				OnVehicleMod(playerid, wVeiculo, 1028);
 	            AddVehicleComponent(wVeiculo,1169);
+				OnVehicleMod(playerid, wVeiculo, 1169);
 	            AddVehicleComponent(wVeiculo,1141);
+				OnVehicleMod(playerid, wVeiculo, 1141);
 	            AddVehicleComponent(wVeiculo,1032);
+				OnVehicleMod(playerid, wVeiculo, 1032);
 	            AddVehicleComponent(wVeiculo,1138);
+				OnVehicleMod(playerid, wVeiculo, 1138);
 	            AddVehicleComponent(wVeiculo,1026);
+				OnVehicleMod(playerid, wVeiculo, 1026);
 	            AddVehicleComponent(wVeiculo,1027);
+				OnVehicleMod(playerid, wVeiculo, 1027);
 	            ChangeVehiclePaintjob(wVeiculo, 2);
+				OnVehiclePaintjob(playerid, wVeiculo, 2);
 	            AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 	            AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 	            AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 		  	}
 		  	case 565:
 		  	{
 		        AddVehicleComponent(wVeiculo,1046);
+				OnVehicleMod(playerid, wVeiculo, 1046);
 		        AddVehicleComponent(wVeiculo,1153);
+				OnVehicleMod(playerid, wVeiculo, 1153);
 		        AddVehicleComponent(wVeiculo,1150);
+				OnVehicleMod(playerid, wVeiculo, 1150);
 		        AddVehicleComponent(wVeiculo,1054);
+				OnVehicleMod(playerid, wVeiculo, 1054);
 		        AddVehicleComponent(wVeiculo,1049);
+				OnVehicleMod(playerid, wVeiculo, 1049);
 		        AddVehicleComponent(wVeiculo,1047);
+				OnVehicleMod(playerid, wVeiculo, 1047);
 		        AddVehicleComponent(wVeiculo,1051);
+				OnVehicleMod(playerid, wVeiculo, 1051);
 		        AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 		        AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 		        AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 		        ChangeVehiclePaintjob(wVeiculo, 2);
+				OnVehiclePaintjob(playerid, wVeiculo, 2);
 		  	}
 		  	case 559:
 		  	{
 		  	    AddVehicleComponent(wVeiculo,1065);
+				OnVehicleMod(playerid, wVeiculo, 1065);
 	            AddVehicleComponent(wVeiculo,1160);
+				OnVehicleMod(playerid, wVeiculo, 1160);
 	            AddVehicleComponent(wVeiculo,1159);
+				OnVehicleMod(playerid, wVeiculo, 1159);
 	            AddVehicleComponent(wVeiculo,1067);
+				OnVehicleMod(playerid, wVeiculo, 1067);
 	            AddVehicleComponent(wVeiculo,1162);
+				OnVehicleMod(playerid, wVeiculo, 1162);
 	            AddVehicleComponent(wVeiculo,1069);
+				OnVehicleMod(playerid, wVeiculo, 1069);
 	            AddVehicleComponent(wVeiculo,1071);
+				OnVehicleMod(playerid, wVeiculo, 1071);
 	            AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 	            AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 	            AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 	            ChangeVehiclePaintjob(wVeiculo, 1);
+				OnVehiclePaintjob(playerid, wVeiculo, 1);
 		  	}
 		  	case 561:
 		  	{
 		        AddVehicleComponent(wVeiculo,1064);
+				OnVehicleMod(playerid, wVeiculo, 1064);
 		        AddVehicleComponent(wVeiculo,1155);
+				OnVehicleMod(playerid, wVeiculo, 1155);
 		        AddVehicleComponent(wVeiculo,1154);
+				OnVehicleMod(playerid, wVeiculo, 1154);
 		        AddVehicleComponent(wVeiculo,1055);
+				OnVehicleMod(playerid, wVeiculo, 1055);
 		        AddVehicleComponent(wVeiculo,1158);
+				OnVehicleMod(playerid, wVeiculo, 1158);
 		        AddVehicleComponent(wVeiculo,1056);
+				OnVehicleMod(playerid, wVeiculo, 1056);
 		        AddVehicleComponent(wVeiculo,1062);
+				OnVehicleMod(playerid, wVeiculo, 1062);
 		        AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 		        AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 		        AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 		        ChangeVehiclePaintjob(wVeiculo, 2);
+				OnVehiclePaintjob(playerid, wVeiculo, 2);
 		  	}
 		  	case 558:
 		  	{
 		  	   	AddVehicleComponent(wVeiculo,1089);
+				OnVehicleMod(playerid, wVeiculo, 1089);
 		        AddVehicleComponent(wVeiculo,1166);
+				OnVehicleMod(playerid, wVeiculo, 1166);
 		        AddVehicleComponent(wVeiculo,1168);
+				OnVehicleMod(playerid, wVeiculo, 1168);
 		        AddVehicleComponent(wVeiculo,1088);
+				OnVehicleMod(playerid, wVeiculo, 1088);
 		        AddVehicleComponent(wVeiculo,1164);
+				OnVehicleMod(playerid, wVeiculo, 1164);
 		        AddVehicleComponent(wVeiculo,1090);
+				OnVehicleMod(playerid, wVeiculo, 1090);
 		        AddVehicleComponent(wVeiculo,1094);
+				OnVehicleMod(playerid, wVeiculo, 1094);
 		        AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 		        AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 		        AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 		        ChangeVehiclePaintjob(wVeiculo, 2);
+				OnVehiclePaintjob(playerid, wVeiculo, 2);
 		  	}
 		  	case 575:
 		  	{
 		        AddVehicleComponent(wVeiculo,1044);
+				OnVehicleMod(playerid, wVeiculo, 1044);
 		        AddVehicleComponent(wVeiculo,1174);
+				OnVehicleMod(playerid, wVeiculo, 1174);
 		        AddVehicleComponent(wVeiculo,1176);
+				OnVehicleMod(playerid, wVeiculo, 1176);
 		        AddVehicleComponent(wVeiculo,1042);
+				OnVehicleMod(playerid, wVeiculo, 1042);
 		        AddVehicleComponent(wVeiculo,1099);
+				OnVehicleMod(playerid, wVeiculo, 1099);
 		        AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 		        AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 		        AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 		        ChangeVehiclePaintjob(wVeiculo, 0);
+				OnVehiclePaintjob(playerid, wVeiculo, 0);
 		  	}
 		  	case 534:
 		  	{
 	            AddVehicleComponent(wVeiculo,1126);
+				OnVehicleMod(playerid, wVeiculo, 1126);
 	            AddVehicleComponent(wVeiculo,1179);
+				OnVehicleMod(playerid, wVeiculo, 1179);
 	            AddVehicleComponent(wVeiculo,1180);
+				OnVehicleMod(playerid, wVeiculo, 1180);
 	            AddVehicleComponent(wVeiculo,1122);
+				OnVehicleMod(playerid, wVeiculo, 1122);
 	            AddVehicleComponent(wVeiculo,1101);
+				OnVehicleMod(playerid, wVeiculo, 1101);
 	            AddVehicleComponent(wVeiculo,1125);
+				OnVehicleMod(playerid, wVeiculo, 1125);
 	            AddVehicleComponent(wVeiculo,1123);
+				OnVehicleMod(playerid, wVeiculo, 1123);
 	            AddVehicleComponent(wVeiculo,1100);
+				OnVehicleMod(playerid, wVeiculo, 1100);
 	            AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 	            AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 	            AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 	            ChangeVehiclePaintjob(wVeiculo, 2);
+				OnVehiclePaintjob(playerid, wVeiculo, 2);
 		  	}
 		  	case 536:
 		  	{
 		        AddVehicleComponent(wVeiculo,1104);
+				OnVehicleMod(playerid, wVeiculo, 1104);
 		        AddVehicleComponent(wVeiculo,1182);
+				OnVehicleMod(playerid, wVeiculo, 1182);
 		        AddVehicleComponent(wVeiculo,1184);
+				OnVehicleMod(playerid, wVeiculo, 1184);
 		        AddVehicleComponent(wVeiculo,1108);
+				OnVehicleMod(playerid, wVeiculo, 1108);
 		        AddVehicleComponent(wVeiculo,1107);
+				OnVehicleMod(playerid, wVeiculo, 1107);
 		        AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 		        AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 		        AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 		        ChangeVehiclePaintjob(wVeiculo, 1);
+				OnVehiclePaintjob(playerid, wVeiculo, 1);
 		  	}
 		  	case 567:
 		  	{
 		  	    AddVehicleComponent(wVeiculo,1129);
+				OnVehicleMod(playerid, wVeiculo, 1129);
 	            AddVehicleComponent(wVeiculo,1189);
+				OnVehicleMod(playerid, wVeiculo, 1189);
 	            AddVehicleComponent(wVeiculo,1187);
+				OnVehicleMod(playerid, wVeiculo, 1187);
 	            AddVehicleComponent(wVeiculo,1102);
+				OnVehicleMod(playerid, wVeiculo, 1102);
 	            AddVehicleComponent(wVeiculo,1133);
+				OnVehicleMod(playerid, wVeiculo, 1133);
 	            AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 	            AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 	            AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 	            ChangeVehiclePaintjob(wVeiculo, 2);
+				OnVehiclePaintjob(playerid, wVeiculo, 2);
 		  	}
 		  	case 420:
 		  	{
 		  	   	AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 	            AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 	            AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 	            AddVehicleComponent(wVeiculo,1139);
+				OnVehicleMod(playerid, wVeiculo, 1139);
 		  	}
 		  	case 400:
 		  	{
 		  	    AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 	            AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 	            AddVehicleComponent(wVeiculo,1018);
+				OnVehicleMod(playerid, wVeiculo, 1018);
 	            AddVehicleComponent(wVeiculo,1013);
+				OnVehicleMod(playerid, wVeiculo, 1013);
 	            AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 	            AddVehicleComponent(wVeiculo,1086);
+				OnVehicleMod(playerid, wVeiculo, 1086);
 		  	}
 		  	case 401:
 		  	{
 			  	AddVehicleComponent(wVeiculo,1086);
+				OnVehicleMod(playerid, wVeiculo, 1086);
 	            AddVehicleComponent(wVeiculo,1139);
+				OnVehicleMod(playerid, wVeiculo, 1139);
 	            AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 	            AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 	            AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 	            AddVehicleComponent(wVeiculo,1012);
+				OnVehicleMod(playerid, wVeiculo, 1012);
 	            AddVehicleComponent(wVeiculo,1013);
+				OnVehicleMod(playerid, wVeiculo, 1013);
 	            AddVehicleComponent(wVeiculo,1042);
+				OnVehicleMod(playerid, wVeiculo, 1042);
 	            AddVehicleComponent(wVeiculo,1043);
+				OnVehicleMod(playerid, wVeiculo, 1043);
 	            AddVehicleComponent(wVeiculo,1018);
+				OnVehicleMod(playerid, wVeiculo, 1018);
 	            AddVehicleComponent(wVeiculo,1006);
+				OnVehicleMod(playerid, wVeiculo, 1006);
 	            AddVehicleComponent(wVeiculo,1007);
+				OnVehicleMod(playerid, wVeiculo, 1007);
 	            AddVehicleComponent(wVeiculo,1017);
+				OnVehicleMod(playerid, wVeiculo, 1017);
         	}
         	case 576:
         	{
 	        	ChangeVehiclePaintjob(wVeiculo,2);
+				OnVehiclePaintjob(playerid, wVeiculo, 2);
 	            AddVehicleComponent(wVeiculo,1191);
+				OnVehicleMod(playerid, wVeiculo, 1191);
 	            AddVehicleComponent(wVeiculo,1193);
+				OnVehicleMod(playerid, wVeiculo, 1193);
 	            AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 	            AddVehicleComponent(wVeiculo,1018);
+				OnVehicleMod(playerid, wVeiculo, 1018);
 	            AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 	            AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 	            AddVehicleComponent(wVeiculo,1134);
+				OnVehicleMod(playerid, wVeiculo, 1134);
 	            AddVehicleComponent(wVeiculo,1137);
+				OnVehicleMod(playerid, wVeiculo, 1137);
         	}
 			default:
 			{
 			 	AddVehicleComponent(wVeiculo,1010);
+				OnVehicleMod(playerid, wVeiculo, 1010);
 	            AddVehicleComponent(wVeiculo,1079);
+				OnVehicleMod(playerid, wVeiculo, 1079);
 	            AddVehicleComponent(wVeiculo,1087);
+				OnVehicleMod(playerid, wVeiculo, 1087);
 			}
 		}
     }
@@ -17911,6 +18117,21 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 }
 
 //                          COMANDOS
+
+CMD:perfil(playerid)
+{
+	new megastrings[500], String2[500];
+	format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n{FFFFFF}VIP: {FFFF00}%s\n", Name(playerid), VIP(playerid));
+	strcat(megastrings, String2);
+	format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\n{FFFFFF}Org:{FFFF00} %s\n{FFFFFF}Cargo:{FFFF00} %s\n", Profs(playerid), NomeOrg(playerid), NomeCargo(playerid));
+	strcat(megastrings, String2);
+	format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\n{FFFFFF}N�Casa:{FFFF00} %d\n", PlayerInfo[playerid][pMultas], PlayerInfo[playerid][Casa]);
+	strcat(megastrings, String2);
+	format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\n{FFFFFF}Expira VIP:{FFFF00} %s\n{FFFFFF}Licenca Conduzir: {FFFF00}%s", convertNumber(PlayerInfo[ID][pSegundosJogados]), convertNumber(PlayerInfo[ID][ExpiraVIP]-gettime()), temlicenca(playerid));
+	strcat(megastrings, String2);
+	ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
+	return 1;
+}
 
 CMD:ajuda(playerid)
 {
@@ -21905,37 +22126,6 @@ CMD:mudarskin(playerid, params[])
 	return 1;
 }
 
-CMD:tunar(playerid,params[])
-{
-	if(!IsPlayerInAnyVehicle(playerid))
-		return SendClientMessage(playerid, 0x27408BFF, "Nao esta em um veiculo.");
-
-	if(GetPlayerVehicleSeat(playerid) != 0)
-        return SendClientMessage(playerid,  0x27408BFF, "Nao esta dentro do veiculo.");
-
-	if(!GetVehicleModelEx(GetVehicleModel(GetPlayerVehicleID(playerid))))
-	    return SendClientMessage(playerid,  0x27408BFF, "Este veiculo nao pode ser tunado.");
-	if(wTuning[playerid] == true)
-	    return SendClientMessage(playerid,  0x27408BFF, "Ja esta tunando.");
-
-    static
-		nome_veiculo[40]
-	;
-
-	format(nome_veiculo, sizeof(nome_veiculo), "veiculo: %s", VehicleNames[GetVehicleModel(GetPlayerVehicleID(playerid)) - 400]);
-    PlayerTextDrawSetString(playerid, PlayerText:wMenu[0], nome_veiculo);
-
-    SendClientMessage(playerid,  0x27408BFF, "Tunando Veiculo.");
-
-    for(new i; i < sizeof(wBase); i++) { TextDrawShowForPlayer(playerid, Text:wBase[i]); }
-	for(new i; i < sizeof(wMenu); i++) { PlayerTextDrawShow(playerid, PlayerText:wMenu[i]); }
-	for(new i; i < sizeof(wMenuRodas); i++) { PlayerTextDrawShow(playerid, PlayerText:wMenuRodas[i]); }
-
-	SelectTextDraw(playerid, 0x4F4F4FFF);
-	wTuning[playerid] = true;
-	return 1;
-}
-
 CMD:tunagemvip(playerid)
 {
 	new wVeiculo = GetPlayerVehicleID(playerid);
@@ -21961,6 +22151,7 @@ CMD:tunagemvip(playerid)
             AddVehicleComponent(wVeiculo,1040);
             ChangeVehiclePaintjob(wVeiculo, 2);
             ChangeVehicleColor(wVeiculo, 6, 6);
+			OnVehicleRespray(playerid, wVeiculo, 6, 6);
             AddVehicleComponent(wVeiculo,1010);
             AddVehicleComponent(wVeiculo,1079);
             AddVehicleComponent(wVeiculo,1087);
@@ -22344,4 +22535,48 @@ CMD:pescar(playerid)
 		UsouCMD[playerid] = true;	
 	}
 	return 1;
+}
+
+CMD:resetanuncios(playerid,params[])
+{
+	if(PlayerInfo[playerid][pAdmin] < 1) return ErrorMsg(playerid, "Nao possui permissao.");
+	for(new a; a < NA; a++)
+	{
+	    if(strlen(Anuncio[a][Texto]) > 0)
+	    {
+	    	format(Anuncio[a][Texto],35,"");
+	    	TextDrawHideForAll(TextDraw[a]);
+		}
+	}
+	return true;
+}
+
+CMD:anuncio(playerid,params[])
+{
+	new anuncio[75];
+	if(strlen(params) >= 74) return SendClientMessage(playerid,-1,"Ha muitos caracteres no anuncio.");
+	if(sscanf(params,"s[75]",anuncio)) return SendClientMessage(playerid,-1,"Usa /anuncio [anuncio]");
+	new string[200];
+	if(TiempoAnuncio[playerid] > 0)
+	{
+	    format(string,100,"Espera %d segundos para poder fazer outro anuncio.",TiempoAnuncio[playerid]);
+	    SendClientMessage(playerid,-1,string);
+		return true;
+	}
+	TiempoAnuncio[playerid] = 60;
+	for(new a; a < NA-1; a++)
+	{
+	    if(strlen(Anuncio[a+1][Texto]) > 0)
+	    {
+			format(Anuncio[a][Texto],75,"%s",Anuncio[a+1][Texto]);
+			format(string,sizeof(string),"~g~Anuncio:~w~ %s ~g~",Anuncio[a][Texto]);
+			TextDrawSetString(TextDraw[a],string);
+			TextDrawShowForAll(TextDraw[a]);
+		}
+	}
+	Anuncio[NA-1][Texto] = anuncio;
+	format(string,sizeof(string),"~g~Anuncio:~w~ %s ~g~",anuncio);
+	TextDrawSetString(TextDraw[NA-1],string);
+	TextDrawShowForAll(TextDraw[NA-1]);
+	return true;
 }

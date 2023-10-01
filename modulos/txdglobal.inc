@@ -2533,7 +2533,60 @@ CarregarTxdGlobal()
 	TextDrawSetProportional(Velomob[4], 1);
 	TextDrawSetSelectable(Velomob[4], 0);
 
+	TextDraw[0] = TextDrawCreate(360.625000, 363.833374, "~g~Anuncio:~w~ Se vende un pito de goma a gran precio ~g~(Movil: 3250)");
+	TextDrawLetterSize(TextDraw[0], 0.152500, 1.232499);
+	TextDrawAlignment(TextDraw[0], 1);
+	TextDrawColor(TextDraw[0], -1);
+	TextDrawSetShadow(TextDraw[0], 0);
+	TextDrawSetOutline(TextDraw[0], 1);
+	TextDrawBackgroundColor(TextDraw[0], 255);
+	TextDrawFont(TextDraw[0], 1);
+	TextDrawSetProportional(TextDraw[0], 1);
+	TextDrawSetShadow(TextDraw[0], 0);
 
+	TextDraw[1] = TextDrawCreate(360.625000, 376.083007, "~g~Anuncio:~w~ Se vende un pito de goma a gran precio ~g~(Movil: 3250)");
+	TextDrawLetterSize(TextDraw[1], 0.152500, 1.232499);
+	TextDrawAlignment(TextDraw[1], 1);
+	TextDrawColor(TextDraw[1], -1);
+	TextDrawSetShadow(TextDraw[1], 0);
+	TextDrawSetOutline(TextDraw[1], 1);
+	TextDrawBackgroundColor(TextDraw[1], 255);
+	TextDrawFont(TextDraw[1], 1);
+	TextDrawSetProportional(TextDraw[1], 1);
+	TextDrawSetShadow(TextDraw[1], 0);
+
+	TextDraw[2] = TextDrawCreate(360.625000, 390.666503, "~g~Anuncio:~w~ Se vende un pito de goma a gran precio ~g~(Movil: 3250)");
+	TextDrawLetterSize(TextDraw[2], 0.152500, 1.232499);
+	TextDrawAlignment(TextDraw[2], 1);
+	TextDrawColor(TextDraw[2], -1);
+	TextDrawSetShadow(TextDraw[2], 0);
+	TextDrawSetOutline(TextDraw[2], 1);
+	TextDrawBackgroundColor(TextDraw[2], 255);
+	TextDrawFont(TextDraw[2], 1);
+	TextDrawSetProportional(TextDraw[2], 1);
+	TextDrawSetShadow(TextDraw[2], 0);
+
+	TextDraw[3] = TextDrawCreate(360.000000, 405.249847, "~g~Anuncio:~w~ Se vende un pito de goma a gran precio ~g~(Movil: 3250)");
+	TextDrawLetterSize(TextDraw[3], 0.152500, 1.232499);
+	TextDrawAlignment(TextDraw[3], 1);
+	TextDrawColor(TextDraw[3], -1);
+	TextDrawSetShadow(TextDraw[3], 0);
+	TextDrawSetOutline(TextDraw[3], 1);
+	TextDrawBackgroundColor(TextDraw[3], 255);
+	TextDrawFont(TextDraw[3], 1);
+	TextDrawSetProportional(TextDraw[3], 1);
+	TextDrawSetShadow(TextDraw[3], 0);
+
+	TextDraw[4] = TextDrawCreate(360.625000, 419.250000, "~g~Anuncio:~w~ Se vende un pito de goma a gran precio ~g~(Movil: 3250)");
+	TextDrawLetterSize(TextDraw[4], 0.152500, 1.232499);
+	TextDrawAlignment(TextDraw[4], 1);
+	TextDrawColor(TextDraw[4], -1);
+	TextDrawSetShadow(TextDraw[4], 0);
+	TextDrawSetOutline(TextDraw[4], 1);
+	TextDrawBackgroundColor(TextDraw[4], 255);
+	TextDrawFont(TextDraw[4], 1);
+	TextDrawSetProportional(TextDraw[4], 1);
+	TextDrawSetShadow(TextDraw[4], 0);
 
 	printf("=> Textdraws Globais       		: Carregados");
 }
