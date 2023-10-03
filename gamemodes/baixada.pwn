@@ -631,6 +631,7 @@ new bool:Podecmd[MAX_PLAYERS] = true;
 new bool:MostrandoRG[MAX_PLAYERS] = false;
 //                          TEXTDRAWS
 
+new PlayerText:BancoTD2[MAX_PLAYERS][25];
 new PlayerText:BancoTD[MAX_PLAYERS][34];
 new Text:gServerTextdraws;
 static PlayerText:XPTXD[MAX_PLAYERS][20];
@@ -3868,7 +3869,7 @@ CallBack::IsBandido(playerid)
 	if(IsPlayerConnected(playerid))
 	{
 		new member = PlayerInfo[playerid][Org];
-		if(member == 5 || member == 6 || member == 7 || member == 8)
+		if(member == 5 || member == 6 || member == 7 || member == 8 || member == 12 || member == 13)
 		{
 			return 1;
 		}
@@ -3882,19 +3883,6 @@ CallBack::IsNeutra(playerid)
 	{
 		new member = PlayerInfo[playerid][Org];
 		if(member == 9 || member == 10 || member == 11)
-		{
-			return 1;
-		}
-	}
-	return 0;
-}
-
-CallBack::IsMafia(playerid)
-{
-	if(IsPlayerConnected(playerid))
-	{
-		new member = PlayerInfo[playerid][Org];
-		if(member == 12 || member == 13)
 		{
 			return 1;
 		}
@@ -5231,7 +5219,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]))
 			{
 				new string[300];
-				if(!IsBandido(playerid) || !IsMafia(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
+				if(!IsBandido(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 				new org = GetPlayerOrg(playerid);
 				
 				DepositarGranaOrg(org,PlayerInventario[playerid][modelid][Unidades]);
@@ -5250,7 +5238,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]))
 			{
 				new string[300];
-				if(!IsBandido(playerid) || !IsMafia(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
+				if(!IsBandido(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 				new org = GetPlayerOrg(playerid);
 				
 				DepositarMaconhaOrg(org,PlayerInventario[playerid][modelid][Unidades]);
@@ -5268,7 +5256,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]))
 			{
 				new string[300];
-				if(!IsBandido(playerid) || !IsMafia(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
+				if(!IsBandido(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 				new org = GetPlayerOrg(playerid);
 				
 				DepositarCocainaOrg(org,PlayerInventario[playerid][modelid][Unidades]);
@@ -5286,7 +5274,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]))
 			{
 				new string[300];
-				if(!IsBandido(playerid) || !IsMafia(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
+				if(!IsBandido(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 				new org = GetPlayerOrg(playerid);
 				
 				DepositarCrackOrg(org,PlayerInventario[playerid][modelid][Unidades]);
@@ -6751,6 +6739,360 @@ stock CarregarMortos(playerid)
 
 stock todastextdraw(playerid)
 {
+
+    BancoTD2[playerid][0] = CreatePlayerTextDraw(playerid, 320.000000, 126.000000, "_");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][0], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][0], 0.640999, 22.850000);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][0], 298.500000, 354.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][0], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][0], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][0], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][0], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][0], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][0], 437918432);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][0], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][0], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][0], 0);
+
+    BancoTD2[playerid][1] = CreatePlayerTextDraw(playerid, 402.000000, 196.000000, "_");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][1], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][1], 0.600000, 8.599987);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][1], 296.500000, -2.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][1], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][1], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][1], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][1], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][1], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][1], -65281);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][1], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][1], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][1], 0);
+
+    BancoTD2[playerid][2] = CreatePlayerTextDraw(playerid, 192.000000, 180.000000, "_");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][2], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][2], 0.600000, 11.750000);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][2], 296.500000, 73.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][2], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][2], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][2], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][2], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][2], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][2], -65281);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][2], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][2], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][2], 0);
+
+    BancoTD2[playerid][3] = CreatePlayerTextDraw(playerid, 192.000000, 182.000000, "_");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][3], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][3], 0.600000, 11.350007);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][3], 296.500000, 69.500000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][3], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][3], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][3], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][3], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][3], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][3], 437918463);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][3], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][3], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][3], 0);
+
+    BancoTD2[playerid][4] = CreatePlayerTextDraw(playerid, 148.000000, 130.000000, "ld_beat:chit");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][4], 4);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][4], 0.600000, 2.000000);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][4], 23.000000, 23.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][4], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][4], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][4], 1);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][4], -71);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][4], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][4], 50);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][4], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][4], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][4], 0);
+
+    BancoTD2[playerid][5] = CreatePlayerTextDraw(playerid, 155.300003, 137.000000, "hud:radar_locosyndicate");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][5], 4);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][5], 0.600000, 2.000000);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][5], 8.500000, 8.500000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][5], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][5], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][5], 1);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][5], -139);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][5], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][5], 50);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][5], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][5], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][5], 0);
+
+    BancoTD2[playerid][6] = CreatePlayerTextDraw(playerid, 489.000000, 127.000000, "X");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][6], 2);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][6], 0.345999, 1.649999);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][6], 13.500000, 13.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][6], 0);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][6], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][6], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][6], -111);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][6], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][6], 50);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][6], 0);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][6], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][6], 1);
+
+    BancoTD2[playerid][7] = CreatePlayerTextDraw(playerid, 480.000000, 317.000000, "ld_beat:left");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][7], 4);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][7], 0.345999, 1.649999);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][7], 13.500000, 13.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][7], 0);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][7], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][7], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][7], -111);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][7], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][7], 50);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][7], 0);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][7], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][7], 1);
+
+    BancoTD2[playerid][8] = CreatePlayerTextDraw(playerid, 151.000000, 185.000000, "Preview_Model");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][8], 5);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][8], 0.600000, 2.000000);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][8], 80.000000, 99.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][8], 0);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][8], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][8], 1);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][8], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][8], 0);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][8], 0);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][8], 0);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][8], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][8], 0);
+    PlayerTextDrawSetPreviewModel(playerid, BancoTD2[playerid][8], 217);
+    PlayerTextDrawSetPreviewRot(playerid, BancoTD2[playerid][8], -9.000000, 0.000000, 0.000000, 0.899999);
+    PlayerTextDrawSetPreviewVehCol(playerid, BancoTD2[playerid][8], 1, 1);
+
+    BancoTD2[playerid][9] = CreatePlayerTextDraw(playerid, 315.000000, 190.000000, "_");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][9], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][9], 0.616666, 9.799983);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][9], 296.500000, 170.500000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][9], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][9], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][9], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][9], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][9], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][9], 437918463);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][9], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][9], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][9], 0);
+
+    BancoTD2[playerid][10] = CreatePlayerTextDraw(playerid, 315.000000, 201.000000, "_");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][10], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][10], 0.600000, 8.349987);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][10], 296.500000, 165.500000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][10], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][10], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][10], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][10], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][10], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][10], 640035326);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][10], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][10], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][10], 0);
+
+    BancoTD2[playerid][11] = CreatePlayerTextDraw(playerid, 315.000000, 191.000000, "INFORMACOES BANCARIAS");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][11], 2);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][11], 0.179167, 0.649999);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][11], 62.500000, 120.500000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][11], 0);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][11], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][11], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][11], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][11], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][11], 50);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][11], 0);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][11], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][11], 0);
+
+    BancoTD2[playerid][12] = CreatePlayerTextDraw(playerid, 235.000000, 210.000000, "_");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][12], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][12], 0.600000, 6.399988);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][12], 296.500000, -2.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][12], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][12], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][12], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][12], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][12], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][12], -65281);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][12], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][12], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][12], 0);
+
+    BancoTD2[playerid][13] = CreatePlayerTextDraw(playerid, 239.000000, 219.000000, "~y~~y~Tipo de conta:~n~CPF:~n~Saldo bancario:~n~Agencia:~n~Conta:~n~Pais:");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][13], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][13], 0.212500, 0.750000);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][13], 409.500000, 79.500000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][13], 0);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][13], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][13], 1);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][13], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][13], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][13], 50);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][13], 0);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][13], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][13], 0);
+
+    BancoTD2[playerid][14] = CreatePlayerTextDraw(playerid, 451.000000, 194.000000, "BAIXADA");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][14], 2);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][14], 0.420830, 3.349997);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][14], 62.500000, 120.500000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][14], 0);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][14], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][14], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][14], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][14], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][14], 50);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][14], 0);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][14], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][14], 0);
+
+    BancoTD2[playerid][15] = CreatePlayerTextDraw(playerid, 452.000000, 211.000000, "Bank");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][15], 2);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][15], 0.462498, 2.549993);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][15], 62.500000, 120.500000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][15], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][15], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][15], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][15], -65281);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][15], 0);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][15], 50);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][15], 0);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][15], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][15], 0);
+
+    BancoTD2[playerid][16] = CreatePlayerTextDraw(playerid, 172.000000, 137.000000, "Player Name");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][16], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][16], 0.266667, 1.000000);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][16], 254.500000, 120.500000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][16], 0);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][16], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][16], 1);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][16], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][16], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][16], 50);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][16], 0);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][16], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][16], 0);
+
+    BancoTD2[playerid][17] = CreatePlayerTextDraw(playerid, 452.000000, 239.000000, "_");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][17], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][17], 0.600000, -0.550005);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][17], 296.500000, 69.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][17], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][17], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][17], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][17], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][17], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][17], -65281);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][17], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][17], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][17], 0);
+
+    BancoTD2[playerid][18] = CreatePlayerTextDraw(playerid, 267.000000, 161.000000, "_");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][18], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][18], 0.600000, -0.550005);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][18], 296.500000, 69.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][18], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][18], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][18], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][18], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][18], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][18], -65281);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][18], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][18], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][18], 0);
+
+    BancoTD2[playerid][19] = CreatePlayerTextDraw(playerid, 293.000000, 149.000000, "_");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][19], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][19], 0.600000, -0.550005);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][19], 296.500000, 69.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][19], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][19], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][19], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][19], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][19], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][19], -65281);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][19], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][19], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][19], 0);
+
+    BancoTD2[playerid][20] = CreatePlayerTextDraw(playerid, 363.000000, 171.000000, "_");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][20], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][20], 0.600000, -0.550005);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][20], 296.500000, 69.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][20], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][20], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][20], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][20], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][20], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][20], -65281);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][20], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][20], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][20], 0);
+
+    BancoTD2[playerid][21] = CreatePlayerTextDraw(playerid, 353.000000, 158.000000, "_");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][21], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][21], 0.600000, -0.550005);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][21], 296.500000, 69.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][21], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][21], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][21], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][21], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][21], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][21], -65281);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][21], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][21], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][21], 0);
+
+    BancoTD2[playerid][22] = CreatePlayerTextDraw(playerid, 416.000000, 151.000000, "_");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][22], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][22], 0.600000, -0.550005);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][22], 296.500000, 69.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][22], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][22], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][22], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][22], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][22], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][22], -65281);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][22], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][22], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][22], 0);
+
+    BancoTD2[playerid][23] = CreatePlayerTextDraw(playerid, 312.000000, 319.000000, "_");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][23], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][23], 0.600000, -0.050005);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][23], 296.500000, 299.000000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][23], 1);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][23], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][23], 2);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][23], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][23], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][23], -65281);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][23], 1);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][23], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][23], 0);
+
+    BancoTD2[playerid][24] = CreatePlayerTextDraw(playerid, 336.000000, 219.000000, "~w~Pessoa fisica~n~000.000.000-00~n~R$50.000.00:~n~0001:~n~24585-13:~n~Brasil");
+    PlayerTextDrawFont(playerid, BancoTD2[playerid][24], 1);
+    PlayerTextDrawLetterSize(playerid, BancoTD2[playerid][24], 0.211998, 0.750000);
+    PlayerTextDrawTextSize(playerid, BancoTD2[playerid][24], 409.500000, 79.500000);
+    PlayerTextDrawSetOutline(playerid, BancoTD2[playerid][24], 0);
+    PlayerTextDrawSetShadow(playerid, BancoTD2[playerid][24], 0);
+    PlayerTextDrawAlignment(playerid, BancoTD2[playerid][24], 1);
+    PlayerTextDrawColor(playerid, BancoTD2[playerid][24], -1);
+    PlayerTextDrawBackgroundColor(playerid, BancoTD2[playerid][24], 255);
+    PlayerTextDrawBoxColor(playerid, BancoTD2[playerid][24], 50);
+    PlayerTextDrawUseBox(playerid, BancoTD2[playerid][24], 0);
+    PlayerTextDrawSetProportional(playerid, BancoTD2[playerid][24], 1);
+    PlayerTextDrawSetSelectable(playerid, BancoTD2[playerid][24], 0);
+
     TDLoja[playerid][0] = CreatePlayerTextDraw(playerid,341.000000, 169.000000, "LD_BUM:cd1c");
     PlayerTextDrawBackgroundColor(playerid,TDLoja[playerid][0], 255);
     PlayerTextDrawFont(playerid,TDLoja[playerid][0], 4);
@@ -14048,18 +14390,16 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		if(IsPlayerInRangeOfPoint(playerid, 10.0, CofreInfo[orgid][CofrePosX], CofreInfo[orgid][CofrePosY], CofreInfo[orgid][CofrePosZ]))
 		{
-            if(IsBandido(playerid) || IsPolicial(playerid) || IsMafia(playerid))
-            {
-				for(new ii = 0; ii != 20; ii++)
-				{
-					GetWeaponName(CofreArma[ii][orgid], Nick, 20);
-					strcat(Inv, CofreArma[ii][orgid] > 0 ? (CofreArma[ii][orgid] == 18 ? ("{FFDC33}Cocktail Molotov") : (Nick)) : ("{FFDC33}(Vazio)"));
-					strcat(Inv, "\n");
-				}
-				strcat(Inv, "Guardar Arma");
-				ShowPlayerDialog(playerid, DIALOG_ARMAS2, DIALOG_STYLE_LIST, "Bau de Armas", Inv, "Selecionar", "X");
-				return 1;
+			if(!IsBandido(playerid) || !IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
+			for(new ii = 0; ii != 20; ii++)
+			{
+				GetWeaponName(CofreArma[ii][orgid], Nick, 20);
+				strcat(Inv, CofreArma[ii][orgid] > 0 ? (CofreArma[ii][orgid] == 18 ? ("{FFDC33}Cocktail Molotov") : (Nick)) : ("{FFDC33}(Vazio)"));
+				strcat(Inv, "\n");
 			}
+			strcat(Inv, "Guardar Arma");
+			ShowPlayerDialog(playerid, DIALOG_ARMAS2, DIALOG_STYLE_LIST, "Bau de Armas", Inv, "Selecionar", "X");
+			return 1;
 		}
 		if(PlayerToPoint(3.0, playerid, -5467.627441, -4536.831054, 4046.774902))
 		{
@@ -15047,7 +15387,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						strcat(stg, "{FFFF00}/verdocumentos{FFFFFF} Verificar documento de um jogador.\n");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAORG, DIALOG_STYLE_MSGBOX, "Comandos Organizacao", stg, "Ok", "");
 					}
-					if(IsBandido(playerid) || IsMafia(playerid)) 
+					if(IsBandido(playerid)) 
 					{
 						new stg[1100];
 						strcat(stg, "{FFFF00}/ga{FFFFFF} Radio de gang\n");
@@ -23048,4 +23388,13 @@ CMD:anuncio(playerid,params[])
 	TextDrawSetString(TextDraw[NA-1],string);
 	TextDrawShowForAll(TextDraw[NA-1]);
 	return true;
+}
+
+CMD:bancotd(playerid)
+{
+	for(new i; i < 25; i++)
+	{
+		PlayerTextDrawShow(playerid, BancoTD2[playerid][i]);
+	}
+	return 1;
 }
