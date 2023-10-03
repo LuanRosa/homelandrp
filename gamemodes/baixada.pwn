@@ -15388,7 +15388,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						ShowPlayerDialog(playerid, DIALOG_AJUDAORG, DIALOG_STYLE_MSGBOX, "Comandos Organizacao", stg, "Ok", "");
 					}
 					if(IsBandido(playerid)) 
-					{
+					{ 
 						new stg[1100];
 						strcat(stg, "{FFFF00}/ga{FFFFFF} Radio de gang\n");
 						strcat(stg, "{FFFF00}/ab{FFFFFF} Anuncio de abordagem.\n");
@@ -21215,7 +21215,7 @@ CMD:verdocumentos(playerid, params[])
 					if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
 					//
 					new megastrings[500], String2[500];
-					format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n{FFFFFF}VIP: {FFFF00}%s\n{FFFFFF}Dinheiro: {FFFF00}%s\n{FFFFFF}Banco: {FFFF00}%s", Name(i), VIP(i),ConvertMoney(PlayerInfo[i][pDinheiro]),ConvertMoney(PlayerInfo[i][pBanco]));
+					format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n{FFFFFF}VIP: {FFFF00}%s\n{FFFFFF}Dinheiro: {FFFF00}%s\n{FFFFFF}Banco: {FFFF00}%s\n", Name(i), VIP(i),ConvertMoney(PlayerInfo[i][pDinheiro]),ConvertMoney(PlayerInfo[i][pBanco]));
 					strcat(megastrings, String2);
 					format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\n{FFFFFF}Org:{FFFF00} %s\n{FFFFFF}Cargo:{FFFF00} %s\n", Profs(i), NomeOrg(i), NomeCargo(i));
 					strcat(megastrings, String2);
