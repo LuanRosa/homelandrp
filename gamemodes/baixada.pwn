@@ -14044,7 +14044,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					strcat(Inv, CofreArma[ii][orgid] > 0 ? (CofreArma[ii][orgid] == 18 ? ("{FFDC33}Cocktail Molotov") : (Nick)) : ("{FFDC33}(Vazio)"));
 					strcat(Inv, "\n");
 				}
-				strcat(Inv, "Guardar Arma");
+				strcat(Inv, "Guardar Arma");           
 				ShowPlayerDialog(playerid, DIALOG_ARMAS2, DIALOG_STYLE_LIST, "Bau de Armas", Inv, "Selecionar", "X");
 			}
 			return 1;
