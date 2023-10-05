@@ -128,6 +128,7 @@ new	UltimaFala[MAX_PLAYERS];
 #define PASTA_SLOTS 				"Cacaniquel/Slot%i.ini"
 #define PASTA_MORTOS 				"Mortos/%s.ini"
 #define PASTA_AVALIACAO				"AdminAvaliacao/%s.ini"
+
 //                           CORES
 
 #define 	CorAmareloServer 	0xFFFF00FF
@@ -188,14 +189,6 @@ new bool:Falando[MAX_PLAYERS] = true;
 new bool:Falou[MAX_PLAYERS] = false;
 
 //                          DIALOGS
-
-enum anuncios
-{
-	Texto[75]
-};
-new Anuncio[NA][anuncios];
-new TiempoAnuncio[MAX_PLAYERS],Text:TextDraw[5];
-
 enum
 {
 	DIALOG_LOGIN,
@@ -305,6 +298,22 @@ enum
 }
 
 //                          VARIAVEIS
+
+enum anuncios
+{
+	Texto[75]
+};
+new Anuncio[NA][anuncios];
+new TiempoAnuncio[MAX_PLAYERS],Text:TextDraw[5];
+
+
+new	CofreLoja1,
+	CofreLoja2,
+	CofreLoja3,
+	CofreRestaurante,
+	CofreNiobio,
+	CofreGoverno,
+	CofreBanco;
 
 enum pInfo
 {
@@ -2967,7 +2976,7 @@ CallBack::VelocimetroEx(playerid)
 		if(IsPlayerMobile(playerid)){
 			format(str,sizeof(str),"%02d",VelocidadeDoVeiculo(GetPlayerVehicleID(playerid)));
 			PlayerTextDrawSetString(playerid, Velomob_p[playerid][0], str);
-			format(str,sizeof(str),"~r~F:~w~ %d",Fuel[GetPlayerVehicleID(playerid)]);
+			format(str,sizeof(str),"~r~F:~w~ %0.f",Fuel[GetPlayerVehicleID(playerid)]);
 			PlayerTextDrawSetString(playerid, Velomob_p[playerid][2], str);
 			new velo = VelocidadeDoVeiculo(GetPlayerVehicleID(playerid));
 			if(velo >= 110){
@@ -3733,7 +3742,7 @@ CallBack::MainTimer()
 {
 	new string[128];
 	new Float:x, Float:y, Float:z;
-
+	SalvarPlantacao();
 	foreach(Player, i)
 	{
 		if(IsPlayerConnected(i))
@@ -3928,8 +3937,9 @@ CallBack::SalvarPlantacao()
 		format(string, sizeof string, PASTA_PLANTACAO, m);
 		if(!MaconhaInfo[m][PodeUsar])
 		{
-			if(!DOF2_FileExists(string))DOF2_CreateFile(string);
+			if(!DOF2_FileExists(string))
 
+			DOF2_CreateFile(string);
 			Delete3DTextLabel(MaconhaInfo[m][TT]);
 			DOF2_SetString(string, "Dono", MaconhaInfo[m][Dono]);
 			DOF2_SetInt(string, "Crescida", MaconhaInfo[m][Crescida]);
@@ -4387,7 +4397,7 @@ CallBack::PayDay(playerid)
 
 	if(pLogado[playerid] == true)
 	{
-		if(GetPlayerMoney(playerid) < 100000)
+		if(PlayerInfo[playerid][pDinheiro] < 100000)
 		{
 			MissaoPlayer[playerid][MISSAO9] = 1;
 		}
@@ -6658,6 +6668,55 @@ stock CarregarCofre(idorg)
 		TextoCofreOrg[idorg] = CreateDynamic3DTextLabel(string, -1, CofreInfo[idorg][CofrePosX], CofreInfo[idorg][CofrePosY], CofreInfo[idorg][CofrePosZ], 25.0);
 		return 1;
 	}
+    return 1;
+}
+
+stock CarregarDinRoubos()
+{
+	static controlFile[] = "CofreRoubos.ini";
+	if(!DOF2_FileExists(controlFile))
+	{
+		DOF2_CreateFile(controlFile);
+		CofreLoja1 = DOF2_GetInt(controlFile, "Loja1");
+		CofreLoja2 = DOF2_GetInt(controlFile, "Loja2");
+		CofreLoja3 = DOF2_GetInt(controlFile, "Loja3");
+		CofreRestaurante = DOF2_GetInt(controlFile, "Restaurante");
+		CofreNiobio = DOF2_GetInt(controlFile, "Niobio");
+		CofreGoverno = DOF2_GetInt(controlFile, "Governo");
+		CofreBanco = DOF2_GetInt(controlFile, "Banco");
+	}
+	CofreLoja1 = DOF2_GetInt(controlFile, "Loja1");
+	CofreLoja2 = DOF2_GetInt(controlFile, "Loja2");
+	CofreLoja3 = DOF2_GetInt(controlFile, "Loja3");
+	CofreRestaurante = DOF2_GetInt(controlFile, "Restaurante");
+	CofreNiobio = DOF2_GetInt(controlFile, "Niobio");
+	CofreGoverno = DOF2_GetInt(controlFile, "Governo");
+	CofreBanco = DOF2_GetInt(controlFile, "Banco");
+	return 1;
+}
+
+stock SalvarDinRoubos()
+{
+	static controlFile[] = "CofreRoubos.ini";
+
+	if(!DOF2_FileExists(controlFile))
+	{
+		DOF2_CreateFile(controlFile);
+		DOF2_SetInt(controlFile, "Loja1", CofreLoja1);
+		DOF2_SetInt(controlFile, "Loja2", CofreLoja2);
+		DOF2_SetInt(controlFile, "Loja3", CofreLoja3);
+		DOF2_SetInt(controlFile, "Restaurante",CofreRestaurante);
+		DOF2_SetInt(controlFile, "Niobio", CofreNiobio);
+		DOF2_SetInt(controlFile, "Governo", CofreGoverno);
+		DOF2_SetInt(controlFile, "Banco", CofreBanco);
+	}
+	DOF2_SetInt(controlFile, "Loja1", CofreLoja1);
+	DOF2_SetInt(controlFile, "Loja2", CofreLoja2);
+	DOF2_SetInt(controlFile, "Loja3", CofreLoja3);
+	DOF2_SetInt(controlFile, "Restaurante",CofreRestaurante);
+	DOF2_SetInt(controlFile, "Niobio", CofreNiobio);
+	DOF2_SetInt(controlFile, "Governo", CofreGoverno);
+	DOF2_SetInt(controlFile, "Banco", CofreBanco);
     return 1;
 }
 
@@ -11753,6 +11812,7 @@ public OnGameModeInit()
 	CriarRadares();
 	LoadCofreOrg();
 	CarregarPlantacao();	
+	CarregarDinRoubos();
 	CreateTelaLogin();
 	TextDrawBase();
 	printf("=> Bau Orgs       		: Carregados");
@@ -11856,21 +11916,10 @@ public OnGameModeInit()
 
 public OnGameModeExit()
 {
-	KillTimer(maintimer);
-	KillTimer(savetimer);
-	KillTimer(TimerRelogio);
-	KillTimer(TimerCadeia);
-	KillTimer(TimerAfk);
-	KillTimer(TimerMaconha);
-	KillTimer(TimerMensagemAuto);
-	KillTimer(TimerMensagemAutoBot);
 	SalvarPlantacao();
+	SalvarDinRoubos();
 	IniciarCasas = 0;
 	IniciarRadares = 0;
-	for(new i2; i2 < MAX_ORGS; i2++)
-	{
-	    SalvarCofre(i2);
-	}
 	foreach(new i: Player)
 	{
 		if(pLogado[i] == true) 
@@ -11882,6 +11931,10 @@ public OnGameModeExit()
 			SalvarArmas(i);
 			SalvarAvaliacao(i);
 		}
+	}
+	for(new i2; i2 < MAX_ORGS; i2++)
+	{
+	    SalvarCofre(i2);
 	}
 	for(new i = 0; i < MAX_FREQUENCIAS; i++)
 	{
@@ -11916,6 +11969,14 @@ public OnGameModeExit()
 			Delete3DTextLabel(FuelStationLabel[i]);
 		}
 	}
+	KillTimer(maintimer);
+	KillTimer(savetimer);
+	KillTimer(TimerRelogio);
+	KillTimer(TimerCadeia);
+	KillTimer(TimerAfk);
+	KillTimer(TimerMaconha);
+	KillTimer(TimerMensagemAuto);
+	KillTimer(TimerMensagemAutoBot);
 	printf(" ");
 	new Dia, Mes, Ano, Hora, Minuto;
 	gettime(Hora, Minuto);
@@ -14393,7 +14454,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(2.0, playerid, 617.928100, -1.965069, 1001.040832))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			if(GetPlayerMoney(playerid) < 4000)	return ErrorMsg(playerid, "Dinheiro insuficiente (R$4000).");
+			if(PlayerInfo[playerid][pDinheiro] < 4000)	return ErrorMsg(playerid, "Dinheiro insuficiente (R$4000).");
 			if(PlayerInfo[playerid][LicencaConduzir] == 1) return ErrorMsg(playerid, "Ja possui licenca");
 			new StrHab[15000];
 			strcat(StrHab,  "{FFFF00}x{FFFFFF} Voce esta prestes a iniciar seu teste de conducao\n");
@@ -14981,7 +15042,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 				if(!IsNumeric(inputtext)) return ErrorMsg(playerid, "Somente numeros");
 				if(strlen(inputtext) > 7) return ErrorMsg(playerid, "Valor invalido.");
-				if(GetPlayerMoney(playerid) < strval(inputtext)) return ErrorMsg(playerid, "Nao pode mas do que nao possui.");
+				if(PlayerInfo[playerid][pDinheiro] < strval(inputtext)) return ErrorMsg(playerid, "Nao pode mas do que nao possui.");
 				/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 				PlayerInfo[playerid][pBanco] += strval(inputtext);
 				PlayerInfo[playerid][pDinheiro] -= strval(inputtext);
@@ -15152,31 +15213,39 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					if(GetPlayerMoney(playerid) < 10) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 10) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Voce comprou Pizza N1.");
 					PlayerInfo[playerid][pDinheiro] -= 10;
 					GanharItem(playerid, 2218, 1);
+					CofreRestaurante += 10;
+					SalvarDinRoubos();
 				}
 				if(listitem == 1)
 				{
-					if(GetPlayerMoney(playerid) < 18) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 18) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Voce comprou Pizza N2.");
 					PlayerInfo[playerid][pDinheiro] -= 18;
 					GanharItem(playerid, 2355, 1);
+					CofreRestaurante += 18;
+					SalvarDinRoubos();
 				}
 				if(listitem == 2)
 				{
-					if(GetPlayerMoney(playerid) < 25) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 25) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Voce comprou Pizza N3.");
 					PlayerInfo[playerid][pDinheiro] -= 25;
 					GanharItem(playerid, 2219, 1);
+					CofreRestaurante += 25;
+					SalvarDinRoubos();
 				}
 				if(listitem == 3)
 				{
-					if(GetPlayerMoney(playerid) < 50) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 50) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Voce comprou Pizzza N4.");
 					PlayerInfo[playerid][pDinheiro] -= 50;
 					GanharItem(playerid, 2220, 1);
+					CofreRestaurante += 50;
+					SalvarDinRoubos();
 				}
 			}
 		}
@@ -15186,31 +15255,39 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					if(GetPlayerMoney(playerid) < 2) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 2) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Voce comprou Agua.");
 					PlayerInfo[playerid][pDinheiro] -= 2;
 					GanharItem(playerid, 1484, 1);
+					CofreRestaurante += 2;
+					SalvarDinRoubos();
 				}
 				if(listitem == 1)
 				{
-					if(GetPlayerMoney(playerid) < 5) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 5) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Voce comprou Suco.");
 					PlayerInfo[playerid][pDinheiro] -= 5;
 					GanharItem(playerid, 1644, 1);
+					CofreRestaurante += 5;
+					SalvarDinRoubos();
 				}
 				if(listitem == 2)
 				{
-					if(GetPlayerMoney(playerid) < 8) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 8) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Voce comprou Sprite.");
 					PlayerInfo[playerid][pDinheiro] -= 8;
 					GanharItem(playerid, 1546, 1);
+					CofreRestaurante += 8;
+					SalvarDinRoubos();
 				}
 				if(listitem == 3)
 				{
-					if(GetPlayerMoney(playerid) < 10) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 10) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Voce comprou Sprunk.");
 					PlayerInfo[playerid][pDinheiro] -= 10;
 					GanharItem(playerid, 2601, 1);
+					CofreRestaurante += 10;
+					SalvarDinRoubos();
 				}
 			}
 		}
@@ -16023,7 +16100,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					if(GetPlayerMoney(playerid) < 2000)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 2000)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					if(CheckInventario2(playerid,1853)) return ErrorMsg(playerid, "Ja possui essa licenca");
 					new StrHab[15000];
 					strcat(StrHab,  "{FFFF00}x{FFFFFF} Você está prestes a iniciar um test drive\n");
@@ -16035,7 +16112,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 1)
 				{
-					if(GetPlayerMoney(playerid) < 2500)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 2500)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					if(CheckInventario2(playerid,1854)) return ErrorMsg(playerid, "Ja possui essa licenca");
 					new StrHab[15000];
 					strcat(StrHab,  "{FFFF00}x{FFFFFF} Você está prestes a iniciar um test drive\n");
@@ -16047,7 +16124,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 2)
 				{
-					if(GetPlayerMoney(playerid) < 5000)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 5000)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					if(CheckInventario2(playerid,1855)) return ErrorMsg(playerid, "Ja possui essa licenca");
 					new StrHab[15000];
 					strcat(StrHab,  "{FFFF00}x{FFFFFF} Você está prestes a iniciar um test drive\n");
@@ -16059,7 +16136,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 3)
 				{
-					if(GetPlayerMoney(playerid) < 50000)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 50000)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					if(CheckInventario2(playerid,1856)) return ErrorMsg(playerid, "Ja possui essa licenca");
 					new StrHab[15000];
 					strcat(StrHab,  "{FFFF00}x{FFFFFF} Você está prestes a iniciar um test drive\n");
@@ -16656,14 +16733,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					if(GetPlayerMoney(playerid) < 25000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 25000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Compro uma Dinamite.");
 					PlayerInfo[playerid][pDinheiro] -= 25000;
 					GanharItem(playerid, 1654, 1);
 				}
 				if(listitem == 1)
 				{
-					if(GetPlayerMoney(playerid) < 1000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 1000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Compro uma semente.");
 					PlayerInfo[playerid][pDinheiro] -= 1000;
 					GanharItem(playerid, 3520, 1);
@@ -16760,7 +16837,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								ErrorMsg(playerid, "Ja possui uma casa");
 								return 1;
 							}
-							else if(GetPlayerMoney(playerid) < CasaInfo[i][CasaValor])
+							else if(PlayerInfo[playerid][pDinheiro] < CasaInfo[i][CasaValor])
 							{
 								return ErrorMsg(playerid, "Dinheiro insuficiente.");
 							}
@@ -16871,14 +16948,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					if(GetPlayerMoney(playerid) < 1200) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 1200) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					PlayerInfo[playerid][pDinheiro] -= 1200;
 					GanharItem(playerid, 19921, 1);
 					SuccesMsg(playerid, "Comprou uma caixa de ferramientas.");
 				}
 				if(listitem == 1)
 				{
-					if(GetPlayerMoney(playerid) < 15000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 15000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					PlayerInfo[playerid][pDinheiro] -= 15000;
 					GanharItem(playerid, 1010, 1);
 					SuccesMsg(playerid, "Comprou una kit de tunagem.");
@@ -17079,7 +17156,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(!response) return Playing[playerid] = false, DataSlotMachine[SmID[playerid]][Occupied] = false;
 			Prize[playerid] = strval(inputtext);
 			if(Prize[playerid] < 1000) return format(String, sizeof(String), "Aposta minima de R$%d.", MINIMUM_BET), ErrorMsg(playerid, String), Playing[playerid] = false, DataSlotMachine[SmID[playerid]][Occupied] = false;
-			if(GetPlayerMoney(playerid) < Prize[playerid]) return ErrorMsg(playerid, "Dinheiro insuficiente."), Playing[playerid] = false, DataSlotMachine[SmID[playerid]][Occupied] = false;
+			if(PlayerInfo[playerid][pDinheiro] < Prize[playerid]) return ErrorMsg(playerid, "Dinheiro insuficiente."), Playing[playerid] = false, DataSlotMachine[SmID[playerid]][Occupied] = false;
 			DataSlotMachine[SmID[playerid]][Jackpot] = DOF2_GetInt(GetSlotMachine(SmID[playerid]), "Jackpot"), PlayerInfo[playerid][pDinheiro] -= Prize[playerid], SetTimerEx("SpinSlotMachine", 1000, false, "i", playerid), ApplyAnimation(playerid, "CASINO", "Slot_in", 4.1, 0, 0, 0, 1, 1, 1);
 		}
 		case DIALOG_ERROR:
@@ -17212,7 +17289,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					return 1;
 				}
 				new id = GetPVarInt(playerid, "DialogValue1");
-				if(GetPlayerMoney(playerid) < VehicleValue[id])
+				if(PlayerInfo[playerid][pDinheiro] < VehicleValue[id])
 				{
 					ShowErrorDialog(playerid, "Dinheiro insuficiente");
 					RemovePlayerFromVehicle(playerid);
@@ -17277,7 +17354,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new targetid = GetPVarInt(playerid, "DialogValue1");
 				new id = GetPVarInt(playerid, "DialogValue2");
 				new price = GetPVarInt(playerid, "DialogValue3");
-				if(GetPlayerMoney(playerid) < price)
+				if(PlayerInfo[playerid][pDinheiro] < price)
 				{
 					ShowErrorDialog(playerid, "Dinheiro insuficiente");
 					return 1;
@@ -17414,7 +17491,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						ShowErrorDialog(playerid, "Combustivel cheio");
 						return 1;
 					}
-					if(GetPlayerMoney(playerid) < PRECO_GASOLINA)
+					if(PlayerInfo[playerid][pDinheiro] < PRECO_GASOLINA)
 					{
 						ShowErrorDialog(playerid, "Dinheiro insuficiente");
 						return 1;
@@ -17430,7 +17507,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						ShowErrorDialog(playerid, "Ja tem um galao de gasolina!");
 						return 1;
 					}
-					if(GetPlayerMoney(playerid) < PRECO_GALAO)
+					if(PlayerInfo[playerid][pDinheiro] < PRECO_GALAO)
 					{
 						ShowErrorDialog(playerid, "Dinheiro insuficiente");
 						return 1;
@@ -17891,14 +17968,18 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 			if(PlayerInfo[playerid][pBanco] < GetPVarInt(playerid, "QtdTransacao")) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 			PlayerInfo[playerid][pDinheiro] += GetPVarInt(playerid, "QtdTransacao");
 			PlayerInfo[playerid][pBanco] -= GetPVarInt(playerid, "QtdTransacao");
+			CofreBanco -= GetPVarInt(playerid, "QtdTransacao");
 			SuccesMsg(playerid, "Transacao realizada.");
+			SalvarDinRoubos();
 		}
 		if(ModoTransacao[playerid] == 2)
 		{
-			if(GetPlayerMoney(playerid) < GetPVarInt(playerid, "QtdTransacao")) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+			if(PlayerInfo[playerid][pDinheiro] < GetPVarInt(playerid, "QtdTransacao")) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 			PlayerInfo[playerid][pDinheiro] -= GetPVarInt(playerid, "QtdTransacao");
 			PlayerInfo[playerid][pBanco] += GetPVarInt(playerid, "QtdTransacao");
+			CofreBanco += GetPVarInt(playerid, "QtdTransacao");
 			SuccesMsg(playerid, "Transacao realizada.");
+			SalvarDinRoubos();
 		}
 	}
 	if(playertextid == BancoTD[playerid][31])
@@ -17906,21 +17987,27 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		if(PlayerInfo[playerid][pBanco] < 50000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 		PlayerInfo[playerid][pDinheiro] += 50000;
 		PlayerInfo[playerid][pBanco] -= 50000;
+		CofreBanco -= 50000;
 		SuccesMsg(playerid, "Saque realizada.");
+		SalvarDinRoubos();
 	}
 	if(playertextid == BancoTD[playerid][32])
 	{
 		if(PlayerInfo[playerid][pBanco] < 100000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 		PlayerInfo[playerid][pDinheiro] += 100000;
 		PlayerInfo[playerid][pBanco] -= 100000;
+		CofreBanco -= 100000;
 		SuccesMsg(playerid, "Saque realizada.");
+		SalvarDinRoubos();
 	}
 	if(playertextid == BancoTD[playerid][33])
 	{
 		if(PlayerInfo[playerid][pBanco] < 5000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 		PlayerInfo[playerid][pDinheiro] += 5000;
 		PlayerInfo[playerid][pBanco] -= 5000;
+		CofreBanco -= 5000;
 		SuccesMsg(playerid, "Saque realizada.");
+		SalvarDinRoubos();
 	}
 	if(playertextid == BancoTD[playerid][28])
 	{
@@ -17945,39 +18032,104 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 	}
 	if(playertextid == TDLoja[playerid][4])
 	{
-		if(GetPlayerMoney(playerid) < 1500) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+		if(PlayerInfo[playerid][pDinheiro] < 1500) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 		SuccesMsg(playerid, "Item comprado.");
 		PlayerInfo[playerid][pDinheiro] -= 1500;
 		GanharItem(playerid, 18870, 1);
 		MissaoPlayer[playerid][MISSAO6] = 1;
+		if(PlayerToPoint(5.0, playerid, -2384.989013, -52.624767, 35.479652))
+		{
+			CofreLoja1 += 1500;
+		}
+		if(PlayerToPoint(5.0, playerid, -2447.547607, 1211.448730, 35.378131))
+		{
+			CofreLoja2 += 1500;
+		}
+		if(PlayerToPoint(5.0, playerid, -2076.633300, 643.822387, 52.524246))
+		{
+			CofreLoja3 += 1500;
+		}
+		SalvarDinRoubos();
 	}
 	if(playertextid == TDLoja[playerid][5])
 	{
-		if(GetPlayerMoney(playerid) < 200) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+		if(PlayerInfo[playerid][pDinheiro] < 200) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 		SuccesMsg(playerid, "Item comprado.");
 		PlayerInfo[playerid][pDinheiro] -= 200;
 		GanharItem(playerid, 11736, 1);
+		if(PlayerToPoint(5.0, playerid, -2384.989013, -52.624767, 35.479652))
+		{
+			CofreLoja1 += 200;
+		}
+		if(PlayerToPoint(5.0, playerid, -2447.547607, 1211.448730, 35.378131))
+		{
+			CofreLoja2 += 200;
+		}
+		if(PlayerToPoint(5.0, playerid, -2076.633300, 643.822387, 52.524246))
+		{
+			CofreLoja3 += 200;
+		}
+		SalvarDinRoubos();
 	}
 	if(playertextid == TDLoja[playerid][9])
 	{
-		if(GetPlayerMoney(playerid) < 300) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+		if(PlayerInfo[playerid][pDinheiro] < 300) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 		SuccesMsg(playerid, "Item comprado.");
 		PlayerInfo[playerid][pDinheiro] -= 300;
 		GanharItem(playerid, 18632, 1);
+		if(PlayerToPoint(5.0, playerid, -2384.989013, -52.624767, 35.479652))
+		{
+			CofreLoja1 += 300;
+		}
+		if(PlayerToPoint(5.0, playerid, -2447.547607, 1211.448730, 35.378131))
+		{
+			CofreLoja2 += 300;
+		}
+		if(PlayerToPoint(5.0, playerid, -2076.633300, 643.822387, 52.524246))
+		{
+			CofreLoja3 += 300;
+		}
+		SalvarDinRoubos();
 	}
 	if(playertextid == TDLoja[playerid][15])
 	{
-		if(GetPlayerMoney(playerid) < 500) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+		if(PlayerInfo[playerid][pDinheiro] < 500) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 		SuccesMsg(playerid, "Item comprado.");
 		PlayerInfo[playerid][pDinheiro] -= 500;
 		GanharItem(playerid, 18645, 1);
+		if(PlayerToPoint(5.0, playerid, -2384.989013, -52.624767, 35.479652))
+		{
+			CofreLoja1 += 500;
+		}
+		if(PlayerToPoint(5.0, playerid, -2447.547607, 1211.448730, 35.378131))
+		{
+			CofreLoja2 += 500;
+		}
+		if(PlayerToPoint(5.0, playerid, -2076.633300, 643.822387, 52.524246))
+		{
+			CofreLoja3 += 500;
+		}
+		SalvarDinRoubos();
 	}
 	if(playertextid == TDLoja[playerid][19])
 	{
-		if(GetPlayerMoney(playerid) < 150) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+		if(PlayerInfo[playerid][pDinheiro] < 150) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 		SuccesMsg(playerid, "Item comprado.");
 		PlayerInfo[playerid][pDinheiro] -= 150;
 		GanharItem(playerid, 18644, 1);
+		if(PlayerToPoint(5.0, playerid, -2384.989013, -52.624767, 35.479652))
+		{
+			CofreLoja1 += 150;
+		}
+		if(PlayerToPoint(5.0, playerid, -2447.547607, 1211.448730, 35.378131))
+		{
+			CofreLoja2 += 150;
+		}
+		if(PlayerToPoint(5.0, playerid, -2076.633300, 643.822387, 52.524246))
+		{
+			CofreLoja3 += 150;
+		}
+		SalvarDinRoubos();
 	}
 	if(playertextid == TDPref[playerid][4])
 	{

@@ -49,3 +49,5 @@
 [10/04/23 20:46:55] [plugins/discord-connector] Unknown gateway event 'VOICE_CHANNEL_STATUS_UPDATE'
 [10/04/23 20:51:12] [plugins/discord-connector] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
 [10/04/23 20:54:32] [plugins/discord-connector] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[10/05/23 00:02:28] [plugins/discord-connector] Unknown gateway event 'CHANNEL_TOPIC_UPDATE'
+[10/05/23 00:02:28] [plugins/discord-connector] Unknown gateway event 'VOICE_CHANNEL_STATUS_UPDATE'

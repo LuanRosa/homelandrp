@@ -19879,3 +19879,1856 @@ v0.3.7-R2, (C)2005-2015 SA-MP Team
 [21:24:09] [dbg:raknet:free] : module released
 [21:24:09] [sv:dbg:network:free] : module releasing...
 [21:24:09] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[23:48:51] filterscripts = ""  (string)
+[23:48:51] 
+[23:48:51] Server Plugins
+[23:48:51] --------------
+[23:48:51]  Loading plugin: crashdetect
+[23:48:51]   Failed.
+[23:48:51]  Loading plugin: sscanf
+[23:48:51] 
+[23:48:52]  ===============================
+[23:48:52] 
+[23:48:52]       sscanf plugin loaded.     
+[23:48:52] 
+[23:48:52]          Version: 2.13.8
+[23:48:52] 
+[23:48:52]    (c) 2022 Alex "Y_Less" Cole  
+[23:48:52] 
+[23:48:52]  ===============================
+[23:48:52] 
+[23:48:52]   Loaded.
+[23:48:52]  Loading plugin: streamer
+[23:48:52] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[23:48:52]   Loaded.
+[23:48:52]  Loading plugin: timerfix
+[23:48:52]   >> TimerFix v1.5 successfully loaded.
+[23:48:52]   Loaded.
+[23:48:52]  Loading plugin: pawnraknet
+[23:48:52] [Pawn.RakNet] plugin v1.6.0 loading...
+[23:48:52] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[23:48:52]   Loaded.
+[23:48:52]  Loading plugin: sampvoice
+[23:48:52] [sv:dbg:network:init] : module initializing...
+[23:48:52] [dbg:raknet:init] : module initializing...
+[23:48:52] [dbg:raknet:init] : module initialized
+[23:48:52] [sv:dbg:network:init] : module initialized
+[23:48:52] [sv:dbg:main:Load] : creating 2 work threads...
+[23:48:52]  -------------------------------------------    
+[23:48:52]    ___                __   __    _              
+[23:48:52]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[23:48:52]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[23:48:53]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[23:48:53]                   |_|                           
+[23:48:53]  -------------------------------------------    
+[23:48:53]            SampVoice by MOR loaded              
+[23:48:53]  -------------------------------------------    
+[23:48:53]   Loaded.
+[23:48:53]  Loading plugin: discord-connector
+[23:49:00]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[23:49:00]   Loaded.
+[23:49:00]  Loaded 6 plugins.
+
+[23:49:01] 
+[23:49:01] Filterscripts
+[23:49:02] ---------------
+[23:49:02]   Loaded 0 filterscripts.
+
+[23:49:03] [sv:dbg:main:AmxLoad] : net game pointer (value:023B9AD8) received
+[23:49:03] [sv:dbg:network:bind] : voice server running on port 55395
+[23:49:03]  
+[23:49:03] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[23:49:03] ***                 Ignore any errors if the FS already unloaded.
+[23:49:03]  
+[23:49:04]  
+[23:49:04] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[23:49:04] ***                 Ignore any errors due to insufficient FS slots.
+[23:49:04]  
+[23:49:04]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[23:49:04]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[23:49:04]  
+[23:49:04] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[23:49:04]  
+[23:49:04]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[23:49:05]  
+[23:49:05]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[23:49:05]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[23:49:05]  
+[23:49:05] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[23:49:05] ***                 Ignore any errors if the FS already loaded.
+[23:49:05]  
+[23:49:05]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[23:49:05]  
+[23:49:05] --------------------------------------
+[23:49:05]  Anticheat Nex-AC carregado!
+[23:49:05]  Anticheat versão: 1.9.62
+[23:49:05]  Autor: Nexius (PT-BR by NicK_)
+[23:49:05] --------------------------------------
+
+[23:49:05] MapFix by Nexius v4.3.3 loaded (include version).
+[23:49:05] =======================================================================
+[23:49:05] = Carregando: Baixada Roleplay v1.0
+[23:49:05] =======================================================================
+[23:49:05]  
+[23:49:05] => AntiAMX       		: Carregado
+[23:49:05] => Textos       		: Carregados
+[23:49:05] => Organizações       		: 14 Carregadas
+[23:49:05] => MapIcons       		: Carregados
+[23:49:05] => Caixas Eletronicos       		: 50 Carregados
+[23:49:05] => Textdraws Globais       		: Carregados
+[23:49:05] => Veiculos Conce       		: 4 Carregados
+[23:49:05] => Concessionarias       		: 1 Carregados
+[23:49:05] => Postos de Gasolinas       		: 0 Carregados
+[23:49:05] => Caça-Niqueis       		: Carregados
+[23:49:05] => Objetos       		: Carregados
+[23:49:05] => Casas       		: 0 Carregados
+[23:49:06] => Radares       		: 53 Carregados
+[23:49:06] => Cofres Org       		: Carregados
+[23:49:06] => Plantações       		: Carregadas
+[23:49:06] => Bau Orgs       		: Carregados
+[23:49:06]  
+[23:49:06] =======================================================================
+[23:49:06] Servidor Ligado: [04/10/2023 23:49]
+[23:49:06] =======================================================================
+[23:49:06] => Canais DC       		: Carregados
+[23:49:06] Number of vehicle models: 4
+[23:49:28] [connection] 192.168.1.100:58181 requests connection cookie.
+[23:49:28] [connection] incoming connection: 192.168.1.100:58181 id: 0
+[23:49:29] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.100) ...
+[23:49:29] [sv:dbg:network:connect] : player (0) assigned key (d211265d)
+[23:49:29] [join] Luan_Rosa has joined the server (0:192.168.1.100)
+[23:52:27] [sv:dbg:network:connect] : disconnecting player (0) ...
+[23:52:28] [part] Luan_Rosa has left the server (0:1)
+[23:52:59] [connection] 192.168.1.100:60511 requests connection cookie.
+[23:53:00] [connection] incoming connection: 192.168.1.100:60511 id: 0
+[23:53:01] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.100) ...
+[23:53:01] [sv:dbg:network:connect] : player (0) assigned key (372ab1c)
+[23:53:01] [join] Luan_Rosa has joined the server (0:192.168.1.100)
+[23:54:53] [sv:dbg:network:connect] : disconnecting player (0) ...
+[23:54:54] [part] Luan_Rosa has left the server (0:1)
+[23:54:59]  -------------------------------------------
+[23:54:59]            SampVoice unloading...           
+[23:54:59]  -------------------------------------------
+[23:54:59] [dbg:raknet:free] : module releasing...
+[23:54:59] [dbg:raknet:free] : module released
+[23:54:59] [sv:dbg:network:free] : module releasing...
+[23:54:59] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[23:59:03] filterscripts = ""  (string)
+[23:59:03] 
+[23:59:03] Server Plugins
+[23:59:03] --------------
+[23:59:03]  Loading plugin: crashdetect
+[23:59:03]   Failed.
+[23:59:03]  Loading plugin: sscanf
+[23:59:03] 
+[23:59:03]  ===============================
+[23:59:03] 
+[23:59:03]       sscanf plugin loaded.     
+[23:59:03] 
+[23:59:03]          Version: 2.13.8
+[23:59:03] 
+[23:59:03]    (c) 2022 Alex "Y_Less" Cole  
+[23:59:03] 
+[23:59:03]  ===============================
+[23:59:03] 
+[23:59:03]   Loaded.
+[23:59:03]  Loading plugin: streamer
+[23:59:03] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[23:59:03]   Loaded.
+[23:59:03]  Loading plugin: timerfix
+[23:59:03]   >> TimerFix v1.5 successfully loaded.
+[23:59:03]   Loaded.
+[23:59:03]  Loading plugin: pawnraknet
+[23:59:03] [Pawn.RakNet] plugin v1.6.0 loading...
+[23:59:03] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[23:59:03]   Loaded.
+[23:59:03]  Loading plugin: sampvoice
+[23:59:03] [sv:dbg:network:init] : module initializing...
+[23:59:03] [dbg:raknet:init] : module initializing...
+[23:59:03] [dbg:raknet:init] : module initialized
+[23:59:03] [sv:dbg:network:init] : module initialized
+[23:59:03] [sv:dbg:main:Load] : creating 2 work threads...
+[23:59:03]  -------------------------------------------    
+[23:59:03]    ___                __   __    _              
+[23:59:03]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[23:59:03]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[23:59:03]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[23:59:03]                   |_|                           
+[23:59:03]  -------------------------------------------    
+[23:59:03]            SampVoice by MOR loaded              
+[23:59:03]  -------------------------------------------    
+[23:59:03]   Loaded.
+[23:59:03]  Loading plugin: discord-connector
+[23:59:04]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[23:59:04]   Loaded.
+[23:59:05]  Loaded 6 plugins.
+
+[23:59:05] 
+[23:59:05] Filterscripts
+[23:59:05] ---------------
+[23:59:05]   Loaded 0 filterscripts.
+
+[23:59:06] [sv:dbg:main:AmxLoad] : net game pointer (value:02379AD8) received
+[23:59:06] [sv:dbg:network:bind] : voice server running on port 61473
+[23:59:06]  
+[23:59:06] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[23:59:06] ***                 Ignore any errors if the FS already unloaded.
+[23:59:06]  
+[23:59:06]  
+[23:59:06] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[23:59:06] ***                 Ignore any errors due to insufficient FS slots.
+[23:59:06]  
+[23:59:06]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[23:59:06]  
+[23:59:06] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[23:59:06]  
+[23:59:06]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[23:59:06]  
+[23:59:06]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[23:59:06]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[23:59:06]  
+[23:59:06] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[23:59:06] ***                 Ignore any errors if the FS already loaded.
+[23:59:06]  
+[23:59:06]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[23:59:06]  
+[23:59:06] --------------------------------------
+[23:59:06]  Anticheat Nex-AC carregado!
+[23:59:06]  Anticheat versão: 1.9.62
+[23:59:06]  Autor: Nexius (PT-BR by NicK_)
+[23:59:06] --------------------------------------
+
+[23:59:06] MapFix by Nexius v4.3.3 loaded (include version).
+[23:59:06] =======================================================================
+[23:59:06] = Carregando: Baixada Roleplay v1.0
+[23:59:06] =======================================================================
+[23:59:06]  
+[23:59:06] => AntiAMX       		: Carregado
+[23:59:06] => Textos       		: Carregados
+[23:59:06] => Organizações       		: 14 Carregadas
+[23:59:06] => MapIcons       		: Carregados
+[23:59:06] => Caixas Eletronicos       		: 50 Carregados
+[23:59:06] => Textdraws Globais       		: Carregados
+[23:59:06] => Veiculos Conce       		: 4 Carregados
+[23:59:06] => Concessionarias       		: 1 Carregados
+[23:59:06] => Postos de Gasolinas       		: 0 Carregados
+[23:59:06] => Caça-Niqueis       		: Carregados
+[23:59:07] => Objetos       		: Carregados
+[23:59:07] => Casas       		: 0 Carregados
+[23:59:07] => Radares       		: 53 Carregados
+[23:59:07] => Cofres Org       		: Carregados
+[23:59:07] => Plantações       		: Carregadas
+[23:59:07] => Bau Orgs       		: Carregados
+[23:59:07]  
+[23:59:07] =======================================================================
+[23:59:07] Servidor Ligado: [04/10/2023 23:59]
+[23:59:07] =======================================================================
+[23:59:07] => Canais DC       		: Carregados
+[23:59:07] Number of vehicle models: 4
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[00:00:55] filterscripts = ""  (string)
+[00:00:55] 
+[00:00:55] Server Plugins
+[00:00:55] --------------
+[00:00:55]  Loading plugin: crashdetect
+[00:00:55]   Failed.
+[00:00:55]  Loading plugin: sscanf
+[00:00:55] 
+[00:00:55]  ===============================
+[00:00:55] 
+[00:00:55]       sscanf plugin loaded.     
+[00:00:55] 
+[00:00:55]          Version: 2.13.8
+[00:00:55] 
+[00:00:55]    (c) 2022 Alex "Y_Less" Cole  
+[00:00:55] 
+[00:00:55]  ===============================
+[00:00:55] 
+[00:00:55]   Loaded.
+[00:00:55]  Loading plugin: streamer
+[00:00:55] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[00:00:56]   Loaded.
+[00:00:56]  Loading plugin: timerfix
+[00:00:56]   >> TimerFix v1.5 successfully loaded.
+[00:00:56]   Loaded.
+[00:00:56]  Loading plugin: pawnraknet
+[00:00:56] [Pawn.RakNet] plugin v1.6.0 loading...
+[00:00:56] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[00:00:56]   Loaded.
+[00:00:56]  Loading plugin: sampvoice
+[00:00:56] [sv:dbg:network:init] : module initializing...
+[00:00:56] [dbg:raknet:init] : module initializing...
+[00:00:56] [dbg:raknet:init] : module initialized
+[00:00:56] [sv:dbg:network:init] : module initialized
+[00:00:56] [sv:dbg:main:Load] : creating 2 work threads...
+[00:00:56]  -------------------------------------------    
+[00:00:56]    ___                __   __    _              
+[00:00:56]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[00:00:56]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[00:00:56]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[00:00:56]                   |_|                           
+[00:00:56]  -------------------------------------------    
+[00:00:56]            SampVoice by MOR loaded              
+[00:00:56]  -------------------------------------------    
+[00:00:56]   Loaded.
+[00:00:56]  Loading plugin: discord-connector
+[00:01:01]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[00:01:01]   Loaded.
+[00:01:01]  Loaded 6 plugins.
+
+[00:01:02] [connection] 192.168.1.100:47158 requests connection cookie.
+[00:01:02] 
+[00:01:02] Filterscripts
+[00:01:02] ---------------
+[00:01:02]   Loaded 0 filterscripts.
+
+[00:01:02] [sv:dbg:main:AmxLoad] : net game pointer (value:02249AD8) received
+[00:01:02] [sv:dbg:network:bind] : voice server running on port 55303
+[00:01:03]  
+[00:01:03] [connection] 192.168.1.100:47158 requests connection cookie.
+[00:01:03] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[00:01:03] ***                 Ignore any errors if the FS already unloaded.
+[00:01:03]  
+[00:01:03]  
+[00:01:03] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[00:01:03] ***                 Ignore any errors due to insufficient FS slots.
+[00:01:03]  
+[00:01:03]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[00:01:03]  
+[00:01:03] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[00:01:03]  
+[00:01:03]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[00:01:03]  
+[00:01:03]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[00:01:03]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[00:01:03]  
+[00:01:03] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[00:01:03] ***                 Ignore any errors if the FS already loaded.
+[00:01:03]  
+[00:01:03]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[00:01:03]  
+[00:01:03] --------------------------------------
+[00:01:03]  Anticheat Nex-AC carregado!
+[00:01:03]  Anticheat versão: 1.9.62
+[00:01:03]  Autor: Nexius (PT-BR by NicK_)
+[00:01:03] --------------------------------------
+
+[00:01:03] MapFix by Nexius v4.3.3 loaded (include version).
+[00:01:03] =======================================================================
+[00:01:03] = Carregando: Baixada Roleplay v1.0
+[00:01:03] =======================================================================
+[00:01:03]  
+[00:01:03] => AntiAMX       		: Carregado
+[00:01:03] => Textos       		: Carregados
+[00:01:03] => Organizações       		: 14 Carregadas
+[00:01:03] => MapIcons       		: Carregados
+[00:01:03] => Caixas Eletronicos       		: 50 Carregados
+[00:01:03] => Textdraws Globais       		: Carregados
+[00:01:03] => Veiculos Conce       		: 4 Carregados
+[00:01:03] => Concessionarias       		: 1 Carregados
+[00:01:03] => Postos de Gasolinas       		: 0 Carregados
+[00:01:03] => Caça-Niqueis       		: Carregados
+[00:01:03] => Objetos       		: Carregados
+[00:01:03] => Casas       		: 0 Carregados
+[00:01:03] => Radares       		: 53 Carregados
+[00:01:03] => Cofres Org       		: Carregados
+[00:01:03] => Plantações       		: Carregadas
+[00:01:03] => Bau Orgs       		: Carregados
+[00:01:03]  
+[00:01:04] =======================================================================
+[00:01:04] Servidor Ligado: [05/10/2023 00:01]
+[00:01:04] =======================================================================
+[00:01:04] => Canais DC       		: Carregados
+[00:01:04] Number of vehicle models: 4
+[00:01:04] [connection] incoming connection: 192.168.1.100:47158 id: 0
+[00:01:20] [connection] 192.168.1.100:56511 requests connection cookie.
+[00:01:20] [connection] 192.168.1.100:56511 requests connection cookie.
+[00:01:20] [connection] 192.168.1.100:56511 requests connection cookie.
+[00:01:20] [connection] 192.168.1.100:56511 requests connection cookie.
+[00:01:20] [connection] 192.168.1.100:56511 requests connection cookie.
+[00:01:20] [connection] 192.168.1.100:56511 requests connection cookie.
+[00:01:21] [connection] 192.168.1.100:41320 requests connection cookie.
+[00:01:21] [connection] 192.168.1.100:41320 requests connection cookie.
+[00:01:21] [connection] 192.168.1.100:41320 requests connection cookie.
+[00:01:21] Warning: Minimum time between new connections (1000) exceeded for 192.168.1.100:41320. Ignoring the request.
+[00:01:21] [connection] incoming connection: 192.168.1.100:41320 id: 0
+[00:01:27] [connection] 192.168.1.100:41320 requests connection cookie.
+[00:01:44] [connection] 192.168.1.100:48935 requests connection cookie.
+[00:01:44] [connection] 192.168.1.100:48935 requests connection cookie.
+[00:01:44] [connection] 192.168.1.100:48935 requests connection cookie.
+[00:01:44] [connection] 192.168.1.100:48935 requests connection cookie.
+[00:01:44] [connection] 192.168.1.100:48935 requests connection cookie.
+[00:01:44] [connection] 192.168.1.100:48935 requests connection cookie.
+[00:01:44] [connection] 192.168.1.100:49790 requests connection cookie.
+[00:01:44] [connection] 192.168.1.100:49790 requests connection cookie.
+[00:01:44] [connection] 192.168.1.100:49790 requests connection cookie.
+[00:01:44] [connection] 192.168.1.100:49790 requests connection cookie.
+[00:01:44] [connection] 192.168.1.100:49790 requests connection cookie.
+[00:01:44] [connection] 192.168.1.100:49790 requests connection cookie.
+[00:01:44] [connection] 192.168.1.100:34006 requests connection cookie.
+[00:01:45] [connection] 192.168.1.100:34006 requests connection cookie.
+[00:01:45] [connection] incoming connection: 192.168.1.100:34006 id: 0
+[00:01:46] [connection] 192.168.1.100:34006 requests connection cookie.
+[00:01:46] Warning: Minimum time between new connections (1000) exceeded for 192.168.1.100:34006. Ignoring the request.
+[00:01:47] Invalid client connecting from 192.168.1.100
+[00:02:15] Kicking 192.168.1.100 because they didn't logon to the game.
+[00:02:37] [connection] 192.168.1.100:53429 requests connection cookie.
+[00:02:38] [connection] incoming connection: 192.168.1.100:53429 id: 0
+[00:02:51] [connection] 192.168.1.100:56032 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:56032 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:56032 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:56032 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:56032 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:56032 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:56032 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:41746 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:41746 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:41746 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:41746 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:41746 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:48582 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:48582 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:48582 requests connection cookie.
+[00:03:07] [connection] 192.168.1.100:48582 requests connection cookie.
+[00:03:07] Warning: Minimum time between new connections (1000) exceeded for 192.168.1.100:48582. Ignoring the request.
+[00:03:07] [connection] incoming connection: 192.168.1.100:48582 id: 0
+[00:03:24] [connection] 192.168.1.100:35887 requests connection cookie.
+[00:03:24] [connection] 192.168.1.100:35887 requests connection cookie.
+[00:03:24] [connection] 192.168.1.100:35887 requests connection cookie.
+[00:03:24] [connection] 192.168.1.100:35887 requests connection cookie.
+[00:03:24] [connection] 192.168.1.100:35887 requests connection cookie.
+[00:03:24] [connection] 192.168.1.100:35887 requests connection cookie.
+[00:03:24] [connection] 192.168.1.100:43835 requests connection cookie.
+[00:03:24] [connection] incoming connection: 192.168.1.100:43835 id: 0
+[00:03:25] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.100) ...
+[00:03:25] [sv:dbg:network:connect] : player (0) assigned key (969282d7)
+[00:03:25] [join] Luan_Rosa has joined the server (0:192.168.1.100)
+[00:05:13] [sv:dbg:network:connect] : disconnecting player (0) ...
+[00:05:14] [part] Luan_Rosa has left the server (0:1)
+[00:07:07]  -------------------------------------------
+[00:07:07]            SampVoice unloading...           
+[00:07:07]  -------------------------------------------
+[00:07:07] [dbg:raknet:free] : module releasing...
+[00:07:07] [dbg:raknet:free] : module released
+[00:07:07] [sv:dbg:network:free] : module releasing...
+[00:07:07] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[00:16:42] filterscripts = ""  (string)
+[00:16:42] 
+[00:16:42] Server Plugins
+[00:16:42] --------------
+[00:16:42]  Loading plugin: crashdetect
+[00:16:42]   Failed.
+[00:16:42]  Loading plugin: sscanf
+[00:16:42] 
+[00:16:42]  ===============================
+[00:16:42] 
+[00:16:42]       sscanf plugin loaded.     
+[00:16:42] 
+[00:16:42]          Version: 2.13.8
+[00:16:42] 
+[00:16:42]    (c) 2022 Alex "Y_Less" Cole  
+[00:16:42] 
+[00:16:42]  ===============================
+[00:16:42] 
+[00:16:42]   Loaded.
+[00:16:42]  Loading plugin: streamer
+[00:16:42] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[00:16:42]   Loaded.
+[00:16:42]  Loading plugin: timerfix
+[00:16:42]   >> TimerFix v1.5 successfully loaded.
+[00:16:42]   Loaded.
+[00:16:42]  Loading plugin: pawnraknet
+[00:16:42] [Pawn.RakNet] plugin v1.6.0 loading...
+[00:16:42] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[00:16:42]   Loaded.
+[00:16:42]  Loading plugin: sampvoice
+[00:16:42] [sv:dbg:network:init] : module initializing...
+[00:16:42] [dbg:raknet:init] : module initializing...
+[00:16:42] [dbg:raknet:init] : module initialized
+[00:16:42] [sv:dbg:network:init] : module initialized
+[00:16:42] [sv:dbg:main:Load] : creating 2 work threads...
+[00:16:42]  -------------------------------------------    
+[00:16:42]    ___                __   __    _              
+[00:16:42]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[00:16:42]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[00:16:42]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[00:16:42]                   |_|                           
+[00:16:42]  -------------------------------------------    
+[00:16:42]            SampVoice by MOR loaded              
+[00:16:42]  -------------------------------------------    
+[00:16:42]   Loaded.
+[00:16:42]  Loading plugin: discord-connector
+[00:16:48]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[00:16:48]   Loaded.
+[00:16:48]  Loaded 6 plugins.
+
+[00:16:48] 
+[00:16:48] Filterscripts
+[00:16:48] ---------------
+[00:16:48]   Loaded 0 filterscripts.
+
+[00:16:49] [sv:dbg:main:AmxLoad] : net game pointer (value:02439AD8) received
+[00:16:49] [sv:dbg:network:bind] : voice server running on port 53046
+[00:16:49]  
+[00:16:49] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[00:16:49] ***                 Ignore any errors if the FS already unloaded.
+[00:16:49]  
+[00:16:49]  
+[00:16:49] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[00:16:49] ***                 Ignore any errors due to insufficient FS slots.
+[00:16:49]  
+[00:16:49]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[00:16:49]  
+[00:16:49] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[00:16:49]  
+[00:16:49]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[00:16:49]  
+[00:16:49]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[00:16:49]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[00:16:50]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[00:16:50]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[00:16:50]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[00:16:50]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[00:16:50]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[00:16:50]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[00:16:50]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[00:16:50]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[00:16:50]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[00:16:50]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[00:16:50]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[00:16:50]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[00:16:50]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[00:16:50]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[00:16:50]  
+[00:16:50] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[00:16:50] ***                 Ignore any errors if the FS already loaded.
+[00:16:50]  
+[00:16:50]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[00:16:50]  
+[00:16:50] --------------------------------------
+[00:16:50]  Anticheat Nex-AC carregado!
+[00:16:50]  Anticheat versão: 1.9.62
+[00:16:50]  Autor: Nexius (PT-BR by NicK_)
+[00:16:50] --------------------------------------
+
+[00:16:50] MapFix by Nexius v4.3.3 loaded (include version).
+[00:16:50] =======================================================================
+[00:16:50] = Carregando: Baixada Roleplay v1.0
+[00:16:50] =======================================================================
+[00:16:50]  
+[00:16:50] => AntiAMX       		: Carregado
+[00:16:50] => Textos       		: Carregados
+[00:16:50] => Organizações       		: 14 Carregadas
+[00:16:50] => MapIcons       		: Carregados
+[00:16:50] => Caixas Eletronicos       		: 50 Carregados
+[00:16:50] => Textdraws Globais       		: Carregados
+[00:16:50] => Veiculos Conce       		: 4 Carregados
+[00:16:50] => Concessionarias       		: 1 Carregados
+[00:16:50] => Postos de Gasolinas       		: 0 Carregados
+[00:16:50] => Caça-Niqueis       		: Carregados
+[00:16:50] => Objetos       		: Carregados
+[00:16:50] => Casas       		: 0 Carregados
+[00:16:50] => Radares       		: 53 Carregados
+[00:16:50] => Cofres Org       		: Carregados
+[00:16:50] => Plantações       		: Carregadas
+[00:16:50] => Bau Orgs       		: Carregados
+[00:16:50]  
+[00:16:50] =======================================================================
+[00:16:50] Servidor Ligado: [05/10/2023 00:16]
+[00:16:50] =======================================================================
+[00:16:50] => Canais DC       		: Carregados
+[00:16:50] Number of vehicle models: 4
+[00:17:41] [connection] 192.168.1.100:42089 requests connection cookie.
+[00:17:41] [connection] 192.168.1.100:42089 requests connection cookie.
+[00:17:42] [connection] incoming connection: 192.168.1.100:42089 id: 0
+[00:17:42] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.100) ...
+[00:17:42] [sv:dbg:network:connect] : player (0) assigned key (41d66867)
+[00:17:42] [join] Luan_Rosa has joined the server (0:192.168.1.100)
+[00:19:05] [sv:dbg:network:connect] : disconnecting player (0) ...
+[00:19:05] [part] Luan_Rosa has left the server (0:1)
+[00:19:09]  -------------------------------------------
+[00:19:09]            SampVoice unloading...           
+[00:19:09]  -------------------------------------------
+[00:19:09] [dbg:raknet:free] : module releasing...
+[00:19:09] [dbg:raknet:free] : module released
+[00:19:09] [sv:dbg:network:free] : module releasing...
+[00:19:09] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[00:30:51] filterscripts = ""  (string)
+[00:30:51] 
+[00:30:51] Server Plugins
+[00:30:51] --------------
+[00:30:51]  Loading plugin: crashdetect
+[00:30:51]   Failed.
+[00:30:51]  Loading plugin: sscanf
+[00:30:51] 
+[00:30:51]  ===============================
+[00:30:51] 
+[00:30:51]       sscanf plugin loaded.     
+[00:30:51] 
+[00:30:51]          Version: 2.13.8
+[00:30:51] 
+[00:30:51]    (c) 2022 Alex "Y_Less" Cole  
+[00:30:51] 
+[00:30:51]  ===============================
+[00:30:51] 
+[00:30:51]   Loaded.
+[00:30:51]  Loading plugin: streamer
+[00:30:51] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[00:30:51]   Loaded.
+[00:30:51]  Loading plugin: timerfix
+[00:30:51]   >> TimerFix v1.5 successfully loaded.
+[00:30:51]   Loaded.
+[00:30:51]  Loading plugin: pawnraknet
+[00:30:51] [Pawn.RakNet] plugin v1.6.0 loading...
+[00:30:51] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[00:30:51]   Loaded.
+[00:30:51]  Loading plugin: sampvoice
+[00:30:51] [sv:dbg:network:init] : module initializing...
+[00:30:51] [dbg:raknet:init] : module initializing...
+[00:30:51] [dbg:raknet:init] : module initialized
+[00:30:51] [sv:dbg:network:init] : module initialized
+[00:30:51] [sv:dbg:main:Load] : creating 2 work threads...
+[00:30:51]  -------------------------------------------    
+[00:30:51]    ___                __   __    _              
+[00:30:51]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[00:30:51]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[00:30:51]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[00:30:51]                   |_|                           
+[00:30:51]  -------------------------------------------    
+[00:30:51]            SampVoice by MOR loaded              
+[00:30:51]  -------------------------------------------    
+[00:30:51]   Loaded.
+[00:30:51]  Loading plugin: discord-connector
+[00:30:54]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[00:30:54]   Loaded.
+[00:30:54]  Loaded 6 plugins.
+
+[00:30:56] 
+[00:30:56] Filterscripts
+[00:30:56] ---------------
+[00:30:57]   Loaded 0 filterscripts.
+
+[00:30:59] [sv:dbg:main:AmxLoad] : net game pointer (value:006A9AD8) received
+[00:30:59] [sv:dbg:network:bind] : voice server running on port 54946
+[00:30:59]  
+[00:30:59] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[00:31:00] ***                 Ignore any errors if the FS already unloaded.
+[00:31:00]  
+[00:31:00]  
+[00:31:00] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[00:31:01] ***                 Ignore any errors due to insufficient FS slots.
+[00:31:01]  
+[00:31:01]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[00:31:01]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[00:31:02]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[00:31:02]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[00:31:02]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[00:31:02]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[00:31:02]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[00:31:03]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[00:31:03]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[00:31:03]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[00:31:03]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[00:31:03]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[00:31:04]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[00:31:04]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[00:31:04]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[00:31:04]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[00:31:04]  
+[00:31:04] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[00:31:04]  
+[00:31:04]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[00:31:05]  
+[00:31:05]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[00:31:05]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[00:31:05]  
+[00:31:05] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[00:31:05] ***                 Ignore any errors if the FS already loaded.
+[00:31:05]  
+[00:31:05]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[00:31:05]  
+[00:31:05] --------------------------------------
+[00:31:05]  Anticheat Nex-AC carregado!
+[00:31:05]  Anticheat versão: 1.9.62
+[00:31:06]  Autor: Nexius (PT-BR by NicK_)
+[00:31:06] --------------------------------------
+
+[00:31:06] MapFix by Nexius v4.3.3 loaded (include version).
+[00:31:06] =======================================================================
+[00:31:06] = Carregando: Baixada Roleplay v1.0
+[00:31:06] =======================================================================
+[00:31:06]  
+[00:31:06] => AntiAMX       		: Carregado
+[00:31:06] => Textos       		: Carregados
+[00:31:06] => Organizações       		: 14 Carregadas
+[00:31:06] => MapIcons       		: Carregados
+[00:31:06] => Caixas Eletronicos       		: 50 Carregados
+[00:31:06] => Textdraws Globais       		: Carregados
+[00:31:06] => Veiculos Conce       		: 4 Carregados
+[00:31:06] => Concessionarias       		: 1 Carregados
+[00:31:06] => Postos de Gasolinas       		: 0 Carregados
+[00:31:06] => Caça-Niqueis       		: Carregados
+[00:31:06] => Objetos       		: Carregados
+[00:31:06] => Casas       		: 0 Carregados
+[00:31:06] => Radares       		: 53 Carregados
+[00:31:06] => Cofres Org       		: Carregados
+[00:31:06] => Plantações       		: Carregadas
+[00:31:06] => Bau Orgs       		: Carregados
+[00:31:06]  
+[00:31:06] =======================================================================
+[00:31:06] Servidor Ligado: [05/10/2023 00:31]
+[00:31:06] =======================================================================
+[00:31:06] => Canais DC       		: Carregados
+[00:31:06] Number of vehicle models: 4
+[00:31:50] [connection] 192.168.1.100:46371 requests connection cookie.
+[00:31:50] [connection] incoming connection: 192.168.1.100:46371 id: 0
+[00:31:51] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.100) ...
+[00:31:51] [sv:dbg:network:connect] : player (0) assigned key (4c8bdb71)
+[00:31:51] [join] Luan_Rosa has joined the server (0:192.168.1.100)
+[00:33:44] [sv:dbg:network:connect] : disconnecting player (0) ...
+[00:33:44] [part] Luan_Rosa has left the server (0:1)
+[00:33:49]  -------------------------------------------
+[00:33:49]            SampVoice unloading...           
+[00:33:49]  -------------------------------------------
+[00:33:49] [dbg:raknet:free] : module releasing...
+[00:33:49] [dbg:raknet:free] : module released
+[00:33:49] [sv:dbg:network:free] : module releasing...
+[00:33:49] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[00:38:31] filterscripts = ""  (string)
+[00:38:31] 
+[00:38:31] Server Plugins
+[00:38:31] --------------
+[00:38:31]  Loading plugin: crashdetect
+[00:38:31]   Failed.
+[00:38:31]  Loading plugin: sscanf
+[00:38:31] 
+[00:38:31]  ===============================
+[00:38:31] 
+[00:38:31]       sscanf plugin loaded.     
+[00:38:31] 
+[00:38:31]          Version: 2.13.8
+[00:38:31] 
+[00:38:31]    (c) 2022 Alex "Y_Less" Cole  
+[00:38:31] 
+[00:38:31]  ===============================
+[00:38:31] 
+[00:38:31]   Loaded.
+[00:38:31]  Loading plugin: streamer
+[00:38:31] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[00:38:31]   Loaded.
+[00:38:31]  Loading plugin: timerfix
+[00:38:31]   >> TimerFix v1.5 successfully loaded.
+[00:38:31]   Loaded.
+[00:38:31]  Loading plugin: pawnraknet
+[00:38:31] [Pawn.RakNet] plugin v1.6.0 loading...
+[00:38:32] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[00:38:32]   Loaded.
+[00:38:32]  Loading plugin: sampvoice
+[00:38:32] [sv:dbg:network:init] : module initializing...
+[00:38:32] [dbg:raknet:init] : module initializing...
+[00:38:32] [dbg:raknet:init] : module initialized
+[00:38:32] [sv:dbg:network:init] : module initialized
+[00:38:32] [sv:dbg:main:Load] : creating 2 work threads...
+[00:38:32]  -------------------------------------------    
+[00:38:32]    ___                __   __    _              
+[00:38:32]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[00:38:32]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[00:38:32]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[00:38:32]                   |_|                           
+[00:38:32]  -------------------------------------------    
+[00:38:32]            SampVoice by MOR loaded              
+[00:38:32]  -------------------------------------------    
+[00:38:32]   Loaded.
+[00:38:32]  Loading plugin: discord-connector
+[00:38:34]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[00:38:34]   Loaded.
+[00:38:34]  Loaded 6 plugins.
+
+[00:38:34] 
+[00:38:34] Filterscripts
+[00:38:34] ---------------
+[00:38:34]   Loaded 0 filterscripts.
+
+[00:38:34] [sv:dbg:main:AmxLoad] : net game pointer (value:02209AD8) received
+[00:38:34] [sv:dbg:network:bind] : voice server running on port 52000
+[00:38:34]  
+[00:38:34] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[00:38:34] ***                 Ignore any errors if the FS already unloaded.
+[00:38:34]  
+[00:38:34]  
+[00:38:34] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[00:38:34] ***                 Ignore any errors due to insufficient FS slots.
+[00:38:34]  
+[00:38:34]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[00:38:34]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[00:38:34]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[00:38:34]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[00:38:34]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[00:38:34]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[00:38:34]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[00:38:34]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[00:38:34]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[00:38:34]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[00:38:34]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[00:38:34]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[00:38:34]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[00:38:35]  
+[00:38:35] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[00:38:35]  
+[00:38:35]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[00:38:35]  
+[00:38:35]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[00:38:35]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[00:38:35]  
+[00:38:35] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[00:38:35] ***                 Ignore any errors if the FS already loaded.
+[00:38:35]  
+[00:38:35]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[00:38:35]  
+[00:38:35] --------------------------------------
+[00:38:35]  Anticheat Nex-AC carregado!
+[00:38:35]  Anticheat versão: 1.9.62
+[00:38:35]  Autor: Nexius (PT-BR by NicK_)
+[00:38:35] --------------------------------------
+
+[00:38:35] MapFix by Nexius v4.3.3 loaded (include version).
+[00:38:35] =======================================================================
+[00:38:35] = Carregando: Baixada Roleplay v1.0
+[00:38:35] =======================================================================
+[00:38:35]  
+[00:38:35] => AntiAMX       		: Carregado
+[00:38:35] => Textos       		: Carregados
+[00:38:35] => Organizações       		: 14 Carregadas
+[00:38:35] => MapIcons       		: Carregados
+[00:38:35] => Caixas Eletronicos       		: 50 Carregados
+[00:38:35] => Textdraws Globais       		: Carregados
+[00:38:35] => Veiculos Conce       		: 4 Carregados
+[00:38:35] => Concessionarias       		: 1 Carregados
+[00:38:35] => Postos de Gasolinas       		: 0 Carregados
+[00:38:35] => Caça-Niqueis       		: Carregados
+[00:38:35] => Objetos       		: Carregados
+[00:38:35] => Casas       		: 0 Carregados
+[00:38:35] => Radares       		: 53 Carregados
+[00:38:35] => Cofres Org       		: Carregados
+[00:38:35] => Plantações       		: Carregadas
+[00:38:35] => Bau Orgs       		: Carregados
+[00:38:35]  
+[00:38:35] =======================================================================
+[00:38:35] Servidor Ligado: [05/10/2023 00:38]
+[00:38:35] =======================================================================
+[00:38:35] => Canais DC       		: Carregados
+[00:38:35] Number of vehicle models: 4
+[00:39:11] [connection] 192.168.1.100:42006 requests connection cookie.
+[00:39:11] [connection] incoming connection: 192.168.1.100:42006 id: 0
+[00:39:15] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.100) ...
+[00:39:15] [sv:dbg:network:connect] : player (0) assigned key (3e01688f)
+[00:39:15] [join] Luan_Rosa has joined the server (0:192.168.1.100)
+[00:40:02] [sv:dbg:network:connect] : disconnecting player (0) ...
+[00:40:03] [part] Luan_Rosa has left the server (0:1)
+[00:40:12]  -------------------------------------------
+[00:40:12]            SampVoice unloading...           
+[00:40:12]  -------------------------------------------
+[00:40:12] [dbg:raknet:free] : module releasing...
+[00:40:12] [dbg:raknet:free] : module released
+[00:40:12] [sv:dbg:network:free] : module releasing...
+[00:40:12] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[00:42:25] filterscripts = ""  (string)
+[00:42:25] 
+[00:42:25] Server Plugins
+[00:42:25] --------------
+[00:42:25]  Loading plugin: crashdetect
+[00:42:25]   Failed.
+[00:42:25]  Loading plugin: sscanf
+[00:42:25] 
+[00:42:25]  ===============================
+[00:42:25] 
+[00:42:25]       sscanf plugin loaded.     
+[00:42:25] 
+[00:42:25]          Version: 2.13.8
+[00:42:25] 
+[00:42:25]    (c) 2022 Alex "Y_Less" Cole  
+[00:42:25] 
+[00:42:25]  ===============================
+[00:42:25] 
+[00:42:25]   Loaded.
+[00:42:25]  Loading plugin: streamer
+[00:42:25] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[00:42:25]   Loaded.
+[00:42:25]  Loading plugin: timerfix
+[00:42:25]   >> TimerFix v1.5 successfully loaded.
+[00:42:25]   Loaded.
+[00:42:25]  Loading plugin: pawnraknet
+[00:42:25] [Pawn.RakNet] plugin v1.6.0 loading...
+[00:42:25] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[00:42:25]   Loaded.
+[00:42:25]  Loading plugin: sampvoice
+[00:42:25] [sv:dbg:network:init] : module initializing...
+[00:42:25] [dbg:raknet:init] : module initializing...
+[00:42:25] [dbg:raknet:init] : module initialized
+[00:42:25] [sv:dbg:network:init] : module initialized
+[00:42:25] [sv:dbg:main:Load] : creating 2 work threads...
+[00:42:25]  -------------------------------------------    
+[00:42:25]    ___                __   __    _              
+[00:42:25]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[00:42:25]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[00:42:25]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[00:42:25]                   |_|                           
+[00:42:25]  -------------------------------------------    
+[00:42:26]            SampVoice by MOR loaded              
+[00:42:26]  -------------------------------------------    
+[00:42:26]   Loaded.
+[00:42:26]  Loading plugin: discord-connector
+[00:42:27]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[00:42:27]   Loaded.
+[00:42:27]  Loaded 6 plugins.
+
+[00:42:27] 
+[00:42:27] Filterscripts
+[00:42:27] ---------------
+[00:42:27]   Loaded 0 filterscripts.
+
+[00:42:28] [sv:dbg:main:AmxLoad] : net game pointer (value:022F9AD8) received
+[00:42:28] [sv:dbg:network:bind] : voice server running on port 63240
+[00:42:28]  
+[00:42:28] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[00:42:28] ***                 Ignore any errors if the FS already unloaded.
+[00:42:28]  
+[00:42:28]  
+[00:42:28] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[00:42:28] ***                 Ignore any errors due to insufficient FS slots.
+[00:42:28]  
+[00:42:28]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[00:42:28]  
+[00:42:28] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[00:42:28]  
+[00:42:28]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[00:42:28]  
+[00:42:28]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[00:42:28]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[00:42:28]  
+[00:42:28] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[00:42:28] ***                 Ignore any errors if the FS already loaded.
+[00:42:28]  
+[00:42:28]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[00:42:28]  
+[00:42:28] --------------------------------------
+[00:42:28]  Anticheat Nex-AC carregado!
+[00:42:28]  Anticheat versão: 1.9.62
+[00:42:28]  Autor: Nexius (PT-BR by NicK_)
+[00:42:28] --------------------------------------
+
+[00:42:28] MapFix by Nexius v4.3.3 loaded (include version).
+[00:42:28] =======================================================================
+[00:42:28] = Carregando: Baixada Roleplay v1.0
+[00:42:28] =======================================================================
+[00:42:28]  
+[00:42:28] => AntiAMX       		: Carregado
+[00:42:28] => Textos       		: Carregados
+[00:42:28] => Organizações       		: 14 Carregadas
+[00:42:28] => MapIcons       		: Carregados
+[00:42:28] => Caixas Eletronicos       		: 50 Carregados
+[00:42:28] => Textdraws Globais       		: Carregados
+[00:42:28] => Veiculos Conce       		: 4 Carregados
+[00:42:28] => Concessionarias       		: 1 Carregados
+[00:42:28] => Postos de Gasolinas       		: 0 Carregados
+[00:42:28] => Caça-Niqueis       		: Carregados
+[00:42:28] => Objetos       		: Carregados
+[00:42:28] => Casas       		: 0 Carregados
+[00:42:29] => Radares       		: 53 Carregados
+[00:42:29] => Cofres Org       		: Carregados
+[00:42:29] => Plantações       		: Carregadas
+[00:42:29] => Bau Orgs       		: Carregados
+[00:42:29]  
+[00:42:29] =======================================================================
+[00:42:29] Servidor Ligado: [05/10/2023 00:42]
+[00:42:29] =======================================================================
+[00:42:29] => Canais DC       		: Carregados
+[00:42:29] Number of vehicle models: 4
+[00:42:50] [connection] 192.168.1.100:35405 requests connection cookie.
+[00:42:50] [connection] 192.168.1.100:35405 requests connection cookie.
+[00:42:50] [connection] incoming connection: 192.168.1.100:35405 id: 0
+[00:42:51] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.100) ...
+[00:42:51] [sv:dbg:network:connect] : player (0) assigned key (ffba54c5)
+[00:42:51] [join] Luan_Rosa has joined the server (0:192.168.1.100)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[00:56:21] filterscripts = ""  (string)
+[00:56:21] 
+[00:56:21] Server Plugins
+[00:56:21] --------------
+[00:56:21]  Loading plugin: crashdetect
+[00:56:21]   Failed.
+[00:56:21]  Loading plugin: sscanf
+[00:56:21] 
+[00:56:21]  ===============================
+[00:56:21] 
+[00:56:21]       sscanf plugin loaded.     
+[00:56:21] 
+[00:56:21]          Version: 2.13.8
+[00:56:21] 
+[00:56:21]    (c) 2022 Alex "Y_Less" Cole  
+[00:56:21] 
+[00:56:21]  ===============================
+[00:56:21] 
+[00:56:21]   Loaded.
+[00:56:21]  Loading plugin: streamer
+[00:56:21] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[00:56:21]   Loaded.
+[00:56:21]  Loading plugin: timerfix
+[00:56:21]   >> TimerFix v1.5 successfully loaded.
+[00:56:21]   Loaded.
+[00:56:21]  Loading plugin: pawnraknet
+[00:56:21] [Pawn.RakNet] plugin v1.6.0 loading...
+[00:56:21] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[00:56:21]   Loaded.
+[00:56:21]  Loading plugin: sampvoice
+[00:56:21] [sv:dbg:network:init] : module initializing...
+[00:56:21] [dbg:raknet:init] : module initializing...
+[00:56:21] [dbg:raknet:init] : module initialized
+[00:56:21] [sv:dbg:network:init] : module initialized
+[00:56:21] [sv:dbg:main:Load] : creating 2 work threads...
+[00:56:21]  -------------------------------------------    
+[00:56:21]    ___                __   __    _              
+[00:56:21]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[00:56:21]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[00:56:21]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[00:56:21]                   |_|                           
+[00:56:21]  -------------------------------------------    
+[00:56:21]            SampVoice by MOR loaded              
+[00:56:21]  -------------------------------------------    
+[00:56:21]   Loaded.
+[00:56:21]  Loading plugin: discord-connector
+[00:56:23]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[00:56:23]   Loaded.
+[00:56:23]  Loaded 6 plugins.
+
+[00:56:23] 
+[00:56:23] Filterscripts
+[00:56:23] ---------------
+[00:56:23]   Loaded 0 filterscripts.
+
+[00:56:24] [sv:dbg:main:AmxLoad] : net game pointer (value:02319AD8) received
+[00:56:24] [sv:dbg:network:bind] : voice server running on port 65395
+[00:56:24]  
+[00:56:24] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[00:56:24] ***                 Ignore any errors if the FS already unloaded.
+[00:56:24]  
+[00:56:24]  
+[00:56:24] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[00:56:24] ***                 Ignore any errors due to insufficient FS slots.
+[00:56:24]  
+[00:56:24]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[00:56:24]  
+[00:56:24] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[00:56:24]  
+[00:56:24]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[00:56:24]  
+[00:56:24]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[00:56:24]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[00:56:24]  
+[00:56:24] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[00:56:24] ***                 Ignore any errors if the FS already loaded.
+[00:56:24]  
+[00:56:24]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[00:56:24]  
+[00:56:24] --------------------------------------
+[00:56:24]  Anticheat Nex-AC carregado!
+[00:56:24]  Anticheat versão: 1.9.62
+[00:56:24]  Autor: Nexius (PT-BR by NicK_)
+[00:56:24] --------------------------------------
+
+[00:56:24] MapFix by Nexius v4.3.3 loaded (include version).
+[00:56:24] =======================================================================
+[00:56:24] = Carregando: Baixada Roleplay v1.0
+[00:56:24] =======================================================================
+[00:56:24]  
+[00:56:24] => AntiAMX       		: Carregado
+[00:56:24] => Textos       		: Carregados
+[00:56:24] => Organizações       		: 14 Carregadas
+[00:56:24] => MapIcons       		: Carregados
+[00:56:24] => Caixas Eletronicos       		: 50 Carregados
+[00:56:24] => Textdraws Globais       		: Carregados
+[00:56:24] => Veiculos Conce       		: 4 Carregados
+[00:56:24] => Concessionarias       		: 1 Carregados
+[00:56:24] => Postos de Gasolinas       		: 0 Carregados
+[00:56:24] => Caça-Niqueis       		: Carregados
+[00:56:24] => Objetos       		: Carregados
+[00:56:24] => Casas       		: 0 Carregados
+[00:56:24] => Radares       		: 53 Carregados
+[00:56:24] => Cofres Org       		: Carregados
+[00:56:25] => Plantações       		: Carregadas
+[00:56:25] => Bau Orgs       		: Carregados
+[00:56:25]  
+[00:56:25] =======================================================================
+[00:56:25] Servidor Ligado: [05/10/2023 00:56]
+[00:56:25] =======================================================================
+[00:56:25] => Canais DC       		: Carregados
+[00:56:25] Number of vehicle models: 4
+[00:56:28]  -------------------------------------------
+[00:56:28]            SampVoice unloading...           
+[00:56:28]  -------------------------------------------
+[00:56:28] [dbg:raknet:free] : module releasing...
+[00:56:28] [dbg:raknet:free] : module released
+[00:56:28] [sv:dbg:network:free] : module releasing...
+[00:56:28] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[00:56:51] filterscripts = ""  (string)
+[00:56:51] 
+[00:56:51] Server Plugins
+[00:56:51] --------------
+[00:56:51]  Loading plugin: crashdetect
+[00:56:51]   Failed.
+[00:56:51]  Loading plugin: sscanf
+[00:56:51] 
+[00:56:51]  ===============================
+[00:56:51] 
+[00:56:51]       sscanf plugin loaded.     
+[00:56:51] 
+[00:56:51]          Version: 2.13.8
+[00:56:51] 
+[00:56:51]    (c) 2022 Alex "Y_Less" Cole  
+[00:56:51] 
+[00:56:51]  ===============================
+[00:56:51] 
+[00:56:51]   Loaded.
+[00:56:51]  Loading plugin: streamer
+[00:56:51] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[00:56:51]   Loaded.
+[00:56:51]  Loading plugin: timerfix
+[00:56:51]   >> TimerFix v1.5 successfully loaded.
+[00:56:51]   Loaded.
+[00:56:51]  Loading plugin: pawnraknet
+[00:56:51] [Pawn.RakNet] plugin v1.6.0 loading...
+[00:56:51] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[00:56:51]   Loaded.
+[00:56:51]  Loading plugin: sampvoice
+[00:56:51] [sv:dbg:network:init] : module initializing...
+[00:56:51] [dbg:raknet:init] : module initializing...
+[00:56:51] [dbg:raknet:init] : module initialized
+[00:56:51] [sv:dbg:network:init] : module initialized
+[00:56:51] [sv:dbg:main:Load] : creating 2 work threads...
+[00:56:51]  -------------------------------------------    
+[00:56:51]    ___                __   __    _              
+[00:56:51]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[00:56:51]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[00:56:51]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[00:56:51]                   |_|                           
+[00:56:51]  -------------------------------------------    
+[00:56:51]            SampVoice by MOR loaded              
+[00:56:51]  -------------------------------------------    
+[00:56:51]   Loaded.
+[00:56:51]  Loading plugin: discord-connector
+[00:56:56]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[00:56:56]   Loaded.
+[00:56:56]  Loaded 6 plugins.
+
+[00:56:56] 
+[00:56:56] Filterscripts
+[00:56:56] ---------------
+[00:56:56]   Loaded 0 filterscripts.
+
+[00:56:57] [sv:dbg:main:AmxLoad] : net game pointer (value:022C9AD8) received
+[00:56:57] [sv:dbg:network:bind] : voice server running on port 62044
+[00:56:57]  
+[00:56:57] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[00:56:57] ***                 Ignore any errors if the FS already unloaded.
+[00:56:57]  
+[00:56:57]  
+[00:56:57] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[00:56:57] ***                 Ignore any errors due to insufficient FS slots.
+[00:56:57]  
+[00:56:57]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[00:56:57]  
+[00:56:57] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[00:56:57]  
+[00:56:57]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[00:56:57]  
+[00:56:57]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[00:56:57]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[00:56:57]  
+[00:56:57] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[00:56:57] ***                 Ignore any errors if the FS already loaded.
+[00:56:57]  
+[00:56:57]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[00:56:57]  
+[00:56:57] --------------------------------------
+[00:56:57]  Anticheat Nex-AC carregado!
+[00:56:57]  Anticheat versão: 1.9.62
+[00:56:57]  Autor: Nexius (PT-BR by NicK_)
+[00:56:57] --------------------------------------
+
+[00:56:57] MapFix by Nexius v4.3.3 loaded (include version).
+[00:56:57] =======================================================================
+[00:56:57] = Carregando: Baixada Roleplay v1.0
+[00:56:57] =======================================================================
+[00:56:57]  
+[00:56:57] => AntiAMX       		: Carregado
+[00:56:57] => Textos       		: Carregados
+[00:56:57] => Organizações       		: 14 Carregadas
+[00:56:57] => MapIcons       		: Carregados
+[00:56:57] => Caixas Eletronicos       		: 50 Carregados
+[00:56:57] => Textdraws Globais       		: Carregados
+[00:56:57] => Veiculos Conce       		: 4 Carregados
+[00:56:57] => Concessionarias       		: 1 Carregados
+[00:56:57] => Postos de Gasolinas       		: 0 Carregados
+[00:56:57] => Caça-Niqueis       		: Carregados
+[00:56:57] => Objetos       		: Carregados
+[00:56:57] => Casas       		: 0 Carregados
+[00:56:57] => Radares       		: 53 Carregados
+[00:56:57] => Cofres Org       		: Carregados
+[00:56:57] => Plantações       		: Carregadas
+[00:56:57] => Bau Orgs       		: Carregados
+[00:56:57]  
+[00:56:57] =======================================================================
+[00:56:57] Servidor Ligado: [05/10/2023 00:56]
+[00:56:57] =======================================================================
+[00:56:58] => Canais DC       		: Carregados
+[00:56:58] Number of vehicle models: 4
+[00:57:19] [connection] 192.168.1.100:43337 requests connection cookie.
+[00:57:19] [connection] incoming connection: 192.168.1.100:43337 id: 0
+[00:57:19] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.100) ...
+[00:57:19] [sv:dbg:network:connect] : player (0) assigned key (937f528f)
+[00:57:19] [join] Luan_Rosa has joined the server (0:192.168.1.100)
+[00:59:01] [sv:dbg:network:connect] : disconnecting player (0) ...
+[00:59:01] [part] Luan_Rosa has left the server (0:1)
+[00:59:09]  -------------------------------------------
+[00:59:09]            SampVoice unloading...           
+[00:59:09]  -------------------------------------------
+[00:59:09] [dbg:raknet:free] : module releasing...
+[00:59:09] [dbg:raknet:free] : module released
+[00:59:09] [sv:dbg:network:free] : module releasing...
+[00:59:09] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[01:07:19] filterscripts = ""  (string)
+[01:07:19] 
+[01:07:19] Server Plugins
+[01:07:19] --------------
+[01:07:19]  Loading plugin: crashdetect
+[01:07:19]   Failed.
+[01:07:19]  Loading plugin: sscanf
+[01:07:19] 
+[01:07:19]  ===============================
+[01:07:19] 
+[01:07:19]       sscanf plugin loaded.     
+[01:07:19] 
+[01:07:19]          Version: 2.13.8
+[01:07:19] 
+[01:07:19]    (c) 2022 Alex "Y_Less" Cole  
+[01:07:19] 
+[01:07:19]  ===============================
+[01:07:19] 
+[01:07:19]   Loaded.
+[01:07:19]  Loading plugin: streamer
+[01:07:19] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[01:07:19]   Loaded.
+[01:07:19]  Loading plugin: timerfix
+[01:07:19]   >> TimerFix v1.5 successfully loaded.
+[01:07:19]   Loaded.
+[01:07:19]  Loading plugin: pawnraknet
+[01:07:19] [Pawn.RakNet] plugin v1.6.0 loading...
+[01:07:19] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[01:07:19]   Loaded.
+[01:07:19]  Loading plugin: sampvoice
+[01:07:19] [sv:dbg:network:init] : module initializing...
+[01:07:19] [dbg:raknet:init] : module initializing...
+[01:07:19] [dbg:raknet:init] : module initialized
+[01:07:19] [sv:dbg:network:init] : module initialized
+[01:07:19] [sv:dbg:main:Load] : creating 2 work threads...
+[01:07:19]  -------------------------------------------    
+[01:07:19]    ___                __   __    _              
+[01:07:19]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[01:07:19]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[01:07:19]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[01:07:19]                   |_|                           
+[01:07:19]  -------------------------------------------    
+[01:07:19]            SampVoice by MOR loaded              
+[01:07:19]  -------------------------------------------    
+[01:07:19]   Loaded.
+[01:07:19]  Loading plugin: discord-connector
+[01:07:22]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[01:07:22]   Loaded.
+[01:07:22]  Loaded 6 plugins.
+
+[01:07:22] 
+[01:07:22] Filterscripts
+[01:07:23] ---------------
+[01:07:23]   Loaded 0 filterscripts.
+
+[01:07:23] [sv:dbg:main:AmxLoad] : net game pointer (value:021F9AD8) received
+[01:07:23] [sv:dbg:network:bind] : voice server running on port 49907
+[01:07:23]  
+[01:07:23] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[01:07:23] ***                 Ignore any errors if the FS already unloaded.
+[01:07:23]  
+[01:07:23]  
+[01:07:23] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[01:07:23] ***                 Ignore any errors due to insufficient FS slots.
+[01:07:23]  
+[01:07:23]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[01:07:23]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[01:07:23]  
+[01:07:23] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[01:07:23]  
+[01:07:23]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[01:07:23]  
+[01:07:23]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[01:07:24]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[01:07:24]  
+[01:07:24] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[01:07:24] ***                 Ignore any errors if the FS already loaded.
+[01:07:24]  
+[01:07:24]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[01:07:24]  
+[01:07:24] --------------------------------------
+[01:07:24]  Anticheat Nex-AC carregado!
+[01:07:24]  Anticheat versão: 1.9.62
+[01:07:24]  Autor: Nexius (PT-BR by NicK_)
+[01:07:24] --------------------------------------
+
+[01:07:24] MapFix by Nexius v4.3.3 loaded (include version).
+[01:07:24] =======================================================================
+[01:07:24] = Carregando: Baixada Roleplay v1.0
+[01:07:24] =======================================================================
+[01:07:24]  
+[01:07:24] => AntiAMX       		: Carregado
+[01:07:24] => Textos       		: Carregados
+[01:07:24] => Organizações       		: 14 Carregadas
+[01:07:24] => MapIcons       		: Carregados
+[01:07:24] => Caixas Eletronicos       		: 50 Carregados
+[01:07:24] => Textdraws Globais       		: Carregados
+[01:07:24] => Veiculos Conce       		: 4 Carregados
+[01:07:24] => Concessionarias       		: 1 Carregados
+[01:07:24] => Postos de Gasolinas       		: 0 Carregados
+[01:07:24] => Caça-Niqueis       		: Carregados
+[01:07:24] => Objetos       		: Carregados
+[01:07:24] => Casas       		: 0 Carregados
+[01:07:24] => Radares       		: 53 Carregados
+[01:07:24] => Cofres Org       		: Carregados
+[01:07:24] => Plantações       		: Carregadas
+[01:07:24] => Bau Orgs       		: Carregados
+[01:07:24]  
+[01:07:24] =======================================================================
+[01:07:24] Servidor Ligado: [05/10/2023 01:07]
+[01:07:24] =======================================================================
+[01:07:24] => Canais DC       		: Carregados
+[01:07:24] Number of vehicle models: 4
+[01:07:51] [connection] 192.168.1.100:48075 requests connection cookie.
+[01:07:51] [connection] incoming connection: 192.168.1.100:48075 id: 0
+[01:08:04] [connection] 192.168.1.100:48142 requests connection cookie.
+[01:08:05] [connection] 192.168.1.100:48142 requests connection cookie.
+[01:08:05] [connection] incoming connection: 192.168.1.100:48142 id: 0
+[01:08:05] Warning: Minimum time between new connections (1000) exceeded for 192.168.1.100:48142. Ignoring the request.
+[01:08:06] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.100) ...
+[01:08:06] [sv:dbg:network:connect] : player (0) assigned key (139ed5cb)
+[01:08:06] [join] Luan_Rosa has joined the server (0:192.168.1.100)
+[01:08:44] [sv:dbg:network:connect] : disconnecting player (0) ...
+[01:08:44] [part] Luan_Rosa has left the server (0:0)
+[01:09:03] [connection] 192.168.1.100:45812 requests connection cookie.
+[01:09:03] [connection] incoming connection: 192.168.1.100:45812 id: 0
+[01:09:17] [connection] 192.168.1.100:48249 requests connection cookie.
+[01:09:17] [connection] incoming connection: 192.168.1.100:48249 id: 0
+[01:09:30] [connection] 192.168.1.100:33738 requests connection cookie.
+[01:09:30] [connection] incoming connection: 192.168.1.100:33738 id: 0
+[01:09:31] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.100) ...
+[01:09:31] [sv:dbg:network:connect] : player (0) assigned key (4299b1e1)
+[01:09:31] [join] Luan_Rosa has joined the server (0:192.168.1.100)
+[01:10:14] [sv:dbg:network:connect] : disconnecting player (0) ...
+[01:10:14] [part] Luan_Rosa has left the server (0:1)
+[01:11:51] [connection] 192.168.1.100:53176 requests connection cookie.
+[01:11:52] [connection] incoming connection: 192.168.1.100:53176 id: 0
+[01:12:05] [connection] 192.168.1.100:54021 requests connection cookie.
+[01:12:06] [connection] incoming connection: 192.168.1.100:54021 id: 0
+[01:12:06] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.100) ...
+[01:12:06] [sv:dbg:network:connect] : player (0) assigned key (d5566383)
+[01:12:06] [join] Luan_Rosa has joined the server (0:192.168.1.100)
+[01:14:18] [sv:dbg:network:connect] : disconnecting player (0) ...
+[01:14:18] [part] Luan_Rosa has left the server (0:1)
+[01:28:15]  -------------------------------------------
+[01:28:15]            SampVoice unloading...           
+[01:28:15]  -------------------------------------------
+[01:28:15] [dbg:raknet:free] : module releasing...
+[01:28:15] [dbg:raknet:free] : module released
+[01:28:15] [sv:dbg:network:free] : module releasing...
+[01:28:15] [sv:dbg:network:free] : module released
