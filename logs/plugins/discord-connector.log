@@ -103,3 +103,27 @@
 [09/29/23 13:50:20] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [10/01/23 17:28:35] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
 [10/01/23 17:28:42] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[10/03/23 12:27:10] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[10/03/23 12:27:34] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[10/03/23 13:31:09] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[10/03/23 13:40:15] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[10/03/23 13:57:29] [ERROR] Can't read from Discord websocket gateway: O tempo limite do semáforo expirou (121)
+[10/03/23 13:57:32] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[10/03/23 13:57:35] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/03/23 13:57:37] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[10/03/23 13:57:45] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/04/23 12:12:36] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[10/04/23 12:43:51] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[10/04/23 13:00:20] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[10/04/23 16:15:08] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712079861452850/messages': end of stream
+[10/04/23 19:54:32] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[10/04/23 20:17:13] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/04/23 20:33:13] [ERROR] Can't read from Discord websocket gateway: O tempo limite do semáforo expirou (121)
+[10/04/23 20:33:13] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/04/23 20:33:14] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/04/23 20:33:24] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/04/23 20:33:24] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[10/04/23 20:46:55] [WARNING] Unknown gateway event 'CHANNEL_TOPIC_UPDATE'
+[10/04/23 20:46:55] [WARNING] Unknown gateway event 'VOICE_CHANNEL_STATUS_UPDATE'
+[10/04/23 20:51:12] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[10/04/23 20:54:32] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'

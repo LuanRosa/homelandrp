@@ -37,7 +37,7 @@
 #include		<		processo		> 
 #include		<		Fader			>
 
-
+#define MAX_PLAYERS 500
 #define CallBack::%0(%1) 		forward %0(%1);\
 							public %0(%1)
 #define XP_::%1(%2) forward %1(%2); public %1(%2)
@@ -116,7 +116,7 @@ new	UltimaFala[MAX_PLAYERS];
 #define PASTA_VIPS 					"VIPS/%s.ini"
 #define PASTA_ORGS           		"InfoOrg/%d.ini"	
 #define PASTA_COFREORG  			"InfoOrg/CofreOrg/Org%d.cfg"
-#define PASTA_COFRES                "CofreArmas/Cofre%d.ini"
+#define PASTA_COFRES                "BauOrgs/Cofre%d.ini"
 #define PASTA_SAVEARMAS 			"Armas/%s.ini"
 #define PASTA_KEYS 					"Codigos/%d.ini"
 #define PASTA_CASAS       			"Casas/%d.ini"
@@ -170,6 +170,7 @@ static DCC_Channel:AtivarCoins;
 static DCC_Channel:VIPAtivado;
 static DCC_Channel:IDNAME;
 static DCC_Channel:MAILLOG;
+static DCC_Channel:Punicoes;
 
 //                          SAMP VOICE
 
@@ -299,7 +300,8 @@ enum
 	DIALOG_VEHCORP3,
 	DIALOG_VEHCORP4,
 	DIALOG_ANUNCIOOLX,
-	DIALOG_VALORTRANSACAO
+	DIALOG_VALORTRANSACAO,
+	DIALOG_GPS3
 }
 
 //                          VARIAVEIS
@@ -440,8 +442,9 @@ enum CofreInfoD
 	Crack,
 	Equipar,
 };
+new CofreOrg[MAX_ORGS][CofreInfoD];
 
-enum Cofre
+enum CofreInfo2
 {
 	CofreID,
 
@@ -450,8 +453,7 @@ enum Cofre
 	Float:CofrePosZ,
     Float:CofrePosR
 };
-new CofreOrg[MAX_ORGS][CofreInfoD];
-new CofreInfo[MAX_ORGS][Cofre];
+new CofreInfo[MAX_ORGS][CofreInfo2];
 new CofreArma[20][MAX_ORGS];
 new CofreAmmo[20][MAX_ORGS];
 new ItemOpcao[MAX_PLAYERS];
@@ -602,6 +604,10 @@ new
 	MineBomb[ MAX_PLAYERS ][ 30 ]
 ;
 
+// DOMINA��O
+new Barragem;
+new Parabolica;
+
 //                          STRINGS
 
 new	Motivo[255],
@@ -610,6 +616,8 @@ new MEGAString[2860];
 
 //                          BOOLS
 
+new bool:RotaMaconha[MAX_PLAYERS];
+new bool:RotaCocaina[MAX_PLAYERS];
 new	bool:AntiAFK_Ativado = true,
 	bool:Moved[MAX_PLAYERS] = false,
 	bool:FoiCriado[MAX_VEHICLES] = false,
@@ -763,11 +771,317 @@ new PlayerBar:Loadsc_b[MAX_PLAYERS][1];
 
 //                          FLOATS E LOCAIS DEFINIDOS
 
-new Float:Entradas[12][3] =
+new Float:PosRota[303][3] =
+{
+    {1189.3232,-1083.6021,29.2662},
+    {2324.4709,-1218.8455,27.9766},
+    {2438.6965,-1105.7920,43.0816},
+    {2191.6624,-1275.6002,25.1563},
+    {2523.2693,-1679.3563,15.4970},
+    {2465.3257,-2020.7903,14.1242},
+    {1907.7842,-2040.8531,13.5469},
+    {718.8144,-1476.2092,5.4688},
+    {167.8979,-1308.3531,70.3513},
+    {891.2316,-783.1387,101.3139},
+    {1496.9061,-687.8947,95.5633},
+    {300.1995,-1154.4076,81.3907},
+    {2332.7795,30.9252,26.6752},
+    {1640.3507,2102.8794,11.3125},
+    {1363.9659,1931.7354,11.4683},
+    {-227.4116,2711.9507,62.9766},
+    {-2583.7375,2307.8694,7.0029},
+    {-2075.1589,898.8646,64.1328},
+    {-2055.2559,6.8913,35.3281},
+    {-2718.9626,-318.7583,7.8438},
+    {829.1451,-1553.7571,12.4845},
+    {-2238.308837, 1154.232421, 59.688453},//rota
+    {-2558.788085, -118.725936, 10.957287},//rota
+    {-2558.679931, -145.863983, 9.419777},//rota
+    {-2238.312255, 1135.671264, 67.258468},//rota
+    {-2621.016357, -134.732391, 5.000000},//rota
+    {-2238.308593, 1117.715698, 74.820777},//rota
+    {-2619.753906, -127.678237, 4.771946},//rota
+    {-2208.570556, 1108.044799, 80.007812},//rota
+    {-2620.815429, -120.211967, 7.203125},//rota
+    {-2126.619384, 1092.551879, 80.007812},//rota
+    {-2622.361816, -112.546058, 4.342578},//rota
+    {-2126.544433, 1050.710815, 80.007812},//rota
+    {-2126.547851, 1038.848876, 80.007812},//rota
+    {-2625.844970, -105.142417, 7.203125},//rota
+    {-2126.979980, 1018.653442, 80.007812},//rota
+    {-2126.438964, 996.308410, 80.007812},//rota
+    {-2623.431396, -99.401641, 7.203125},//rota
+    {-2117.041259, 927.828857, 86.079063},//rota
+    {-2158.606445, 888.087158, 80.006103},//rota
+    {-2631.806884, -95.378646, 7.203125},//rota
+    {-2159.077880, 867.213684, 75.632202},//rota
+    {-2126.836669, 832.837036, 69.562500},//rota
+    {-2678.094970, -96.557868, 7.203125},//rota
+    {-2159.233642, 786.599792, 69.521308},//rota
+    {-2126.183593, 773.890686, 69.562500},//rota
+    {-2681.804931, -106.560340, 7.203125},//rota
+    {-2126.197021, 756.115844, 69.562500},//rota
+    {-2632.499755, -107.727050, 4.328125},//rota
+    {-2167.593994, 744.006713, 65.204032},//rota
+    {-2186.491210, 743.997131, 57.549987},//rota
+    {-2192.322753, 720.368896, 55.354583},//rota
+    {-2679.946777, -114.094375, 4.328125},//rota
+    {-2223.556884, 743.836669, 49.432346},//rota
+    {-2237.851562, 720.241943, 49.406250},//rota
+    {-2630.873535, -116.228248, 4.328125},//rota
+    {-2630.303222, -131.732620, 4.328125},//rota
+    {-2631.220458, -134.752944, 4.328125},//rota
+    {-2278.706542, 748.450012, 49.445312},//rota
+    {-2278.710449, 766.181640, 49.445312},//rota
+    {-2278.696289, 788.021789, 49.445312},//rota
+    {-2285.312744, 829.437805, 57.164062},//rota
+    {-2677.759765, -122.684417, 4.328125},//rota
+    {-2285.082275, 849.930480, 65.648437},//rota
+    {-2679.378906, -134.347549, 4.328125},//rota
+    {-2282.415039, 872.965637, 66.923141},//rota
+    {-2282.368896, 916.420837, 66.648437},//rota
+    {-2631.225341, -134.632202, 4.328125},//rota
+    {-2630.871093, -150.106430, 4.328125},//rota
+    {-2295.698242, 969.907897, 65.326774},//rota
+    {-2308.202392, 944.738403, 61.319202},//rota
+    {-2679.026367, -152.814727, 4.328125},//rota
+    {-2327.382080, 944.371459, 54.674552},//rota
+    {-2098.866455, 258.047149, 36.133728},//rota
+    {-2679.945800, -155.763275, 4.328125},//rota
+    {-2348.337402, 995.436950, 50.898437},//rota
+    {-2630.870361, -153.126831, 4.328125},//rota
+    {-2632.496337, -164.921752, 4.328125},//rota
+    {-2416.463134, 1025.667358, 50.390625},//rota
+    {-2679.380615, -171.522354, 4.328125},//rota
+    {-2431.242675, 1028.685913, 50.390625},//rota
+    {-2679.948974, -155.849395, 4.328125},//rota
+    {-2630.306640, -172.993804, 4.335672},//rota
+    {-2628.442626, -181.234848, 7.203125},//rota
+    {-2369.316650, 1122.290283, 55.726562},//rota
+    {-2383.567382, 1128.053588, 55.726562},//rota
+    {-2632.155761, -190.989028, 7.203125},//rota
+    {-2396.054687, 1132.551513, 55.726562},//rota
+    {-2423.371826, 1139.282104, 55.726562},//rota
+    {-2678.443359, -191.848098, 7.203125},//rota
+    {-2438.176269, 1141.008789, 55.726562},//rota
+    {-2461.724609, 1141.903198, 55.726562},//rota
+    {-2478.523681, 1141.976440, 55.726562},//rota
+    {-2724.250244, -191.265960, 4.335937},//rota
+    {-2493.029296, 1141.931762, 55.726562},//rota
+    {-2686.817382, -188.263580, 7.203125},//rota
+    {-2506.591064, 1142.139160, 55.726562},//rota
+    {-2517.138183, 1142.401611, 55.726562},//rota
+    {-2728.163574, -184.026123, 7.203125},//rota
+    {-2534.166015, 1143.742187, 55.726562},//rota
+    {32.015903, -2657.136962, 40.519855},//rota
+    {-2684.605712, -182.450714, 7.203125},//rota
+    {-2548.707763, 1145.651000, 55.726562},//rota
+    {-2563.186035, 1149.128051, 55.726562},//rota
+    {-2573.537597, 1152.250488, 55.726562},//rota
+    {-2723.024414, -179.076477, 7.203125},//rota
+    {-2587.226074, 1162.275024, 55.437500},//rota
+    {-2723.099853, -166.552734, 5.000000},//rota
+    {-2687.890625, -175.339996, 4.342578},//rota
+    {-76.863235, -1136.516723, 1.078125},//rota
+    {-2689.495849, -167.287322, 7.203125},//rota
+    {-2544.874511, 1152.551269, 55.648471},//rota
+    {-2506.656494, 1148.913940, 55.544425},//rota
+    {-2489.774902, 1149.208007, 55.631183},//rota
+    {-2479.177490, 1148.432617, 55.603717},//rota
+    {-2728.161865, -155.447402, 7.203125},//rota
+    {-2451.085693, 1148.383544, 55.726562},//rota
+    {154.452636, -1946.547119, 5.338891},//rota
+    {-2434.350097, 1147.981811, 55.695846},//rota
+    {-2423.378906, 1146.043823, 55.726562},//rota
+    {-2722.929199, -139.392669, 7.203125},//rota
+    {-2395.276611, 1139.211547, 55.530704},//rota
+    {-2377.885742, 1133.612670, 55.570823},//rota
+    {-2723.335449, -127.772056, 5.000000},//rota
+    {-2367.640380, 1128.744995, 55.726562},//rota
+    {-2722.072265, -120.667419, 4.770585},//rota
+    {-2358.876464, 1118.071289, 55.726562},//rota
+    {-2687.894042, -117.940994, 4.342578},//rota
+    {-2369.863525, 1122.499633, 55.726562},//rota
+    {-2383.633789, 1128.080322, 55.726562},//rota
+    {-2396.735839, 1132.781616, 55.726562},//rota
+    {-2406.810546, 1135.834472, 55.726562},//rota
+    {-2424.053955, 1139.453735, 55.726562},//rota
+    {-2438.486328, 1141.026000, 55.726562},//rota
+    {-2443.331054, 1141.390991, 55.726562},//rota
+    {-2055.172851, 6.890789, 35.328094},//rota
+    {-2451.272705, 1141.769287, 55.726562},//rota
+    {2748.918212, -2451.035888, 13.648437},//rota
+    {-2458.395019, 1141.879882, 55.726562},//rota
+    {-2070.617919, 6.891303, 35.320312},//rota
+    {-2478.683593, 1141.983642, 55.726562},//rota
+    {-2493.156738, 1141.954589, 55.726562},//rota
+    {-2097.124023, 17.312450, 35.320312},//rota
+    {-2506.031738, 1142.132812, 55.726562},//rota
+    {-2081.548828, 71.644233, 35.249626},//rota
+    {-2523.646972, 1142.593994, 55.726562},//rota
+    {-2533.802734, 1143.696777, 55.726562},//rota
+    {-2549.218017, 1145.753173, 55.726562},//rota
+    {-2563.129638, 1149.108276, 55.726562},//rota
+    {-2574.303222, 1152.517700, 55.726562},//rota
+    {-2620.914062, 96.699966, 5.000000},//rota
+    {-2620.861816, 103.146728, 7.203125},//rota
+    {-2510.987792, 1054.117553, 65.161437},//rota
+    {-2511.744140, 1045.888793, 65.507812},//rota
+    {-2621.036376, 115.011268, 5.000000},//rota
+    {-2511.090087, 1029.033935, 73.590026},//rota
+    {-2620.940185, 120.814117, 7.203125},//rota
+    {-2511.763427, 1020.700195, 77.216331},//rota
+    {-2623.441406, 131.718658, 7.203125},//rota
+    {-2511.768798, 1008.922119, 78.343750},//rota
+    {-2511.766113, 1000.844421, 78.343750},//rota
+    {-2621.973876, 168.514297, 7.195312},//rota
+    {-2511.772460, 992.550231, 78.338996},//rota
+    {-2511.740722, 976.061401, 77.229988},//rota
+    {-2510.898437, 968.052062, 73.530578},//rota
+    {-2431.034667, 1028.751098, 50.390625},//rota
+    {-2511.032470, 942.695678, 65.289062},//rota
+    {-2537.141357, 929.867919, 65.012092},//rota
+    {-2639.403808, 168.514038, 7.195312},//rota
+    {-2543.569824, 922.278198, 67.093750},//rota
+    {-2621.972656, 168.507797, 7.195312},//rota
+    {-2573.015136, 920.358886, 64.984375},//rota
+    {-2580.582519, 920.374328, 64.984375},//rota
+    {-2583.803222, 896.274047, 64.984375},//rota
+    {-2620.156005, 883.012084, 63.250000},//rota
+    {-2620.692871, 855.264953, 53.562500},//rota
+    {-2619.741943, 844.892822, 50.589817},//rota
+    {-2618.740966, 830.869201, 49.984375},//rota
+    {-2621.676025, 802.885803, 49.984375},//rota
+    {-2069.265625, -2495.046386, 31.066806},//rota
+    {-1711.074951, 399.794555, 7.179687},//rota
+    {-2621.502441, 790.264465, 48.556636},//rota
+    {-2622.521728, 782.982788, 44.859375},//rota
+    {-2086.968505, -2510.480712, 31.066806},//rota
+    {-2622.441894, 772.348449, 41.333545},//rota
+    {-2622.517089, 766.820129, 36.835937},//rota
+    {-2058.176513, -2503.690185, 31.066806},//rota
+    {-2622.517333, 757.395263, 35.328125},//rota
+    {-2622.520751, 749.578552, 31.421875},//rota
+    {-2045.168212, -2522.346679, 31.066806},//rota
+    {-2625.341552, 733.388732, 28.025754},//rota
+    {-2031.351562, -2538.985107, 31.066806},//rota
+    {-2639.766357, 730.671691, 30.070312},//rota
+    {-2042.504760, -2558.680175, 30.841997},//rota
+    {-2641.510986, 728.034057, 27.960937},//rota
+    {-2665.334960, 722.251220, 27.957107},//rota
+    {-2661.670410, 722.242370, 27.957012},//rota
+    {-2677.773437, 722.252929, 28.592304},//rota
+    {-2686.300292, 722.858215, 32.217872},//rota
+    {-2134.751953, -2504.258789, 31.816270},//rota
+    {-2706.036376, 722.852539, 37.539062},//rota
+    {-2723.335693, 722.854675, 41.273437},//rota
+    {-2075.158203, 976.026855, 62.921875},//rota
+    {-2731.233886, 723.691284, 41.273437},//rota
+    {-2132.591796, -2510.845947, 31.816272},//rota
+    {-2738.847900, 734.003173, 45.428325},//rota
+    {-2738.322021, 746.120056, 49.187976},//rota
+    {-2161.476074, -2535.531738, 31.816270},//rota
+    {-2738.317382, 754.760131, 52.765228},//rota
+    {-2738.320068, 771.840759, 54.382812},//rota
+    {-2181.113281, -2529.043701, 31.816270},//rota
+    {-2738.317382, 779.610351, 54.382812},//rota
+    {-2180.969970, -2520.029785, 31.816270},//rota
+    {-2738.319824, 788.581054, 54.382812},//rota
+    {-2059.073486, 889.453857, 61.849555},//rota
+    {-2738.314697, 797.640686, 53.268825},//rota
+    {-2738.314941, 804.929809, 53.062500},//rota
+    {-2737.584228, 822.985290, 53.723175},//rota
+    {-2737.839843, 836.703308, 56.250629},//rota
+    {-2736.878662, 846.480346, 59.265625},//rota
+    {-2193.151611, -2510.337158, 31.816272},//rota
+    {-2737.557617, 866.089294, 64.632812},//rota
+    {-2716.694824, 865.557067, 70.703125},//rota
+    {-2173.733642, -2481.594726, 31.816272},//rota
+    {-2708.985839, 853.195312, 70.703125},//rota
+    {-2641.432861, 935.719665, 71.953125},//rota
+    {-2224.567871, -2482.879638, 31.816272},//rota
+    {-2591.168945, 927.433410, 65.015625},//rota
+    {-2239.260498, -2423.711914, 32.707267},//rota
+    {-2591.178466, 935.896606, 68.929687},//rota
+    {-2591.174072, 944.359802, 70.429687},//rota
+    {-2220.455810, -2399.975097, 32.582267},//rota
+    {-2591.170410, 960.565551, 78.453125},//rota
+    {-2597.324707, 979.760375, 78.273437},//rota
+    {-2596.646972, 985.978637, 78.273437},//rota
+    {-2191.760498, -2255.304199, 30.694179},//rota
+    {-2193.325439, -2254.059814, 30.703521},//rota
+    {-2193.391601, -2254.008789, 33.320312},//rota
+    {-2192.004638, -2255.112792, 33.320312},//rota
+    {-2180.438964, -2258.054931, 33.320312},//rota
+    {743.247985, -509.322784, 18.012922},//rota
+    {745.061462, -556.781188, 18.012926},//rota
+    {736.766906, -556.784545, 18.012926},//rota
+    {768.218933, -503.482299, 18.012926},//rota
+    {776.873779, -503.483215, 18.012926},//rota
+    {-516.099975, -539.369506, 25.523437},//rota
+    {766.516601, -556.783508, 18.012924},//rota
+    {795.140625, -506.148986, 18.012922},//rota
+    {818.300964, -509.318725, 18.012922},//rota
+    {-98.982307, 1083.284545, 19.742187},//rota
+    {252.888015, -121.340339, 3.535393},//rota
+    {252.888214, -92.429885, 3.535394},//rota
+    {267.779205, -54.543376, 2.777209},//rota
+    {271.676147, -48.755737, 2.777208},//rota
+    {294.864685, -54.543560, 2.777210},//rota
+    {344.624053, -71.166564, 2.430808},//rota
+    {312.721160, -92.351791, 3.535393},//rota
+    {312.721954, -121.360137, 3.535394},//rota
+    {784.281066, 1954.298461, 5.707432},//rota
+    {261.935455, -269.951843, 1.640490},//rota
+    {255.925506, -278.558990, 1.656115},//rota
+    {253.552658, -274.579376, 1.656115},//rota
+    {264.513305, -283.587951, 1.726427},//rota
+    {264.513641, -288.570343, 1.726427},//rota
+    {253.249206, -289.703277, 1.702990},//rota
+    {241.588851, -282.510742, 1.632677},//rota
+    {238.956176, -286.237579, 1.632677},//rota
+    {242.056915, -298.600006, 1.687365},//rota
+    {226.324661, -302.813110, 1.926182},//rota
+    {235.074569, -309.458465, 1.710802},//rota
+    {260.455383, -303.153564, 1.918369},//rota
+    {1144.889648, 2036.684814, 10.820312},//rota
+    {1296.343872, 191.051803, 20.523302},//rota
+    {1300.577758, 193.348037, 20.523302},//rota
+    {1303.659423, 186.240692, 20.538927},//rota
+    {1295.397827, 174.512771, 20.910556},//rota
+    {1283.309448, 158.386245, 20.793369},//rota
+    {1294.571166, 157.441223, 20.577989},//rota
+    {1307.292358, 153.335357, 20.492052},//rota
+    {1305.751098, 148.728240, 20.492052},//rota
+    {1299.458740, 140.331222, 20.538927},//rota
+    {2323.849365, 116.324333, 28.441642},//rota
+    {2363.995605, 116.185218, 28.441644},//rota
+    {2363.997070, 142.013885, 28.441642},//rota
+    {2323.846679, 136.395782, 28.441642},//rota
+    {2323.847900, 162.365051, 28.441644},//rota
+    {2363.993652, 166.024337, 28.441644},//rota
+    {2363.995361, 187.061584, 28.441642},//rota
+    {2323.846435, 191.330917, 28.441642},//rota
+    {2285.821533, 161.765563, 28.441642},//rota
+    {2258.191162, 168.338363, 28.153551},//rota
+    {2266.235839, 168.338989, 28.153551},//rota
+    {2236.564208, 168.303558, 28.153549},//rota
+    {2203.849609, 106.140846, 28.441642},//rota
+    {2249.234863, 111.767997, 28.441642},//rota
+    {2269.481445, 111.766822, 28.441644},//rota
+    {2269.530761, 6.161549, 28.153547},//rota
+    {2253.876464, -1.661808, 28.153551},//rota
+    {2245.370605, -1.660442, 28.153551},//rota
+    {2245.623291, -122.291252, 28.153547},//rota
+    {2272.455322, -119.133529, 28.153547},//rota
+    {2293.577392, -124.964012, 28.153549},//rota
+    {2313.880371, -124.964256, 28.153551}//rota	
+};
+
+new Float:Entradas[10][3] =
 {
 	{-2653.636474, 640.163085, 14.453125},//Hospital
 	{-2695.638183, 640.165405, 14.453125},//Hospital
-	{-1605.569213, 710.272521, 13.867187},//Policia Militar
 	{-2201.102050, -2341.364013, 30.625000},//Mercado Negro
 	{-2766.550781, 375.652496, 6.334682},//Prefeitura
 	{-1720.950439, 1359.725219, 7.185316},//Pizzaria
@@ -775,8 +1089,7 @@ new Float:Entradas[12][3] =
 	{-1988.149658, 1039.089355, 55.726562},//BANCO
 	{-2026.631591, -102.066413, 35.164062},//LICENCAS
 	{-2521.626220, 2295.312988, 4.984375},//A�OUGUE
-	{-2355.818115, 1008.084472, 50.898437},//BURGUER SHOT
-	{-1594.212402, 716.171325, -4.906250}//ENTRADA POLICIA MILITAR
+	{-2355.818115, 1008.084472, 50.898437}//BURGUER SHOT
 };
 
 new Float:AutoEscolaPosicao[13][3] =
@@ -855,23 +1168,25 @@ new EtapasMinerador[MAX_PLAYERS];
 
 new Float:PosEquipar[4][4] =
 {
-	{307.207489, 1833.923706, 2241.584960},//Policia Militar
+	{-2010.984252, -999.047912, 37.254680},//Policia Militar
 	{-2454.447998, 503.778869, 30.079460},//ROTA
 	{1628.541625, -251.347473, 49.000457},//PRF
 	{-1253.534545, 2712.009521, 55.174671}//BAEP
 };
 
-new Float:PosEquiparORG[4][4] =
+new Float:PosEquiparORG[6][4] =
 {
-	{-692.224487, 939.126525, 13.632812},//Mafia Russa
-	{2349.565673, -1170.487670, 28.066040},//Rojos
-	{1673.485595, -2106.939697, 13.546875},//Azul
-	{2812.450683, -1188.466308, 25.257419}//Amarillo
+	{-777.775939, 1610.302246, 27.117187},//Tropa dos Azul
+	{-107.637207, 1055.019042, 19.823585},//Tropa dos Verdes
+	{189.356140, -94.972740, 1.549072},//Tropa dos Amarelos
+	{-2087.778564, -2561.794189, 30.598144},//Tropa dos Vermelhos
+	{-692.328979, 939.155517, 13.632812},//Mafia Russa
+	{693.719665, 1967.682250, 5.539062}//Moto Clube
 };
 
 new Float:PosVeiculos[9][4] =
 {
-	{-1574.971923, 718.538818, -5.242187},//Policia Militar
+	{-2033.141479, -988.619567, 32.212158},//Policia Militar
 	{-2441.137939, 522.140869, 29.486917},//ROTA
 	{1662.606811, -285.948333, 39.627510},//PRF
 	{-1992.423828, 138.479736, 27.539062},//Spawn
@@ -1321,6 +1636,7 @@ main()
 	Sets = DCC_FindChannelById("1145712207049527407");
 	IDNAME = DCC_FindChannelById("1156091090605195317");
 	MAILLOG = DCC_FindChannelById("1156093705304932362");
+	Punicoes = DCC_FindChannelById("1158781620250226799");
 	printf("=> Canais DC       		: Carregados");
 }
 
@@ -1398,11 +1714,6 @@ Progresso:DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 2100*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$4200.");
 			}
-			if(PlayerInfo[playerid][pVIP] == 3)
-			{
-				PlayerInfo[playerid][pDinheiro] += 2100*2;
-				SuccesMsg(playerid, "Entregou a carga e ganhou R$4200.");
-			}
 			DisablePlayerCheckpoint(playerid);
 			Carregou[playerid] = 0;
 		}
@@ -1418,11 +1729,6 @@ Progresso:DescarregarCarga(playerid, progress)
 			{
 				PlayerInfo[playerid][pDinheiro] += 2150*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$4300.");
-			}
-			if(PlayerInfo[playerid][pVIP] == 3)
-			{
-				PlayerInfo[playerid][pDinheiro] += 2150*2;
-				SuccesMsg(playerid, "Entregou a carga e ganhou R$4300."); 
 			}
 			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
 			DisablePlayerCheckpoint(playerid);
@@ -1441,11 +1747,6 @@ Progresso:DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 2150*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$4300.");
 			}
-			if(PlayerInfo[playerid][pVIP] == 3)
-			{
-				PlayerInfo[playerid][pDinheiro] += 2150*2;
-				SuccesMsg(playerid, "Entregou a carga e ganhou R$4300.");
-			}
 			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
 			DisablePlayerCheckpoint(playerid);
 			Carregou[playerid] = 0;
@@ -1459,11 +1760,6 @@ Progresso:DescarregarCarga(playerid, progress)
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$2400.");
 			}   
 			if(PlayerInfo[playerid][pVIP] == 2)
-			{
-				PlayerInfo[playerid][pDinheiro] += 2400*2;
-				SuccesMsg(playerid, "Entregou a carga e ganhou R$4800.");
-			}
-			if(PlayerInfo[playerid][pVIP] == 3)
 			{
 				PlayerInfo[playerid][pDinheiro] += 2400*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$4800.");
@@ -1486,11 +1782,6 @@ Progresso:DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 2500*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$5000.");
 			}
-			if(PlayerInfo[playerid][pVIP] == 3)
-			{
-				PlayerInfo[playerid][pDinheiro] += 2500*2;
-				SuccesMsg(playerid, "Entregou a carga e ganhou R$5000.");
-			}
 			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
 			DisablePlayerCheckpoint(playerid);
 			Carregou[playerid] = 0;
@@ -1507,11 +1798,6 @@ Progresso:DescarregarCarga(playerid, progress)
 			{
 				PlayerInfo[playerid][pDinheiro] += 2250*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$4500.");
-			}
-			if(PlayerInfo[playerid][pVIP] == 3)
-			{
-				PlayerInfo[playerid][pDinheiro] += 2250*2;
-				SuccesMsg(playerid, "Entregou a carga e ganhou R$4500."); 
 			}
 			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
 			DisablePlayerCheckpoint(playerid);	
@@ -3593,7 +3879,6 @@ CallBack::AttVeh(playerid)
 							if(PassouRadar[playerid] == 0)
 							{
 								PassouRadar[playerid] = 1;
-								GameTextForPlayer(playerid, "~w~RADAR", 1000, 1);
 								SetTimerEx("LiberarRadar", segundos(5), false, "d", playerid);
 								return 1;
 							}
@@ -3686,7 +3971,7 @@ CallBack::MaconhaColher(playerid, mac)
 	new gfstring[128];
 	format(gfstring, sizeof gfstring, "Colheu uma maconha com %d gramas.",MaconhaInfo[mac][GramasProntas]);
 	SuccesMsg(playerid, gfstring);
-	GanharItem(playerid, 3027, MaconhaInfo[mac][GramasProntas]);
+	GanharItem(playerid, 1576, MaconhaInfo[mac][GramasProntas]);
 	DestroyDynamicObject(MaconhaInfo[mac][Object]);
 	Delete3DTextLabel(MaconhaInfo[mac][TT]);
 	MaconhaInfo[mac][mX] = 0.0;
@@ -3752,7 +4037,7 @@ CallBack::UpdateDrogas()
 		{
 			if(MaconhaInfo[maconhaid][Crescida] < Max_Crescida)
 			{
-				new updrogas = randomEx(0, 10);
+				new updrogas = randomEx(0, 50);
 				MaconhaInfo[maconhaid][GramasProntas] += updrogas;
 				MaconhaInfo[maconhaid][Crescida]++;
 			}
@@ -3767,6 +4052,10 @@ CallBack::UpdateDrogas()
 			MaconhaPronta(i);
 		}
 	}
+	for(new i; i < MAX_ORGS; i++)
+    {
+        SalvarCofre(i);
+    }
 	return true;
 }
 
@@ -3975,9 +4264,12 @@ CallBack::RoubarCaixa(playerid, caixa_id)
 	if(!GetPlayerCaixa(playerid))
 	{
 		CaixaInfo[caixa_id][Caixa_Roubada] = false;
+		GanharItem(playerid, 1654, 1);
 		return ErrorMsg(playerid, "Esta longe de um caixa");
 	}
 
+	SetPlayerWantedLevel(playerid, GetPlayerWantedLevel(playerid)+2);
+	TogglePlayerControllable(playerid, 1);
 	TendoRoubo = true;
 	SetTimer(#LiberarRoubo, Temporoubo, 0);
 	GetDynamicObjectPos(CaixaInfo[caixa_id][Caixa_Object], px, py, pz);
@@ -4003,7 +4295,7 @@ CallBack::ExplodirCaixa(caixa_id)
 	new str[200];
 
 	new add = random(2000);
-	CaixaInfo[caixa_id][Caixa_Dinheiro] = (MAX_PICKUPS_ROUBO*4549)+add;
+	CaixaInfo[caixa_id][Caixa_Dinheiro] = (MAX_PICKUPS_ROUBO*1600)+add;
 
 	format(str, sizeof str, "{FFFFFF}Caixa Registradora\n{FFFF00}Caixa Destruido\n{FFFFFF}Dinheiro No Chao: {FFFF00}R$%i",CaixaInfo[caixa_id][Caixa_Dinheiro]);
 	Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], 0xFFFF00F4, str);
@@ -4635,7 +4927,7 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 19896: name = "Maco de Cigarro";
 		case 19897: name = "Maco de Cigarro";
 		case 2768: name = "Hamburger";
-		case 1212: name = "Dinero Sucio";
+		case 1212: name = "Dinheiro Sujo";
 		case 19835: name = "Cafe";
 		case 2881: name = "Fatia de Pizza";
 		case 2702: name = "Fatia de Pizza";
@@ -4728,6 +5020,7 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 11750: name = "Algema";
 		case 11736: name = "Bandagem";
 		case 1010: name = "Kit de Tunagem";
+		case 1576: name = "Maconha";
 		default: name = "Desconhecido";
 	}
 	return name;
@@ -4852,20 +5145,23 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(GetPlayerVehicleSeat(playerid) != 0)	return ErrorMsg(playerid, "Nao esta dentro do veiculo.");
 			if(IsPlayerInAnyVehicle(playerid)) return InfoMsg(playerid, "Voce esta em um veiculo.");
 
+			cmd_inventario(playerid);
 			TogglePlayerControllable(playerid, 0);
 			CreateProgress(playerid, "RepararVeh","Reparando Veiculo...", 100);
 			ocupadodemais[playerid] = 1;
 			PlayerInventario[playerid][modelid][Unidades] --;
 			AtualizarInventario(playerid, modelid);
-			cmd_inventario(playerid);
+			
 			return true;
 		}
 		
 		case 400..611:
 		{
+			if(PlayerInfo[playerid][pVIP] < 1 || PlayerInfo[playerid][pAdmin] < 1) return ErrorMsg(playerid, "Sem permissao");
 			new Float:X,Float:Y,Float:Z,Float:A;
 			GetPlayerPos(playerid, X,Y,Z);
 			GetPlayerFacingAngle(playerid, A);
+			cmd_inventario(playerid);
 			if(VehAlugado[playerid] == 0)
 			{
 				VehAlugado[playerid] = 1;
@@ -4879,7 +5175,6 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
 			}
 			AtualizarInventario(playerid, modelid);
-			cmd_inventario(playerid);
 		}
 		case 3520:
 		{
@@ -4892,7 +5187,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 
 			if(PlantandoMaconha[playerid] == true)
 				return ErrorMsg(playerid, "Ja esta plantanddo uma semente.");
-
+			cmd_inventario(playerid);
 			for(new mac = 0; mac < MAX_MACONHA; mac++)
 			{
 				if(MaconhaInfo[mac][PodeUsar] == false && IsPlayerInRangeOfPoint(playerid, 5.0, MaconhaInfo[mac][mX],MaconhaInfo[mac][mY],MaconhaInfo[mac][mZ]))
@@ -4915,7 +5210,6 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 
 			PlayerInventario[playerid][modelid][Unidades] --;
 			AtualizarInventario(playerid, modelid);
-			cmd_inventario(playerid);
 			return true;
 		}
 		case 18632:
@@ -4967,12 +5261,6 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 					format(Str,sizeof(Str),"Vendeu 5 entrela do mar e ganhou R$%i.", dinpeixes*2);
 					SuccesMsg(playerid, Str); 
 				}
-				if(PlayerInfo[playerid][pVIP] == 3)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 entrela do mar e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
-				}
 				AtualizarInventario(playerid, modelid);
 			}
 			return 1;		
@@ -4991,12 +5279,6 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 					SuccesMsg(playerid, Str); 
 				}   
 				if(PlayerInfo[playerid][pVIP] == 2)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 tilapia e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
-				}
-				if(PlayerInfo[playerid][pVIP] == 3)
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
 					format(Str,sizeof(Str),"Vendeu 5 tilapia e ganhou R$%i.", dinpeixes*2);
@@ -5025,12 +5307,6 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 					format(Str,sizeof(Str),"Vendeu 5 peixe amarelo e ganhou R$%i.", dinpeixes*2);
 					SuccesMsg(playerid, Str); 
 				}
-				if(PlayerInfo[playerid][pVIP] == 3)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 peixe amarelo e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
-				}
 				AtualizarInventario(playerid, modelid);
 			}
 			return 1;		
@@ -5049,12 +5325,6 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 					SuccesMsg(playerid, Str); 
 				}   
 				if(PlayerInfo[playerid][pVIP] == 2)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
-				}
-				if(PlayerInfo[playerid][pVIP] == 3)
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
 					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes*2);
@@ -5083,12 +5353,6 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 					format(Str,sizeof(Str),"Vendeu 5 peixe azul e ganhou R$%i.", dinpeixes*2);
 					SuccesMsg(playerid, Str); 
 				}
-				if(PlayerInfo[playerid][pVIP] == 3)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 peixe azul e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
-				}
 				AtualizarInventario(playerid, modelid);
 			}
 			return 1;		
@@ -5107,12 +5371,6 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 					SuccesMsg(playerid, Str); 
 				}   
 				if(PlayerInfo[playerid][pVIP] == 2)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 agua viva e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
-				}
-				if(PlayerInfo[playerid][pVIP] == 3)
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
 					format(Str,sizeof(Str),"Vendeu 5 agua viva e ganhou R$%i.", dinpeixes*2);
@@ -5141,22 +5399,16 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 					format(Str,sizeof(Str),"Vendeu 5 tubarao e ganhou R$%i.", dinpeixes*2);
 					SuccesMsg(playerid, Str); 
 				}
-				if(PlayerInfo[playerid][pVIP] == 3)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 tubarao e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
-				}
 				AtualizarInventario(playerid, modelid);
 			}
 			return 1;		
 		}
 		case 331..371:
 		{
+			cmd_inventario(playerid);
 			GivePlayerWeapon(playerid, GetArmaInv(PlayerInventario[playerid][modelid][Slot]), PlayerInventario[playerid][modelid][Unidades]);
 			PlayerInventario[playerid][modelid][Unidades] = 0;
 			AtualizarInventario(playerid, modelid);
-			cmd_inventario(playerid);
 			return 1;
 		}
 		case 1010:
@@ -5214,28 +5466,29 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 		}
 		case 1212:
 		{
-			for(new i; i < 4; i++)
+			for(new i; i < 6; i++)
 			if(PlayerToPoint(3.0, playerid, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]))
 			{
 				new string[300];
 				if(!IsBandido(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 				new org = GetPlayerOrg(playerid);
 				
+				cmd_inventario(playerid);
 				DepositarGranaOrg(org,PlayerInventario[playerid][modelid][Unidades]);
 				format(string,sizeof(string),"Voce depositou R$%d dinheiro, e o novo balance e R$%d",PlayerInventario[playerid][modelid][Unidades],CofreOrg[org][Dinheiro]);
 				InfoMsg(playerid, string);
 				PlayerInventario[playerid][modelid][Unidades] = 0;
 				AtualizarInventario(playerid, modelid);
-				cmd_inventario(playerid);
 				return true;
 			}
 			return 1;
 		}
-		case 3027:
+		case 1576:
 		{
-			for(new i; i < 4; i++)
+			for(new i; i < 6; i++)
 			if(PlayerToPoint(3.0, playerid, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]))
 			{
+				cmd_inventario(playerid);
 				new string[300];
 				if(!IsBandido(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 				new org = GetPlayerOrg(playerid);
@@ -5245,48 +5498,71 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				InfoMsg(playerid, string);
 				PlayerInventario[playerid][modelid][Unidades] = 0;
 				AtualizarInventario(playerid, modelid);
-				cmd_inventario(playerid);
 				return true;
 			}
+			for(new i; i < 303; i++)
+			if(IsPlayerInRangeOfPoint(playerid,2.0,PosRota[i][0],PosRota[i][1],PosRota[i][2]))
+			{
+				new dinma = randomEx(100, 2000);
+				new qtdka = randomEx(10, 80);
+				cmd_iniciarrotamaconha(playerid);
+				SuccesMsg(playerid, "Entrega feita, passe para a proxima rota.");
+				PlayerInventario[playerid][modelid][Unidades] -= qtdka;
+				GanharItem(playerid,1212, dinma);
+				AtualizarInventario(playerid, modelid);
+			}
 		}
-		case 1279:
+		case 1575:
 		{
-			for(new i; i < 4; i++)
+			for(new i; i < 6; i++)
 			if(PlayerToPoint(3.0, playerid, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]))
 			{
 				new string[300];
 				if(!IsBandido(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 				new org = GetPlayerOrg(playerid);
 				
+				cmd_inventario(playerid);
 				DepositarCocainaOrg(org,PlayerInventario[playerid][modelid][Unidades]);
 				format(string,sizeof(string),"Voce depositou %d cocaina, e o novo balance e %d",PlayerInventario[playerid][modelid][Unidades],CofreOrg[org][Cocaina]);
 				InfoMsg(playerid, string);
 				PlayerInventario[playerid][modelid][Unidades] = 0;
 				AtualizarInventario(playerid, modelid);
-				cmd_inventario(playerid);
 				return true;
+			}
+			for(new i; i < 303; i++)
+			if(IsPlayerInRangeOfPoint(playerid,2.0,PosRota[i][0],PosRota[i][1],PosRota[i][2]))
+			{
+				cmd_inventario(playerid);
+				new dinma = randomEx(100, 2000);
+				new qtdka = randomEx(10, 80);
+				cmd_iniciarrotacocaina(playerid);
+				SuccesMsg(playerid, "Entrega feita, passe para a proxima rota.");
+				PlayerInventario[playerid][modelid][Unidades] -= qtdka;
+				GanharItem(playerid,1212, dinma);
+				AtualizarInventario(playerid, modelid);
 			}
 		}
 		case 3930:
 		{
-			for(new i; i < 4; i++)
+			for(new i; i < 6; i++)
 			if(PlayerToPoint(3.0, playerid, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]))
 			{
 				new string[300];
 				if(!IsBandido(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 				new org = GetPlayerOrg(playerid);
 				
+				cmd_inventario(playerid);
 				DepositarCrackOrg(org,PlayerInventario[playerid][modelid][Unidades]);
 				format(string,sizeof(string),"Voce depositou %d crack, e o novo balance e %d",PlayerInventario[playerid][modelid][Unidades],CofreOrg[org][Crack]);
 				InfoMsg(playerid, string);
 				PlayerInventario[playerid][modelid][Unidades] = 0;
 				AtualizarInventario(playerid, modelid);
-				cmd_inventario(playerid);
 				return true;
 			}
 		}
 		case 18645:
 		{
+			cmd_inventario(playerid);
 			if(EquipouCasco[playerid] == 0)
 			{
 				SetPlayerAttachedObject(playerid, 1, 18645, 2, 0.07, 0, 0, 88, 75, 0);
@@ -5299,22 +5575,22 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				AtualizarInventario(playerid, modelid);
 				EquipouCasco[playerid] = 0;
 			}
-			cmd_inventario(playerid);
 			return 1;
 		}
 		case 18870:
 		{
+			cmd_inventario(playerid);
 			AtualizarInventario(playerid, modelid);
 			ShowPlayerDialog(playerid, DIALOG_CELULAR, DIALOG_STYLE_LIST, "Telefone", "Transferencia PIX\nFazer Anuncio\t{32CD32}R$5000", "Confirmar", "X");
 			return 1;
 		}
 		case 11738:
 		{
+			cmd_inventario(playerid);
 			format(Str, sizeof(Str),"Introduza o ID do jogador que quer reanimar");
 			ShowPlayerDialog(playerid,DIALOG_REANIMAR,1,"Reanimar jogador", Str, "Confirmar",#);
 			PlayerInventario[playerid][modelid][Unidades]--;
 			AtualizarInventario(playerid, modelid);
-			cmd_inventario(playerid);
 		}
 		case 1654:
 		{
@@ -5322,6 +5598,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(!(caixa_id=GetPlayerCaixa(playerid)))return ErrorMsg(playerid, "Nao esta proximo de um caixa.");
 			if(CaixaInfo[caixa_id][Caixa_Roubada])return ErrorMsg(playerid, "Este caixa ja foi roubado.");
 			if(TendoRoubo)return ErrorMsg(playerid, "Ja roubaram a pouco tempo.");
+			cmd_inventario(playerid);
 			
 			new
 			Float:px, Float:py, Float:pz,
@@ -5341,12 +5618,10 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			SetPlayerSpecialAction(playerid, 0);
 			SetPlayerPos(playerid, px, py, pz);
 			SetPlayerFacingAngle(playerid, rz);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-
+			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.0, 1, 0, 0, 0, 0);
+			
 			SetTimerEx("RoubarCaixa", 20*1000, 0, "dd", playerid, GetPlayerCaixa(playerid));
-			SetPlayerWantedLevel(playerid, GetPlayerWantedLevel(playerid)+2);
 			SetTimerEx(#SetAnimRoubo, 500, 0, "d", playerid);
 			PlayerInventario[playerid][modelid][Unidades]--;
 			AtualizarInventario(playerid, modelid);
@@ -5357,13 +5632,12 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			GetPlayer2DZone2(playerid, location, MAX_ZONE_NAME);
 
 			new string[800];
-			format(string, sizeof string, "{FFFF00}CNN {FFFFFF}%04d e {FFFF00}seus companheiros {FFFFFF}estao roubando um caixa em {FFFF00}%s", PlayerInfo[playerid][IDF],location);
+			format(string, sizeof string, "{FFFF00}Reportagem {FFFFFF}estao tentando explodir um caixa nas localidade de {FFFF00}%s", location);
 			SendClientMessageToAll(-1, string);
 
 			new sendername[MAX_PLAYER_NAME];
 			GetPlayerName(playerid,sendername,sizeof(sendername));
 			InfoMsg(playerid, "Voce esta colocando um explosivo.");
-			cmd_inventario(playerid);
 			return 1;
 		}
 		case 11736:
@@ -5445,7 +5719,7 @@ IsValidItemInv(itemid) //AQUI VOCÊ DEVE DEFINIR OS ID'S DOS ITENS PARA SER VALI
 		18894, 18903, 18898, 18899, 18891, 18909, 18908, 18907, 18906, 18905, 18904, 18901, 1010,
 		18902, 18892, 18900, 18897, 18896, 18895, 18893, 18810, 18947, 18948, 18949, 18950, 18644,
 		18951, 19488, 18921, 18922, 18923, 18924, 18925, 18939, 18940, 18941, 18942, 18943, 11750,
-		1314, 19578, 18636, 19942, 18646, 19141, 19558, 19801, 19330, 1210, 19528,
+		1314, 19578, 18636, 19942, 18646, 19141, 19558, 19801, 19330, 1210, 19528, 1576,
 		19134, 19904, 19515, 19142, 19315, 19527, 19317, 18688, 18702, 18728, 19605, 19606, 18632,
 		19607, 19577, 1485, 19574, 19575, 19576, 2703, 2880, 19883, 19896, 19897, 2768, 1212, 
 		2601, 19835, 2881, 2702, 2769, 2709, 19579, 19094, 1582, 19580, 19602, 11738, 
@@ -6256,6 +6530,136 @@ CallBack::PlayerTextDraw( playerid )
 }
 
 //                          STOCKS
+
+stock IsPlayerInPlace(playerid,Float:XMin,Float:YMin,Float:XMax,Float:YMax )
+{
+	new RetValue = 0;
+	new Float:X,Float:Y,Float:Z;
+	GetPlayerPos(playerid,X,Y,Z );
+
+	if( X >= XMin && Y >= YMin && X < XMax && Y < YMax )
+	{
+	RetValue = 1;
+	}
+	return RetValue;
+}
+
+stock GuardarItem2(playerid)
+{
+	new Item = GetPlayerWeapon(playerid);
+	new Ammo = GetPlayerAmmo(playerid);
+	new orgid = GetPlayerOrg(playerid);
+	if(Item == 0) return SCM(playerid, -1, "{FF2400}[ x ] {BEBEBE}Voce nao pode Guardar Sua Mao no Bau.");
+	new i;
+	while(i != 20)
+	{
+		if(CofreArma[i][orgid] == 0)
+		{
+			CofreArma[i][orgid]=Item;
+			CofreAmmo[i][orgid]=Ammo;
+			RemoverItem2(playerid, Item);
+            SalvarCofre(orgid);
+			break;
+		}
+		i++;
+	}
+ 	return i == 20 ? SCM(playerid, -1, "{FF2400}[ x ] {BEBEBE}Seu Bau Esta Cheio!") : 1;
+}
+
+stock RemoverItem2(playerid, item)
+{
+	new Arma[13][2];
+	for(new i = 1; i < 13; ++i) GetPlayerWeaponData(playerid, i, Arma[i][0], Arma[i][1]);
+	ResetPlayerWeapons(playerid);
+	for(new i = 1; i < 13; ++i)
+	{
+		if(item != Arma[i][0]) GivePlayerWeapon(playerid, Arma[i][0], Arma[i][1]);
+	}
+}
+
+stock ItemOpcoes2(playerid, Item)
+{
+	new orgid = GetPlayerOrg(playerid);
+	if(CofreArma[Item][orgid] == 0) return PlayerPlaySound(playerid, 1053, 0.0, 0.0, 0.0);
+	ItemOpcao[playerid]=Item;
+	return ShowPlayerDialog(playerid,DIALOG_ARMAS12,DIALOG_STYLE_LIST,"Bau da Org","Pegar Arma\nRetirar do Bau e Jogar no Chao","OK","Fechar");
+}
+
+stock SalvarCofreF(idbau)
+{
+    new Arq[5000];
+	format(Arq, sizeof(Arq), PASTA_COFRES, idbau);
+	if(DOF2_FileExists(Arq))
+	{
+	    DOF2_SetInt(Arq, "CofreID", CofreInfo[idbau][CofreID]);
+	    DOF2_SetFloat(Arq, "CofrePosX", CofreInfo[idbau][CofrePosX]);
+	    DOF2_SetFloat(Arq, "CofrePosY", CofreInfo[idbau][CofrePosY]);
+	    DOF2_SetFloat(Arq, "CofrePosZ", CofreInfo[idbau][CofrePosZ]);
+		DOF2_SetFloat(Arq, "CofrePosR", CofreInfo[idbau][CofrePosR]);
+		DOF2_SaveFile();
+	}
+	return 1;
+}
+
+stock SalvarCofre(idorg)
+{
+	new Arq[5000], str[5000];
+	format(Arq, sizeof(Arq), PASTA_COFRES, idorg);
+	if(DOF2_FileExists(Arq))
+	{
+		for(new i = 0; i != 20; ++i)
+		{
+			format(str, sizeof(str), "Arma inv %d", i);
+			DOF2_SetInt(Arq, str, CofreArma[i][idorg]);
+			format(str, sizeof(str), "Ammo inv %d", i);
+			DOF2_SetInt(Arq, str, CofreAmmo[i][idorg]);
+		}
+		DOF2_SetInt(Arq, "CofreID", CofreInfo[idorg][CofreID]);
+		DOF2_SaveFile();
+	}
+	else
+	{
+	    DOF2_CreateFile(Arq);
+	    for(new i = 0; i != 20; ++i)
+		{
+			format(str, sizeof(str), "Arma inv %d", i);
+			DOF2_SetInt(Arq, str, CofreArma[i][idorg]);
+			format(str, sizeof(str), "Ammo inv %d", i);
+			DOF2_SetInt(Arq, str, CofreAmmo[i][idorg]);
+		}
+		DOF2_SetInt(Arq, "CofreID", CofreInfo[idorg][CofreID]);
+		DOF2_SaveFile();
+	}
+	return 1;
+}
+
+stock CarregarCofre(idorg)
+{
+	new Arq[5000], str[5000], string[450];
+	format(Arq, sizeof(Arq), PASTA_COFRES, idorg);
+	if(DOF2_FileExists(Arq))
+	{
+		for(new i = 0; i != 20; ++i)
+		{
+			format(str, sizeof(str), "Arma inv %d", i);
+			CofreArma[i][idorg]=DOF2_GetInt(Arq, str);
+			format(str, sizeof(str), "Ammo inv %d", i);
+			CofreAmmo[i][idorg]=DOF2_GetInt(Arq, str);
+		}
+		CofreInfo[idorg][CofreID] = DOF2_GetInt(Arq, "CofreID");
+
+		CofreInfo[idorg][CofrePosX] = DOF2_GetInt(Arq, "CofrePosX");
+		CofreInfo[idorg][CofrePosY] = DOF2_GetInt(Arq, "CofrePosY");
+		CofreInfo[idorg][CofrePosZ] = DOF2_GetInt(Arq, "CofrePosZ");
+		CofreInfo[idorg][CofrePosR] = DOF2_GetInt(Arq, "CofrePosR");
+
+		ObjetoCofre[idorg] = CreateDynamicObject(19772, CofreInfo[idorg][CofrePosX], CofreInfo[idorg][CofrePosY], CofreInfo[idorg][CofrePosZ]-1, 0.0, 0.0, CofreInfo[idorg][CofrePosR]);
+		format(string, sizeof(string), "{BEBEBE}ID Cofre: %d\nAperte {FF2400}H\n{BEBEBE}Para Abrir o Menu do Bau", CofreInfo[idorg][CofreID]);
+		TextoCofreOrg[idorg] = CreateDynamic3DTextLabel(string, -1, CofreInfo[idorg][CofrePosX], CofreInfo[idorg][CofrePosY], CofreInfo[idorg][CofrePosZ], 25.0);
+		return 1;
+	}
+    return 1;
+}
 
 stock CreateAurea(textaur[], Float:aurx, Float:aury, Float:aurz)
 {
@@ -9648,108 +10052,6 @@ stock GetPlayerSerial(playerid)
     return serial;
 }
 
-stock GuardarItem2(playerid)
-{
-	new Item = GetPlayerWeapon(playerid);
-	new Ammo = GetPlayerAmmo(playerid);
-	new orgid = GetPlayerOrg(playerid);
-	if(Item == 0) return ErrorMsg(playerid, "Nao tem uma arma na mao");
-	new i;
-	while(i != 20)
-	{
-		if(CofreArma[i][orgid] == 0)
-		{
-			CofreArma[i][orgid]=Item;
-			CofreAmmo[i][orgid]=Ammo;
-			RemoverItem2(playerid, Item);
-            SalvarCofre(orgid);
-			break;
-		}
-		i++;
-	}
- 	return i == 20 ? ErrorMsg(playerid, "Este bau esta cheio.") : 1;
-}
-
-stock RemoverItem2(playerid, item)
-{
-	new Arma[13][2];
-	for(new i = 1; i < 13; ++i) GetPlayerWeaponData(playerid, i, Arma[i][0], Arma[i][1]);
-	ResetPlayerWeapons(playerid);
-	for(new i = 1; i < 13; ++i)
-	{
-		if(item != Arma[i][0]) GivePlayerWeapon(playerid, Arma[i][0], Arma[i][1]);
-	}
-}
-
-stock ItemOpcoes2(playerid, Item)
-{
-	new orgid = GetPlayerOrg(playerid);
-	if(CofreArma[Item][orgid] == 0) return PlayerPlaySound(playerid, 1053, 0.0, 0.0, 0.0);
-	ItemOpcao[playerid]=Item;
-	return ShowPlayerDialog(playerid,DIALOG_ARMAS12,DIALOG_STYLE_LIST,"Bau","Pegar Arma\nRetirar Arma do Bau","Selecionar","X");
-}
-
-stock SalvarCofre(idorg)
-{
-	new Arq[5000], str[5000];
-	format(Arq, sizeof(Arq), PASTA_COFRES, idorg);
-	if(DOF2_FileExists(Arq))
-	{
-		for(new i = 0; i != 20; ++i)
-		{
-			format(str, sizeof(str), "Arma inv %d", i);
-			DOF2_SetInt(Arq, str, CofreArma[i][idorg]);
-			format(str, sizeof(str), "Ammo inv %d", i);
-			DOF2_SetInt(Arq, str, CofreAmmo[i][idorg]);
-		}
-		DOF2_SetInt(Arq, "CofreID", CofreInfo[idorg][CofreID]);
-		DOF2_SaveFile();
-	}
-	else
-	{
-	    DOF2_CreateFile(Arq);
-	    for(new i = 0; i != 20; ++i)
-		{
-			format(str, sizeof(str), "Arma inv %d", i);
-			DOF2_SetInt(Arq, str, CofreArma[i][idorg]);
-			format(str, sizeof(str), "Ammo inv %d", i);
-			DOF2_SetInt(Arq, str, CofreAmmo[i][idorg]);
-		}
-		DOF2_SetInt(Arq, "CofreID", CofreInfo[idorg][CofreID]);
-		DOF2_SaveFile();
-	}
-	return 1;
-}
-
-stock CarregarCofre(idorg)
-{
-
-	new Arq[5000], str[5000], string[450];
-	format(Arq, sizeof(Arq), PASTA_COFRES, idorg);
-	if(DOF2_FileExists(Arq))
-	{
-		for(new i = 0; i != 20; ++i)
-		{
-			format(str, sizeof(str), "Arma inv %d", i);
-			CofreArma[i][idorg]=DOF2_GetInt(Arq, str);
-			format(str, sizeof(str), "Ammo inv %d", i);
-			CofreAmmo[i][idorg]=DOF2_GetInt(Arq, str);
-		}
-		CofreInfo[idorg][CofreID] = DOF2_GetInt(Arq, "CofreID");
-
-		CofreInfo[idorg][CofrePosX] = DOF2_GetInt(Arq, "CofrePosX");
-		CofreInfo[idorg][CofrePosY] = DOF2_GetInt(Arq, "CofrePosY");
-		CofreInfo[idorg][CofrePosZ] = DOF2_GetInt(Arq, "CofrePosZ");
-		CofreInfo[idorg][CofrePosR] = DOF2_GetInt(Arq, "CofrePosR");
-
-		ObjetoCofre[idorg] = CreateDynamicObject(2332, CofreInfo[idorg][CofrePosX], CofreInfo[idorg][CofrePosY], CofreInfo[idorg][CofrePosZ]+0.5, 0.0, 0.0, CofreInfo[idorg][CofrePosR]);
-		format(string, sizeof(string), "{FFFFFF}Bau ID: %d\nAperte {FFFF00}F\n{FFFFFF}para verifaicar o bau.", CofreInfo[idorg][CofreID]);
-		TextoCofreOrg[idorg] = CreateDynamic3DTextLabel(string, -1, CofreInfo[idorg][CofrePosX], CofreInfo[idorg][CofrePosY], CofreInfo[idorg][CofrePosZ]+1, 25.0);
-		return 1;
-	}
-	return 1;
-}
-
 stock LimparChat(playerid, limit)
 {
 	for(new i; i < limit; i++)
@@ -9993,7 +10295,7 @@ stock CriarCasas()
 				MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 			}
 			new string[5000];
-			format(string, sizeof(string), "Imobiliaria\n{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+			format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 			TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 		}
 	}
@@ -10387,7 +10689,7 @@ stock NomeOrg(playerid)
 	}
 	if(org == 13)
 	{
-		orG = "Mafia Triad";
+		orG = "Moto Clube";
 	}
 	return orG;
 }
@@ -10413,7 +10715,7 @@ stock GetPlayerCaixa(playerid)
 	for(new caixa = 1; caixa < MAX_CAIXAS; caixa++)
 	{
 		GetDynamicObjectPos(CaixaInfo[caixa][Caixa_Object], px, py, pz);
-		if(IsPlayerInRangeOfPoint(playerid, 2.0, px, py, pz))
+		if(IsPlayerInRangeOfPoint(playerid, 5.0, px, py, pz))
 			return caixa;
 	}
 	return 0;
@@ -10523,9 +10825,8 @@ stock VIP(playerid)
 {
 	new LipeStrondaVIP[64];
 	if(PlayerInfo[playerid][pVIP] != 0) { LipeStrondaVIP = " "; }
-	if(PlayerInfo[playerid][pVIP] == 1) { LipeStrondaVIP = "VIP PRATA"; }
-	else if(PlayerInfo[playerid][pVIP] == 2) { LipeStrondaVIP = "VIP OURO"; }
-	else if(PlayerInfo[playerid][pVIP] == 3) { LipeStrondaVIP = "VIP DIAMANTE"; }
+	if(PlayerInfo[playerid][pVIP] == 1) { LipeStrondaVIP = "VIP BASICO"; }
+	else if(PlayerInfo[playerid][pVIP] == 2) { LipeStrondaVIP = "VIP PREMIUM"; }
 	return LipeStrondaVIP;
 }
 
@@ -10672,6 +10973,8 @@ stock NpcText()
 	CreateDynamicPickup(19606,23,-1606.267578, 733.912414, -5.234413,0);
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}/prender{FFFFFF}'para \nprender o jogador.",-1,-1606.267578, 733.912414, -5.234413,15);
 
+	CreateAurea("{FFFF00}Rota de Maconha\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -1143.184814, 2227.874511, 97.219261);
+	CreateAurea("{FFFF00}Rota de Cocaina\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -248.257873, 1506.404418, 75.562500);
 	printf("=> Textos       		: Carregados");
 	return 1;
 }
@@ -10855,6 +11158,7 @@ stock BanirIP(playerid, administrador, Motivo1[])
 
 stock ZerarDados(playerid)
 {
+	RotaMaconha[playerid] = false;
 	PlayerInfo[playerid][pSkin] = 0;
 	PlayerInfo[playerid][pDinheiro] = 0;
 	PlayerInfo[playerid][pBanco] = 0;
@@ -10917,7 +11221,6 @@ stock ZerarDados(playerid)
 	SedePlayer[playerid] = 0;
 	PassouRadar[playerid] = 0;
 	Page[playerid] = 0;
-	ItemOpcao[playerid] = 0;
 	TemCinto[playerid] = false;
 	Susurrando[playerid] = false;
 	Falando[playerid] = false;
@@ -11452,10 +11755,6 @@ public OnGameModeInit()
 	CarregarPlantacao();	
 	CreateTelaLogin();
 	TextDrawBase();
-	for(new j; j < MAX_ORGS; j++)
-	{
-	    CarregarCofre(j);
-	}
 	printf("=> Bau Orgs       		: Carregados");
     printf(" ");
 	new Dia, Mes, Ano, Hora, Minuto;
@@ -11489,6 +11788,13 @@ public OnGameModeInit()
 	TextDrawSetProportional(gServerTextdraws, 1);
 	TextDrawSetSelectable(gServerTextdraws, 0);
 
+	Parabolica = GangZoneCreate( -460.22906494140625, 1281.9999694824219, -140.22906494140625, 1643.9999694824219);
+    Barragem = GangZoneCreate( -1434.2429809570312, 1902.6701049804688, -987.2429809570312, 2672.6701049804688);
+
+	for(new j; j < MAX_ORGS; j++)
+	{
+	    CarregarCofre(j);
+	}
 	gstream = SvCreateGStream(0xFF0000FF, "[]");
 	for(new i = 0; i < MAX_FREQUENCIAS; i++)
 	{
@@ -11517,7 +11823,7 @@ public OnGameModeInit()
 		CreateDynamicPickup(1275, 23, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \npegar os equipamentos.",-1,PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2],15);
 	}
-	for(new i; i < 4; i++)
+	for(new i; i < 6; i++)
 	{
 		CreateDynamicPickup(1314, 23, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2],15);
@@ -11530,7 +11836,7 @@ public OnGameModeInit()
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \niniciar o desossamento.", -1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2], 15.0);
 	}
-	for(new i; i < 12; i++)
+	for(new i; i < 10; i++)
 	{
 		CreateDynamicPickup(19606,23,Entradas[i][0],Entradas[i][1],Entradas[i][2],0);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
@@ -11561,17 +11867,25 @@ public OnGameModeExit()
 	SalvarPlantacao();
 	IniciarCasas = 0;
 	IniciarRadares = 0;
+	for(new i2; i2 < MAX_ORGS; i2++)
+	{
+	    SalvarCofre(i2);
+	}
 	foreach(new i: Player)
 	{
-		if(IsPlayerConnected(i) && pLogado[i] == true) SalvarDados(i);
+		if(pLogado[i] == true) 
+		{
+			SalvarDados(i);
+			SalvarMortos(i);
+			SalvarMissoes(i);
+			SalvarInventario(i);
+			SalvarArmas(i);
+			SalvarAvaliacao(i);
+		}
 	}
 	for(new i = 0; i < MAX_FREQUENCIAS; i++)
 	{
 		SvDeleteStream(Frequencia[i]);
-	}
-	for(new i; i < MAX_ORGS; i++)
-	{
-	    SalvarCofre(i);
 	}
 	for(new i = 0; i < MAX_VEHICLES; i++)
 	{
@@ -12278,6 +12592,10 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 public OnPlayerEnterCheckpoint(playerid)
 {
+	if(RotaMaconha[playerid] == true) 
+	{ 
+		InfoMsg(playerid, "Utilize a maconha no seu inventario para fazer a entrega.");
+	}
 	if(GPS[playerid] == true) 
 	{ 
 		DisablePlayerCheckpoint(playerid);
@@ -12345,11 +12663,6 @@ public OnPlayerEnterCheckpoint(playerid)
 				PlayerInfo[playerid][pDinheiro] += 600*2;
 				SuccesMsg(playerid, "Terminou o trabalho e ganhou R$1200."); 
 			}
-			if(PlayerInfo[playerid][pVIP] == 3)
-			{
-				PlayerInfo[playerid][pDinheiro] += 600*2;
-				SuccesMsg(playerid, "Terminou o trabalho e ganhou R$1200."); 
-			}
 		}
 	}
 	if(CargoTumba[playerid] == 2)
@@ -12366,11 +12679,6 @@ public OnPlayerEnterCheckpoint(playerid)
 				SuccesMsg(playerid, "Terminou o trabalho e ganhou R$1200."); 
 			}   
 			if(PlayerInfo[playerid][pVIP] == 2)
-			{
-				PlayerInfo[playerid][pDinheiro] += 1200*2;
-				SuccesMsg(playerid, "Terminou o trabalho e ganhou R$2400."); 
-			}
-			if(PlayerInfo[playerid][pVIP] == 3)
 			{
 				PlayerInfo[playerid][pDinheiro] += 1200*2;
 				SuccesMsg(playerid, "Terminou o trabalho e ganhou R$2400."); 
@@ -12396,11 +12704,6 @@ public OnPlayerEnterCheckpoint(playerid)
 				PlayerInfo[playerid][pDinheiro] += 2000*2;
 				SuccesMsg(playerid, "Terminou o trabalho e ganhou R$4000."); 
 			}
-			if(PlayerInfo[playerid][pVIP] == 3)
-			{
-				PlayerInfo[playerid][pDinheiro] += 2000*2;
-				SuccesMsg(playerid, "Terminou o trabalho e ganhou R$4000."); 
-			}
 		}
 	}
 	if(PegouMaterial[playerid] == true)
@@ -12418,12 +12721,6 @@ public OnPlayerEnterCheckpoint(playerid)
 			SuccesMsg(playerid, constrstr); 
 		}   
 		if(PlayerInfo[playerid][pVIP] == 2)
-		{
-			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
-			format(constrstr,sizeof(constrstr),"Ganhou %i com este material.", dinmateriale*2);
-			SuccesMsg(playerid, constrstr); 
-		}
-		if(PlayerInfo[playerid][pVIP] == 3)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
 			format(constrstr,sizeof(constrstr),"Ganhou %i com este material.", dinmateriale*2);
@@ -12454,12 +12751,6 @@ public OnPlayerEnterCheckpoint(playerid)
 			format(constrstr,sizeof(constrstr),"Ganhou %i com esta rocha.", dinmateriale*2);
 			SuccesMsg(playerid, constrstr); 
 		}
-		if(PlayerInfo[playerid][pVIP] == 3)
-		{
-			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
-			format(constrstr,sizeof(constrstr),"Ganhou %i com esta rocha.", dinmateriale*2);
-			SuccesMsg(playerid, constrstr); 
-		}
 		EtapasMinerador[playerid] = 0;
 		DisablePlayerCheckpoint(playerid);
 	} 
@@ -12480,12 +12771,6 @@ public OnPlayerEnterCheckpoint(playerid)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
 			format(constrstr,sizeof(constrstr),"Ganhou %i com esta caixa.", dinmateriale*2);
-			SuccesMsg(playerid, constrstr); 
-		}
-		if(PlayerInfo[playerid][pVIP] == 3)
-		{
-			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
-			format(constrstr,sizeof(constrstr),"Ganhou %i com esta caixa..", dinmateriale*2);
 			SuccesMsg(playerid, constrstr); 
 		}
 		DisablePlayerCheckpoint(playerid);
@@ -13503,16 +13788,9 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 				{
 					new keys, ud, lr;
 					GetPlayerKeys(playerid, keys, ud, lr);
-					if(keys & KEY_CTRL_BACK)
-					{
 						GranaRoubo(playerid, i);
 						DestroyPickup(pickupid);
 						Pickups_Roubo[i][p] = -1;
-					}
-					else
-					{
-						GameTextForPlayer(playerid, "~b~~h~USE |~w~H~b~~h~| para pegar o ~b~~h~dinheiro", 1000, 1);
-					}
 				}
 			}
 		}
@@ -13563,6 +13841,27 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
  	}
 	if(newkeys == KEY_CTRL_BACK)
 	{
+		new Inv[5000], Nick[5000], orgid = GetPlayerOrg(playerid);
+		if(IsPlayerInRangeOfPoint(playerid, 10.0, CofreInfo[orgid][CofrePosX], CofreInfo[orgid][CofrePosY], CofreInfo[orgid][CofrePosZ]))
+		{
+            if(IsBandido(playerid))
+            {
+				for(new ii = 0; ii != 20; ii++)
+				{
+					GetWeaponName(CofreArma[ii][orgid], Nick, 20);
+					strcat(Inv, CofreArma[ii][orgid] > 0 ? (CofreArma[ii][orgid] == 18 ? ("{FFDC33}Cocktail Molotov") : (Nick)) : ("{FFDC33}(Vazio)"));
+					strcat(Inv, "\n");
+				}
+				strcat(Inv, "Guardar Arma");
+				ShowPlayerDialog(playerid, DIALOG_ARMAS2, DIALOG_STYLE_LIST, "Menu da Org {FFDC33}[Bau]", Inv, "Selecionar", "X");
+				return 1;
+			}
+            else
+            {
+                ErrorMsg(playerid, "Voce nao e um Criminoso");
+                return 1;
+            }
+		}
 		if(PlayerToPoint(3.0, playerid, -1992.423828, 138.479736, 27.539062))
 		{
 			if(VehAlugado[playerid] == 0)
@@ -13964,7 +14263,28 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	}
 	if(newkeys == KEY_SECONDARY_ATTACK)
 	{
+		if(MostrandoMenu[playerid] == true)
+		{
+			TextDrawHideForPlayer(playerid, TDCadastro[2]);
+			TextDrawHideForPlayer(playerid, TDCadastro[3]);
+			for(new i=0;i<7;i++){
+				PlayerTextDrawHide(playerid, TDCadastro_p[playerid][i]);
+			}
+			MostrandoMenu[playerid] = false;
+			SalvarDadosSkin(playerid);
+			CancelSelectTextDraw(playerid);
+		}
 		cmd_pegaritem(playerid);
+		if(IsPlayerInRangeOfPoint(playerid, 2.0, -1143.184814, 2227.874511, 97.219261))
+		{
+			if(!CheckInventario2(playerid, 1576)) 	return ErrorMsg(playerid, "Nao possui maconha em seu inventario..");
+			cmd_iniciarrotamaconha(playerid);
+		}
+		if(IsPlayerInRangeOfPoint(playerid, 2.0, -248.257873, 1506.404418, 75.562500))
+		{
+			if(!CheckInventario2(playerid, 1575)) 	return ErrorMsg(playerid, "Nao possui cocaina em seu inventario..");
+			cmd_iniciarrotacocaina(playerid);
+		}
 		for(new i; i < 7; i++)
 		if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2])){
 			cmd_pescar(playerid);
@@ -14020,7 +14340,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 934.1115,-1103.3857,24.3118)){
 			cmd_ltumba(playerid);
 		}
-		new Inv[5000], Nick[5000], orgid = GetPlayerOrg(playerid);
 		for(new i; i < MAX_SLOTMACHINE; i++)
 		{
 			if(!DOF2_FileExists(GetSlotMachine(i))) continue;
@@ -14033,21 +14352,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					break;
 				}
 			}
-		}
-		if(IsPlayerInRangeOfPoint(playerid, 10.0, CofreInfo[orgid][CofrePosX], CofreInfo[orgid][CofrePosY], CofreInfo[orgid][CofrePosZ]))
-		{
-			if(!IsBandido(playerid) || !IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
-			{
-				for(new ii = 0; ii != 20; ii++)
-				{
-					GetWeaponName(CofreArma[ii][orgid], Nick, 20);
-					strcat(Inv, CofreArma[ii][orgid] > 0 ? (CofreArma[ii][orgid] == 18 ? ("{FFDC33}Cocktail Molotov") : (Nick)) : ("{FFDC33}(Vazio)"));
-					strcat(Inv, "\n");
-				}
-				strcat(Inv, "Guardar Arma");           
-				ShowPlayerDialog(playerid, DIALOG_ARMAS2, DIALOG_STYLE_LIST, "Bau de Armas", Inv, "Selecionar", "X");
-			}
-			return 1;
 		}
 		if(PlayerToPoint(3.0, playerid, -5467.627441, -4536.831054, 4046.774902))
 		{
@@ -14134,7 +14438,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			}
 			SelectTextDraw(playerid, 0xFF0000FF);
 		}
-		for(new i; i < 4; i++)
+		for(new i; i < 6; i++)
 		if(PlayerToPoint(3.0, playerid, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]))
 		{
 			if(PlayerInfo[playerid][Org] != 5)
@@ -14155,6 +14459,16 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][Org] != 8) return 1;
 			{
 				format(String, sizeof(String), "{FFFFFF}Vezer equipar: {FFFF00}%i", CofreOrg[8][Equipar]);
+				ShowPlayerDialog(playerid, DIALOG_COFREORG, DIALOG_STYLE_LIST, String, "{FFFF00}- {FFFFFF}Dinheiro Sujo\n{FFFF00}- {FFFFFF}Maconha\n{FFFF00}- {FFFFFF}Cocaina\n{FFFF00}- {FFFFFF}Sementes de Maconha", "Selecionar", "X");
+			}
+			if(PlayerInfo[playerid][Org] != 12) return 1;
+			{
+				format(String, sizeof(String), "{FFFFFF}Vezer equipar: {FFFF00}%i", CofreOrg[12][Equipar]);
+				ShowPlayerDialog(playerid, DIALOG_COFREORG, DIALOG_STYLE_LIST, String, "{FFFF00}- {FFFFFF}Dinheiro Sujo\n{FFFF00}- {FFFFFF}Maconha\n{FFFF00}- {FFFFFF}Cocaina\n{FFFF00}- {FFFFFF}Sementes de Maconha", "Selecionar", "X");
+			}
+			if(PlayerInfo[playerid][Org] != 13) return 1;
+			{
+				format(String, sizeof(String), "{FFFFFF}Vezer equipar: {FFFF00}%i", CofreOrg[13][Equipar]);
 				ShowPlayerDialog(playerid, DIALOG_COFREORG, DIALOG_STYLE_LIST, String, "{FFFF00}- {FFFFFF}Dinheiro Sujo\n{FFFF00}- {FFFFFF}Maconha\n{FFFF00}- {FFFFFF}Cocaina\n{FFFF00}- {FFFFFF}Sementes de Maconha", "Selecionar", "X");
 			}
 		}
@@ -14568,6 +14882,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					pJogando[playerid] = true;
 					Erro[playerid] = 0;
 					StopAudioStreamForPlayer(playerid);
+					GangZoneShowForPlayer(playerid, Parabolica, Vermelho);
+    				GangZoneShowForPlayer(playerid, Barragem, Vermelho);
 					new hora, minuto;
 					gettime(hora, minuto);
 					jogadoreson++;
@@ -15145,7 +15461,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new Float:g = GetPlayerDistanceFromPoint(playerid, -2026.631591, -102.066413, 35.164062);
 					new Float:h = GetPlayerDistanceFromPoint(playerid, -1720.950439, 1359.725219, 7.185316);
 					new Float:i = GetPlayerDistanceFromPoint(playerid, -1973.108276, 288.896331, 35.171875);
-					new Float:l = GetPlayerDistanceFromPoint(playerid, -1605.569213, 710.272521, 13.867187);
 					new Float:m = GetPlayerDistanceFromPoint(playerid, -2201.102050, -2341.364013, 30.625000);
 					MEGAString[0] = EOS;
 					new string[800];
@@ -15167,8 +15482,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					format(string, 128, "{FFFFFF} Pizzaria \t{FFFF00} %.0f KM\n", h);
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Concessionaria \t{FFFF00} %.0f KM\n", i);
-					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Delegacia Central \t{FFFF00} %.0f KM\n", l);
 					strcat(MEGAString,string);
 					if(IsBandido(playerid))
 					{
@@ -15197,11 +15510,156 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Caminhoneiro \t{FFFF00} %.0f KM\n", e);
 					strcat(MEGAString,string);
-					ShowPlayerDialog(playerid, DIALOG_GPS2, DIALOG_STYLE_TABLIST_HEADERS, "Empregos", MEGAString, "Localizar","X");
+					ShowPlayerDialog(playerid, DIALOG_GPS2, DIALOG_STYLE_TABLIST_HEADERS, "Locais Empregos", MEGAString, "Localizar","X");
 				}
 				if(listitem == 2)
 				{
+					new Float:a = GetPlayerDistanceFromPoint(playerid, -2033.067504, -988.365112, 32.212158);
+					new Float:b = GetPlayerDistanceFromPoint(playerid, -2440.856445, 522.686523, 29.914293);
+					new Float:c = GetPlayerDistanceFromPoint(playerid, -1278.104248, 2711.379150, 50.132141);
+					new Float:d = GetPlayerDistanceFromPoint(playerid, 1662.559692, -285.732208, 39.607868);
+					new Float:e = GetPlayerDistanceFromPoint(playerid, -789.252563, 1622.004394, 27.117187);
+					new Float:f = GetPlayerDistanceFromPoint(playerid, -2087.006591, -2544.948974, 30.625000);
+					new Float:g = GetPlayerDistanceFromPoint(playerid, 188.515975, -106.426063, 2.023437);
+					new Float:h = GetPlayerDistanceFromPoint(playerid, -96.821380, 1041.751953, 19.664335);
+					new Float:i = GetPlayerDistanceFromPoint(playerid, -2653.636474, 640.163085, 14.45312);
+					new Float:j = GetPlayerDistanceFromPoint(playerid, -2064.956787, 1389.049560, 7.101562);
+					new Float:k = GetPlayerDistanceFromPoint(playerid, -2521.187744, -624.952026, 132.781982);
+					new Float:l = GetPlayerDistanceFromPoint(playerid, -688.271423, 938.216918, 13.632812);
+					new Float:m = GetPlayerDistanceFromPoint(playerid, 698.636657, 1964.867065, 5.539062);
+					MEGAString[0] = EOS;
+					new string[800];
+					strcat(MEGAString, "Local\tDistancia\n");
+					format(string, 128, "{FFFFFF} Policia Militar \t{FFFF00} %.0f KM\n", a);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Rota \t{FFFF00} %.0f KM\n", b);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Baep \t{FFFF00} %.0f KM\n", c);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} PRF \t{FFFF00} %.0f KM\n", d);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Tropa dos Azul \t{FFFF00} %.0f KM\n", e);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Tropa dos Vermelhos \t{FFFF00} %.0f KM\n", f);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Tropa dos Amarelos \t{FFFF00} %.0f KM\n", g);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Tropa dos Verdes \t{FFFF00} %.0f KM\n", h);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Medicos \t{FFFF00} %.0f KM\n", i);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Mecanico \t{FFFF00} %.0f KM\n", j);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Reportagem \t{FFFF00} %.0f KM\n", k);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Mafia Russa \t{FFFF00} %.0f KM\n", l);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Moto Clube \t{FFFF00} %.0f KM\n", m);
+					strcat(MEGAString,string);
+					ShowPlayerDialog(playerid, DIALOG_GPS3, DIALOG_STYLE_TABLIST_HEADERS, "Locais Organiza��es", MEGAString, "Localizar","X");
+				}
+				if(listitem == 3)
+				{
 					ShowPlayerDialog(playerid, DIALOG_LOCALIZARCASA, DIALOG_STYLE_INPUT, "Localizar Casas", "{FFFF00}- {FFFFFF}Introduza o ID da casa que queira localizar", "Localizar", "X");
+				}
+			}
+		}
+		case DIALOG_GPS3:
+		{
+			if(response)
+			{
+				if(listitem == 0)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -2033.067504, -988.365112, 32.212158, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 1)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid,-2440.856445, 522.686523, 29.914293, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 2)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -1278.104248, 2711.379150, 50.132141, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 3)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, 1662.559692, -285.732208, 39.607868, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 4)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -789.252563, 1622.004394, 27.117187, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 5)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -2087.006591, -2544.948974, 30.625000, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 6)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, 188.515975, -106.426063, 2.023437, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 7)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -96.821380, 1041.751953, 19.664335, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 8)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -2653.636474, 640.163085, 14.45312, 8.0);
+					
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 9)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -2064.956787, 1389.049560, 7.101562, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 10)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -2521.187744, -624.952026, 132.781982, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 11)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -688.271423, 938.216918, 13.632812, 8.0);
+					
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 12)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, 698.636657, 1964.867065, 5.539062, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 			}
 		}
@@ -15274,13 +15732,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 9)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -1605.569213, 710.272521, 13.867187, 8.0);
-					InfoMsg(playerid, "Ponto marcado no mapa.");
-				}
-				if(listitem == 10)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
@@ -15374,7 +15825,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{FFFF00}- {FFFFFF}VIP BASICO{32CD32}\tBC$10,000\n{FFFF00}- {FFFFFF}VIP PREMIUM{32CD32}\tBC$10,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{FFFF00}- {FFFFFF}VIP BASICO{32CD32}\tBC$10,000\n{FFFF00}- {FFFFFF}VIP PREMIUM{32CD32}\tBC$25,000", "Selecionar", "X");	
 				}
 				if(listitem == 1)
 				{
@@ -15550,8 +16001,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerInfo[playerid][pCoins] < 25000) 	return ErrorMsg(playerid, "Coins insuficiente.");
 					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}VIP PREMIUM {FFFFFF} por{FFFF00} BC$25.000", PlayerInfo[playerid][IDF]);
 					SendClientMessageToAll(-1, String);
-					PlayerInfo[playerid][pBanco] += 25000;
-					PlayerInfo[playerid][pCoins] -= 10000;
+					PlayerInfo[playerid][pBanco] += 23000;
+					PlayerInfo[playerid][pCoins] -= 25000;
 					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
 					PlayerInfo[playerid][pVIP] = 2;
 					format(string, sizeof(string), PASTA_VIPS, Name(playerid)); 
@@ -16357,7 +16808,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 									PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 									MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 									new string[5000];
-									format(string, sizeof(string), "Imobiliaria\n{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+									format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 									TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 									return 1;
 								}
@@ -16630,66 +17081,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(Prize[playerid] < 1000) return format(String, sizeof(String), "Aposta minima de R$%d.", MINIMUM_BET), ErrorMsg(playerid, String), Playing[playerid] = false, DataSlotMachine[SmID[playerid]][Occupied] = false;
 			if(GetPlayerMoney(playerid) < Prize[playerid]) return ErrorMsg(playerid, "Dinheiro insuficiente."), Playing[playerid] = false, DataSlotMachine[SmID[playerid]][Occupied] = false;
 			DataSlotMachine[SmID[playerid]][Jackpot] = DOF2_GetInt(GetSlotMachine(SmID[playerid]), "Jackpot"), PlayerInfo[playerid][pDinheiro] -= Prize[playerid], SetTimerEx("SpinSlotMachine", 1000, false, "i", playerid), ApplyAnimation(playerid, "CASINO", "Slot_in", 4.1, 0, 0, 0, 1, 1, 1);
-		}
-		case DIALOG_ARMAS2:
-		{
-			if(response)
-	 		{
-		 		switch(listitem)
-		 		{
-	                case 0: ItemOpcoes2(playerid, 0);
-	                case 1: ItemOpcoes2(playerid, 1);
-	                case 2: ItemOpcoes2(playerid, 2);
-	                case 3: ItemOpcoes2(playerid, 3);
-	                case 4: ItemOpcoes2(playerid, 4);
-	                case 5: ItemOpcoes2(playerid, 5);
-	                case 6: ItemOpcoes2(playerid, 6);
-	                case 7: ItemOpcoes2(playerid, 7);
-	                case 8: ItemOpcoes2(playerid, 8);
-	                case 9: ItemOpcoes2(playerid, 9);
-	                case 10: ItemOpcoes2(playerid, 10);
-	                case 11: ItemOpcoes2(playerid, 11);
-	                case 12: ItemOpcoes2(playerid, 12);
-	                case 13: ItemOpcoes2(playerid, 13);
-	                case 14: ItemOpcoes2(playerid, 14);
-	                case 15: ItemOpcoes2(playerid, 15);
-	                case 16: ItemOpcoes2(playerid, 16);
-	                case 17: ItemOpcoes2(playerid, 17);
-	                case 18: ItemOpcoes2(playerid, 18);
-	                case 19: ItemOpcoes2(playerid, 19);
-		 			case 20: GuardarItem2(playerid);
-				}
-				return 1;
-			}
-		}
-		case DIALOG_ARMAS12:
-		{
-		    new orgid = GetPlayerOrg(playerid);
-			if(!response) return 1;
-			if(response)
-			{
-				switch(listitem)
-				{
-	 				case 0:
-	 				{
-
-	     				SuccesMsg(playerid, "Pego uma arma no cofre.");
-	     				GivePlayerWeapon(playerid, CofreArma[ItemOpcao[playerid]][orgid], CofreAmmo[ItemOpcao[playerid]][orgid]);
-	    				CofreArma[ItemOpcao[playerid]][orgid]=0;
-	    				CofreAmmo[ItemOpcao[playerid]][orgid]=0;
-	    				SalvarCofre(orgid);
-	 				}
-	 				case 1:
-	 				{
-	     				GivePlayerWeapon(playerid, CofreArma[ItemOpcao[playerid]][orgid], CofreAmmo[ItemOpcao[playerid]][orgid]);
-	    				CofreAmmo[ItemOpcao[playerid]][orgid]=0;
-	    				CofreAmmo[ItemOpcao[playerid]][orgid]=0;
-	     				ErrorMsg(playerid, "Voce deixou cair uma arma.");
-	     				SalvarCofre(orgid);
-	 				}
-				}
-				return 1;
-			}
 		}
 		case DIALOG_ERROR:
 		{
@@ -17384,6 +17775,49 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SetPVarInt(playerid, "QtdTransacao", strval(inputtext));
 				format(BankV, sizeof(BankV), "%i", GetPVarInt(playerid, "QtdTransacao"));
 				PlayerTextDrawSetString(playerid, BancoTD[playerid][28], BankV);
+			}
+		}
+		case DIALOG_ARMAS12:
+		{
+			new orgid = GetPlayerOrg(playerid);
+			if(!response) return 1;
+			if(response)
+			{
+				switch(listitem)
+				{
+					case 0:
+					{
+						if(PlayerInfo[playerid][Org] == orgid)
+						{
+							SuccesMsg(playerid, "Voce pegoua a arma do cofre.");
+							GivePlayerWeapon(playerid, CofreArma[ItemOpcao[playerid]][orgid], CofreAmmo[ItemOpcao[playerid]][orgid]);
+							CofreArma[ItemOpcao[playerid]][orgid]=0;
+							CofreAmmo[ItemOpcao[playerid]][orgid]=0;
+							SalvarCofre(orgid);
+						}
+						else
+						{
+							ErrorMsg(playerid, "Sem permissao");
+						}
+					}
+					case 1:
+					{
+						if(PlayerInfo[playerid][Org] == orgid)
+						{
+							GivePlayerWeapon(playerid, CofreArma[ItemOpcao[playerid]][orgid], CofreAmmo[ItemOpcao[playerid]][orgid]);
+							CofreAmmo[ItemOpcao[playerid]][orgid]=0;
+							CofreAmmo[ItemOpcao[playerid]][orgid]=0;
+							SetTimerEx("TirarArma222", 1000, false, "i", playerid);
+							SuccesMsg(playerid, "Voce retiro a arma do cofre.");
+							SalvarCofre(orgid);
+						}
+						else
+						{
+							ErrorMsg(playerid, "Sem permissao");
+						}
+					}
+				}
+				return 1;
 			}
 		}
 	}
@@ -18716,7 +19150,7 @@ CMD:cinto(playerid)
 
 CMD:gps(playerid)
 {
-	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_LIST, "Onde deseja ir?", "{FFFF00}GPS {FFFFFF}Importantes\n{FFFF00}GPS {FFFFFF}Empregos\n{FFFF00}GPS {FFFFFF}Casas", "Selecionar", "X");
+	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_LIST, "Onde deseja ir?", "{FFFF00}GPS {FFFFFF}Locais Importantes\n{FFFF00}GPS {FFFFFF}Locais Empregos\n{FFFF00}GPS {FFFFFF}Locais Organiza��o\n{FFFF00}GPS {FFFFFF}Localizar Casas", "Selecionar", "X");
 	MissaoPlayer[playerid][MISSAO8] = 1;
 	return 1;
 }
@@ -18913,7 +19347,7 @@ CMD:pos(playerid, params[])
 		string[200]
 	;
 	string[0] = '\0';
-	format(string, 200, "%f, %f, %f, %f//%s\n", x,y,z,a,msg);
+	format(string, 200, "{%f, %f, %f},//%s\n", x,y,z,msg);
 	{
 		static
 			File: Account
@@ -19078,6 +19512,14 @@ CMD:kick(playerid, params[])
 				InfoMsg(i, "Algum administrador deu kick em voce.");
 				format(Str, sizeof(Str), "{FFFF00}AVISO{FFFFFF} O jogador {FFFF00}%s {FFFFFF}foi kickado por administrador {FFFF00}%s{FFFFFF}. Motivo: {FFFF00}%s", Name(i), Name(playerid), Motivo);
 				SendClientMessageToAll(-1, Str);
+
+				new string[255];
+				new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+				format(string,sizeof(string),"### KICK\n\nID: %04d\nPertence: %s\nExpulso por: %s\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Motivo);
+				DCC_SetEmbedColor(embed, 0xFFFF00);
+				DCC_SetEmbedDescription(embed, string);
+				DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.BAIXADARP.COM.BR7777_20230919_225304_0000.png");
+				DCC_SendChannelEmbedMessage(Punicoes, embed);
 				Kick(i);
 			}
 		}
@@ -19117,6 +19559,14 @@ CMD:cadeia(playerid, params[])
 				InfoMsg(i, "Algum administrador te colocou na cadeia.");
 				format(Str, sizeof(Str), "{FFFF00}AVISO{FFFFFF} O Administrador {FFFF00}%s {FFFFFF}prendeu {FFFF00}%s {FFFFFF}por {FFFF00}%i {FFFFFF}minutos. Motivo: {FFFF00}%s", Name(playerid), Name(i), Numero, Motivo);
 				SendClientMessageToAll(-1, Str);
+
+				new string[255];
+				new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+				format(string,sizeof(string),"### CADEIA STAFF\n\nID: %04d\nPertence: %s\nPreso por: %s\nTempo: %i minuto(s)\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Numero, Motivo);
+				DCC_SetEmbedColor(embed, 0xFFFF00);
+				DCC_SetEmbedDescription(embed, string);
+				DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.BAIXADARP.COM.BR7777_20230919_225304_0000.png");
+				DCC_SendChannelEmbedMessage(Punicoes, embed);
 			}
 		}
 		else
@@ -19331,6 +19781,15 @@ CMD:banir(playerid, params[])
 			{
 				SuccesMsg(playerid, "Voce baniu o jogador.");
 				InfoMsg(i, "Algum administrador baniu voce.");
+
+				new string[255];
+				new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+				format(string,sizeof(string),"### BANIMENTO\n\nID: %04d\nPertence: %s\nBanido por: %s\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Motivo);
+				DCC_SetEmbedColor(embed, 0xFFFF00);
+				DCC_SetEmbedDescription(embed, string);
+				DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.BAIXADARP.COM.BR7777_20230919_225304_0000.png");
+				DCC_SendChannelEmbedMessage(Punicoes, embed);
+
 				BanirPlayer(i, playerid, Motivo);
 			}
 		}
@@ -19398,6 +19857,14 @@ CMD:tempban(playerid,params[])
 				DOF2_SaveFile();
 				format(Str, sizeof(Str), "{FFFF00}ADMIN{FFFFFF} O jogador {FFFF00}%s {FFFFFF}foi banido por {FFFF00}%i {FFFFFF}dias pelo administrador {FFFF00}%s{FFFFFF}. Motivo: {FFFF00}%s", Name(i), Dias, Name(playerid), Motivo);
 				SendClientMessageToAll(-1, Str);
+
+				new string[255];
+				new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+				format(string,sizeof(string),"### BANIMENTO\n\nID: %04d\nPertence: %s\nBanido por: %s\nTempo: %i Dia(s)\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Dias, Motivo);
+				DCC_SetEmbedColor(embed, 0xFFFF00);
+				DCC_SetEmbedDescription(embed, string);
+				DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.BAIXADARP.COM.BR7777_20230919_225304_0000.png");
+				DCC_SendChannelEmbedMessage(Punicoes, embed);
 				Kick(i);
 			}
 		}
@@ -19438,6 +19905,15 @@ CMD:agendaban(playerid, params[])
 	AgendarBan(Nome, playerid, Str, tempo);
 	format(Str, sizeof(Str), "{FFFF00}ADMIN{FFFFFF}O Administrador {FFFF00}%s {FFFFFF}programou a {FFFF00}%s {FFFFFF} um ban. Motivo: {FFFF00}%s", Name(playerid), Nome, Motivo);
 	SendClientMessageToAll(VermelhoEscuro, Str);
+
+	new string[255];
+	new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+	format(string,sizeof(string),"### BANIMENTO\n\nConta: %s\nPreso por: %s\nTempo: %i minuto(s)\nMotivo: %s", Nome, Name(playerid), tempo, Motivo);
+	DCC_SetEmbedColor(embed, 0xFFFF00);
+	DCC_SetEmbedDescription(embed, string);
+	DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.BAIXADARP.COM.BR7777_20230919_225304_0000.png");
+	DCC_SendChannelEmbedMessage(Punicoes, embed);
+
 	SuccesMsg(playerid, "Para cancelar um ban, pede a alguem..");
 	return 1;
 }
@@ -19455,6 +19931,15 @@ CMD:agendacadeia(playerid, params[])
 	if(!DOF2_FileExists(File))              					return ErrorMsg(playerid, "Cuenta no existente.");
 	format(Str, sizeof(Str), "AdmCmd: {FFFFFF}O Administrador {FFFF00}%s{FFFFFF} programou {FFFF00}%s {FFFFFF}para cumprir {FFFF00}%i {FFFFFF}minutos de cadeia. Motivo: {FFFF00}%s", Name(playerid), Nome, ID, Motivo);
 	SendClientMessageToAll(VermelhoEscuro, Str);
+
+	new string[255];
+	new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+	format(string,sizeof(string),"### CADEIA STAFF\n\nConta: %s\nPreso por: %s\nTempo: %i minuto(s)\nMotivo: %s", Nome, Name(playerid), ID, Motivo);
+	DCC_SetEmbedColor(embed, 0xFFFF00);
+	DCC_SetEmbedDescription(embed, string);
+	DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.BAIXADARP.COM.BR7777_20230919_225304_0000.png");
+	DCC_SendChannelEmbedMessage(Punicoes, embed);
+
 	AgendarCadeia(Nome, ID, playerid, Motivo);
 	if(ID > 0) ErrorMsg(playerid, "DICA: Para cancelar um agendamento de cadeia use valores negativos no Tempo."); 
 	return 1;
@@ -19502,6 +19987,14 @@ CMD:banirip(playerid, params[])
 			{
 				SuccesMsg(playerid, "Voce beniu por ip o jogador.");
 				InfoMsg(i, "Algum administrador baniu por ip voce.");
+
+				new string[255];
+				new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+				format(string,sizeof(string),"### BANIMENTO IP\n\nID: %04d\nPertence: %s\nBanido por: %s\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Motivo);
+				DCC_SetEmbedColor(embed, 0xFFFF00);
+				DCC_SetEmbedDescription(embed, string);
+				DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.BAIXADARP.COM.BR7777_20230919_225304_0000.png");
+				DCC_SendChannelEmbedMessage(Punicoes, embed);
 				BanirIP(i, playerid, Motivo);
 			}
 		}
@@ -20067,9 +20560,9 @@ CMD:orgs(playerid)
 	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}12{FFFFFF} - Mafia Russa: %s\n", DOF2_GetString("InfoOrg/12.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}13{FFFFFF} - Mafia Triads: %s\n", DOF2_GetString("InfoOrg/13.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}13{FFFFFF} - Moto Clube: %s\n", DOF2_GetString("InfoOrg/13.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	ShowPlayerDialog(playerid,DIALOG_ORGS,DIALOG_STYLE_MSGBOX,"Organizacoes do Servidor",StringsG1,"X",#);
+	ShowPlayerDialog(playerid,DIALOG_ORGS,DIALOG_STYLE_LIST,"Organizacoes do Servidor",StringsG1,"X",#);
 	return 1;
 }
 
@@ -21094,7 +21587,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "Imobiliaria\n{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -21149,7 +21642,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "Imobiliaria\n{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -21204,7 +21697,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "Imobiliaria\n{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -21259,7 +21752,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "Imobiliaria\n{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -21314,7 +21807,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "Imobiliaria\n{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -21369,7 +21862,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "Imobiliaria\n{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -21424,7 +21917,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "Imobiliaria\n{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -21479,7 +21972,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "Imobiliaria\n{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -21534,7 +22027,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "Imobiliaria\n{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -21589,7 +22082,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "Imobiliaria\n{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -22572,20 +23065,36 @@ CMD:vip(playerid, params[])
 
 CMD:mudarskin(playerid, params[])
 {
-	new skinid;
-	if(PlayerInfo[playerid][pVIP] < 3)						return ErrorMsg(playerid, "Nao possui permissao.");
-	if(sscanf(params, "i", skinid))  							return SendClientMessage(playerid, CorErroNeutro, "USE: /cambiarskin [ID]");
-
-	PlayerInfo[playerid][pSkin] = skinid;
-	SetPlayerSkin(playerid, skinid);
-	SalvarDadosSkin(playerid);
+	if(PlayerInfo[playerid][pVIP] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(MostrandoMenu[playerid] == false)
+	{
+		TextDrawShowForPlayer(playerid, TDCadastro[2]);
+		TextDrawShowForPlayer(playerid, TDCadastro[3]);
+		for(new i=0;i<7;i++){
+			PlayerTextDrawShow(playerid, TDCadastro_p[playerid][i]);
+		}
+		MostrandoMenu[playerid] = true;
+		SelectTextDraw(playerid, 0xFF0000FF);
+		SendClientMessage(playerid, 0x00AE00FF, "Use a tecla F para cancelar a mudanca de skin e remover as tde.");
+	}
+	else
+	{
+		TextDrawHideForPlayer(playerid, TDCadastro[2]);
+		TextDrawHideForPlayer(playerid, TDCadastro[3]);
+		for(new i=0;i<7;i++){
+			PlayerTextDrawHide(playerid, TDCadastro_p[playerid][i]);
+		}
+		MostrandoMenu[playerid] = false;
+		SalvarDadosSkin(playerid);
+		CancelSelectTextDraw(playerid);
+	}
 	return 1;
 }
 
 CMD:tunagemvip(playerid)
 {
 	new wVeiculo = GetPlayerVehicleID(playerid);
-	if(PlayerInfo[playerid][pVIP] < 3)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pVIP] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	switch(GetVehicleModel(wVeiculo))
 	{
 	    case 483:
@@ -22789,7 +23298,7 @@ CMD:tunagemvip(playerid)
 
 CMD:repararvip(playerid)
 {
-	if(PlayerInfo[playerid][pVIP] < 3)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pVIP] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Nao esta em um veiculo.");
  
     RepairVehicle(GetPlayerVehicleID(playerid));
@@ -23036,4 +23545,76 @@ CMD:anuncio(playerid,params[])
 	TextDrawSetString(TextDraw[NA-1],string);
 	TextDrawShowForAll(TextDraw[NA-1]);
 	return true;
+}
+
+CMD:trazercofre(playerid, params[])
+{
+	if(PlayerInfo[playerid][pAdmin] < 1) return ErrorMsg(playerid, "Nao possui permissao.");
+	new id;
+	if(sscanf(params, "i", id))return ErrorMsg(playerid, "Use: /trazercofre [id da org do 0 ao 14]");
+	{
+	    if(id >= 0 && id < 14)
+	    {
+	        new Float:XX, Float:YY, Float:ZZ, Float:RR, string[550];
+     		GetPlayerPos(playerid, XX, YY, ZZ);
+     		GetPlayerFacingAngle(playerid, RR);
+
+            CofreInfo[id][CofreID] = id;
+			CofreInfo[id][CofrePosX] = XX;
+			CofreInfo[id][CofrePosY] = YY;
+			CofreInfo[id][CofrePosZ] = ZZ;
+			CofreInfo[id][CofrePosR] = RR;
+
+			SetPlayerPos(playerid, XX, YY, ZZ+5);
+
+			DestroyDynamicObject(ObjetoCofre[id]);
+			DestroyDynamic3DTextLabel(TextoCofreOrg[id]);
+
+			ObjetoCofre[id] = CreateDynamicObject(19772, CofreInfo[id][CofrePosX], CofreInfo[id][CofrePosY], CofreInfo[id][CofrePosZ]-1, 0.0, 0.0, CofreInfo[id][CofrePosR]);
+			format(string, sizeof(string), "{BEBEBE}ID Cofre: %d\nAperte {FF2400}H\n{BEBEBE}Para Abrir o Menu do Bau", CofreInfo[id][CofreID]);
+			TextoCofreOrg[id] = CreateDynamic3DTextLabel(string, -1, CofreInfo[id][CofrePosX], CofreInfo[id][CofrePosY], CofreInfo[id][CofrePosZ], 25.0);
+
+			SalvarCofreF(id);
+	    }
+	    else
+	    {
+	        ErrorMsg(playerid, "Voce so pode colocar orgs do 11 ao 49");
+	    }
+	}
+	return 1;
+}
+
+CMD:iniciarrotamaconha(playerid)
+{
+	new Alt = randomEx(0,303);
+	SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 0.5);
+	InfoMsg(playerid, "Rota iniciada, fa�a a entrega no local marcado. use /cancelarrota.");
+	RotaMaconha[playerid] = true;
+	return 1;
+}
+
+CMD:iniciarrotacocaina(playerid)
+{
+	new Alt = randomEx(0,303);
+	SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 0.5);
+	InfoMsg(playerid, "Rota iniciada, fa�a a entrega no local marcado. use /cancelarrota.");
+	RotaMaconha[playerid] = true;
+	return 1;
+}
+
+CMD:cancelarrota(playerid)
+{
+	if(RotaMaconha[playerid] == true)
+	{
+		RotaMaconha[playerid] = false;
+		DisablePlayerCheckpoint(playerid);
+		InfoMsg(playerid, "Rota cancelada.");
+	}
+	if(RotaCocaina[playerid] == true)
+	{
+		RotaCocaina[playerid] = false;
+		DisablePlayerCheckpoint(playerid);
+		InfoMsg(playerid, "Rota cancelada.");
+	}
+	return 1;
 }

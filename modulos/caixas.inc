@@ -24,5 +24,6 @@ CarregarCaixas()
 	CreateCaixa(2942, 1830.88367, -1071.68689, 23.48169,   0.00000, 0.00000, 269.40909);
 	CreateCaixa(2942, 1863.66504, -1270.39185, 13.16138,   0.00000, 0.00000, 182.03978);
 	CreateCaixa(2942, 1673.760620, -2326.699218, 13.16138,   0.00000, 0.00000, 92.392776);
-	printf("=> Caixas Eletronicos       		: Carregados");
+	CreateCaixa(2942, -1980.607666, 131.965667, 27.16138,   0.00000, 0.00000, 263.507263);
+	printf("=> Caixas Eletronicos       		: %d Carregados", MAX_CAIXAS);
 }
