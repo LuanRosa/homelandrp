@@ -89,7 +89,7 @@ stock SuccesMsg(playerid, pesan[])
   	LoadingNotif[playerid] = 109;
   	return 1;
 }
-stock SyntaxMsg(playerid, pesan[])
+stock AvMsg(playerid, pesan[])
 {
   	if(IsPlayerMobile(playerid))
 	{
@@ -207,7 +207,7 @@ stock CreateNotify(const playerid, index, i, const Float:new_x)
 		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
 		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
 
-		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "INFORMACOES");
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "INFORMATION");
 		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.158, 1.098);
 		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
 		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
@@ -386,7 +386,7 @@ stock CreateNotify(const playerid, index, i, const Float:new_x)
 		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
 		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
 
-		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "SUCESSO");
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "SUCCESS");
 		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.158, 1.098);
 		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
 		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
@@ -471,7 +471,7 @@ stock CreateNotify(const playerid, index, i, const Float:new_x)
 		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
 		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
 
-		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "INFO");
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "ANUNCIO");
 		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.158, 1.098);
 		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
 		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
@@ -555,7 +555,7 @@ stock CreateNotify(const playerid, index, i, const Float:new_x)
 		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
 		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
 
-		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "AVISO");
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "ANUNCIO");
 		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.158, 1.098);
 		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
 		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);

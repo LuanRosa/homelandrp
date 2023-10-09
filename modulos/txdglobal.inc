@@ -226,25 +226,6 @@ CarregarTxdGlobal()
 	TextDrawColor(Textdraw1, 1162167807);
 	TextDrawSetOutline(Textdraw1, 1);
 	TextDrawSetProportional(Textdraw1, 1);
-	
-	//Nova logomarca
-	Logo[0] = TextDrawCreate(288.000000, -1.000000, "BAIXADA");
-	TextDrawBackgroundColor(Logo[0], 255);
-	TextDrawFont(Logo[0], 1);
-	TextDrawLetterSize(Logo[0], 0.519999, 3.300002);
-	TextDrawColor(Logo[0], -1);
-	TextDrawSetOutline(Logo[0], 0);
-	TextDrawSetProportional(Logo[0], 1);
-	TextDrawSetShadow(Logo[0], 0);
-
-	Logo[1] = TextDrawCreate(293.000000, 22.000000, "- ROLEPLAY -");
-	TextDrawBackgroundColor(Logo[1], 255);
-	TextDrawFont(Logo[1], 2);
-	TextDrawLetterSize(Logo[1], 0.239999, 1.200003);
-	TextDrawColor(Logo[1], -1);
-	TextDrawSetOutline(Logo[1], 0);
-	TextDrawSetProportional(Logo[1], 1);
-	TextDrawSetShadow(Logo[1], 0);
 
 	//VELOCIMETRO
 	VeloC_G[0] = TextDrawCreate(595.007385, 364.416839, "box");

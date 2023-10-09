@@ -32,6 +32,7 @@
 #include        <   	ZCMD	   		>
 #include 		<	    mapfix		 	>
 #include 		< 		notify2	 		>
+#include 		< 		notificacao		>
 #include 		< 		enterfix 		> 
 #include		<		progress2		>
 #include		<		processo		> 
@@ -75,7 +76,7 @@ new	UltimaFala[MAX_PLAYERS];
 #define SERVERFORUM     			"discord.gg/QYpxa5SvNB"
 #define VERSAOSERVER     			"Baixada v1.0" 
 #define NA 5
-
+#define PTP 						PlayerToPoint
 //                          SISTEMA DEALERSHIP (CONCE E POSTO)
 
 #define TEMPO_SOM_ALARME 			minutos(2)
@@ -198,10 +199,6 @@ enum
 	DIALOG_BANIDO,
 	DIALOG_POS,
 	DIALOG_PRESOS,
-	DIALOG_BANCO,
-	DIALOG_BANCO1,
-	DIALOG_BANCO2,
-	DIALOG_BANCO3,
 	DIALOG_BANCO4,
 	DIALOG_BANCO5,
 	DIALOG_SELTRABALHO, 
@@ -294,7 +291,8 @@ enum
 	DIALOG_VEHCORP4,
 	DIALOG_ANUNCIOOLX,
 	DIALOG_VALORTRANSACAO,
-	DIALOG_GPS3
+	DIALOG_GPS3,
+	DIALOG_PROCURADOS
 }
 
 //                          VARIAVEIS
@@ -314,6 +312,11 @@ new	CofreLoja1,
 	CofreNiobio,
 	CofreGoverno,
 	CofreBanco;
+
+new bool:RouboLoja1 = false,
+	bool:RouboLoja2 = false,
+	bool:RouboLoja3 = false,
+	bool:RouboRestaurante = false;
 
 enum pInfo
 {
@@ -623,6 +626,11 @@ new	Motivo[255],
 	Str[1200];
 new MEGAString[2860];
 
+// lockpick system
+
+new PlayerText:LockText[12], bool:LockUse[MAX_PLAYERS], Float:LockProgress = 207.0, Float:LockLocation[MAX_PLAYERS], Float:LockSize[MAX_PLAYERS], LockCount[MAX_PLAYERS], LockTimer[MAX_PLAYERS], Correct[MAX_PLAYERS], VehicleLockedID[MAX_PLAYERS];
+new Engine[MAX_PLAYERS], Lights[MAX_PLAYERS], Alarm[MAX_PLAYERS], DoorsLockPick[MAX_PLAYERS], Bonnet[MAX_PLAYERS], Boot[MAX_PLAYERS], Objective[MAX_PLAYERS];
+
 //                          BOOLS
 
 new bool:RotaMaconha[MAX_PLAYERS];
@@ -640,6 +648,7 @@ new	bool:AntiAFK_Ativado = true,
 new bool:GPS[MAX_PLAYERS] = false;
 new bool:UsouCMD[MAX_PLAYERS] = false;
 new bool:Patrulha[MAX_PLAYERS] = false;
+new policiaon;
 new bool:PegouMaterial[MAX_PLAYERS] = false; 
 new	bool:AparecendoNoAdmins[MAX_PLAYERS] = true;
 new bool:LavouMao[MAX_PLAYERS] = false;
@@ -658,7 +667,6 @@ new Text:Textdraw0,
 	Text:Textdraw1;
 new Text:HudServer[17];
 new PlayerText:HudServer_p[MAX_PLAYERS][7];
-new Text:Logo[2];
 new PlayerText:Registration_PTD[MAX_PLAYERS][23];
 new Text:TDCadastro[18];
 new PlayerText:TDCadastro_p[MAX_PLAYERS][7];
@@ -1659,22 +1667,68 @@ new RandomPresence[][] =
 
 new RandomMSG[][] =
 {
-	"Entre em nosso discord <-> Link: {FFFF00}https://discord.gg/QYpxa5SvNB",
-	"Creditos aos desenvolvedores no {FFFF00}/creditos.",
+	"Entre em nosso discord <-> Link: https://discord.gg/QYpxa5SvNB",
+	"Creditos aos desenvolvedores no /creditos.",
 	"Boas vindas a um dos melhores servidores inovadores!",
-	"Necessita de ajuda? Use {FFFF00}/ajuda {FFFFFF}para verificar os comandos.",
+	"Necessita de ajuda? Use /ajuda {FFFFFF}para verificar os comandos.",
 	"Seu dinheiro tem muito valor em nossa cidade, cuide bem dele.",
 	"Disfrute o maximo do nosso servidor!",
-	"Garanta seu vip em nosso servidor use {FFFF00}/lojavip",
-	"Encontre lugares importantes no {FFFF00}/gps",
-	"Para denunciar um jogador use {FFFF00}/report",
-	"Faca missoes no servidor use {FFFF00}/missoes",
-	"Para ver orgs disponiveis use {FFFF00}/orgs",
-	"Caso necesita de um atendimento use {FFFF00}/atendimento",
-	"Mude a forma de falar do seu voip utilizando {FFFF00}/mvoip"
+	"Garanta seu vip em nosso servidor use /lojavip",
+	"Encontre lugares importantes no /gps",
+	"Para denunciar um jogador use /report",
+	"Faca missoes no servidor use /missoes",
+	"Para ver orgs disponiveis use /orgs",
+	"Caso necesita de um atendimento use /atendimento",
+	"Mude a forma de falar do seu voip utilizando /mvoip"
 };
 
 //                          PUBLICS
+
+
+CreateLocPick(playerid)
+{
+	ApplyAnimation(playerid, "INT_HOUSE", "WASH_UP", 4.1, 1, 0, 0, 0, 2000, 1), LockLocation[playerid] = randomEx(243, 423), LockSize[playerid] = randomEx(2, 10), LockTimer[playerid] = SetTimerEx("LockpickTimer", 30, true, "i", playerid);
+	LockText[8] = CreatePlayerTextDraw(playerid, LockLocation[playerid], 385.0, "_"), PlayerTextDrawUseBox(playerid, LockText[8], 1);
+	PlayerTextDrawLetterSize(playerid, LockText[8], 0.5, 1.4), PlayerTextDrawTextSize(playerid, LockText[8], LockLocation[playerid]+LockSize[playerid], 71.0);
+	PlayerTextDrawFont(playerid, LockText[8], 1), PlayerTextDrawSetProportional(playerid, LockText[8], 1);
+	PlayerTextDrawBackgroundColor(playerid, LockText[8], 255), PlayerTextDrawBoxColor(playerid, LockText[8], -1094795521);
+	
+	LockText[9] = CreatePlayerTextDraw(playerid, 207.0, 385.0, "_"), PlayerTextDrawUseBox(playerid, LockText[9], 1);
+	PlayerTextDrawLetterSize(playerid, LockText[9], 0.5, 1.4), PlayerTextDrawTextSize(playerid, LockText[9], 207.0, 71.0);
+	PlayerTextDrawFont(playerid, LockText[9], 1), PlayerTextDrawSetProportional(playerid, LockText[9], 1);
+	PlayerTextDrawBackgroundColor(playerid, LockText[9], 255), PlayerTextDrawBoxColor(playerid, LockText[9], -5963521);
+
+	LockText[10] = CreatePlayerTextDraw(playerid, 315.0, 386.0, "Pressione (ESPACO) na barra para prosseguir"), PlayerTextDrawSetShadow(playerid, LockText[10], 0);
+	PlayerTextDrawBackgroundColor(playerid, LockText[10], 255), PlayerTextDrawLetterSize(playerid, LockText[10], 0.18, 1.0);
+	PlayerTextDrawFont(playerid, LockText[10], 2), PlayerTextDrawSetProportional(playerid, LockText[10], 1);
+	PlayerTextDrawAlignment(playerid, LockText[10], 2), PlayerTextDrawSetShadow(playerid, LockText[10], 0), PlayerTextDrawColor(playerid, LockText[10], -56);
+	return 1;
+}
+CallBack:: LockpickTimer(playerid)
+{
+	LockProgress = LockProgress+4, PlayerTextDrawTextSize(playerid, LockText[9], LockProgress, 71.0);
+	for(new i; i < 12; i++) { PlayerTextDrawShow(playerid, LockText[i]); }
+	if(LockCount[playerid] < 4 && LockProgress > 428.9) return PlayerTextDrawColor(playerid, LockText[LockCount[playerid]+2], 0xFF0000AA), DestroyLockPick(playerid), KillTimer(LockTimer[playerid]), LockCount[playerid]++, LockProgress = 207.0, CreateLocPick(playerid);
+	if(LockCount[playerid] == 4 && LockProgress > 428.9)
+	{
+		PlayerTextDrawColor(playerid, LockText[LockCount[playerid]+2], 0xFF0000AA), PlayerTextDrawShow(playerid, LockText[LockCount[playerid]+2]), SetTimerEx("DestroyLockPick", 2000, false, "i", playerid), KillTimer(LockTimer[playerid]);
+    	if(Correct[playerid] != 5) return SetVehicleParamsEx(VehicleLockedID[playerid], Engine[playerid], Lights[playerid], 1, DoorsLockPick[playerid], Bonnet[playerid], Boot[playerid], Objective[playerid]), SendClientMessage(playerid, -1, "A lockpick quebrou e acionou o alarme");
+		if(DoorsLockPick[playerid] == 0) return SetVehicleParamsEx(VehicleLockedID[playerid], Engine[playerid], Lights[playerid], Alarm[playerid], 1, Bonnet[playerid], Boot[playerid], Objective[playerid]), SendClientMessage(playerid, -1, "A lockpick quebrou!"), Correct[playerid] = 0;
+		SetVehicleParamsEx(VehicleLockedID[playerid], Engine[playerid], Lights[playerid], Alarm[playerid], 0, Bonnet[playerid], Boot[playerid], Objective[playerid]), SendClientMessage(playerid, -1, "O veiculo foi aberto!"), Correct[playerid] = 0;
+	}
+	return 1;
+}
+CallBack:: DestroyLockPick(playerid)
+{
+    PlayerTextDrawDestroy(playerid, LockText[8]), PlayerTextDrawDestroy(playerid, LockText[9]), PlayerTextDrawDestroy(playerid, LockText[10]);
+    if(LockCount[playerid] == 4)
+    {
+		PlayerTextDrawColor(playerid, LockText[2], 1768516095), PlayerTextDrawColor(playerid, LockText[3], 1768516095), PlayerTextDrawColor(playerid, LockText[4], 1768516095), PlayerTextDrawColor(playerid, LockText[5], 1768516095), PlayerTextDrawColor(playerid, LockText[6], 1768516095);
+		LockUse[playerid] = false, LockProgress = 207.0, Correct[playerid] = 0, LockCount[playerid] = 0;
+		for(new i; i < 12; i++) { PlayerTextDrawHide(playerid, LockText[i]); }
+	}
+	return 0;
+}
 
 CallBack::TimerAn()
 {
@@ -1691,6 +1745,37 @@ XP_::XP_Hide(playerid)
         PlayerTextDrawHide(playerid, XPTXD[playerid][i]);
     }
     PlayerPlaySound(playerid, 6402, 0.0, 0.0, 0.0);
+}
+
+Progresso:DesmancharVeh(playerid, progress)
+{
+	if(progress >= 100)
+	{
+		new vehicleidd = GetPlayerVehicleID(playerid);
+		new vehicleid = GetPVarInt(playerid, "DialogValue1");	
+		new value = VehicleValue[vehicleid]/3;
+		new a[255];
+		new noti = randomEx(0, 2);
+		format(a, 255, "Veiculo desmanchado com sucesso e ganhou %i de dinheiro sujo", value);
+		SuccesMsg(playerid, a);
+		new location[MAX_ZONE_NAME];
+		GetPlayer2DZone2(playerid, location, MAX_ZONE_NAME);
+		if(noti == 1)
+		{
+			foreach(Player, i)
+			{
+				if(Patrulha[i] == true)
+				{
+					format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo desmanchando um veiculo em %s", location);
+					notificacao(i, "COPOM", Str, "hud:radar_police");
+				}
+			}
+		}
+		GanharItem(playerid, 1212, value);
+		RemovePlayerFromVehicle(playerid);
+		DestroyVehicle(vehicleidd);
+		Controle(playerid, 1);
+	}
 }
 
 Progresso:RepararVeh(playerid, progress)
@@ -2752,17 +2837,31 @@ CallBack::CANIM(playerid){
 	return 1;
 }
 
-CallBack::Attplayer(playerid){
+CallBack::Attplayer(playerid)
+{
 	static str[300];
-	if(pJogando[playerid] == false && Falou[playerid] == false && Susurrou[playerid] == false && Gritou[playerid] == false){
+	if(pJogando[playerid] == false && Falou[playerid] == false && Susurrou[playerid] == false && Gritou[playerid] == false && PlayerMorto[playerid][pEstaMorto] == 1)
+	{
 		format(str,sizeof(str),"%s\n{FFFFFF}%04d",AdminCargo(playerid), PlayerInfo[playerid][IDF]);
-	}else if(Falou[playerid] == true){
+	}
+	else if(Falou[playerid] == true)
+	{
 		format(str,sizeof(str),"FALANDO\n{FFFFFF}%04d",PlayerInfo[playerid][IDF]);
-	}else if(Susurrou[playerid] == true){
+	}
+	else if(Susurrou[playerid] == true)
+	{
 		format(str,sizeof(str),"SUSURRANDO\n{FFFFFF}%04d",PlayerInfo[playerid][IDF]);
-	}else if(Gritou[playerid] == true){
+	}
+	else if(Gritou[playerid] == true)
+	{
 		format(str,sizeof(str),"GRITANDO\n{FFFFFF}%04d",PlayerInfo[playerid][IDF]);
-	}else{
+	}
+	else if(PlayerMorto[playerid][pEstaMorto] == 1)
+	{
+		format(str,sizeof(str),"{61050b}(FERIDO)\n{FFFFFF}%04d",PlayerInfo[playerid][IDF]);
+	}
+	else
+	{
 		format(str,sizeof(str),"{FFFFFF}%04d",PlayerInfo[playerid][IDF]);
 	}
 	SetPlayerChatBubble(playerid, str, 0xFFFF00FF, 30.0, 20000);
@@ -3305,9 +3404,13 @@ CallBack::SendMSG()
 		if(pLogado[i] == true)
 		{
 			LimparChat(i, 10);
-			SendClientMessage(i, -1, RandomMSG[random(sizeof(RandomMSG))]);
+			InfoMsg(i, RandomMSG[random(sizeof(RandomMSG))]);
 		}
 	}
+	RouboLoja1 = false;
+	RouboLoja2 = false;
+	RouboLoja3 = false;
+	RouboRestaurante = false;
 	return 1;
 }
 
@@ -3896,7 +3999,7 @@ CallBack::AttVeh(playerid)
 						{
 							if(PassouRadar[playerid] == 0)
 							{
-								if(Patrulha[playerid] == true)
+								if(Patrulha[playerid] == true || PlayerInfo[playerid][pVIP] == 2)
 								{
 									PassouRadar[playerid] = 1;
 									SetTimerEx("LiberarRadar", segundos(5), false, "d", playerid);
@@ -4289,11 +4392,57 @@ CallBack::RoubarCaixa(playerid, caixa_id)
 	CaixaInfo[caixa_id][Caixa_ObjectBomba] = CreateDynamicObject(1252, px, py, pz, 0.0, 0.0, rz);
 	SetTimerEx("ExplodirCaixa", 10000, 0, "d", caixa_id);
 
-	new sendername[MAX_PLAYER_NAME];
-	GetPlayerName(playerid,sendername,sizeof(sendername));
-
 	SuccesMsg(playerid, "Colocou uma bomba em um caixa, agora afasta-se.");
 	ClearAnimations(playerid, 1);
+	return 0;
+}
+
+Progresso:RoubarLoja(playerid, progress)
+{
+	if(progress >= 100)
+	{
+		if(PlayerToPoint(5.0, playerid, 376.622558, -117.278648, 1001.492187))
+		{
+			GanharItem(playerid, 1212, CofreRestaurante);
+			CofreRestaurante = 0;
+			SuccesMsg(playerid, "Roubo efetuado com sucesso.");
+			ClearAnimations(playerid, 1);
+			SetPlayerWantedLevel(playerid, GetPlayerWantedLevel(playerid)+3);
+			TogglePlayerControllable(playerid, 1);
+			RouboRestaurante = true;
+		}
+		if(PlayerToPoint(5.0, playerid, -2384.989013, -52.624767, 35.479652))
+		{
+			GanharItem(playerid, 1212, CofreLoja1);
+			CofreLoja1 = 0;
+			SuccesMsg(playerid, "Roubo efetuado com sucesso.");
+			ClearAnimations(playerid, 1);
+			SetPlayerWantedLevel(playerid, GetPlayerWantedLevel(playerid)+3);
+			TogglePlayerControllable(playerid, 1);
+			RouboLoja1 = true;
+		}
+		if(PlayerToPoint(5.0, playerid, -2447.547607, 1211.448730, 35.378131))
+		{
+			GanharItem(playerid, 1212, CofreLoja2);
+			CofreLoja2 = 0;
+			SuccesMsg(playerid, "Roubo efetuado com sucesso.");
+			ClearAnimations(playerid, 1);
+			SetPlayerWantedLevel(playerid, GetPlayerWantedLevel(playerid)+3);
+			TogglePlayerControllable(playerid, 1);
+			RouboLoja2 = true;
+		}
+		if(PlayerToPoint(5.0, playerid, -2076.633300, 643.822387, 52.524246))
+		{
+			GanharItem(playerid, 1212, CofreLoja3);
+			CofreLoja3 = 0;
+			SuccesMsg(playerid, "Roubo efetuado com sucesso.");
+			ClearAnimations(playerid, 1);
+			SetPlayerWantedLevel(playerid, GetPlayerWantedLevel(playerid)+3);
+			TogglePlayerControllable(playerid, 1);
+			RouboLoja3 = true;
+		}
+		SalvarDinRoubos();
+	}
 	return 0;
 }
 
@@ -4581,6 +4730,13 @@ CallBack::FomeBar(playerid)
 	{
 		GameTextForPlayer(playerid, " ~y~voce esta com fome", 3000, 3);
 	}
+	if(FomePlayer[playerid] > 1)
+	{
+		new Float:health;
+    	GetPlayerHealth(playerid,health);
+		SetPlayerHealth(playerid, health-fome);
+		FomePlayer[playerid] = 0;
+	}
 	return 1;
 }
 
@@ -4593,6 +4749,13 @@ CallBack::SedeBar(playerid)
 	if(SedePlayer[playerid] == 10 || SedePlayer[playerid] == 5)
 	{
 		GameTextForPlayer(playerid, "~y~voce esta com sede", 3000, 3);
+	}
+	if(SedePlayer[playerid] > 1)
+	{
+		new Float:health;
+    	GetPlayerHealth(playerid,health);
+		SetPlayerHealth(playerid, health-sede);
+		SedePlayer[playerid] = 0;
 	}
 	return 1;
 }
@@ -4752,34 +4915,6 @@ CallBack::SalvarInventario(playerid)
 	return 1;
 }
 
-stock SendClientMessageInRange(Float:_r, playerid, const _s[],c1,c2,c3,c4,c5)
-{
-	new Float:_x, Float:_y, Float:_z;
-	GetPlayerPos(playerid, _x, _y, _z);
-	foreach(Player, i)
-	{
-		if(!BigEar[i])
-		{
-			if(GetPlayerVirtualWorld(i) != GetPlayerVirtualWorld(playerid) && GetPlayerInterior(i) != GetPlayerInterior(playerid))continue;
-			if(GetPlayerDistanceFromPoint(i,_x,_y,_z) < _r/16)
-				SendClientMessage(i, c1, _s);
-			else if(GetPlayerDistanceFromPoint(i,_x,_y,_z) < _r/8)
-				SendClientMessage(i, c2, _s);
-			else if(GetPlayerDistanceFromPoint(i,_x,_y,_z) < _r/4)
-				SendClientMessage(i, c3, _s);
-			else if(GetPlayerDistanceFromPoint(i,_x,_y,_z) < _r/2)
-				SendClientMessage(i, c4, _s);
-			else if(GetPlayerDistanceFromPoint(i,_x,_y,_z) < _r)
-				SendClientMessage(i, c5, _s);
-		}
-		else
-		{
-			SendClientMessage(i, c1, _s);
-		}
-	}
-	return true;
-}
-
 CheckInventario(playerid, itemid)
 {
 	for(new i = 1; i < 33; ++i)
@@ -4809,7 +4944,7 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 	switch(itemid) 
 	{
 		case 19625: name = "Cigarro do K2";//Editavel
-		case 11746: name = "Chave";
+		case 11746: name = "LockPick";
 		case 3044: name = "Baseado";//Editavel
 		case 19039: name = "Relogio de Ouro";
 		case 19040: name = "Relogio de Prata";
@@ -5149,6 +5284,27 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 	new fomesede = randomEx(1,20);
 	switch(PlayerInventario[playerid][modelid][Slot])
 	{
+		case 11746:
+		{
+			new Float:VehX, Float:VehY, Float:VehZ, Count;
+			if(LockUse[playerid] == true) return ErrorMsg(playerid, "Voce ja esta usando a lockpick");
+			for(new i; i < MAX_VEHICLES; i++)
+			{
+				GetVehiclePos(i, VehX, VehY, VehZ);
+				if(IsPlayerInRangeOfPoint(playerid, 2.0, VehX, VehY, VehZ))
+				{
+					Count++, VehicleLockedID[playerid] = i;
+					if(Count == 1) break;
+				}
+			}
+			if(Count == 0) return ErrorMsg(playerid, "Nao tem nenhum veiculo proximo!");
+			cmd_inventario(playerid);
+			GetVehicleParamsEx(VehicleLockedID[playerid], Engine[playerid], Lights[playerid], Alarm[playerid], DoorsLockPick[playerid], Bonnet[playerid], Boot[playerid], Objective[playerid]), LockUse[playerid] = true, LockCount[playerid] = 0, CreateLocPick(playerid);
+			for(new i; i < 12; i++) 
+			{ 
+				PlayerTextDrawShow(playerid, LockText[i]); 
+			}
+		}
 		case 19921:
 		{
 			if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Voce nao esta em um veiculo!"); 
@@ -5428,12 +5584,12 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Voce nao esta em um veiculo!"); 
 
 				if(GetPlayerVehicleSeat(playerid) != 0)
-					return SendClientMessage(playerid,  0x27408BFF, "Nao esta dentro do veiculo.");
+					return ErrorMsg(playerid, "Nao esta dentro do veiculo.");
 
 				if(!GetVehicleModelEx(GetVehicleModel(GetPlayerVehicleID(playerid))))
-					return SendClientMessage(playerid,  0x27408BFF, "Este veiculo nao pode ser tunado.");
+					return ErrorMsg(playerid, "Este veiculo nao pode ser tunado.");
 				if(wTuning[playerid] == true)
-					return SendClientMessage(playerid,  0x27408BFF, "Ja esta tunando.");
+					return ErrorMsg(playerid, "Ja esta tunando.");
 
 				static
 					nome_veiculo[40]
@@ -5443,7 +5599,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				format(nome_veiculo, sizeof(nome_veiculo), "veiculo: %s", VehicleNames[GetVehicleModel(GetPlayerVehicleID(playerid)) - 400]);
 				PlayerTextDrawSetString(playerid, PlayerText:wMenu[0], nome_veiculo);
 
-				SendClientMessage(playerid,  0x27408BFF, "Tunando Veiculo.");
+				SuccesMsg(playerid, "Tunando Veiculo.");
 
 				for(new i; i < sizeof(wBase); i++) { TextDrawShowForPlayer(playerid, Text:wBase[i]); }
 				for(new i; i < sizeof(wMenu); i++) { PlayerTextDrawShow(playerid, PlayerText:wMenu[i]); }
@@ -5608,6 +5764,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(!(caixa_id=GetPlayerCaixa(playerid)))return ErrorMsg(playerid, "Nao esta proximo de um caixa.");
 			if(CaixaInfo[caixa_id][Caixa_Roubada])return ErrorMsg(playerid, "Este caixa ja foi roubado.");
 			if(TendoRoubo)return ErrorMsg(playerid, "Ja roubaram a pouco tempo.");
+			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
 			cmd_inventario(playerid);
 			
 			new
@@ -5640,13 +5797,19 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 
 			new location[MAX_ZONE_NAME];
 			GetPlayer2DZone2(playerid, location, MAX_ZONE_NAME);
+			new noti = randomEx(0, 2);
+			if(noti == 1)
+			{
+				foreach(Player, i)
+				{
+					if(Patrulha[i] == true)
+					{
+						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar um caixa em %s", location);
+						notificacao(i, "COPOM", Str, "hud:radar_police");
+					}
+				}
+			}
 
-			new string[800];
-			format(string, sizeof string, "{FFFF00}Reportagem {FFFFFF}estao tentando explodir um caixa nas localidade de {FFFF00}%s", location);
-			SendClientMessageToAll(-1, string);
-
-			new sendername[MAX_PLAYER_NAME];
-			GetPlayerName(playerid,sendername,sizeof(sendername));
 			InfoMsg(playerid, "Voce esta colocando um explosivo.");
 			return 1;
 		}
@@ -11034,6 +11197,11 @@ stock NpcText()
 
 	CreateAurea("{FFFF00}Rota de Maconha\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -1143.184814, 2227.874511, 97.219261);
 	CreateAurea("{FFFF00}Rota de Cocaina\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -248.257873, 1506.404418, 75.562500);
+
+	CreateAurea("{FFFF00}Loja Utilidades 1\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", -2383.375244, -52.679763, 35.479598);
+	CreateAurea("{FFFF00}Loja Utilidades 2\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", -2448.484863, 1210.270751, 35.378089);
+	CreateAurea("{FFFF00}Loja Utilidades 3\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", -2076.633300, 643.822387, 52.524246);
+	CreateAurea("{FFFF00}Pizzaria\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", 376.622558, -117.278648, 1001.492187);
 	printf("=> Textos       		: Carregados");
 	return 1;
 }
@@ -11065,8 +11233,12 @@ stock BanirPlayer(playerid, administrador, Motivo1[])
 	DOF2_SetString(File, "Desban", "Nunca");
 	DOF2_SetInt(File, "DDesban", gettime() + 60 * 60 * 24 * 999);
 	DOF2_SaveFile();
-	format(Str, sizeof(Str), "{FFFF00}AVISO{FFFFFF} O Administrador {FFFF00}%s {FFFFFF}baniu o jogador {FFFF00}%s. {FFFFFF}Motivo: {FFFF00}%s", Name(playerid), Name(administrador), Motivo1);
-	SendClientMessageToAll(VermelhoEscuro, Str);
+	foreach(Player, i)
+	{
+		format(Str, sizeof(Str), "O Administrador %s(%d) baniu o jogador %s(%d). Motivo: %s", Name(playerid),PlayerInfo[playerid][IDF], Name(administrador),PlayerInfo[administrador][IDF], Motivo1);
+		WarningMsg(i, Str);
+	}
+	
 	Log("Logs/Banir.ini", Str);
 	Kick(playerid);
 	return 1;
@@ -11208,8 +11380,12 @@ stock BanirIP(playerid, administrador, Motivo1[])
 	DOF2_SetString(File, "Motivo", Motivo1);
 	DOF2_SetString(File, "Data", Data);
 	DOF2_SaveFile();
-	format(Str, sizeof(Str), "{FFFF00}AVISO{FFFFFF} O Administrador {FFFF00}%s {FFFFFF}baniu o jogador {FFFF00}%s{FFFFFF}. Motivo: {FFFF00}%s", Name(playerid), Name(administrador), Motivo1);
-	SendClientMessageToAll(VermelhoEscuro, Str);
+	foreach(Player, i)
+	{
+		format(Str, sizeof(Str), "O Administrador %s(%d) baniu o jogador %s(%d). Motivo: %s", Name(playerid),PlayerInfo[playerid][IDF], Name(administrador),PlayerInfo[administrador][IDF], Motivo1);
+		WarningMsg(i, Str);
+	}
+	
 	Log("Logs/BanirIP.ini", Str);
 	Kick(playerid);
 	return 1;
@@ -11345,8 +11521,7 @@ stock ZerarDados(playerid)
 	InventarioAberto[playerid] = 0;
 	SetPlayerColor(playerid, 0xFFFFFFFF);
 	SetPlayerSkillLevel(playerid,WEAPONSKILL_PISTOL,200);
-	SetPlayerSkillLevel(playerid,WEAPONSKILL_MICRO_UZI,200);
-	SetPlayerSkillLevel(playerid,WEAPONSKILL_SNIPERRIFLE,200);
+    SetPlayerSkillLevel(playerid,WEAPONSKILL_MICRO_UZI,200);
 	for(new i=0;i<6;i++){
 		Preview[playerid][i] = 0;
 	}
@@ -11798,6 +11973,7 @@ public OnGameModeInit()
 	print("=======================================================================");
 	printf(" ");
 	AntiDeAMX();
+	DisableCrashDetectLongCall();
 	NpcText();
 	ORGCarrega();
 	CarregarMapIcons();
@@ -12029,6 +12205,44 @@ public OnPlayerRequestClass(playerid, classid)
 
 public OnPlayerConnect(playerid)
 {	
+	LockText[0] = CreatePlayerTextDraw(playerid, 320.0, 360.0, "_"), PlayerTextDrawUseBox(playerid, LockText[0], 1);
+	PlayerTextDrawLetterSize(playerid, LockText[0], 0.5, 5.599999), PlayerTextDrawTextSize(playerid, LockText[0], 20.0, 240.0);
+	PlayerTextDrawFont(playerid, LockText[0], 1), PlayerTextDrawSetProportional(playerid, LockText[0], 1), PlayerTextDrawAlignment(playerid, LockText[0], 2);
+	PlayerTextDrawBackgroundColor(playerid, LockText[0], -65281), PlayerTextDrawBoxColor(playerid, LockText[0], 150);
+
+	LockText[1] = CreatePlayerTextDraw(playerid, 205.0, 365.0, "NECESSARIOS: 5"), PlayerTextDrawSetShadow(playerid, LockText[1], 0);
+	PlayerTextDrawBackgroundColor(playerid, LockText[1], 255), PlayerTextDrawLetterSize(playerid, LockText[1], 0.2, 1.2);
+	PlayerTextDrawFont(playerid, LockText[1], 2), PlayerTextDrawSetProportional(playerid, LockText[1], 1);
+
+	LockText[2] = CreatePlayerTextDraw(playerid, 361.0, 364.0, "LD_BEAT:CHIT"), PlayerTextDrawUseBox(playerid, LockText[2], 1);
+	PlayerTextDrawFont(playerid, LockText[2], 4), PlayerTextDrawSetProportional(playerid, LockText[2], 1);
+	PlayerTextDrawLetterSize(playerid, LockText[2], 0.4, -2.0), PlayerTextDrawTextSize(playerid, LockText[2], 15.0, 15.0);
+
+	LockText[3] = CreatePlayerTextDraw(playerid, 375.0, 364.0, "LD_BEAT:CHIT"), PlayerTextDrawUseBox(playerid, LockText[3], 1);
+	PlayerTextDrawFont(playerid, LockText[3], 4), PlayerTextDrawSetProportional(playerid, LockText[3], 1);
+	PlayerTextDrawLetterSize(playerid, LockText[3], 0.4, -2.0), PlayerTextDrawTextSize(playerid, LockText[3], 15.0, 15.0);
+
+	LockText[4] = CreatePlayerTextDraw(playerid, 389.0, 364.0, "LD_BEAT:CHIT"), PlayerTextDrawUseBox(playerid, LockText[4], 1);
+	PlayerTextDrawFont(playerid, LockText[4], 4), PlayerTextDrawSetProportional(playerid, LockText[4], 1);
+	PlayerTextDrawLetterSize(playerid, LockText[4], 0.4, -2.0), PlayerTextDrawTextSize(playerid, LockText[4], 15.0, 15.0);
+
+	LockText[5] = CreatePlayerTextDraw(playerid, 403.0, 364.0, "LD_BEAT:CHIT"), PlayerTextDrawUseBox(playerid, LockText[5], 1);
+	PlayerTextDrawFont(playerid, LockText[5], 4), PlayerTextDrawSetProportional(playerid, LockText[5], 1);
+	PlayerTextDrawLetterSize(playerid, LockText[5], 0.4, -2.0), PlayerTextDrawTextSize(playerid, LockText[5], 15.0, 15.0);
+
+	LockText[6] = CreatePlayerTextDraw(playerid, 417.0, 364.0, "LD_BEAT:CHIT"), PlayerTextDrawUseBox(playerid, LockText[6], 1);
+	PlayerTextDrawFont(playerid, LockText[6], 4), PlayerTextDrawSetProportional(playerid, LockText[6], 1);
+	PlayerTextDrawLetterSize(playerid, LockText[6], 0.4, -2.0), PlayerTextDrawTextSize(playerid, LockText[6], 15.0, 15.0);
+
+	LockText[7] = CreatePlayerTextDraw(playerid, 318.0, 385.0, "_"), PlayerTextDrawUseBox(playerid, LockText[7], 1);
+	PlayerTextDrawLetterSize(playerid, LockText[7], 0.5, 1.4), PlayerTextDrawTextSize(playerid, LockText[7], 0.0, -229.0);
+	PlayerTextDrawFont(playerid, LockText[7], 1), PlayerTextDrawSetProportional(playerid, LockText[7], 1), PlayerTextDrawAlignment(playerid, LockText[7], 2);
+	PlayerTextDrawBackgroundColor(playerid, LockText[7], 255), PlayerTextDrawBoxColor(playerid, LockText[7], 1768516095);
+
+	LockText[11] = CreatePlayerTextDraw(playerid, 320.0, 414.0, "_"), PlayerTextDrawUseBox(playerid, LockText[11], 1);
+	PlayerTextDrawLetterSize(playerid, LockText[11], 0.5, -0.1), PlayerTextDrawTextSize(playerid, LockText[11], 20.0, 240.0);
+	PlayerTextDrawFont(playerid, LockText[11], 1), PlayerTextDrawSetProportional(playerid, LockText[11], 1), PlayerTextDrawAlignment(playerid, LockText[11], 2);
+	PlayerTextDrawBackgroundColor(playerid, LockText[11], -65281), PlayerTextDrawBoxColor(playerid, LockText[11], -5963521);
 	SetPlayerCameraPos(playerid, 1981.038940, 1191.061401, 27.828259); 
 	SetPlayerCameraLookAt(playerid, 1985.139648, 1195.111572, 27.636171);
 	todastextdraw(playerid);
@@ -12045,7 +12259,6 @@ public OnPlayerConnect(playerid)
  		lstream[playerid] = SvCreateDLStreamAtPlayer(15.0, SV_INFINITY, playerid, 0xff0000ff, "L");
 		Susurrandos[playerid] = SvCreateDLStreamAtPlayer(5.0, SV_INFINITY, playerid, 0xff0000ff, "L");
 		Gritandos[playerid] = SvCreateDLStreamAtPlayer(30.0, SV_INFINITY, playerid, 0xff0000ff, "L");
-  		SendClientMessage(playerid, -1, "SAMPVOICE carregado");
 		if (gstream) SvAttachListenerToStream(gstream, playerid);
 		SvAddKey(playerid, 0x42);//Z
 		SvAddKey(playerid, 0x5A);//B
@@ -12073,7 +12286,6 @@ public OnPlayerDisconnect(playerid, reason)
 		SalvarMortos(playerid);
 		SalvarMissoes(playerid);
 		SalvarInventario(playerid);
-		SalvarArmas(playerid);
 		SalvarAvaliacao(playerid);
 		DestroyVehicle(VeiculoCivil[playerid]);
 		KillTimer(TimerFomebar[playerid]);
@@ -12085,6 +12297,14 @@ public OnPlayerDisconnect(playerid, reason)
 		KillTimer(TimerPayDay[playerid]);
 		KillTimer(TimerAttVeh[playerid]);
 		KillTimer(TimerHacker[playerid]);
+		if(Patrulha[playerid] == true) 
+		{
+			policiaon --;
+		}
+		else
+		{
+			SalvarArmas(playerid);
+		}
 	}
 	if(IniciouTesteHabilitacaoA[playerid] == 1)
 	{
@@ -12160,10 +12380,6 @@ public OnPlayerDisconnect(playerid, reason)
 	for(new t; t < 60; t++)
 	{
 	    PlayerTextDrawDestroy(playerid, VeloC[playerid][t]);
-	}
-	for(new i = 0; i < 2; i++)
-	{
-		TextDrawHideForPlayer(playerid, Logo[i]);
 	}
 	for(new i = 0; i < 7; i ++)
 	{
@@ -12301,6 +12517,13 @@ public OnVehicleDeath(vehicleid, killerid)
 }
 
 public OnVehicleDamageStatusUpdate(vehicleid, playerid){
+	new Float:hp;
+    new carid = GetPlayerVehicleID(playerid);
+    GetVehicleHealth(carid, hp);
+    if (hp <= 300)
+    {
+        SetVehicleHealth(carid, 290.0);// Veiculos nao explodir
+    }
 	if(TemCinto[playerid] == false && !IsABike(GetPlayerVehicleID(playerid)) && !IsABoat(GetPlayerVehicleID(playerid))){
 		new Float:PosP[4], Float:HV,damageveh[MAX_PLAYERS];
 		GetPlayerPos(playerid, PosP[0], PosP[1], PosP[2]);
@@ -12362,9 +12585,9 @@ public OnPlayerText(playerid, text[])
 	UltimaFala[playerid] = gettime();
 	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Nao esta conectado");
 	{
-		new string[128];
-		format(string, sizeof(string), "{FFFF00}%04d{FFFFFF} falou {FFFF00}%s",PlayerInfo[playerid][IDF],text);
-		ProxDetector(30.0, playerid, string, -1, -1, -1, -1, -1);
+		static string[148];
+		format(string, sizeof string, "%04d\n%s", PlayerInfo[playerid][IDF], text);
+		SetPlayerChatBubble(playerid, string, -1, 30.0, 10000);
 
 		format(string,sizeof(string),"%04d falou %s", PlayerInfo[playerid][IDF],text);
 		DCC_SendChannelMessage(Chat, string);
@@ -12389,29 +12612,16 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			InfoMsg(playerid, msg);
 		}
 	}
-	if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-	{
-		new IdVeiculo = GetPlayerVehicleID(playerid);
-		if(GetVehicleModel(IdVeiculo) != 481)
-		{
-			new motor, luzes, alarmev, portas, capo, mala, objective;
-			GetVehicleParamsEx(vehicleid, motor, luzes, alarmev, portas, capo, mala, objective);
-			SetVehicleParamsEx(vehicleid, false, luzes,alarmev, portas, capo, mala, objective);
-			MotorOn[playerid] = 0;
-		}
-	}
 	return 1;
 }
 
 public OnPlayerExitVehicle(playerid, vehicleid)
 {
-	if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-	{
-		new motor, luzes, alarmev, portas, capo, mala, objective;
-		GetVehicleParamsEx(vehicleid, motor, luzes, alarmev, portas, capo, mala, objective);
-		SetVehicleParamsEx(vehicleid, false, false,alarmev, portas, capo, mala, objective);
-		MotorOn[playerid] = 0;
-	}
+	new engine, lights, alarm, doors, bonnet, boot, objective;
+	GetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet, boot, objective);
+	if(engine == 1) { engine = 0; lights = 0; }
+	else { engine = 1; lights = 1; }
+	SetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet, boot, objective);
 	if(IniciouTesteHabilitacaoA[playerid] == 1)
 	{
 		if(IsPlayerInVehicle(playerid, AutoEscolaMoto[playerid]))
@@ -12523,6 +12733,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 
 public OnPlayerCommandReceived(playerid, cmdtext[])
 {
+	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Voce nao esta logado.");
 	return 1;
 }
 
@@ -13884,6 +14095,36 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
 	new String[128], Float:PozX, Float:PozY, Float:PozZ;
+	if(newkeys == KEY_SPRINT)
+    {
+        if(LockUse[playerid] == true)
+        {
+            if(LockProgress < LockLocation[playerid]-(LockSize[playerid]+1) || LockProgress > LockLocation[playerid]+(LockSize[playerid]+2))
+			{
+			    PlayerTextDrawColor(playerid, LockText[LockCount[playerid]+2], 0xFF0000AA);
+				if(LockCount[playerid] < 4) return DestroyLockPick(playerid), KillTimer(LockTimer[playerid]), LockCount[playerid]++, LockProgress = 207.0, CreateLocPick(playerid);
+                if(LockCount[playerid] == 4)
+				{
+					PlayerTextDrawShow(playerid, LockText[LockCount[playerid]+2]), SetTimerEx("DestroyLockPick", 2000, false, "i", playerid), KillTimer(LockTimer[playerid]);
+					if(Correct[playerid] != 5) return SetVehicleParamsEx(VehicleLockedID[playerid], Engine[playerid], Lights[playerid], 1, DoorsLockPick[playerid], Bonnet[playerid], Boot[playerid], Objective[playerid]), SendClientMessage(playerid, -1, "Você não conseguiu acertar a lockpick e acionou o alarme!");
+					if(DoorsLockPick[playerid] == 0) return SetVehicleParamsEx(VehicleLockedID[playerid], Engine[playerid], Lights[playerid], Alarm[playerid], 1, Bonnet[playerid], Boot[playerid], Objective[playerid]), SendClientMessage(playerid, -1, "O veiculo foi trancado!");
+					SetVehicleParamsEx(VehicleLockedID[playerid], Engine[playerid], Lights[playerid], Alarm[playerid], 0, Bonnet[playerid], Boot[playerid], Objective[playerid]), SendClientMessage(playerid, -1, "O veiculo foi aberto!");
+				}
+			}
+			else
+			{
+				PlayerTextDrawColor(playerid, LockText[LockCount[playerid]+2], 0x00FF00AA), Correct[playerid]++;
+                if(LockCount[playerid] < 4) return DestroyLockPick(playerid), KillTimer(LockTimer[playerid]), LockCount[playerid]++, LockProgress = 207.0, CreateLocPick(playerid);
+                if(LockCount[playerid] == 4)
+				{
+					PlayerTextDrawShow(playerid, LockText[LockCount[playerid]+2]), SetTimerEx("DestroyLockPick", 2000, false, "i", playerid), KillTimer(LockTimer[playerid]);
+					if(Correct[playerid] != 5) return SetVehicleParamsEx(VehicleLockedID[playerid], Engine[playerid], Lights[playerid], 1, DoorsLockPick[playerid], Bonnet[playerid], Boot[playerid], Objective[playerid]), SendClientMessage(playerid, -1, "Você não conseguiu acertar a lockpick e acionou o alarme!");
+					if(DoorsLockPick[playerid] == 0) return SetVehicleParamsEx(VehicleLockedID[playerid], Engine[playerid], Lights[playerid], Alarm[playerid], 1, Bonnet[playerid], Boot[playerid], Objective[playerid]), SendClientMessage(playerid, -1, "O veiculo foi trancado!");
+					SetVehicleParamsEx(VehicleLockedID[playerid], Engine[playerid], Lights[playerid], Alarm[playerid], 0, Bonnet[playerid], Boot[playerid], Objective[playerid]), SendClientMessage(playerid, -1, "O veiculo foi aberto!");
+				}
+			}
+		}
+	}
 	if(newkeys & KEY_FIRE && newkeys & KEY_HANDBRAKE) 
 	{
 	    if(RecentlyShot[playerid] == 0) 
@@ -13902,6 +14143,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
  	}
 	if(newkeys == KEY_CTRL_BACK)
 	{
+		cmd_roubar(playerid);
 		new Inv[5000], Nick[5000], orgid = GetPlayerOrg(playerid);
 		if(IsPlayerInRangeOfPoint(playerid, 10.0, CofreInfo[orgid][CofrePosX], CofreInfo[orgid][CofrePosY], CofreInfo[orgid][CofrePosZ]))
 		{
@@ -14014,7 +14256,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
 			}
 		}
-		else if(PlayerToPoint(3.0, playerid, -1574.971923, 718.538818, -5.242187))
+		else if(PlayerToPoint(3.0, playerid, -2033.141479, -988.619567, 32.212158))
 		{
 			if(PlayerInfo[playerid][Org] != 1)    		return ErrorMsg(playerid, "Nao possui permissao.");
 			ShowPlayerDialog(playerid, DIALOG_VEHCORP1, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}SwatVan\t{FF0000}601\n{FF0000}- {FFFFFF}CopBike\t{FF0000}523", "Selecionar", "X");
@@ -14435,7 +14677,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 514.767089, -2334.465820, 508.693756))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_LIST,"Loja Ilegal", "{FFFF00}- {FFFFFF}Dinamite\t{32CD32}R$25000\n{FFFF00}- {FFFFFF}Sementes de Maconha\t{32CD32}R$1000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_LIST,"Loja Ilegal", "{FFFF00}- {FFFFFF}Dinamite\t{32CD32}R$25000\n{FFFF00}- {FFFFFF}Sementes de Maconha\t{32CD32}R$1000\n{FFFF00}- {FFFFFF}LockPick\t{32CD32}R$15000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 1462.576904, 1407.553588, 14.206275) || PlayerToPoint(3.0, playerid, 1462.577392, 1405.711914, 14.206276) || PlayerToPoint(3.0, playerid,  1462.576660, 1403.018798, 14.206276) || PlayerToPoint(3.0, playerid, 1462.576660, 1400.825683, 14.206275))
 		{
@@ -14857,10 +15099,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						TextDrawShowForPlayer(playerid, HudServer[i]);
 					}
-					for(new i = 0; i < 2; i ++)
-					{
-						TextDrawShowForPlayer(playerid, Logo[i]);
-					}
 					if(DOF2_FileExists(Account))
     	            {
 						format(PlayerInfo[playerid][pLastLogin], 24, DOF2_GetString(Account, "pLastLogin"));
@@ -14991,10 +15229,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 					}else{
 						ShowPlayerDialog(playerid, DIALOG_EMAIL, DIALOG_STYLE_INPUT, "{FFFFFF}Email", "\n{FFFFFF}Digite seu email para seguir para o proximo passo do cadastro\n{FF0000}Voce deve colocar o email corretamente.", "Validar", "");
-						SendClientMessage(playerid, 0xFF0000FF, "Voce deve colocar um email valido");
+						ErrorMsg(playerid, "Voce deve colocar um email valido");
 					}
 				}else{
-					SendClientMessage(playerid, 0xFF0000FF, "Voce deve colocar um email valido");
+					ErrorMsg(playerid, "Voce deve colocar um email valido");
 					ShowPlayerDialog(playerid, DIALOG_EMAIL, DIALOG_STYLE_INPUT, "{FFFFFF}Email", "\n{FFFFFF}Digite seu email para seguir para o proximo passo do cadastro\n{FF0000}Voce deve colocar o email corretamente.", "Validar", "");
 				}
 			}else{
@@ -15008,65 +15246,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			SpawnPlayer(playerid);
 			if(response) SpawnPos[playerid] = true;
 			else SpawnPos[playerid] = false;
-		}
-		case DIALOG_BANCO:
-		{
-			if(response)
-			{
-				if(listitem == 0)/*[Depositar]*/
-				{
-					format(Str, sizeof(Str), "Saldo Bancario: {FFFFFF}R${32CD32}%i\n\n{FFFFFF}Quanto quer depositar?",PlayerInfo[playerid][pBanco]);
-					ShowPlayerDialog(playerid,DIALOG_BANCO1,1,"Depositar", Str, "Selecionar","X");
-				}
-				if(listitem == 1)/*[Sacar]*/
-				{
-					format(Str, sizeof(Str), "Saldo Bancario: {FFFFFF}R${32CD32}%i\n\n{FFFFFF}Quanto quer retirar?",PlayerInfo[playerid][pBanco]);
-					ShowPlayerDialog(playerid,DIALOG_BANCO2,1,"Sacar", Str, "Selecionar","X");
-				}
-				if(listitem == 2)/*[Saldo Banco]*/
-				{
-					format(Str, sizeof(Str),"Saldo Bancario: {FFFFFF}R${32CD32}%i",PlayerInfo[playerid][pBanco]);
-					ShowPlayerDialog(playerid,DIALOG_BANCO3,0,"Saldo Banco", Str, "X",#);
-				}
-				if(listitem == 3)/*[Transferir]*/
-				{
-					format(Str, sizeof(Str),"Introduza o ID para transferir o dinheiro",PlayerInfo[playerid][pBanco]);
-					ShowPlayerDialog(playerid,DIALOG_BANCO4,1,"Transferir", Str, "Selecionar","X");
-				}
-			}
-		}
-		case DIALOG_BANCO1:
-		{
-			if(response)
-			{
-				/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-				if(!IsNumeric(inputtext)) return ErrorMsg(playerid, "Somente numeros");
-				if(strlen(inputtext) > 7) return ErrorMsg(playerid, "Valor invalido.");
-				if(PlayerInfo[playerid][pDinheiro] < strval(inputtext)) return ErrorMsg(playerid, "Nao pode mas do que nao possui.");
-				/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-				PlayerInfo[playerid][pBanco] += strval(inputtext);
-				PlayerInfo[playerid][pDinheiro] -= strval(inputtext);
-			}
-		}
-		case DIALOG_BANCO2:
-		{
-			if(response)
-			{
-				/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-				if(!IsNumeric(inputtext)) return ErrorMsg(playerid, "Somente numeros");
-				if(strlen(inputtext) > 7) return ErrorMsg(playerid, "Valor invalido.");
-				if(PlayerInfo[playerid][pBanco] < strval(inputtext)) return ErrorMsg(playerid, "Nao pode retirar mas do que possui.");
-				/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-				PlayerInfo[playerid][pDinheiro] += strval(inputtext);
-				PlayerInfo[playerid][pBanco] -= strval(inputtext);
-			}
-		}
-		case DIALOG_BANCO3:
-		{
-			if(response)
-			{
-				ShowPlayerDialog(playerid,DIALOG_BANCO,DIALOG_STYLE_LIST,"Banco Central","{FFFF00}- {FFFFFF}Depositar Dinheiro\n{FFFF00}- {FFFFFF}Sacar Dinheiro\n{FFFF00}- {FFFFFF}Saldo Bancario\n{FFFF00}- {FFFFFF}Transferir Dinheiro","Selecionar","X");
-			}
 		}
 		case DIALOG_BANCO4:
 		{
@@ -15419,9 +15598,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						strcat(stg, "{FFFF00}/ab{FFFFFF} Anuncia o embarque de um jogador.\n");
 						strcat(stg, "{FFFF00}/su{FFFFFF} Coloque nivel de procurado.\n");
 						strcat(stg, "{FFFF00}/revistar{FFFFFF} Verificar o inventario de um jogador.\n");
-						strcat(stg, "{FFFF00}/patrulhar{FFFFFF} Informe de uma patrulha na cidade.\n");
 						strcat(stg, "{FFFF00}/rarmas{FFFFFF} Remover armas de um jogador.\n");
-						strcat(stg, "{FFFF00}/lprocurados{FFFFFF} Localize um jogador procurado.\n");
 						strcat(stg, "{FFFF00}/procurados{FFFFFF} Todos os jogadores pesquisados.\n");
 						strcat(stg, "{FFFF00}/multar{FFFFFF} Colocar uma multa em um jogador.\n");
 						strcat(stg, "{FFFF00}/qplantacao{FFFFFF} Queimar uma plantacao de maconha.\n");
@@ -15918,12 +16095,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(response)
 			{
-				new String[500];
 				if(listitem == 0)
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}SULTAN{FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF]);
-					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 560, 1);
 					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
@@ -15938,8 +16112,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 1)
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}HOTKNIFE{FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF]);
-					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 434, 1);
 					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
@@ -15954,8 +16126,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 2)
 				{
 					if(PlayerInfo[playerid][pCoins] < 2000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}RC BANDIT{FFFFFF} por{FFFF00} BC$2.000", PlayerInfo[playerid][IDF]);
-					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 441, 1);
 					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
@@ -15970,8 +16140,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 3)
 				{
 					if(PlayerInfo[playerid][pCoins] < 2000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}RC BARON{FFFFFF} por{FFFF00} BC$2.000", PlayerInfo[playerid][IDF]);
-					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 464, 1);
 					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
@@ -15986,8 +16154,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 4)
 				{
 					if(PlayerInfo[playerid][pCoins] < 2000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}RC RAIDER{FFFFFF} por{FFFF00} BC$2.000", PlayerInfo[playerid][IDF]);
-					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 465, 1);
 					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
@@ -16002,8 +16168,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 5)
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}HOTRING{FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF]);
-					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 502, 1);
 					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
@@ -16018,8 +16182,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 6)
 				{
 					if(PlayerInfo[playerid][pCoins] < 2000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}RC GOBLIN{FFFFFF} por{FFFF00} BC$2.000", PlayerInfo[playerid][IDF]);
-					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 501, 1);
 					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
@@ -16034,8 +16196,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 7)
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}MONSTER{FFFFFF} por{FFFF00} BC$5.000", PlayerInfo[playerid][IDF]);
-					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 556, 1);
 					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
@@ -16053,12 +16213,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(response)
 			{
-				new String[500], string[500];
+				new string[255];
 				if(listitem == 0)
 				{
 					if(PlayerInfo[playerid][pCoins] < 10000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}VIP BASICO {FFFFFF} por{FFFF00} BC$10.000", PlayerInfo[playerid][IDF]);
-					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pCoins] -= 10000;
 					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
 					PlayerInfo[playerid][pVIP] = 1;
@@ -16076,8 +16234,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 1)
 				{
 					if(PlayerInfo[playerid][pCoins] < 25000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					format(String, sizeof(String), "{FFFF00}[SERVER]: {FFFFFF}%04d{FFFFFF} compro  {0080FF}VIP PREMIUM {FFFFFF} por{FFFF00} BC$25.000", PlayerInfo[playerid][IDF]);
-					SendClientMessageToAll(-1, String);
 					PlayerInfo[playerid][pBanco] += 23000;
 					PlayerInfo[playerid][pCoins] -= 25000;
 					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
@@ -16338,7 +16494,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								{
 									if(PlayerMorto[i][pMinMorto] == 0)
 									{
-										SendClientMessage(playerid, -1, "Esse jogador nao esta inconsciente!");
+										ErrorMsg(playerid, "Esse jogador nao esta inconsciente!");
 										return 1;
 									}
 								}
@@ -16745,6 +16901,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pDinheiro] -= 1000;
 					GanharItem(playerid, 3520, 1);
 				}
+				if(listitem == 1)
+				{
+					if(PlayerInfo[playerid][pDinheiro] < 15000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Compro uma lockpick.");
+					PlayerInfo[playerid][pDinheiro] -= 15000;
+					GanharItem(playerid, 11746, 1);
+				}
 			}
 		}
 		case DIALOG_LMARIHUANA:
@@ -16847,10 +17010,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								GetPlayer2DZone2(playerid, location, MAX_ZONE_NAME);
 
 								format(File, sizeof(File), PASTA_CONTAS, CasaInfo[i][CasaDono]);
-
-								format(gstring, sizeof(gstring), "| IMOBILIARIA |{FFFFFF} O jogador {FFFF00}%04d{FFFFFF} comprou uma casa em {FFFF00}%s {FFFFFF}valor de {FFFF00}R$%d.", PlayerInfo[playerid][IDF],location, CasaInfo[i][CasaValor]);
-								SendClientMessageToAll(COR_GREY, gstring);
-
 								format(gstring, sizeof(gstring), "Compro casa id %d e pagou R$%d.", CasaInfo[i][CasaId], CasaInfo[i][CasaValor]);
 								SuccesMsg(playerid, gstring);
 
@@ -17918,6 +18077,20 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 
 public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 {
+	if(pLogado[clickedplayerid] == true)
+	{
+		if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
+		new megastrings[500], String2[500];
+		format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s{FFFFFF}({FFFF00}%d{FFFFFF})\n{FFFFFF}VIP: {FFFF00}%s\n{FFFFFF}Dinheiro: {FFFF00}%s\n{FFFFFF}Banco: {FFFF00}%s\n", Name(clickedplayerid),PlayerInfo[clickedplayerid][IDF], VIP(clickedplayerid),ConvertMoney(PlayerInfo[clickedplayerid][pDinheiro]),ConvertMoney(PlayerInfo[clickedplayerid][pBanco]));
+		strcat(megastrings, String2);
+		format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\n{FFFFFF}Org:{FFFF00} %s\n{FFFFFF}Cargo:{FFFF00} %s\n", Profs(clickedplayerid), NomeOrg(clickedplayerid), NomeCargo(clickedplayerid));
+		strcat(megastrings, String2);
+		format(String2,sizeof(String2), "{FFFFFF}Multas:{FFFF00} %d\n{FFFFFF}N�Casa:{FFFF00} %d\n", PlayerInfo[clickedplayerid][pMultas], PlayerInfo[clickedplayerid][Casa]);
+		strcat(megastrings, String2);
+		format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{FFFF00} %s\n{FFFFFF}Expira VIP:{FFFF00} %s\n{FFFFFF}Licenca Conduzir: {FFFF00}%s", convertNumber(PlayerInfo[clickedplayerid][pSegundosJogados]), convertNumber(PlayerInfo[clickedplayerid][ExpiraVIP]-gettime()), temlicenca(clickedplayerid));
+		strcat(megastrings, String2);
+		ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
+	}
 	return 1;
 }
 
@@ -17937,6 +18110,11 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 {
 	new str[64], File[255];
 	new wVeiculo = GetPlayerVehicleID(playerid);
+	if(playertextid == BancoTD[playerid][8])
+	{
+		format(Str, sizeof(Str),"Introduza o IDF para transferir o dinheiro",PlayerInfo[playerid][pBanco]);
+		ShowPlayerDialog(playerid,DIALOG_BANCO4,1,"Transferir", Str, "Selecionar","X");
+	}
 	if(playertextid == BancoTD[playerid][25])
 	{
 		for(new i; i < 34; i++)
@@ -18174,7 +18352,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		PlayerInfo[playerid][pSkin] = Preview[playerid][0];
 		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
 		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][0]);
-		SendClientMessage(playerid, -1, str);
+		InfoMsg(playerid,  str);
 		DestroyActor(actorcad[playerid]);
 		actorcad[playerid] = CreateActor(Preview[playerid][0], 1984.0140,1194.2424,26.8835,135.6409);
 		SetActorInvulnerable(actorcad[playerid], true);
@@ -18183,7 +18361,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		PlayerInfo[playerid][pSkin] = Preview[playerid][1];
 		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
 		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][1]);
-		SendClientMessage(playerid, -1, str);
+		InfoMsg(playerid, str);
 		DestroyActor(actorcad[playerid]);
 		actorcad[playerid] = CreateActor(Preview[playerid][1], 1984.0140,1194.2424,26.8835,135.6409);
 		SetActorInvulnerable(actorcad[playerid], true);
@@ -18192,7 +18370,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		PlayerInfo[playerid][pSkin] = Preview[playerid][2];
 		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
 		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][2]);
-		SendClientMessage(playerid, -1, str);
+		InfoMsg(playerid, str);
 		DestroyActor(actorcad[playerid]);
 		actorcad[playerid] = CreateActor(Preview[playerid][2], 1984.0140,1194.2424,26.8835,135.6409);
 		SetActorInvulnerable(actorcad[playerid], true);
@@ -18201,7 +18379,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		PlayerInfo[playerid][pSkin] = Preview[playerid][3];
 		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
 		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][3]);
-		SendClientMessage(playerid, -1, str);
+		InfoMsg(playerid, str);
 		DestroyActor(actorcad[playerid]);
 		actorcad[playerid] = CreateActor(Preview[playerid][3], 1984.0140,1194.2424,26.8835,135.6409);
 		SetActorInvulnerable(actorcad[playerid], true);
@@ -18210,7 +18388,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		PlayerInfo[playerid][pSkin] = Preview[playerid][4];
 		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
 		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][4]);
-		SendClientMessage(playerid, -1, str);
+		InfoMsg(playerid, str);
 		DestroyActor(actorcad[playerid]);
 		actorcad[playerid] = CreateActor(Preview[playerid][4], 1984.0140,1194.2424,26.8835,135.6409);
 		SetActorInvulnerable(actorcad[playerid], true);
@@ -18219,26 +18397,11 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		PlayerInfo[playerid][pSkin] = Preview[playerid][5];
 		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
 		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][5]);
-		SendClientMessage(playerid, -1, str);
+		InfoMsg(playerid, str);
 		DestroyActor(actorcad[playerid]);
 		actorcad[playerid] = CreateActor(Preview[playerid][5], 1984.0140,1194.2424,26.8835,135.6409);
 		SetActorInvulnerable(actorcad[playerid], true);
 	}
-	/*if(playertextid == TDEditor_PTD[playerid][1])
-	{
-		format(Str, sizeof(Str), "Saldo Bancario: {FFFFFF}R${32CD32}%i\n\n{FFFFFF}Quanto quer depositar?",PlayerInfo[playerid][pBanco]);
-		ShowPlayerDialog(playerid,DIALOG_BANCO1,1,"Depositar", Str, "Selecionar","X");
-	}
-	if(playertextid == TDEditor_PTD[playerid][2])
-	{
-		format(Str, sizeof(Str), "Saldo Bancario: {FFFFFF}R${32CD32}%i\n\n{FFFFFF}Quanto quer retirar?",PlayerInfo[playerid][pBanco]);
-		ShowPlayerDialog(playerid,DIALOG_BANCO2,1,"Sacar", Str, "Selecionar","X");
-	}
-	if(playertextid == TDEditor_PTD[playerid][3])
-	{
-		format(Str, sizeof(Str),"Introduza o ID do jogador que quer transferir o dinheiro",PlayerInfo[playerid][pBanco]);
-		ShowPlayerDialog(playerid,DIALOG_BANCO4,1,"Transferir", Str, "Selecionar","X");
-	}*/
 	if(playertextid == Registration_PTD[playerid][21])
 	{
 		format(File, sizeof(File), PASTA_CONTAS, Name(playerid));
@@ -18313,14 +18476,20 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		{
 			Patrulha[playerid] = true;
 			SuccesMsg(playerid, "Voce comecou seu servico como policial");
+			SalvarArmas(playerid);
+			ResetPlayerWeapons(playerid);
+			policiaon ++;
 			SetPlayerColor(playerid, 0x0012FFFF);
 			SetPlayerHealth(playerid, 100);
 		}
 		else
 		{
 			Patrulha[playerid] = false;
+			policiaon --;
 			SetPlayerHealth(playerid, 100);
 			SetPlayerArmour(playerid, 0);
+			ResetPlayerWeapons(playerid);
+			CarregarArmas(playerid);
 			SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);	
 			SuccesMsg(playerid, "Voce deixou seu servico como policial");   
 			SetPlayerColor(playerid, 0xFFFFFFFF);
@@ -19008,16 +19177,15 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 	}
 	if(clickedid == TDCadastro[11]){
 		PlayerInfo[playerid][pSexo] = 1;
-		SendClientMessage(playerid, -1, "Voce selecionou o Genero Masculino.");
+		InfoMsg(playerid, "Voce selecionou o Genero Masculino.");
 	}
 	if(clickedid == TDCadastro[12]){
 		PlayerInfo[playerid][pSexo] = 2;
-		SendClientMessage(playerid, -1, "Voce selecionou o Genero Feminino.");
+		InfoMsg(playerid, "Voce selecionou o Genero Feminino.");
 	}
 	if(clickedid == TDCadastro[14]){
-		if(PlayerInfo[playerid][pSexo] == 0) return SendClientMessage(playerid, 0xFF0000FF, "Voce precisa escolher um Genero.");
-		if(PlayerInfo[playerid][pSkin] == 0) return SendClientMessage(playerid, 0xFF0000FF, "Voce precisa escolher uma aparencia.");
-		//CancelSelectTextDraw(playerid);
+		if(PlayerInfo[playerid][pSexo] == 0) return ErrorMsg(playerid, "Voce precisa escolher um Genero.");
+		if(PlayerInfo[playerid][pSkin] == 0) return ErrorMsg(playerid, "Voce precisa escolher uma aparencia.");
 		for(new i=0;i<18;i++){
 			TextDrawHideForPlayer(playerid, TDCadastro[i]);
 		}
@@ -19027,7 +19195,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		DestroyActor(actorcad[playerid]);
 		MostrandoMenu[playerid] = false;
 		SalvarDadosSkin(playerid);
-		SendClientMessage(playerid, -1, "Voce concluiu o cadastro, agora realize o login em sua conta.");
+		SuccesMsg(playerid, "Voce concluiu o cadastro, agora realize o login em sua conta.");
 		format(Str, sizeof(Str), "Desejo boas vindas, %s.\nPara Entrar no servidor Digite sua senha abaixo.", Name(playerid));
 		ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Seja bem vindo ao servidor...", Str, "Logar", "Cancelar");
 	}
@@ -19145,7 +19313,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 CMD:minhaconta(playerid)
 {
 	new megastrings[500], String2[500];
-	format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n{FFFFFF}VIP: {FFFF00}%s\n{FFFFFF}Dinheiro: {FFFF00}%s\n{FFFFFF}Banco: {FFFF00}%s\n", Name(playerid), VIP(playerid),ConvertMoney(PlayerInfo[playerid][pDinheiro]),ConvertMoney(PlayerInfo[playerid][pBanco]));
+	format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s{FFFFFF}({FFFF00}%d{FFFFFF})\n{FFFFFF}VIP: {FFFF00}%s\n{FFFFFF}Dinheiro: {FFFF00}%s\n{FFFFFF}Banco: {FFFF00}%s\n", Name(playerid),PlayerInfo[playerid][IDF], VIP(playerid),ConvertMoney(PlayerInfo[playerid][pDinheiro]),ConvertMoney(PlayerInfo[playerid][pBanco]));
 	strcat(megastrings, String2);
 	format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\n{FFFFFF}Org:{FFFF00} %s\n{FFFFFF}Cargo:{FFFF00} %s\n", Profs(playerid), NomeOrg(playerid), NomeCargo(playerid));
 	strcat(megastrings, String2);
@@ -19246,9 +19414,9 @@ CMD:mostrarrg(playerid,params[])
 						}
 						MostrandoRG[i] = true;
 						SelectTextDraw(i, 0xFF0000FF);
-						format(str,sizeof(str),"Voce mostrou seu rg para %s",PlayerName(i));
+						format(str,sizeof(str),"Voce mostrou seu rg para %d",PlayerInfo[i][IDF]);
 						SuccesMsg(playerid,str);
-						format(str,sizeof(str),"%s mostrou seu rg para voce",PlayerName(playerid));
+						format(str,sizeof(str),"%d mostrou seu rg para voce",PlayerInfo[playerid][IDF]);
 						SuccesMsg(i,str);
 					}else{
 						ErrorMsg(playerid,"O jogador ja esta vendo um RG");
@@ -19340,7 +19508,7 @@ CMD:daritem(playerid, const params[])
 {
 	new id, item, quantia;
 	if(PlayerInfo[playerid][pAdmin] < 5)						return ErrorMsg(playerid, "Nao possui permissao.");
-	if(sscanf(params, "iii", id, item, quantia)) return SendClientMessage(playerid, -1, "Use: /daritem [ID] [ITEM ID] [UNIDADES].");
+	if(sscanf(params, "iii", id, item, quantia)) return ErrorMsg(playerid, "Use: /daritem [ID] [ITEM ID] [UNIDADES].");
 	if(quantia < 1) return ErrorMsg(playerid, "Coloque uma quantia.");
 	foreach(Player,i)
   	{
@@ -19377,7 +19545,7 @@ CMD:inventario(playerid)
 	}
 	else
 	{
-		format(str, sizeof(str), "Inventario: %s", Name(playerid));
+		format(str, sizeof(str), "Inventario: %s(%d)", Name(playerid),PlayerInfo[playerid][IDF]);
 		PlayerTextDrawSetString(playerid, DrawInv[playerid][34], str);
 		PlayerTextDrawSetString(playerid, DrawInv[playerid][38], "");
 		for(new i = 1; i < 33; ++i)
@@ -19404,7 +19572,7 @@ CMD:inventario(playerid)
 
 CMD:report(playerid, params[])
 {
-	if(sscanf(params, "is[56]", ID, Motivo))					return SendClientMessage(playerid, CorErroNeutro, "USE: /report [ID] [RAZON]");
+	if(sscanf(params, "is[56]", ID, Motivo))					return ErrorMsg(playerid, "USE: /report [ID] [RAZON]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -19435,9 +19603,9 @@ CMD:report(playerid, params[])
 CMD:duvida(playerid, params[])
 {
 	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Voce nao esta logado.");
-	if(sscanf(params, "s[56]", Str))							return SendClientMessage(playerid, CorErroNeutro, "USE: /duvida [TEXTO]");
+	if(sscanf(params, "s[56]", Str))							return ErrorMsg(playerid, "USE: /duvida [TEXTO]");
 	//
-	format(Str, sizeof(Str), "{FFFF00}(Duvida){FFFFFF} %s{FFFFFF} disse {FFFF00}%s", Name(playerid), Str);
+	format(Str, sizeof(Str), "{3ce86a}(/duvida){FFFF00} %s{FFFFFF}({FFFF00}%d{FFFFFF}) disse {FFFF00}%s", Name(playerid),PlayerInfo[playerid][IDF], Str);
 	SendClientMessageToAll(-1, Str);
 	return 1;
 }
@@ -19462,19 +19630,19 @@ CMD:logaradm(playerid)
 	if(!strcmp(sendername,"Luan_Rosa", false))
 	{
 		PlayerInfo[playerid][pAdmin] = 7;
-		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Conectado como Desenvolvedor");
+		SuccesMsg(playerid, "Conectado como Desenvolvedor");
 		pJogando[playerid] = false;
 	}
-	if(!strcmp(sendername,"Chosen_Estranho", false))
+	if(!strcmp(sendername,"Maconho_", false))
 	{
 		PlayerInfo[playerid][pAdmin] = 6;
-		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Conectado como Fundador");
+		SuccesMsg(playerid, "Conectado como Fundador");
 		pJogando[playerid] = false;
 	}
 	if(!strcmp(sendername,"Allison_Gomes", false))
 	{
 		PlayerInfo[playerid][pAdmin] = 7;
-		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Conectado como Desenvolvedor");
+		SuccesMsg(playerid, "Conectado como Desenvolvedor");
 		pJogando[playerid] = false;
 	}
 	return 1;
@@ -19485,7 +19653,7 @@ CMD:pos(playerid, params[])
 {
 	new msg[500];
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
-	if(sscanf(params, "s[56]", msg))return SendClientMessage(playerid, 0xFF0000AA,"Use /pos [nomedolocal].");
+	if(sscanf(params, "s[56]", msg))return ErrorMsg(playerid,"Use /pos [nomedolocal].");
 
 	static
 		Float: x,
@@ -19516,9 +19684,9 @@ CMD:pos(playerid, params[])
 CMD:a(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
-	if(sscanf(params, "s[56]", Motivo)) 							return SendClientMessage(playerid, CorErroNeutro, "USE: /a [TEXTO]");
+	if(sscanf(params, "s[56]", Motivo)) 							return ErrorMsg(playerid, "USE: /a [TEXTO]");
 	//
-	format(Str, sizeof(Str), "{FFFFFF}[{FFFF00}%s{FFFFFF}] {FFFF00}%s{FFFFFF} disse {FFFF00}%s", AdminCargo(playerid), Name(playerid), Motivo);
+	format(Str, sizeof(Str), "{FFFFFF}[{FFFF00}%s{FFFFFF}] {FFFF00}%s{FFFFFF}({FFFF00}%d{FFFFFF}) disse {FFFF00}%s", AdminCargo(playerid), Name(playerid),PlayerInfo[playerid][IDF], Motivo);
 	SendAdminMessage(0xDDA0DDFF, Str);
 	//
 	new string2[100];
@@ -19531,16 +19699,12 @@ CMD:av(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "s[56]", Motivo)) 						return SendClientMessage(playerid, CorErroNeutro, "USE: /av [TEXTO]");
-	SendClientMessageToAll(Branco, " ");
-	SendClientMessageToAll(Branco, " ");
-	SendClientMessageToAll(Branco, " ");
-	SendClientMessageToAll(-1,"|___________| {FFFF00}ANUNCIO {FFFFFF}|___________|");
-	format(Str, sizeof(Str), "{FFFFFF}ADM: {FFFF00}%s {FFFFFF}anuncio: {FFFF00}%s", Name(playerid), Motivo);
-	SendClientMessageToAll(AzulRoyal, Str);
-	SendClientMessageToAll(Branco, " ");
-	SendClientMessageToAll(Branco, " ");
-	SendClientMessageToAll(Branco, " ");
+	if(sscanf(params, "s[56]", Motivo)) 						return ErrorMsg(playerid, "USE: /av [TEXTO]");
+	foreach(Player,i)
+	{
+		format(Str, sizeof(Str), "%s", Motivo);
+		AvMsg(i, Str);
+	}
 	return 1;
 }
 
@@ -19548,7 +19712,7 @@ CMD:setskin(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "di", ID, Numero))						return SendClientMessage(playerid, CorErroNeutro, "USE: /setskin [ID] [SKIN ID]");
+	if(sscanf(params, "di", ID, Numero))						return ErrorMsg(playerid, "USE: /setskin [ID] [SKIN ID]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -19577,7 +19741,7 @@ CMD:setvida(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "dd", ID, Numero))						return SendClientMessage(playerid, CorErroNeutro, "USE: /setvida [ID] [VIDA]");
+	if(sscanf(params, "dd", ID, Numero))						return ErrorMsg(playerid,"USE: /setvida [ID] [VIDA]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -19604,7 +19768,7 @@ CMD:setcolete(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "dd", ID, Numero))						return SendClientMessage(playerid, CorErroNeutro, "USE: /setcolete [ID] [COLETE]");
+	if(sscanf(params, "dd", ID, Numero))						return ErrorMsg(playerid,"USE: /setcolete [ID] [COLETE]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -19633,7 +19797,7 @@ CMD:cv(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)      	return ErrorMsg(playerid, "Nao pode criar um veiculo quando esta em outro.");
-	if(sscanf(params, "i", Numero))				return SendClientMessage(playerid, CorErro, "USE: /cv [ID]");
+	if(sscanf(params, "i", Numero))				return ErrorMsg(playerid, "USE: /cv [ID]");
 	if(Numero < 400 || Numero > 611)							return ErrorMsg(playerid, "ID no valido.");
 	GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
 	if(VehAlugado[playerid] == 0)
@@ -19653,7 +19817,7 @@ CMD:cv(playerid, params[])
 CMD:kick(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
-	if(sscanf(params, "ds[56]", ID, Motivo))					return SendClientMessage(playerid, CorErroNeutro, "USE: /kick [ID] [MOTIVO]");
+	if(sscanf(params, "ds[56]", ID, Motivo))					return ErrorMsg(playerid,"USE: /kick [ID] [MOTIVO]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -19687,7 +19851,7 @@ CMD:cadeia(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "iis[56]", ID, Numero, Motivo))			return SendClientMessage(playerid, CorErroNeutro, "USE: /cadeia [ID] [TEMPO EM MINUTOS] [MOTIVO]");
+	if(sscanf(params, "iis[56]", ID, Numero, Motivo))			return ErrorMsg(playerid,"USE: /cadeia [ID] [TEMPO EM MINUTOS] [MOTIVO]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -19733,7 +19897,7 @@ CMD:ir(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "d", ID))									return SendClientMessage(playerid, CorErroNeutro, "USE: /ir [ID]");
+	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /ir [ID]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -19769,7 +19933,7 @@ CMD:trazer(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "u", ID))									return SendClientMessage(playerid, CorErroNeutro, "USE: /trazer [ID]");
+	if(sscanf(params, "u", ID))									return ErrorMsg(playerid,"USE: /trazer [ID]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -19805,11 +19969,11 @@ CMD:contagem(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "i", ID)) 								return SendClientMessage(playerid, CorErroNeutro, "ERRO: Use /contagem [VALOR INICIAL]");
+	if(sscanf(params, "i", ID)) 								return ErrorMsg(playerid,"ERRO: Use /contagem [VALOR INICIAL]");
 	if(ID < 1 || ID > 20) 										return ErrorMsg(playerid, "20s e o maximo.");
 	if(ContagemIniciada == true)
 	{
-		SendClientMessage(playerid, CorErro, "{FFFF00}AVISO{FFFFFF} Ja tem uma contagem rolando");
+		ErrorMsg(playerid, "{FFFF00}AVISO{FFFFFF} Ja tem uma contagem rolando");
 	}
 	else
 	{
@@ -19829,7 +19993,7 @@ CMD:tv(playerid, params[])
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(IsAssistindo[playerid] == false)
 	{
-		if(sscanf(params, "i", ID))								return SendClientMessage(playerid, CorErroNeutro, "USE: /tv [ID]");
+		if(sscanf(params, "i", ID))								return ErrorMsg(playerid,"USE: /tv [ID]");
 		foreach(Player,i)
 		{
 			if(pLogado[i] == true)
@@ -19873,7 +20037,7 @@ CMD:setarma(playerid, params[])
 	new Municao, Arma;
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "iii", ID, Arma, Municao))				return SendClientMessage(playerid, CorErroNeutro, "USE: /setarma [ID] [ARMA] [MUNIÇÃO]");
+	if(sscanf(params, "iii", ID, Arma, Municao))				return ErrorMsg(playerid,"USE: /setarma [ID] [ARMA] [MUNIÇÃO]");
 	if(Arma<1 || Arma==19 || Arma==20||Arma==21||Arma>46)		return ErrorMsg(playerid, "ID nao valido.");
 	foreach(Player,i)
   	{
@@ -19900,7 +20064,7 @@ CMD:desarmar(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "d", ID))									return SendClientMessage(playerid, CorErroNeutro, "USE: /desarmar [ID]");
+	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /desarmar [ID]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -19924,7 +20088,7 @@ CMD:banir(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "is[56]", ID, Motivo)) 					return SendClientMessage(playerid, CorErroNeutro, "ERRO: Use /banir [ID] [MOTIVO]");
+	if(sscanf(params, "is[56]", ID, Motivo)) 					return ErrorMsg(playerid,"ERRO: Use /banir [ID] [MOTIVO]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -19959,7 +20123,7 @@ CMD:tempban(playerid,params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	new Dias;
-	if(sscanf(params, "iis[56]", ID, Dias, Motivo)) 			return SendClientMessage(playerid, CorErroNeutro, "ERRO: Use /tempban [ID] [TEMPO] [MOTIVO]");
+	if(sscanf(params, "iis[56]", ID, Dias, Motivo)) 			return ErrorMsg(playerid,"ERRO: Use /tempban [ID] [TEMPO] [MOTIVO]");
 	if(Dias == 0)                                               return ErrorMsg(playerid, "Nao pode banir alguem durante 0 dias. USA: /ban para banir permanentes.");
 	if(Dias >= 360)                                             return ErrorMsg(playerid, "Voce so pode banir alguem por no maximo 360 dias.");
 	foreach(Player,i)
@@ -20050,7 +20214,7 @@ CMD:agendaban(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true)								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	new Nome[24], tempo;
-	if(sscanf(params, "s[56]is[56]", Nome, tempo, Motivo))		return SendClientMessage(playerid, CorErroNeutro, "ERRO: Use /agendarban [CONTA] [TEMPO EM DIAS (999 = FOREVER)] [MOTIVO]");
+	if(sscanf(params, "s[56]is[56]", Nome, tempo, Motivo))		return ErrorMsg(playerid,"ERRO: Use /agendarban [CONTA] [TEMPO EM DIAS (999 = FOREVER)] [MOTIVO]");
 	format(File, sizeof(File), PASTA_CONTAS, Nome);
 	if(!DOF2_FileExists(File))              					return ErrorMsg(playerid, "Conta nao existente.");
 	format(Str, sizeof(Str), "Agendado - %s", Motivo);
@@ -20076,7 +20240,7 @@ CMD:agendacadeia(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true)								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	new Nome[24];
-	if(sscanf(params, "s[56]is[56]", Nome, ID,  Motivo))		return SendClientMessage(playerid, CorErroNeutro, "ERRO: Use /agendarcadeia [CONTA] [TEMPO EM MINUTOS] [MOTIVO]");
+	if(sscanf(params, "s[56]is[56]", Nome, ID,  Motivo))		return ErrorMsg(playerid,"ERRO: Use /agendarcadeia [CONTA] [TEMPO EM MINUTOS] [MOTIVO]");
 	new ID1 = GetPlayerID(Nome);
 	if(IsPlayerConnected(ID1))                                  return ErrorMsg(playerid, "Jogador esta online use /cadeia.");
 	format(File, sizeof(File), PASTA_CONTAS, Nome);
@@ -20100,7 +20264,7 @@ CMD:agendacadeia(playerid, params[])
 CMD:adv(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
-	if(sscanf(params, "is[56]", ID, Motivo)) 					return SendClientMessage(playerid, CorErroNeutro, "ERRO: Use /adv [ID] [MOTIVO]");
+	if(sscanf(params, "is[56]", ID, Motivo)) 					return ErrorMsg(playerid,"ERRO: Use /adv [ID] [MOTIVO]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -20130,7 +20294,7 @@ CMD:banirip(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "is[56]", ID, Motivo)) 					return SendClientMessage(playerid, CorErroNeutro, "ERRO: Use /banirip [ID] [MOTIVO]");
+	if(sscanf(params, "is[56]", ID, Motivo)) 					return ErrorMsg(playerid,"ERRO: Use /banirip [ID] [MOTIVO]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -20160,7 +20324,7 @@ CMD:banirip(playerid, params[])
 
 CMD:admins(playerid, params[])
 {
-    if(pLogado[playerid] == false)              				return SendClientMessage(playerid, CorErro, "Voce precisa fazer Login primeiro.");
+    if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Voce precisa fazer Login primeiro.");
     SendClientMessage(playerid, 0x4682B4FF, "Administradores Online:");
     //
 	for(new i = 0; i < MAX_PLAYERS; i++)
@@ -20222,7 +20386,7 @@ CMD:congelar(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 2)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "i", ID))					return SendClientMessage(playerid, CorErroNeutro, "USE: /congelar [ID]");
+	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /congelar [ID]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -20247,7 +20411,7 @@ CMD:descongelar(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 2)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "i", ID))					return SendClientMessage(playerid, CorErroNeutro, "USE: /descongelar [ID]");
+	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /descongelar [ID]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -20290,7 +20454,7 @@ CMD:desbanir(playerid, params[])
 	new File[255];
 	if(PlayerInfo[playerid][pAdmin] < 4)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "s[56]", Motivo)) 		return SendClientMessage(playerid, CorErroNeutro, "ERRO: Use /desbanir [Conta - Nome_Sobrenome (COMPLETO)]");
+	if(sscanf(params, "s[56]", Motivo)) 		return ErrorMsg(playerid,"ERRO: Use /desbanir [Conta - Nome_Sobrenome (COMPLETO)]");
 	format(File, sizeof(File), PASTA_CONTAS, Motivo);
 	if(!DOF2_FileExists(File))                  return ErrorMsg(playerid, "Esta conta nao esta no banco de dados.");
 	format(File, sizeof(File), PASTA_BANIDOS, Motivo);
@@ -20307,7 +20471,7 @@ CMD:desbanirip(playerid, params[])
 	new File[255];
 	if(PlayerInfo[playerid][pAdmin] < 4)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "s[56]", Motivo)) 		return SendClientMessage(playerid, CorErroNeutro, "ERRO: Use /desbanirip [IP]");
+	if(sscanf(params, "s[56]", Motivo)) 		return ErrorMsg(playerid,"ERRO: Use /desbanirip [IP]");
 	format(File, sizeof(File), PASTA_BANIDOSIP, Motivo);
 	if(!DOF2_FileExists(File))                  return ErrorMsg(playerid, "Este IP nao esta banido.");
 	new File1[48];
@@ -20323,7 +20487,7 @@ CMD:dardinheiro(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "dd", ID, Numero))		return SendClientMessage(playerid, CorErroNeutro, "USE: /dardinheiro [ID] [QUANTIA]");
+	if(sscanf(params, "dd", ID, Numero))		return ErrorMsg(playerid,"USE: /dardinheiro [ID] [QUANTIA]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -20350,7 +20514,7 @@ CMD:setadmin(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 7)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "ii", ID, Numero))		return SendClientMessage(playerid, CorErroNeutro, "USE: /setadmin [ID] [LEVEL]");
+	if(sscanf(params, "ii", ID, Numero))		return ErrorMsg(playerid,"USE: /setadmin [ID] [LEVEL]");
 	if(Numero > 9)				return ErrorMsg(playerid, "O numero deve ser entre 0 a 9");
 	foreach(Player,i)
   	{
@@ -21078,7 +21242,7 @@ CMD:d(playerid, params[])
 {
 	if(!IsPolicial(playerid))						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 								return ErrorMsg(playerid, "Nao esta em patrulha.");
-	if(sscanf(params, "s[56]", Str)) 							return SendClientMessage(playerid, CorErroNeutro, "USE: /d [TEXTO]");
+	if(sscanf(params, "s[56]", Str)) 							return ErrorMsg(playerid,"USE: /d [TEXTO]");
 
 	format(Str, sizeof(Str), "{FFFFFF}[{FFFF00}%s{FFFFFF}] {FFFF00}%04d{FFFFFF} disse {FFFF00}%s", NomeCargo(playerid), PlayerInfo[playerid][IDF], Str);
 	SendRadioMessage(0xDDA0DDFF, Str);
@@ -21089,7 +21253,7 @@ CMD:d(playerid, params[])
 CMD:ga(playerid, params[])
 {
 	if(!IsBandido(playerid))						return ErrorMsg(playerid, "Nao possui permissao.");
-	if(sscanf(params, "s[56]", Str)) 							return SendClientMessage(playerid, CorErroNeutro, "USE: /ga [TEXTO]");
+	if(sscanf(params, "s[56]", Str)) 							return ErrorMsg(playerid,"USE: /ga [TEXTO]");
 
 	format(Str, sizeof(Str), "{FFFFFF}[{FFFF00}%s{FFFFFF}] {FFFF00}%04d{FFFFFF} disse {FFFF00}%s", NomeCargo(playerid), PlayerInfo[playerid][IDF], Str);
 	SendGangMessage(0xDDA0DDFF, Str);
@@ -21101,7 +21265,7 @@ CMD:algemar(playerid, params[])
 {
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
-	if(sscanf(params, "i", ID))					return SendClientMessage(playerid, CorErroNeutro, "USE: /algemar [ID]");
+	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /algemar [ID]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -21127,7 +21291,7 @@ CMD:desalgemar(playerid, params[])
 {
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
-	if(sscanf(params, "i", ID))					return SendClientMessage(playerid, CorErroNeutro, "USE: /desalgemar [ID]");
+	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /desalgemar [ID]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -21156,7 +21320,7 @@ CMD:pveiculo(playerid, params[])
 	new carid = GetPlayerVehicleID(playerid);
 	if(IsPolicial(playerid) || IsBandido(playerid))
 	{
-		if(sscanf(params, "i", ID))					return SendClientMessage(playerid, CorErroNeutro, "USE: /pveiculo [ID]");
+		if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /pveiculo [ID]");
 		foreach(Player,i)
 		{
 			if(pLogado[i] == true)
@@ -21183,7 +21347,7 @@ CMD:rveiculo(playerid, params[])
 {
 	if(IsPolicial(playerid) || IsBandido(playerid))
 	{
-		if(sscanf(params, "i", ID))					return SendClientMessage(playerid, CorErroNeutro, "USE: /rveiculo [ID]");
+		if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /rveiculo [ID]");
 		foreach(Player,i)
 		{
 			if(pLogado[i] == true)
@@ -21210,7 +21374,7 @@ CMD:prender(playerid, params[])
 {
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
-	if(sscanf(params, "iis[56]", ID, Numero, Motivo))			return SendClientMessage(playerid, CorErroNeutro, "USE: /prender [ID] [TIEMPO EM MINUTOS] [RAZON]");
+	if(sscanf(params, "iis[56]", ID, Numero, Motivo))			return ErrorMsg(playerid,"USE: /prender [ID] [TIEMPO EM MINUTOS] [RAZON]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -21274,7 +21438,7 @@ CMD:su(playerid, params[])
 {
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
-	if(sscanf(params, "di", ID, Numero))						return SendClientMessage(playerid, CorErroNeutro, "USE: /su [ID] [LEVEL]");
+	if(sscanf(params, "di", ID, Numero))						return ErrorMsg(playerid,"USE: /su [ID] [LEVEL]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -21304,7 +21468,7 @@ CMD:revistar(playerid, params[])
 	new str[64];
 	if(IsPolicial(playerid) || IsBandido(playerid))	
 	{
-		if(sscanf(params, "d", ID))                        return SendClientMessage(playerid, CorErroNeutro, "USE: /verinv [ID]");
+		if(sscanf(params, "d", ID))                        return ErrorMsg(playerid,"USE: /verinv [ID]");
 		foreach(Player,i)
 		{
 			if(pLogado[i] == true)
@@ -21357,25 +21521,11 @@ CMD:revistar(playerid, params[])
 	return 1;
 }
 
-CMD:patrulha(playerid)
-{
-	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
-	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
-
-	SendClientMessageToAll(-1,"");
-	SendClientMessageToAll(-1,"");
-	format(Str, sizeof(Str), "{FFFF00}%s {FFFFFF}esta em patrulha.", NomeOrg(playerid));
-	SendClientMessageToAll(AzulRoyal, Str); 
-	SendClientMessageToAll(-1,"");
-	SendClientMessageToAll(-1,"");	
-	return 1;
-}
-
 CMD:rarmas(playerid, params[])
 {
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
-	if(sscanf(params, "d", ID))									return SendClientMessage(playerid, CorErroNeutro, "USE: /rarmas [ID]");
+	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /rarmas [ID]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -21400,46 +21550,6 @@ CMD:rarmas(playerid, params[])
 	return 1;
 }
 
-CMD:lprocurados(playerid, params[])
-{
-	new id;
-	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
-	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
-	{
-		if(sscanf(params, "u", id)) return SendClientMessage(playerid, 0xFF0000FF, "* Use: /lbuscado (id)");
-		foreach(Player,i)
-		{
-			if(pLogado[i] == true)
-			{
-				if(PlayerInfo[i][IDF] == id)
-				{
-					if(playerid == id) return ErrorMsg(playerid, "Nao pode localizar voce mesmo!.");
-					if(Localizando[playerid] == 0)
-					{
-						Localizando[playerid] = 1;
-						SuccesMsg(playerid, "Jogador foi localizado.");
-						TimerLocalizar[playerid] = SetTimerEx("LocalizarPlayer", 500, true, "ii", playerid, i);
-						return true;
-					}
-					else 
-					{
-						DisablePlayerCheckpoint(playerid);
-						Localizando[playerid] = 0;
-						SuccesMsg(playerid, "Nao esta mais localizando.");
-						KillTimer(TimerLocalizar[playerid]);
-						return true;
-					}
-				}
-			}
-			else
-			{
-				ErrorMsg(playerid, "Jogador nao conectado.");
-			}
-		}
-		return true;
-	}
-}
-
 CMD:procurados(playerid) 
 { 
 	new string[85]; 
@@ -21452,14 +21562,14 @@ CMD:procurados(playerid)
 		{ 
 			if(IsPlayerConnected(i)) 
 			{ 
-				format(string, sizeof(string), "{FFFF00}%04d{FFFFFF}", PlayerInfo[i][IDF]); 
-				SendClientMessage(playerid, 0xE3E3E3FF, string); 
+				format(string, sizeof(string), "{FFFF00}%04d{FFFFFF} Nivel:{FFFF00}%d", PlayerInfo[i][IDF], GetPlayerWantedLevel(i)); 
+				ShowPlayerDialog(playerid, DIALOG_PROCURADOS, DIALOG_STYLE_LIST,"Lista de Procuraods", string, "X", #);
 				count++; 
 			} 
 		} 
 	} 
 	if(count == 0) 
-		return SendClientMessage(playerid, 0xD8D8D8FF, "{FFFF00}AVISO{FFFFFF}Nao tem jogadores procurados."); 
+		return ErrorMsg(playerid, "Nao tem jogadores procurados."); 
 
 	return true; 
 }
@@ -21468,7 +21578,7 @@ CMD:multar(playerid, params[])
 {
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
-	if(sscanf(params, "dd", ID, Numero))		return SendClientMessage(playerid, CorErroNeutro, "USE: /multar [ID] [QUANTIA]");
+	if(sscanf(params, "dd", ID, Numero))		return ErrorMsg(playerid,"USE: /multar [ID] [QUANTIA]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -21498,7 +21608,7 @@ CMD:verdocumentos(playerid, params[])
 	if(IsPolicial(playerid) || IsBandido(playerid))
 	{
 		if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
-		if(sscanf(params, "dd", ID))		return SendClientMessage(playerid, CorErroNeutro, "USE: /verdocumentos [ID] ");
+		if(sscanf(params, "dd", ID))		return ErrorMsg(playerid,"USE: /verdocumentos [ID] ");
 		foreach(Player,i)
 		{
 			if(pLogado[i] == true)
@@ -21508,7 +21618,7 @@ CMD:verdocumentos(playerid, params[])
 					if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
 					//
 					new megastrings[500], String2[500];
-					format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s\n{FFFFFF}VIP: {FFFF00}%s\n{FFFFFF}Dinheiro: {FFFF00}%s\n{FFFFFF}Banco: {FFFF00}%s\n", Name(i), VIP(i),ConvertMoney(PlayerInfo[i][pDinheiro]),ConvertMoney(PlayerInfo[i][pBanco]));
+					format(String2,sizeof(String2), "{FFFFFF}Nome: {FFFF00}%s{FFFFFF}({FFFF00}%d{FFFFFF})\n{FFFFFF}VIP: {FFFF00}%s\n{FFFFFF}Dinheiro: {FFFF00}%s\n{FFFFFF}Banco: {FFFF00}%s\n", Name(i),PlayerInfo[i][IDF], VIP(i),ConvertMoney(PlayerInfo[i][pDinheiro]),ConvertMoney(PlayerInfo[i][pBanco]));
 					strcat(megastrings, String2);
 					format(String2,sizeof(String2), "{FFFFFF}Profissao:{FFFF00} %s\n{FFFFFF}Org:{FFFF00} %s\n{FFFFFF}Cargo:{FFFF00} %s\n", Profs(i), NomeOrg(i), NomeCargo(i));
 					strcat(megastrings, String2);
@@ -21623,15 +21733,16 @@ CMD:criarkey(playerid, params[])
 	new File[255];
 	new vl;  
 	if(PlayerInfo[playerid][pAdmin] < 7)		return ErrorMsg(playerid, "Nao possui permissao.");
-	if(sscanf(params, "d", vl)) return SendClientMessage(playerid, 0xF22F13FF, "[ERRO] {FFFFFF}Use: /criarkey [Valor]");
+	if(sscanf(params, "d", vl)) return ErrorMsg(playerid, "Use: /criarkey [Valor]");
 	{
-		new Cod = randomEx(0,999999);
+		new Cod = randomEx(0,99999999);
 		format(File, sizeof(File), PASTA_KEYS, Cod);
 		DOF2_CreateFile(File);
 		DOF2_SetInt(File, "Valor", vl);
 		DOF2_SaveFile();
-		new str[180];format(str, sizeof(str), "{FFFF00}[INFO] {FFFFFF}O cupom %d se criou com %i de coins.", Cod, vl);
-		SendClientMessage(playerid, -1, str);
+		new str[180];
+		format(str, sizeof(str), "O cupom %d se criou com %i de coins.", Cod, vl);
+		SuccesMsg(playerid,  str);
 	}
 	return 1;
 }
@@ -21640,7 +21751,7 @@ CMD:ativarkey(playerid, params[])
 {
 	new File[255];
 	new Cod, Din;
-	if(sscanf(params, "d", Cod)) return SendClientMessage(playerid, 0xF22F13FF, "[ERRO] {FFFFFF}Use: /ativarkey [Codigo]");
+	if(sscanf(params, "d", Cod)) return ErrorMsg(playerid,  "Use: /ativarkey [Codigo]");
 	{
 		format(File, sizeof(File), PASTA_KEYS, Cod);
 		if(DOF2_FileExists(File)) 
@@ -21684,7 +21795,7 @@ CMD:criarcasa(playerid, params[])
 		new valor, interior;
 		if(sscanf(params, "ii", valor, interior))
 		{
-			return SendClientMessage(playerid, COR_VERMELHO, "{FF2400}[ERRO]: {FFFFFF}Use: /criarcasa [valor] [interior 1 - 10].");
+			return ErrorMsg(playerid,  "Use: /criarcasa [valor] [interior 1 - 10].");
 		}
 		else if(interior < 0 || interior > 10)
 		{
@@ -22249,7 +22360,7 @@ CMD:dcasa(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
 	{
 		new id, AccountCA[5000], mensagem[128];
-		if(sscanf(params, "i", id)) return SendClientMessage(playerid, -1, "{FF2400}[ERRO]: {FFFFFF}Use: /dcasa [ID da casa].");
+		if(sscanf(params, "i", id)) return ErrorMsg(playerid, "Use: /dcasa [ID da casa].");
 		{
 			if(IsPlayerInRangeOfPoint(playerid, 2.0, CasaInfo[id][CasaX], CasaInfo[id][CasaY], CasaInfo[id][CasaZ]))
 			{
@@ -22296,21 +22407,18 @@ CMD:vendercasa(playerid, params[])
 			format(File, sizeof(File), PASTA_CASAS, i);
 			if(strcmp(DOF2_GetString(File, "CasaDono"), Name(playerid), false))
 			{
-				ErrorMsg(playerid, "Esa casa no eres de usted.");
+				ErrorMsg(playerid, "Essa casa nao e sua.");
 				return 1;
 			}
 			else if(CasaInfo[i][CasaAVenda] == 1)
 			{
-				ErrorMsg(playerid, "Su casa ya estas en venta");
+				ErrorMsg(playerid, "Sua casa ja esta a venda");
 				return 1;
 			}
 			else
 			{
 				if(IsPlayerConnected(playerid))
 				{
-					new gstring[255];
-					format(gstring, sizeof(gstring), "{BEBEBE}[ IMOBILIARIA ]: {FFFFFF}O jogador(a) {FFFF00}%s {FFFFFF]colocou sua casa id {FFFF00}%d {FFFFFF}a venda no valor de {FFFF00}R$%d", Name(playerid), CasaInfo[i][CasaId], CasaInfo[i][CasaValor]);
-					SendClientMessageToAll(COR_GREY, gstring);
 					PlayerInfo[playerid][Casa] = -1;
 					PlayerInfo[playerid][pDinheiro] += CasaInfo[i][CasaValor];
 
@@ -22463,7 +22571,7 @@ CMD:criarradar(playerid, params[])
 		new velocidade, Float:RadarX, Float:RadarY, Float:RadarZ, Float:RadarRZ;
 		if(sscanf(params, "i", velocidade))
 		{
-			return SendClientMessage(playerid, COR_VERMELHO, "{FF2400}[ERRO]: {FFFFFF}Use: /criarradar [velocidade]");
+			return ErrorMsg(playerid, "Use: /criarradar [velocidade]");
 		}
 		else if(velocidade <= 0)
 		{
@@ -22525,7 +22633,7 @@ CMD:dradar(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 6)
 	{
 		new id, arq1[50], mensagem[128];
-		if(sscanf(params, "i", id)) return SendClientMessage(playerid, -1, "{FF2400}[ERRO]: {FFFFFF}Use: /dradar [ID do Radar].");
+		if(sscanf(params, "i", id)) return ErrorMsg(playerid,  "Use: /dradar [ID do Radar].");
 		format(arq1, sizeof(arq1), PASTA_RADAR, id);
 		if(DOF2_FileExists(arq1))
 		{
@@ -22587,7 +22695,7 @@ CMD:ejetar(playerid, params[])
 {
 	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "Nao esta em um veiculo!"); 
 	new pid, msg[128];
-	if(sscanf(params, "u", pid)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /ejetar [player]");
+	if(sscanf(params, "u", pid)) return ErrorMsg(playerid,  "USAGE: /ejetar [player]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -22687,7 +22795,7 @@ CMD:mv(playerid, params[])
 CMD:venderv(playerid, params[])
 {
 	new pid, id, price, msg[128];
-	if(sscanf(params, "udd", pid, id, price)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /venderv [player] [vehicleid] [price]");
+	if(sscanf(params, "udd", pid, id, price)) return ErrorMsg(playerid,  "USAGE: /venderv [player] [vehicleid] [price]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -22717,17 +22825,17 @@ CMD:venderv(playerid, params[])
 CMD:darchaves(playerid, params[])
 {
 	new pid, id, msg[128];
-	if(sscanf(params, "ud", pid, id)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /darchaves [player] [vehicleid]");
+	if(sscanf(params, "ud", pid, id)) return ErrorMsg(playerid,  "USAGE: /darchaves [player] [vehicleid]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
 			if(PlayerInfo[i][IDF] == pid)
 			{
-				if(!IsValidVehicle1(id)) return SendClientMessage(playerid, COLOR_RED, "ID de veiculo nao valido!");
+				if(!IsValidVehicle1(id)) return ErrorMsg(playerid,  "ID de veiculo nao valido!");
 				if(GetPlayerVehicleAccess(playerid, id) < 2)
-					return SendClientMessage(playerid, COLOR_RED, "Voce nao e dono deste veiculo!");
-				if(!PlayerToPlayer(playerid, i, 10.0)) return SendClientMessage(playerid, COLOR_RED, "O jogador esta muito longe!");
+					return ErrorMsg(playerid,  "Voce nao e dono deste veiculo!");
+				if(!PlayerToPlayer(playerid, i, 10.0)) return ErrorMsg(playerid,  "O jogador esta muito longe!");
 				SetPVarInt(i, "CarKeys", id);
 				format(msg, sizeof(msg), "Voce entregou as chaves do seu carro para %s (%d)", PlayerName(i), i);
 				SuccesMsg(playerid, msg);
@@ -22875,8 +22983,11 @@ CMD:rac(playerid, params[])
 		}
 	}
 	new msg[128];
-	format(msg, sizeof(msg), "O Administrador %s (%d) respawnou todos os veiculos sem motorista.", PlayerName(playerid), playerid);
-	SendClientMessageToAll(COLOR_YELLOW, msg);
+	foreach(Player, i)
+	{
+		format(msg, sizeof(msg), "O Administrador %s (%d) respawnou todos os veiculos sem motorista.", PlayerName(playerid), playerid);
+		InfoMsg(i, msg);
+	}
 	return 1;
 }
 
@@ -22885,7 +22996,7 @@ CMD:setgasolina(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
 	if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Nao esta em um veiculo");
 	new amount, msg[128];
-	if(sscanf(params, "d", amount)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /setgasolina [amount]");
+	if(sscanf(params, "d", amount)) return ErrorMsg(playerid,  "USAGE: /setgasolina [amount]");
 	if(amount < 0 || amount > 100) return ErrorMsg(playerid, "Coloque de 0 a 100L.");
 	Fuel[GetPlayerVehicleID(playerid)] = amount;
 	format(msg, sizeof(msg), "Abasteceu o veiculo com %d", amount);
@@ -22896,14 +23007,14 @@ CMD:setgasolina(playerid, params[])
 CMD:addv(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	if(!IsPlayerSpawned(playerid)) return SendClientMessage(playerid, COLOR_RED, "You can't use this command now!");
+	if(!IsPlayerSpawned(playerid)) return ErrorMsg(playerid, "You can't use this command now!");
 	new model, dealerid, color1, color2, price;
 	if(sscanf(params, "ddddd", dealerid, model, color1, color2, price))
-		return SendClientMessage(playerid, COLOR_GREY, "USAGE: /addv [dealerid] [model] [color1] [color2] [price]");
-	if(!IsValidDealership(dealerid)) return SendClientMessage(playerid, COLOR_RED, "ID invalido");
-	if(model < 400 || model > 611) return SendClientMessage(playerid, COLOR_RED, "Invalid model ID!");
-	if(color1 < 0 || color2 < 0) return SendClientMessage(playerid, COLOR_RED, "Invalid color!");
-	if(price < 0) return SendClientMessage(playerid, COLOR_RED, "Invalid price!");
+		return ErrorMsg(playerid, "USAGE: /addv [dealerid] [model] [color1] [color2] [price]");
+	if(!IsValidDealership(dealerid)) return ErrorMsg(playerid,  "ID invalido");
+	if(model < 400 || model > 611) return ErrorMsg(playerid,  "Invalid model ID!");
+	if(color1 < 0 || color2 < 0) return ErrorMsg(playerid,  "Invalid color!");
+	if(price < 0) return ErrorMsg(playerid,  "Invalid price!");
 	new Float:X, Float:Y, Float:Z, Float:angle;
 	GetPlayerPos(playerid, X, Y, Z);
 	GetPlayerFacingAngle(playerid, angle);
@@ -22942,11 +23053,11 @@ CMD:addv(playerid, params[])
 			UpdateVehicle(i, 0);
 			SaveVehicle(i);
 			format(msg, sizeof(msg), "Added vehicle id %d to dealerid %d", i, dealerid);
-			SendClientMessage(playerid, COLOR_WHITE, msg);
+			SuccesMsg(playerid,  msg);
 			return 1;
 		}
 	}
-	SendClientMessage(playerid, COLOR_RED, "Can't add any more vehicles!");
+	ErrorMsg(playerid,  "Can't add any more vehicles!");
 	return 1;
 }
 
@@ -22956,14 +23067,14 @@ CMD:editv(playerid, params[])
 	if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 	{
 		new id = GetVehicleID(GetPlayerVehicleID(playerid));
-		if(!IsValidVehicle1(id)) return SendClientMessage(playerid, COLOR_RED, "This is not a dynamic vehicle!");
+		if(!IsValidVehicle1(id)) return ErrorMsg(playerid,  "This is not a dynamic vehicle!");
 		SetPVarInt(playerid, "DialogValue1", id);
 		ShowDialog(playerid, DIALOG_EDITVEHICLE);
 		return 1;
 	}
 	new vehicleid;
-	if(sscanf(params, "d", vehicleid)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /editv [vehicleid]");
-	if(!IsValidVehicle1(vehicleid)) return SendClientMessage(playerid, COLOR_RED, "Invalid vehicleid!");
+	if(sscanf(params, "d", vehicleid)) return ErrorMsg(playerid,  "USAGE: /editv [vehicleid]");
+	if(!IsValidVehicle1(vehicleid)) return ErrorMsg(playerid,  "Invalid vehicleid!");
 	SetPVarInt(playerid, "DialogValue1", vehicleid);
 	ShowDialog(playerid, DIALOG_EDITVEHICLE);
 	return 1;
@@ -22972,7 +23083,7 @@ CMD:editv(playerid, params[])
 CMD:adddealership(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	if(!IsPlayerSpawned(playerid)) return SendClientMessage(playerid, COLOR_RED, "Voce nao pode usar o comando!");
+	if(!IsPlayerSpawned(playerid)) return ErrorMsg(playerid,  "Voce nao pode usar o comando!");
 	for(new i=1; i < MAX_DEALERSHIPS; i++)
 	{
 		if(!DealershipCreated[i])
@@ -22983,11 +23094,11 @@ CMD:adddealership(playerid, params[])
 			UpdateDealership(i, 0);
 			SaveDealership(i);
 			format(msg, sizeof(msg), "Concessionaria %d adicionada.", i);
-			SendClientMessage(playerid, COLOR_WHITE, msg);
+			SuccesMsg(playerid,  msg);
 			return 1;
 		}
 	}
-	SendClientMessage(playerid, COLOR_RED, "Ja possui muitas concessionarias.");
+	ErrorMsg(playerid,  "Ja possui muitas concessionarias.");
 	return 1;
 }
 
@@ -22995,8 +23106,8 @@ CMD:deletedealership(playerid, params[])
 {	
 	new dealerid, msg[128];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	if(sscanf(params, "d", dealerid)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /deletedealership [dealerid]");
-	if(!IsValidDealership(dealerid)) return SendClientMessage(playerid, COLOR_RED, "ID invalido!");
+	if(sscanf(params, "d", dealerid)) return ErrorMsg(playerid,  "USAGE: /deletedealership [dealerid]");
+	if(!IsValidDealership(dealerid)) return ErrorMsg(playerid,  "ID invalido!");
 	for(new i=1; i < MAX_DVEHICLES; i++)
 	{
 		if(VehicleCreated[i] == VEHICLE_DEALERSHIP && strval(VehicleOwner[i]) == dealerid)
@@ -23010,7 +23121,7 @@ CMD:deletedealership(playerid, params[])
 	Delete3DTextLabel(DealershipLabel[dealerid]);
 	SaveDealership(dealerid);
 	format(msg, sizeof(msg), "Concessionaria %d deletada.", dealerid);
-	SendClientMessage(playerid, COLOR_WHITE, msg);
+	SuccesMsg(playerid, msg);
 	return 1;
 }
 
@@ -23018,13 +23129,13 @@ CMD:movedealership(playerid, params[])
 {
 	new dealerid, msg[128];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");	
-	if(sscanf(params, "d", dealerid)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /movedealership [dealerid]");
-	if(!IsValidDealership(dealerid)) return SendClientMessage(playerid, COLOR_RED, "ID invalido");
+	if(sscanf(params, "d", dealerid)) return ErrorMsg(playerid,  "USAGE: /movedealership [dealerid]");
+	if(!IsValidDealership(dealerid)) return ErrorMsg(playerid,  "ID invalido");
 	GetPlayerPos(playerid, DealershipPos[dealerid][0], DealershipPos[dealerid][1], DealershipPos[dealerid][2]);
 	UpdateDealership(dealerid, 1);
 	SaveDealership(dealerid);
 	format(msg, sizeof(msg), "Concessionaria %d movida.", dealerid);
-	SendClientMessage(playerid, COLOR_WHITE, msg);
+	SuccesMsg(playerid, msg);
 	return 1;
 }
 
@@ -23033,20 +23144,20 @@ CMD:gotodealership(playerid, params[])
 	new dealerid, msg[128];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
 	
-	if(sscanf(params, "d", dealerid)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /gotodealership [dealerid]");
-	if(!IsValidDealership(dealerid)) return SendClientMessage(playerid, COLOR_RED, "ID invalido");
+	if(sscanf(params, "d", dealerid)) return ErrorMsg(playerid, "USAGE: /gotodealership [dealerid]");
+	if(!IsValidDealership(dealerid)) return ErrorMsg(playerid, "ID invalido");
 	SetPlayerPos(playerid, DealershipPos[dealerid][0], DealershipPos[dealerid][1], DealershipPos[dealerid][2]);
 	TogglePlayerControllable(playerid, false);
 	SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 	format(msg, sizeof(msg), "Teleportado para concessionaria %d", dealerid);
-	SendClientMessage(playerid, COLOR_WHITE, msg);
+	SuccesMsg(playerid, msg);
 	return 1;
 }
 
 CMD:addfuelstation(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	if(!IsPlayerSpawned(playerid)) return SendClientMessage(playerid, COLOR_RED, "Voce nao pode usar o comando!");
+	if(!IsPlayerSpawned(playerid)) return ErrorMsg(playerid, "Voce nao pode usar o comando!");
 	for(new i=1; i < MAX_FUEL_STATIONS; i++)
 	{
 		if(!FuelStationCreated[i])
@@ -23057,11 +23168,11 @@ CMD:addfuelstation(playerid, params[])
 			UpdateFuelStation(i, 0);
 			SaveFuelStation(i);
 			format(msg, sizeof(msg), "Posto %d adicionado.", i);
-			SendClientMessage(playerid, COLOR_WHITE, msg);
+			SuccesMsg(playerid, msg);
 			return 1;
 		}
 	}
-	SendClientMessage(playerid, COLOR_RED, "Ja possui muitos postos");
+	ErrorMsg(playerid, "Ja possui muitos postos");
 	return 1;
 }
 
@@ -23069,13 +23180,13 @@ CMD:deletefuelstation(playerid, params[])
 {
 	new stationid, msg[128];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	if(sscanf(params, "d", stationid)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /deletefuelstation [stationid]");
-	if(!IsValidFuelStation(stationid)) return SendClientMessage(playerid, COLOR_RED, "ID invalido");
+	if(sscanf(params, "d", stationid)) return ErrorMsg(playerid, "USAGE: /deletefuelstation [stationid]");
+	if(!IsValidFuelStation(stationid)) return ErrorMsg(playerid, "ID invalido");
 	FuelStationCreated[stationid] = 0;
 	Delete3DTextLabel(FuelStationLabel[stationid]);
 	SaveFuelStation(stationid);
 	format(msg, sizeof(msg), "Posto %d deletado.", stationid);
-	SendClientMessage(playerid, COLOR_WHITE, msg);
+	SuccesMsg(playerid, msg);
 	return 1;
 }
 
@@ -23083,13 +23194,13 @@ CMD:movefuelstation(playerid, params[])
 {
 	new stationid, msg[128];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	if(sscanf(params, "d", stationid)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /movefuelstation [stationid]");
-	if(!IsValidFuelStation(stationid)) return SendClientMessage(playerid, COLOR_RED, "ID invalido");
+	if(sscanf(params, "d", stationid)) return ErrorMsg(playerid, "USAGE: /movefuelstation [stationid]");
+	if(!IsValidFuelStation(stationid)) return ErrorMsg(playerid, "ID invalido");
 	GetPlayerPos(playerid, FuelStationPos[stationid][0], FuelStationPos[stationid][1], FuelStationPos[stationid][2]);
 	UpdateFuelStation(stationid, 1);
 	SaveFuelStation(stationid);
 	format(msg, sizeof(msg), "Posto %d movido.", stationid);
-	SendClientMessage(playerid, COLOR_WHITE, msg);
+	SuccesMsg(playerid, msg);
 	return 1;
 }
 
@@ -23097,13 +23208,13 @@ CMD:gotofuelstation(playerid, params[])
 {
 	new stationid, msg[128];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	if(sscanf(params, "d", stationid)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: /gotofuelstation [stationid]");
-	if(!IsValidFuelStation(stationid)) return SendClientMessage(playerid, COLOR_RED, "ID invalido");
+	if(sscanf(params, "d", stationid)) return ErrorMsg(playerid, "USAGE: /gotofuelstation [stationid]");
+	if(!IsValidFuelStation(stationid)) return ErrorMsg(playerid, "ID invalido");
 	SetPlayerPos(playerid, FuelStationPos[stationid][0], FuelStationPos[stationid][1], FuelStationPos[stationid][2]);
 	TogglePlayerControllable(playerid, false);
 	SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 	format(msg, sizeof(msg), "Teleportado para o Posto %d", stationid);
-	SendClientMessage(playerid, COLOR_WHITE, msg);
+	SuccesMsg(playerid, msg);
 	return 1;
 }
 
@@ -23135,8 +23246,8 @@ CMD:dcn(playerid)
 		if(!DOF2_FileExists(GetSlotMachine(i))) continue;
 		if(IsPlayerInRangeOfPoint(playerid, 1.0, DOF2_GetFloat(GetSlotMachine(i), "PozX"), DOF2_GetFloat(GetSlotMachine(i), "PozY"), DOF2_GetFloat(GetSlotMachine(i), "PozZ")))
 		{
-			if(DataSlotMachine[i][Occupied] == true) return SendClientMessage(playerid, -1, "{FFFF00}[Casino] Nao pode deletar a maquina agora.");
-			PlayerInfo[playerid][pDinheiro] += DOF2_GetInt(GetSlotMachine(i), "Jackpot"), DOF2_RemoveFile(GetSlotMachine(i)), DestroyDynamic3DTextLabel(DataSlotMachine[i][TextoSm]), DestroyObject(DataSlotMachine[i][SmObject]), format(String, sizeof(String), "{FF0033}Você deletou o Caca-niquel de ID: {FFFFFF}%d{FF0033}.", i), SendClientMessage(playerid, -1 , String);
+			if(DataSlotMachine[i][Occupied] == true) return ErrorMsg(playerid, "Nao pode deletar a maquina agora.");
+			PlayerInfo[playerid][pDinheiro] += DOF2_GetInt(GetSlotMachine(i), "Jackpot"), DOF2_RemoveFile(GetSlotMachine(i)), DestroyDynamic3DTextLabel(DataSlotMachine[i][TextoSm]), DestroyObject(DataSlotMachine[i][SmObject]), format(String, sizeof(String), "Voce deletou o Caca-niquel de ID: %d.", i), InfoMsg(playerid, String);
 			break;
 		}
 	}
@@ -23182,18 +23293,18 @@ CMD:infocn(playerid)
 CMD:freq(playerid, params[])
 {
 	new freq;
-	if(sscanf(params, "d", freq)) return SendClientMessage(playerid, -1,"Uso: /freq [FREQ. 1-1000 (0 Desligar)]");
-	if(freq > MAX_FREQUENCIAS || freq < 0) return SendClientMessage(playerid, 0xFF0000FF, "Freq Invalida!");
+	if(sscanf(params, "d", freq)) return ErrorMsg(playerid, "Uso: /freq [FREQ. 1-1000 (0 Desligar)]");
+	if(freq > MAX_FREQUENCIAS || freq < 0) return ErrorMsg(playerid, "Freq Invalida!");
 	if(freq == 0)
 	{
 		FrequenciaConectada[playerid] = 0;
-		SendClientMessage(playerid, 0xFF0000FF, "Radio desligado!");
+		InfoMsg(playerid, "Radio desligado!");
 		SvDetachListenerFromStream(Frequencia[freq], playerid);
 		FrequenciaConectada[playerid] = 0;
 	} else {
 		new string[128];
 		format(string, 128, "Frequencia conectada: (%d).", freq);
-		SendClientMessage(playerid, 0x00AE00FF, string);
+		SuccesMsg(playerid, string);
 
 		format(string, 128, "%s saiu da frequencia(%d)", Name(playerid), FrequenciaConectada[playerid]);
 		MsgFrequencia(FrequenciaConectada[playerid], 0xBF0000FF, string);
@@ -23208,7 +23319,7 @@ CMD:freq(playerid, params[])
 CMD:vip(playerid, params[])
 {
 	if(PlayerInfo[playerid][pVIP] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
-	if(sscanf(params, "s[56]", Motivo)) 							return SendClientMessage(playerid, CorErroNeutro, "USE: /vip [TEXTO]");
+	if(sscanf(params, "s[56]", Motivo)) 							return ErrorMsg(playerid,"USE: /vip [TEXTO]");
 	//
 	format(Str, sizeof(Str), "%s {FFFF00}%s{FFFFFF} disse {FFFF00}%s", VIP(playerid), Name(playerid), Motivo);
 	SendAdminMessage(0xDDA0DDFF, Str);
@@ -23227,7 +23338,7 @@ CMD:mudarskin(playerid, params[])
 		}
 		MostrandoMenu[playerid] = true;
 		SelectTextDraw(playerid, 0xFF0000FF);
-		SendClientMessage(playerid, 0x00AE00FF, "Use a tecla F para cancelar a mudanca de skin e remover as tde.");
+		InfoMsg(playerid, "Use a tecla F para cancelar a mudanca de skin e remover as tde.");
 	}
 	else
 	{
@@ -23462,7 +23573,7 @@ CMD:repararvip(playerid)
 CMD:pediravaliar(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1) return ErrorMsg(playerid, "Nao possui permissao.");
-	if(sscanf(params, "d", ID)) return SendClientMessage(playerid, CorErroNeutro, "USE: /pediravaliar [ID]");
+	if(sscanf(params, "d", ID)) return ErrorMsg(playerid,"USE: /pediravaliar [ID]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -23511,6 +23622,7 @@ CMD:desossar(playerid)
 	{
 		CreateProgress(playerid, "Desossar","Desossando...", 100);
 		TogglePlayerControllable(playerid, 0);
+		ApplyAnimation(playerid, "BASEBALL", "Bat_M", 4.1, 1, 0, 0, 0, 0, 1);
 		RemovePlayerAttachedObject(playerid, 1);
 		UsouCMD[playerid] = true;
 	}
@@ -23671,13 +23783,13 @@ CMD:resetanuncios(playerid,params[])
 CMD:anuncio(playerid,params[])
 {
 	new anuncio[75];
-	if(strlen(params) >= 74) return SendClientMessage(playerid,-1,"Ha muitos caracteres no anuncio.");
-	if(sscanf(params,"s[75]",anuncio)) return SendClientMessage(playerid,-1,"Usa /anuncio [anuncio]");
+	if(strlen(params) >= 74) return ErrorMsg(playerid,"Ha muitos caracteres no anuncio.");
+	if(sscanf(params,"s[75]",anuncio)) return ErrorMsg(playerid,"Usa /anuncio [anuncio]");
 	new string[200];
 	if(TiempoAnuncio[playerid] > 0)
 	{
 	    format(string,100,"Espera %d segundos para poder fazer outro anuncio.",TiempoAnuncio[playerid]);
-	    SendClientMessage(playerid,-1,string);
+	    ErrorMsg(playerid, string);
 		return true;
 	}
 	TiempoAnuncio[playerid] = 60;
@@ -23768,5 +23880,123 @@ CMD:cancelarrota(playerid)
 		DisablePlayerCheckpoint(playerid);
 		InfoMsg(playerid, "Rota cancelada.");
 	}
+	return 1;
+}
+
+CMD:roubar(playerid)
+{
+	if(GetPlayerWeapon(playerid) == 22 || GetPlayerWeapon(playerid) == 24)
+	{
+		new noti = randomEx(0, 2);
+		if(PlayerToPoint(5.0, playerid, -2384.989013, -52.624767, 35.479652))
+		{
+			if(RouboLoja1 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
+			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
+				
+			CreateProgress(playerid, "RoubarLoja","Roubando caixa lojinha...", 1000);
+			
+			if(noti == 1)
+			{
+				foreach(Player, i)
+				{
+					if(Patrulha[i] == true)
+					{
+						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 1");
+						notificacao(i, "COPOM", Str, "hud:radar_police");
+					}
+				}
+			}
+			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 1.");
+			return 1;
+		}
+		if(PlayerToPoint(5.0, playerid, -2447.547607, 1211.448730, 35.378131))
+		{
+			if(RouboLoja2 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
+			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
+				
+			CreateProgress(playerid, "RoubarLoja","Roubando caixa lojinha...", 1000);
+			
+			if(noti == 1)
+			{
+				foreach(Player, i)
+				{
+					if(Patrulha[i] == true)
+					{
+						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 2");
+						notificacao(i, "COPOM", Str, "hud:radar_police");
+					}
+				}
+			}
+			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 2.");
+			return 1;
+		}
+		if(PlayerToPoint(5.0, playerid, -2076.633300, 643.822387, 52.524246))
+		{
+			if(RouboLoja3 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
+			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
+				
+			CreateProgress(playerid, "RoubarLoja","Roubando caixa lojinha...", 1000);
+			
+			if(noti == 1)
+			{
+				foreach(Player, i)
+				{
+					if(Patrulha[i] == true)
+					{
+						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 3");
+						notificacao(i, "COPOM", Str, "hud:radar_police");
+					}
+				}
+			}
+			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 3.");
+			return 1;
+		}
+		if(PlayerToPoint(5.0, playerid, 376.622558, -117.278648, 1001.492187))
+		{
+			if(RouboRestaurante == true)return ErrorMsg(playerid, "Esta pizzaria ja roubado.");
+			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
+				
+			CreateProgress(playerid, "RoubarLoja","Roubando caixa pizzaria...", 1000);
+			
+			if(noti == 1)
+			{
+				foreach(Player, i)
+				{
+					if(Patrulha[i] == true)
+					{
+						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Pizzaria");
+						notificacao(i, "COPOM", Str, "hud:radar_police");
+					}
+				}
+			}
+			InfoMsg(playerid, "Voce comecou a roubar a Pizzaria.");
+			return 1;
+		}
+	}
+	return 1;	
+}
+
+CMD:desmanchar(playerid)
+{
+	//if(PlayerInfo[playerid][Org] == 12 || PlayerInfo[playerid][Org] == 13)
+	//{
+		if(PTP(5.0, playerid, 406.967926, 2435.910644, 17.121870) || PTP(5.0, playerid, 401.748901, 2436.063232, 17.121870) || PTP(5.0, playerid, 395.880065, 2435.940917, 17.121870))
+		{
+			Controle(playerid, 0);
+			CreateProgress(playerid, "DesmancharVeh","Desmanchando Veiculo...", 200);
+		}
+	//}
 	return 1;
 }
