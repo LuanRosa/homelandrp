@@ -639,7 +639,6 @@ new	bool:AntiAFK_Ativado = true,
 	bool:Moved[MAX_PLAYERS] = false,
 	bool:FoiCriado[MAX_VEHICLES] = false,
 	bool:FirstLogin[MAX_PLAYERS] = true,
-	bool:SpawnPos[MAX_PLAYERS] = false,
 	bool:pJogando[MAX_PLAYERS] = true,
 	bool:pLogado[MAX_PLAYERS] = false,
 	bool:IsAssistindo[MAX_PLAYERS] = false,
@@ -1683,7 +1682,11 @@ new RandomMSG[][] =
 };
 
 //                          PUBLICS
-
+new bool:pulou2vezes[MAX_PLAYERS] = false;
+CallBack::ResetarPulo(playerid)
+{
+	pulou2vezes[playerid] = false;
+}
 
 CreateLocPick(playerid)
 {
@@ -4726,16 +4729,13 @@ CallBack::FomeBar(playerid)
 
 	new fome = randomEx(1,3);
 	FomePlayer[playerid] -= fome;
-	if(FomePlayer[playerid] == 10 || FomePlayer[playerid] == 5)
-	{
-		GameTextForPlayer(playerid, " ~y~voce esta com fome", 3000, 3);
-	}
-	if(FomePlayer[playerid] > 1)
+	if(FomePlayer[playerid] <= 1)
 	{
 		new Float:health;
     	GetPlayerHealth(playerid,health);
 		SetPlayerHealth(playerid, health-fome);
 		FomePlayer[playerid] = 0;
+		GameTextForPlayer(playerid, "~y~voce esta com fome", 3000, 3);
 	}
 	return 1;
 }
@@ -4746,16 +4746,13 @@ CallBack::SedeBar(playerid)
 		return true;
 	new sede = randomEx(1,3);
 	SedePlayer[playerid] -= sede;
-	if(SedePlayer[playerid] == 10 || SedePlayer[playerid] == 5)
-	{
-		GameTextForPlayer(playerid, "~y~voce esta com sede", 3000, 3);
-	}
-	if(SedePlayer[playerid] > 1)
+	if(SedePlayer[playerid] <= 1)
 	{
 		new Float:health;
     	GetPlayerHealth(playerid,health);
 		SetPlayerHealth(playerid, health-sede);
 		SedePlayer[playerid] = 0;
+		GameTextForPlayer(playerid, "~y~voce esta com sede", 3000, 3);
 	}
 	return 1;
 }
@@ -11468,7 +11465,6 @@ stock ZerarDados(playerid)
 	RoubandoCaixa[playerid] = false;
 	Moved[playerid] = false;
 	FirstLogin[playerid] = false;
-	SpawnPos[playerid] =  false;
 	pJogando[playerid] = false;
 	pLogado[playerid] = false;
 	IsAssistindo[playerid] = false;
@@ -11983,7 +11979,7 @@ public OnGameModeInit()
 	LoadDealerships();
 	LoadFuelStations();
 	LoadSlotMachines();
-	CarregarMapas();
+	CarregarMapas(); 
 	CriarCasas();
 	CriarRadares();
 	LoadCofreOrg();
@@ -12406,26 +12402,6 @@ public OnPlayerSpawn(playerid)
 	}
 	PlayerTextDrawHide(playerid, TDmorte_p[playerid][0]);
 	if(GetPVarInt(playerid, "PlayMine") == 1) HideCasinoTDs(playerid);
-	if(SpawnPos[playerid] == true) 
-	{
-		SetPlayerPos(playerid, PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ]);
-		SetPlayerFacingAngle(playerid, PlayerInfo[playerid][pPosA]);
-		SetPlayerCameraPos(playerid, PlayerInfo[playerid][pCamX], PlayerInfo[playerid][pCamY], PlayerInfo[playerid][pCamZ]);
-		SetPlayerInterior(playerid, PlayerInfo[playerid][pInterior]);
-		TogglePlayerControllable(playerid, false);
-		SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		SpawnPos[playerid] = false;	 
-	}
-	else if(PlayerInfo[playerid][Casa] >= 0)
-	{
-		PlayerInfo[playerid][Entrada] = PlayerInfo[playerid][Casa];
-		SetPlayerPos(playerid, CasaInfo[PlayerInfo[playerid][Casa]][CasaInteriorX], CasaInfo[PlayerInfo[playerid][Casa]][CasaInteriorY], CasaInfo[PlayerInfo[playerid][Casa]][CasaInteriorZ]);
-		SetPlayerInterior(playerid, CasaInfo[PlayerInfo[playerid][Casa]][CasaInterior]);
-		SetPlayerVirtualWorld(playerid, PlayerInfo[playerid][Casa]);
-		TogglePlayerControllable(playerid, false);
-		SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		SpawnPos[playerid] = false;
-	}
     if(PlayerMorto[playerid][pEstaMorto] == 1)
     {
         if(PlayerMorto[playerid][pSegMorto] <= 0)
@@ -14095,6 +14071,18 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
 	new String[128], Float:PozX, Float:PozY, Float:PozZ;
+	if(newkeys & KEY_SPRINT && newkeys & KEY_JUMP) 
+	{
+		if(pulou2vezes[playerid] == true)
+		{
+			ApplyAnimation(playerid, "PED", "GETUP_FRONT", 4.0, 0, 1, 1, 0, 0, 1);
+		}
+		else
+		{
+			pulou2vezes[playerid] = true;
+			SetTimerEx("ResetarPulo", 1500, false, "d",playerid);
+		}
+	}
 	if(newkeys == KEY_SPRINT)
     {
         if(LockUse[playerid] == true)
@@ -15181,8 +15169,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					pJogando[playerid] = true;
 					Erro[playerid] = 0;
 					StopAudioStreamForPlayer(playerid);
-					GangZoneShowForPlayer(playerid, Parabolica, Vermelho);
-    				GangZoneShowForPlayer(playerid, Barragem, Vermelho);
+					GangZoneShowForPlayer(playerid, Parabolica, 0xFF000080);
+    				GangZoneShowForPlayer(playerid, Barragem, 0xFF000080);
 					new hora, minuto;
 					gettime(hora, minuto);
 					jogadoreson++;
@@ -15242,10 +15230,97 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		case DIALOG_BANIDO: Kick(playerid);
 		case DIALOG_POS:
 		{
-			SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -1972.100463, 137.953506, 27.687500, 90.036911, 0, 0, 0, 0, 0, 0);
-			SpawnPlayer(playerid);
-			if(response) SpawnPos[playerid] = true;
-			else SpawnPos[playerid] = false;
+			if(!response)
+			{
+				if(PlayerInfo[playerid][Casa] >= 0)
+				{
+					PlayerInfo[playerid][Entrada] = PlayerInfo[playerid][Casa];
+					SetPlayerPos(playerid, CasaInfo[PlayerInfo[playerid][Casa]][CasaInteriorX], CasaInfo[PlayerInfo[playerid][Casa]][CasaInteriorY], CasaInfo[PlayerInfo[playerid][Casa]][CasaInteriorZ]);
+					SetPlayerInterior(playerid, CasaInfo[PlayerInfo[playerid][Casa]][CasaInterior]);
+					SetPlayerVirtualWorld(playerid, PlayerInfo[playerid][Casa]);
+				}
+				else if(PlayerInfo[playerid][Org] == 0)
+				{
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -1972.100463, 137.953506, 27.687500, 90.036911, 0, 0, 0, 0, 0, 0);
+					SpawnPlayer(playerid);
+				}
+				else if(PlayerInfo[playerid][Org] == 1)
+				{
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2033.067504, -988.365112, 32.212158, 90.036911, 0, 0, 0, 0, 0, 0);
+					SpawnPlayer(playerid);
+				}
+				else if(PlayerInfo[playerid][Org] == 2)
+				{
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2440.856445, 522.686523, 29.914293, 90.036911, 0, 0, 0, 0, 0, 0);
+					SpawnPlayer(playerid);
+				}
+				else if(PlayerInfo[playerid][Org] == 3)
+				{
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -1278.104248, 2711.379150, 50.132141, 90.036911, 0, 0, 0, 0, 0, 0);
+					SpawnPlayer(playerid);
+				}
+				else if(PlayerInfo[playerid][Org] == 4)
+				{
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin],  1662.559692, -285.732208, 39.607868, 90.036911, 0, 0, 0, 0, 0, 0);
+					SpawnPlayer(playerid);
+				}
+				else if(PlayerInfo[playerid][Org] == 5)
+				{
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin],  -789.252563, 1622.004394, 27.117187, 90.036911, 0, 0, 0, 0, 0, 0);
+					SpawnPlayer(playerid);
+				}
+				else if(PlayerInfo[playerid][Org] == 6)
+				{
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2087.006591, -2544.948974, 30.625000, 90.036911, 0, 0, 0, 0, 0, 0);
+					SpawnPlayer(playerid);
+				}
+				else if(PlayerInfo[playerid][Org] == 7)
+				{
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 188.515975, -106.426063, 2.023437, 90.036911, 0, 0, 0, 0, 0, 0);
+					SpawnPlayer(playerid);
+				}
+				else if(PlayerInfo[playerid][Org] == 8)
+				{
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -96.821380, 1041.751953, 19.664335, 90.036911, 0, 0, 0, 0, 0, 0);
+					SpawnPlayer(playerid);
+				}
+				else if(PlayerInfo[playerid][Org] == 9)
+				{
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2653.636474, 640.163085, 14.45312, 90.036911, 0, 0, 0, 0, 0, 0);
+					SpawnPlayer(playerid);
+				}
+				else if(PlayerInfo[playerid][Org] == 10)
+				{
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2064.956787, 1389.049560, 7.101562, 90.036911, 0, 0, 0, 0, 0, 0);
+					SpawnPlayer(playerid);
+				}
+				else if(PlayerInfo[playerid][Org] == 11)
+				{
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2521.187744, -624.952026, 132.781982, 90.036911, 0, 0, 0, 0, 0, 0);
+					SpawnPlayer(playerid);
+				}
+				else if(PlayerInfo[playerid][Org] == 12)
+				{
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -688.271423, 938.216918, 13.632812, 90.036911, 0, 0, 0, 0, 0, 0);
+					SpawnPlayer(playerid);
+				}
+				else if(PlayerInfo[playerid][Org] == 13)
+				{
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 698.636657, 1964.867065, 5.539062, 90.036911, 0, 0, 0, 0, 0, 0);
+					SpawnPlayer(playerid);
+				}
+				TogglePlayerControllable(playerid, false);
+				SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+			}
+			else
+			{
+				SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ], PlayerInfo[playerid][pPosA], 0, 0, 0, 0, 0, 0);
+				SetPlayerCameraPos(playerid, PlayerInfo[playerid][pCamX], PlayerInfo[playerid][pCamY], PlayerInfo[playerid][pCamZ]);
+				SetPlayerInterior(playerid, PlayerInfo[playerid][pInterior]);
+				SpawnPlayer(playerid);
+				TogglePlayerControllable(playerid, false);
+				SetTimerEx("carregarobj", 5000, 0, "i", playerid); 
+			}
 		}
 		case DIALOG_BANCO4:
 		{
@@ -23990,13 +24065,19 @@ CMD:roubar(playerid)
 
 CMD:desmanchar(playerid)
 {
-	//if(PlayerInfo[playerid][Org] == 12 || PlayerInfo[playerid][Org] == 13)
-	//{
+	if(PlayerInfo[playerid][Org] == 12 || PlayerInfo[playerid][Org] == 13)
+	{
 		if(PTP(5.0, playerid, 406.967926, 2435.910644, 17.121870) || PTP(5.0, playerid, 401.748901, 2436.063232, 17.121870) || PTP(5.0, playerid, 395.880065, 2435.940917, 17.121870))
 		{
 			Controle(playerid, 0);
 			CreateProgress(playerid, "DesmancharVeh","Desmanchando Veiculo...", 200);
 		}
-	//}
+	}
+	return 1;
+}
+
+CMD:irla(playerid)
+{
+	SetPlayerPos(playerid, -2123.10009766,-80.90000153,38.70000076);
 	return 1;
 }

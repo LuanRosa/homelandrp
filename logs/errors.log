@@ -705,3 +705,29 @@
 [10/09/23 14:52:45] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [10/09/23 16:29:35] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [10/09/23 16:41:47] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712079861452850/messages': end of stream
+[10/09/23 18:26:10] [plugins/discord-connector] Can't establish secured connection to Discord API: wrong version number (336130315)
+[10/09/23 18:28:07] [plugins/discord-connector] Can't read from Discord websocket gateway: O tempo limite do semáforo expirou (121)
+[10/09/23 18:28:07] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/09/23 18:28:07] [plugins/discord-connector] Can't establish secured connection to Discord gateway: wrong version number (336130315)
+[10/09/23 18:28:07] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/09/23 18:28:12] [plugins/discord-connector] Can't establish secured connection to Discord gateway: wrong version number (336130315)
+[10/09/23 18:28:17] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/09/23 18:28:19] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': Uma tentativa de conexão falhou porque o componente conectado não respondeu
+corretamente após um período de tempo ou a conexão estabelecida falhou
+porque o host conectado não respondeu
+[10/09/23 18:28:21] [plugins/discord-connector] Can't establish secured connection to Discord API: wrong version number (336130315)
+[10/09/23 18:28:22] [plugins/discord-connector] Can't establish secured connection to Discord API: wrong version number (336130315)
+[10/09/23 18:28:23] [plugins/discord-connector] Can't establish secured connection to Discord gateway: wrong version number (336130315)
+[10/09/23 18:28:25] [plugins/discord-connector] Can't establish secured connection to Discord API: wrong version number (336130315)
+[10/09/23 18:28:27] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/09/23 18:28:29] [plugins/discord-connector] Could not reconnect to Discord
+[10/09/23 18:28:29] [plugins/discord-connector] Error while sending HTTP POST request to '/api/v8/channels/1145712303124254743/messages': unspecified system error
+[10/09/23 18:28:37] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/09/23 18:28:38] [plugins/discord-connector] Can't establish secured connection to Discord gateway: wrong version number (336130315)
+[10/09/23 18:28:44] [plugins/discord-connector] Can't establish secured connection to Discord API: Foi forçado o cancelamento de uma conexão existente pelo host remoto (10054)
+[10/09/23 18:28:45] [plugins/discord-connector] Can't establish secured connection to Discord API: wrong version number (336130315)
+[10/10/23 00:34:59] [plugins/discord-connector] Can't read from Discord websocket gateway: Foi forçado o cancelamento de uma conexão existente pelo host remoto (10054)
+[10/10/23 00:34:59] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/10/23 00:36:09] [plugins/discord-connector] Can't read from Discord websocket gateway: Foi forçado o cancelamento de uma conexão existente pelo host remoto (10054)
+[10/10/23 00:36:09] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/10/23 00:36:48] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712172794642442/messages': end of stream
