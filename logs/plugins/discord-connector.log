@@ -825,3 +825,6 @@ porque o host conectado não respondeu
 [10/10/23 00:36:09] [ERROR] Can't read from Discord websocket gateway: Foi forçado o cancelamento de uma conexão existente pelo host remoto (10054)
 [10/10/23 00:36:09] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
 [10/10/23 00:36:48] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712172794642442/messages': end of stream
+[10/10/23 19:20:35] [ERROR] Can't read from Discord websocket gateway: End of file (2)
+[10/10/23 19:20:35] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/10/23 19:34:25] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream

@@ -555,7 +555,7 @@ stock CreateNotify(const playerid, index, i, const Float:new_x)
 		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
 		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
 
-		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "ANUNCIO");
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "COPOM");
 		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.158, 1.098);
 		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
 		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
