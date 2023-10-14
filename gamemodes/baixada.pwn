@@ -36,7 +36,7 @@
 #include		<		progress2		>
 #include		<		processo		> 
 #include		<		Fader			>
-
+#include        < 		ranks	 		>
   
 #define MAX_PLAYERS 		 		500
 #define MAX_CAIXAS               	50
@@ -56,7 +56,7 @@
 #define MAX_FREQUENCIAS				1000
 new	UltimaFala[MAX_PLAYERS];
 #define MAX_SEGUNDOSFALAR  			2  
-#define MAX_EASTER_EGGS         	20
+#define MAX_EASTER_EGGS         	31
 
 #define PASTA_BANIDOS 				"Banidos/Contas/%s.ini"
 #define PASTA_BANIDOSIP 			"Banidos/IPs/%s.ini"
@@ -82,6 +82,8 @@ new	UltimaFala[MAX_PLAYERS];
 #define PASTA_MORTOS 				"Mortos/%s.ini"
 #define PASTA_AVALIACAO				"AdminAvaliacao/%s.ini"
 #define Pasta_Eastereggs       		"EasterEggs.cfg"
+#define Pasta_Ranks             	"rank/rank_%s.ini"
+#define Pasta_Relatorios        "Relatorios/%d.ini"
 
 #define CallBack::%0(%1) 		forward %0(%1);\
 							public %0(%1)
@@ -117,7 +119,7 @@ new	UltimaFala[MAX_PLAYERS];
 #define SpawnPlayerID(%0) 			SetTimerEx("SpawnP", 500, false, "i", %0)
 #define Controle 					TogglePlayerControllable
 #define SERVERFORUM     			"discord.gg/QYpxa5SvNB"
-#define VERSAOSERVER     			"Baixada v1.0" 
+#define VERSAOSERVER     			"Baixada v2.0.7" 
 #define NA 5
 #define PTP 						PlayerToPoint
 //                          SISTEMA DEALERSHIP (CONCE E POSTO)
@@ -717,6 +719,14 @@ new TimerMensagemAutoBot;
 
 //                          VARIAVEIS SEM COMENT
 
+new Armazenar[MAX_PLAYERS];
+new chosenpid;
+new ChatAtendimento[MAX_PLAYERS];
+new NumeroChatAtendimento[MAX_PLAYERS];
+new IDAvaliou[MAX_PLAYERS];
+new InviteAtt[MAX_PLAYERS];
+new ArmazenarString[30][MAX_PLAYERS];
+new stringZCMD[180];
 new ModoTransacao[MAX_PLAYERS];
 new jogadoreson;
 new RecentlyShot[MAX_PLAYERS];
@@ -1655,6 +1665,39 @@ new RandomMSG[][] =
 
 //                          PUBLICS
 
+CallBack::AChatAtendimento(COLOR,const string[],level)
+{
+	foreach(new i: Player)
+	{
+		if(IsPlayerConnected(i))
+		{
+		    if(NumeroChatAtendimento[i] == level)
+		    {
+				if (ChatAtendimento[i] > 0)
+				{
+					SendClientMessage(i, COLOR, string);
+				}
+			}
+		}
+	}
+	return 1;
+}
+
+CallBack::TxdLogin(playerid)
+{
+	for(new i = 0; i < 23; ++i)
+	{
+		PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);	
+	}
+	for(new i = 0; i < 7; i ++)
+	{
+		PlayerTextDrawShow(playerid, HudServer_p[playerid][i]);
+	}
+	for(new i = 0; i < 17; i ++)
+	{
+		TextDrawShowForPlayer(playerid, HudServer[i]);
+	}
+}
 //------------- Sistema de Easter Eggs ------------------
 enum eastE{
 
@@ -3629,6 +3672,9 @@ CallBack::SendMSG()
 		{
 			LimparChat(i, 10);
 			InfoMsg(i, RandomMSG[random(sizeof(RandomMSG))]);
+	        checkrank("horasjogadas", 		Name(i), PlayerInfo[i][pSegundosJogados]);
+	    	checkrank("banco", 				Name(i), PlayerInfo[i][pDinheiro]+PlayerInfo[i][pBanco]);
+
 		}
 	}
 	RouboLoja1 = false;
@@ -11868,37 +11914,39 @@ public OnGameModeInit()
 	CarregarDinRoubos();
 	CreateTelaLogin();
 	TextDrawBase();
-	createEE(0, "HALLOWEEN EVENT 1", 19320,3.0, -984.33557, 1293.37805, 33.30560,   -28.00000, -84.00000, 30.00000);
-	createEE(1, "HALLOWEEN EVENT 2", 19320,3.0, -2354.78540, 142.00720, 38.22280,   0.00000, 0.00000, -153.00000);
-	createEE(2, "HALLOWEEN EVENT 3", 19320,3.0, -1077.87439, -1157.65149, 128.21820,   0.00000, 0.00000, 128.00000);
-	createEE(3, "HALLOWEEN EVENT 4", 19320,3.0, 420.86520, 1166.28906, 18.71620,   0.00000, 0.00000, 28.00000);
+    createrank("horasjogadas");
+    createrank("banco");
+	createEE(0, "HALLOWEEN EVENT 1", 19320,3.0, -984.33557, 1293.37805, 33.30560,   0.00000, 0.00000, 0.00000);
+	createEE(1, "HALLOWEEN EVENT 2", 19320,3.0, -2354.78540, 142.00720, 38.22280,  0.00000, 0.00000, 0.00000);
+	createEE(2, "HALLOWEEN EVENT 3", 19320,3.0, -1077.87439, -1157.65149, 128.21820,   0.00000, 0.00000, 0.00000);
+	createEE(3, "HALLOWEEN EVENT 4", 19320,3.0, 420.86520, 1166.28906, 18.71620,   0.00000, 0.00000, 0.00000);
 	createEE(4, "HALLOWEEN EVENT 5", 19320,3.0, 2294.35547, 547.58868, 0.75320,   0.00000, 0.00000, 0.00000);
-	createEE(5, "HALLOWEEN EVENT 6", 19320,3.0, 2773.04443, 609.84949, 8.07760,   0.00000, -110.00000, 0.00000);
+	createEE(5, "HALLOWEEN EVENT 6", 19320,3.0, 2773.04443, 609.84949, 8.07760,   0.00000, 0.00000, 0.00000);
 	createEE(6, "HALLOWEEN EVENT 7", 19320,3.0, -379.65137, -1043.83838, 58.02332,   0.00000, 0.00000, 0.00000);
-	createEE(7, "HALLOWEEN EVENT 8", 19320,3.0, -1694.38672, -626.94012, 23.19030,   30.00000, 92.00000, 8.00000);
+	createEE(7, "HALLOWEEN EVENT 8", 19320,3.0, -1694.38672, -626.94012, 23.19030,   0.00000, 0.00000, 0.00000);
 	createEE(8, "HALLOWEEN EVENT 9", 19320,3.0, -473.87051, -171.93179, 77.20510,   0.00000, 0.00000, 0.00000);
 	createEE(9, "HALLOWEEN EVENT 10", 19320,3.0, 2500.31226, -422.05249, 75.93670,   0.00000, 0.00000, 0.00000);
-	createEE(10, "HALLOWEEN EVENT 11", 19320,3.0, -2095.61694, -815.23132, 31.29690,   -90.00000, 90.00000, 90.00000);
+	createEE(10, "HALLOWEEN EVENT 11", 19320,3.0, -2095.61694, -815.23132, 31.29690,   0.00000, 0.00000, 0.00000);
 	createEE(11, "HALLOWEEN EVENT 12", 19320,3.0, 1378.12842, 982.94397, 9.79970,   0.00000, 0.00000, 0.00000);
 	createEE(12, "HALLOWEEN EVENT 13", 19320,3.0, 2061.73608, -2208.81519, 15.40100, 0.0, 0.00000, 0.00000);
 	createEE(13, "HALLOWEEN EVENT 14", 19320,3.0, 2288.71631, -1926.96106, 12.61170,   0.00000, 0.00000, 0.00000);
-	createEE(14, "HALLOWEEN EVENT 15", 19320,3.0, 2856.96631, -414.79031, 7.52820,   0.00000, 0.00000, -58.00000);
-	createEE(15, "HALLOWEEN EVENT 16", 19320,3.0, 2884.63208, -131.83350, 0.99060,   -113.00000, -25.00000, -25.00000);
-	createEE(16, "HALLOWEEN EVENT 17", 19320,3.0, 2768.49756, -1368.27319, 39.31690,   -26.00000, 0.00000, 90.00000);
+	createEE(14, "HALLOWEEN EVENT 15", 19320,3.0, 2856.96631, -414.79031, 7.52820,   0.00000, 0.00000, 0.00000);
+	createEE(15, "HALLOWEEN EVENT 16", 19320,3.0, 2884.63208, -131.83350, 0.99060,   0.00000, 0.00000, 0.00000);
+	createEE(16, "HALLOWEEN EVENT 17", 19320,3.0, 2768.49756, -1368.27319, 39.31690,   0.00000, 0.00000, 0.00000);
 	createEE(17, "HALLOWEEN EVENT 18", 19320,3.0, 2102.88184, -1647.44495, 13.00600,   8.00000, 0.00000, 0.00000);
-	createEE(18, "HALLOWEEN EVENT 19", 19320,3.0, 2117.53174, -1941.52344, 12.57650,   0.00000, 0.00000, -185.00000);
-	createEE(19, "HALLOWEEN EVENT 20", 19320,3.0, 1766.90125, -2022.21533, 13.19720,   -91.00000, 0.00000, 0.00000);
-	createEE(20, "HALLOWEEN EVENT 21", 19320,3.0, -2350.917480, -40.718368, 35.312500,   -91.00000, 0.00000, 0.00000);
-	createEE(21, "HALLOWEEN EVENT 22", 19320,3.0, -2708.878662, 378.932891, 4.968750,   -91.00000, 0.00000, 0.00000);
-	createEE(22, "HALLOWEEN EVENT 23", 19320,3.0, -2037.736816, 1036.313476, 55.660934,   -91.00000, 0.00000, 0.00000);
-	createEE(23, "HALLOWEEN EVENT 24", 19320,3.0, -1966.798339, 113.898818, 27.687500,   -91.00000, 0.00000, 0.00000);
-	createEE(24, "HALLOWEEN EVENT 25", 19320,3.0, -2044.767211, 148.988311, 28.835937,   -91.00000, 0.00000, 0.00000);
-	createEE(25, "HALLOWEEN EVENT 26", 19320,3.0, -1714.471313, 1367.025512, 7.185316,   -91.00000, 0.00000, 0.00000);
-	createEE(26, "HALLOWEEN EVENT 27", 19320,3.0, -2502.430908, 2290.441162, 4.984375,   -91.00000, 0.00000, 0.00000);
-	createEE(27, "HALLOWEEN EVENT 28", 19320,3.0, -2779.038818, 1317.380981, 7.590801,   -91.00000, 0.00000, 0.00000);
-	createEE(28, "HALLOWEEN EVENT 29", 19320,3.0, -476.585144, -541.589050, 25.529611,   -91.00000, 0.00000, 0.00000);
-	createEE(29, "HALLOWEEN EVENT 30", 19320,3.0, -25.881288, 1359.155029, 9.171875,   -91.00000, 0.00000, 0.00000);
-	createEE(30, "HALLOWEEN EVENT 31", 19320,3.0, -1909.961059, 277.745422, 41.046875,   -91.00000, 0.00000, 0.00000);
+	createEE(18, "HALLOWEEN EVENT 19", 19320,3.0, 2117.53174, -1941.52344, 12.57650,   0.00000, 0.00000, 0.00000);
+	createEE(19, "HALLOWEEN EVENT 20", 19320,3.0, 1766.90125, -2022.21533, 13.19720,   0.00000, 0.00000, 0.00000);
+	createEE(20, "HALLOWEEN EVENT 21", 19320,3.0, -2350.917480, -40.718368, 35.312500,   0.00000, 0.00000, 0.00000);
+	createEE(21, "HALLOWEEN EVENT 22", 19320,3.0, -2708.878662, 378.932891, 4.968750,   0.00000, 0.00000, 0.00000);
+	createEE(22, "HALLOWEEN EVENT 23", 19320,3.0, -2037.736816, 1036.313476, 55.660934,   0.00000, 0.00000, 0.00000);
+	createEE(23, "HALLOWEEN EVENT 24", 19320,3.0, -1966.798339, 113.898818, 27.687500,   0.00000, 0.00000, 0.00000);
+	createEE(24, "HALLOWEEN EVENT 25", 19320,3.0, -2044.767211, 148.988311, 28.835937,   0.00000, 0.00000, 0.00000);
+	createEE(25, "HALLOWEEN EVENT 26", 19320,3.0, -1714.471313, 1367.025512, 7.185316,   0.00000, 0.00000, 0.00000);
+	createEE(26, "HALLOWEEN EVENT 27", 19320,3.0, -2502.430908, 2290.441162, 4.984375,   0.00000, 0.00000, 0.00000);
+	createEE(27, "HALLOWEEN EVENT 28", 19320,3.0, -2779.038818, 1317.380981, 7.590801,   0.00000, 0.00000, 0.00000);
+	createEE(28, "HALLOWEEN EVENT 29", 19320,3.0, -476.585144, -541.589050, 25.529611,   0.00000, 0.00000, 0.00000);
+	createEE(29, "HALLOWEEN EVENT 30", 19320,3.0, -25.881288, 1359.155029, 9.171875,   0.00000, 0.00000, 0.00000);
+	createEE(30, "HALLOWEEN EVENT 31", 19320,3.0, -1909.961059, 277.745422, 41.046875,   0.00000, 0.00000, 0.00000);
 
 	loadEE();
 	saveEE();
@@ -12215,6 +12263,12 @@ public OnPlayerDisconnect(playerid, reason)
 		{
 			SalvarArmas(playerid);
 		}
+		new arquivofila[64];
+		format(arquivofila, sizeof(arquivofila), Pasta_Relatorios,playerid);
+		if(DOF2_FileExists(arquivofila))
+		{
+			DOF2_RemoveFile(arquivofila);
+		}
 	}
 	if(IniciouTesteHabilitacaoA[playerid] == 1)
 	{
@@ -12457,6 +12511,18 @@ public OnPlayerText(playerid, text[])
 		format(Str, sizeof(Str), "Esta falando muito rapido (AVISO %i/10)", Erro[playerid]);
 		InfoMsg(playerid,Str);
 		if(Erro[playerid] == 10) Kick(playerid);
+		return 0;
+	}
+	if(ChatAtendimento[playerid] == 1)
+	{
+ 		format(string, sizeof(string), "{F65FC5}[Atendimento][{FFFFFF}Jogador{F65FC5}]%s: %s", PlayerName(playerid),text);
+        AChatAtendimento(COR_FADE1,string,NumeroChatAtendimento[playerid]);
+		return 0;
+	}
+	else if(ChatAtendimento[playerid] == 2)
+	{
+ 		format(string, sizeof(string), "{F65FC5}[Atendimento][{ff3399}Admin{F65FC5}]%s: %s", PlayerName(playerid),text);
+		AChatAtendimento(COR_FADE1,string,NumeroChatAtendimento[playerid]);
 		return 0;
 	}
 	if(ChatLigado == false)
@@ -14501,7 +14567,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		if(IsPlayerInRangeOfPoint(playerid, 1, -1634.807495, 1408.744750, 7.187500)){
 			MEGAString[0] = EOS;
-			new stringZCMD[500];
 			format(stringZCMD, sizeof(stringZCMD), "1* Começou agora e está perdido e não sabe o que fazer?");
 			strcat(MEGAString,stringZCMD);
 			format(stringZCMD, sizeof(stringZCMD), "\n2* Como faço para encontrar locais?");
@@ -14759,6 +14824,7 @@ public OnVehicleStreamOut(vehicleid, forplayerid)
 	return 1;
 }
 
+
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
 	new Account[255];
@@ -14942,18 +15008,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else
 				{
-					for(new i = 0; i < 23; ++i)
-					{
-						PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);	
-					}
-					for(new i = 0; i < 7; i ++)
-					{
-						PlayerTextDrawShow(playerid, HudServer_p[playerid][i]);
-					}
-					for(new i = 0; i < 17; i ++)
-					{
-						TextDrawShowForPlayer(playerid, HudServer[i]);
-					}
 					if(DOF2_FileExists(Account))
     	            {
 						format(PlayerInfo[playerid][pLastLogin], 24, DOF2_GetString(Account, "pLastLogin"));
@@ -15033,6 +15087,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					CarregarArmas(playerid);
 					CarregarMortos(playerid);
 					SetPlayerVirtualWorld(playerid, 0);
+					SetTimerEx("TxdLogin", 2000, false, "d",playerid);
 					pLogado[playerid] = true; 
 					pJogando[playerid] = true;
 					Erro[playerid] = 0;
@@ -15420,7 +15475,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 0)
 				{
 					MEGAString[0] = EOS;
-					new stringZCMD[500];
 					format(stringZCMD, sizeof(stringZCMD), "1* Começou agora e está perdido e não sabe o que fazer?");
 					strcat(MEGAString,stringZCMD);
 					format(stringZCMD, sizeof(stringZCMD), "\n2* Como faço para encontrar locais?");
@@ -18161,6 +18215,150 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GanharItem(playerid, 19792, 1);
 					MissaoPlayer[playerid][MISSAO4] = 1;
 				}
+			}
+		}
+		case 5009:
+		{
+			if(!response)return 1;
+			switch(listitem)
+			{
+				case 0:
+				{
+					ShowPlayerDialog(playerid, 5008, DIALOG_STYLE_MSGBOX, "{FFFFFF}Rank: {00d900}Horas Jogadas", getrank("horasjogadas", "Horas"), "Voltar", "");
+				}
+				case 1:
+				{
+					ShowPlayerDialog(playerid, 5008, DIALOG_STYLE_MSGBOX, "{FFFFFF}Rank: {00d900}Dinheiro", getrank("banco", "Grana"), "Voltar", "");
+				}
+			}
+		}
+		case 8726:
+		{
+			if(!response)
+			{
+				ErrorMsg(playerid,  "Você cancelou seu relatório!");
+				return 1;
+			}
+			ShowPlayerDialog(playerid, 4547, DIALOG_STYLE_TABLIST_HEADERS, "Solicitar Atendimento", "Prioridade\tDescrição\nPrioridade {FFFF00}BAIXA{FFFFFF}\tAssunto de pouca importância\nPrioridade {FF0000}ALTA{FFFFFF}\tAssunto de MUITA importância\n{FFFF00}Relatório{FFFFFF}\tEnviar um relatório para os admins", "Solicitar", "Fechar");
+		}
+		case 5409:
+		{
+			if(response)
+			{
+				foreach(new i: Player)
+				{
+					if(strfind(inputtext,PlayerName(i), true) != -1)
+					{
+						Armazenar[playerid] = i;
+					}
+				}
+				chosenpid = Armazenar[playerid];
+				new arquivo[64];
+				new string[255];
+				format(arquivo, sizeof(arquivo), Pasta_Relatorios,chosenpid);
+				if(DOF2_FileExists(arquivo))
+				{
+					new NomeFila[MAX_PLAYER_NAME];
+					new AssuntoFila[64];
+					strmid(NomeFila, DOF2_GetString(arquivo,"Jogador"), 0, strlen(DOF2_GetString(arquivo,"Jogador")), 255);
+					strmid(AssuntoFila, DOF2_GetString(arquivo,"Assunto"), 0, strlen(DOF2_GetString(arquivo,"Assunto")), 255);
+					DOF2_CreateFile(arquivo);
+					DOF2_GetString(arquivo, "Jogador");
+					DOF2_GetString(arquivo, "Assunto");
+					format(string, 128, "[ADM CMD]: %s[%d] iniciou um atendimento ao player %s[%d]!",PlayerName(playerid), playerid, PlayerName(chosenpid), chosenpid);
+					SendAdminMessage(-1, string);
+					format(string, sizeof(string), "O Administrador %s está lhe atendendo, assunto: [%s].", PlayerName(playerid),AssuntoFila);
+					SendClientMessage(chosenpid, -1, string);
+					SendClientMessage(chosenpid, -1, "Fale alguma coisa no chat. Quando quiser encerrar o atendimento digite: /terminar atendimento.");
+					ChatAtendimento[chosenpid] = 1;
+					ChatAtendimento[playerid] = 2;
+					InviteAtt[chosenpid] = playerid;
+					InviteAtt[playerid] = chosenpid;
+					NumeroChatAtendimento[chosenpid] = chosenpid;
+					NumeroChatAtendimento[playerid] = chosenpid;
+					DOF2_RemoveFile(arquivo);
+				}
+				else SendClientMessage(playerid, -1, "ID inválido.");
+			}
+			return 1;
+		}
+		case 4547:
+		{
+			if(!response)
+			{
+				SendClientMessage(playerid, -1, "Você cancelou seu relatório!");
+				return 1;
+			}
+			if(listitem == 1)
+			{
+				if(!response)
+				{
+					InfoMsg(playerid,  "Você cancelou seu relatório!");
+					return 1;
+				}
+				if (strlen(ArmazenarString[playerid]) > 30) //Strlen = Tamanho de uma string :)
+				{
+					ErrorMsg(playerid,  "Digite no máximo 30 Caracteres!");
+					return 1;
+				}
+				new arquivo[64];
+				new string[255];
+				format(arquivo, sizeof(arquivo), Pasta_Relatorios,playerid);
+				if(!DOF2_FileExists(arquivo))
+				{
+					DOF2_CreateFile(arquivo);
+					DOF2_SetString(arquivo, "Jogador", PlayerName(playerid));
+					DOF2_SetString(arquivo, "Assunto", ArmazenarString[playerid]);
+					DOF2_SetInt(arquivo, "Prioridade", 2);
+					DOF2_SaveFile();
+					format(string, 128, "[ADM BOT]: %s[%d] entrou na fila de atendimento, digite /fila para atende-lo !",PlayerName(playerid), playerid);
+					SendAdminMessage(-1, string);
+					SuccesMsg(playerid,  "Você enviou um atendimento e agora está na fila, aguarde um pouco até que os admin lhe atendam.");
+					return 1;
+				}
+				else
+				{
+					InfoMsg(playerid,  "Você já enviou um atendimento, aguarde e logo será atendido!");
+					return 1;
+				}
+			}
+			if(listitem == 0)
+			{
+				if(!response)
+				{
+					InfoMsg(playerid,  "Você cancelou seu relatório!");
+					return 1;
+				}
+				if (strlen(ArmazenarString[playerid]) > 30) //Strlen = Tamanho de uma string :)
+				{
+					ErrorMsg(playerid,  "Digite no máximo 30 Caracteres!");
+					return 1;
+				}
+				new arquivo[64];
+				new string[255];
+				format(arquivo, sizeof(arquivo), Pasta_Relatorios,playerid);
+				if(!DOF2_FileExists(arquivo))
+				{
+					DOF2_CreateFile(arquivo);
+					DOF2_SetString(arquivo, "Jogador", PlayerName(playerid));
+					DOF2_SetString(arquivo, "Assunto", ArmazenarString[playerid]);
+					DOF2_SetInt(arquivo, "Prioridade", 1);
+					DOF2_SaveFile();
+					format(string, 128, "[ADM BOT]: %s[%d] entrou na fila de atendimento, digite /fila para atendelo !",PlayerName(playerid), playerid);
+					SendAdminMessage(-1, string);
+					SuccesMsg(playerid,  "Você enviou um atendimento e agora está na fila, aguarde um pouco até que os admin lhe atendam.");
+					return 1;
+				}
+				else
+				{
+					InfoMsg(playerid,  "Você já enviou um atendimento, aguarde e logo será atendido!");
+					return 1;
+				}
+			}
+			if(listitem == 2)
+			{
+				ShowPlayerDialog(playerid, 4550, DIALOG_STYLE_INPUT, "{FFFF00}Particular", "Digite seu Relato", "Enviar", "Cancelar");
+				return 1;
 			}
 		}
 	}
@@ -23562,14 +23760,60 @@ CMD:verpontos(playerid)
 	return 1;
 }
 
-CMD:atendimento(playerid)
+CMD:atendimento(playerid, params[])
 {
-	new String[255];
-	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Nao esta conectado");
-
-	format(String, sizeof(String), "O jogador {FFFF00}%s {FFFFFF}esta solicitando atendimento use {FFFF00}/par {FFFFFF}ou va ate ele.", Name(playerid));
-	SendAdminMessage(-1, String);
+    if(isnull(params))
+		return ErrorMsg(playerid, "USE: /atendimento [Assunto]");
+    new Dialog[300];
+	format(stringZCMD, sizeof(stringZCMD), "{FFFFFF}Você está prestes a solicitar um atendimento administrativo\n\nSeu Nome: {0099ff}%s\n{FFFFFF}Assunto do Atendimento: {0099ff}%s\n\n",Name(playerid), params);
+	strcat(Dialog,stringZCMD);
+	format(stringZCMD, sizeof(stringZCMD), "{FF6347}OBS:{BFC0C2} Solicite atendimento para assuntos sérios, para dúvidas use /duvida ou /reportar,\ncaso contrario você será devidamente punido pela administração do servidor.");
+	strcat(Dialog,stringZCMD);
+	strmid(ArmazenarString[playerid], params, 0, strlen(params), 255);
+	ShowPlayerDialog(playerid, 8726, DIALOG_STYLE_MSGBOX, "{0099ff}Solicitar Atendimento", Dialog, "Continuar", "Cancelar");
 	return 1;
+}
+
+CMD:fila(playerid, params[])
+{
+	if (PlayerInfo[playerid][pAdmin] < 1)
+	{
+		ErrorMsg(playerid,  "Você não tem autorização para usar esse comando.");
+		return true;
+	}
+	new lol = 0;
+	MEGAString[0]=EOS;
+	new prioridade[20];
+	format(stringZCMD, sizeof(stringZCMD), "Jogador\tAssunto\tPrioridade\n");
+	strcat(MEGAString, stringZCMD);
+	while (lol < MAX_PLAYERS)
+	{
+		new arquivo[64];
+		format(arquivo, sizeof(arquivo), Pasta_Relatorios,lol);
+		if(DOF2_FileExists(arquivo))
+		{
+			new NomeFila[MAX_PLAYER_NAME];
+			new AssuntoFila[64];
+			strmid(NomeFila, DOF2_GetString(arquivo,"Jogador"), 0, strlen(DOF2_GetString(arquivo,"Jogador")), 255);
+			strmid(AssuntoFila, DOF2_GetString(arquivo,"Assunto"), 0, strlen(DOF2_GetString(arquivo,"Assunto")), 255);
+			DOF2_CreateFile(arquivo);
+			DOF2_GetString(arquivo, "Jogador");
+			DOF2_GetString(arquivo, "Assunto");
+			if(DOF2_GetInt(arquivo, "Prioridade") == 2)
+			{
+				prioridade = "{FF0000}ALTA";
+			}
+			else if(DOF2_GetInt(arquivo, "Prioridade") == 1)
+			{
+				prioridade = "{FFFF00}BAIXA";
+			}
+			format(stringZCMD, sizeof(stringZCMD), "%s[%d]\t%s\t%s\n", NomeFila,lol, AssuntoFila, prioridade);
+			strcat(MEGAString, stringZCMD);
+		}
+		lol++;
+	}
+	ShowPlayerDialog(playerid, 5409, DIALOG_STYLE_TABLIST_HEADERS, "{FFFF00}Clique 2x para atender", MEGAString, "Atender","Cancelar");
+	return true;
 }
 
 CMD:desossar(playerid)
@@ -23975,11 +24219,11 @@ CMD:creditos(playerid)
     strcat(MEGAString, "{696969}               (Criador/Fundador do servidor | Atual Scripter)\n");
     strcat(MEGAString, "{696969}Função: Cuidar da programação\n\n");
     
-    strcat(MEGAString, "{FFFFFF}»  Marconha\n");
+    strcat(MEGAString, "{FFFFFF}»  Maconha\n");
     strcat(MEGAString, "{696969}               (Criador/Fundador do servidor)\n");
     strcat(MEGAString, "{696969}Função: Responsável Geral\n\n");
 
-	strcat(MEGAString, "{FFFFFF}»  HernandezHL\n");
+	strcat(MEGAString, "{FFFFFF}»  HernandezRL\n");
     strcat(MEGAString, "{696969}               (Criador/Fundador do servidor)\n");
     strcat(MEGAString, "{696969}Função: Responsável Geral\n\n");
 
@@ -23992,3 +24236,65 @@ CMD:creditos(playerid)
 	ShowPlayerDialog(playerid, DIALOG_CREDITOS, DIALOG_STYLE_MSGBOX, "Creditos", MEGAString, "Fechar", "");
 	return true;
 }
+
+CMD:rank(playerid)
+{
+	MEGAString[0]=EOS;
+	strcat(MEGAString, "{B4B5B7} »{ffffff} Horas jogadas\n");
+	strcat(MEGAString, "{B4B5B7} »{ffffff} Dinheiro\n");
+	ShowPlayerDialog(playerid, 5009, DIALOG_STYLE_LIST, "Ranks", MEGAString, "Ver", "X");
+	return 1;
+}
+
+CMD:terminar(playerid, x_Emprego[])
+	{
+		if(IsPlayerConnected(playerid))
+		{
+			if(strcmp(x_Emprego,"atendimento",true) == 0)
+			{
+				if(InviteAtt[playerid] < 999)
+				{
+					if(IsPlayerConnected(InviteAtt[playerid]))
+					{
+						if(ChatAtendimento[playerid] == 0)
+						{
+							ErrorMsg(playerid,  "Você não está em um atendimento.");
+							return 1;
+						}
+						foreach(new i: Player)
+						{
+							if(InviteAtt[i] == playerid)
+							{
+								new gstring[255];
+								format(stringZCMD,sizeof(stringZCMD),"%d",playerid);
+								cmd_pediravaliar(i, stringZCMD);
+								ChatAtendimento[playerid] = 0;
+								ChatAtendimento[i] = 0;
+								IDAvaliou[playerid] = 999;
+								IDAvaliou[i] = 999;
+								InviteAtt[i] = 999;
+								InviteAtt[playerid] = 9999;
+								NumeroChatAtendimento[i] = 0;
+								NumeroChatAtendimento[playerid] = 0;
+								format(gstring, 128, "* %s saiu do atendimento.", PlayerName(playerid));
+								SendClientMessage(i, -1, gstring);
+								format(gstring, sizeof(gstring), "* Você saiu do atendimento.");
+								SendClientMessage(playerid, -1, gstring);
+							}
+						}
+					}
+					else
+					{
+						ErrorMsg(playerid,  "O jogador que lhe convidou não está conectado.");
+						return 1;
+					}
+				}
+				else
+				{
+					ErrorMsg(playerid,  "Você não está em um atendimento.");
+					return 1;
+				}
+			}
+		}
+		return 1;
+	}
