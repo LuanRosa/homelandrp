@@ -37,13 +37,57 @@
 #include		<		processo		> 
 #include		<		Fader			>
 
-#define MAX_PLAYERS 500
+  
+#define MAX_PLAYERS 		 		500
+#define MAX_CAIXAS               	50
+#define MAX_ZONE_NAME 				28
+#define MAX_VAGAS          			20+1
+#define MAX_ORGS           			14
+#define MAX_MACONHA         		300
+#define Max_Crescida        		10
+#define MAX_CASAS        			500
+#define MAX_RADAR        			500
+#define MAX_PICKUPS_ROUBO       	50 
+#define MAX_DVEHICLES 				500
+#define MAX_DEALERSHIPS 			100
+#define MAX_FUEL_STATIONS 			100
+#define MAX_PLAYER_VEHICLES 		10
+#define MAX_SLOTMACHINE 			50
+#define MAX_FREQUENCIAS				1000
+new	UltimaFala[MAX_PLAYERS];
+#define MAX_SEGUNDOSFALAR  			2  
+#define MAX_EASTER_EGGS         	20
+
+#define PASTA_BANIDOS 				"Banidos/Contas/%s.ini"
+#define PASTA_BANIDOSIP 			"Banidos/IPs/%s.ini"
+#define PASTA_CONTAS 				"Contas/%s.ini"
+#define PASTA_MISSOES 				"Missoes/%s.ini"
+#define PASTA_AGENDADOS 			"Agendados/%s.ini"
+#define PASTA_BACKUPBAN 			"Backups/Banidos/%s.ini"
+#define PASTA_BACKUPBANIP 			"Backups/IPsBanidos/%s.ini"
+#define PASTA_INVENTARIO			"Inventarios/%s.ini"
+#define PASTA_VIPS 					"VIPS/%s.ini"
+#define PASTA_ORGS           		"InfoOrg/%d.ini"	
+#define PASTA_COFREORG  			"InfoOrg/CofreOrg/Org%d.cfg"
+#define PASTA_COFRES                "BauOrgs/Cofre%d.ini"
+#define PASTA_SAVEARMAS 			"Armas/%s.ini"
+#define PASTA_KEYS 					"Codigos/%d.ini"
+#define PASTA_CASAS       			"Casas/%d.ini"
+#define PASTA_PLANTACAO 			"Plantacoes/PL%d.ini"
+#define PASTA_RADAR		  			"Radares/Radar%d.ini"	
+#define VEHICLE_FILE_PATH 			"Conce/Veiculos/"
+#define DEALERSHIP_FILE_PATH 		"Conce/Locais/"
+#define FUEL_STATION_FILE_PATH 		"Conce/Postos/"
+#define PASTA_SLOTS 				"Cacaniquel/Slot%i.ini"
+#define PASTA_MORTOS 				"Mortos/%s.ini"
+#define PASTA_AVALIACAO				"AdminAvaliacao/%s.ini"
+#define Pasta_Eastereggs       		"EasterEggs.cfg"
+
 #define CallBack::%0(%1) 		forward %0(%1);\
 							public %0(%1)
 #define XP_::%1(%2) forward %1(%2); public %1(%2)
 
-new	UltimaFala[MAX_PLAYERS];
-#define SEGUNDOS_SEM_FALAR  		2  
+
 // Encrypt de password
 #define passwordSalt                "akjhf2bh36s"
 
@@ -84,80 +128,6 @@ new	UltimaFala[MAX_PLAYERS];
 #define VEHICLE_PLAYER 				2
 #define PRECO_GASOLINA 				1200
 #define PRECO_GALAO 				500
-
-//                          DEFINES MAX
-
-#define MAX_CAIXAS              	50
-#define MAX_ZONE_NAME 				28
-#define MAX_VAGAS          			20+1
-#define MAX_ORGS           			14
-#define MAX_MACONHA        			300
-#define Max_Crescida       			10
-#define MAX_CASAS        			500
-#define MAX_RADAR        			500 
-#define MAX_PICKUPS_ROUBO       	50   
-#define MAX_DVEHICLES 				500
-#define MAX_DEALERSHIPS 			100
-#define MAX_FUEL_STATIONS 			100
-#define MAX_PLAYER_VEHICLES 		10
-#define MAX_SLOTMACHINE 			50
-#define MAX_FREQUENCIAS				1000
-
-//                          PASTAS
-
-#define PASTA_BANIDOS 				"Banidos/Contas/%s.ini"
-#define PASTA_BANIDOSIP 			"Banidos/IPs/%s.ini"
-#define PASTA_CONTAS 				"Contas/%s.ini"
-#define PASTA_MISSOES 				"Missoes/%s.ini"
-#define PASTA_AGENDADOS 			"Agendados/%s.ini"
-#define PASTA_BACKUPBAN 			"Backups/Banidos/%s.ini"
-#define PASTA_BACKUPBANIP 			"Backups/IPsBanidos/%s.ini"
-#define PASTA_INVENTARIO			"Inventarios/%s.ini"
-#define PASTA_VIPS 					"VIPS/%s.ini"
-#define PASTA_ORGS           		"InfoOrg/%d.ini"	
-#define PASTA_COFREORG  			"InfoOrg/CofreOrg/Org%d.cfg"
-#define PASTA_COFRES                "BauOrgs/Cofre%d.ini"
-#define PASTA_SAVEARMAS 			"Armas/%s.ini"
-#define PASTA_KEYS 					"Codigos/%d.ini"
-#define PASTA_CASAS       			"Casas/%d.ini"
-#define PASTA_PLANTACAO 			"Plantacoes/PL%d.ini"
-#define PASTA_RADAR		  			"Radares/Radar%d.ini"	
-#define VEHICLE_FILE_PATH 			"Conce/Veiculos/"
-#define DEALERSHIP_FILE_PATH 		"Conce/Locais/"
-#define FUEL_STATION_FILE_PATH 		"Conce/Postos/"
-#define PASTA_SLOTS 				"Cacaniquel/Slot%i.ini"
-#define PASTA_MORTOS 				"Mortos/%s.ini"
-#define PASTA_AVALIACAO				"AdminAvaliacao/%s.ini"
-
-//                           CORES
-
-#define 	CorAmareloServer 	0xFFFF00FF
-#define		CorSucesso      	0xFF0000FF
-#define     CorErro         	0xFF4500FF
-#define     CorErroNeutro   	0xFFFFFFFF
-#define     Branco          	0xFFFFFFFF
-#define     CinzaClaro      	0xD3D3D3FF
-#define     CinzaEscuro     	0xE64022FF
-#define     Azul            	0x00FF0000
-#define     AzulClaro       	0x1E90FFFF
-#define     AzulRoyal       	0x4169E1FF
-#define     Verde           	0x00FF00FF
-#define     Amarelo         	0xFFFF00FF
-#define     Vermelho        	0xFF0000FF
-#define     VermelhoEscuro  	0xB22222FF
-#define 	COLOR_LGREEN 		0xD7FFB3FF
-#define 	COR_VERMELHO    	0xFF0000FF
-#define 	COR_GREY	    	0xAFAFAFAA
-#define 	COLOR_BLACK 		0x000000FF
-#define 	COLOR_RED 			0xEE0000FF
-#define 	COLOR_GREEN 		0x00CC00FF
-#define 	COLOR_BLUE 			0x0000FFFF
-#define 	COLOR_ORANGE 		0xFF6600FF
-#define 	COLOR_YELLOW 		0xFFFF00FF
-#define 	COLOR_LIGHTBLUE 	0x00FFFFFF
-#define 	COLOR_PURPLE 		0xC2A2DAFF
-#define 	COLOR_GREY 			0xC0C0C0FF
-#define 	COLOR_WHITE 		0xFFFFFFFF
 
 //                          DISCORD
 
@@ -293,7 +263,9 @@ enum
 	DIALOG_GPS3,
 	DIALOG_PROCURADOS,
 	DIALOG_LOJA247,
-	DIALOG_PREFEITURA
+	DIALOG_PREFEITURA,
+	DIALOG_ATIVARCOINS,
+	DIALOG_CREDITOS
 }
 
 //                          VARIAVEIS
@@ -1682,6 +1654,255 @@ new RandomMSG[][] =
 };
 
 //                          PUBLICS
+
+//------------- Sistema de Easter Eggs ------------------
+enum eastE{
+
+    eaDescricao [50],
+    bool:		eaDescoberto,
+	Float:		eaX,
+	Float:		eaY,
+	Float:		eaZ,
+	Float:      eaRange,
+	Text3D:     eaText,
+
+	eaNick		[MAX_PLAYER_NAME],
+};
+new EEInfo[MAX_EASTER_EGGS][eastE];
+
+createEE(eeid, descricao[], modelid, Float:range, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz){
+
+	static
+		Str2[98]
+	;
+
+    EEInfo[eeid][eaX]                       = x;
+    EEInfo[eeid][eaY]                       = y;
+    EEInfo[eeid][eaZ]                       = z;
+    EEInfo[eeid][eaRange]                   = range;
+
+	EEInfo[eeid][eaDescoberto] 				= false;
+	format(EEInfo[eeid][eaNick], 24, 		"Ninguem");
+	format(EEInfo[eeid][eaDescricao], 50, 	descricao);
+
+	CreateDynamicObject(modelid, x, y, z, rx, ry, rz);
+
+	format(Str2, sizeof Str2, "''%s''{FFFFFF}\nDescoberto por %s", EEInfo[eeid][eaDescricao], EEInfo[eeid][eaNick]);
+	EEInfo[eeid][eaText] = CreateDynamic3DTextLabel(Str2, 0xFFA500AA, x, y, z, EEInfo[eeid][eaRange]);
+}
+
+loadEE(){
+
+	static
+	    string[70],
+	    Str2[79]
+	;
+
+	for(new e; e != MAX_EASTER_EGGS; e++){
+
+	    format(string, sizeof string, "%d_descoberto", e);
+        EEInfo[e][eaDescoberto] = DOF2_GetBool(Pasta_Eastereggs, string);
+	    format(string, sizeof string, "%d_nick", e);
+        format(EEInfo[e][eaNick], 24, DOF2_GetString(Pasta_Eastereggs, string));
+
+        if(strlen(EEInfo[e][eaNick]) < 2){
+
+            format(EEInfo[e][eaNick], 24, "Ninguem");
+        }
+
+        if(EEInfo[e][eaDescoberto]){
+
+            DestroyDynamic3DTextLabel(EEInfo[e][eaText]);
+			format(Str2, sizeof Str2, "''%s''{FFFFFF}\nDescoberto por %s", EEInfo[e][eaDescricao], EEInfo[e][eaNick]);
+			EEInfo[e][eaText] = CreateDynamic3DTextLabel(Str2, 0xFFA500AA, EEInfo[e][eaX], EEInfo[e][eaY], EEInfo[e][eaZ], EEInfo[e][eaRange]);
+        }
+	}
+}
+
+saveEE(){
+
+	static
+	        string[70]
+	;
+
+	if(!DOF2_FileExists(Pasta_Eastereggs))DOF2_CreateFile(Pasta_Eastereggs);
+
+	for(new e; e != MAX_EASTER_EGGS; e++){
+
+	    format(string, sizeof string, "%d_descoberto", e);
+     	DOF2_SetBool(Pasta_Eastereggs, string, EEInfo[e][eaDescoberto]);
+	    format(string, sizeof string, "%d_nick", e);
+        DOF2_SetString(Pasta_Eastereggs, string, EEInfo[e][eaNick]);
+	}
+	DOF2_SaveFile();
+}
+
+descobrirEE(playerid, eeid){
+
+	static string[1000];
+	new kaka = randomEx(0,21);
+	if(kaka == 0 || kaka == 11)
+	{
+		PlayerInfo[playerid][pCoins] += 3000;
+		format(string, sizeof string, "%s acaba de descobrir ''%s'' ganhou 3mil coins!", Name(playerid), EEInfo[eeid][eaDescricao]);
+		SendClientMessageToAll(0xFFFF99FF, string);
+	}
+	if(kaka == 1 || kaka == 12)
+	{
+		PlayerInfo[playerid][pCoins] += 6000;
+		format(string, sizeof string, "%s acaba de descobrir ''%s'' ganhou 6mil coins!", Name(playerid), EEInfo[eeid][eaDescricao]);
+		SendClientMessageToAll(0xFFFF99FF, string);
+	}
+	if(kaka == 2 || kaka == 13)
+	{
+		PlayerInfo[playerid][pDinheiro] += 3000;
+		format(string, sizeof string, "%s acaba de descobrir ''%s'' ganhou 3mil reais!", Name(playerid), EEInfo[eeid][eaDescricao]);
+		SendClientMessageToAll(0xFFFF99FF, string);
+	}
+	if(kaka == 3 || kaka == 14)
+	{
+		PlayerInfo[playerid][pDinheiro] += 6000;
+		format(string, sizeof string, "%s acaba de descobrir ''%s'' ganhou 6mil reais!", Name(playerid), EEInfo[eeid][eaDescricao]);
+		SendClientMessageToAll(0xFFFF99FF, string);
+	}
+	if(kaka == 4 || kaka == 15)
+	{
+		new vip[255];
+		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(10); 
+		PlayerInfo[playerid][pVIP] = 1;
+		format(vip, sizeof(vip), PASTA_VIPS, Name(playerid)); 
+		DOF2_CreateFile(vip); 
+		DOF2_SetInt(vip,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
+		DOF2_SaveFile(); 
+		SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
+		new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+		format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
+		DCC_SetEmbedColor(embed, 0xFFFF00);
+		DCC_SetEmbedDescription(embed, vip);
+		DCC_SendChannelEmbedMessage(VIPAtivado, embed);
+		format(string, sizeof string, "%s acaba de descobrir ''%s'' ganhou 10d de VIP BASICO!", Name(playerid), EEInfo[eeid][eaDescricao]);
+		SendClientMessageToAll(0xFFFF99FF, string);
+	}
+	if(kaka == 5 || kaka == 16)
+	{
+		new vip[255];
+		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
+		PlayerInfo[playerid][pVIP] = 1;
+		format(vip, sizeof(vip), PASTA_VIPS, Name(playerid)); 
+		DOF2_CreateFile(vip); 
+		DOF2_SetInt(vip,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
+		DOF2_SaveFile(); 
+		new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+		format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
+		DCC_SetEmbedColor(embed, 0xFFFF00);
+		DCC_SetEmbedDescription(embed, vip);
+		DCC_SendChannelEmbedMessage(VIPAtivado, embed);
+		format(string, sizeof string, "%s acaba de descobrir ''%s'' ganhou 10d de VIP BASICO!", Name(playerid), EEInfo[eeid][eaDescricao]);
+		SendClientMessageToAll(0xFFFF99FF, string);
+	}
+	if(kaka == 6 || kaka == 17)
+	{
+		GanharItem(playerid, 560, 1);
+		new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+		format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um veiculo de inventario\nValor: 5000\nNome Veh: Sultan", PlayerInfo[playerid][IDF]);
+		DCC_SetEmbedColor(embed, 0xFFFF00);
+		DCC_SetEmbedDescription(embed, string);
+		DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_560.jpg");
+		DCC_SendChannelEmbedMessage(VIPAtivado, embed);
+		format(string, sizeof string, "%s acaba de descobrir ''%s'' ganhou um SULTAN de inventario!", Name(playerid), EEInfo[eeid][eaDescricao]);
+		SendClientMessageToAll(0xFFFF99FF, string);
+	}
+	if(kaka == 7 || kaka == 18)
+	{
+		GanharItem(playerid, 434, 1);
+		new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+		format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um veiculo de inventario\nValor: 5000\nNome Veh: HotKnife", PlayerInfo[playerid][IDF]);
+		DCC_SetEmbedColor(embed, 0xFFFF00);
+		DCC_SetEmbedDescription(embed, string);
+		DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_434.jpg");
+		DCC_SendChannelEmbedMessage(VIPAtivado, embed);
+		format(string, sizeof string, "%s acaba de descobrir ''%s'' ganhou um HOTKNIFE de inventario!", Name(playerid), EEInfo[eeid][eaDescricao]);
+		SendClientMessageToAll(0xFFFF99FF, string);
+	}
+	if(kaka == 8 || kaka == 19)
+	{
+		new vip[255];
+		new daysvip = randomEx(3,30);
+		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(daysvip); 
+		PlayerInfo[playerid][pVIP] = 1;
+		format(vip, sizeof(vip), PASTA_VIPS, Name(playerid)); 
+		DOF2_CreateFile(vip); 
+		DOF2_SetInt(vip,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
+		DOF2_SaveFile(); 
+		new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
+		format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
+		DCC_SetEmbedColor(embed, 0xFFFF00);
+		DCC_SetEmbedDescription(embed, vip);
+		DCC_SendChannelEmbedMessage(VIPAtivado, embed);
+		format(string, sizeof string, "%s acaba de descobrir ''%s'' ganhou VIP BASICO!", Name(playerid), EEInfo[eeid][eaDescricao]);
+		SendClientMessageToAll(0xFFFF99FF, string);
+	}
+	if(kaka == 9 || kaka == 20)
+	{
+		new qds = randomEx(1000, 50000);
+		GanharItem(playerid, 1212, qds);
+		format(string, sizeof string, "%s acaba de descobrir ''%s'' ganhou dinheiro sujo!", Name(playerid), EEInfo[eeid][eaDescricao]);
+		SendClientMessageToAll(0xFFFF99FF, string);
+	}
+	if(kaka == 10 || kaka == 21)
+	{
+		new qds = randomEx(1000, 10000);
+		GanharItem(playerid, 1212, qds);
+		format(string, sizeof string, "%s acaba de descobrir ''%s'' ganhou dinheiro sujo!", Name(playerid), EEInfo[eeid][eaDescricao]);
+		SendClientMessageToAll(0xFFFF99FF, string);
+	}
+	EEInfo[eeid][eaDescoberto] = true;
+	format(EEInfo[eeid][eaNick], 24, Name(playerid));
+	DestroyDynamic3DTextLabel(EEInfo[eeid][eaText]);
+	format(string, sizeof string, "''%s''{FFFFFF}\nDescoberto por %s", EEInfo[eeid][eaDescricao], EEInfo[eeid][eaNick]);
+	EEInfo[eeid][eaText] = CreateDynamic3DTextLabel(string, 0xFFA500AA, EEInfo[eeid][eaX], EEInfo[eeid][eaY], EEInfo[eeid][eaZ], EEInfo[eeid][eaRange]);
+	saveEE();
+}
+
+checkEE(playerid){
+
+	for(new e; e != MAX_EASTER_EGGS; e++){
+
+	    if(IsPlayerInRangeOfPoint(playerid, EEInfo[e][eaRange], EEInfo[e][eaX], EEInfo[e][eaY], EEInfo[e][eaZ]) && !EEInfo[e][eaDescoberto]){
+
+	        descobrirEE(playerid, e);
+	    }
+	}
+
+	return 0;
+}
+
+CMD:halloween(playerid){
+
+	MEGAString[0] = EOS;
+
+	static
+		Str2[128]
+	;
+    strcat(MEGAString, "HALLOWEEN EVENT\tQuem descobriu\n");
+	for(new e; e != MAX_EASTER_EGGS; e++){
+
+	    if(EEInfo[e][eaDescoberto]){
+
+	    	format(Str2, sizeof Str2, "{888888}%s \t%s\n", EEInfo[e][eaDescricao], EEInfo[e][eaNick]);
+		}
+		else{
+
+		    format(Str2, sizeof Str2, "{888888}%s \tNinguém\n", EEInfo[e][eaDescricao]);
+		}
+
+		strcat(MEGAString, Str2);
+	}
+
+	ShowPlayerDialog(playerid, 8764, DIALOG_STYLE_TABLIST_HEADERS, "Encontre os HALLOWEEN EVENT", MEGAString, "Localizar", "Sair");
+	return 1;
+}
+
 new bool:pulou2vezes[MAX_PLAYERS] = false;
 CallBack::ResetarPulo(playerid)
 {
@@ -4554,9 +4775,9 @@ CallBack::PayDay(playerid)
 			MissaoPlayer[playerid][MISSAO9] = 1;
 		}
 		new g; g = random(1000);
-		new gjuros; gjuros = random(2000);
-		new gimposto; gimposto = random(5000);
-		new gi; gi = random(1500);
+		new gjuros; gjuros = random(1000);
+		new gimposto; gimposto = random(1000);
+		new gi; gi = random(1000);
 		new saldoantigo[MAX_PLAYERS];
 		saldoantigo[playerid] = PlayerInfo[playerid][pBanco];
 		if(PlayerInfo[playerid][pVIP] > 0)
@@ -4787,6 +5008,7 @@ CallBack::Colete(playerid)
 	format(str, sizeof(str), "%.0f", colete);
 	PlayerTextDrawSetString(playerid, HudServer_p[playerid][1], str);
 
+	checkEE(playerid);
 	return 1;
 }
 
@@ -10759,7 +10981,7 @@ stock CarregarVIP(playerid)
 		{ 
 			format(string, sizeof(string), "Seu beneficio expira em %s.", convertNumber(PlayerInfo[playerid][ExpiraVIP]-gettime())); 
 			InfoMsg(playerid, string);
-			SetPlayerColor(playerid, Amarelo);
+			SetPlayerColor(playerid, 0xfcba03ff);
 		} 
 	} 
 	return 1; 
@@ -11646,7 +11868,40 @@ public OnGameModeInit()
 	CarregarDinRoubos();
 	CreateTelaLogin();
 	TextDrawBase();
-	printf("=> Bau Orgs       		: Carregados");
+	createEE(0, "HALLOWEEN EVENT 1", 19320,3.0, -984.33557, 1293.37805, 33.30560,   -28.00000, -84.00000, 30.00000);
+	createEE(1, "HALLOWEEN EVENT 2", 19320,3.0, -2354.78540, 142.00720, 38.22280,   0.00000, 0.00000, -153.00000);
+	createEE(2, "HALLOWEEN EVENT 3", 19320,3.0, -1077.87439, -1157.65149, 128.21820,   0.00000, 0.00000, 128.00000);
+	createEE(3, "HALLOWEEN EVENT 4", 19320,3.0, 420.86520, 1166.28906, 18.71620,   0.00000, 0.00000, 28.00000);
+	createEE(4, "HALLOWEEN EVENT 5", 19320,3.0, 2294.35547, 547.58868, 0.75320,   0.00000, 0.00000, 0.00000);
+	createEE(5, "HALLOWEEN EVENT 6", 19320,3.0, 2773.04443, 609.84949, 8.07760,   0.00000, -110.00000, 0.00000);
+	createEE(6, "HALLOWEEN EVENT 7", 19320,3.0, -379.65137, -1043.83838, 58.02332,   0.00000, 0.00000, 0.00000);
+	createEE(7, "HALLOWEEN EVENT 8", 19320,3.0, -1694.38672, -626.94012, 23.19030,   30.00000, 92.00000, 8.00000);
+	createEE(8, "HALLOWEEN EVENT 9", 19320,3.0, -473.87051, -171.93179, 77.20510,   0.00000, 0.00000, 0.00000);
+	createEE(9, "HALLOWEEN EVENT 10", 19320,3.0, 2500.31226, -422.05249, 75.93670,   0.00000, 0.00000, 0.00000);
+	createEE(10, "HALLOWEEN EVENT 11", 19320,3.0, -2095.61694, -815.23132, 31.29690,   -90.00000, 90.00000, 90.00000);
+	createEE(11, "HALLOWEEN EVENT 12", 19320,3.0, 1378.12842, 982.94397, 9.79970,   0.00000, 0.00000, 0.00000);
+	createEE(12, "HALLOWEEN EVENT 13", 19320,3.0, 2061.73608, -2208.81519, 15.40100, 0.0, 0.00000, 0.00000);
+	createEE(13, "HALLOWEEN EVENT 14", 19320,3.0, 2288.71631, -1926.96106, 12.61170,   0.00000, 0.00000, 0.00000);
+	createEE(14, "HALLOWEEN EVENT 15", 19320,3.0, 2856.96631, -414.79031, 7.52820,   0.00000, 0.00000, -58.00000);
+	createEE(15, "HALLOWEEN EVENT 16", 19320,3.0, 2884.63208, -131.83350, 0.99060,   -113.00000, -25.00000, -25.00000);
+	createEE(16, "HALLOWEEN EVENT 17", 19320,3.0, 2768.49756, -1368.27319, 39.31690,   -26.00000, 0.00000, 90.00000);
+	createEE(17, "HALLOWEEN EVENT 18", 19320,3.0, 2102.88184, -1647.44495, 13.00600,   8.00000, 0.00000, 0.00000);
+	createEE(18, "HALLOWEEN EVENT 19", 19320,3.0, 2117.53174, -1941.52344, 12.57650,   0.00000, 0.00000, -185.00000);
+	createEE(19, "HALLOWEEN EVENT 20", 19320,3.0, 1766.90125, -2022.21533, 13.19720,   -91.00000, 0.00000, 0.00000);
+	createEE(20, "HALLOWEEN EVENT 21", 19320,3.0, -2350.917480, -40.718368, 35.312500,   -91.00000, 0.00000, 0.00000);
+	createEE(21, "HALLOWEEN EVENT 22", 19320,3.0, -2708.878662, 378.932891, 4.968750,   -91.00000, 0.00000, 0.00000);
+	createEE(22, "HALLOWEEN EVENT 23", 19320,3.0, -2037.736816, 1036.313476, 55.660934,   -91.00000, 0.00000, 0.00000);
+	createEE(23, "HALLOWEEN EVENT 24", 19320,3.0, -1966.798339, 113.898818, 27.687500,   -91.00000, 0.00000, 0.00000);
+	createEE(24, "HALLOWEEN EVENT 25", 19320,3.0, -2044.767211, 148.988311, 28.835937,   -91.00000, 0.00000, 0.00000);
+	createEE(25, "HALLOWEEN EVENT 26", 19320,3.0, -1714.471313, 1367.025512, 7.185316,   -91.00000, 0.00000, 0.00000);
+	createEE(26, "HALLOWEEN EVENT 27", 19320,3.0, -2502.430908, 2290.441162, 4.984375,   -91.00000, 0.00000, 0.00000);
+	createEE(27, "HALLOWEEN EVENT 28", 19320,3.0, -2779.038818, 1317.380981, 7.590801,   -91.00000, 0.00000, 0.00000);
+	createEE(28, "HALLOWEEN EVENT 29", 19320,3.0, -476.585144, -541.589050, 25.529611,   -91.00000, 0.00000, 0.00000);
+	createEE(29, "HALLOWEEN EVENT 30", 19320,3.0, -25.881288, 1359.155029, 9.171875,   -91.00000, 0.00000, 0.00000);
+	createEE(30, "HALLOWEEN EVENT 31", 19320,3.0, -1909.961059, 277.745422, 41.046875,   -91.00000, 0.00000, 0.00000);
+
+	loadEE();
+	saveEE();
     printf(" ");
 	new Dia, Mes, Ano, Hora, Minuto;
 	gettime(Hora, Minuto);
@@ -12051,7 +12306,6 @@ public OnPlayerDisconnect(playerid, reason)
 
 public OnPlayerSpawn(playerid)
 {
-	//
 	TogglePlayerSpectating(playerid, false);
 	TogglePlayerControllable(playerid, true);
 	SetTimerEx("Attplayer",1000,true,"i",playerid);
@@ -12197,7 +12451,7 @@ public OnPlayerFadeOut(playerid){
 
 public OnPlayerText(playerid, text[])
 {
-	if(gettime() < UltimaFala[playerid] + SEGUNDOS_SEM_FALAR)
+	if(gettime() < UltimaFala[playerid] + MAX_SEGUNDOSFALAR)
 	{
 		Erro[playerid]++;
 		format(Str, sizeof(Str), "Esta falando muito rapido (AVISO %i/10)", Erro[playerid]);
@@ -15776,8 +16030,41 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 2)
 				{
-					ShowPlayerDialog(playerid, DIALOG_BENEVIP, DIALOG_STYLE_MSGBOX, "BENEFICIOS VIP's", "{565957}PLATA{FFFFFF}\nColor en nombre\nAcesso al /vip\nRango en discord del servidor\nGana +R$500 en PayDay\nGana +1exp en PayDay", "X", #);
+					new strsociogo[2500];
+					strcat(strsociogo, "{fef33c}____________________________| BENEFÍCIOS VIPS |____________________________\n\n");
+					strcat(strsociogo, "{2fce3c}Ao ativar (VIP BASICO):\n\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Cargo/Cor Destaque No Discord\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Previlegios no Discord\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Salario Payday\t{6d6a6d}(Valor: R$1.500)\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Veiculo de Inventario\t{6d6a6d}(Solicitar no Ticket Dsicord)\n");
+
+					strcat(strsociogo, "\n{2fce3c}Ao ativar (VIP PREMIUM):\n\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Cargo/Cor Destaque No Discord\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Previlegios no Discord\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Salario Payday\t{6d6a6d}(Valor: R$3000)\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Veiculo de Inventario\t{6d6a6d}(Solicitar no Ticket Dsicord)\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Dobro de Dinheiro Nos Empregos\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /acessorios\n");
+					strcat(strsociogo, "{fcfcfc}• Ficará Impune a Multas Nos Radares\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /mudarskin\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /tunagemvip\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /repararvip\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /vip\n");
+					strcat(strsociogo, "{fcfcfc}• Ao Morrer Não Perderar Seus Itens Valiosos\n");
+					strcat(strsociogo, "{fef33c}____________________________________________________________________________");
+					ShowPlayerDialog(playerid, DIALOG_BENEVIP, DIALOG_STYLE_MSGBOX, "Beneficios VIP/Sócio", strsociogo, "Voltar", "");
 				}
+				if(listitem == 3)
+				{
+					ShowPlayerDialog(playerid, DIALOG_ATIVARCOINS, DIALOG_STYLE_INPUT, "Ativação de Coins", "Insira o codigo fornecido pela administração.", "Confirmar", "X");
+				}
+			}
+		}
+		case DIALOG_ATIVARCOINS:
+		{
+			if(response)
+			{
+				cmd_ativarkey(playerid, inputtext);
 			}
 		}
 		case DIALOG_CATVEHINV:
@@ -19253,7 +19540,7 @@ CMD:report(playerid, params[])
 			{
 				SuccesMsg(playerid, "Os administradores foram notificados. Bom jogo !");
 				format(Str, sizeof(Str), "{FFFFFF}%04d{FFFFFF} report {FFFFFF}%04d{FFFFFF} Motivo: {FFFF00}%s", PlayerInfo[playerid][IDF], PlayerInfo[i][IDF], Motivo);
-				SendAdminMessage(AzulClaro, Str);
+				SendAdminMessage(-1, Str);
 				new string[255];
 				new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
 				format(string,sizeof(string),"### NOVO REPORT\n\nReporte de %04d \nReportou o %04d\nMotivo: %s", PlayerInfo[playerid][IDF], PlayerInfo[i][IDF], Motivo);
@@ -19650,7 +19937,7 @@ CMD:contagem(playerid, params[])
 	else
 	{
 		format(Str, sizeof(Str), "{FFFF00}AVISO{FFFFFF} O Administrador: {FFFF00}%s {FFFFFF}comecou uma contagem {FFFF00}%i {FFFFFF}segundos.", Name(playerid), ID);
-		SendClientMessageToAll(CorSucesso, Str);
+		SendClientMessageToAll(-1, Str);
 		SetTimerEx("DiminuirTempo", 1000, false, "i", ID);
 		ContagemIniciada = true;
 		//
@@ -19892,7 +20179,7 @@ CMD:agendaban(playerid, params[])
 	format(Str, sizeof(Str), "Agendado - %s", Motivo);
 	AgendarBan(Nome, playerid, Str, tempo);
 	format(Str, sizeof(Str), "{FFFF00}ADMIN{FFFFFF}O Administrador {FFFF00}%s {FFFFFF}programou a {FFFF00}%s {FFFFFF} um ban. Motivo: {FFFF00}%s", Name(playerid), Nome, Motivo);
-	SendClientMessageToAll(VermelhoEscuro, Str);
+	SendClientMessageToAll(-1, Str);
 
 	new string[255];
 	new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
@@ -19918,7 +20205,7 @@ CMD:agendacadeia(playerid, params[])
 	format(File, sizeof(File), PASTA_CONTAS, Nome);
 	if(!DOF2_FileExists(File))              					return ErrorMsg(playerid, "Cuenta no existente.");
 	format(Str, sizeof(Str), "AdmCmd: {FFFFFF}O Administrador {FFFF00}%s{FFFFFF} programou {FFFF00}%s {FFFFFF}para cumprir {FFFF00}%i {FFFFFF}minutos de cadeia. Motivo: {FFFF00}%s", Name(playerid), Nome, ID, Motivo);
-	SendClientMessageToAll(VermelhoEscuro, Str);
+	SendClientMessageToAll(-1, Str);
 
 	new string[255];
 	new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
@@ -20004,7 +20291,7 @@ CMD:admins(playerid, params[])
 		    if(PlayerInfo[i][pAdmin] > 0 && AparecendoNoAdmins[i] == true && pJogando[i] == false)
 		    {
 		 		format(Str, 256, "%s [%s]", Name(i), AdminCargo(i));
-			    SendClientMessage(playerid, CinzaClaro, Str);
+			    SendClientMessage(playerid, -1, Str);
 			}
 	}
 	return 1;
@@ -20017,14 +20304,14 @@ CMD:atrabalhar(playerid)
 	if(pJogando[playerid] == false)
 	{
 		pJogando[playerid] = true;
-		SetPlayerColor(playerid, Branco);
+		SetPlayerColor(playerid, -1);
 		SetPlayerHealth(playerid, 100);
 		SetPlayerArmour(playerid, 0);	
 		SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
 		SendClientMessageToAll(-1,"");
 		SendClientMessageToAll(-1,"");
 		format(Str, sizeof(Str), "{FFFF00}AVISO{FFFFFF} O administrador {FFFF00}%s{FFFFFF} nao esta mais trabalhando.", Name(playerid));
-		SendClientMessageToAll(AzulRoyal, Str);  
+		SendClientMessageToAll(-1, Str);  
 		SendClientMessageToAll(-1,"");
 		SendClientMessageToAll(-1,"");  
 	}
@@ -20038,7 +20325,7 @@ CMD:atrabalhar(playerid)
 		SendClientMessageToAll(-1,"");
 		SendClientMessageToAll(-1,"");
 		format(Str, sizeof(Str), "{FFFF00}AVISO{FFFFFF} O administrador {FFFF00}%s{FFFFFF} esta trabalhando.", Name(playerid));
-		SendClientMessageToAll(AzulRoyal, Str); 
+		SendClientMessageToAll(-1, Str); 
 		SendClientMessageToAll(-1,"");
 		SendClientMessageToAll(-1,"");	
 	}
@@ -20288,6 +20575,8 @@ CMD:lojavip(playerid)
 	format(StrCashh, sizeof(StrCashh), "{FFFF00}LOJA {FFFFFF}Veiculos de Inventario\n");
 	strcat(StrCash,StrCashh);
 	format(StrCashh, sizeof(StrCashh), "{FFFF00}LOJA {FFFFFF}Verifique os Beneficios\n");
+	strcat(StrCash,StrCashh);
+	format(StrCashh, sizeof(StrCashh), "{FFFF00}LOJA {FFFFFF}Ativação de Coins\n");
 	strcat(StrCash,StrCashh);
 	format(String, sizeof(String), "Voce possui{FFFF00}%i {FFFFFF}coins", PlayerInfo[playerid][pCoins]);
 	ShowPlayerDialog(playerid, DIALOG_CATCOINS, DIALOG_STYLE_LIST, String , StrCash, "Selecionar", "X");	
@@ -23673,8 +23962,33 @@ CMD:desmanchar(playerid)
 	return 1;
 }
 
-CMD:irla(playerid)
+CMD:creditos(playerid)
 {
-	SetPlayerPos(playerid, -2123.10009766,-80.90000153,38.70000076);
-	return 1;
+    MEGAString[0] = EOS;
+    strcat(MEGAString, "{33CCFF}|________________________________| Créditos do servidor |________________________________|\n\n\n");
+
+    strcat(MEGAString, "{FFFFFF}»  Luan P Rosa(Rosa Scripter)\n");
+    strcat(MEGAString, "{696969}               (Criador/Fundador do servidor | Atual Scripter)\n");
+    strcat(MEGAString, "{696969}Função: Cuidar da programação\n\n");
+
+    strcat(MEGAString, "{FFFFFF}»  Allisson Gomes(Chapei)\n");
+    strcat(MEGAString, "{696969}               (Criador/Fundador do servidor | Atual Scripter)\n");
+    strcat(MEGAString, "{696969}Função: Cuidar da programação\n\n");
+    
+    strcat(MEGAString, "{FFFFFF}»  Marconha\n");
+    strcat(MEGAString, "{696969}               (Criador/Fundador do servidor)\n");
+    strcat(MEGAString, "{696969}Função: Responsável Geral\n\n");
+
+	strcat(MEGAString, "{FFFFFF}»  HernandezHL\n");
+    strcat(MEGAString, "{696969}               (Criador/Fundador do servidor)\n");
+    strcat(MEGAString, "{696969}Função: Responsável Geral\n\n");
+
+    strcat(MEGAString, "{FFFFFF}»  Brabox, Mauricio(Aox), Black, Rxth\n");
+    strcat(MEGAString, "{696969}               Agradecimentos por colaborarem com o Servidor\n\n");
+
+    strcat(MEGAString, "{696969}       Toda a gamemode foi feita totalmente da linha 1 por Luan P Rosa(Rosa Scripter)\n\n");
+
+	strcat(MEGAString, "{33CCFF}|________________________________________________________________________________________|\n\n");
+	ShowPlayerDialog(playerid, DIALOG_CREDITOS, DIALOG_STYLE_MSGBOX, "Creditos", MEGAString, "Fechar", "");
+	return true;
 }
