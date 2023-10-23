@@ -1196,7 +1196,7 @@ CarregarTxdGlobal()
 	TextDrawUseBox(HudServer[7], 1);
 	TextDrawSetProportional(HudServer[7], 1);
 
-	HudServer[8] = TextDrawCreate(582.000000, 95.000000, "HUD:radar_burgershot");
+	HudServer[8] = TextDrawCreate(582.000000, 95.000000, "HUD:radar_burgerShot");
 	TextDrawFont(HudServer[8], 4);
 	TextDrawLetterSize(HudServer[8], 0.600000, 2.000000);
 	TextDrawTextSize(HudServer[8], 6.500000, 6.000000);

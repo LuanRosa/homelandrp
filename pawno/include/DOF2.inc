@@ -4,7 +4,7 @@
 #define _dof2_included
 
 #include <a_samp>
-
+#pragma warning disable 214
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
 
 /*

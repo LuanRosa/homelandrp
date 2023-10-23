@@ -7,6 +7,7 @@
 
 #tryinclude <a_samp>
 
+#pragma warning disable 214
 #if !defined FILTERSCRIPT
 
 #if !defined DEBUG

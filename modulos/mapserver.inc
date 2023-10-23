@@ -1,3 +1,4 @@
+#pragma warning disable 217
 new object_world = -1, object_int = -1;
 stock CarregarMapas()
 {
@@ -5586,7 +5587,7 @@ stock CarregarMapas()
         sannewsmap = CreateDynamicObject(927, 2391.498535, 2179.917724, 1001.457580, -0.000015, 0.000000, -89.999923, object_world, object_int, -1, 300.00, 300.00);
         sannewsmap = CreateDynamicObject(927, 2398.335449, 2163.343994, 1001.428161, -0.000015, 360.000000, -89.999923, object_world, object_int, -1, 300.00, 300.00);
         sannewsmap = CreateDynamicObject(3812, 2397.137939, 2155.065429, 1002.728637, 0.000015, 0.000000, 88.999893, object_world, object_int, -1, 300.00, 300.00);
-                new banco;
+        new banco;
         banco = CreateDynamicObject(19376, 1468.576171, 1385.382446, 8.340295, 89.999992, 359.528900, -89.528800, -1, -1, -1, 300.00, 300.00); 
         SetDynamicObjectMaterial(banco, 0, 19595, "lsappartments1", "ceilingtiles3-128x128", 0x00000000);
         banco = CreateDynamicObject(19376, 1463.443359, 1390.545654, 8.340295, 89.999992, 263.225982, -83.225975, -1, -1, -1, 300.00, 300.00); 
