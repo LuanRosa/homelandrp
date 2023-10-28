@@ -12,3 +12,5 @@
 [10/27/23 18:25:08] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [10/27/23 18:38:03] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [10/27/23 18:46:09] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712079861452850/messages': end of stream
+[10/28/23 14:02:07] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[10/28/23 15:40:05] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712079861452850/messages': end of stream

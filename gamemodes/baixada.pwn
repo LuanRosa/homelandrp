@@ -1074,17 +1074,14 @@ new Float:PosRota[303][3] =
     {2313.880371, -124.964256, 28.153551}//rota	
 };
 
-new Float:Entradas[9][3] =
+new Float:Entradas[6][3] =
 {
-	{-2653.636474, 640.163085, 14.453125},//Hospital
-	{-2695.638183, 640.165405, 14.453125},//Hospital
 	{2447.910644, -1962.689453, 13.546875},//Mercado Negro
 	{1481.094482, -1772.313720, 18.795755},//Prefeitura
 	{2105.487548, -1806.502441, 13.554687},//Pizzaria
 	{649.302062, -1357.399658, 13.567605},//San News
 	{1081.261840, -1696.785888, 13.546875},//LICENCAS
-	{2501.888916, -1494.696533, 24.000000},//AÇOUGUE
-	{-2355.818115, 1008.084472, 50.898437}//BURGUER SHOT
+	{2501.888916, -1494.696533, 24.000000}//AÇOUGUE
 };
 
 new Float:AutoEscolaPosicao[13][3] =
@@ -3215,27 +3212,27 @@ CallBack::Attplayer(playerid)
 	static str[300];
 	if(pJogando[playerid] == false && Falou[playerid] == false && Susurrou[playerid] == false && Gritou[playerid] == false && PlayerMorto[playerid][pEstaMorto] == 1)
 	{
-		format(str,sizeof(str),"%s\n{FFFFFF}%04d",AdminCargo(playerid), PlayerInfo[playerid][IDF]);
+		format(str,sizeof(str),"%s\n{FFFFFF}(%04d)",AdminCargo(playerid), PlayerInfo[playerid][IDF]);
 	}
 	else if(Falou[playerid] == true)
 	{
-		format(str,sizeof(str),"FALANDO\n{FFFFFF}%04d",PlayerInfo[playerid][IDF]);
+		format(str,sizeof(str),"{FFF000}(%04d)",PlayerInfo[playerid][IDF]);
 	}
 	else if(Susurrou[playerid] == true)
 	{
-		format(str,sizeof(str),"SUSURRANDO\n{FFFFFF}%04d",PlayerInfo[playerid][IDF]);
+		format(str,sizeof(str),"{FFF000}(%04d)",PlayerInfo[playerid][IDF]);
 	}
 	else if(Gritou[playerid] == true)
 	{
-		format(str,sizeof(str),"GRITANDO\n{FFFFFF}%04d",PlayerInfo[playerid][IDF]);
+		format(str,sizeof(str),"{FFF000}(%04d)",PlayerInfo[playerid][IDF]);
 	}
 	else if(PlayerMorto[playerid][pEstaMorto] == 1)
 	{
-		format(str,sizeof(str),"{61050b}(FERIDO)\n{FFFFFF}%04d",PlayerInfo[playerid][IDF]);
+		format(str,sizeof(str),"{61050b}(FERIDO)\n{FFFFFF}(%04d)",PlayerInfo[playerid][IDF]);
 	}
 	else
 	{
-		format(str,sizeof(str),"{FFFFFF}%04d",PlayerInfo[playerid][IDF]);
+		format(str,sizeof(str),"{FFFFFF}(%04d)",PlayerInfo[playerid][IDF]);
 	}
 	SetPlayerChatBubble(playerid, str, 0xFFFF00FF, 30.0, 20000);
 	return 1;
@@ -3334,12 +3331,11 @@ CallBack::mortoxx(playerid)
         new Jtempo[90];
         format(Jtempo, sizeof(Jtempo),"~r~%s:%s", ConvertTimeX(PlayerMorto[playerid][pMinMorto]) ,ConvertTimeX(PlayerMorto[playerid][pSegMorto]));
         PlayerTextDrawSetString(playerid,TDmorte_p[playerid][0],Jtempo);
-   
         SetPlayerHealth(playerid, 100);
         SetPlayerPos(playerid, PlayerMorto[playerid][pPosMt1], PlayerMorto[playerid][pPosMt2], PlayerMorto[playerid][pPosMt3]);
         SetPlayerInterior(playerid, PlayerMorto[playerid][pInteriorMxxx]);
         SetPlayerVirtualWorld(playerid, PlayerMorto[playerid][pVirtual]);
-        ApplyAnimation(playerid, "CRACK", "crckdeth3", 4.1, 0, 1, 1, 1, 60000, 1);
+        ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
         return 1; 
     }else{
         KillTimer(TimerMorto[playerid]);
@@ -5128,7 +5124,7 @@ split(const strsrc[], const strdest[][], delimiter)
 GanharItem(playerid, itemid, quantia)
 {
 	ShowItemBox(playerid, ItemNomeInv(itemid), "Recebeu", itemid, 3);
-	for(new i = 1; i < 33; ++i)
+	for(new i = 1; i < 31; ++i)
 	{
 		if(PlayerInventario[playerid][i][Slot] == itemid)
 		{
@@ -5210,7 +5206,7 @@ CallBack::CriarInventario(playerid)
 	if(!DOF2_FileExists(file))
 	{
 		DOF2_CreateFile(file);
-		for(new i = 1; i < 33; ++i)
+		for(new i = 1; i < 31; ++i)
 		{
 			PlayerInventario[playerid][i][Slot] = -1;
 			PlayerInventario[playerid][i][Unidades] = -1;
@@ -5231,7 +5227,7 @@ CallBack::LoadInv(playerid)
 	new file[64], key[64], string[2][64], str[64];
 	format(file, sizeof(file), PASTA_INVENTARIO, Name(playerid));
 	SetPVarInt(playerid, #VarSlotInv, 0);
-	for(new i = 1; i < 33; ++i)
+	for(new i = 1; i < 31; ++i)
 	{
 		PlayerInventario[playerid][i][Slot] = -1;
 		PlayerInventario[playerid][i][Unidades] = 0;
@@ -5249,7 +5245,7 @@ CallBack::SalvarInventario(playerid)
 	new file[64], str[128], string[128];
 	format(file, sizeof(file), PASTA_INVENTARIO, Name(playerid));
 	if(!DOF2_FileExists(file)){DOF2_CreateFile(file);}
-	for(new i = 1; i < 33; ++i)
+	for(new i = 1; i < 31; ++i)
 	{
 		format(string, sizeof(string), "Item_%d", i);
 		format(str, sizeof(str), "%d|%d", PlayerInventario[playerid][i][Slot], PlayerInventario[playerid][i][Unidades]);
@@ -5261,7 +5257,7 @@ CallBack::SalvarInventario(playerid)
 
 CheckInventario(playerid, itemid)
 {
-	for(new i = 1; i < 33; ++i)
+	for(new i = 1; i < 31; ++i)
 	{
 		if(PlayerInventario[playerid][i][Slot] == itemid || PlayerInventario[playerid][i][Slot] == -1) return 1;
 	}
@@ -5270,7 +5266,7 @@ CheckInventario(playerid, itemid)
 
 CheckInventario2(playerid, itemid)
 {
-	for(new i = 1; i < 33; ++i)
+	for(new i = 1; i < 31; ++i)
 	{
 		if(PlayerInventario[playerid][i][Slot] == itemid) return 1;
 	}
@@ -7310,17 +7306,59 @@ stock HeadshotCheck(playerid, &Float:x, &Float:y, &Float:z)
 
 stock VaiProHospital(playerid)
 {
+	new sphp = randomEx(0,1);
     SetTimerEx("ParaDeBugaPoraaaDk", 100, 1, "i", playerid);
     PlayerMorto[playerid][pMinMorto] = 0;
     PlayerMorto[playerid][pSegMorto] = 0;
     SetPlayerHealth(playerid, 100);
-    SetPlayerPos(playerid, 1150.7927,-1324.8185,-43.4495);
-    TogglePlayerControllable(playerid, true);
+	PlayerInfo[playerid][pDinheiro] = 0;
+	FomePlayer[playerid] = 100;
+	SedePlayer[playerid] = 100;
+	RetirarItem(playerid, 1212);
+	RetirarItem(playerid, 902);
+	RetirarItem(playerid, 19630);
+	RetirarItem(playerid, 1599);
+	RetirarItem(playerid, 1600);
+	RetirarItem(playerid, 1603);
+	RetirarItem(playerid, 1604);
+	RetirarItem(playerid, 1608);
+	RetirarItem(playerid, 1576);
+	RetirarItem(playerid, 1654);
+	RetirarItem(playerid, 2218);
+	RetirarItem(playerid, 2355);
+	RetirarItem(playerid, 2219);
+	RetirarItem(playerid, 2220);
+	RetirarItem(playerid, 1484);
+	RetirarItem(playerid, 1644);
+	RetirarItem(playerid, 1546);
+	RetirarItem(playerid, 2601);
+	RetirarItem(playerid, 3520);
+	RetirarItem(playerid, 11746);
+	RetirarItem(playerid, 19921);
+	RetirarItem(playerid, 1010);
+	RetirarItem(playerid, 18870);
+	RetirarItem(playerid, 11736);
+	RetirarItem(playerid, 18632);
+	RetirarItem(playerid, 18645);
+	RetirarItem(playerid, 18644);
+
+	if(sphp == 0)
+	{
+    	SetPlayerPos(playerid, 1629.030639, -1123.190185, 24.769485);
+		SetPlayerFacingAngle(playerid, 175.770599);
+	}
+	if(sphp == 1)
+	{
+    	SetPlayerPos(playerid, 1628.926025, -1139.238525, 24.769485);
+		SetPlayerFacingAngle(playerid, 353.194946);
+	}
+	TogglePlayerControllable(playerid, true);
     ClearAnimations(playerid);
     for(new idx=0; idx<9; idx++){
     TextDrawHideForPlayer(playerid,TDmorte[idx]); }
 	PlayerTextDrawHide(playerid, TDmorte_p[playerid][0]);
 	CancelSelectTextDraw(playerid);
+	InfoMsg(playerid, "Morreu e perdeu todo seu dinheiro e alguns itens do seu inventario.");
 	return 1;
 }
 
@@ -9238,7 +9276,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][30], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][30], -10.000000, 0.000000, -20.000000, 1.000000);
 
-	for(new i = 1; i < 33; ++i)
+	for(new i = 1; i < 31; ++i)
 	{
 		PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][i], 0.000000, 0.000000, 0.000000, 999);
 	}
@@ -10859,9 +10897,11 @@ stock NpcText()
 	CreateAurea("{FFFF00}Rota de Maconha\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -1143.184814, 2227.874511, 97.219261);
 	CreateAurea("{FFFF00}Rota de Cocaina\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -248.257873, 1506.404418, 75.562500);
 
-	CreateAurea("{FFFF00}Loja Utilidades 1\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", -2383.375244, -52.679763, 35.479598);
-	CreateAurea("{FFFF00}Loja Utilidades 2\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", -2448.484863, 1210.270751, 35.378089);
+	CreateAurea("{FFFF00}Loja Utilidades 1\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", 393.256561, -1895.308471, 7.844118);
+	CreateAurea("{FFFF00}Loja Utilidades 2\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", 1359.771850, -1774.149291, 13.551797);
 	CreateAurea("{FFFF00}Loja Utilidades 3\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", 1663.899047, -1899.635009, 13.569333);
+	CreateAurea("{FFFF00}Loja Utilidades 4\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", 2054.312255, -1883.058105, 13.570812);
+	CreateAurea("{FFFF00}Loja Utilidades 5\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", 1310.963256, -856.883911, 39.597454);
 	CreateAurea("{FFFF00}Pizzaria\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", 376.622558, -117.278648, 1001.492187);
 	printf("=> Textos       		: Carregados");
 	return 1;
@@ -11780,11 +11820,16 @@ public OnGameModeInit()
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \niniciar o desossamento.", -1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2], 15.0);
 	}
-	for(new i; i < 9; i++)
+	for(new i; i < 6; i++)
 	{
 		CreateDynamicPickup(19606,23,Entradas[i][0],Entradas[i][1],Entradas[i][2],0);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
 	}
+	for(new i; i > CountDynamicObjects(); i++)
+	{
+		Streamer_SetFloatData(STREAMER_TYPE_OBJECT , i, E_STREAMER_STREAM_DISTANCE, 500.0);
+		Streamer_SetFloatData(STREAMER_TYPE_OBJECT , i, E_STREAMER_DRAW_DISTANCE, 350.0);
+	} 
 
 	TimerRelogio = SetTimer("Relogio",1000,true);
 	TimerCadeia = SetTimer("CheckCadeia", 2000, true);
@@ -12106,6 +12151,13 @@ public OnPlayerDisconnect(playerid, reason)
 	}
 	PlayerTextDrawDestroy(playerid, Textdraw2[playerid]);
 	ZerarDados(playerid);
+	new gstring[255];
+	switch(reason) {
+     	case 0: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Conexao ou crash{FFFFFF})", PlayerInfo[playerid][IDF]);
+     	case 1: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Quitou - /q{FFFFFF})", PlayerInfo[playerid][IDF]);
+     	case 2: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Kickado ou Banido{FFFFFF})", PlayerInfo[playerid][IDF]);
+  	}
+  	ProxDetector(30.0, playerid, gstring,-1,-1,-1,-1,-1);
 	return 1;
 }
 
@@ -14022,42 +14074,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
-		//HOSPITAL ENTRADA
-		if(IsPlayerInRangeOfPoint(playerid,2.0, -2653.636474, 640.163085, 14.453125))
-		{
-			SetPlayerPos(playerid,  1176.3602,-1326.3590,-44.2836);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//HOSPITAL SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,1176.3602,-1326.3590,-44.2836))
-		{
-			SetPlayerPos(playerid, -2653.636474, 640.163085, 14.453125);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//HOSPITAL ENTRADA 2
-		if(IsPlayerInRangeOfPoint(playerid,2.0, -2695.638183, 640.165405, 14.453125))
-		{
-			SetPlayerPos(playerid,  1149.824829, -1320.302734, -44.276340);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//HOSPITAL SAIDA 2
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,1149.824829, -1320.302734, -44.276340))
-		{
-			SetPlayerPos(playerid, -2695.638183, 640.165405, 14.453125);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
 		//PIZZARIA ENTRADA
 		else if(IsPlayerInRangeOfPoint(playerid,2.0, 2105.487548, -1806.502441, 13.554687))
 		{
@@ -14179,24 +14195,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,963.418762,2108.292480,1011.030273	))
 		{
 			SetPlayerPos(playerid, 2501.888916, -1494.696533, 24.000000);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//BURGUE SHOT ENTRADA
-		if(IsPlayerInRangeOfPoint(playerid,2.0, -2355.818115, 1008.084472, 50.898437))
-		{
-			SetPlayerPos(playerid, 362.824890, -75.115379, 1001.507812);
-			SetPlayerInterior(playerid, 10);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//BURGUE SHOT SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,362.824890, -75.115379, 1001.507812))
-		{
-			SetPlayerPos(playerid, -2355.818115, 1008.084472, 50.898437);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
@@ -15417,7 +15415,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					new Float:a = GetPlayerDistanceFromPoint(playerid, 1481.094482, -1772.313720, 18.795755);
 					new Float:b = GetPlayerDistanceFromPoint(playerid, 1284.393920, -1654.818237, 13.544199);
-					new Float:c = GetPlayerDistanceFromPoint(playerid, -2653.636474, 640.163085, 14.453125);
+					new Float:c = GetPlayerDistanceFromPoint(playerid, 1638.175415, -1134.294311, 24.051120);
 					new Float:d = GetPlayerDistanceFromPoint(playerid, 1649.4332,-1889.2966,13.5878);
 					new Float:e = GetPlayerDistanceFromPoint(playerid, 2064.6821,-1868.5961,13.5892);
 					new Float:f = GetPlayerDistanceFromPoint(playerid, 382.9478,-1909.8621,7.8625);
@@ -15654,7 +15652,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -2653.636474, 640.163085, 14.453125, 8.0);
+					SetPlayerCheckpoint(playerid, 1638.175415, -1134.294311, 24.051120, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 3)
@@ -17910,23 +17908,23 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pDinheiro] -= 1500;
 					GanharItem(playerid, 18870, 1);
 					MissaoPlayer[playerid][MISSAO6] = 1;
-					if(PlayerToPoint(5.0, playerid, 393.256561, -1895.308471, 7.844118))
+					if(PlayerToPoint(10.0, playerid, 393.256561, -1895.308471, 7.844118))
 					{
 						CofreLoja1 += 1500;
 					}
-					if(PlayerToPoint(5.0, playerid, 1359.771850, -1774.149291, 13.551797))
+					if(PlayerToPoint(10.0, playerid, 1359.771850, -1774.149291, 13.551797))
 					{
 						CofreLoja2 += 1500;
 					}
-					if(PlayerToPoint(5.0, playerid, 1663.899047, -1899.635009, 13.569333))
+					if(PlayerToPoint(10.0, playerid, 1663.899047, -1899.635009, 13.569333))
 					{
 						CofreLoja3 += 1500;
 					}
-					if(PlayerToPoint(5.0, playerid, 2054.312255, -1883.058105, 13.570812))
+					if(PlayerToPoint(10.0, playerid, 2054.312255, -1883.058105, 13.570812))
 					{
 						CofreLoja4 += 1500;
 					}
-					if(PlayerToPoint(5.0, playerid, 1310.963256, -856.883911, 39.597454))
+					if(PlayerToPoint(10.0, playerid, 1310.963256, -856.883911, 39.597454))
 					{
 						CofreLoja5 += 1500;
 					}
@@ -17938,22 +17936,22 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Item comprado.");
 					PlayerInfo[playerid][pDinheiro] -= 200;
 					GanharItem(playerid, 11736, 1);
-					if(PlayerToPoint(5.0, playerid, 393.256561, -1895.308471, 7.844118))
+					if(PlayerToPoint(10.0, playerid, 393.256561, -1895.308471, 7.844118))
 					{
 						CofreLoja1 += 200;
 					}
-					if(PlayerToPoint(5.0, playerid, 1359.771850, -1774.149291, 13.551797))
+					if(PlayerToPoint(10.0, playerid, 1359.771850, -1774.149291, 13.551797))
 					{
 						CofreLoja2 += 200;
 					}
-					if(PlayerToPoint(5.0, playerid, 1663.899047, -1899.635009, 13.569333))
+					if(PlayerToPoint(10.0, playerid, 1663.899047, -1899.635009, 13.569333))
 					{
 						CofreLoja3 += 200;
-					}if(PlayerToPoint(5.0, playerid, 2054.312255, -1883.058105, 13.570812))
+					}if(PlayerToPoint(10.0, playerid, 2054.312255, -1883.058105, 13.570812))
 					{
 						CofreLoja4 += 200;
 					}
-					if(PlayerToPoint(5.0, playerid, 1310.963256, -856.883911, 39.597454))
+					if(PlayerToPoint(10.0, playerid, 1310.963256, -856.883911, 39.597454))
 					{
 						CofreLoja5 += 200;
 					}
@@ -17966,23 +17964,23 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Item comprado.");
 					PlayerInfo[playerid][pDinheiro] -= 300;
 					GanharItem(playerid, 18632, 1);
-					if(PlayerToPoint(5.0, playerid, 393.256561, -1895.308471, 7.844118))
+					if(PlayerToPoint(10.0, playerid, 393.256561, -1895.308471, 7.844118))
 					{
 						CofreLoja1 += 300;
 					}
-					if(PlayerToPoint(5.0, playerid, 1359.771850, -1774.149291, 13.551797))
+					if(PlayerToPoint(10.0, playerid, 1359.771850, -1774.149291, 13.551797))
 					{
 						CofreLoja2 += 300;
 					}
-					if(PlayerToPoint(5.0, playerid, 1663.899047, -1899.635009, 13.569333))
+					if(PlayerToPoint(10.0, playerid, 1663.899047, -1899.635009, 13.569333))
 					{
 						CofreLoja3 += 300;
 					}
-					if(PlayerToPoint(5.0, playerid, 2054.312255, -1883.058105, 13.570812))
+					if(PlayerToPoint(10.0, playerid, 2054.312255, -1883.058105, 13.570812))
 					{
 						CofreLoja4 += 300;
 					}
-					if(PlayerToPoint(5.0, playerid, 1310.963256, -856.883911, 39.597454))
+					if(PlayerToPoint(10.0, playerid, 1310.963256, -856.883911, 39.597454))
 					{
 						CofreLoja5 += 300;
 					}
@@ -17994,23 +17992,23 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Item comprado.");
 					PlayerInfo[playerid][pDinheiro] -= 500;
 					GanharItem(playerid, 18645, 1);
-					if(PlayerToPoint(5.0, playerid, 393.256561, -1895.308471, 7.844118))
+					if(PlayerToPoint(10.0, playerid, 393.256561, -1895.308471, 7.844118))
 					{
 						CofreLoja1 += 500;
 					}
-					if(PlayerToPoint(5.0, playerid, 1359.771850, -1774.149291, 13.551797))
+					if(PlayerToPoint(10.0, playerid, 1359.771850, -1774.149291, 13.551797))
 					{
 						CofreLoja2 += 500;
 					}
-					if(PlayerToPoint(5.0, playerid, 1663.899047, -1899.635009, 13.569333))
+					if(PlayerToPoint(10.0, playerid, 1663.899047, -1899.635009, 13.569333))
 					{
 						CofreLoja3 += 500;
 					}
-					if(PlayerToPoint(5.0, playerid, 2054.312255, -1883.058105, 13.570812))
+					if(PlayerToPoint(10.0, playerid, 2054.312255, -1883.058105, 13.570812))
 					{
 						CofreLoja4 += 500;
 					}
-					if(PlayerToPoint(5.0, playerid, 1310.963256, -856.883911, 39.597454))
+					if(PlayerToPoint(10.0, playerid, 1310.963256, -856.883911, 39.597454))
 					{
 						CofreLoja5 += 500;
 					}
@@ -18022,23 +18020,23 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Item comprado.");
 					PlayerInfo[playerid][pDinheiro] -= 150;
 					GanharItem(playerid, 18644, 1);
-					if(PlayerToPoint(5.0, playerid, 393.256561, -1895.308471, 7.844118))
+					if(PlayerToPoint(10.0, playerid, 393.256561, -1895.308471, 7.844118))
 					{
 						CofreLoja1 += 150;
 					}
-					if(PlayerToPoint(5.0, playerid, 1359.771850, -1774.149291, 13.551797))
+					if(PlayerToPoint(10.0, playerid, 1359.771850, -1774.149291, 13.551797))
 					{
 						CofreLoja2 += 150;
 					}
-					if(PlayerToPoint(5.0, playerid, 1663.899047, -1899.635009, 13.569333))
+					if(PlayerToPoint(10.0, playerid, 1663.899047, -1899.635009, 13.569333))
 					{
 						CofreLoja3 += 150;
 					}
-					if(PlayerToPoint(5.0, playerid, 2054.312255, -1883.058105, 13.570812))
+					if(PlayerToPoint(10.0, playerid, 2054.312255, -1883.058105, 13.570812))
 					{
 						CofreLoja4 += 150;
 					}
-					if(PlayerToPoint(5.0, playerid, 1310.963256, -856.883911, 39.597454))
+					if(PlayerToPoint(10.0, playerid, 1310.963256, -856.883911, 39.597454))
 					{
 						CofreLoja5 += 150;
 					}
@@ -18405,7 +18403,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 			return 0;
 		}
 	}
-	for(new i = 1; i < 33; ++i)
+	for(new i = 1; i < 31; ++i)
 	{
 		if(playertextid == DrawInv[playerid][i])
 		{
@@ -19395,7 +19393,7 @@ CMD:inventario(playerid)
 		format(str, sizeof(str), "Inventario: %s(%d)", Name(playerid),PlayerInfo[playerid][IDF]);
 		PlayerTextDrawSetString(playerid, DrawInv[playerid][34], str);
 		PlayerTextDrawSetString(playerid, DrawInv[playerid][38], "");
-		for(new i = 1; i < 33; ++i)
+		for(new i = 1; i < 31; ++i)
 		{
 			PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][i], PlayerInventario[playerid][i][Slot]);
 			if(PlayerInventario[playerid][i][Slot] == -1)
@@ -21341,7 +21339,7 @@ CMD:revistar(playerid, params[])
 						format(str, sizeof(str), "Inventario: %s", Name(i));
 						PlayerTextDrawSetString(playerid, DrawInv[playerid][34], str);
 						PlayerTextDrawSetString(playerid, DrawInv[playerid][38], "");
-						for(new in = 1; in < 33; ++i)
+						for(new in = 1; in < 31; ++i)
 						{
 							PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][in], PlayerInventario[i][in][Slot]);
 							if(PlayerInventario[i][in][Slot] == -1)

@@ -2,6 +2,883 @@
 new object_world = -1, object_int = -1;
 stock CarregarMapas()
 {
+        //Hospital NEW
+        new HospitalNew;
+        HospitalNew = CreateDynamicObject(18981, 1620.448974, -1130.495971, 22.551115, 0.000000, 90.000038, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 3979, "civic01_lan", "sl_concretewall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1645.418701, -1130.495971, 22.551115, 0.000000, 90.000038, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 3979, "civic01_lan", "sl_concretewall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1614.223510, -1126.192138, 25.227094, 0.000045, 0.000007, 89.999862, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1608.296997, -1130.495971, 20.561134, 0.000000, 180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1667.827636, -1130.495971, 20.561134, 0.000000, 180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1654.839843, -1118.496948, 20.561120, 0.000045, 540.000000, 89.999862, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1629.860107, -1118.496948, 20.561120, 0.000045, 540.000000, 89.999862, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1638.283935, -1118.451171, 26.938615, 0.000000, 90.000068, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18766, 1611.279785, -1118.493896, 28.050334, 0.000000, 90.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1638.283935, -1118.451171, 25.988594, 0.000000, 90.000068, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1611.042114, -1126.192138, 25.227094, 0.000045, 0.000007, 89.999862, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1611.042114, -1126.192138, 21.757070, 0.000045, 0.000007, 89.999862, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1614.233764, -1126.192138, 21.757070, 0.000045, 0.000007, 89.999862, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1621.286865, -1142.496093, 20.561134, 0.000045, 180.000000, 89.999862, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1654.827758, -1142.496093, 20.561134, 0.000060, 180.000000, 89.999816, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18766, 1638.471557, -1142.494018, 30.460376, 0.000007, 180.000000, 179.999740, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1654.839843, -1119.497924, 20.561120, 0.000052, 540.000000, 89.999839, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1629.860107, -1119.497924, 20.561120, 0.000052, 540.000000, 89.999839, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18766, 1611.279785, -1119.494873, 28.050334, 0.000000, 90.000053, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18762, 1635.977539, -1142.505737, 25.502895, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18762, 1639.987426, -1142.505737, 25.502895, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1655.335815, -1142.511962, 26.938621, 0.000000, 90.000053, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1655.335815, -1142.511962, 25.998636, 0.000000, 90.000053, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1620.734008, -1142.511962, 26.938621, 0.000000, 90.000061, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1620.734008, -1142.511962, 25.998636, 0.000000, 90.000061, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1655.335815, -1118.451171, 26.938621, 0.000000, 90.000061, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1655.335815, -1118.451171, 25.998636, 0.000000, 90.000061, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1620.734008, -1118.451171, 26.938621, 0.000000, 90.000068, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1620.734008, -1118.451171, 25.998636, 0.000000, 90.000068, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18766, 1615.800781, -1118.493896, 28.050334, 0.000000, 90.000053, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18766, 1615.800781, -1119.494873, 28.050334, 0.000000, 90.000061, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1608.265014, -1130.448120, 26.938600, 0.000060, 450.000000, 89.999786, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1608.265014, -1130.448120, 25.998659, 0.000060, 450.000000, 89.999786, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1667.867675, -1130.448120, 26.938600, 0.000067, 450.000000, 89.999763, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1667.867675, -1130.448120, 25.998659, 0.000067, 450.000000, 89.999763, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1639.533447, -1142.487182, 26.863435, 0.000045, 0.000037, 89.999748, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1639.533447, -1142.487182, 24.653434, 0.000045, 0.000037, 89.999748, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(19383, 1654.735839, -1123.282470, 24.790695, -0.000098, 0.000022, -89.999740, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1639.533447, -1142.487182, 22.483442, 0.000045, 0.000037, 89.999748, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1636.423095, -1142.467163, 26.863435, -0.000053, 0.000028, -89.999961, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1636.423095, -1142.467163, 24.653434, -0.000053, 0.000028, -89.999961, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1636.423095, -1142.467163, 22.483442, -0.000053, 0.000028, -89.999961, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1636.992919, -1142.577270, 26.103437, -0.000015, 270.000030, -0.000075, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1639.222900, -1142.387084, 26.103437, -0.000014, 270.000030, 179.999694, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1636.992919, -1142.577270, 26.873432, -0.000015, 270.000030, -0.000075, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(11711, 1627.299072, -1133.154541, 25.964311, 0.000000, 0.000038, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1639.222900, -1142.387084, 26.873432, -0.000014, 270.000030, 179.999557, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1656.817382, -1130.495971, 20.561134, 0.000000, 180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(19325, 1650.657958, -1123.374511, 25.571252, 0.000038, 720.000000, 89.999900, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterialText(HospitalNew, 0, "{ffffff}HOSPITAL", 140, "Ariel", 90, 1, 0xFFFFFFFF, 0x00000000, 1);
+        HospitalNew = CreateDynamicObject(19325, 1650.677978, -1123.374511, 24.971240, 0.000038, 720.000000, 89.999900, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterialText(HospitalNew, 0, "{ffffff}BAIXADA", 140, "Ariel", 80, 1, 0xFFFFFFFF, 0x00000000, 1);
+        HospitalNew = CreateDynamicObject(18981, 1620.268798, -1130.495971, 33.451015, 0.000000, 90.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1643.307739, -1130.495971, 33.451015, 0.000000, 90.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1655.835937, -1130.495971, 33.451015, 0.000000, 90.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1620.268798, -1130.495971, 27.460948, 0.000000, 90.000068, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1643.307739, -1130.495971, 27.460948, 0.000000, 90.000068, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1655.835937, -1130.495971, 27.460948, 0.000000, 90.000068, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1633.260986, -1142.514770, 21.447402, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1608.260742, -1142.514770, 21.447402, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1608.260742, -1118.444580, 21.447402, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1667.872192, -1118.444580, 21.447402, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1667.872192, -1142.515991, 21.447402, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1642.840454, -1142.514770, 21.447402, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1649.622558, -1142.514770, 21.447402, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1656.345581, -1142.514770, 21.447402, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1661.977905, -1142.514770, 21.447402, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1626.377563, -1142.514770, 21.447402, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1619.566894, -1142.514770, 21.447402, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1613.836425, -1142.514770, 21.447402, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1632.243164, -1137.945800, 24.784347, 0.000094, -0.000071, 179.999145, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1632.243164, -1123.801635, 24.784343, 0.000094, -0.000071, 179.999145, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19383, 1643.615844, -1121.587768, 24.790695, -0.000066, 0.000090, 0.000136, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(1499, 1643.640991, -1122.320190, 23.036071, 0.000086, 0.000105, 89.999664, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 7978, "vgssairport", "Industdoor9white", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1630.553100, -1133.213500, 24.787084, 0.000038, 0.000007, 89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1625.662719, -1137.945800, 24.784347, 0.000094, -0.000071, 179.999145, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19383, 1627.352783, -1133.216674, 24.780694, 0.000001, 0.000060, 89.999900, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(1499, 1628.085205, -1133.191528, 23.026071, 0.000056, 0.000035, 179.999313, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 7978, "vgssairport", "Industdoor9white", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1630.554809, -1128.521728, 24.787084, 0.000038, 0.000000, 89.999694, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1625.664184, -1123.800781, 24.784347, 0.000078, 0.000012, -0.000662, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19383, 1627.354370, -1128.524902, 24.780694, 0.000001, 0.000051, 89.999969, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(1499, 1628.086791, -1128.499755, 23.026071, 0.000048, 0.000035, 179.999099, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 7978, "vgssairport", "Industdoor9white", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1637.584716, -1141.677246, 22.965129, 0.000000, 90.000038, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1634.084716, -1141.677246, 22.965129, 0.000000, 90.000038, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1641.074951, -1141.677246, 22.965129, 0.000000, 90.000038, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1644.564208, -1141.677246, 22.965129, 0.000000, 90.000038, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1648.064575, -1141.677246, 22.965129, 0.000000, 90.000038, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1651.554809, -1141.677246, 22.965129, 0.000000, 90.000038, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1655.044189, -1141.677246, 22.965129, 0.000000, 90.000038, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1655.774902, -1139.137451, 22.965129, 0.000038, 90.000000, 89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1655.774902, -1135.647216, 22.965129, 0.000038, 90.000000, 89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1655.774902, -1132.177368, 22.965129, 0.000038, 90.000000, 89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1651.224731, -1129.066650, 22.965129, 0.000000, 89.999961, 179.999771, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1655.774902, -1130.065307, 22.965129, 0.000038, 90.000000, 89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1654.695190, -1129.066650, 22.965129, 0.000000, 89.999961, 179.999771, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1647.782836, -1129.066650, 22.965129, 0.000000, 89.999961, 179.999771, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1646.831909, -1126.526611, 22.965129, -0.000038, 90.000000, -89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1646.831909, -1125.066894, 22.965129, -0.000038, 90.000000, -89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1644.299926, -1124.156005, 22.965129, -0.000000, 90.000038, -0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1642.918212, -1123.206054, 22.965129, 0.000038, 90.000000, 89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1641.977783, -1120.666015, 22.965129, 0.000000, 89.999961, 179.999771, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1638.497436, -1120.666015, 22.965129, 0.000000, 89.999961, 179.999771, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1635.037353, -1120.666015, 22.965129, 0.000000, 89.999961, 179.999771, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1632.487304, -1121.747070, 22.965129, -0.000038, 90.000000, -89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1632.487304, -1125.228027, 22.965129, -0.000038, 90.000000, -89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1632.487304, -1127.399414, 22.965129, -0.000038, 90.000000, -89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1632.487304, -1134.368774, 22.965129, -0.000038, 90.000000, -89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1632.487304, -1137.859863, 22.965129, -0.000038, 90.000000, -89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1632.487304, -1139.931884, 22.965129, -0.000038, 90.000000, -89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1638.062988, -1139.128173, 22.962329, -0.000001, 89.999984, -90.000175, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1638.062988, -1135.638061, 22.962329, -0.000001, 89.999984, -90.000175, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1638.062988, -1132.156860, 22.962329, -0.000001, 89.999984, -90.000175, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1638.062988, -1128.666870, 22.962329, -0.000001, 89.999984, -90.000175, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1635.002441, -1126.287231, 22.962329, 0.000036, 90.000022, -0.000288, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1638.473754, -1126.287231, 22.962329, 0.000036, 90.000022, -0.000288, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1640.364501, -1126.287231, 22.962329, 0.000036, 90.000022, -0.000288, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1641.235351, -1126.697631, 22.962329, 0.000075, 89.999984, 89.999595, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1644.286254, -1133.238525, 22.962329, 0.000037, 89.999946, 179.999481, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1647.675292, -1139.150146, 22.962329, -0.000001, 89.999984, -90.000190, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1653.237182, -1134.677978, 22.962329, 0.000036, 90.000022, -0.000305, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1649.757324, -1134.677978, 22.962329, 0.000036, 90.000022, -0.000305, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1647.176269, -1134.677978, 22.962329, 0.000036, 90.000022, -0.000305, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1650.157714, -1139.150146, 22.962329, -0.000001, 89.999984, -90.000190, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1629.937744, -1133.421752, 22.965129, -0.000000, 90.000038, -0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1626.448242, -1133.421752, 22.965129, -0.000000, 90.000038, -0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1629.948730, -1128.344726, 22.965129, -0.000000, 90.000038, -0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1626.458496, -1128.344726, 22.965129, -0.000000, 90.000038, -0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1623.982421, -1128.521728, 24.787084, 0.000045, 0.000000, 89.999671, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1623.983276, -1133.213500, 24.787084, 0.000045, 0.000007, 89.999862, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1619.092895, -1137.945800, 24.784347, 0.000094, -0.000079, 179.999099, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1620.783569, -1133.213500, 24.787084, 0.000045, 0.000007, 89.999862, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1620.771484, -1128.521728, 24.787084, 0.000045, 0.000000, 89.999671, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1619.077148, -1130.768066, 27.277080, 0.000015, -0.000045, 179.999465, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19383, 1617.413085, -1126.182617, 24.780694, 0.000024, 0.000052, 89.999900, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1619.077148, -1127.697143, 24.787084, 0.000015, -0.000045, 179.999465, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(1499, 1619.055175, -1129.285156, 23.026071, 0.000001, 0.000058, -90.000564, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 7978, "vgssairport", "Industdoor9white", 0x00000000);
+        HospitalNew = CreateDynamicObject(1499, 1619.055175, -1132.294677, 23.026071, 0.000078, 0.000059, 89.999206, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 7978, "vgssairport", "Industdoor9white", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1619.077148, -1133.897216, 24.787084, 0.000015, -0.000045, 179.999465, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(1499, 1618.145507, -1126.157470, 23.026071, 0.000048, 0.000012, 179.998962, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 7978, "vgssairport", "Industdoor9white", 0x00000000);
+        HospitalNew = CreateDynamicObject(18981, 1611.388427, -1130.495971, 20.561134, 0.000000, 180.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(2163, 1612.033569, -1138.162719, 24.149965, 0.000067, -0.000016, 89.999366, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19655, "mattubes", "purpledirt1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2131, 1626.242919, -1123.015747, 23.031574, -0.000004, 0.000028, 89.999755, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2132, 1626.242187, -1126.998901, 23.031574, -0.000004, 0.000028, 89.999755, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2133, 1626.239990, -1125.003784, 23.031574, -0.000004, 0.000028, 89.999755, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2134, 1626.239257, -1124.004516, 23.031574, -0.000004, 0.000028, 89.999755, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2134, 1626.239257, -1121.014282, 23.031574, -0.000004, 0.000028, 89.999755, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(19926, 1629.083496, -1123.040405, 22.391437, 0.000028, -0.000024, 179.999084, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        HospitalNew = CreateDynamicObject(2341, 1631.635742, -1120.489379, 23.031574, -0.000028, 0.000024, -0.000510, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2133, 1630.671142, -1120.502563, 23.031574, -0.000042, 0.000024, 0.000525, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(19929, 1631.703125, -1123.418334, 23.021564, -0.000028, 0.000024, -0.000510, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2133, 1631.631347, -1121.463256, 23.031574, -0.000037, -0.000028, -90.000244, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(14772, 1631.852294, -1122.644897, 24.132038, -0.000024, -0.000028, -90.000305, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 3899, "hospital2", "hospitalboard_128a", 0x00000000);
+        HospitalNew = CreateDynamicObject(14772, 1631.852294, -1123.185424, 24.132038, -0.000024, -0.000028, -90.000305, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 8035, "vgsshospshop", "hosp_sign01c", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1623.812988, -1130.876953, 22.962329, -0.000001, 89.999984, -90.000175, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1622.998779, -1133.421752, 22.965129, 0.000000, 90.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1623.009033, -1128.344726, 22.965129, 0.000000, 90.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1620.816650, -1133.421752, 22.965129, 0.000000, 90.000053, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19426, 1620.826904, -1128.344726, 22.965129, 0.000000, 90.000053, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1627.453125, -1135.056274, 22.972330, -0.000001, 89.999984, -90.000175, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1627.453125, -1138.548339, 22.972330, -0.000001, 89.999984, -90.000175, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1627.453125, -1140.279663, 22.972330, -0.000001, 89.999984, -90.000175, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1627.453125, -1126.689453, 22.972330, -0.000001, 89.999984, -90.000175, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1627.453125, -1123.218383, 22.972330, -0.000001, 89.999984, -90.000175, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1627.453125, -1121.716918, 22.972330, -0.000001, 89.999984, -90.000175, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1617.843994, -1121.716918, 22.972330, 0.000075, 89.999984, 89.999595, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1617.843994, -1125.187866, 22.972330, 0.000075, 89.999984, 89.999595, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1617.843994, -1126.708251, 22.972330, 0.000075, 89.999984, 89.999595, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1613.633178, -1123.647705, 22.972330, 0.000037, 89.999946, 179.999481, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1613.762939, -1133.259399, 22.972330, 0.000037, 89.999946, 179.999481, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1617.242919, -1133.259399, 22.972330, 0.000037, 89.999946, 179.999481, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1610.272460, -1133.259399, 22.972330, 0.000037, 89.999946, 179.999481, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1613.591674, -1137.901123, 22.972330, 0.000036, 90.000022, -0.000305, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1617.051513, -1137.901123, 22.972330, 0.000036, 90.000022, -0.000305, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1620.391601, -1138.001220, 22.972330, 0.000036, 90.000022, -0.000305, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        HospitalNew = CreateDynamicObject(19325, 1638.289794, -1143.002807, 30.596965, 0.000076, 720.000000, 89.999786, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterialText(HospitalNew, 0, "{fff000}HOSPITAL", 140, "Ariel", 120, 1, 0xFFFFFFFF, 0x00000000, 1);
+        HospitalNew = CreateDynamicObject(19325, 1638.309814, -1143.002807, 29.886951, 0.000076, 720.000000, 89.999786, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterialText(HospitalNew, 0, "{fff000}BAIXADA", 140, "Ariel", 100, 1, 0xFFFFFFFF, 0x00000000, 1);
+        HospitalNew = CreateDynamicObject(19383, 1654.735839, -1123.282470, 28.250696, 0.000091, 180.000000, 90.000083, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1632.243164, -1137.945800, 28.244348, 0.000094, -0.000079, 179.999099, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1632.243164, -1123.801635, 28.244346, 0.000094, -0.000079, 179.999099, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19383, 1643.615844, -1121.587768, 28.250696, 0.000061, 180.000045, -179.999664, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1630.553100, -1133.213500, 28.247085, 0.000045, 0.000007, 89.999862, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1625.662719, -1137.945800, 28.244348, 0.000094, -0.000079, 179.999099, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19383, 1627.352783, -1133.216674, 28.240695, -0.000000, 180.000045, -89.999923, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1630.554809, -1128.521728, 28.247085, 0.000045, 0.000000, 89.999671, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1625.664184, -1123.800781, 28.244348, 0.000078, 0.000020, -0.000662, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19383, 1627.354370, -1128.524902, 28.240695, -0.000000, -179.999938, -89.999855, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1623.982421, -1128.521728, 28.247085, 0.000053, 0.000000, 89.999649, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1623.983276, -1133.213500, 28.247085, 0.000053, 0.000007, 89.999839, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1619.092895, -1137.945800, 28.244348, 0.000094, -0.000086, 179.999053, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1620.783569, -1133.213500, 28.247085, 0.000053, 0.000007, 89.999839, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1620.771484, -1128.521728, 28.247085, 0.000053, 0.000000, 89.999649, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19383, 1617.413085, -1126.182617, 28.240695, -0.000030, 180.000030, -89.999923, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1619.077148, -1127.697143, 28.247085, 0.000015, -0.000053, 179.999420, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1619.077148, -1133.897216, 28.247085, 0.000015, -0.000053, 179.999420, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1648.343139, -1123.284301, 28.244348, 0.000163, -0.000024, 89.999206, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1655.875122, -1142.524780, 33.457386, 0.000000, 90.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1630.894042, -1142.524780, 33.457386, 0.000000, 90.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1620.242187, -1142.524780, 33.457386, 0.000000, 90.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1620.242187, -1118.441772, 33.457386, 0.000000, 90.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1645.173095, -1118.441772, 33.457386, 0.000000, 90.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1655.875122, -1118.441772, 33.457386, 0.000000, 90.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1667.868408, -1130.481933, 33.457386, 0.000030, 450.000000, 89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(18980, 1608.248046, -1130.481933, 33.457386, 0.000030, 450.000000, 89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1647.172851, -1142.916748, 27.948724, -0.000060, 1080.000000, -89.999824, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1647.172851, -1142.916748, 31.438793, 0.000045, 1080.000000, 89.999832, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1656.752563, -1142.916748, 27.948724, -0.000068, 1080.000000, -89.999801, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1656.752563, -1142.916748, 31.438793, 0.000053, 1080.000000, 89.999809, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1663.229003, -1142.918334, 31.432598, 0.000076, 360.000000, 89.999771, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1666.369018, -1142.918334, 31.432598, 0.000076, 360.000000, 89.999771, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1663.229003, -1142.918334, 27.952594, 0.000076, 360.000000, 89.999771, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1666.369018, -1142.918334, 27.942607, 0.000076, 360.000000, 89.999771, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1612.731323, -1142.916748, 27.948724, -0.000068, 1080.000000, -89.999801, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1612.731323, -1142.916748, 31.438793, 0.000053, 1080.000000, 89.999809, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1622.311035, -1142.916748, 27.948724, -0.000076, 1080.000000, -89.999778, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1622.311035, -1142.916748, 31.438793, 0.000060, 1080.000000, 89.999786, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1628.787475, -1142.918334, 31.432598, 0.000083, 360.000000, 89.999748, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1631.927490, -1142.918334, 31.432598, 0.000083, 360.000000, 89.999748, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1628.787475, -1142.918334, 27.952594, 0.000083, 360.000000, 89.999748, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(19353, 1631.927490, -1142.918334, 27.942607, 0.000083, 360.000000, 89.999748, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14383, "burg_1", "kit_windo_12", 0x00000000);
+        HospitalNew = CreateDynamicObject(11711, 1627.299072, -1128.584472, 25.964311, 0.000000, -0.000038, 179.999771, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        HospitalNew = CreateDynamicObject(11711, 1619.138671, -1130.785278, 25.964311, 0.000038, 0.000000, 89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        HospitalNew = CreateDynamicObject(11711, 1627.339111, -1128.594482, 25.904310, 0.000000, -0.000038, 179.999771, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        SetDynamicObjectMaterialText(HospitalNew, 0, "{4B0082}SALA 1", 30, "Ariel", 20, 1, 0xFFFFFFFF, 0x00000000, 0);
+        HospitalNew = CreateDynamicObject(11711, 1627.259033, -1133.145507, 25.904310, -0.000000, 0.000038, -0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        SetDynamicObjectMaterialText(HospitalNew, 0, "{4B0082}SALA 2", 30, "Ariel", 20, 1, 0xFFFFFFFF, 0x00000000, 0);
+        HospitalNew = CreateDynamicObject(11711, 1619.147827, -1130.745849, 25.904310, -0.000038, 0.000000, -89.999885, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        SetDynamicObjectMaterialText(HospitalNew, 0, "{4B0082}SALA 3", 30, "Ariel", 20, 1, 0xFFFFFFFF, 0x00000000, 0);
+        HospitalNew = CreateDynamicObject(18762, 1643.186889, -1133.672851, 24.711124, 0.000000, 0.000038, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1642.433593, -1142.487182, 24.653434, 0.000045, 0.000037, 89.999748, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1642.433593, -1142.487182, 26.773441, 0.000045, 0.000037, 89.999748, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1642.433593, -1142.487182, 22.433444, 0.000045, 0.000037, 89.999748, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1640.393432, -1142.467163, 24.653434, -0.000053, 0.000028, -89.999961, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1640.393432, -1142.467163, 26.413434, -0.000053, 0.000028, -89.999961, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1640.393432, -1142.467163, 22.573438, -0.000053, 0.000028, -89.999961, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1641.312988, -1142.387084, 26.953451, -0.000014, 270.000030, 179.999694, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1641.312988, -1142.387084, 23.043445, -0.000014, 270.000030, 179.999694, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1635.572631, -1142.487182, 22.583436, 0.000052, 0.000037, 89.999725, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1635.572631, -1142.487182, 26.773441, 0.000052, 0.000037, 89.999725, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1633.682617, -1142.467163, 24.653434, -0.000068, 0.000028, -89.999916, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1633.682617, -1142.467163, 26.413434, -0.000068, 0.000028, -89.999916, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1634.452026, -1142.387084, 26.953451, -0.000014, 270.000030, 179.999649, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1634.452026, -1142.387084, 23.043445, -0.000014, 270.000030, 179.999649, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1633.682617, -1142.467163, 22.583431, -0.000068, 0.000028, -89.999916, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1635.572631, -1142.487182, 24.653434, 0.000052, 0.000037, 89.999725, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1643.051391, -1132.291870, 23.014095, 0.000073, -0.000016, 179.999267, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1644.351440, -1132.291870, 23.014095, 0.000073, -0.000016, 179.999267, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1638.113159, -1142.487182, 24.973445, 0.000045, 0.000037, 89.999748, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1897, 1638.113159, -1142.467163, 22.873445, 0.000045, 180.000030, 89.999748, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 7650, "mickytextures", "smileyface1", 0x00000000);
+        HospitalNew = CreateDynamicObject(18784, 1628.282958, -1130.501098, 36.461109, 0.000000, 0.000045, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 15034, "genhotelsave", "ab_mottleWhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18784, 1648.263305, -1130.501098, 36.461109, 0.000000, -0.000045, 179.999725, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 15034, "genhotelsave", "ab_mottleWhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18784, 1618.722900, -1130.531127, 36.461109, 0.000000, -0.000038, 179.999771, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 15034, "genhotelsave", "ab_mottleWhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(18784, 1657.322998, -1130.531127, 36.461109, 0.000000, 0.000038, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 15034, "genhotelsave", "ab_mottleWhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(1499, 1654.003417, -1123.307617, 23.036071, 0.000016, 0.000135, -0.000097, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 7978, "vgssairport", "Industdoor9white", 0x00000000);
+        HospitalNew = CreateDynamicObject(2641, 1632.398193, -1125.894042, 25.449239, 0.000009, 450.000000, 90.000015, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 4981, "wiresetc2_las", "lasunionclk", 0x00000000);
+        HospitalNew = CreateDynamicObject(2435, 1647.208740, -1124.759521, 23.004402, -0.000060, 0.000048, -89.999855, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(19926, 1647.213134, -1126.166503, 22.927375, 0.000047, 0.000060, -0.000203, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2435, 1647.208740, -1127.610229, 23.004402, -0.000060, 0.000048, -89.999855, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2434, 1647.208496, -1128.533935, 23.007087, -0.000060, 0.000048, -89.999855, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2435, 1647.208740, -1123.848632, 23.004402, -0.000060, 0.000044, -89.999855, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2435, 1649.234252, -1128.703613, 23.004402, 0.000077, 0.000074, -0.000326, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2435, 1648.313354, -1128.703613, 23.004402, 0.000077, 0.000067, -0.000326, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(19926, 1650.643432, -1128.696655, 22.927375, 0.000067, -0.000042, 89.999465, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(19926, 1652.563720, -1128.696655, 22.927375, 0.000067, -0.000042, 89.999465, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2435, 1654.004394, -1128.703613, 23.004402, 0.000077, 0.000074, -0.000326, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2435, 1654.934204, -1128.703613, 23.004402, 0.000077, 0.000074, -0.000326, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2435, 1655.854370, -1128.703613, 23.004402, 0.000077, 0.000074, -0.000326, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1806, 1652.284423, -1127.322753, 23.013679, -0.000045, -0.000060, -179.999450, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 11391, "hubprops2_sfse", "blackbag", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1632.896484, -1127.620849, 23.040548, 0.000009, -0.000007, 90.000015, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1655.599121, -1139.594116, 23.019535, -0.000068, 0.000028, -89.999862, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1655.599121, -1138.294067, 23.019535, -0.000068, 0.000028, -89.999862, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1655.599121, -1135.873291, 23.019535, -0.000068, 0.000035, -89.999862, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1655.599121, -1134.573242, 23.019535, -0.000068, 0.000035, -89.999862, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1639.478881, -1120.724731, 22.980613, 0.000019, 0.000089, -0.000236, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(2163, 1618.951049, -1134.737060, 24.193498, -0.000074, -0.000000, -89.999954, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19655, "mattubes", "purpledirt1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1806, 1648.594482, -1126.162231, 23.013679, 0.000060, -0.000042, 89.999496, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 11391, "hubprops2_sfse", "blackbag", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1632.896484, -1125.030029, 23.040548, 0.000009, -0.000007, 90.000015, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(1806, 1650.664184, -1127.322753, 23.013679, -0.000045, -0.000060, -179.999450, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 11391, "hubprops2_sfse", "blackbag", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1638.178833, -1120.724731, 22.980613, 0.000019, 0.000089, -0.000236, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1635.758056, -1120.724731, 22.980613, 0.000019, 0.000096, -0.000236, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1634.458007, -1120.724731, 22.980613, 0.000019, 0.000096, -0.000236, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(932, 1632.689453, -1137.134033, 23.101913, 0.000074, -0.000012, 89.999313, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        HospitalNew = CreateDynamicObject(932, 1632.689453, -1136.413574, 23.101913, 0.000074, -0.000012, 89.999313, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1621.145507, -1129.170043, 22.984653, -0.000014, 0.000053, -0.000357, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(2482, 1618.927856, -1137.581909, 23.017518, -0.000074, -0.000007, -90.000000, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 3, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(2163, 1618.951049, -1126.875488, 24.193498, -0.000074, -0.000014, -90.000045, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19655, "mattubes", "purpledirt1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2482, 1618.899291, -1140.919799, 23.072404, -0.000090, -0.000007, -89.999954, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 3, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(2163, 1611.903442, -1130.261596, 24.149965, 0.000075, -0.000016, 89.999343, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19655, "mattubes", "purpledirt1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2482, 1612.006347, -1135.362304, 23.028871, 0.000075, 0.000014, 89.999420, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 3, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(2482, 1612.006347, -1132.601928, 23.028871, 0.000075, 0.000019, 89.999420, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 3, 19595, "lsappartments1", "carpet4-256x256", 0x00000000);
+        HospitalNew = CreateDynamicObject(2641, 1624.415527, -1128.651367, 25.513523, -0.000021, 450.000000, -0.000174, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 10765, "airportgnd_sfse", "black64", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 4981, "wiresetc2_las", "lasunionclk", 0x00000000);
+        HospitalNew = CreateDynamicObject(2200, 1611.981201, -1122.081909, 23.058454, 0.000066, 0.000029, 89.999595, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2748, 1623.051269, -1120.602905, 23.614368, -0.000036, 0.000038, -0.000197, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2748, 1621.511108, -1120.602905, 23.614368, -0.000036, 0.000038, -0.000197, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2131, 1625.069946, -1125.594604, 23.036848, -0.000066, -0.000013, -89.999626, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2132, 1625.070800, -1121.611328, 23.036848, -0.000066, -0.000013, -89.999626, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2133, 1625.072875, -1123.606445, 23.036848, -0.000066, -0.000013, -89.999626, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2134, 1625.082397, -1124.610473, 23.035902, -0.000096, -0.000013, -89.999534, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2134, 1625.073608, -1127.595947, 23.036848, -0.000066, -0.000013, -89.999626, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2182, 1620.651855, -1126.958251, 23.048988, 0.000020, -0.000044, 179.999374, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 3, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 4, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 5, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2182, 1622.609863, -1127.991210, 23.048988, 0.000058, 0.000020, 89.999526, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 3, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 4, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 5, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2131, 1631.648681, -1138.985961, 23.031574, -0.000097, 0.000020, -89.999908, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2132, 1631.649536, -1135.002685, 23.031574, -0.000097, 0.000020, -89.999908, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2133, 1631.651611, -1136.997802, 23.031574, -0.000097, 0.000020, -89.999908, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2134, 1631.652343, -1137.997070, 23.031574, -0.000097, 0.000020, -89.999908, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2134, 1631.652343, -1140.987304, 23.031574, -0.000097, 0.000020, -89.999908, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(19926, 1628.808105, -1138.961303, 22.391437, 0.000019, 0.000067, -0.000464, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 18835, "mickytextures", "whiteforletters", 0x00000000);
+        HospitalNew = CreateDynamicObject(2341, 1626.255859, -1141.512329, 23.031574, -0.000019, -0.000067, 179.999252, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(2133, 1627.220703, -1141.499145, 23.031574, -0.000036, -0.000067, -179.999252, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(19929, 1626.188720, -1138.583251, 23.021564, -0.000019, -0.000067, 179.999252, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2133, 1626.260253, -1140.538452, 23.031574, 0.000054, -0.000019, 89.999488, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 19655, "mattubes", "purpledirt1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 2, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
+        HospitalNew = CreateDynamicObject(14772, 1626.039550, -1139.356811, 24.132038, 0.000067, -0.000019, 89.999427, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 3899, "hospital2", "hospitalboard_128a", 0x00000000);
+        HospitalNew = CreateDynamicObject(14772, 1626.039550, -1138.816284, 24.132038, 0.000067, -0.000019, 89.999427, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 8035, "vgsshospshop", "hosp_sign01c", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1648.343139, -1123.284301, 24.784347, 0.000155, -0.000024, 89.999229, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 8420, "carpark3_lvs", "greyground12802", 0x00000000);
+        HospitalNew = CreateDynamicObject(2346, 1642.775146, -1134.002563, 23.014095, 0.000083, -0.000065, 89.999290, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2346, 1643.455810, -1133.992553, 23.014095, -0.000068, -0.000083, -179.999252, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2346, 1643.535888, -1133.311889, 23.014095, -0.000083, 0.000068, -89.999786, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2346, 1642.855712, -1133.321899, 23.014095, 0.000065, 0.000083, -0.000249, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1643.311035, -1135.022216, 23.014095, 0.000065, 0.000083, -0.000249, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(1727, 1642.010986, -1135.022216, 23.014095, 0.000065, 0.000083, -0.000249, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+        HospitalNew = CreateDynamicObject(19445, 1628.472900, -1130.876953, 22.962329, -0.000001, 89.999984, -90.000175, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14706, "labig2int2", "whitecarpet01", 0x00000000);
+        HospitalNew = CreateDynamicObject(2163, 1656.312988, -1126.449218, 24.594245, -0.000067, 0.000058, -89.999832, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2163, 1656.312988, -1124.678833, 24.594245, -0.000067, 0.000058, -89.999832, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        HospitalNew = CreateDynamicObject(2616, 1646.505859, -1123.161254, 24.774925, 0.000058, -0.000081, 179.999130, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+        HospitalNew = CreateDynamicObject(2708, 1615.009033, -1120.302978, 23.028980, -0.000034, 0.000074, 0.000097, -1, -1, -1, 300.00, 300.00); 
+        SetDynamicObjectMaterial(HospitalNew, 0, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        SetDynamicObjectMaterial(HospitalNew, 1, 3306, "cunte_house1", "des_ntwnwall1", 0x00000000);
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        HospitalNew = CreateDynamicObject(19325, 1642.244506, -1142.475585, 24.741268, 89.999992, 180.000061, -89.999961, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(19325, 1634.024902, -1142.475585, 24.741268, 89.999992, 180.000045, -89.999961, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(19325, 1638.135009, -1142.475585, 29.381250, 89.999992, 360.000061, -89.999961, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(19810, 1643.526489, -1121.538940, 25.901649, 0.000053, 0.000000, 89.999839, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(19810, 1617.355957, -1126.269531, 25.901649, 0.000015, -0.000038, 179.999725, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2685, 1625.769287, -1125.958862, 24.697221, -0.000040, 0.000020, 90.000137, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2741, 1625.800292, -1126.452758, 24.508747, -0.000040, 0.000020, 90.000137, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1997, 1629.062744, -1122.941040, 23.031574, -0.000028, 0.000024, -0.000510, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(19903, 1630.178955, -1121.977416, 23.031574, -0.000012, -0.000037, -110.700057, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2108, 1629.590332, -1121.540405, 22.981403, 0.000028, -0.000024, 179.999084, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1738, 1629.465576, -1120.172241, 23.662067, 0.000028, -0.000024, 179.999084, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11747, 1631.543945, -1123.389526, 23.982501, 0.000028, -0.000024, 179.999084, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11747, 1631.583984, -1123.449584, 23.982501, 0.000028, -0.000024, 179.999084, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11736, 1631.840087, -1123.758422, 23.941852, 0.000028, -0.000024, 179.999084, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11736, 1631.710937, -1124.044555, 23.941852, 0.000022, -0.000027, -173.099472, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2994, 1627.600585, -1121.734008, 23.542072, -0.000035, -0.000017, -73.199890, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2994, 1631.519287, -1125.775512, 23.532062, 0.000028, -0.000031, 179.999084, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(930, 1628.246337, -1120.295532, 23.492023, 0.000028, -0.000031, 179.999084, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2001, 1642.066528, -1133.670532, 23.041114, 0.000000, 0.000038, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2001, 1644.347900, -1133.670532, 23.041114, 0.000000, 0.000038, 0.000000, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2002, 1649.528198, -1141.478027, 23.013685, -0.000021, -0.000017, 179.999618, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2083, 1633.232666, -1126.370361, 23.054708, 0.000009, -0.000007, 90.000015, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2445, 1650.352050, -1141.642089, 23.013685, -0.000021, -0.000017, 179.999618, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11743, 1650.316772, -1141.563842, 24.063611, -0.000021, -0.000017, 179.999618, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11706, 1651.283447, -1141.632690, 23.013685, -0.000021, -0.000024, 179.999618, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2011, 1655.820190, -1133.653320, 23.023685, -0.000068, 0.000028, -89.999832, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(948, 1655.869018, -1137.567871, 23.023685, -0.000068, 0.000028, -89.999832, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11706, 1632.598876, -1140.838134, 23.101913, -0.000075, 0.000013, -89.999610, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1997, 1617.996093, -1133.848144, 23.038759, -0.000074, -0.000007, -90.000000, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2202, 1655.772460, -1125.282470, 23.013679, -0.000067, 0.000058, -89.999832, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2894, 1650.734985, -1128.594726, 23.853401, -0.000042, -0.000060, 178.999603, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2256, 1632.352783, -1122.540649, 24.715230, 0.000009, -0.000007, 90.000015, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2942, 1644.397338, -1141.567749, 23.631248, -0.000045, -0.000017, -179.999420, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(948, 1637.501220, -1120.454833, 22.984764, 0.000019, 0.000089, -0.000203, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2260, 1635.523681, -1120.492065, 24.500999, 0.000011, 0.000126, -0.000280, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2261, 1636.544189, -1120.512207, 24.550437, 0.000011, 0.000126, -0.000280, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2262, 1638.544311, -1120.502075, 24.470970, 0.000011, 0.000126, -0.000280, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2264, 1637.494995, -1120.512207, 24.480247, 0.000011, 0.000126, -0.000280, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1209, 1632.612060, -1139.778076, 23.101913, 0.000074, -0.000012, 89.999313, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11713, 1621.238159, -1133.089721, 24.816980, 0.000051, 0.000022, 89.999496, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1775, 1632.798095, -1138.533569, 24.172714, 0.000074, -0.000012, 89.999313, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1776, 1641.553100, -1120.496459, 24.013938, 0.000019, 0.000081, -0.000203, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(3806, 1646.957153, -1122.769897, 23.064842, 0.000066, 0.000058, 89.999626, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2001, 1642.651245, -1120.430908, 22.984764, 0.000019, 0.000081, -0.000203, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1997, 1617.996093, -1136.599365, 23.038759, -0.000074, -0.000007, -90.000000, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(366, 1620.511352, -1132.970092, 25.226648, 0.000023, 41.499938, 179.099273, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11736, 1618.689208, -1137.730224, 24.123796, -0.000074, -0.000000, -89.999954, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1618.754272, -1137.329833, 24.473772, 0.000074, 0.000000, 89.999488, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11747, 1618.698730, -1137.913574, 24.483293, 0.000074, 0.000000, 89.999488, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2194, 1618.770874, -1137.432373, 25.313737, 0.000074, 0.000000, 89.999488, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11748, 1618.768798, -1137.827270, 24.773210, -0.000073, -0.000013, -102.200012, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1997, 1617.967529, -1139.533935, 23.093645, -0.000082, -0.000014, -90.000022, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1997, 1617.967529, -1128.655029, 23.093645, -0.000074, -0.000014, -90.000045, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11736, 1618.689208, -1141.150878, 24.123796, -0.000090, -0.000007, -89.999954, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1618.754272, -1140.750488, 24.473772, 0.000090, 0.000007, 89.999443, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11747, 1618.698730, -1141.334228, 24.483293, 0.000090, 0.000007, 89.999443, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2194, 1618.770874, -1140.853027, 25.313737, 0.000090, 0.000007, 89.999443, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11748, 1618.768798, -1141.247924, 24.773210, -0.000088, -0.000024, -102.200012, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2687, 1618.957763, -1132.849243, 24.674453, -0.000074, -0.000000, -89.999954, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1997, 1612.886962, -1131.233276, 23.050111, 0.000075, -0.000016, 89.999343, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1997, 1612.886962, -1128.482055, 23.050111, 0.000075, -0.000016, 89.999343, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1997, 1612.886962, -1139.133789, 23.050111, 0.000075, -0.000011, 89.999343, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1997, 1612.886962, -1136.382568, 23.050111, 0.000075, -0.000011, 89.999343, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11736, 1612.216430, -1135.131225, 24.080263, 0.000075, 0.000014, 89.999420, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1612.151367, -1135.531616, 24.430238, -0.000075, -0.000014, -90.000190, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11747, 1612.206909, -1134.947875, 24.439760, -0.000075, -0.000014, -90.000190, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2194, 1612.134765, -1135.429077, 25.270204, -0.000075, -0.000014, -90.000190, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11748, 1612.136840, -1135.034179, 24.729677, 0.000073, 0.000027, 77.799598, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11748, 1612.110229, -1135.249267, 24.729677, 0.000075, 0.000014, 89.299423, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1612.151367, -1132.771240, 24.430238, -0.000075, -0.000019, -90.000236, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11747, 1612.206909, -1132.187500, 24.439760, -0.000075, -0.000019, -90.000236, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2194, 1612.134765, -1132.668701, 25.270204, -0.000075, -0.000019, -90.000236, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11748, 1612.136840, -1132.273803, 24.729677, 0.000073, 0.000037, 77.799598, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11748, 1612.110229, -1132.488891, 24.729677, 0.000075, 0.000019, 89.299423, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1997, 1612.886962, -1133.781982, 23.050111, 0.000075, -0.000011, 89.999343, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(948, 1612.229248, -1140.687011, 23.055971, 0.000082, -0.000004, 89.999420, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(948, 1612.229248, -1126.886230, 23.055971, 0.000082, -0.000004, 89.999420, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2262, 1621.721679, -1129.096069, 24.475009, -0.000020, 0.000073, -0.000433, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2264, 1620.672363, -1129.106201, 24.484287, -0.000020, 0.000073, -0.000433, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2265, 1622.612060, -1129.095458, 24.484409, -0.000020, 0.000073, -0.000433, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2001, 1623.307861, -1128.914672, 22.974643, -0.000014, 0.000053, -0.000357, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1808, 1622.685546, -1128.904296, 22.984653, -0.000014, 0.000053, -0.000357, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2518, 1624.570800, -1129.137451, 23.325168, -0.000021, 0.000060, -0.000174, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11706, 1625.287841, -1120.514160, 23.015607, -0.000013, 0.000059, -0.000189, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2685, 1625.067626, -1128.640014, 24.774631, -0.000021, 0.000060, -0.000174, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2685, 1623.746826, -1128.640014, 24.774631, -0.000021, 0.000060, -0.000174, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1208, 1612.149414, -1125.203979, 23.058454, -0.000066, -0.000022, -90.000076, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1208, 1612.149414, -1124.533691, 23.058454, -0.000066, -0.000022, -90.000076, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1208, 1612.149414, -1123.853515, 23.058454, -0.000066, -0.000022, -90.000076, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2394, 1615.699462, -1120.427368, 24.778858, 0.000037, -0.000074, 179.999328, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2846, 1611.475830, -1124.787353, 24.008283, -0.000050, 0.000048, -27.099964, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11730, 1618.131591, -1120.214233, 23.033924, -0.000058, 0.000074, 0.000227, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11729, 1618.809448, -1120.213989, 23.033924, -0.000058, 0.000074, 0.000227, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(19622, 1615.384887, -1126.007690, 23.751935, 5.999956, 0.600076, -6.600012, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1778, 1614.703857, -1126.149780, 23.037458, 0.000022, -0.000081, 179.999328, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(19173, 1622.169311, -1120.018188, 25.234483, 0.000036, -0.000032, 179.999298, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1808, 1617.230957, -1120.190063, 23.028980, -0.000026, 0.000074, 0.000068, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(19893, 1620.736450, -1126.906738, 23.849159, -0.000050, 0.000000, -63.899799, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(19893, 1622.661254, -1128.075683, 23.849159, -0.000003, -0.000060, -153.899551, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1850, 1621.601684, -1124.643798, 23.048988, 0.000044, 0.000020, 89.999679, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1850, 1620.880981, -1125.134277, 23.048988, -0.000044, -0.000020, -89.999664, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1621.532104, -1125.273193, 23.419105, 0.000044, 0.000020, 89.999679, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1621.612182, -1124.373046, 23.419105, 0.000044, 0.000020, 89.999679, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1621.682617, -1124.922851, 23.419105, 0.000044, 0.000020, 89.999679, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1621.411987, -1126.063476, 23.849525, 0.000066, 0.000020, 89.999618, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1621.492065, -1125.163574, 23.849525, 0.000066, 0.000020, 89.999618, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1621.562500, -1125.713378, 23.849525, 0.000066, 0.000020, 89.999618, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1621.020996, -1124.177734, 23.848579, -0.000051, -0.000028, -89.999649, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1620.940917, -1125.077636, 23.848579, -0.000051, -0.000028, -89.999649, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1620.870483, -1124.527832, 23.848579, -0.000051, -0.000028, -89.999649, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1621.020996, -1124.688232, 24.278999, -0.000059, -0.000028, -89.999633, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1620.940917, -1125.588134, 24.278999, -0.000059, -0.000028, -89.999633, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11738, 1620.870483, -1125.038330, 24.278999, -0.000059, -0.000028, -89.999633, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2685, 1625.543579, -1122.651489, 24.702497, -0.000104, -0.000020, -89.999504, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2741, 1625.512573, -1122.157592, 24.514020, -0.000104, -0.000020, -89.999504, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2309, 1622.791015, -1127.336669, 23.048988, 0.000046, 0.000014, 98.199890, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2309, 1619.631103, -1127.213867, 23.048988, -0.000046, -0.000016, -84.599670, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2685, 1632.122314, -1136.042846, 24.697221, -0.000133, 0.000014, -89.999526, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2741, 1632.091308, -1135.548950, 24.508747, -0.000133, 0.000014, -89.999526, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1997, 1628.829101, -1139.060668, 23.031574, -0.000019, -0.000067, 179.999252, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(19903, 1627.712646, -1140.024291, 23.031574, 0.000070, 0.000002, 69.299797, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2108, 1628.301269, -1140.461303, 22.981403, 0.000019, 0.000067, -0.000464, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(1738, 1628.426025, -1141.829467, 23.662067, 0.000019, 0.000067, -0.000464, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11747, 1626.347900, -1138.612182, 23.982501, 0.000019, 0.000067, -0.000464, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11747, 1626.307861, -1138.552124, 23.982501, 0.000019, 0.000067, -0.000464, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11736, 1626.051757, -1138.243164, 23.941852, 0.000019, 0.000067, -0.000464, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(11736, 1626.180664, -1137.957153, 23.941852, 0.000025, 0.000063, 6.900152, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2260, 1655.831787, -1135.530517, 24.539920, -0.000075, 0.000058, -89.999908, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2261, 1655.811645, -1136.551025, 24.589359, -0.000075, 0.000058, -89.999908, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2262, 1655.821777, -1138.551147, 24.509891, -0.000075, 0.000058, -89.999908, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2264, 1655.811645, -1137.501831, 24.519168, -0.000075, 0.000058, -89.999908, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2265, 1655.822387, -1139.441528, 24.519290, -0.000075, 0.000058, -89.999908, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2994, 1630.291015, -1140.267578, 23.542072, 0.000053, -0.000037, 106.799919, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2994, 1626.372558, -1136.226196, 23.532062, 0.000019, 0.000060, -0.000464, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2265, 1639.434692, -1120.501464, 24.480369, 0.000011, 0.000126, -0.000280, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(19805, 1646.509643, -1141.996337, 24.714988, -0.000045, -0.000017, -179.999420, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2059, 1648.017578, -1128.707763, 24.073616, -0.000033, -0.000066, 170.299636, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2165, 1651.960327, -1125.761474, 23.013679, -0.000045, -0.000060, -179.999450, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(930, 1629.645507, -1141.706176, 23.492023, 0.000019, 0.000060, -0.000464, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2961, 1620.664184, -1133.073486, 24.816492, -0.000019, 0.000052, 0.000159, -1, -1, -1, 300.00, 300.00); 
+        HospitalNew = CreateDynamicObject(2518, 1623.229492, -1129.137451, 23.325168, -0.000021, 0.000060, -0.000174, -1, -1, -1, 300.00, 300.00); 
         //BANCO CENTRAL
         CreateDynamicObject(8661, -3871.36108, 4998.07324, -5388.37939,   0.00000, 0.00000, 0.00000, object_world, object_int, -1, 1000.00, 1000.00);
         CreateDynamicObject(8661, 1271.38867, -1692.36487, 12.54420,   0.00000, 0.00000, 0.00000, object_world, object_int, -1, 1000.00, 1000.00);
@@ -898,203 +1775,6 @@ stock CarregarMapas()
         CreateDynamicObject(18718, 1682.9462, -2276.0751, 10.4682, 0.0000, 0.0000, 0.0000); //prt_spark_2
         CreateDynamicObject(18718, 1682.9462, -2279.7453, 10.4682, 0.0000, 0.0000, 0.0000); //prt_spark_2
         CreateDynamicObject(18718, 1684.3665, -2277.5546, 10.4682, 0.0000, 0.0000, 0.0000); //prt_spark_2
-        //HOSPITAL
-        CreateDynamicObject(18030,1163.3090800,-1320.8571800,-42.9163900,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19449,1172.9138200,-1316.4174800,-45.9155800,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(18092,1167.1279300,-1326.0047600,-44.7944000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(2185,1174.1893300,-1315.8147000,-45.2847800,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2185,1172.0286900,-1315.8147000,-45.2848000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2185,1169.7695300,-1315.8147000,-45.2848000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1715,1175.0543200,-1314.2429200,-45.2839900,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1715,1172.9405500,-1314.2933300,-45.2840000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1715,1170.5181900,-1314.2933300,-45.2840000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19387,1167.5560300,-1314.6908000,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19449,1172.2854000,-1313.1210900,-43.5346000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19449,1172.4845000,-1308.9713100,-43.5346000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19387,1166.6757800,-1308.9693600,-43.5346000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19387,1168.6164600,-1310.6530800,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19430,1168.6184100,-1312.3696300,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19357,1164.9458000,-1314.8973400,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19387,1166.4753400,-1316.4174800,-43.5346000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19357,1164.9458000,-1311.6879900,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19357,1164.9477500,-1310.4069800,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2008,1173.9437300,-1312.5181900,-45.2844000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(1714,1175.5288100,-1312.0061000,-45.1599000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(1715,1172.0439500,-1311.2896700,-45.2838000,0.0000000,0.0000000,77.0000000); //
-        CreateDynamicObject(1715,1172.0157500,-1312.6792000,-45.2838000,0.0000000,0.0000000,102.0000000); //
-        CreateDynamicObject(2007,1176.2038600,-1309.6217000,-44.8044900,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(2007,1176.2038600,-1310.6230500,-44.8045000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(2613,1176.2139900,-1311.9740000,-45.2883600,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(14455,1173.7074000,-1309.1756600,-43.6877300,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(1808,1174.6543000,-1309.2478000,-45.2837900,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2007,1176.1242700,-1310.6230500,-46.2355000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(2007,1176.1242700,-1309.6217000,-46.2355000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(2194,1176.5548100,-1311.7779500,-44.4806600,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2194,1176.5595700,-1311.3891600,-44.4807000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2194,1176.5870400,-1312.2160600,-44.4806600,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2194,1176.5780000,-1312.6374500,-44.4806600,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2010,1169.0545700,-1312.6510000,-45.2837900,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2007,1176.3120100,-1313.7757600,-44.8044900,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(2007,1176.3090800,-1314.7755100,-44.8044900,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(14782,1173.0091600,-1307.8958700,-44.0526000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(14782,1174.6278100,-1307.8997800,-44.0546000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(14782,1172.6186500,-1304.6630900,-44.0526000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(19449,1158.1820100,-1328.4397000,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19449,1153.3131100,-1333.1671100,-43.5346000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19449,1163.0153800,-1328.5471200,-43.5346000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19357,1167.7440200,-1330.1588100,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19357,1167.7440200,-1333.3667000,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19357,1167.7420700,-1333.8277600,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(18092,1165.3289800,-1324.2183800,-44.7964000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19357,1160.9995100,-1326.9300500,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19357,1161.0017100,-1325.3393600,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19357,1163.0799600,-1330.1588100,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(18092,1163.9263900,-1340.6724900,-44.7944000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(18092,1162.1276900,-1338.8278800,-44.7964000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19387,1166.0673800,-1334.0701900,-43.5346000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19357,1163.0780000,-1332.5064700,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1801,1164.9730200,-1332.1074200,-45.2836400,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19357,1163.0799600,-1334.0682400,-43.5346000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19387,1159.8812300,-1334.0701900,-43.5346000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19357,1158.1840800,-1332.5568800,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2333,1164.6638200,-1333.5573700,-45.2836000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2251,1163.4137000,-1333.0295400,-43.4781600,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2167,1163.7122800,-1328.6718800,-45.0907700,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2167,1162.4494600,-1328.6718800,-45.0908000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1801,1160.0662800,-1332.1074200,-45.2836000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2333,1161.5247800,-1332.5092800,-45.2836000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(2251,1162.5109900,-1333.0277100,-43.4782000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2596,1161.4713100,-1333.6687000,-42.4505000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(2596,1164.7845500,-1333.6687000,-42.4505000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(1823,1166.4627700,-1329.6558800,-45.2839200,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2853,1167.1002200,-1329.1350100,-44.7886100,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2647,1166.6081500,-1329.3902600,-44.6458200,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1823,1158.4937700,-1329.7280300,-45.2839200,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2853,1158.9809600,-1329.2531700,-44.7886100,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1997,1160.3350800,-1326.9091800,-45.2841500,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1997,1160.3709700,-1324.8521700,-45.2841500,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19387,1156.3175000,-1338.2530500,-43.5346000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19449,1150.0043900,-1337.9554400,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19449,1157.8433800,-1342.9879200,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19357,1154.8017600,-1336.5640900,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19357,1154.8037100,-1334.8432600,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2333,1155.9771700,-1334.8486300,-45.2836000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2251,1156.3649900,-1333.7142300,-43.4782000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2194,1157.0670200,-1333.7458500,-44.0488400,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2194,1155.9061300,-1333.7458500,-44.0488000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19387,1156.4954800,-1323.6950700,-43.5346000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19449,1150.0902100,-1323.6970200,-43.5346000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(3657,1174.3601100,-1329.0228300,-44.8229000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(3657,1174.3601100,-1331.0969200,-44.8229000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(3657,1174.3601100,-1333.2122800,-44.8229000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(2773,1169.4229700,-1317.6447800,-44.7480700,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2773,1171.6939700,-1317.6558800,-44.7480700,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2773,1173.9578900,-1317.6752900,-44.7481000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2773,1167.7528100,-1317.7017800,-44.7480700,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(932,1168.7999300,-1316.9222400,-45.2840200,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(932,1168.7962600,-1317.7275400,-45.2840200,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(932,1168.8002900,-1318.4738800,-45.2840200,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19449,1160.1024200,-1316.4155300,-43.5346000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19449,1155.3768300,-1308.5709200,-43.5346000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2146,1150.2095900,-1310.5567600,-44.8859300,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2146,1150.1846900,-1313.2812500,-44.8859300,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(15036,1153.2437700,-1336.1203600,-44.1533200,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2994,1156.0382100,-1342.2855200,-44.8039000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2994,1154.2258300,-1342.3510700,-44.8039000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2637,1150.6662600,-1341.8128700,-44.9112400,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2639,1152.3875700,-1341.7360800,-44.6575600,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2134,1158.3823200,-1341.3387500,-45.2840000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2341,1158.3880600,-1342.3101800,-45.2842000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(2132,1160.3807400,-1342.2965100,-45.2840000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(1808,1158.1408700,-1340.5288100,-45.2840000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(1964,1163.9558100,-1338.9238300,-44.1519000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2190,1164.2124000,-1342.2981000,-44.2941000,0.0000000,0.0000000,222.0000000); //
-        CreateDynamicObject(2190,1161.6772500,-1338.2999300,-44.2941000,0.0000000,0.0000000,4.0000000); //
-        CreateDynamicObject(1715,1161.8496100,-1340.3398400,-45.2840000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(1715,1162.4635000,-1341.3878200,-45.2840000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19325,1174.4359100,-1335.6666300,-43.3642000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(3440,1171.1701700,-1335.6793200,-43.1127600,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19325,1171.1701700,-1341.7014200,-43.3642000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(3440,1171.1701700,-1338.2403600,-43.1128000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1768,1162.0664100,-1317.1186500,-45.3091700,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1768,1174.9990200,-1342.1656500,-45.3092000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(1768,1175.7529300,-1339.4649700,-45.3092000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(18014,1176.5706800,-1338.0293000,-44.2941100,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(18014,1176.5904500,-1342.6098600,-44.2961000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2011,1175.7747800,-1342.4024700,-45.2835000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1814,1173.3236100,-1340.8571800,-45.2835600,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1808,1173.8085900,-1335.8856200,-45.2835200,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1808,1168.4397000,-1316.1191400,-45.2838000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(19449,1172.9138200,-1316.4174800,-41.2334900,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19325,1171.3321500,-1316.4174800,-41.6979500,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19325,1177.9204100,-1316.4194300,-41.6980000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(16101,1173.9344500,-1316.4174800,-53.1589000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(16101,1171.6939700,-1316.4174800,-53.1589000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(16101,1169.4229700,-1316.4174800,-53.1589000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2011,1164.7570800,-1316.8437500,-45.2835000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2011,1161.3961200,-1316.8471700,-45.2835000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2146,1151.2899200,-1310.5322300,-44.8859300,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2146,1151.3007800,-1313.1726100,-44.8859300,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1997,1159.4100300,-1326.9182100,-45.2841500,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2341,1161.5871600,-1327.9838900,-45.2842000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(2134,1161.5791000,-1327.0142800,-45.2840000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2132,1163.5710400,-1327.9679000,-45.2840000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(1964,1167.2003200,-1324.5944800,-44.1519000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2190,1167.4122300,-1327.5614000,-44.2941000,0.0000000,0.0000000,222.0000000); //
-        CreateDynamicObject(2190,1164.4531300,-1323.7435300,-44.2941000,0.0000000,0.0000000,4.0000000); //
-        CreateDynamicObject(1715,1164.8051800,-1325.7464600,-45.2840000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(1715,1165.4196800,-1326.8759800,-45.2840000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(1808,1161.3065200,-1326.2104500,-45.2840000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(1997,1155.9565400,-1310.1456300,-45.2841500,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(3383,1160.2596400,-1312.2685500,-45.2842000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(2341,1164.3337400,-1309.5639600,-45.2842000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2132,1162.3432600,-1309.5784900,-45.2840000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2132,1164.3197000,-1310.5323500,-45.2840000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(3396,1164.2537800,-1314.7218000,-45.2838100,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2606,1164.5706800,-1314.4040500,-42.9078800,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(2133,1161.3410600,-1309.5784900,-45.2840000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2133,1160.3410600,-1309.5585900,-45.2840000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2603,1150.5240500,-1329.0131800,-44.9050000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2603,1150.5240500,-1326.8920900,-44.9050000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2603,1150.5240500,-1324.8508300,-44.9050000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2603,1150.5240500,-1331.1646700,-44.9050000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2603,1156.9508100,-1331.1646700,-44.9050000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2603,1156.9508100,-1329.0131800,-44.9050000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2603,1156.9508100,-1326.8920900,-44.9050000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2596,1153.5604200,-1332.7556200,-42.7873000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(2596,1153.5604200,-1324.1051000,-42.7873000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1533,1176.7727100,-1324.4603300,-45.2844000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(1533,1176.7587900,-1325.9399400,-45.2844000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(1886,1168.3522900,-1325.5681200,-41.2743000,16.0000000,0.0000000,91.0000000); //
-        CreateDynamicObject(1886,1159.9791300,-1336.3779300,-41.2743000,16.0000000,0.0000000,76.0000000); //
-        CreateDynamicObject(1886,1159.8168900,-1318.2420700,-41.2743000,16.0000000,0.0000000,76.0000000); //
-        CreateDynamicObject(1886,1159.0767800,-1322.0396700,-41.2743000,16.0000000,0.0000000,-92.0000000); //
-        CreateDynamicObject(2251,1173.6966600,-1340.3684100,-43.9350000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1523,1165.6877400,-1316.4498300,-45.2839500,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1523,1167.5272200,-1313.9033200,-45.2839000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(1523,1168.5820300,-1309.8553500,-45.2839000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(1523,1165.8837900,-1309.0079300,-45.2839000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1523,1169.7503700,-1305.0926500,-45.0680000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(14401,1162.8508300,-1305.6280500,-45.0639800,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(14401,1154.7255900,-1293.6071800,-45.0660000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(1523,1155.3525400,-1313.3811000,-45.2839000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(1523,1155.7050800,-1323.7146000,-45.2839500,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1523,1155.4132100,-1316.4190700,-45.2839000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19449,1155.3729200,-1311.6820100,-40.9950300,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19449,1160.1042500,-1316.4134500,-40.4684300,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(19357,1164.9440900,-1311.6868900,-40.9950000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19357,1164.9440900,-1314.8962400,-40.9950000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(19357,1164.9460400,-1310.4058800,-40.9950000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1533,1149.4216300,-1321.8044400,-45.2844000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(1533,1149.4252900,-1320.3668200,-45.2844000,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(2774,1148.8299600,-1318.0554200,-45.2004400,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(2774,1148.8299600,-1322.6334200,-45.2004000,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1502,1159.0986300,-1334.0825200,-45.2840500,0.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1502,1166.8156700,-1334.0444300,-45.2840000,0.0000000,0.0000000,180.0000000); //
-        CreateDynamicObject(18072,1176.7290000,-1325.8985600,-43.1994900,0.0000000,0.0000000,90.0000000); //
-        CreateDynamicObject(1651,1167.8105500,-1304.2702600,-43.4411000,0.0000000,0.0000000,-90.0000000); //
-        CreateDynamicObject(1749,1174.6280500,-1316.4289600,-41.5699000,14.0000000,0.0000000,0.0000000); //
-        CreateDynamicObject(1749,1171.3286100,-1316.4289600,-41.5699000,14.0000000,0.0000000,0.0000000); //     
         //AGENCIA
         new kek;
         kek = CreateDynamicObject(1557, 619.019348, -26.500204, 999.972900, 0.000000, -0.000037, 179.999771, -1, -1);
@@ -13522,5 +14202,15 @@ stock MapRemocao(playerid)
         RemoveBuildingForPlayer(playerid, 4191, 1353.257, -1764.531, 15.593, 0.250);
         RemoveBuildingForPlayer(playerid, 4022, 1353.257, -1764.531, 15.593, 0.250);
         RemoveBuildingForPlayer(playerid, 1532, 1353.132, -1759.656, 12.500, 0.250);
+        // Novo Hospital
+        RemoveBuildingForPlayer(playerid, 2164, 362.2031, 148.5781, 1024.7734, 0.25);
+        RemoveBuildingForPlayer(playerid, 2164, 364.1094, 148.5781, 1024.7734, 0.25);
+        RemoveBuildingForPlayer(playerid, 2167, 366.4453, 150.0000, 1024.7734, 0.25);
+        RemoveBuildingForPlayer(playerid, 2167, 366.4453, 150.9453, 1024.7734, 0.25);
+        RemoveBuildingForPlayer(playerid, 2009, 361.1797, 152.1563, 1024.7734, 0.25);
+        RemoveBuildingForPlayer(playerid, 1806, 362.0000, 152.6719, 1024.7734, 0.25);
+        RemoveBuildingForPlayer(playerid, 2167, 366.4453, 151.9141, 1024.7734, 0.25);
+        RemoveBuildingForPlayer(playerid, 1806, 363.5859, 152.6328, 1024.7734, 0.25);
+        RemoveBuildingForPlayer(playerid, 1999, 363.2188, 153.1563, 1024.7734, 0.25);
         return 1;
 }
