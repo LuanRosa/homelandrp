@@ -42,7 +42,6 @@
 #include		<		progress2		>
 #include		<		processo		> 
 #include		<		Fader			>
-#include        < 		ranks	 		>
 #pragma warning disable 239
 
 main()
@@ -61,7 +60,6 @@ main()
 #define MAX_DEALERSHIPS 			100
 #define MAX_FUEL_STATIONS 			100
 #define MAX_PLAYER_VEHICLES 		10
-#define MAX_SLOTMACHINE 			50
 #define MAX_FREQUENCIAS				10000
 new	UltimaFala[MAX_PLAYERS];
 #define MAX_SEGUNDOSFALAR  			2  
@@ -91,7 +89,6 @@ new	UltimaFala[MAX_PLAYERS];
 #define PASTA_MORTOS 				"Mortos/%s.ini"
 #define PASTA_AVALIACAO				"AdminAvaliacao/%s.ini"
 #define Pasta_Eastereggs       		"EasterEggs.cfg"
-#define Pasta_Ranks             	"rank/rank_%s.ini"
 #define Pasta_Relatorios        	"Relatorios/%d.ini"
 
 #define CallBack::%0(%1) 		forward %0(%1);\
@@ -294,6 +291,8 @@ new TiempoAnuncio[MAX_PLAYERS],Text:TextDraw[5];
 new	CofreLoja1,
 	CofreLoja2,
 	CofreLoja3,
+	CofreLoja4,
+	CofreLoja5,
 	CofreRestaurante,
 	CofreNiobio,
 	CofreGoverno,
@@ -302,6 +301,8 @@ new	CofreLoja1,
 new bool:RouboLoja1 = false,
 	bool:RouboLoja2 = false,
 	bool:RouboLoja3 = false,
+	bool:RouboLoja4 = false,
+	bool:RouboLoja5 = false,
 	bool:RouboRestaurante = false;
 
 new GuerraBarragem = 0,
@@ -600,13 +601,6 @@ enum neon_tuning
 new bool:wTuning[MAX_PLAYERS];
 new neon_add[MAX_VEHICLES][neon_tuning];
 
-new
-	PlayerText: CasinoPTD[ 33 ],
-	Text: CasinoTD[ 15 ],
-	MineActive[ MAX_PLAYERS ][ 30 ],
-	MineBomb[ MAX_PLAYERS ][ 30 ]
-;
-
 // DOMINAÇÃO
 new Barragem;
 new Parabolica;
@@ -659,16 +653,6 @@ new PlayerText:HudServer_p[MAX_PLAYERS][7];
 new PlayerText:Registration_PTD[MAX_PLAYERS][23];
 new Text:TDCadastro[18];
 new PlayerText:TDCadastro_p[MAX_PLAYERS][7];
-
-//                          VARIAVEIS DA SLOTS
-
-enum TLucky {TDName[16]}
-new PLucky[][TLucky] = {"ld_slot:r_69", "ld_slot:grapes", "ld_slot:cherry", "ld_slot:bell", "ld_slot:bar2_o", "ld_slot:bar1_o"};
-enum InfoSlotMachine {SmObject, DiceIcon, Text3D:TextoSm, bool:Occupied, Jackpot};
-new DataSlotMachine[MAX_SLOTMACHINE][InfoSlotMachine];
-new PlayerText:TDLucky[5], bool:Playing[MAX_PLAYERS], RandLucky[3][MAX_PLAYERS]; 
-new Spin[MAX_PLAYERS], TimerSpin[MAX_PLAYERS], Prize[MAX_PLAYERS], SmID[MAX_PLAYERS], EditingSM[MAX_PLAYERS];
-#define MINIMUM_BET 				1000
 
 //                          VARIAVEIS DA CONCE
 
@@ -1090,17 +1074,16 @@ new Float:PosRota[303][3] =
     {2313.880371, -124.964256, 28.153551}//rota	
 };
 
-new Float:Entradas[10][3] =
+new Float:Entradas[9][3] =
 {
 	{-2653.636474, 640.163085, 14.453125},//Hospital
 	{-2695.638183, 640.165405, 14.453125},//Hospital
-	{-2201.102050, -2341.364013, 30.625000},//Mercado Negro
-	{-2766.550781, 375.652496, 6.334682},//Prefeitura
-	{-1720.950439, 1359.725219, 7.185316},//Pizzaria
-	{-2521.187744, -624.952026, 132.781982},//San News
-	{-1988.149658, 1039.089355, 55.726562},//BANCO
-	{-2026.631591, -102.066413, 35.164062},//LICENCAS
-	{-2521.626220, 2295.312988, 4.984375},//AÇOUGUE
+	{2447.910644, -1962.689453, 13.546875},//Mercado Negro
+	{1481.094482, -1772.313720, 18.795755},//Prefeitura
+	{2105.487548, -1806.502441, 13.554687},//Pizzaria
+	{649.302062, -1357.399658, 13.567605},//San News
+	{1081.261840, -1696.785888, 13.546875},//LICENCAS
+	{2501.888916, -1494.696533, 24.000000},//AÇOUGUE
 	{-2355.818115, 1008.084472, 50.898437}//BURGUER SHOT
 };
 
@@ -1153,15 +1136,21 @@ static Float:SpawnAT[5][4] = // Checkpoints Aleat?ios Auto Escola
 	{-2110.8416,-271.0301,35.6640,359.6555} // SPAWNA5
 };
 
-new Float:PosPesca[7][4] =
+new Float:PosPesca[13][4] =
 {
-	{-2794.834716, 1328.583618, 7.098842},
-	{-2802.145263, 1328.576538, 7.101562},
-	{-2807.664062, 1328.583496, 7.101562}, 
-	{-2813.115722, 1328.583618, 7.101562}, 
-	{-2817.992431, 1328.583618, 7.101562}, 
-	{-2822.475585, 1328.583618, 7.101562},
-	{-2827.454101, 1328.583618, 7.101562}
+	{161.495742, -1920.614990, 3.791874, 271.360412},//pesca
+	{161.504058, -1927.149291, 3.791874, 306.305938},//pesca
+	{161.385360, -1931.044433, 3.791874, 246.922775},//pesca
+	{161.194046, -1934.136474, 3.791874, 238.138854},//pesca
+	{170.612197, -1949.765869, 3.773437, 300.551391},//pesca
+	{159.289993, -1967.208618, 3.791874, 184.406295},//pesca
+	{155.322967, -1967.156005, 3.791874, 115.729957},//pesca
+	{150.507659, -1967.120727, 3.791874, 73.192962},//pesca
+	{138.105529, -1954.054199, 3.773437, 127.607780},//pesca
+	{148.346557, -1934.766723, 3.791874, 291.937133},//pesca
+	{148.159835, -1931.131958, 3.791874, 3.920514},//pesca
+	{148.474090, -1927.095214, 3.791874, 126.725654},//pesca
+	{148.396408, -1920.851684, 3.791874, 15.281173}//pesca
 };
 
 new Float:PosDesossa[8][4] =
@@ -1201,7 +1190,7 @@ new Float:PosVeiculos[9][4] =
 	{-2033.141479, -988.619567, 32.212158},//Policia Militar
 	{-2441.137939, 522.140869, 29.486917},//ROTA
 	{1662.606811, -285.948333, 39.627510},//PRF
-	{-1992.423828, 138.479736, 27.539062},//Spawn
+	{1683.301391, -2311.982910, 13.546875},//Spawn
 	{1179.630615, -1339.028686, 13.838010},//Hospital
 	{-478.623901, -506.406524, 25.517845},//Camionero
 	{590.086975, 871.486694, -42.734603},//Minerador
@@ -3697,89 +3686,7 @@ public SV_VOID:OnPlayerActivationKeyRelease(SV_UINT:playerid,SV_UINT:keyid)
 		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
 		PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
 	}
-}
-
-CallBack::StopAnim(playerid)
-{
-	new Float:X, Float:Y, Float:Z;
-	ClearAnimations(playerid), GetPlayerPos(playerid, X, Y, Z), SetPlayerPos(playerid, X, Y, Z+1), DataSlotMachine[SmID[playerid]][Occupied] = false, SmID[playerid] = -1;
-	return 1;
-}
-
-CallBack::SpinSlotMachine(playerid)
-{
-	Spin[playerid]++;
-	if(Spin[playerid] == 1)
-	{
-		for(new i; i < 5; i++) {PlayerTextDrawShow(playerid, TDLucky[i]);}
-		TimerSpin[playerid] = SetTimerEx("SpinSlotMachine", 50, true, "i", playerid), ApplyAnimation(playerid, "CASINO", "Slot_wait", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 4201, 0.0, 0.0, 0.0);
-	}
-	if(Spin[playerid] < 38) return PlayerTextDrawSetString(playerid, TDLucky[1], PLucky[random(6)][TDName]), PlayerTextDrawSetString(playerid, TDLucky[2], PLucky[random(6)][TDName]), PlayerTextDrawSetString(playerid, TDLucky[3], PLucky[random(6)][TDName]);
-	if(Spin[playerid] == 39) return PlayerPlaySound(playerid, 4202, 0.0, 0.0, 0.0), PlayerTextDrawSetString(playerid, TDLucky[1], PLucky[RandLucky[0][playerid] = random(6)][TDName]), PlayerTextDrawSetString(playerid, TDLucky[2], PLucky[random(6)][TDName]), PlayerTextDrawSetString(playerid, TDLucky[3], PLucky[random(6)][TDName]);
-	if(Spin[playerid] < 69) return PlayerTextDrawSetString(playerid, TDLucky[2], PLucky[random(6)][TDName]), PlayerTextDrawSetString(playerid, TDLucky[3], PLucky[random(6)][TDName]);
-	if(Spin[playerid] == 69) return PlayerPlaySound(playerid, 4202, 0.0, 0.0, 0.0), PlayerTextDrawSetString(playerid, TDLucky[2], PLucky[RandLucky[1][playerid] = random(6)][TDName]), PlayerTextDrawSetString(playerid, TDLucky[3], PLucky[random(6)][TDName]);
-	if(Spin[playerid] < 99) return PlayerTextDrawSetString(playerid, TDLucky[3], PLucky[random(6)][TDName]);
-	if(Spin[playerid] == 99) return PlayerPlaySound(playerid, 4202, 0.0, 0.0, 0.0), PlayerTextDrawSetString(playerid, TDLucky[3], PLucky[RandLucky[2][playerid] = random(6)][TDName]);
-	if(Spin[playerid] == 100) return RewardPrize(playerid);
-	if(Spin[playerid] == 130)
-	{
-		for(new i; i < 5; i++) {PlayerTextDrawHide(playerid, TDLucky[i]);}
-		Spin[playerid] = 0, RandLucky[0][playerid] = 0, RandLucky[1][playerid] = 0, RandLucky[2][playerid] = 0, Playing[playerid] = false, Prize[playerid] = 0, KillTimer(TimerSpin[playerid]);
-	}
-	return 0;
-}
-RewardPrize(playerid)
-{
-	if(RandLucky[0][playerid] == 0)
-	{
-		if(RandLucky[0][playerid] == RandLucky[1][playerid] && RandLucky[1][playerid] == RandLucky[2][playerid]) 
-		{
-			new PrizeJackpot[MAX_PLAYERS];
-			PrizeJackpot[playerid] = DataSlotMachine[SmID[playerid]][Jackpot]+Prize[playerid]*10, GameTextForPlayer(playerid, "~p~JACKPOT", 1400, 6);
-			PlayerInfo[playerid][pDinheiro] += PrizeJackpot[playerid], DOF2_SetInt(GetSlotMachine(SmID[playerid]), "Jackpot", DataSlotMachine[SmID[playerid]][Jackpot] = 0), DOF2_SaveFile(), ApplyAnimation(playerid, "CASINO", "Slot_win_out", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 5461, 0.0, 0.0, 0.0), SetTimerEx("StopAnim", segundos(7), false, "i", playerid);
-		}
-		if(RandLucky[0][playerid] != RandLucky[1][playerid] || RandLucky[1][playerid] != RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~r~PERDEU", 1400, 6), ApplyAnimation(playerid, "CASINO", "Slot_lose_out", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 4203, 0.0, 0.0, 0.0), DOF2_SetInt(GetSlotMachine(SmID[playerid]), "Jackpot", DataSlotMachine[SmID[playerid]][Jackpot]+Prize[playerid]), DOF2_SaveFile(), SetTimerEx("StopAnim", segundos(4), false, "i", playerid);
-	}
-	if(RandLucky[0][playerid] == 4)
-	{
-		if(RandLucky[0][playerid] == RandLucky[1][playerid] && RandLucky[1][playerid] == RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~y~8X APOSTA", 1400, 6);
-		ApplyAnimation(playerid, "CASINO", "manwind", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 5448, 0.0, 0.0, 0.0), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
-		if(RandLucky[0][playerid] != RandLucky[1][playerid] || RandLucky[1][playerid] != RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~r~PERDEU", 1400, 6), ApplyAnimation(playerid, "CASINO", "Roulette_lose", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 4203, 0.0, 0.0, 0.0), DOF2_SetInt(GetSlotMachine(SmID[playerid]), "Jackpot", DataSlotMachine[SmID[playerid]][Jackpot]+Prize[playerid]), DOF2_SaveFile(), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
-	}
-	if(RandLucky[0][playerid] == 5)
-	{
-		if(RandLucky[0][playerid] == RandLucky[1][playerid] && RandLucky[1][playerid] == RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~b~6X APOSTA", 1400, 6);
-		ApplyAnimation(playerid, "CASINO", "manwind", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 5448, 0.0, 0.0, 0.0), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
-		if(RandLucky[0][playerid] != RandLucky[1][playerid] || RandLucky[1][playerid] != RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~r~PERDEU", 1400, 6), ApplyAnimation(playerid, "CASINO", "Roulette_lose", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 4203, 0.0, 0.0, 0.0), DOF2_SetInt(GetSlotMachine(SmID[playerid]), "Jackpot", DataSlotMachine[SmID[playerid]][Jackpot]+Prize[playerid]), DOF2_SaveFile(), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
-	}
-	if(RandLucky[0][playerid] == 1 || RandLucky[0][playerid] == 2 || RandLucky[0][playerid] == 3)
-	{
-		if(RandLucky[0][playerid] == RandLucky[1][playerid] && RandLucky[1][playerid] == RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~g~3X APOSTA", 1400, 6);
-		ApplyAnimation(playerid, "CASINO", "manwinb", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 5448, 0.0, 0.0, 0.0), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
-		if(RandLucky[0][playerid] != RandLucky[1][playerid] || RandLucky[1][playerid] != RandLucky[2][playerid]) return GameTextForPlayer(playerid, "~r~PERDEU", 1400, 6), ApplyAnimation(playerid, "CASINO", "Roulette_lose", 4.1, 0, 0, 0, 1, 1, 1), PlayerPlaySound(playerid, 4203, 0.0, 0.0, 0.0), DOF2_SetInt(GetSlotMachine(SmID[playerid]), "Jackpot", DataSlotMachine[SmID[playerid]][Jackpot]+Prize[playerid]), DOF2_SaveFile(), SetTimerEx("StopAnim", segundos(2), false, "i", playerid);
-	}
-	return 1;
-}
-
-LoadSlotMachines()
-{
-	new string[255];
-	for(new i; i < MAX_SLOTMACHINE; i++)
-	{
-	    if(!DOF2_FileExists(GetSlotMachine(i))) continue;
-		DataSlotMachine[i][DiceIcon] = CreateDynamicMapIcon(DOF2_GetFloat(GetSlotMachine(i), "PozX"), DOF2_GetFloat(GetSlotMachine(i), "PozY"), DOF2_GetFloat(GetSlotMachine(i), "PozZ"), 25, 0, 0, 0, -1, 50.0),format(string, sizeof(string), "{FF0033}Caca-niquel\n{FFFFFF}Aperte {FFFF00}'F' {FFFFFF}para jogar\n{EAF202}!!JACKPOT!!\n{FFFF00}%d", DOF2_GetInt(GetSlotMachine(i), "Jackpot")), DataSlotMachine[i][TextoSm] = CreateDynamic3DTextLabel(string, -1, DOF2_GetFloat(GetSlotMachine(i), "PozX"), DOF2_GetFloat(GetSlotMachine(i), "PozY"), DOF2_GetFloat(GetSlotMachine(i), "PozZ"), 40.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, 0, 0, -1, 10.0);
-		DataSlotMachine[i][SmObject] = CreateObject(2325, DOF2_GetFloat(GetSlotMachine(i), "PozXX"), DOF2_GetFloat(GetSlotMachine(i), "PozYY"), DOF2_GetFloat(GetSlotMachine(i), "PozZZ"), DOF2_GetFloat(GetSlotMachine(i), "RotXX"), DOF2_GetFloat(GetSlotMachine(i), "RotYY"), DOF2_GetFloat(GetSlotMachine(i), "RotZZ")), DataSlotMachine[i][Jackpot] = DOF2_GetInt(GetSlotMachine(i), "Jackpot");
-	}
-	printf("=> Caça-Niqueis       		: Carregados");
-	return 1;
-}
-
-GetSlotMachine(ID2)
-{
-	new File[38];
-	format(File, sizeof(File), PASTA_SLOTS, ID2);
-	return File;
-} 	
+}	
 
 CallBack::SendMSG()
 {
@@ -3789,14 +3696,13 @@ CallBack::SendMSG()
 		{
 			LimparChat(i, 10);
 			InfoMsg(i, RandomMSG[random(sizeof(RandomMSG))]);
-	        checkrank("horasjogadas", 		Name(i), PlayerInfo[i][pSegundosJogados]);
-	    	checkrank("banco", 				Name(i), PlayerInfo[i][pDinheiro]+PlayerInfo[i][pBanco]);
-
 		}
 	}
 	RouboLoja1 = false;
 	RouboLoja2 = false;
 	RouboLoja3 = false;
+	RouboLoja4 = false;
+	RouboLoja5 = false;
 	RouboRestaurante = false;
 	return 1;
 }
@@ -4803,7 +4709,7 @@ Progresso:RoubarLoja(playerid, progress)
 			TogglePlayerControllable(playerid, 1);
 			RouboRestaurante = true;
 		}
-		if(PlayerToPoint(5.0, playerid, -2384.989013, -52.624767, 35.479652))
+		if(PlayerToPoint(5.0, playerid, 393.256561, -1895.308471, 7.844118))
 		{
 			GanharItem(playerid, 1212, CofreLoja1);
 			CofreLoja1 = 0;
@@ -4813,7 +4719,7 @@ Progresso:RoubarLoja(playerid, progress)
 			TogglePlayerControllable(playerid, 1);
 			RouboLoja1 = true;
 		}
-		if(PlayerToPoint(5.0, playerid, -2447.547607, 1211.448730, 35.378131))
+		if(PlayerToPoint(5.0, playerid, 1359.771850, -1774.149291, 13.551797))
 		{
 			GanharItem(playerid, 1212, CofreLoja2);
 			CofreLoja2 = 0;
@@ -4823,7 +4729,7 @@ Progresso:RoubarLoja(playerid, progress)
 			TogglePlayerControllable(playerid, 1);
 			RouboLoja2 = true;
 		}
-		if(PlayerToPoint(5.0, playerid, -2076.633300, 643.822387, 52.524246))
+		if(PlayerToPoint(5.0, playerid, 1663.899047, -1899.635009, 13.569333))
 		{
 			GanharItem(playerid, 1212, CofreLoja3);
 			CofreLoja3 = 0;
@@ -4832,6 +4738,26 @@ Progresso:RoubarLoja(playerid, progress)
 			SetPlayerWantedLevel(playerid, GetPlayerWantedLevel(playerid)+3);
 			TogglePlayerControllable(playerid, 1);
 			RouboLoja3 = true;
+		}
+		if(PlayerToPoint(5.0, playerid, 2054.312255, -1883.058105, 13.570812))
+		{
+			GanharItem(playerid, 1212, CofreLoja4);
+			CofreLoja4 = 0;
+			SuccesMsg(playerid, "Roubo efetuado com sucesso.");
+			ClearAnimations(playerid, 1);
+			SetPlayerWantedLevel(playerid, GetPlayerWantedLevel(playerid)+3);
+			TogglePlayerControllable(playerid, 1);
+			RouboLoja4 = true;
+		}
+		if(PlayerToPoint(5.0, playerid, 1310.963256, -856.883911, 39.597454))
+		{
+			GanharItem(playerid, 1212, CofreLoja5);
+			CofreLoja5 = 0;
+			SuccesMsg(playerid, "Roubo efetuado com sucesso.");
+			ClearAnimations(playerid, 1);
+			SetPlayerWantedLevel(playerid, GetPlayerWantedLevel(playerid)+3);
+			TogglePlayerControllable(playerid, 1);
+			RouboLoja5 = true;
 		}
 		SalvarDinRoubos();
 	}
@@ -5923,7 +5849,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 			if(PlayerInfo[playerid][pProfissao] != 1) 	return ErrorMsg(playerid, "Nao possui permissao.");
 			if(PlayerInventario[playerid][modelid][Unidades] < 1) return ErrorMsg(playerid, "Nao tem uma vara de pesca.");
 			if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a pesca atual."); 
-			for(new i; i < 7; i++)
+			for(new i; i < 13; i++)
 			if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 			{
 				cmd_inventario(playerid);
@@ -5950,7 +5876,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 902:
 		{
-			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
+			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
 				new dinpeixes = randomEx(50, 550);
@@ -5973,7 +5899,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 19630:
 		{
-			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
+			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
 				new dinpeixes = randomEx(50, 200);
@@ -5996,7 +5922,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 1599:
 		{
-			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
+			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
 				new dinpeixes = randomEx(50, 250);
@@ -6019,7 +5945,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 1609:
 		{
-			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
+			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
 				new dinpeixes = randomEx(50, 250);
@@ -6042,7 +5968,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 1600:
 		{
-			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
+			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
 				new dinpeixes = randomEx(50, 250);
@@ -6065,7 +5991,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 1603:
 		{
-			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
+			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
 				new dinpeixes = randomEx(50, 800);
@@ -6088,7 +6014,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 1608:
 		{
-			if(PlayerToPoint(3.0, playerid, -2788.145996, 1312.905639, 7.622592))
+			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
 				new dinpeixes = randomEx(200, 1000);
@@ -6674,543 +6600,6 @@ CallBack::Relogio()
 	return 1;
 }
 
-CallBack::ShowMine( playerid ) {
-	if( GetPVarInt( playerid, "StartedGame" ) == 1 ) {
-		ShowCasinoTDs( playerid );
-		PlayerTextDrawSetString( playerid, CasinoPTD[ 31 ], "Jogadas: ~g~0~w~~h~~n~Dinheiro ganho: ~g~0" );
-	}
-	return 1;
-}
-
-CallBack::ShowCasinoTDs( playerid ) {
-	ResetColorTD( playerid );
-	PlayerTextDrawSetString( playerid, CasinoPTD[ 32 ], "Valor_Da_Aposta" );
-	TextDrawColor( CasinoTD[ 9 ], -1 );
-	TextDrawColor( CasinoTD[ 7 ], -1 );
-	TextDrawColor( CasinoTD[ 12 ], -1 );
-	for( new i = 0; i < 33; i++ ) PlayerTextDrawShow( playerid, CasinoPTD[ i ] );
-	for( new i = 0; i < 15; i++ ) TextDrawShowForPlayer( playerid, CasinoTD[ i ] );
-	PlayerTextDrawHide( playerid, CasinoPTD[ 30 ] );
-	SelectTextDraw( playerid, 0x80FF00FF );
-	SetPVarInt( playerid, "MoneyEarned", 0 );
-	SetPVarInt( playerid, "Mines", 0 );
-	SetPVarInt( playerid, "MineType", 0 );
-	SetPVarInt( playerid, "BetAmount", 0 );
-	SetPVarInt( playerid, "StartedGame", 0 );
-	SetPVarInt( playerid, "Loser", 0 );
-	for( new i = 0; i < 30; i++ ) MineActive[ playerid ][ i ] = 0;
-	return 1;
-}
-
-CallBack::ResetColorTD( playerid ) {
-	for( new i = 0; i < 33; i++ ) {
-		PlayerTextDrawBoxColor( playerid, CasinoPTD[ i ], -123 );
-		PlayerTextDrawShow( playerid, CasinoPTD[ i ] );
-	}
-	return 1;
-}
-
-CallBack::HideCasinoTDs( playerid ) {
-	for( new i = 0; i < 33; i++ ) PlayerTextDrawHide( playerid, CasinoPTD[ i ] );
-	for( new i = 0; i < 15; i++ ) TextDrawHideForPlayer( playerid, CasinoTD[ i ] );
-	CancelSelectTextDraw( playerid );
-	SetPVarInt( playerid, "PlayMine", 0 );
-	SetPVarInt( playerid, "BetAmount", 0 );
-	SetPVarInt( playerid, "Mines", 0 );
-	SetPVarInt( playerid, "StartedGame", 0 );
-	SetPVarInt( playerid, "MineType", 0 );
-	return 1;
-}
-
-CallBack::PlayerTextDraw( playerid ) 
-{
-	CasinoPTD[ 0 ] = CreatePlayerTextDraw( playerid, 183.333343, 190.000000, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 0 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 0 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 0 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 0 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 0 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 0 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 0 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 0 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 0 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 0 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 0 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 0 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 0 ], true );
-
-	CasinoPTD[ 1 ] = CreatePlayerTextDraw( playerid, 202.666671, 190.000000, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 1 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 1 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 1 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 1 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 1 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 1 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 1 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 1 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 1 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 1 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 1 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 1 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 1 ], true );
-
-	CasinoPTD[ 2 ] = CreatePlayerTextDraw( playerid, 222.333419, 190.000000, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 2 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 2 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 2 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 2 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 2 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 2 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 2 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 2 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 2 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 2 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 2 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 2 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 2 ], true );
-
-	CasinoPTD[ 3 ] = CreatePlayerTextDraw( playerid, 242.333480, 190.000030, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 3 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 3 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 3 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 3 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 3 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 3 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 3 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 3 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 3 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 3 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 3 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 3 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 3 ], true );
-
-	CasinoPTD[ 4 ] = CreatePlayerTextDraw( playerid, 261.333465, 190.000030, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 4 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 4 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 4 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 4 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 4 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 4 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 4 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 4 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 4 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 4 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 4 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 4 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 4 ], true );
-
-	CasinoPTD[ 5 ] = CreatePlayerTextDraw( playerid, 183.333450, 211.985229, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 5 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 5 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 5 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 5 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 5 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 5 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 5 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 5 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 5 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 5 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 5 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 5 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 5 ], true );
-
-	CasinoPTD[ 6 ] = CreatePlayerTextDraw( playerid, 202.666793, 211.570388, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 6 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 6 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 6 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 6 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 6 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 6 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 6 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 6 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 6 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 6 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 6 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 6 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 6 ], true );
-
-	CasinoPTD[ 7 ] = CreatePlayerTextDraw( playerid, 222.333465, 211.570373, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 7 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 7 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 7 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 7 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 7 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 7 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 7 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 7 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 7 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 7 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 7 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 7 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 7 ], true );
-
-	CasinoPTD[ 8 ] = CreatePlayerTextDraw( playerid, 242.333480, 211.570388, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 8 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 8 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 8 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 8 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 8 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 8 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 8 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 8 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 8 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 8 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 8 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 8 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 8 ], true );
-
-	CasinoPTD[ 9 ] = CreatePlayerTextDraw( playerid, 261.666778, 211.570388, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 9 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 9 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 9 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 9 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 9 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 9 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 9 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 9 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 9 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 9 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 9 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 9 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 9 ], true );
-
-	CasinoPTD[ 10 ] = CreatePlayerTextDraw( playerid, 183.333435, 233.555557, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 10 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 10 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 10 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 10 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 10 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 10 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 10 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 10 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 10 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 10 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 10 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 10 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 10 ], true );
-
-	CasinoPTD[ 11 ] = CreatePlayerTextDraw( playerid, 202.666763, 233.555557, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 11 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 11 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 11 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 11 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 11 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 11 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 11 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 11 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 11 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 11 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 11 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 11 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 11 ], true );
-
-	CasinoPTD[ 12 ] = CreatePlayerTextDraw( playerid, 222.333419, 233.555572, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 12 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 12 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 12 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 12 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 12 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 12 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 12 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 12 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 12 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 12 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 12 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 12 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 12 ], true );
-
-	CasinoPTD[ 13 ] = CreatePlayerTextDraw( playerid, 242.333404, 233.555572, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 13 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 13 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 13 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 13 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 13 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 13 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 13 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 13 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 13 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 13 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 13 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 13 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 13 ], true );
-
-	CasinoPTD[ 14 ] = CreatePlayerTextDraw( playerid, 261.333435, 233.555572, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 14 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 14 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 14 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 14 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 14 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 14 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 14 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 14 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 14 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 14 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 14 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 14 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 14 ], true );
-
-	CasinoPTD[ 15 ] = CreatePlayerTextDraw( playerid, 183.333419, 255.125930, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 15 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 15 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 15 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 15 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 15 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 15 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 15 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 15 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 15 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 15 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 15 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 15 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 15 ], true );
-
-	CasinoPTD[ 16 ] = CreatePlayerTextDraw( playerid, 203.000091, 255.125930, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 16 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 16 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 16 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 16 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 16 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 16 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 16 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 16 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 16 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 16 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 16 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 16 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 16 ], true );
-
-	CasinoPTD[ 17 ] = CreatePlayerTextDraw( playerid, 222.333450, 255.125930, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 17 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 17 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 17 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 17 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 17 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 17 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 17 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 17 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 17 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 17 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 17 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 17 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 17 ], true );
-
-	CasinoPTD[ 18 ] = CreatePlayerTextDraw( playerid, 242.333450, 255.125930, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 18 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 18 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 18 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 18 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 18 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 18 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 18 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 18 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 18 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 18 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 18 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 18 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 18 ], true );
-
-	CasinoPTD[ 19 ] = CreatePlayerTextDraw( playerid, 261.000122, 255.125930, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 19 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 19 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 19 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 19 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 19 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 19 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 19 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 19 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 19 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 19 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 19 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 19 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 19 ], true );
-
-	CasinoPTD[ 20 ] = CreatePlayerTextDraw( playerid, 183.333480, 276.281433, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 20 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 20 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 20 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 20 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 20 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 20 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 20 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 20 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 20 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 20 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 20 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 20 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 20 ], true );
-
-	CasinoPTD[ 21 ] = CreatePlayerTextDraw( playerid, 203.333465, 276.281433, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 21 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 21 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 21 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 21 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 21 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 21 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 21 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 21 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 21 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 21 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 21 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 21 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 21 ], true );
-
-	CasinoPTD[ 22 ] = CreatePlayerTextDraw( playerid, 222.666793, 276.696228, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 22 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 22 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 22 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 22 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 22 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 22 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 22 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 22 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 22 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 22 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 22 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 22 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 22 ], true );
-
-	CasinoPTD[ 23 ] = CreatePlayerTextDraw( playerid, 242.333465, 276.696228, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 23 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 23 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 23 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 23 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 23 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 23 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 23 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 23 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 23 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 23 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 23 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 23 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 23 ], true );
-
-	CasinoPTD[ 24 ] = CreatePlayerTextDraw( playerid, 261.333404, 276.696228, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 24 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 24 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 24 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 24 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 24 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 24 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 24 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 24 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 24 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 24 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 24 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 24 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 24 ], true );
-
-	CasinoPTD[ 25 ] = CreatePlayerTextDraw( playerid, 183.333404, 297.436981, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 25 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 25 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 25 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 25 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 25 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 25 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 25 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 25 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 25 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 25 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 25 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 25 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 25 ], true );
-
-	CasinoPTD[ 26 ] = CreatePlayerTextDraw( playerid, 203.666656, 297.436981, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 26 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 26 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 26 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 26 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 26 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 26 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 26 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 26 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 26 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 26 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 26 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 26 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 26 ], true );
-
-	CasinoPTD[ 27 ] = CreatePlayerTextDraw( playerid, 222.666671, 297.436981, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 27 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 27 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 27 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 27 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 27 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 27 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 27 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 27 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 27 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 27 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 27 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 27 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 27 ], true );
-
-	CasinoPTD[ 28 ] = CreatePlayerTextDraw( playerid, 242.333282, 297.436981, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 28 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 28 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 28 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 28 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 28 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 28 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 28 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 28 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 28 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 28 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 28 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 28 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 28 ], true );
-
-	CasinoPTD[ 29 ] = CreatePlayerTextDraw( playerid, 261.333282, 297.436950, "box" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 29 ], 0.000000, 1.633334 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 29 ], 15.000000, 13.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 29 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 29 ], -1 );
-	PlayerTextDrawUseBox( playerid, CasinoPTD[ 29 ], 1 );
-	PlayerTextDrawBoxColor( playerid, CasinoPTD[ 29 ], -123 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 29 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 29 ], 0 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 29 ], 255 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 29 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 29 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 29 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 29 ], true );
-
-	CasinoPTD[ 30 ] = CreatePlayerTextDraw( playerid, 367.000061, 312.785186, "~r~Voce perdeu! :( " );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 30 ], 0.254666, 1.085628 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 30 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 30 ], -1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 30 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 30 ], 1 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 30 ], 136 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 30 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 30 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 30 ], 0 );
-
-	CasinoPTD[ 31 ] = CreatePlayerTextDraw( playerid, 366.666961, 236.044342, "Jogadas: 0~n~Dinheiro ganho: ~g~R$0~w~~h~~n~" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 31 ], 0.254666, 1.085628 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 31 ], 2 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 31 ], -1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 31 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 31 ], 1 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 31 ], 136 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 31 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 31 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 31 ], 0 );
-
-	CasinoPTD[ 32 ] = CreatePlayerTextDraw( playerid, 318.999969, 217.377777, "Introduza um valor de aposta" );
-	PlayerTextDrawLetterSize( playerid, CasinoPTD[ 32 ], 0.252000, 1.098074 );
-	PlayerTextDrawTextSize( playerid, CasinoPTD[ 32 ], 396.000000, 10.000000 );
-	PlayerTextDrawAlignment( playerid, CasinoPTD[ 32 ], 1 );
-	PlayerTextDrawColor( playerid, CasinoPTD[ 32 ], -1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 32 ], 0 );
-	PlayerTextDrawSetOutline( playerid, CasinoPTD[ 32 ], 1 );
-	PlayerTextDrawBackgroundColor( playerid, CasinoPTD[ 32 ], 122 );
-	PlayerTextDrawFont( playerid, CasinoPTD[ 32 ], 1 );
-	PlayerTextDrawSetProportional( playerid, CasinoPTD[ 32 ], 1 );
-	PlayerTextDrawSetShadow( playerid, CasinoPTD[ 32 ], 0 );
-	PlayerTextDrawSetSelectable( playerid, CasinoPTD[ 32 ], true );
-	return 1;
-}
-
 //                          STOCKS
 
 stock IsPlayerInPlace(playerid,Float:XMin,Float:YMin,Float:XMax,Float:YMax )
@@ -7352,6 +6741,8 @@ stock CarregarDinRoubos()
 		CofreLoja1 = DOF2_GetInt(controlFile, "Loja1");
 		CofreLoja2 = DOF2_GetInt(controlFile, "Loja2");
 		CofreLoja3 = DOF2_GetInt(controlFile, "Loja3");
+		CofreLoja4 = DOF2_GetInt(controlFile, "Loja4");
+		CofreLoja5 = DOF2_GetInt(controlFile, "Loja5");
 		CofreRestaurante = DOF2_GetInt(controlFile, "Restaurante");
 		CofreNiobio = DOF2_GetInt(controlFile, "Niobio");
 		CofreGoverno = DOF2_GetInt(controlFile, "Governo");
@@ -7360,6 +6751,8 @@ stock CarregarDinRoubos()
 	CofreLoja1 = DOF2_GetInt(controlFile, "Loja1");
 	CofreLoja2 = DOF2_GetInt(controlFile, "Loja2");
 	CofreLoja3 = DOF2_GetInt(controlFile, "Loja3");
+	CofreLoja4 = DOF2_GetInt(controlFile, "Loja4");
+	CofreLoja5 = DOF2_GetInt(controlFile, "Loja5");
 	CofreRestaurante = DOF2_GetInt(controlFile, "Restaurante");
 	CofreNiobio = DOF2_GetInt(controlFile, "Niobio");
 	CofreGoverno = DOF2_GetInt(controlFile, "Governo");
@@ -7377,6 +6770,8 @@ stock SalvarDinRoubos()
 		DOF2_SetInt(controlFile, "Loja1", CofreLoja1);
 		DOF2_SetInt(controlFile, "Loja2", CofreLoja2);
 		DOF2_SetInt(controlFile, "Loja3", CofreLoja3);
+		DOF2_SetInt(controlFile, "Loja4", CofreLoja4);
+		DOF2_SetInt(controlFile, "Loja5", CofreLoja5);
 		DOF2_SetInt(controlFile, "Restaurante",CofreRestaurante);
 		DOF2_SetInt(controlFile, "Niobio", CofreNiobio);
 		DOF2_SetInt(controlFile, "Governo", CofreGoverno);
@@ -7385,6 +6780,8 @@ stock SalvarDinRoubos()
 	DOF2_SetInt(controlFile, "Loja1", CofreLoja1);
 	DOF2_SetInt(controlFile, "Loja2", CofreLoja2);
 	DOF2_SetInt(controlFile, "Loja3", CofreLoja3);
+	DOF2_SetInt(controlFile, "Loja4", CofreLoja4);
+	DOF2_SetInt(controlFile, "Loja5", CofreLoja5);
 	DOF2_SetInt(controlFile, "Restaurante",CofreRestaurante);
 	DOF2_SetInt(controlFile, "Niobio", CofreNiobio);
 	DOF2_SetInt(controlFile, "Governo", CofreGoverno);
@@ -7839,7 +7236,7 @@ stock GetIdfixo()
 	if(!DOF2_FileExists(controlFile))
 	{
 		DOF2_CreateFile(controlFile);
-		DOF2_SetInt(controlFile, "Last", 10000);
+		DOF2_SetInt(controlFile, "Last", 0);
 	}
 
 	new currentTag = DOF2_GetInt(controlFile, "Last") + 1;
@@ -9317,27 +8714,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, CopGuns[playerid][5], 1);
 	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][5], 1);
 	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][5], 1);
-
-	TDLucky[0] = CreatePlayerTextDraw(playerid, 331.000000, 130.000000, "_");
-	PlayerTextDrawAlignment(playerid, TDLucky[0], 2), PlayerTextDrawFont(playerid, TDLucky[0], 1); 
-	PlayerTextDrawLetterSize(playerid, TDLucky[0], 0.500000, 6.000000), PlayerTextDrawUseBox(playerid, TDLucky[0], 1); 
-	PlayerTextDrawBoxColor(playerid, TDLucky[0], 255), PlayerTextDrawTextSize(playerid, TDLucky[0], 18.000000, -175.000000);
-
-	TDLucky[1] = CreatePlayerTextDraw(playerid, 247.000000, 130.000000, "ld_slot:grapes");
-	PlayerTextDrawFont(playerid, TDLucky[1], 4), PlayerTextDrawLetterSize(playerid, TDLucky[1], 0.500000, 1.000000);
-	PlayerTextDrawUseBox(playerid, TDLucky[1], 1), PlayerTextDrawTextSize(playerid, TDLucky[1], 57.000000, 73.000000);
-
-	TDLucky[2] = CreatePlayerTextDraw(playerid, 302.000000, 130.000000, "ld_slot:cherry");
-	PlayerTextDrawFont(playerid, TDLucky[2], 4), PlayerTextDrawLetterSize(playerid, TDLucky[2], 0.500000, 1.000000);
-	PlayerTextDrawUseBox(playerid, TDLucky[2], 1), PlayerTextDrawTextSize(playerid, TDLucky[2], 57.000000, 73.000000);
-
-	TDLucky[3] = CreatePlayerTextDraw(playerid, 357.000000, 130.000000, "ld_slot:bell");
-	PlayerTextDrawFont(playerid, TDLucky[3], 4), PlayerTextDrawLetterSize(playerid, TDLucky[3], 0.500000, 1.000000);
-	PlayerTextDrawUseBox(playerid, TDLucky[3], 1), PlayerTextDrawTextSize(playerid, TDLucky[3], 57.000000, 73.000000);
-
-	TDLucky[4] = CreatePlayerTextDraw(playerid, 263.000000, 107.000000, "CACA-NIQUEL");
-	PlayerTextDrawFont(playerid, TDLucky[4], 3), PlayerTextDrawLetterSize(playerid, TDLucky[4], 0.700000, 2.000000);
-	PlayerTextDrawSetOutline(playerid, TDLucky[4], 1);
 
 	DrawInv[playerid][0] = CreatePlayerTextDraw(playerid, 317.000000, 1.000000, "_");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][0], 1);
@@ -10834,24 +10210,6 @@ stock GetName( playerid ) {
 	return playerName;
 }
 
-FormatNumber( number ) {
-   format( Str, 15, "%d", number );
-   if( strlen( Str ) < sizeof( Str ) ) {
-	  if( number >= 1000 && number < 10000 ) strins(  Str, ",", 1, sizeof( Str ) );
-	  else if( number >= 10000 && number < 100000 ) strins( Str, ",", 2, sizeof( Str ) );
-	  else if( number >= 100000 && number < 1000000 ) strins( Str, ",", 3, sizeof( Str ) );
-	  else if( number >= 1000000 && number < 10000000 ) strins( Str, ",", 1, sizeof( Str ) ),strins( Str, ",", 5, sizeof( Str ) );
-	  else if( number >= 10000000 && number < 100000000 ) strins( Str, ",", 2, sizeof( Str ) ),strins( Str, ",", 6, sizeof( Str ) );
-	  else if( number >= 100000000 && number < 1000000000 ) strins( Str, ",", 3, sizeof( Str ) ),strins( Str, ",", 7, sizeof( Str ) );
-	  else if( number >= 1000000000 && number < 10000000000 )
-		   strins( Str, ",", 1, sizeof( Str ) ),
-		   strins( Str, ",", 5, sizeof( Str ) ),
-		   strins( Str, ",", 9, sizeof( Str ) );
-	  else format( Str, 10, "%d", number );
-   }
-   return Str;
-}
-
 static s_AnimationLibraries[][] = {
 		!"AIRPORT",    !"ATTRACTORS",   !"BAR",                 !"BASEBALL",
 		!"BD_FIRE",    !"BEACH",            !"BENCHPRESS",  !"BF_INJECTION",
@@ -11426,17 +10784,15 @@ stock NpcText()
 {
 	new Actor[30+1],Text3D:label[30+1];
 
-	Actor[0] = CreateActor(217, -1978.672119, 134.947509, 27.687500, 273.983703); 
-	label[0] = Create3DTextLabel("{FFFFFF}Ola, Use {FFFF00}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, -1978.672119, 134.947509, 27.687500, 15.0, 0);
+	Actor[0] = CreateActor(217, 1689.325073, -2326.446777, 13.546875, 146.990203); 
+	label[0] = Create3DTextLabel("{FFFFFF}Ola, Use {FFFF00}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, 1689.325073, -2326.446777, 13.546875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[0], Actor[0], 0.0, 0.0, 0.7);
 
-	Actor[1] = CreateActor(35, -2790.296142, 1321.418212, 7.098842, 98.350013);  
-	label[1] = Create3DTextLabel("{FFFF00}Pescador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -2790.296142, 1321.418212, 7.098842, 15.0, 0);
+	Actor[1] = CreateActor(35, 154.188613, -1945.949584, 4.972961, 352.308258);  
+	label[1] = Create3DTextLabel("{FFFF00}Pescador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 154.188613, -1945.949584, 4.972961, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[1], Actor[1], 0.0, 0.0, 0.7);
-
-	Actor[2] = CreateActor(32, -2788.145996, 1312.905639, 7.622592, 78.640907);  
-	label[2] = Create3DTextLabel("{FFFF00}Loja de Pescados\n{FFFFFF}Use o {FFFF00}Inventario{FFFFFF}' para vender.", 0x008080FF, -2788.145996, 1312.905639, 7.622592, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[2], Actor[2], 0.0, 0.0, 0.7);
+ 
+	CreateAurea("{FFFF00}Loja de Pescados\n{FFFFFF}Use o {FFFF00}Inventario{FFFFFF}' para vender.", 163.968444, -1941.403564, 3.773437);
 
 	Actor[3] = CreateActor(34, 584.859375, 877.046569, -42.497318, 266.847808);  
 	label[3] = Create3DTextLabel("{FFFF00}Minerador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 584.859375, 877.046569, -42.497318, 15.0, 0);
@@ -11454,19 +10810,23 @@ stock NpcText()
 	label[6] = Create3DTextLabel("{FFFF00}Coletor\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -28.763319, 1363.971313, 9.171875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[6], Actor[6], 0.0, 0.0, 0.7);
 
-	Actor[7] = CreateActor(188, -1978.764526, 140.253753, 27.687500, 252.403045);  
-	label[7] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {FFFF00}Luan_Rosa!\n{FFFFFF}Aprenda como jogar no servidor \nUse '{FFFF00}F{FFFFFF}' para se informar", 0x008080FF, -1978.764526, 140.253753, 27.687500, 15.0, 0);
+	Actor[7] = CreateActor(188, 1682.130737, -2326.373291, 13.546875, 211.057678);  
+	label[7] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {FFFF00}Luan_Rosa!\n{FFFFFF}Aprenda como jogar no servidor \nUse '{FFFF00}F{FFFFFF}' para se informar", 0x008080FF, 1682.130737, -2326.373291, 13.546875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[7], Actor[7], 0.0, 0.0, 0.7);
 
 	CreateAurea("{FFFF00}Prefeitura\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -501.146118, 294.354156, 2001.094970);
-	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1460.741333, 1407.444091, 14.206276);
-	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1460.740112, 1405.557373, 14.206276);
-	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1460.740966, 1403.308959, 14.206276);
-	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1460.741333, 1400.766357, 14.206276);
+	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1246.485839, -1651.083862, 17.028537);
+	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1246.481445, -1657.370727, 17.028537);
+	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1246.481811, -1662.939331, 17.028537);
+	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1246.484497, -1669.351562, 17.028537);
+	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1246.486816, -1675.575683, 17.028537);
 	CreateAurea("{FFFF00}Pizzaria\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 376.122161, -118.803634, 1001.499511);
-	CreateAurea("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -2446.167236, 1210.474975, 35.375167);
-	CreateAurea("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -2075.559082, 642.136169, 52.521308);
-	CreateAurea("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -2384.933105, -50.937610, 35.476680);
+	CreateAurea("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1649.4332,-1889.2966,13.5878);
+	CreateAurea("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 2064.6821,-1868.5961,13.5892);
+	CreateAurea("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 382.9478,-1909.8621,7.8625);
+	CreateAurea("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1325.4236,-867.3035,39.6159);
+	CreateAurea("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1345.2196,-1763.8044,13.5702);
+
 	CreateAurea("{FFFF00}Centro de Licenca\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 617.717346, -3.359961, 1000.990295);
 	CreateAurea("{FFFF00}Loja Ilegal\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 514.712341, -2333.011474, 508.693756);
 
@@ -11493,9 +10853,6 @@ stock NpcText()
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \npegar uma camera.", -1, -5467.627441, -4536.831054, 4046.774902, 25.0); // Camera
 	CreateDynamicPickup(1275, 23, -5467.627441, -4536.831054, 4046.774902);//Camera
 
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nabrir o menu.", -1, 1679.127563, -2290.863525, 13.529936, 15.0);
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \nabrir o menu.", -1, 1686.527221, -2288.146728, 13.510719, 15.0);
-
 	CreateDynamicPickup(19606,23,-1606.267578, 733.912414, -5.234413,0);
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}/prender{FFFFFF}'para \nprender o jogador.",-1,-1606.267578, 733.912414, -5.234413,15);
 
@@ -11504,7 +10861,7 @@ stock NpcText()
 
 	CreateAurea("{FFFF00}Loja Utilidades 1\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", -2383.375244, -52.679763, 35.479598);
 	CreateAurea("{FFFF00}Loja Utilidades 2\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", -2448.484863, 1210.270751, 35.378089);
-	CreateAurea("{FFFF00}Loja Utilidades 3\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", -2076.633300, 643.822387, 52.524246);
+	CreateAurea("{FFFF00}Loja Utilidades 3\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", 1663.899047, -1899.635009, 13.569333);
 	CreateAurea("{FFFF00}Pizzaria\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", 376.622558, -117.278648, 1001.492187);
 	printf("=> Textos       		: Carregados");
 	return 1;
@@ -12287,7 +11644,6 @@ public OnGameModeInit()
 	LoadVehicles();
 	LoadDealerships();
 	LoadFuelStations();
-	LoadSlotMachines();
 	CarregarMapas(); 
 	CriarCasas();
 	CriarRadares();
@@ -12310,8 +11666,6 @@ public OnGameModeInit()
 	Punicoes = DCC_FindChannelById("1158781620250226799");
 	ComandosIG = DCC_FindChannelById("1150771820069408829");
 	printf("=> Canais DC       		: Carregados");
-    createrank("horasjogadas");
-    createrank("banco");
 	createEE(0, "HALLOWEEN EVENT 1", 19320,3.0, -984.33557, 1293.37805, 33.30560,   0.00000, 0.00000, 0.00000);
 	createEE(1, "HALLOWEEN EVENT 2", 19320,3.0, -2354.78540, 142.00720, 38.22280,  0.00000, 0.00000, 0.00000);
 	createEE(2, "HALLOWEEN EVENT 3", 19320,3.0, -1077.87439, -1157.65149, 128.21820,   0.00000, 0.00000, 0.00000);
@@ -12418,7 +11772,7 @@ public OnGameModeInit()
 		CreateDynamicPickup(1314, 23, PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2]);
 		//CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,PosEquiparORG[i][0], PosEquiparORG[i][1], PosEquiparORG[i][2],15);
 	}
-	for(new i; i < 7; i++)
+	for(new i; i < 13; i++)
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para\ncomecar a pescar.", -1, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2], 15.0);
 	}
@@ -12426,7 +11780,7 @@ public OnGameModeInit()
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \niniciar o desossamento.", -1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2], 15.0);
 	}
-	for(new i; i < 10; i++)
+	for(new i; i < 9; i++)
 	{
 		CreateDynamicPickup(19606,23,Entradas[i][0],Entradas[i][1],Entradas[i][2],0);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
@@ -12765,7 +12119,6 @@ public OnPlayerSpawn(playerid)
     	TextDrawHideForPlayer(playerid,TDmorte[idx]); 
 	}
 	PlayerTextDrawHide(playerid, TDmorte_p[playerid][0]);
-	if(GetPVarInt(playerid, "PlayMine") == 1) HideCasinoTDs(playerid);
     if(PlayerMorto[playerid][pEstaMorto] == 1)
     {
         if(PlayerMorto[playerid][pSegMorto] <= 0)
@@ -14441,7 +13794,6 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	new String[128], Float:PozX, Float:PozY, Float:PozZ;
 	if(newkeys & KEY_SPRINT && newkeys & KEY_JUMP) 
 	{
 		if(pulou2vezes[playerid] == true)
@@ -14524,12 +13876,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 return 1;
             }
 		}
-		if(PlayerToPoint(3.0, playerid, -1992.423828, 138.479736, 27.539062))
+		if(PlayerToPoint(3.0, playerid, 1683.301391, -2311.982910, 13.546875))
 		{
 			if(VehAlugado[playerid] == 0)
 			{
 				VehAlugado[playerid] = 1;
-				VeiculoCivil[playerid] = CreateVehicle(462, -1992.423828, 138.479736, 27.539062, 90, -1, -1, false);
+				VeiculoCivil[playerid] = CreateVehicle(462, 1683.301391, -2311.982910, 13.546875, 90, -1, -1, false);
 				PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
 				InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
 				MissaoPlayer[playerid][MISSAO12] = 1;
@@ -14638,12 +13990,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	}
 	if(newkeys == KEY_YES)
 	{
-		if(EditingSM[playerid] == 2)
-		{
-			GetPlayerPos(playerid, PozX, PozY, PozZ), DOF2_SetFloat(GetSlotMachine(SmID[playerid]), "PozX", PozX), DOF2_SetFloat(GetSlotMachine(SmID[playerid]), "PozY", PozY), DOF2_SetFloat(GetSlotMachine(SmID[playerid]), "PozZ", PozZ), DOF2_SaveFile();
-			DestroyDynamic3DTextLabel(DataSlotMachine[SmID[playerid]][TextoSm]), DataSlotMachine[SmID[playerid]][TextoSm] = CreateDynamic3DTextLabel("{FF0033}Caca-niquel\n{FFFFFF}Pulsa F para jogar\n{FFFF00}/infocn", -1, PozX, PozY, PozZ, 100.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, 0, 0, -1, 10.0);
-			format(String, sizeof(String), "Local da maquina: %i confirmado com exito.", SmID[playerid]), SuccesMsg(playerid, String), EditingSM[playerid] = 0;
-		}
 		if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 		{
 			new vehicleid = GetPlayerVehicleID(playerid);
@@ -14712,26 +14058,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
-		//BANCO ENTRADA
-		if(IsPlayerInRangeOfPoint(playerid,2.0, -1988.149658, 1039.089355, 55.726562))
-		{
-			SetPlayerPos(playerid,  1447.551513, 1394.525878, 14.206276);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//BANCO SAIDA
-		if(IsPlayerInRangeOfPoint(playerid,2.0, 1447.551513, 1394.525878, 14.206276))
-		{
-			SetPlayerPos(playerid,  -1988.149658, 1039.089355, 55.726562);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
 		//PIZZARIA ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, -1720.950439, 1359.725219, 7.185316))
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, 2105.487548, -1806.502441, 13.554687))
 		{
 			SetPlayerPos(playerid,  372.2827,-133.5237,1001.4922);
 			SetPlayerInterior(playerid, 5);
@@ -14742,14 +14070,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		//PIZZARIA SAIDA
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,372.2827,-133.5237,1001.4922))
 		{
-			SetPlayerPos(playerid, -1720.950439, 1359.725219, 7.185316);
+			SetPlayerPos(playerid, 2105.487548, -1806.502441, 13.554687);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
 		//SAN NEWS ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, -2521.187744, -624.952026, 132.781982))
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, 649.302062, -1357.399658, 13.567605))
 		{
 			SetPlayerPos(playerid, -5465.766113, -4536.025878, 4051.079589);
 			SetPlayerInterior(playerid, 1);
@@ -14760,14 +14088,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		//SAN NEWS SAIDA
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,-5465.766113, -4536.025878, 4051.079589))
 		{
-			SetPlayerPos(playerid, -2521.187744, -624.952026, 132.781982);
+			SetPlayerPos(playerid, 649.302062, -1357.399658, 13.567605);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
 		//PREFEITURA ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, -2766.550781, 375.652496, 6.334682))
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, 1481.094482, -1772.313720, 18.795755))
 		{
 			SetPlayerPos(playerid,  -501.1714,286.6785,2001.0950);
 			SetPlayerInterior(playerid, 1);
@@ -14778,14 +14106,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		//PREFEITURA SAIDA
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,-501.1714,286.6785,2001.0950))
 		{
-			SetPlayerPos(playerid, -2766.550781, 375.652496, 6.334682);
+			SetPlayerPos(playerid, 1481.094482, -1772.313720, 18.795755);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
 		//LICENCAS ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, -2026.631591, -102.066413, 35.164062))
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, 1081.261840, -1696.785888, 13.546875))
 		{
 			SetPlayerPos(playerid,  617.5486,-25.6596,1000.9903);
 			SetPlayerInterior(playerid, 0);
@@ -14796,7 +14124,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		//LICENCAS SAIDA
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,617.5486,-25.6596,1000.9903))
 		{
-			SetPlayerPos(playerid, -2026.631591, -102.066413, 35.164062);
+			SetPlayerPos(playerid, 1081.261840, -1696.785888, 13.546875);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
@@ -14821,7 +14149,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
 		//MERCADO NEGRO ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, -2201.102050, -2341.364013, 30.625000))
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, 2447.910644, -1962.689453, 13.546875))
 		{
 			SetPlayerPos(playerid,  504.942962, -2317.662597, 512.790771);
 			SetPlayerInterior(playerid, 0);
@@ -14832,14 +14160,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		//MERCADO NEGRO SAIDA
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,504.942962, -2317.662597, 512.790771))
 		{
-			SetPlayerPos(playerid, -2201.102050, -2341.364013, 30.625000);
+			SetPlayerPos(playerid, 2447.910644, -1962.689453, 13.546875);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
 		//AÇOUGUE  ENTRADA
-		if(IsPlayerInRangeOfPoint(playerid,2.0, -2521.626220, 2295.312988, 4.984375))
+		if(IsPlayerInRangeOfPoint(playerid,2.0, 2501.888916, -1494.696533, 24.000000))
 		{
 			SetPlayerPos(playerid,  963.418762,2108.292480,1011.030273	);
 			SetPlayerInterior(playerid, 1);
@@ -14850,7 +14178,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		//AÇOUGUE  SAIDA
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,963.418762,2108.292480,1011.030273	))
 		{
-			SetPlayerPos(playerid, -2521.626220, 2295.312988, 4.984375);
+			SetPlayerPos(playerid, 2501.888916, -1494.696533, 24.000000);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
@@ -14947,7 +14275,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(!CheckInventario2(playerid, 1575)) 	return ErrorMsg(playerid, "Nao possui cocaina em seu inventario..");
 			cmd_iniciarrotacocaina(playerid);
 		}
-		for(new i; i < 7; i++)
+		for(new i; i < 13; i++)
 		if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2])){
 			cmd_pescar(playerid);
 		}
@@ -14962,7 +14290,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(IsPlayerInRangeOfPoint(playerid, 1, 942.577758, 2117.902099, 1011.030273)){
 			cmd_deixarcarne(playerid);
 		}
-		if(IsPlayerInRangeOfPoint(playerid, 1, -1634.807495, 1408.744750, 7.187500)){
+		if(IsPlayerInRangeOfPoint(playerid, 1, 1682.130737, -2326.373291, 13.546875)){
 			MEGAString[0] = EOS;
 			format(stringZCMD, sizeof(stringZCMD), "1* Começou agora e está perdido e não sabe o que fazer?");
 			strcat(MEGAString,stringZCMD);
@@ -15001,19 +14329,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 934.1115,-1103.3857,24.3118)){
 			cmd_ltumba(playerid);
 		}
-		for(new i; i < MAX_SLOTMACHINE; i++)
-		{
-			if(!DOF2_FileExists(GetSlotMachine(i))) continue;
-			if(IsPlayerInRangeOfPoint(playerid, 1.0, DOF2_GetFloat(GetSlotMachine(i), "PozX"), DOF2_GetFloat(GetSlotMachine(i), "PozY"), DOF2_GetFloat(GetSlotMachine(i), "PozZ")) && EditingSM[playerid] == 0 && Playing[playerid] == false)
-			{
-				if(DataSlotMachine[i][Occupied] == true) return ErrorMsg(playerid, "Esta maquina esta ocupada!");
-				else
-				{
-					ShowPlayerDialog(playerid, DIALOG_SLOTMACHINE, DIALOG_STYLE_INPUT, "Maquina Caca-Niquel","{87CEFA}Introduza a quantidade quer deseja apostar\n\nAposta minima: {228B22}R${FFFFFF}1000","Confirmar","X"), Playing[playerid] = true, DataSlotMachine[SmID[playerid] = i][Occupied] = true;
-					break;
-				}
-			}
-		}
 		if(PlayerToPoint(3.0, playerid, -5467.627441, -4536.831054, 4046.774902))
 		{
 			if(PlayerInfo[playerid][Org] != 11) 		return ErrorMsg(playerid, "Nao possui permissao.");
@@ -15033,7 +14348,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
 			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_LIST,"Loja Ilegal", "{FFFF00}- {FFFFFF}Dinamite\t{32CD32}R$25000\n{FFFF00}- {FFFFFF}Sementes de Maconha\t{32CD32}R$1000\n{FFFF00}- {FFFFFF}LockPick\t{32CD32}R$15000", "Selecionar","X");
 		}
-		if(PlayerToPoint(3.0, playerid, 1462.576904, 1407.553588, 14.206275) || PlayerToPoint(3.0, playerid, 1462.577392, 1405.711914, 14.206276) || PlayerToPoint(3.0, playerid,  1462.576660, 1403.018798, 14.206276) || PlayerToPoint(3.0, playerid, 1462.576660, 1400.825683, 14.206275))
+		if(PlayerToPoint(3.0, playerid, 1246.486816, -1675.575683, 17.028537) || PlayerToPoint(3.0, playerid, 1246.484497, -1669.351562, 17.028537) || PlayerToPoint(3.0, playerid,  1246.481811, -1662.939331, 17.028537) || PlayerToPoint(3.0, playerid, 1246.481445, -1657.370727, 17.028537) || PlayerToPoint(3.0, playerid, 1246.485839, -1651.083862, 17.028537))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
 			for(new i; i < 34; i++)
@@ -15060,7 +14375,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			strcat(StrHab,  "{FFFF00}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
 			ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA2, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "COMECAR","X");
 		}
-		if(PlayerToPoint(3.0, playerid, -2384.861328, -52.628452, 35.479644) || PlayerToPoint(3.0, playerid, -2447.427490, 1211.600341, 35.378139) || PlayerToPoint(3.0, playerid, -2074.794921, 643.822570, 52.524303))
+		if(PlayerToPoint(3.0, playerid, 1649.4332,-1889.2966,13.5878) || PlayerToPoint(3.0, playerid, 2064.6821,-1868.5961,13.5892) || PlayerToPoint(3.0, playerid, 382.9478,-1909.8621,7.8625) || PlayerToPoint(3.0, playerid, 1325.4236,-867.3035,39.6159) || PlayerToPoint(3.0, playerid, 1345.2196,-1763.8044,13.5702))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
 			ShowPlayerDialog(playerid, DIALOG_LOJA247, DIALOG_STYLE_LIST,"Loja de Utilidades", "{FFFF00}- {FFFFFF}Celular\t{32CD32}R$1500\n{FFFF00}- {FFFFFF}Bandagem\t{32CD32}R$200\n{FFFF00}- {FFFFFF}Vara de Pescar\t{32CD32}R$300\n{FFFF00}- {FFFFFF}Capacete\t{32CD32}R$500\n{FFFF00}- {FFFFFF}Chaira\t{32CD32}R$150", "Selecionar","X");
@@ -15101,7 +14416,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			SetPlayerAttachedObject(playerid, 6, 3502, 1, 0.2779, 0.4348, 0.0000, -95.3000, 0.0000, 0.0000, 0.1209, 0.0740, 0.1028);
 			PegouMaterial[playerid] = true;
 		}
-		if(PlayerToPoint(3.0, playerid, -2790.296142, 1321.418212, 7.098842))
+		if(PlayerToPoint(3.0, playerid, 154.188613, -1945.949584, 4.972961))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
@@ -15181,12 +14496,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				MissaoPlayer[playerid][MISSAO3] = 1;
 			}
 		} 
-		if(PlayerToPoint(1.0, playerid, 1679.127563, -2290.863525, 13.529936) || PlayerToPoint(3.0, playerid, 1686.527221, -2288.146728, 13.510719))
-		{
-			if(GetPVarInt(playerid, "PlayMine") == 1) return 1;
-			ShowCasinoTDs(playerid);
-			SetPVarInt(playerid, "PlayMine",1);
-		}
 	}
 	return 1;
 }
@@ -15466,14 +14775,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					else
 					{ 
-						SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -1972.100463, 137.953506, 27.687500, 90.036911, 0, 0, 0, 0, 0, 0);
+						SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1685.698608, -2334.948730, 13.546875, 0.269069, 0, 0, 0, 0, 0, 0);
 						SpawnPlayer(playerid);
 						FirstLogin[playerid] = false;
 					}	
 					TextDrawShowForPlayer(playerid, gServerTextdraws);
 					CancelSelectTextDraw(playerid);
 					Timers(playerid);
-					PlayerTextDraw(playerid);
 					CarregarAvaliacao(playerid);
 					CarregarVIP(playerid);
 					MapRemocao(playerid);
@@ -15561,7 +14869,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else if(PlayerInfo[playerid][Org] == 0)
 				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -1972.100463, 137.953506, 27.687500, 90.036911, 0, 0, 0, 0, 0, 0);
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1685.698608, -2334.948730, 13.546875, 0.269069, 0, 0, 0, 0, 0, 0);
 					SpawnPlayer(playerid);
 				}
 				else if(PlayerInfo[playerid][Org] == 1)
@@ -15616,7 +14924,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else if(PlayerInfo[playerid][Org] == 11)
 				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2521.187744, -624.952026, 132.781982, 90.036911, 0, 0, 0, 0, 0, 0);
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 649.302062, -1357.399658, 13.567605, 90.036911, 0, 0, 0, 0, 0, 0);
 					SpawnPlayer(playerid);
 				}
 				else if(PlayerInfo[playerid][Org] == 12)
@@ -16107,16 +15415,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					new Float:a = GetPlayerDistanceFromPoint(playerid, -2766.550781, 375.652496, 6.334682);
-					new Float:b = GetPlayerDistanceFromPoint(playerid, -1988.149658, 1039.089355, 55.726562);
+					new Float:a = GetPlayerDistanceFromPoint(playerid, 1481.094482, -1772.313720, 18.795755);
+					new Float:b = GetPlayerDistanceFromPoint(playerid, 1284.393920, -1654.818237, 13.544199);
 					new Float:c = GetPlayerDistanceFromPoint(playerid, -2653.636474, 640.163085, 14.453125);
-					new Float:d = GetPlayerDistanceFromPoint(playerid, -2384.861328, -52.628452, 35.479644);
-					new Float:e = GetPlayerDistanceFromPoint(playerid, -2447.427490, 1211.600341, 35.378139);
-					new Float:f = GetPlayerDistanceFromPoint(playerid, -2074.794921, 643.822570, 52.524303);
-					new Float:g = GetPlayerDistanceFromPoint(playerid, -2026.631591, -102.066413, 35.164062);
-					new Float:h = GetPlayerDistanceFromPoint(playerid, -1720.950439, 1359.725219, 7.185316);
+					new Float:d = GetPlayerDistanceFromPoint(playerid, 1649.4332,-1889.2966,13.5878);
+					new Float:e = GetPlayerDistanceFromPoint(playerid, 2064.6821,-1868.5961,13.5892);
+					new Float:f = GetPlayerDistanceFromPoint(playerid, 382.9478,-1909.8621,7.8625);
+					new Float:g = GetPlayerDistanceFromPoint(playerid, 1081.261840, -1696.785888, 13.546875);
+					new Float:h = GetPlayerDistanceFromPoint(playerid, 2105.487548, -1806.502441, 13.554687);
 					new Float:i = GetPlayerDistanceFromPoint(playerid, -1973.108276, 288.896331, 35.171875);
-					new Float:m = GetPlayerDistanceFromPoint(playerid, -2201.102050, -2341.364013, 30.625000);
+					new Float:m = GetPlayerDistanceFromPoint(playerid, 2447.910644, -1962.689453, 13.546875);
+					new Float:n = GetPlayerDistanceFromPoint(playerid, 1325.4236,-867.3035,39.6159);
+					new Float:o = GetPlayerDistanceFromPoint(playerid, 1345.2196,-1763.8044,13.5702);
 					MEGAString[0] = EOS;
 					new string[800];
 					strcat(MEGAString, "Local\tDistancia\n");
@@ -16131,6 +15441,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					format(string, 128, "{FFFFFF} Loja de Utilidades 2 \t{FFFF00} %.0f KM\n", e);
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Loja de Utilidades 3 \t{FFFF00} %.0f KM\n", f);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Loja de Utilidades 4 \t{FFFF00} %.0f KM\n", n);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Loja de Utilidades 5 \t{FFFF00} %.0f KM\n", o);
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Centro de Licencas \t{FFFF00} %.0f KM\n", g);
 					strcat(MEGAString,string);
@@ -16147,8 +15461,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 1)
 				{
-					new Float:a = GetPlayerDistanceFromPoint(playerid, -2790.296142, 1321.418212, 7.098842);
-					new Float:b = GetPlayerDistanceFromPoint(playerid, -2521.626220, 2295.312988, 4.984375);
+					new Float:a = GetPlayerDistanceFromPoint(playerid, 154.188613, -1945.949584, 4.972961);
+					new Float:b = GetPlayerDistanceFromPoint(playerid, 2501.888916, -1494.696533, 24.000000);
 					new Float:c = GetPlayerDistanceFromPoint(playerid, -28.763319, 1363.971313, 9.171875);
 					new Float:d = GetPlayerDistanceFromPoint(playerid, 590.086975, 871.486694, -42.734603);
 					new Float:e = GetPlayerDistanceFromPoint(playerid, -504.495117, -517.457763, 25.523437);
@@ -16179,7 +15493,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new Float:h = GetPlayerDistanceFromPoint(playerid, -96.821380, 1041.751953, 19.664335);
 					new Float:i = GetPlayerDistanceFromPoint(playerid, -2653.636474, 640.163085, 14.45312);
 					new Float:j = GetPlayerDistanceFromPoint(playerid, -2064.956787, 1389.049560, 7.101562);
-					new Float:k = GetPlayerDistanceFromPoint(playerid, -2521.187744, -624.952026, 132.781982);
+					new Float:k = GetPlayerDistanceFromPoint(playerid, 649.302062, -1357.399658, 13.567605);
 					new Float:l = GetPlayerDistanceFromPoint(playerid, -688.271423, 938.216918, 13.632812);
 					new Float:m = GetPlayerDistanceFromPoint(playerid, 698.636657, 1964.867065, 5.539062);
 					MEGAString[0] = EOS;
@@ -16298,7 +15612,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -2521.187744, -624.952026, 132.781982, 8.0);
+					SetPlayerCheckpoint(playerid, 649.302062, -1357.399658, 13.567605, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 11)
@@ -16326,14 +15640,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -2766.550781, 375.652496, 6.334682, 8.0);
+					SetPlayerCheckpoint(playerid, 1481.094482, -1772.313720, 18.795755, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 1)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid,-1988.149658, 1039.089355, 55.726562, 8.0);
+					SetPlayerCheckpoint(playerid,1284.393920, -1654.818237, 13.544199, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 2)
@@ -16347,38 +15661,52 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -2384.861328, -52.628452, 35.479644, 8.0);
+					SetPlayerCheckpoint(playerid, 1649.4332,-1889.2966,13.5878, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 4)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -2447.427490, 1211.600341, 35.378139, 8.0);
+					SetPlayerCheckpoint(playerid, 2064.6821,-1868.5961,13.5892, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 5)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -2074.794921, 643.822570, 52.524303, 8.0);
+					SetPlayerCheckpoint(playerid, 382.9478,-1909.8621,7.8625, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 6)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -2026.631591, -102.066413, 35.164062, 8.0);
+					SetPlayerCheckpoint(playerid, 1325.4236,-867.3035,39.6159, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 7)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -1720.950439, 1359.725219, 7.185316, 8.0);
+					SetPlayerCheckpoint(playerid, 1345.2196,-1763.8044,13.5702, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 8)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, 1081.261840, -1696.785888, 13.546875, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 9)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, 2105.487548, -1806.502441, 13.554687, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 10)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
@@ -16386,11 +15714,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
-				if(listitem == 9)
+				if(listitem == 11)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -2201.102050, -2341.364013, 30.625000, 8.0);
+					SetPlayerCheckpoint(playerid, 2447.910644, -1962.689453, 13.546875, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 			}
@@ -16403,14 +15731,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -2790.296142, 1321.418212, 7.098842, 8.0);
+					SetPlayerCheckpoint(playerid, 154.188613, -1945.949584, 4.972961, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 1)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid,-2521.626220, 2295.312988, 4.984375, 8.0);
+					SetPlayerCheckpoint(playerid,2501.888916, -1494.696533, 24.000000, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 2)
@@ -17454,18 +16782,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			SuccesMsg(playerid, "Sua plantacao foi marcada");
 			return true;
 		}
-		case DIALOG_BETCASINO: 
-		{
-			if( !response ) return 1;
-			new string[ 128 ];
-			if( strval( inputtext ) < 50000 || strval( inputtext ) > 100000000 ) return ErrorMsg(playerid, "Valor invalido! Coloque um minimo de R$50k e um maximo de R$100kk.");
-			if( GetPlayerMoney( playerid ) < strval( inputtext ) ) return ErrorMsg(playerid, "Dinheiro insuficiente");
-			SetPVarInt( playerid, "BetAmount", strval( inputtext ) );
-			PlayerInfo[playerid][pDinheiro] -= strval( inputtext );
-			format( string, sizeof( string ), "~w~~h~Aposta: ~g~R$%s", FormatNumber( strval( inputtext ) ) );
-			PlayerTextDrawSetString( playerid, CasinoPTD[ 32 ], string );
-			PlayerTextDrawShow( playerid, CasinoPTD[ 32 ] );
-		}
 		case DIALOG_LTUMBA:
 		{
 			if(response)
@@ -17844,15 +17160,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 				}
 			}
-		}
-		case DIALOG_SLOTMACHINE:
-		{
-			new String[64];
-			if(!response) return Playing[playerid] = false, DataSlotMachine[SmID[playerid]][Occupied] = false;
-			Prize[playerid] = strval(inputtext);
-			if(Prize[playerid] < 1000) return format(String, sizeof(String), "Aposta minima de R$%d.", MINIMUM_BET), ErrorMsg(playerid, String), Playing[playerid] = false, DataSlotMachine[SmID[playerid]][Occupied] = false;
-			if(PlayerInfo[playerid][pDinheiro] < Prize[playerid]) return ErrorMsg(playerid, "Dinheiro insuficiente."), Playing[playerid] = false, DataSlotMachine[SmID[playerid]][Occupied] = false;
-			DataSlotMachine[SmID[playerid]][Jackpot] = DOF2_GetInt(GetSlotMachine(SmID[playerid]), "Jackpot"), PlayerInfo[playerid][pDinheiro] -= Prize[playerid], SetTimerEx("SpinSlotMachine", 1000, false, "i", playerid), ApplyAnimation(playerid, "CASINO", "Slot_in", 4.1, 0, 0, 0, 1, 1, 1);
 		}
 		case DIALOG_ERROR:
 		{
@@ -18603,17 +17910,25 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pDinheiro] -= 1500;
 					GanharItem(playerid, 18870, 1);
 					MissaoPlayer[playerid][MISSAO6] = 1;
-					if(PlayerToPoint(5.0, playerid, -2384.989013, -52.624767, 35.479652))
+					if(PlayerToPoint(5.0, playerid, 393.256561, -1895.308471, 7.844118))
 					{
 						CofreLoja1 += 1500;
 					}
-					if(PlayerToPoint(5.0, playerid, -2447.547607, 1211.448730, 35.378131))
+					if(PlayerToPoint(5.0, playerid, 1359.771850, -1774.149291, 13.551797))
 					{
 						CofreLoja2 += 1500;
 					}
-					if(PlayerToPoint(5.0, playerid, -2076.633300, 643.822387, 52.524246))
+					if(PlayerToPoint(5.0, playerid, 1663.899047, -1899.635009, 13.569333))
 					{
 						CofreLoja3 += 1500;
+					}
+					if(PlayerToPoint(5.0, playerid, 2054.312255, -1883.058105, 13.570812))
+					{
+						CofreLoja4 += 1500;
+					}
+					if(PlayerToPoint(5.0, playerid, 1310.963256, -856.883911, 39.597454))
+					{
+						CofreLoja5 += 1500;
 					}
 					SalvarDinRoubos();
 				}
@@ -18623,18 +17938,26 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Item comprado.");
 					PlayerInfo[playerid][pDinheiro] -= 200;
 					GanharItem(playerid, 11736, 1);
-					if(PlayerToPoint(5.0, playerid, -2384.989013, -52.624767, 35.479652))
+					if(PlayerToPoint(5.0, playerid, 393.256561, -1895.308471, 7.844118))
 					{
 						CofreLoja1 += 200;
 					}
-					if(PlayerToPoint(5.0, playerid, -2447.547607, 1211.448730, 35.378131))
+					if(PlayerToPoint(5.0, playerid, 1359.771850, -1774.149291, 13.551797))
 					{
 						CofreLoja2 += 200;
 					}
-					if(PlayerToPoint(5.0, playerid, -2076.633300, 643.822387, 52.524246))
+					if(PlayerToPoint(5.0, playerid, 1663.899047, -1899.635009, 13.569333))
 					{
 						CofreLoja3 += 200;
+					}if(PlayerToPoint(5.0, playerid, 2054.312255, -1883.058105, 13.570812))
+					{
+						CofreLoja4 += 200;
 					}
+					if(PlayerToPoint(5.0, playerid, 1310.963256, -856.883911, 39.597454))
+					{
+						CofreLoja5 += 200;
+					}
+
 					SalvarDinRoubos();
 				}
 				if(listitem == 2)
@@ -18643,17 +17966,25 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Item comprado.");
 					PlayerInfo[playerid][pDinheiro] -= 300;
 					GanharItem(playerid, 18632, 1);
-					if(PlayerToPoint(5.0, playerid, -2384.989013, -52.624767, 35.479652))
+					if(PlayerToPoint(5.0, playerid, 393.256561, -1895.308471, 7.844118))
 					{
 						CofreLoja1 += 300;
 					}
-					if(PlayerToPoint(5.0, playerid, -2447.547607, 1211.448730, 35.378131))
+					if(PlayerToPoint(5.0, playerid, 1359.771850, -1774.149291, 13.551797))
 					{
 						CofreLoja2 += 300;
 					}
-					if(PlayerToPoint(5.0, playerid, -2076.633300, 643.822387, 52.524246))
+					if(PlayerToPoint(5.0, playerid, 1663.899047, -1899.635009, 13.569333))
 					{
 						CofreLoja3 += 300;
+					}
+					if(PlayerToPoint(5.0, playerid, 2054.312255, -1883.058105, 13.570812))
+					{
+						CofreLoja4 += 300;
+					}
+					if(PlayerToPoint(5.0, playerid, 1310.963256, -856.883911, 39.597454))
+					{
+						CofreLoja5 += 300;
 					}
 					SalvarDinRoubos();
 				}
@@ -18663,17 +17994,25 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Item comprado.");
 					PlayerInfo[playerid][pDinheiro] -= 500;
 					GanharItem(playerid, 18645, 1);
-					if(PlayerToPoint(5.0, playerid, -2384.989013, -52.624767, 35.479652))
+					if(PlayerToPoint(5.0, playerid, 393.256561, -1895.308471, 7.844118))
 					{
 						CofreLoja1 += 500;
 					}
-					if(PlayerToPoint(5.0, playerid, -2447.547607, 1211.448730, 35.378131))
+					if(PlayerToPoint(5.0, playerid, 1359.771850, -1774.149291, 13.551797))
 					{
 						CofreLoja2 += 500;
 					}
-					if(PlayerToPoint(5.0, playerid, -2076.633300, 643.822387, 52.524246))
+					if(PlayerToPoint(5.0, playerid, 1663.899047, -1899.635009, 13.569333))
 					{
 						CofreLoja3 += 500;
+					}
+					if(PlayerToPoint(5.0, playerid, 2054.312255, -1883.058105, 13.570812))
+					{
+						CofreLoja4 += 500;
+					}
+					if(PlayerToPoint(5.0, playerid, 1310.963256, -856.883911, 39.597454))
+					{
+						CofreLoja5 += 500;
 					}
 					SalvarDinRoubos();
 				}
@@ -18683,17 +18022,25 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Item comprado.");
 					PlayerInfo[playerid][pDinheiro] -= 150;
 					GanharItem(playerid, 18644, 1);
-					if(PlayerToPoint(5.0, playerid, -2384.989013, -52.624767, 35.479652))
+					if(PlayerToPoint(5.0, playerid, 393.256561, -1895.308471, 7.844118))
 					{
 						CofreLoja1 += 150;
 					}
-					if(PlayerToPoint(5.0, playerid, -2447.547607, 1211.448730, 35.378131))
+					if(PlayerToPoint(5.0, playerid, 1359.771850, -1774.149291, 13.551797))
 					{
 						CofreLoja2 += 150;
 					}
-					if(PlayerToPoint(5.0, playerid, -2076.633300, 643.822387, 52.524246))
+					if(PlayerToPoint(5.0, playerid, 1663.899047, -1899.635009, 13.569333))
 					{
 						CofreLoja3 += 150;
+					}
+					if(PlayerToPoint(5.0, playerid, 2054.312255, -1883.058105, 13.570812))
+					{
+						CofreLoja4 += 150;
+					}
+					if(PlayerToPoint(5.0, playerid, 1310.963256, -856.883911, 39.597454))
+					{
+						CofreLoja5 += 150;
 					}
 					SalvarDinRoubos();
 				}
@@ -18720,21 +18067,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Fez a carteira de trabalho agora podera trabalhar em empregos que necessita disso e receber salario a cada PayDay.");
 					GanharItem(playerid, 19792, 1);
 					MissaoPlayer[playerid][MISSAO4] = 1;
-				}
-			}
-		}
-		case 5009:
-		{
-			if(!response)return 1;
-			switch(listitem)
-			{
-				case 0:
-				{
-					ShowPlayerDialog(playerid, 5008, DIALOG_STYLE_MSGBOX, "{FFFFFF}Rank: {00d900}Horas Jogadas", getrank("horasjogadas", "Horas"), "Voltar", "");
-				}
-				case 1:
-				{
-					ShowPlayerDialog(playerid, 5008, DIALOG_STYLE_MSGBOX, "{FFFFFF}Rank: {00d900}Dinheiro", getrank("banco", "Grana"), "Voltar", "");
 				}
 			}
 		}
@@ -18873,16 +18205,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, Float:fY, Float:fZ, Float:fRotX, Float:fRotY, Float:fRotZ)
 {
-	if(EditingSM[playerid] == 1) 
-	{
-		if(response == EDIT_RESPONSE_FINAL)
-		{
-			InfoMsg(playerid, "Aperte Y para salvar."), DOF2_SaveFile(), EditingSM[playerid] = 2;
-			DOF2_SetFloat(GetSlotMachine(SmID[playerid]), "PozXX", fX), DOF2_SetFloat(GetSlotMachine(SmID[playerid]), "PozYY", fY), DOF2_SetFloat(GetSlotMachine(SmID[playerid]), "PozZZ", fZ);
-			DOF2_SetFloat(GetSlotMachine(SmID[playerid]), "RotXX", fRotX), DOF2_SetFloat(GetSlotMachine(SmID[playerid]), "RotYY", fRotY), DOF2_SetFloat(GetSlotMachine(SmID[playerid]), "RotZZ", fRotZ);
-		}
-		if(response == EDIT_RESPONSE_CANCEL) return EditingSM[playerid] = 0;
-	}
 	return 1;
 }
 
@@ -19237,62 +18559,6 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		strcat(Ropa, "{FFFF00}- {FFFFFF}BAEP 3\n");
 		strcat(Ropa, "{FFFFFF}- {FFFF00}Retirar Uniforme\n");
 		ShowPlayerDialog(playerid, DIALOG_ROPACOP, DIALOG_STYLE_LIST, "Fardamentos", Ropa, "Selecionar", "X");
-	}
-	if(GetPVarInt(playerid, "PlayMine") == 1) 
-	{
-		if(GetPVarInt(playerid, "StartedGame") == 1 && GetPVarInt(playerid, "Loser") == 0 ) 
-		{
-			new string[ 126 ];
-			for(new i = 0; i < 30; i++) 
-			{
-				if(playertextid == CasinoPTD[i] && MineActive[playerid][i] == 0) 
-				{
-					MineActive[playerid][i] = 1;
-					SetPVarInt(playerid, "Mines", 1+GetPVarInt(playerid, "Mines"));
-					if(MineBomb[playerid][i] == 0) 
-					{
-						PlayerTextDrawBoxColor(playerid, CasinoPTD[i], 0x80FF00FF);
-						PlayerTextDrawShow(playerid, CasinoPTD[i]);
-						new money, bet = GetPVarInt(playerid, "BetAmount");
-						if(GetPVarInt( playerid, "MineType") == 1) money += bet/8;
-						else if(GetPVarInt(playerid, "MineType") == 3) money += bet/5;
-						else if(GetPVarInt(playerid, "MineType") == 6) money += bet/3;
-						SetPVarInt(playerid, "MoneyEarned", money+GetPVarInt(playerid, "MoneyEarned"));
-
-						PlayerTextDrawSetString(playerid, CasinoPTD[30], "~g~Ganhou! : )" );
-						format(string, sizeof(string), "JOgadas: ~g~%d~w~~h~~n~Dinheiro ganho: ~g~R$%s", GetPVarInt(playerid, "Mines"), FormatNumber(GetPVarInt(playerid, "MoneyEarned")));
-						PlayerTextDrawSetString(playerid, CasinoPTD[31], string);
-						MissaoPlayer[playerid][MISSAO10] = 1;
-					} 
-					else 
-					{
-						PlayerTextDrawSetString(playerid, CasinoPTD[30], "~r~Perdeu!~n~");
-
-						MissaoPlayer[playerid][MISSAO10] = 1;
-						for( new x = 0; x < 30; x++ ) 
-						{
-							if(MineBomb[playerid][x] == 1) 
-							{
-								PlayerTextDrawBoxColor(playerid, CasinoPTD[x], 0xFF0000FF);
-								PlayerTextDrawShow(playerid, CasinoPTD[x]);
-							}
-						} 
-
-						format(string, sizeof(string), "Jogadas: ~g~%d~w~~h~~n~Dinheiro ganho: ~g~R$%s", GetPVarInt(playerid, "Mines"), FormatNumber(GetPVarInt(playerid, "MoneyEarned")));
-						PlayerTextDrawSetString(playerid, CasinoPTD[31], string);
-
-						SetTimerEx("ShowMine", 5000, 0, "i", playerid);
-						SetPVarInt(playerid, "Loser", 1);
-					}
-					PlayerTextDrawShow(playerid, CasinoPTD[30]);
-					PlayerTextDrawShow(playerid, CasinoPTD[31]);
-				}
-			}
-		}
-		if(playertextid == CasinoPTD[32] && GetPVarInt(playerid, "BetAmount") == 0) 
-		{
-			ShowPlayerDialog(playerid, DIALOG_BETCASINO, DIALOG_STYLE_INPUT, "Quanto quer apostar?", "Quantidade de dinheiro que deseja apostar.\nPode colocar de 50k a 100kk", "Confirmar", "X");
-		}
 	}
 	if(playertextid == wMenu[1])
 	{
@@ -19871,88 +19137,6 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		InventarioAberto[playerid] = 0;
 		return 1;
 	}
-	if(GetPVarInt(playerid, "PlayMine") == 1 && GetPVarInt(playerid, "Loser") == 0) 
-	{
-		new string[128];
-		if(clickedid == CasinoTD[4]) 
-		{
-			if(GetPVarInt(playerid, "StartedGame") == 1 && GetPVarInt(playerid, "Mines") > 0) return ErrorMsg(playerid, "Para salir deber sacar su dinero.");
-			HideCasinoTDs(playerid);
-		}
-		if(clickedid == CasinoTD[6] && GetPVarInt(playerid, "StartedGame") == 1 && GetPVarInt(playerid, "Mines") > 0) 
-		{
-			PlayerInfo[playerid][pDinheiro] += GetPVarInt( playerid, "BetAmount");
-			PlayerInfo[playerid][pDinheiro] += GetPVarInt( playerid, "MoneyEarned");
-			format(string, sizeof(string), "~g~Ganhou R$%s.", FormatNumber(GetPVarInt(playerid, "MoneyEarned")));
-			ShowCasinoTDs(playerid);
-			PlayerTextDrawSetString(playerid, CasinoPTD[30], string);
-			PlayerTextDrawShow(playerid, CasinoPTD[ 30]);
-			format(string, sizeof(string), "Jogadas: ~g~%d~w~~h~~n~Dinheiro ganho: ~g~R$%s", GetPVarInt(playerid, "Mines"), FormatNumber(GetPVarInt(playerid, "MoneyEarned")));
-			PlayerTextDrawSetString(playerid, CasinoPTD[31], string);
-			PlayerTextDrawShow(playerid, CasinoPTD[31]);
-			return 1;
-		}
-		if(GetPVarInt(playerid, "StartedGame") == 1) return InfoMsg(playerid, "Juego iniciado! No se pueden realizar mas cambios hasta que realice el retiro.");
-		if( clickedid == CasinoTD[ 9 ] && GetPVarInt( playerid, "MineType" ) == 0 ) SetPVarInt( playerid, "MineType", 1 ), TextDrawColor(CasinoTD[9], 0x80FF00FF ), TextDrawShowForPlayer( playerid, CasinoTD[ 9 ] );
-		if( clickedid == CasinoTD[ 7 ] && GetPVarInt( playerid, "MineType" ) == 0 ) SetPVarInt( playerid, "MineType", 3 ), TextDrawColor(CasinoTD[7], 0x80FF00FF ), TextDrawShowForPlayer( playerid, CasinoTD[ 7 ] );
-		if( clickedid == CasinoTD[ 12 ] && GetPVarInt( playerid, "MineType" ) == 0 ) SetPVarInt( playerid, "MineType", 6 ), TextDrawColor(CasinoTD[ 12 ], 0x80FF00FF ), TextDrawShowForPlayer( playerid, CasinoTD[ 12 ] );
-
-		if( clickedid == CasinoTD[ 5 ] ) 
-		{
-			if( GetPVarInt( playerid, "MineType" ) == 0 || GetPVarInt( playerid, "BetAmount" ) == 0 ) return ErrorMsg(playerid, "El juego no comenzo porque no aposto un valor / no eligio la cantidad de bombas.");
-			for( new i = 0; i < 30; i++ ) MineBomb[ playerid ][ i ] = 0;
-
-			new
-				rand1 = random( 30 ),
-				rand2 = random( 30 ),
-				rand3 = random( 30 ),
-				rand4 = random( 30 ),
-				rand5 = random( 30 ),
-				rand6 = random( 30 );
-
-			if( rand1 == rand2 || rand1 == rand3 || rand1 == rand4 || rand1 == rand5 || rand1 == rand6 ) rand1 = random( 30 );
-			if( rand2 == rand1 || rand2 == rand3 || rand2 == rand4 || rand2 == rand5 || rand2 == rand6 ) rand2 = random( 30 );
-			if( rand3 == rand1 || rand3 == rand2 || rand3 == rand4 || rand3 == rand5 || rand3 == rand6 ) rand3 = random( 30 );
-			if( rand4 == rand1 || rand4 == rand2 || rand4 == rand3 || rand4 == rand5 || rand4 == rand6 ) rand4 = random( 30 );
-			if( rand5 == rand1 || rand5 == rand2 || rand5 == rand3 || rand5 == rand4 || rand5 == rand6 ) rand5 = random( 30 );
-			if( rand6 == rand1 || rand6 == rand2 || rand6 == rand3 || rand6 == rand4 || rand6 == rand5 ) rand6 = random( 30 );
-
-			if( rand1 == rand2 || rand1 == rand3 || rand1 == rand4 || rand1 == rand5 || rand1 == rand6 ) rand1 = random( 30 );
-			if( rand2 == rand1 || rand2 == rand3 || rand2 == rand4 || rand2 == rand5 || rand2 == rand6 ) rand2 = random( 30 );
-			if( rand3 == rand1 || rand3 == rand2 || rand3 == rand4 || rand3 == rand5 || rand3 == rand6 ) rand3 = random( 30 );
-			if( rand4 == rand1 || rand4 == rand2 || rand4 == rand3 || rand4 == rand5 || rand4 == rand6 ) rand4 = random( 30 );
-			if( rand5 == rand1 || rand5 == rand2 || rand5 == rand3 || rand5 == rand4 || rand5 == rand6 ) rand5 = random( 30 );
-			if( rand6 == rand1 || rand6 == rand2 || rand6 == rand3 || rand6 == rand4 || rand6 == rand5 ) rand6 = random( 30 );
-
-			if( rand1 == rand2 || rand1 == rand3 || rand1 == rand4 || rand1 == rand5 || rand1 == rand6 ) rand1 = random( 30 );
-			if( rand2 == rand1 || rand2 == rand3 || rand2 == rand4 || rand2 == rand5 || rand2 == rand6 ) rand2 = random( 30 );
-			if( rand3 == rand1 || rand3 == rand2 || rand3 == rand4 || rand3 == rand5 || rand3 == rand6 ) rand3 = random( 30 );
-			if( rand4 == rand1 || rand4 == rand2 || rand4 == rand3 || rand4 == rand5 || rand4 == rand6 ) rand4 = random( 30 );
-			if( rand5 == rand1 || rand5 == rand2 || rand5 == rand3 || rand5 == rand4 || rand5 == rand6 ) rand5 = random( 30 );
-			if( rand6 == rand1 || rand6 == rand2 || rand6 == rand3 || rand6 == rand4 || rand6 == rand5 ) rand6 = random( 30 );
-
-			if( GetPVarInt( playerid, "MineType" ) >= 1 ) MineBomb[ playerid ][ rand1 ] = 1;
-			if( GetPVarInt( playerid, "MineType" ) >= 3 ) 
-			{
-				MineBomb[ playerid ][ rand2 ] = 1;
-				MineBomb[ playerid ][ rand3 ] = 1;
-			}
-			if( GetPVarInt( playerid, "MineType" ) == 6 ) 
-			{
-				MineBomb[ playerid ][ rand4 ] = 1;
-				MineBomb[ playerid ][ rand5 ] = 1;
-				MineBomb[ playerid ][ rand6 ] = 1;
-			}
-
-			SetPVarInt( playerid, "StartedGame", 1 );
-			PlayerTextDrawSetString( playerid, CasinoPTD[ 30 ], "O_jogo_comecou!" );
-			PlayerTextDrawShow( playerid, CasinoPTD[ 30 ] );
-		}
-	}
-	if(clickedid == Text:INVALID_TEXT_DRAW) 
-	{
-		if(GetPVarInt(playerid, "PlayMine") == 1 || GetPVarInt(playerid, "StartedGame") == 1) SelectTextDraw(playerid, 0x80FF00FF);
-	}
 	if(clickedid == Text:INVALID_TEXT_DRAW)
     {
         if(wTuning[playerid] == true)
@@ -20330,7 +19514,7 @@ CMD:pos(playerid, params[])
 		string[200]
 	;
 	string[0] = '\0';
-	format(string, 200, "{%f, %f, %f},//%s\n", x,y,z,msg);
+	format(string, 200, "{%f, %f, %f, %f},//%s\n", x,y,z,a,msg);
 	{
 		static
 			File: Account
@@ -23884,78 +23068,6 @@ CMD:gotofuelstation(playerid, params[])
 	return 1;
 }
 
-CMD:criarcn(playerid)
-{
-	new String[256], Float:PozX, Float:PozY, Float:PozZ;
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	if(EditingSM[playerid] != 0) return ErrorMsg(playerid, "Ja esta editando um caca niquel."); 
-	if(Playing[playerid] == true) return ErrorMsg(playerid, "Esta jogando e nao pode criar.");
-	for(new i; i < MAX_SLOTMACHINE; i++)
-	{
-		if(DOF2_FileExists(GetSlotMachine(i))) continue;
-		DOF2_CreateFile(GetSlotMachine(i)), DOF2_SetInt(GetSlotMachine(i), "SmID", i), DOF2_SetInt(GetSlotMachine(i), "Jackpot", 0), DOF2_SetFloat(GetSlotMachine(i), "PozX", PozX), DOF2_SetFloat(GetSlotMachine(i), "PozY", PozY), DOF2_SetFloat(GetSlotMachine(i), "PozZ", PozZ), DOF2_SaveFile();
-		GetPlayerPos(playerid, PozX, PozY, PozZ), format(String, sizeof(String), "Caca-niquel ID: %i criado, Use ESPACE se deseja mudar a visao!", i), InfoMsg(playerid, String);
-		DataSlotMachine[i][SmObject] = CreateObject(2325, PozX+1, PozY+1, PozZ, 0.0, 0.0, 0.0), SmID[playerid] = i, EditingSM[playerid] = 1, EditObject(playerid, DataSlotMachine[i][SmObject]);
-		break;	
-	}	
-	return 1;
-}
-
-CMD:dcn(playerid)
-{
-	new String[128];
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	if(EditingSM[playerid] != 0) return ErrorMsg(playerid, "Esta editando um objeto."); 
-	if(Playing[playerid] == true) return ErrorMsg(playerid, "Esta jogando e nao pode criar."); 
-	for(new i; i < MAX_SLOTMACHINE; i++)
-	{
-		if(!DOF2_FileExists(GetSlotMachine(i))) continue;
-		if(IsPlayerInRangeOfPoint(playerid, 1.0, DOF2_GetFloat(GetSlotMachine(i), "PozX"), DOF2_GetFloat(GetSlotMachine(i), "PozY"), DOF2_GetFloat(GetSlotMachine(i), "PozZ")))
-		{
-			if(DataSlotMachine[i][Occupied] == true) return ErrorMsg(playerid, "Nao pode deletar a maquina agora.");
-			PlayerInfo[playerid][pDinheiro] += DOF2_GetInt(GetSlotMachine(i), "Jackpot"), DOF2_RemoveFile(GetSlotMachine(i)), DestroyDynamic3DTextLabel(DataSlotMachine[i][TextoSm]), DestroyObject(DataSlotMachine[i][SmObject]), format(String, sizeof(String), "Voce deletou o Caca-niquel de ID: %d.", i), InfoMsg(playerid, String);
-			break;
-		}
-	}
-	return 1;
-}
-
-CMD:editcn(playerid)
-{
-	new String[256];
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	if(EditingSM[playerid] != 0) return ErrorMsg(playerid, "Ja esta editando uma maquina.");
-	if(Playing[playerid] == true) return ErrorMsg(playerid, "Esta jogando e nao pode criar.");
-	for(new i; i < MAX_SLOTMACHINE; i++)
-	{
-		if(!DOF2_FileExists(GetSlotMachine(i))) continue;
-		if(IsPlayerInRangeOfPoint(playerid, 1.0, DOF2_GetFloat(GetSlotMachine(i), "PozX"), DOF2_GetFloat(GetSlotMachine(i), "PozY"), DOF2_GetFloat(GetSlotMachine(i), "PozZ")))
-		{
-			if(DataSlotMachine[i][Occupied] == true) return ErrorMsg(playerid, "Esta jogando e nao pode criar.");
-			SmID[playerid] = i, EditingSM[playerid] = 1, format(String, sizeof(String), "Use ESPACE se deseja mudar a visao!", SmID[playerid]), InfoMsg(playerid, String);
-			EditObject(playerid, DataSlotMachine[i][SmObject]);
-			break;
-		}
-	}
-	return 1;
-}
-
-CMD:infocn(playerid)
-{
-	new String[256];
-	if(EditingSM[playerid] != 0) return ErrorMsg(playerid, "Esta editando um objeto.");
-	for(new i; i < MAX_SLOTMACHINE; i++)
-	{
-		if(!DOF2_FileExists(GetSlotMachine(i))) continue;
-		if(IsPlayerInRangeOfPoint(playerid, 1.0, DOF2_GetFloat(GetSlotMachine(i), "PozX"), DOF2_GetFloat(GetSlotMachine(i), "PozY"), DOF2_GetFloat(GetSlotMachine(i), "PozZ")))
-		{
-			format(String, sizeof(String), "Esta maquina %d possui R$%i de JACKPOT.", i, DOF2_GetInt(GetSlotMachine(i), "Jackpot")), InfoMsg(playerid, String);
-			break;
-		}
-	}
-	return 1;
-}
-
 CMD:freq(playerid, params[])
 {
 	new freq;
@@ -24496,7 +23608,7 @@ CMD:pescar(playerid)
 	if(PlayerInfo[playerid][pProfissao] != 1) 	return ErrorMsg(playerid, "Nao possui permissao.");
 	if(!CheckInventario2(playerid, 18632)) return ErrorMsg(playerid, "Nao tem uma vara de pesca.");
 	if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a pesca atual."); 
-	for(new i; i < 7; i++)
+	for(new i; i < 13; i++)
 	if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 	{
 		CreateProgress(playerid, "Pesca","Pescando...", 60);
@@ -24628,7 +23740,7 @@ CMD:roubar(playerid)
 	if(GetPlayerWeapon(playerid) == 22 || GetPlayerWeapon(playerid) == 24)
 	{
 		new noti = randomEx(0, 2);
-		if(PlayerToPoint(5.0, playerid, -2384.989013, -52.624767, 35.479652))
+		if(PlayerToPoint(5.0, playerid, 393.256561, -1895.308471, 7.844118))
 		{
 			if(RouboLoja1 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
 			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
@@ -24652,7 +23764,7 @@ CMD:roubar(playerid)
 			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 1.");
 			return 1;
 		}
-		if(PlayerToPoint(5.0, playerid, -2447.547607, 1211.448730, 35.378131))
+		if(PlayerToPoint(5.0, playerid, 1359.771850, -1774.149291, 13.551797))
 		{
 			if(RouboLoja2 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
 			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
@@ -24676,7 +23788,7 @@ CMD:roubar(playerid)
 			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 2.");
 			return 1;
 		}
-		if(PlayerToPoint(5.0, playerid, -2076.633300, 643.822387, 52.524246))
+		if(PlayerToPoint(5.0, playerid, 1663.899047, -1899.635009, 13.569333))
 		{
 			if(RouboLoja3 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
 			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
@@ -24698,6 +23810,54 @@ CMD:roubar(playerid)
 				}
 			}
 			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 3.");
+			return 1;
+		}
+		if(PlayerToPoint(5.0, playerid, 2054.312255, -1883.058105, 13.570812))
+		{
+			if(RouboLoja4 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
+			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
+				
+			CreateProgress(playerid, "RoubarLoja","Roubando caixa lojinha...", 1000);
+			
+			if(noti == 1)
+			{
+				foreach(Player, i)
+				{
+					if(Patrulha[i] == true)
+					{
+						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 4");
+						WarningMsg(i, Str);
+					}
+				}
+			}
+			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 4.");
+			return 1;
+		}
+		if(PlayerToPoint(5.0, playerid, 1310.963256, -856.883911, 39.597454))
+		{
+			if(RouboLoja5 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
+			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
+				
+			CreateProgress(playerid, "RoubarLoja","Roubando caixa lojinha...", 1000);
+			
+			if(noti == 1)
+			{
+				foreach(Player, i)
+				{
+					if(Patrulha[i] == true)
+					{
+						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 5");
+						WarningMsg(i, Str);
+					}
+				}
+			}
+			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 5.");
 			return 1;
 		}
 		if(PlayerToPoint(5.0, playerid, 376.622558, -117.278648, 1001.492187))
@@ -24744,7 +23904,7 @@ CMD:desmanchar(playerid)
 CMD:creditos(playerid)
 {
     MEGAString[0] = EOS;
-    strcat(MEGAString, "{33CCFF}|________________________________| Créditos do servidor |________________________________|\n\n\n");
+    strcat(MEGAString, "{33CCFF}|________________________________| Créditos do servidor |________________________________|\n\n");
 
     strcat(MEGAString, "{FFFFFF}»  Luan P Rosa(Rosa Scripter)\n");
     strcat(MEGAString, "{696969}               (Criador/Fundador do servidor | Atual Scripter)\n");
@@ -24766,19 +23926,8 @@ CMD:creditos(playerid)
     strcat(MEGAString, "{696969}               Agradecimentos por colaborarem com o Servidor\n\n");
 
     strcat(MEGAString, "{696969}       Toda a gamemode foi feita totalmente da linha 1 por Luan P Rosa(Rosa Scripter)\n\n");
-
-	strcat(MEGAString, "{33CCFF}|________________________________________________________________________________________|\n\n");
 	ShowPlayerDialog(playerid, DIALOG_CREDITOS, DIALOG_STYLE_MSGBOX, "Creditos", MEGAString, "Fechar", "");
 	return true;
-}
-
-CMD:rank(playerid)
-{
-	MEGAString[0]=EOS;
-	strcat(MEGAString, "{B4B5B7} »{ffffff} Horas jogadas\n");
-	strcat(MEGAString, "{B4B5B7} »{ffffff} Dinheiro\n");
-	ShowPlayerDialog(playerid, 5009, DIALOG_STYLE_LIST, "Ranks", MEGAString, "Ver", "X");
-	return 1;
 }
 
 CMD:terminar(playerid, x_Emprego[])
@@ -24833,6 +23982,42 @@ CMD:terminar(playerid, x_Emprego[])
 		}
 		return 1;
 	}
+
+DCMD:verificar(user, channel, params[])
+{
+    new ds_userid[20 + 1];
+	new Cod;
+	new File[255];
+	new str[255];
+	new DCC_Role:Role,
+        DCC_Guild:Server;
+	new
+        DCC_Message:message;
+    message = DCMD_GetCommandMessageId();
+	new username[33];
+        DCC_GetUserName(user, username, sizeof(username));
+
+	Role = DCC_FindRoleById("1167488204425924669");
+	Server = DCC_FindGuildById("1145549003128315985");
+    DCC_GetUserId(user, ds_userid);
+	if(sscanf(params, "d", Cod)) return DCC_SendChannelMessage(channel,  "!verificar [IDF]");
+	{
+		format(File, sizeof(File), "IDs/%d.ini", Cod);
+		if(DOF2_FileExists(File)) 
+		{
+			format(str, sizeof(str), "**%s** O IDF informado consta e agora esta verificado!", username);
+			DCC_SendChannelMessage(channel, str);
+			DCC_AddGuildMemberRole(Server, user, Role);
+		}
+		else
+		{
+			format(str, sizeof(str), "**%s** O IDF informado nao consta em nosso banco de dados!", username);
+			DCC_SendChannelMessage(channel, str);
+		}
+	}
+	DCC_DeleteMessage(message);
+    return 1;
+} 
 
 DCMD:criarkeydc(user, channel, params[]) {
 
