@@ -1074,11 +1074,10 @@ new Float:PosRota[303][3] =
     {2313.880371, -124.964256, 28.153551}//rota	
 };
 
-new Float:Entradas[6][3] =
+new Float:Entradas[5][3] =
 {
 	{2447.910644, -1962.689453, 13.546875},//Mercado Negro
 	{1481.094482, -1772.313720, 18.795755},//Prefeitura
-	{2105.487548, -1806.502441, 13.554687},//Pizzaria
 	{649.302062, -1357.399658, 13.567605},//San News
 	{1081.261840, -1696.785888, 13.546875},//LICENCAS
 	{2501.888916, -1494.696533, 24.000000}//AÇOUGUE
@@ -4695,7 +4694,7 @@ Progresso:RoubarLoja(playerid, progress)
 {
 	if(progress >= 100)
 	{
-		if(PlayerToPoint(5.0, playerid, 376.622558, -117.278648, 1001.492187))
+		if(PlayerToPoint(5.0, playerid, 1316.121826, -1113.496704, 24.960447))
 		{
 			GanharItem(playerid, 1212, CofreRestaurante);
 			CofreRestaurante = 0;
@@ -10858,7 +10857,7 @@ stock NpcText()
 	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1246.481811, -1662.939331, 17.028537);
 	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1246.484497, -1669.351562, 17.028537);
 	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1246.486816, -1675.575683, 17.028537);
-	CreateAurea("{FFFF00}Pizzaria\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 376.122161, -118.803634, 1001.499511);
+	CreateAurea("{FFFF00}Cafeteria\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1317.508422, -1116.722290, 24.960447);
 	CreateAurea("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1649.4332,-1889.2966,13.5878);
 	CreateAurea("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 2064.6821,-1868.5961,13.5892);
 	CreateAurea("{FFFF00}Loja de Utilidades\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 382.9478,-1909.8621,7.8625);
@@ -10902,7 +10901,7 @@ stock NpcText()
 	CreateAurea("{FFFF00}Loja Utilidades 3\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", 1663.899047, -1899.635009, 13.569333);
 	CreateAurea("{FFFF00}Loja Utilidades 4\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", 2054.312255, -1883.058105, 13.570812);
 	CreateAurea("{FFFF00}Loja Utilidades 5\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", 1310.963256, -856.883911, 39.597454);
-	CreateAurea("{FFFF00}Pizzaria\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", 376.622558, -117.278648, 1001.492187);
+	CreateAurea("{FFFF00}Cafeteria\n{FFFFFF}Use '{FFFF00}H{FFFFFF}' para para iniciar o roubo.", 1316.121826, -1113.496704, 24.960447);
 	printf("=> Textos       		: Carregados");
 	return 1;
 }
@@ -11820,7 +11819,7 @@ public OnGameModeInit()
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}'para \niniciar o desossamento.", -1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2], 15.0);
 	}
-	for(new i; i < 6; i++)
+	for(new i; i < 5; i++)
 	{
 		CreateDynamicPickup(19606,23,Entradas[i][0],Entradas[i][1],Entradas[i][2],0);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
@@ -14074,24 +14073,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
-		//PIZZARIA ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 2105.487548, -1806.502441, 13.554687))
-		{
-			SetPlayerPos(playerid,  372.2827,-133.5237,1001.4922);
-			SetPlayerInterior(playerid, 5);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//PIZZARIA SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,372.2827,-133.5237,1001.4922))
-		{
-			SetPlayerPos(playerid, 2105.487548, -1806.502441, 13.554687);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
 		//SAN NEWS ENTRADA
 		else if(IsPlayerInRangeOfPoint(playerid,2.0, 649.302062, -1357.399658, 13.567605))
 		{
@@ -14626,12 +14607,19 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
 				}
 				new tarquivo[64];
-				format(tarquivo, sizeof(tarquivo), "IDs/%d.ini",uid);
+				format(tarquivo, sizeof(tarquivo), "IDs/%04d.ini",uid);
 				if(!DOF2_FileExists(tarquivo))
 				{
 					DOF2_CreateFile(tarquivo);
 					DOF2_SetString(tarquivo,"IDF de:", Name(playerid));
 
+				}
+				new tarquivo2[64];
+				format(tarquivo2, sizeof(tarquivo2), "IDCONTAS/%04d.ini",uid);
+				if(!DOF2_FileExists(tarquivo2))
+				{
+					DOF2_CreateFile(tarquivo2);
+					DOF2_SetString(tarquivo2,"IDF de:", Name(playerid));
 				}
 				new string[255];
 				new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
@@ -15420,7 +15408,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new Float:e = GetPlayerDistanceFromPoint(playerid, 2064.6821,-1868.5961,13.5892);
 					new Float:f = GetPlayerDistanceFromPoint(playerid, 382.9478,-1909.8621,7.8625);
 					new Float:g = GetPlayerDistanceFromPoint(playerid, 1081.261840, -1696.785888, 13.546875);
-					new Float:h = GetPlayerDistanceFromPoint(playerid, 2105.487548, -1806.502441, 13.554687);
+					new Float:h = GetPlayerDistanceFromPoint(playerid, 1317.508422, -1116.722290, 24.960447);
 					new Float:i = GetPlayerDistanceFromPoint(playerid, -1973.108276, 288.896331, 35.171875);
 					new Float:m = GetPlayerDistanceFromPoint(playerid, 2447.910644, -1962.689453, 13.546875);
 					new Float:n = GetPlayerDistanceFromPoint(playerid, 1325.4236,-867.3035,39.6159);
@@ -15701,7 +15689,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 2105.487548, -1806.502441, 13.554687, 8.0);
+					SetPlayerCheckpoint(playerid, 1317.508422, -1116.722290, 24.960447, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 10)
@@ -23858,7 +23846,7 @@ CMD:roubar(playerid)
 			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 5.");
 			return 1;
 		}
-		if(PlayerToPoint(5.0, playerid, 376.622558, -117.278648, 1001.492187))
+		if(PlayerToPoint(5.0, playerid, 1316.121826, -1113.496704, 24.960447))
 		{
 			if(RouboRestaurante == true)return ErrorMsg(playerid, "Esta pizzaria ja roubado.");
 			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
@@ -23988,6 +23976,7 @@ DCMD:verificar(user, channel, params[])
 	new File[255];
 	new str[255];
 	new DCC_Role:Role,
+		DCC_Role:Role2,
         DCC_Guild:Server;
 	new
         DCC_Message:message;
@@ -23996,16 +23985,19 @@ DCMD:verificar(user, channel, params[])
         DCC_GetUserName(user, username, sizeof(username));
 
 	Role = DCC_FindRoleById("1167488204425924669");
+	Role2 = DCC_FindRoleById("1145554614545031341");
 	Server = DCC_FindGuildById("1145549003128315985");
     DCC_GetUserId(user, ds_userid);
 	if(sscanf(params, "d", Cod)) return DCC_SendChannelMessage(channel,  "!verificar [IDF]");
 	{
-		format(File, sizeof(File), "IDs/%d.ini", Cod);
+		format(File, sizeof(File), "IDCONTAS/%04d.ini", Cod);
 		if(DOF2_FileExists(File)) 
 		{
 			format(str, sizeof(str), "**%s** O IDF informado consta e agora esta verificado!", username);
 			DCC_SendChannelMessage(channel, str);
 			DCC_AddGuildMemberRole(Server, user, Role);
+			DCC_RemoveGuildMemberRole(Server, user, Role2);
+			DOF2_RemoveFile(File);
 		}
 		else
 		{

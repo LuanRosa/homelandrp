@@ -8,3 +8,13 @@
 [10/27/23 18:46:09] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712079861452850/messages': end of stream
 [10/28/23 14:02:07] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
 [10/28/23 15:40:05] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712079861452850/messages': end of stream
+[10/29/23 21:08:27] [plugins/discord-connector] Can't read from Discord websocket gateway: A conexão da rede foi anulada pelo sistema local (1236)
+[10/29/23 21:08:27] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/29/23 21:08:28] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[10/29/23 21:08:29] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/29/23 21:08:33] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[10/29/23 21:08:39] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/29/23 22:10:57] [plugins/discord-connector] Can't read from Discord websocket gateway: O tempo limite do semáforo expirou (121)
+[10/29/23 22:10:57] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/29/23 22:11:06] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[10/29/23 22:11:08] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
