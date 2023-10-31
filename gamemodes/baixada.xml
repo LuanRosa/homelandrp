@@ -2125,7 +2125,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="24182">
+		<member name="C:__line" value="24174">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -12062,6 +12062,19 @@
 				<paraminfo>DCC_User </paraminfo>
 			</param>
 		</member>
+		<member name="M:DCC_RemoveGuildMemberRole" syntax="DCC_RemoveGuildMemberRole(guild, user, role)">
+			<attribute name="native"/>
+			<referrer name="DCMD_verificar"/>
+			<param name="guild">
+				<paraminfo>DCC_Guild </paraminfo>
+			</param>
+			<param name="user">
+				<paraminfo>DCC_User </paraminfo>
+			</param>
+			<param name="role">
+				<paraminfo>DCC_Role </paraminfo>
+			</param>
+		</member>
 		<member name="M:DCC_SendChannelEmbedMessage" syntax="DCC_SendChannelEmbedMessage(channel, embed, message[], callback[], format[], ...)">
 			<attribute name="native"/>
 			<referrer name="descobrirEE"/>
@@ -12307,15 +12320,17 @@
 		</member>
 		<member name="M:DCMD_verificar" syntax="DCMD_verificar(user, channel, params[])">
 			<attribute name="public"/>
-			<stacksize value="575"/>
+			<stacksize value="576"/>
 			<dependency name="DCC_AddGuildMemberRole"/>
 			<dependency name="DCC_DeleteMessage"/>
 			<dependency name="DCC_FindGuildById"/>
 			<dependency name="DCC_FindRoleById"/>
 			<dependency name="DCC_GetUserId"/>
 			<dependency name="DCC_GetUserName"/>
+			<dependency name="DCC_RemoveGuildMemberRole"/>
 			<dependency name="DCC_SendChannelMessage"/>
 			<dependency name="DCMD_GetCommandMessageId"/>
+			<dependency name="DOF2_RemoveFile"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
@@ -12760,6 +12775,7 @@
 			<referrer name="cmd_ativarkey"/>
 			<referrer name="cmd_dcasa"/>
 			<referrer name="cmd_dradar"/>
+			<referrer name="DCMD_verificar"/>
 			<dependency name="CurrentFile"/>
 			<dependency name="FIXES_strcmp"/>
 			<dependency name="fremove"/>

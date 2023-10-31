@@ -95,7 +95,6 @@ new	UltimaFala[MAX_PLAYERS];
 							public %0(%1)
 #define XP_::%1(%2) forward %1(%2); public %1(%2)
 
-
 // Encrypt de password
 #define passwordSalt                "akjhf2bh36s"
 
@@ -128,6 +127,7 @@ new	UltimaFala[MAX_PLAYERS];
 #define VERSAOSERVER     			"Baixada v2.0.9" 
 #define NA 5
 #define PTP 						PlayerToPoint
+
 //                          SISTEMA DEALERSHIP (CONCE E POSTO)
 
 #define TEMPO_SOM_ALARME 			minutos(2)
@@ -168,6 +168,7 @@ new bool:Falando[MAX_PLAYERS] = true;
 new bool:Falou[MAX_PLAYERS] = false;
 
 //                          DIALOGS
+
 enum
 {
 	DIALOG_LOGIN,
@@ -12027,7 +12028,6 @@ public OnPlayerDisconnect(playerid, reason)
 		new hora, minuto;
 		gettime(hora, minuto);
 		jogadoreson--;
-
 		new string[255];
 		new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
 		format(string,sizeof(string),"O jogador %04d saiu do servidor!\n\nJogadores **%d**/500\nHorario: %02d:%02d", PlayerInfo[playerid][IDF], jogadoreson, hora, minuto);
@@ -14614,13 +14614,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SetString(tarquivo,"IDF de:", Name(playerid));
 
 				}
-				new tarquivo2[64];
-				format(tarquivo2, sizeof(tarquivo2), "IDCONTAS/%04d.ini",uid);
-				if(!DOF2_FileExists(tarquivo2))
-				{
-					DOF2_CreateFile(tarquivo2);
-					DOF2_SetString(tarquivo2,"IDF de:", Name(playerid));
-				}
 				new string[255];
 				new DCC_Embed:embed = DCC_CreateEmbed("Baixada Roleplay");                                                   
 				format(string,sizeof(string),"### NOVO ID GERADO\n\nID: %04d\nPertence: %s", PlayerInfo[playerid][IDF],Name(playerid));
@@ -14796,6 +14789,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.BAIXADARP.COM.BR7777_20230919_225304_0000.png");
 					DCC_SendChannelEmbedMessage(EntradaeSaida, embed);
+					new Account2[255];
+					format(Account2, sizeof(Account2), "IDCONTAS/%d", GetPlayerIdfixo(playerid));
+					if(!DOF2_FileExists(Account2))
+					{
+						DOF2_CreateFile(Account2); 
+						DOF2_SaveFile();
+					}
 				}
 			}
 		}
