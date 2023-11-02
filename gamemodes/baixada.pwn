@@ -733,7 +733,10 @@ new bool:EntregaSdx[MAX_PLAYERS];
 new RecentlyShot[MAX_PLAYERS];
 new CaixasSdxObj[MAX_PLAYERS][11];
 new bool:CaixaMao[MAX_PLAYERS] = false;
+new actorcorreios[MAX_PLAYERS];
+new Casavehcorreios[MAX_PLAYERS];
 new CaixasSdx[MAX_PLAYERS];
+new bool:checkcasa[MAX_PLAYERS] = false;
 new bool:PegandoCaixas[MAX_PLAYERS] = false;
 new bool:EmServico[MAX_PLAYERS] = false;
 new sdxobj[10];
@@ -1706,7 +1709,7 @@ Progresso:ColocandoCaixa(playerid, progress){
 			SetPlayerSpecialAction(playerid, 0);
 			new Alt = random(303);
 			SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 0.5);
-			CaixasSdx[playerid] = 0;
+			checkcasa[playerid] = true;
 			new engine, lights, alarm, doors, bonnet, boot, objective,idv = carID[playerid];
 			GetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, boot, objective);
 			SetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, 0, objective);
@@ -12758,6 +12761,40 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 public OnPlayerEnterCheckpoint(playerid)
 {
+	if(Casavehcorreios[playerid] == 1)
+	{
+		CaixasSdx[playerid]--;
+		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+		SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+		DisablePlayerCheckpoint(playerid);
+		SetPlayerCheckpoint(playerid, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),1);
+		Casavehcorreios[playerid] = 2;
+	}
+	if(Casavehcorreios[playerid] == 2)
+	{
+		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+		RemovePlayerAttachedObject(playerid, 1);
+		DestroyActor(actorcorreios[playerid]);
+		Casavehcorreios[playerid] = 0;
+		new Alt = random(303);
+		SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 1);
+	}
+	if(checkcasa[playerid] == true)
+	{
+		new SkinActor = random(311);
+		new Float:X, Float:Y, Float:Z,Float:A;
+		GetPlayerPos(playerid, Float:X, Float:Y, Float:Z);
+		GetPlayerFacingAngle(playerid, Float:A);
+		SetPVarFloat(playerid, "FindX", X);
+	    SetPVarFloat(playerid, "FindY", Y);
+	    SetPVarFloat(playerid, "FindZ", Z);
+		SetPVarFloat(playerid, "FindA", A);
+		GetVehicleTrunkPosition(carID[playerid], PosV[0], PosV[1], PosV[2]);
+		DisablePlayerCheckpoint(playerid);
+		SetPlayerCheckpoint(playerid, PosV[0], PosV[1], PosV[2],1);
+		Casavehcorreios[playerid] = 1;
+		actorcorreios[playerid] = CreateActor(SkinActor, GetPVarFloat(playerid, "FindX", X),GetPVarFloat(playerid, "FindY", Y),GetPVarFloat(playerid, "FindZ", Z),GetPVarFloat(playerid, "FindA", A));
+	}
 	if(RotaMaconha[playerid] == true) 
 	{ 
 		InfoMsg(playerid, "Utilize a maconha no seu inventario para fazer a entrega.");

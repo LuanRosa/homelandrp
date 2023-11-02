@@ -25,3 +25,7 @@
 [10/29/23 22:10:57] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
 [10/29/23 22:11:06] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
 [10/29/23 22:11:08] [ERROR] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
+[11/01/23 22:51:17] [WARNING] Unknown gateway event 'CHANNEL_TOPIC_UPDATE'
+[11/01/23 22:51:17] [WARNING] Unknown gateway event 'VOICE_CHANNEL_STATUS_UPDATE'
+[11/01/23 23:15:24] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712172794642442/messages': end of stream
+[11/01/23 23:40:58] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream

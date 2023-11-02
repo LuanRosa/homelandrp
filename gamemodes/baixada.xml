@@ -1722,55 +1722,55 @@
 		<member name="C:DCMD_TOTAL_CMD_SIZE" value="256">
 			<referrer name="DCC_OnMessageCreate"/>
 		</member>
-		<member name="C:DIALOG_AJUDA" value="12">
+		<member name="C:DIALOG_AJUDA" value="13">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_ajuda"/>
 		</member>
-		<member name="C:DIALOG_AJUDA1" value="13">
+		<member name="C:DIALOG_AJUDA1" value="14">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AJUDACOMANDOS" value="57">
+		<member name="C:DIALOG_AJUDACOMANDOS" value="58">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AJUDAINVENTARIO" value="62">
+		<member name="C:DIALOG_AJUDAINVENTARIO" value="63">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AJUDAJEFORG" value="59">
+		<member name="C:DIALOG_AJUDAJEFORG" value="60">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AJUDAORG" value="60">
+		<member name="C:DIALOG_AJUDAORG" value="61">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AJUDAVEH" value="61">
+		<member name="C:DIALOG_AJUDAVEH" value="62">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AJUDA_ADMIN" value="40">
+		<member name="C:DIALOG_AJUDA_ADMIN" value="41">
 			<referrer name="cmd_aa"/>
 		</member>
-		<member name="C:DIALOG_ALIMENTOS" value="9">
+		<member name="C:DIALOG_ALIMENTOS" value="10">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_ANUNCIOOLX" value="96">
+		<member name="C:DIALOG_ANUNCIOOLX" value="97">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_ARMARIOMEC" value="73">
+		<member name="C:DIALOG_ARMARIOMEC" value="74">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_ARMAS12" value="88">
+		<member name="C:DIALOG_ARMAS12" value="89">
 			<referrer name="ItemOpcoes2"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_ARMAS2" value="87">
+		<member name="C:DIALOG_ARMAS2" value="88">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 		</member>
-		<member name="C:DIALOG_ATIVARCOINS" value="102">
+		<member name="C:DIALOG_ATIVARCOINS" value="103">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AUTO_ESCOLA" value="16">
+		<member name="C:DIALOG_AUTO_ESCOLA" value="17">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AVALIAR" value="90">
+		<member name="C:DIALOG_AVALIAR" value="91">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_pediravaliar"/>
 		</member>
@@ -1785,91 +1785,91 @@
 			<referrer name="loginp"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_BENEVIP" value="89">
+		<member name="C:DIALOG_BENEVIP" value="90">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_CARGA" value="35">
+		<member name="C:DIALOG_CARGA" value="36">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_carregar"/>
 		</member>
-		<member name="C:DIALOG_CASAS" value="68">
+		<member name="C:DIALOG_CASAS" value="69">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_CATCOINS" value="14">
+		<member name="C:DIALOG_CATCOINS" value="15">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_lojavip"/>
 		</member>
-		<member name="C:DIALOG_CATITENS" value="104">
+		<member name="C:DIALOG_CATITENS" value="105">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_CATLANCHE" value="10">
+		<member name="C:DIALOG_CATLANCHE" value="11">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_CATVEHINV" value="70">
+		<member name="C:DIALOG_CATVEHINV" value="71">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_CATVIPS" value="15">
+		<member name="C:DIALOG_CATVIPS" value="16">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_CELULAR" value="22">
+		<member name="C:DIALOG_CELULAR" value="23">
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_CMDRG" value="33">
+		<member name="C:DIALOG_CMDRG" value="34">
 			<referrer name="ac_OnPlayerClickPlayer"/>
 			<referrer name="cmd_minhaconta"/>
 			<referrer name="cmd_verdocumentos"/>
 		</member>
-		<member name="C:DIALOG_COFREORG" value="42">
+		<member name="C:DIALOG_COFREORG" value="43">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_COFREORG1" value="43">
+		<member name="C:DIALOG_COFREORG1" value="44">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_COFREORG12" value="44">
+		<member name="C:DIALOG_COFREORG12" value="45">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_COFREORG2" value="45">
+		<member name="C:DIALOG_COFREORG2" value="46">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_COFREORG22" value="46">
+		<member name="C:DIALOG_COFREORG22" value="47">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_COFREORG3" value="47">
+		<member name="C:DIALOG_COFREORG3" value="48">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_COFREORG32" value="49">
+		<member name="C:DIALOG_COFREORG32" value="50">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_COFREORG4" value="50">
+		<member name="C:DIALOG_COFREORG4" value="51">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_COFREORG42" value="52">
+		<member name="C:DIALOG_COFREORG42" value="53">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_CONFIRMA_ESCOLA1" value="17">
+		<member name="C:DIALOG_CONFIRMA_ESCOLA1" value="18">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_CONFIRMA_ESCOLA2" value="18">
+		<member name="C:DIALOG_CONFIRMA_ESCOLA2" value="19">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_CONFIRMA_ESCOLA3" value="19">
+		<member name="C:DIALOG_CONFIRMA_ESCOLA3" value="20">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_CONFIRMA_ESCOLA4" value="20">
+		<member name="C:DIALOG_CONFIRMA_ESCOLA4" value="21">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_CONVITE" value="36">
+		<member name="C:DIALOG_CONVITE" value="37">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_convidar"/>
 		</member>
-		<member name="C:DIALOG_CREDITOS" value="103">
+		<member name="C:DIALOG_CREDITOS" value="104">
 			<referrer name="cmd_creditos"/>
 		</member>
-		<member name="C:DIALOG_EDITVEHICLE" value="84">
+		<member name="C:DIALOG_EDITVEHICLE" value="85">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_editv"/>
@@ -1877,56 +1877,56 @@
 		<member name="C:DIALOG_EMAIL" value="2">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_EMP1" value="28">
+		<member name="C:DIALOG_EMP1" value="29">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_EMP2" value="29">
+		<member name="C:DIALOG_EMP2" value="30">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_EMP3" value="30">
+		<member name="C:DIALOG_EMP3" value="31">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_EMP4" value="31">
+		<member name="C:DIALOG_EMP4" value="32">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_ERROR" value="75">
+		<member name="C:DIALOG_ERROR" value="76">
 			<referrer name="AttVeh"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_FAQ" value="56">
+		<member name="C:DIALOG_FAQ" value="57">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_FAQ1" value="63">
+		<member name="C:DIALOG_FAQ1" value="64">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_FINDVEHICLE" value="79">
+		<member name="C:DIALOG_FINDVEHICLE" value="80">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_localizarv"/>
 		</member>
-		<member name="C:DIALOG_FUEL" value="83">
+		<member name="C:DIALOG_FUEL" value="84">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_abastecer"/>
 		</member>
-		<member name="C:DIALOG_GPS" value="64">
+		<member name="C:DIALOG_GPS" value="65">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_gps"/>
 		</member>
-		<member name="C:DIALOG_GPS1" value="65">
+		<member name="C:DIALOG_GPS1" value="66">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_GPS2" value="66">
+		<member name="C:DIALOG_GPS2" value="67">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_GPS3" value="98">
+		<member name="C:DIALOG_GPS3" value="99">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_LMARIHUANA" value="54">
+		<member name="C:DIALOG_LMARIHUANA" value="55">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_maconhas"/>
 		</member>
-		<member name="C:DIALOG_LOCALIZARCASA" value="69">
+		<member name="C:DIALOG_LOCALIZARCASA" value="70">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_LOGIN" value="0">
@@ -1935,51 +1935,51 @@
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
 		</member>
-		<member name="C:DIALOG_LOJA247" value="100">
+		<member name="C:DIALOG_LOJA247" value="101">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_LTAGS" value="37">
+		<member name="C:DIALOG_LTAGS" value="38">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_rorgoff"/>
 		</member>
-		<member name="C:DIALOG_LTUMBA" value="67">
+		<member name="C:DIALOG_LTUMBA" value="68">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_ltumba"/>
 		</member>
-		<member name="C:DIALOG_MEMBROSORG" value="39">
+		<member name="C:DIALOG_MEMBROSORG" value="40">
 			<referrer name="membrosorg"/>
 		</member>
-		<member name="C:DIALOG_MENUANIM" value="72">
+		<member name="C:DIALOG_MENUANIM" value="73">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_menuanim"/>
 		</member>
-		<member name="C:DIALOG_MISSOES" value="74">
+		<member name="C:DIALOG_MISSOES" value="75">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_missoes"/>
 		</member>
-		<member name="C:DIALOG_ORGS" value="38">
+		<member name="C:DIALOG_ORGS" value="39">
 			<referrer name="cmd_orgs"/>
 		</member>
 		<member name="C:DIALOG_POS" value="4">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_PREFEITURA" value="101">
+		<member name="C:DIALOG_PREFEITURA" value="102">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_PRESOS" value="5">
 			<referrer name="cmd_presos"/>
 		</member>
-		<member name="C:DIALOG_PROCURADOS" value="99">
+		<member name="C:DIALOG_PROCURADOS" value="100">
 			<referrer name="cmd_procurados"/>
 		</member>
-		<member name="C:DIALOG_REANIMAR" value="34">
+		<member name="C:DIALOG_REANIMAR" value="35">
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_reanimar"/>
 		</member>
-		<member name="C:DIALOG_REFRECOS" value="11">
+		<member name="C:DIALOG_REFRECOS" value="12">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_REGISTRO" value="1">
@@ -1987,86 +1987,90 @@
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 		</member>
-		<member name="C:DIALOG_RG1" value="23">
+		<member name="C:DIALOG_RG1" value="24">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_RG2" value="24">
+		<member name="C:DIALOG_RG2" value="25">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_RG3" value="25">
+		<member name="C:DIALOG_RG3" value="26">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_RG4" value="26">
+		<member name="C:DIALOG_RG4" value="27">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_RG5" value="27">
+		<member name="C:DIALOG_RG5" value="28">
 			<referrer name="criandorg"/>
 		</member>
-		<member name="C:DIALOG_ROPACOP" value="41">
+		<member name="C:DIALOG_ROPACOP" value="42">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 		</member>
-		<member name="C:DIALOG_SELTRABALHO" value="8">
+		<member name="C:DIALOG_SEDEX" value="8">
+			<referrer name="ac_OnDialogResponse"/>
+			<referrer name="cmd_garagememp"/>
+		</member>
+		<member name="C:DIALOG_SELTRABALHO" value="9">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_TELEPORTARMAP" value="91">
+		<member name="C:DIALOG_TELEPORTARMAP" value="92">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickMap"/>
 		</member>
-		<member name="C:DIALOG_TIENDAILEGAL" value="53">
+		<member name="C:DIALOG_TIENDAILEGAL" value="54">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_TRUNK" value="80">
+		<member name="C:DIALOG_TRUNK" value="81">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_mala"/>
 		</member>
-		<member name="C:DIALOG_TRUNK_ACTION" value="81">
+		<member name="C:DIALOG_TRUNK_ACTION" value="82">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VALORTRANSACAO" value="97">
+		<member name="C:DIALOG_VALORTRANSACAO" value="98">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 		</member>
-		<member name="C:DIALOG_VEHCORP1" value="92">
+		<member name="C:DIALOG_VEHCORP1" value="93">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VEHCORP2" value="93">
+		<member name="C:DIALOG_VEHCORP2" value="94">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VEHCORP3" value="94">
+		<member name="C:DIALOG_VEHCORP3" value="95">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VEHCORP4" value="95">
+		<member name="C:DIALOG_VEHCORP4" value="96">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VEHICLE" value="76">
+		<member name="C:DIALOG_VEHICLE" value="77">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_mv"/>
 		</member>
-		<member name="C:DIALOG_VEHICLE_BUY" value="77">
+		<member name="C:DIALOG_VEHICLE_BUY" value="78">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnPlayerStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VEHICLE_PLATE" value="82">
+		<member name="C:DIALOG_VEHICLE_PLATE" value="83">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VEHICLE_SELL" value="78">
+		<member name="C:DIALOG_VEHICLE_SELL" value="79">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_venderv"/>
 		</member>
-		<member name="C:D_VOIP" value="21">
+		<member name="C:D_VOIP" value="22">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_mvoip"/>
 		</member>
@@ -2125,7 +2129,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="24174">
+		<member name="C:__line" value="24498">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -2459,6 +2463,7 @@
 			<referrer name="IsValidPlayerProgressBar"/>
 			<referrer name="SetPlayerProgressBarPos"/>
 			<referrer name="EstaSegurandoArmaProibida"/>
+			<referrer name="Progress_PegandoCaixasP"/>
 			<referrer name="createEE"/>
 			<referrer name="ResetarPulo"/>
 			<referrer name="LockpickTimer"/>
@@ -2519,6 +2524,8 @@
 			<referrer name="ac_OnPlayerClickTextDraw"/>
 			<referrer name="cmd_rg"/>
 			<referrer name="cmd_mostrarrg"/>
+			<referrer name="cmd_garagememp"/>
+			<referrer name="cmd_uniforme"/>
 			<referrer name="cmd_cinto"/>
 			<referrer name="cmd_duvida"/>
 			<referrer name="cmd_logaradm"/>
@@ -2538,6 +2545,7 @@
 			<referrer name="cmd_chat"/>
 			<referrer name="cmd_gmx"/>
 			<referrer name="cmd_iniciarcoleta"/>
+			<referrer name="cmd_carregar"/>
 			<referrer name="cmd_descarregar"/>
 			<referrer name="cmd_convidar"/>
 			<referrer name="cmd_limparvagas"/>
@@ -2653,6 +2661,8 @@
 			<referrer name="SetPlayerProgressBarPos"/>
 			<referrer name="CreateProgress"/>
 			<referrer name="EstaSegurandoArmaProibida"/>
+			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="descobrirEE"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="TimerAn"/>
@@ -2733,6 +2743,8 @@
 			<referrer name="ac_OnPlayerClickTextDraw"/>
 			<referrer name="cmd_rg"/>
 			<referrer name="cmd_mostrarrg"/>
+			<referrer name="cmd_garagememp"/>
+			<referrer name="cmd_uniforme"/>
 			<referrer name="cmd_cinto"/>
 			<referrer name="cmd_daritem"/>
 			<referrer name="cmd_report"/>
@@ -2770,6 +2782,7 @@
 			<referrer name="cmd_iniciarcoleta"/>
 			<referrer name="cmd_lferidos"/>
 			<referrer name="cmd_carregar"/>
+			<referrer name="cmd_var"/>
 			<referrer name="cmd_descarregar"/>
 			<referrer name="cmd_convidar"/>
 			<referrer name="cmd_demitir"/>
@@ -3163,6 +3176,22 @@
 			<referrer name="CreateCaixa"/>
 			<referrer name="ac_OnPlayerPickUpPickup"/>
 		</member>
+		<member name="F:CaixaMao">
+			<tagname value="bool"/>
+			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="ZerarDados"/>
+			<referrer name="ac_OnPlayerEnterCheckpoint"/>
+		</member>
+		<member name="F:CaixasSdx">
+			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="Progress_ColocandoCaixa"/>
+			<referrer name="ZerarDados"/>
+			<referrer name="cmd_var"/>
+		</member>
+		<member name="F:CaixasSdxObj">
+			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="cmd_carregar"/>
+		</member>
 		<member name="F:Cargase">
 			<tagname value="bool"/>
 			<referrer name="Progress_DescarregarCarga"/>
@@ -3498,6 +3527,13 @@
 			<referrer name="checkEE"/>
 			<referrer name="cmd_halloween"/>
 		</member>
+		<member name="F:EmServico">
+			<tagname value="bool"/>
+			<referrer name="ZerarDados"/>
+			<referrer name="cmd_garagememp"/>
+			<referrer name="cmd_uniforme"/>
+			<referrer name="cmd_carregar"/>
+		</member>
 		<member name="F:Engine">
 			<referrer name="LockpickTimer"/>
 			<referrer name="FuncaoItens"/>
@@ -3512,6 +3548,13 @@
 		<member name="F:Entradas">
 			<tagname value="Float"/>
 			<referrer name="mf_OnGameModeInit"/>
+		</member>
+		<member name="F:EntregaSdx">
+			<tagname value="bool"/>
+			<referrer name="Progress_ColocandoCaixa"/>
+			<referrer name="ZerarDados"/>
+			<referrer name="ac_OnPlayerEnterCheckpoint"/>
+			<referrer name="cmd_carregar"/>
 		</member>
 		<member name="F:Entries_Count">
 			<referrer name="DOF2_SearchEntry"/>
@@ -5319,6 +5362,10 @@
 			<referrer name="cmd_verdocumentos"/>
 			<referrer name="cmd_roubar"/>
 		</member>
+		<member name="F:PegandoCaixas">
+			<tagname value="bool"/>
+			<referrer name="ZerarDados"/>
+		</member>
 		<member name="F:PegouLixo">
 			<tagname value="bool"/>
 			<referrer name="Progress_BotouBau"/>
@@ -5331,6 +5378,14 @@
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
+		</member>
+		<member name="F:PegouVehProf">
+			<tagname value="bool"/>
+			<referrer name="ZerarDados"/>
+			<referrer name="ppb_OnPlayerDisconnect"/>
+			<referrer name="ac_OnDialogResponse"/>
+			<referrer name="cmd_garagememp"/>
+			<referrer name="cmd_carregar"/>
 		</member>
 		<member name="F:PickupCasa">
 			<referrer name="CriarCasas"/>
@@ -5513,6 +5568,8 @@
 			<referrer name="cmd_minhaconta"/>
 			<referrer name="cmd_rg"/>
 			<referrer name="cmd_mostrarrg"/>
+			<referrer name="cmd_garagememp"/>
+			<referrer name="cmd_uniforme"/>
 			<referrer name="cmd_daritem"/>
 			<referrer name="cmd_inventario"/>
 			<referrer name="cmd_report"/>
@@ -5698,6 +5755,7 @@
 		</member>
 		<member name="F:PosRota">
 			<tagname value="Float"/>
+			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="cmd_iniciarrotamaconha"/>
 			<referrer name="cmd_iniciarrotacocaina"/>
@@ -7120,6 +7178,19 @@
 		<member name="F:caixaid">
 			<referrer name="CreateCaixa"/>
 		</member>
+		<member name="F:carID">
+			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="Progress_ColocandoCaixa"/>
+			<referrer name="ZerarDados"/>
+			<referrer name="ppb_OnPlayerDisconnect"/>
+			<referrer name="ac_OnDialogResponse"/>
+			<referrer name="cmd_garagememp"/>
+		</member>
+		<member name="F:checkcasa">
+			<tagname value="bool"/>
+			<referrer name="Progress_ColocandoCaixa"/>
+			<referrer name="ac_OnPlayerEnterCheckpoint"/>
+		</member>
 		<member name="F:chosenpid">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
@@ -7363,6 +7434,10 @@
 		<member name="F:savetimer">
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ppb_OnGameModeExit"/>
+		</member>
+		<member name="F:sdxobj">
+			<referrer name="ppb_OnPlayerDisconnect"/>
+			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:stringZCMD">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
@@ -7755,6 +7830,7 @@
 			<referrer name="ProxDetectorS"/>
 			<referrer name="PlayerToPoint"/>
 			<referrer name="ProxDetector"/>
+			<referrer name="GetVehicleTrunkPosition"/>
 			<referrer name="GetXYInFrontOfCaixa"/>
 			<referrer name="cmd_addv"/>
 			<dependency name="cellmin"/>
@@ -7795,6 +7871,7 @@
 			<referrer name="ProxDetectorS"/>
 			<referrer name="PlayerToPoint"/>
 			<referrer name="ProxDetector"/>
+			<referrer name="GetVehicleTrunkPosition"/>
 			<referrer name="CreateAurea"/>
 			<referrer name="HeadshotCheck"/>
 			<referrer name="CriarRadares"/>
@@ -7854,6 +7931,7 @@
 			<referrer name="pr_ip_AC_TRAILER_SYNC"/>
 			<referrer name="_bar_percent"/>
 			<referrer name="_RenderBar"/>
+			<referrer name="GetVehicleTrunkPosition"/>
 			<param name="oper1">
 				<paraminfo>Float </paraminfo>
 			</param>
@@ -7874,6 +7952,7 @@
 			<referrer name="ac_GetSpeed"/>
 			<referrer name="_bar_percent"/>
 			<referrer name="_RenderBar"/>
+			<referrer name="GetVehicleTrunkPosition"/>
 			<referrer name="darxp"/>
 			<referrer name="HeadshotCheck"/>
 			<referrer name="VelocidadeDoVeiculo"/>
@@ -7896,6 +7975,8 @@
 			<referrer name="KillProgress"/>
 			<referrer name="CreateTDProgress"/>
 			<referrer name="ConvertTime"/>
+			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="Progress_RotaCova1"/>
 			<referrer name="Progress_RotaCova2"/>
@@ -7930,6 +8011,7 @@
 			<referrer name="cmd_setcolete"/>
 			<referrer name="cmd_cv"/>
 			<referrer name="cmd_atrabalhar"/>
+			<referrer name="cmd_carregar"/>
 			<referrer name="cmd_revistar"/>
 			<referrer name="cmd_qplantacao"/>
 			<referrer name="cmd_cmaconha"/>
@@ -8052,6 +8134,8 @@
 		<member name="M:operator&gt;=(Float:,_:)" syntax="operator&gt;=(Float:,_:)(oper1, oper2)">
 			<tagname value="bool"/>
 			<stacksize value="4"/>
+			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="Progress_DominarLBarragem"/>
 			<referrer name="Progress_DominarLParabolica"/>
 			<referrer name="Progress_DesmancharVeh"/>
@@ -9228,6 +9312,32 @@
 				<paraminfo>Float </paraminfo>
 			</param>
 			<param name="OffsetZ">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:AttachDynamicObjectToVehicle" syntax="AttachDynamicObjectToVehicle(objectid, vehicleid, offsetx, offsety, offsetz, rx, ry, rz)">
+			<attribute name="native"/>
+			<referrer name="ac_OnDialogResponse"/>
+			<param name="objectid">
+			</param>
+			<param name="vehicleid">
+			</param>
+			<param name="offsetx">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="offsety">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="offsetz">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="rx">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="ry">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="rz">
 				<paraminfo>Float </paraminfo>
 			</param>
 		</member>
@@ -10553,7 +10663,7 @@
 			<dependency name="printf"/>
 		</member>
 		<member name="M:CarregarMapas" syntax="CarregarMapas()">
-			<stacksize value="33"/>
+			<stacksize value="34"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="CreateDynamicObject"/>
@@ -11116,6 +11226,7 @@
 			<referrer name="CriarRadares"/>
 			<referrer name="CreateCaixa"/>
 			<referrer name="CarregarMapas"/>
+			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_criarradar"/>
 			<referrer name="cmd_deixarcarne"/>
 			<referrer name="cmd_deixarcaixa"/>
@@ -11488,6 +11599,35 @@
 				<paraminfo>Float </paraminfo>
 			</param>
 			<param name="virtualworld">
+			</param>
+		</member>
+		<member name="M:CreatePlayerObject" syntax="CreatePlayerObject(playerid, modelid, X, Y, Z, rX, rY, rZ, DrawDistance)">
+			<attribute name="native"/>
+			<referrer name="cmd_carregar"/>
+			<param name="playerid">
+			</param>
+			<param name="modelid">
+			</param>
+			<param name="X">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="Y">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="Z">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="rX">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="rY">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="rZ">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="DrawDistance">
+				<paraminfo>Float </paraminfo>
 			</param>
 		</member>
 		<member name="M:CreatePlayerProgressBar" syntax="CreatePlayerProgressBar(playerid, x, y, width, height, colour, max, direction)">
@@ -13610,6 +13750,8 @@
 			<referrer name="MaconhaQueimar2"/>
 			<referrer name="ExplodirCaixa"/>
 			<referrer name="RestoreCaixa"/>
+			<referrer name="ppb_OnPlayerDisconnect"/>
+			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_pegaritem"/>
 			<referrer name="cmd_dradar"/>
 			<referrer name="cmd_empacotarcarne"/>
@@ -13666,6 +13808,14 @@
 			<attribute name="native"/>
 			<referrer name="ac_DestroyPickup"/>
 			<param name="pickup">
+			</param>
+		</member>
+		<member name="M:DestroyPlayerObject" syntax="DestroyPlayerObject(playerid, objectid)">
+			<attribute name="native"/>
+			<referrer name="Progress_PegandoCaixasP"/>
+			<param name="playerid">
+			</param>
+			<param name="objectid">
 			</param>
 		</member>
 		<member name="M:DestroyPlayerProgressBar" syntax="DestroyPlayerProgressBar(playerid, barid)">
@@ -13815,6 +13965,8 @@
 		</member>
 		<member name="M:ENTER_GetVehicleParamsEx" syntax="ENTER_GetVehicleParamsEx(vehicleid, &amp;engine, &amp;lights, &amp;alarm, &amp;doors, &amp;bonnet, &amp;boot, &amp;objective)">
 			<stacksize value="11"/>
+			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="VelocimetroEx"/>
 			<referrer name="UpdateVehicle"/>
 			<referrer name="AttVeh"/>
@@ -13877,6 +14029,8 @@
 		</member>
 		<member name="M:ENTER_SetVehicleParamsEx" syntax="ENTER_SetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet, boot, objective)">
 			<stacksize value="11"/>
+			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="LockpickTimer"/>
 			<referrer name="UpdateVehicle"/>
 			<referrer name="AttVeh"/>
@@ -14014,6 +14168,8 @@
 			<referrer name="ac_OnPlayerClickTextDraw"/>
 			<referrer name="cmd_rg"/>
 			<referrer name="cmd_mostrarrg"/>
+			<referrer name="cmd_garagememp"/>
+			<referrer name="cmd_uniforme"/>
 			<referrer name="cmd_cinto"/>
 			<referrer name="cmd_pegaritem"/>
 			<referrer name="cmd_daritem"/>
@@ -14351,6 +14507,7 @@
 		</member>
 		<member name="M:FIXES_ApplyAnimation" syntax="FIXES_ApplyAnimation(playerid, animlib[], animname[], fDelta, loop, lockx, locky, freeze, time, forcesync)">
 			<stacksize value="14"/>
+			<referrer name="Progress_PegandoCaixasP"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="Progress_Desossar"/>
 			<referrer name="Progress_Minerar"/>
@@ -14426,6 +14583,7 @@
 			<stacksize value="13"/>
 			<referrer name="On_PlayerUpdate"/>
 			<referrer name="ENTER_Stop"/>
+			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="Progress_BotouBau"/>
 			<referrer name="Progress_Minerar"/>
 			<referrer name="CANIM"/>
@@ -15494,6 +15652,8 @@
 		</member>
 		<member name="M:FIXES_SetPlayerCheckpoint" syntax="FIXES_SetPlayerCheckpoint(playerid, x, y, z, size)">
 			<stacksize value="12"/>
+			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="Progress_RotaCova1"/>
 			<referrer name="Progress_RotaCova2"/>
 			<referrer name="Progress_RotaCova3"/>
@@ -15504,6 +15664,7 @@
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_iniciarcoleta"/>
+			<referrer name="cmd_carregar"/>
 			<referrer name="cmd_deixarcarne"/>
 			<referrer name="cmd_pegarcaixa2"/>
 			<referrer name="cmd_iniciarminerador"/>
@@ -15658,6 +15819,7 @@
 			<stacksize value="8"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
+			<referrer name="cmd_uniforme"/>
 			<referrer name="cmd_setskin"/>
 			<referrer name="cmd_atrabalhar"/>
 			<dependency name="ClearAnimations__"/>
@@ -16211,6 +16373,7 @@
 			<stacksize value="3"/>
 			<referrer name="Iter_RandomInternal"/>
 			<referrer name="DOF2_SortEntries"/>
+			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="Progress_BotouBau"/>
 			<referrer name="Progress_Cova"/>
 			<referrer name="SendMSG"/>
@@ -17878,6 +18041,7 @@
 			<referrer name="AntiCheatGetVehicleSpawnZAngle"/>
 			<referrer name="AttVeh"/>
 			<referrer name="FuncaoItens"/>
+			<referrer name="GetVehicleTrunkPosition"/>
 			<referrer name="IsABike"/>
 			<referrer name="IsABoat"/>
 			<referrer name="IsBicycle"/>
@@ -17913,6 +18077,7 @@
 		<member name="M:GetVehicleModelInfo" syntax="GetVehicleModelInfo(vehiclemodel, infotype, &amp;X, &amp;Y, &amp;Z)">
 			<attribute name="native"/>
 			<referrer name="OnPlayerWeaponShot"/>
+			<referrer name="GetVehicleTrunkPosition"/>
 			<param name="vehiclemodel">
 			</param>
 			<param name="infotype">
@@ -17981,6 +18146,7 @@
 			<referrer name="pr_ip_AC_TRAILER_SYNC"/>
 			<referrer name="MainTimer"/>
 			<referrer name="FuncaoItens"/>
+			<referrer name="GetVehicleTrunkPosition"/>
 			<referrer name="PlayerToVehicle"/>
 			<referrer name="GetClosestVehicle"/>
 			<referrer name="Checarveiculo"/>
@@ -18020,6 +18186,32 @@
 			<param name="vehicleid">
 			</param>
 		</member>
+		<member name="M:GetVehicleTrunkPosition" syntax="GetVehicleTrunkPosition(vehicleid, &amp;x, &amp;y, &amp;z)">
+			<stacksize value="10"/>
+			<referrer name="Progress_PegandoCaixasP"/>
+			<dependency name="operator-(Float:)"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator/(Float:,Float:)"/>
+			<dependency name="operator*(Float:,Float:)"/>
+			<dependency name="GetVehicleModel"/>
+			<dependency name="GetVehicleModelInfo"/>
+			<dependency name="GetVehiclePos"/>
+			<dependency name="GetVehicleZAngle"/>
+			<dependency name="degrees"/>
+			<dependency name="floatcos"/>
+			<dependency name="floatsin"/>
+			<param name="vehicleid">
+			</param>
+			<param name="x">
+				<paraminfo>Float &amp; </paraminfo>
+			</param>
+			<param name="y">
+				<paraminfo>Float &amp; </paraminfo>
+			</param>
+			<param name="z">
+				<paraminfo>Float &amp; </paraminfo>
+			</param>
+		</member>
 		<member name="M:GetVehicleVelocity" syntax="GetVehicleVelocity(vehicleid, &amp;X, &amp;Y, &amp;Z)">
 			<attribute name="native"/>
 			<referrer name="On_PlayerUpdate"/>
@@ -18047,6 +18239,7 @@
 			<referrer name="On_PlayerUpdate"/>
 			<referrer name="OnUnoccupiedVehicleUpdate"/>
 			<referrer name="pr_ip_AC_TRAILER_SYNC"/>
+			<referrer name="GetVehicleTrunkPosition"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<param name="vehicleid">
 			</param>
@@ -18525,6 +18718,8 @@
 			<referrer name="AttVeh"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnPlayerStateChange"/>
+			<referrer name="ac_OnPlayerEnterCheckpoint"/>
+			<referrer name="cmd_garagememp"/>
 			<referrer name="cmd_cinto"/>
 			<referrer name="cmd_tv"/>
 			<referrer name="cmd_pveiculo"/>
@@ -23070,6 +23265,8 @@
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
+			<referrer name="cmd_garagememp"/>
+			<referrer name="cmd_uniforme"/>
 			<referrer name="cmd_carregar"/>
 			<referrer name="cmd_prender"/>
 			<referrer name="cmd_ltumba"/>
@@ -23157,6 +23354,33 @@
 			<dependency name="format"/>
 			<dependency name="pDinheiro"/>
 			<dependency name="pVIP"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:Progress_ColocandoCaixa" syntax="Progress_ColocandoCaixa(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="20"/>
+			<dependency name="Float:operator=(_:)"/>
+			<dependency name="operator&gt;=(Float:,_:)"/>
+			<dependency name="CaixasSdx"/>
+			<dependency name="ENTER_GetVehicleParamsEx"/>
+			<dependency name="ENTER_SetVehicleParamsEx"/>
+			<dependency name="EntregaSdx"/>
+			<dependency name="FIXES_ClearAnimations"/>
+			<dependency name="FIXES_SetPlayerCheckpoint"/>
+			<dependency name="FIXES_random"/>
+			<dependency name="PosRota"/>
+			<dependency name="PosRota"/>
+			<dependency name="RemovePlayerAttachedObject"/>
+			<dependency name="SuccesMsg"/>
+			<dependency name="acc_SetPlayerSpecialAction"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="carID"/>
+			<dependency name="checkcasa"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 			<param name="progress">
@@ -23310,6 +23534,34 @@
 			<dependency name="acc_TogglePlayerControllable"/>
 			<dependency name="false"/>
 			<dependency name="randomEx"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:Progress_PegandoCaixasP" syntax="Progress_PegandoCaixasP(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="28"/>
+			<dependency name="Float:operator=(_:)"/>
+			<dependency name="operator&gt;=(Float:,_:)"/>
+			<dependency name="CaixaMao"/>
+			<dependency name="CaixasSdx"/>
+			<dependency name="CaixasSdxObj"/>
+			<dependency name="CaixasSdxObj"/>
+			<dependency name="DestroyPlayerObject"/>
+			<dependency name="ENTER_GetVehicleParamsEx"/>
+			<dependency name="ENTER_SetVehicleParamsEx"/>
+			<dependency name="FIXES_ApplyAnimation"/>
+			<dependency name="FIXES_SetPlayerCheckpoint"/>
+			<dependency name="GetVehicleTrunkPosition"/>
+			<dependency name="SetPlayerAttachedObject"/>
+			<dependency name="SuccesMsg"/>
+			<dependency name="acc_SetPlayerSpecialAction"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="carID"/>
+			<dependency name="false"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 			<param name="progress">
@@ -23552,6 +23804,7 @@
 		</member>
 		<member name="M:RemovePlayerAttachedObject" syntax="RemovePlayerAttachedObject(playerid, index)">
 			<attribute name="native"/>
+			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="Progress_BotouBau"/>
 			<referrer name="OnPlayerActivationKeyRelease"/>
 			<referrer name="RObject"/>
@@ -24698,6 +24951,7 @@
 			<referrer name="cmd_admins"/>
 			<referrer name="cmd_limparchat"/>
 			<referrer name="cmd_vips"/>
+			<referrer name="cmd_var"/>
 			<referrer name="cmd_terminar"/>
 			<param name="playerid">
 			</param>
@@ -24831,6 +25085,7 @@
 		<member name="M:SetDynamicObjectMaterialText" syntax="SetDynamicObjectMaterialText(objectid, materialindex, text[], materialsize, fontface[], fontsize, bold, fontcolor, backcolor, textalignment)">
 			<attribute name="native"/>
 			<referrer name="CarregarMapas"/>
+			<referrer name="ac_OnDialogResponse"/>
 			<param name="objectid">
 			</param>
 			<param name="materialindex">
@@ -24906,6 +25161,7 @@
 		</member>
 		<member name="M:SetPlayerAttachedObject" syntax="SetPlayerAttachedObject(playerid, index, modelid, bone, fOffsetX, fOffsetY, fOffsetZ, fRotX, fRotY, fRotZ, fScaleX, fScaleY, fScaleZ, materialcolor1, materialcolor2)">
 			<attribute name="native"/>
+			<referrer name="Progress_PegandoCaixasP"/>
 			<referrer name="Progress_Cova"/>
 			<referrer name="Progress_Desossar"/>
 			<referrer name="Progress_Minerar"/>
@@ -25982,6 +26238,8 @@
 		</member>
 		<member name="M:SuccesMsg" syntax="SuccesMsg(playerid, pesan[])">
 			<stacksize value="7"/>
+			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="Progress_DominarLBarragem"/>
 			<referrer name="Progress_DominarLParabolica"/>
 			<referrer name="descobrirEE"/>
@@ -26006,6 +26264,7 @@
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
 			<referrer name="cmd_mostrarrg"/>
+			<referrer name="cmd_uniforme"/>
 			<referrer name="cmd_cinto"/>
 			<referrer name="cmd_pegaritem"/>
 			<referrer name="cmd_daritem"/>
@@ -26036,6 +26295,7 @@
 			<referrer name="cmd_sairemprego"/>
 			<referrer name="cmd_pedircontas"/>
 			<referrer name="cmd_lferidos"/>
+			<referrer name="cmd_carregar"/>
 			<referrer name="cmd_limparvagas"/>
 			<referrer name="cmd_demitir"/>
 			<referrer name="cmd_promover"/>
@@ -27153,6 +27413,8 @@
 			<dependency name="AutoEscolaMoto"/>
 			<dependency name="AutoEscolaVeiculo"/>
 			<dependency name="BigEar"/>
+			<dependency name="CaixaMao"/>
+			<dependency name="CaixasSdx"/>
 			<dependency name="Cargase"/>
 			<dependency name="Cargo"/>
 			<dependency name="CargoTumba"/>
@@ -27165,7 +27427,9 @@
 			<dependency name="CheckpointPontosVeiculo"/>
 			<dependency name="Covaconcerto"/>
 			<dependency name="Desossando"/>
+			<dependency name="EmServico"/>
 			<dependency name="Entrada"/>
+			<dependency name="EntregaSdx"/>
 			<dependency name="EquipouCasco"/>
 			<dependency name="Erro"/>
 			<dependency name="EtapasMinerador"/>
@@ -27196,7 +27460,9 @@
 			<dependency name="Page"/>
 			<dependency name="PassouRadar"/>
 			<dependency name="Patrulha"/>
+			<dependency name="PegandoCaixas"/>
 			<dependency name="PegouMaterial"/>
+			<dependency name="PegouVehProf"/>
 			<dependency name="PlantandoMaconha"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
@@ -27238,6 +27504,7 @@
 			<dependency name="UsouCMD"/>
 			<dependency name="VehAlugado"/>
 			<dependency name="VeiculoCivil"/>
+			<dependency name="carID"/>
 			<dependency name="convite"/>
 			<dependency name="cova"/>
 			<dependency name="false"/>
@@ -29381,6 +29648,7 @@
 			<dependency name="Armazenar"/>
 			<dependency name="ArmazenarString"/>
 			<dependency name="ArmazenarString"/>
+			<dependency name="AttachDynamicObjectToVehicle"/>
 			<dependency name="AutoEscolaAerea"/>
 			<dependency name="AutoEscolaCaminhao"/>
 			<dependency name="AutoEscolaMoto"/>
@@ -29465,6 +29733,7 @@
 			<dependency name="Crack"/>
 			<dependency name="CreateDynamic3DTextLabel"/>
 			<dependency name="CreateDynamicMapIcon"/>
+			<dependency name="CreateDynamicObject"/>
 			<dependency name="CriarInventario"/>
 			<dependency name="DCC_CreateEmbed"/>
 			<dependency name="DCC_SendChannelEmbedMessage"/>
@@ -29545,6 +29814,7 @@
 			<dependency name="DIALOG_RG3"/>
 			<dependency name="DIALOG_RG4"/>
 			<dependency name="DIALOG_ROPACOP"/>
+			<dependency name="DIALOG_SEDEX"/>
 			<dependency name="DIALOG_SELTRABALHO"/>
 			<dependency name="DIALOG_TELEPORTARMAP"/>
 			<dependency name="DIALOG_TIENDAILEGAL"/>
@@ -29575,6 +29845,7 @@
 			<dependency name="DealershipPos"/>
 			<dependency name="Delete3DTextLabel"/>
 			<dependency name="DestroyDynamicMapIcon"/>
+			<dependency name="DestroyDynamicObject"/>
 			<dependency name="DialogReturn"/>
 			<dependency name="Dinheiro"/>
 			<dependency name="ENTER_GetVehicleParamsEx"/>
@@ -29682,6 +29953,7 @@
 			<dependency name="Org"/>
 			<dependency name="Parabolica"/>
 			<dependency name="PecasArma"/>
+			<dependency name="PegouVehProf"/>
 			<dependency name="PickupCasa"/>
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
@@ -29712,6 +29984,7 @@
 			<dependency name="SedePlayer"/>
 			<dependency name="SelectTextDraw"/>
 			<dependency name="SendAdminMessage"/>
+			<dependency name="SetDynamicObjectMaterialText"/>
 			<dependency name="SetPlayerScore"/>
 			<dependency name="SetPlayerVirtualWorld"/>
 			<dependency name="SetPlayerWantedLevel"/>
@@ -29787,6 +30060,7 @@
 			<dependency name="acc_SpawnPlayer"/>
 			<dependency name="acc_TogglePlayerControllable"/>
 			<dependency name="actorcad"/>
+			<dependency name="carID"/>
 			<dependency name="checkPasswordAccount"/>
 			<dependency name="chosenpid"/>
 			<dependency name="cmd_anuncio"/>
@@ -29847,6 +30121,7 @@
 			<dependency name="pSkin"/>
 			<dependency name="pVIP"/>
 			<dependency name="pXP"/>
+			<dependency name="sdxobj"/>
 			<dependency name="strcat"/>
 			<dependency name="stringZCMD"/>
 			<dependency name="strlen"/>
@@ -30191,10 +30466,12 @@
 		<member name="M:ac_OnPlayerEnterCheckpoint" syntax="ac_OnPlayerEnterCheckpoint(playerid)">
 			<attribute name="public"/>
 			<stacksize value="514"/>
+			<dependency name="CaixaMao"/>
 			<dependency name="CargoTumba"/>
 			<dependency name="Covaconcerto"/>
 			<dependency name="CreateProgress"/>
 			<dependency name="Desossando"/>
+			<dependency name="EntregaSdx"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="EtapasMinerador"/>
 			<dependency name="FIXES_ApplyAnimation"/>
@@ -30205,6 +30482,7 @@
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="GetVehicleModel"/>
 			<dependency name="InfoMsg"/>
+			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="PegouLixo"/>
 			<dependency name="PegouMaterial"/>
@@ -30215,6 +30493,7 @@
 			<dependency name="SuccesMsg"/>
 			<dependency name="acc_SetPlayerSpecialAction"/>
 			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="checkcasa"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="ltumba"/>
@@ -32005,6 +32284,7 @@
 			<referrer name="ac_OnPlayerExitVehicle"/>
 			<referrer name="ac_OnPlayerEnterRaceCheckpoint"/>
 			<referrer name="ac_OnDialogResponse"/>
+			<referrer name="cmd_garagememp"/>
 			<referrer name="cmd_dveiculo"/>
 			<referrer name="cmd_deletedealership"/>
 			<dependency name="ac_DestroyVehicle"/>
@@ -32288,6 +32568,8 @@
 		</member>
 		<member name="M:acc_SetPlayerSpecialAction" syntax="acc_SetPlayerSpecialAction(playerid, actionid)">
 			<stacksize value="5"/>
+			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="Progress_Desossar"/>
 			<referrer name="Progress_Minerar"/>
 			<referrer name="FuncaoItens"/>
@@ -32487,6 +32769,7 @@
 			<referrer name="ac_OnPlayerClickTextDraw"/>
 			<referrer name="cmd_minhaconta"/>
 			<referrer name="cmd_ajuda"/>
+			<referrer name="cmd_garagememp"/>
 			<referrer name="cmd_mvoip"/>
 			<referrer name="cmd_gps"/>
 			<referrer name="cmd_presos"/>
@@ -32569,6 +32852,8 @@
 		<member name="M:acc_TogglePlayerControllable" syntax="acc_TogglePlayerControllable(playerid, toggle)">
 			<stacksize value="5"/>
 			<referrer name="On_PlayerInteriorChange"/>
+			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="Progress_DesmancharVeh"/>
 			<referrer name="Progress_RepararVeh"/>
 			<referrer name="Progress_DescarregarCarga"/>
@@ -33364,17 +33649,27 @@
 		</member>
 		<member name="M:cmd_carregar" syntax="cmd_carregar(playerid)">
 			<attribute name="public"/>
-			<stacksize value="10"/>
+			<stacksize value="11"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
+			<dependency name="Float:operator=(_:)"/>
+			<dependency name="CaixasSdxObj"/>
+			<dependency name="CaixasSdxObj"/>
 			<dependency name="Cargase"/>
 			<dependency name="Carregou"/>
+			<dependency name="CreatePlayerObject"/>
 			<dependency name="DIALOG_CARGA"/>
+			<dependency name="EmServico"/>
+			<dependency name="EntregaSdx"/>
 			<dependency name="ErrorMsg"/>
+			<dependency name="FIXES_SetPlayerCheckpoint"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="GetVehicleModel"/>
+			<dependency name="PegouVehProf"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerToPoint"/>
+			<dependency name="SuccesMsg"/>
 			<dependency name="acc_ShowPlayerDialog"/>
+			<dependency name="false"/>
 			<dependency name="pProfissao"/>
 			<dependency name="true"/>
 			<param name="playerid">
@@ -34368,6 +34663,25 @@
 			</param>
 			<param name="params">
 				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:cmd_garagememp" syntax="cmd_garagememp(playerid)">
+			<attribute name="public"/>
+			<stacksize value="10"/>
+			<dependency name="DIALOG_SEDEX"/>
+			<dependency name="EmServico"/>
+			<dependency name="ErrorMsg"/>
+			<dependency name="IsPlayerInAnyVehicle"/>
+			<dependency name="PegouVehProf"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerToPoint"/>
+			<dependency name="acc_DestroyVehicle"/>
+			<dependency name="acc_ShowPlayerDialog"/>
+			<dependency name="carID"/>
+			<dependency name="false"/>
+			<dependency name="pProfissao"/>
+			<dependency name="true"/>
+			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:cmd_gmx" syntax="cmd_gmx(playerid)">
@@ -36204,6 +36518,33 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:cmd_uniforme" syntax="cmd_uniforme(playerid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="EmServico"/>
+			<dependency name="ErrorMsg"/>
+			<dependency name="FIXES_SetPlayerSkin"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerToPoint"/>
+			<dependency name="SuccesMsg"/>
+			<dependency name="false"/>
+			<dependency name="pProfissao"/>
+			<dependency name="pSkin"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:cmd_var" syntax="cmd_var(playerid)">
+			<attribute name="public"/>
+			<stacksize value="46"/>
+			<dependency name="CaixasSdx"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="format"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:cmd_vendercasa" syntax="cmd_vendercasa(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="415"/>
@@ -36851,6 +37192,7 @@
 		<member name="M:floatcos" syntax="floatcos(value, mode)">
 			<tagname value="Float"/>
 			<attribute name="native"/>
+			<referrer name="GetVehicleTrunkPosition"/>
 			<referrer name="GetXYInFrontOfCaixa"/>
 			<referrer name="cmd_addv"/>
 			<param name="value">
@@ -36921,6 +37263,7 @@
 		<member name="M:floatsin" syntax="floatsin(value, mode)">
 			<tagname value="Float"/>
 			<attribute name="native"/>
+			<referrer name="GetVehicleTrunkPosition"/>
 			<referrer name="GetXYInFrontOfCaixa"/>
 			<referrer name="cmd_addv"/>
 			<param name="value">
@@ -37144,6 +37487,7 @@
 			<referrer name="cmd_gmx"/>
 			<referrer name="cmd_vips"/>
 			<referrer name="cmd_lojavip"/>
+			<referrer name="cmd_var"/>
 			<referrer name="cmd_convidar"/>
 			<referrer name="cmd_limparvagas"/>
 			<referrer name="cmd_demitir"/>
@@ -38137,6 +38481,7 @@
 			<dependency name="DCC_SetEmbedDescription"/>
 			<dependency name="DCC_SetEmbedImage"/>
 			<dependency name="DOF2_RemoveFile"/>
+			<dependency name="DestroyDynamicObject"/>
 			<dependency name="EntradaeSaida"/>
 			<dependency name="FIXES_DisablePlayerRaceCP"/>
 			<dependency name="FIXES_KillTimer"/>
@@ -38151,6 +38496,7 @@
 			<dependency name="IniciouTesteHabilitacaoD"/>
 			<dependency name="IsPlayerInVehicle"/>
 			<dependency name="Patrulha"/>
+			<dependency name="PegouVehProf"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerTextDrawDestroy"/>
@@ -38184,13 +38530,16 @@
 			<dependency name="ZerarDados"/>
 			<dependency name="acc_DestroyVehicle"/>
 			<dependency name="acc_RemovePlayerFromVehicle"/>
+			<dependency name="carID"/>
 			<dependency name="fexist"/>
 			<dependency name="format"/>
 			<dependency name="gettime"/>
 			<dependency name="jogadoreson"/>
 			<dependency name="lstream"/>
 			<dependency name="pLogado"/>
+			<dependency name="pProfissao"/>
 			<dependency name="policiaon"/>
+			<dependency name="sdxobj"/>
 			<dependency name="true"/>
 			<param name="playerid">
 			</param>
