@@ -180,6 +180,7 @@ enum
 	DIALOG_PRESOS,
 	DIALOG_BANCO4,
 	DIALOG_BANCO5,
+	DIALOG_SEDEX,
 	DIALOG_SELTRABALHO, 
 	DIALOG_ALIMENTOS,
 	DIALOG_CATLANCHE,
@@ -728,7 +729,15 @@ new ArmazenarString[30][MAX_PLAYERS];
 new stringZCMD[180];
 new ModoTransacao[MAX_PLAYERS];
 new jogadoreson = 0;
+new bool:EntregaSdx[MAX_PLAYERS];
 new RecentlyShot[MAX_PLAYERS];
+new CaixasSdxObj[MAX_PLAYERS][11];
+new bool:CaixaMao[MAX_PLAYERS] = false;
+new CaixasSdx[MAX_PLAYERS];
+new bool:PegandoCaixas[MAX_PLAYERS] = false;
+new bool:EmServico[MAX_PLAYERS] = false;
+new sdxobj[10];
+new carID[MAX_PLAYERS];
 new	Assistindo[MAX_PLAYERS] = -1,
 	Erro[MAX_PLAYERS],
 	ID,
@@ -744,6 +753,7 @@ new bool:MostrandoMenu[MAX_PLAYERS];
 new TimerCad[MAX_PLAYERS];
 new RepairCar[MAX_PLAYERS];
 new bool:TemCinto[MAX_PLAYERS] = false;
+new bool:PegouVehProf[MAX_PLAYERS] = false;
 new TemMinerio[MAX_PLAYERS];
 new Desossando[MAX_PLAYERS];
 new Page[MAX_PLAYERS];
@@ -1662,6 +1672,96 @@ CallBack:: EstaSegurandoArmaProibida(playerid)
     }
 
     return false;
+}
+
+Progresso:PegandoCaixasP(playerid, progress){
+	if(progress >= 100){
+		if(CaixaMao[playerid] == false){
+			new Float:PosV[3];
+			new engine, lights, alarm, doors, bonnet, boot, objective,idv = carID[playerid];
+			GetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, boot, objective);
+			SetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, 1, objective);
+			GetVehicleTrunkPosition(carID[playerid], PosV[0], PosV[1], PosV[2]);
+			TogglePlayerControllable(playerid, 1);
+			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+			SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+			SuccesMsg(playerid, "Leve a caixa ate a van.");
+			SetPlayerCheckpoint(playerid, PosV[0], PosV[1], PosV[2],1);
+			CaixaMao[playerid] = true;
+			CaixasSdx[playerid]++;
+			DestroyPlayerObject(playerid,CaixasSdxObj[playerid][CaixasSdx[playerid]]); 
+		}
+	}
+	return 1;
+}
+
+Progresso:ColocandoCaixa(playerid, progress){
+	if(progress >= 100){
+		if(CaixasSdx[playerid] == 10){
+			SuccesMsg(playerid, "Agora voce deve entrar na van e iniciar as entregas.");
+			RemovePlayerAttachedObject(playerid, 1);
+			TogglePlayerControllable(playerid, 1);
+			ClearAnimations(playerid);
+			SetPlayerSpecialAction(playerid, 0);
+			new Alt = random(303);
+			SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 0.5);
+			CaixasSdx[playerid] = 0;
+			new engine, lights, alarm, doors, bonnet, boot, objective,idv = carID[playerid];
+			GetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, boot, objective);
+			SetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, 0, objective);
+		}else{
+			switch(CaixasSdx[playerid]){
+				case 0:{
+					SetPlayerCheckpoint(playerid, 954.7924,1707.8540,8.6484, 1);
+					EntregaSdx[playerid] = true;
+				}
+				case 1:{
+					SetPlayerCheckpoint(playerid, 954.7924,1707.8540,8.6484, 1);
+					EntregaSdx[playerid] = true;
+				}
+				case 2:{
+					SetPlayerCheckpoint(playerid, 955.9162,1708.0720,8.6484, 1);
+					EntregaSdx[playerid] = true;
+				}
+				case 3:{
+					SetPlayerCheckpoint(playerid, 955.9162,1708.0720,8.6484, 1);
+					EntregaSdx[playerid] = true;
+				}
+				case 4:{
+					SetPlayerCheckpoint(playerid, 956.8380,1708.0153,8.6484, 1);
+					EntregaSdx[playerid] = true;
+				}
+				case 5:{
+					SetPlayerCheckpoint(playerid, 956.8380,1708.0153,8.6484, 1);
+					EntregaSdx[playerid] = true;
+				}
+				case 6:{
+					SetPlayerCheckpoint(playerid, 957.9166,1708.4794,8.6484, 1);
+					EntregaSdx[playerid] = true;
+				}
+				case 7:{
+					SetPlayerCheckpoint(playerid, 957.9166,1708.4794,8.6484, 1);
+					EntregaSdx[playerid] = true;
+				}
+				case 8:{
+					SetPlayerCheckpoint(playerid, 958.5190,1708.7068,8.6484, 1);
+					EntregaSdx[playerid] = true;
+				}
+				case 9:{
+					SetPlayerCheckpoint(playerid, 958.5190,1708.7068,8.6484, 1);
+					EntregaSdx[playerid] = true;
+				}
+			}
+			SuccesMsg(playerid, "Pegue a proxima caixa e leve ate a van.");
+			RemovePlayerAttachedObject(playerid, 1);
+			TogglePlayerControllable(playerid, 1);
+			ClearAnimations(playerid);
+			SetPlayerSpecialAction(playerid, 0);
+			
+		}
+	}
+	return 1;
 }
 
 Progresso:DominarLBarragem(playerid, progress)
@@ -5167,7 +5267,7 @@ RetirarItem(playerid, modelid)
     return 1;
 }
 
-RetirarItem2(playerid, modelid, qtd)
+stock RetirarItem2(playerid, modelid, qtd)
 {
     if(IsPlayerConnected(playerid))
 	{
@@ -6610,6 +6710,22 @@ stock IsPlayerInPlace(playerid,Float:XMin,Float:YMin,Float:XMax,Float:YMax )
 	}
 	return RetValue;
 }
+
+stock GetVehicleTrunkPosition(vehicleid, &Float:x, &Float:y, &Float:z)
+{
+    new
+        Float:vehsize,
+        Float:vehangle,
+        Float:n;
+    
+    GetVehiclePos(vehicleid, x, y, z);
+    GetVehicleZAngle(vehicleid, vehangle);
+    
+    GetVehicleModelInfo(GetVehicleModel(vehicleid), VEHICLE_MODEL_INFO_SIZE, n, vehsize, n);
+    
+    x -= ((vehsize / 1.6) * floatsin(-vehangle, degrees));
+    y -= ((vehsize / 1.6) * floatcos(-vehangle, degrees));
+} 
 
 stock GuardarItem2(playerid)
 {
@@ -10733,6 +10849,7 @@ stock Profs(playerid)
 	else if(PlayerInfo[playerid][pProfissao] == 5) { LipeStrondaProfs = "Cozinheiro"; }
 	else if(PlayerInfo[playerid][pProfissao] == 6) { LipeStrondaProfs = "Coletor"; }
 	else if(PlayerInfo[playerid][pProfissao] == 7) { LipeStrondaProfs = "Empacotador"; }
+	else if(PlayerInfo[playerid][pProfissao] == 8) { LipeStrondaProfs = "Correios"; }
 	return LipeStrondaProfs;
 }
 
@@ -10747,8 +10864,9 @@ stock VIP(playerid)
 {
 	new LipeStrondaVIP[64];
 	if(PlayerInfo[playerid][pVIP] != 0) { LipeStrondaVIP = " "; }
-	if(PlayerInfo[playerid][pVIP] == 1) { LipeStrondaVIP = "VIP BASICO"; }
-	else if(PlayerInfo[playerid][pVIP] == 2) { LipeStrondaVIP = "VIP PREMIUM"; }
+	if(PlayerInfo[playerid][pVIP] == 1) { LipeStrondaVIP = "VIP CLASSIC"; }
+	else if(PlayerInfo[playerid][pVIP] == 2) { LipeStrondaVIP = "VIP ADVANCED"; }
+	else if(PlayerInfo[playerid][pVIP] == 3) { LipeStrondaVIP = "VIP PREMIUM"; }
 	return LipeStrondaVIP;
 }
 
@@ -10822,35 +10940,39 @@ stock NpcText()
 {
 	new Actor[30+1],Text3D:label[30+1];
 
-	Actor[0] = CreateActor(217, 1689.325073, -2326.446777, 13.546875, 146.990203); 
-	label[0] = Create3DTextLabel("{FFFFFF}Ola, Use {FFFF00}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, 1689.325073, -2326.446777, 13.546875, 15.0, 0);
+	Actor[0] = CreateActor(227, 1689.325073, -2326.446777, 13.546875, 146.990203); 
+	label[0] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {FFFF00}Allison_Gomes!\n{FFFFFF}Use {FFFF00}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, 1689.325073, -2326.446777, 13.546875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[0], Actor[0], 0.0, 0.0, 0.7);
 
 	Actor[1] = CreateActor(35, 154.188613, -1945.949584, 4.972961, 352.308258);  
-	label[1] = Create3DTextLabel("{FFFF00}Pescador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 154.188613, -1945.949584, 4.972961, 15.0, 0);
+	label[1] = Create3DTextLabel("{FFFF00}Pescador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o trampo.", 0x008080FF, 154.188613, -1945.949584, 4.972961, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[1], Actor[1], 0.0, 0.0, 0.7);
  
 	CreateAurea("{FFFF00}Loja de Pescados\n{FFFFFF}Use o {FFFF00}Inventario{FFFFFF}' para vender.", 163.968444, -1941.403564, 3.773437);
 
 	Actor[3] = CreateActor(34, 584.859375, 877.046569, -42.497318, 266.847808);  
-	label[3] = Create3DTextLabel("{FFFF00}Minerador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 584.859375, 877.046569, -42.497318, 15.0, 0);
+	label[3] = Create3DTextLabel("{FFFF00}Empresa: {FFFFFF}Mineradora LathMor\n{00FF00}Vaga:{FFFFFF} Minerador\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 584.859375, 877.046569, -42.497318, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[3], Actor[3], 0.0, 0.0, 0.7);
 
 	Actor[4] = CreateActor(133, 960.607055, 2097.604003, 1011.023010, 358.121734);  
-	label[4] = Create3DTextLabel("{FFFF00}Acougueiro\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 960.607055, 2097.604003, 1011.023010, 15.0, 0);
+	label[4] = Create3DTextLabel("{FFFF00}Empresa: {FFFFFF}FriBoi\n{00FF00}Vaga:{FFFFFF} Acougueiro\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 960.607055, 2097.604003, 1011.023010, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[4], Actor[4], 0.0, 0.0, 0.7);
 
 	Actor[5] = CreateActor(78, -504.495117, -517.457763, 25.523437, 258.582305);  
-	label[5] = Create3DTextLabel("{FFFF00}Caminhoneiro\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -504.495117, -517.457763, 25.523437, 15.0, 0);
+	label[5] = Create3DTextLabel("{FFFF00}Empresa: {FFFFFF}FedeX\n{00FF00}Vaga:{FFFFFF}Caminhoneiro\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -504.495117, -517.457763, 25.523437, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[5], Actor[5], 0.0, 0.0, 0.7);
 
 	Actor[6] = CreateActor(79, -28.763319, 1363.971313, 9.171875, 37.998077);  
-	label[6] = Create3DTextLabel("{FFFF00}Coletor\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -28.763319, 1363.971313, 9.171875, 15.0, 0);
+	label[6] = Create3DTextLabel("{FFFF00}Empresa: {FFFFFF}Prefeitura da Baixada\n{00FF00}Vaga:{FFFFFF} Coletor de Lixo\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -28.763319, 1363.971313, 9.171875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[6], Actor[6], 0.0, 0.0, 0.7);
 
 	Actor[7] = CreateActor(188, 1682.130737, -2326.373291, 13.546875, 211.057678);  
 	label[7] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {FFFF00}Luan_Rosa!\n{FFFFFF}Aprenda como jogar no servidor \nUse '{FFFF00}F{FFFFFF}' para se informar", 0x008080FF, 1682.130737, -2326.373291, 13.546875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[7], Actor[7], 0.0, 0.0, 0.7);
+
+	Actor[8] = CreateActor(71, 939.6504,1733.2004,8.8516,-87.4139);  
+	label[8] = Create3DTextLabel("{FFFF00}Empresa: {FFFFFF}SedeX\n{00FF00}Vaga:{FFFFFF} Correios\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 939.6504,1733.2004,8.8516, 15.0, 0);
+	Attach3DTextLabelToPlayer(label[8], Actor[8], 0.0, 0.0, 0.7);
 
 	CreateAurea("{FFFF00}Prefeitura\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", -501.146118, 294.354156, 2001.094970);
 	CreateAurea("{FFFF00}Banco Central\n{FFFFFF}Use '{FFFF00}F{FFFFFF}' para abrir o menu.", 1246.485839, -1651.083862, 17.028537);
@@ -10890,6 +11012,12 @@ stock NpcText()
 
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}F{FFFFFF}' para \npegar uma camera.", -1, -5467.627441, -4536.831054, 4046.774902, 25.0); // Camera
 	CreateDynamicPickup(1275, 23, -5467.627441, -4536.831054, 4046.774902);//Camera
+
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}/uniforme{FFFFFF}' para \npegar seu uniforme e bater ponto.", -1, 956.8282,1754.7942,8.6484, 25.0); // Uniforme correios
+	CreateDynamicPickup(1275, 23, 956.8282,1754.7942,8.6484);//Uniforme correios
+
+	CreateDynamic3DTextLabel("{FFFFFF}Garagem {FFFF00}SedeX\n{FFFFFF}Use '{FFFF00}/garagememp{FFFFFF}' para \npegar um veiculo da empresa.", -1, 981.7181,1733.6261,8.6484, 25.0); // garagem correios
+	CreateDynamicPickup(19131, 23, 981.7181,1733.6261,8.6484);//garagem correios
 
 	CreateDynamicPickup(19606,23,-1606.267578, 733.912414, -5.234413,0);
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}/prender{FFFFFF}'para \nprender o jogador.",-1,-1606.267578, 733.912414, -5.234413,15);
@@ -11135,6 +11263,10 @@ stock ZerarDados(playerid)
 	ModoTransacao[playerid] = 0;
 	TiempoAnuncio[playerid] = 0;
 	LavouMao[playerid] = false;
+	PegouVehProf[playerid] = false;
+	CaixaMao[playerid] = false;
+	CaixasSdx[playerid] = 0;
+	carID[playerid] = 0;
 	EtapasMinerador[playerid] = 0;
 	TemMinerio[playerid] = 0;
 	Desossando[playerid] = 0;
@@ -11217,6 +11349,8 @@ stock ZerarDados(playerid)
 	Covaconcerto[playerid] = false;
 	Podecmd[playerid] = true;
 	ltumba[playerid] = false;
+	EmServico[playerid] = false;
+	PegandoCaixas[playerid] = false;
 	RecentlyShot[playerid] = 0;
 	InventarioAberto[playerid] = 0;
 	SetPlayerColor(playerid, 0xFFFFFFFF);
@@ -11225,6 +11359,7 @@ stock ZerarDados(playerid)
 	for(new i=0;i<6;i++){
 		Preview[playerid][i] = 0;
 	}
+	EntregaSdx[playerid] = false;
 	return 1;
 }
 
@@ -12050,6 +12185,14 @@ public OnPlayerDisconnect(playerid, reason)
 		KillTimer(TimerPayDay[playerid]);
 		KillTimer(TimerAttVeh[playerid]);
 		KillTimer(TimerHacker[playerid]);
+		if(PegouVehProf[playerid] == true){
+			if(PlayerInfo[playerid][pProfissao] == 8){
+				for(new o=0;o<10;o++){
+					DestroyDynamicObject(sdxobj[o]); 
+				}
+				DestroyVehicle(carID[playerid]);
+			}
+		}
 		if(Patrulha[playerid] == true) 
 		{
 			policiaon --;
@@ -12623,6 +12766,24 @@ public OnPlayerEnterCheckpoint(playerid)
 	{ 
 		DisablePlayerCheckpoint(playerid);
 		GPS[playerid] = false;
+	}
+	if(EntregaSdx[playerid] == true){
+		if(IsPlayerInAnyVehicle(playerid)){
+			ErrorMsg(playerid, "Voce deve estar fora do veiculo.");
+		}else{
+			DisablePlayerCheckpoint(playerid);
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "BUDDY", "BUDDY_CROUCHRELOAD", 4.1, 1, 0, 0, 0, 0, 1);
+			CreateProgress(playerid,"PegandoCaixasP","Pegando caixa...", 80);
+			EntregaSdx[playerid] = false;
+		}
+	}
+	if(CaixaMao[playerid] == true){
+		DisablePlayerCheckpoint(playerid); 
+		TogglePlayerControllable(playerid, 0);
+		ApplyAnimation(playerid, "BUDDY", "BUDDY_CROUCHRELOAD", 4.1, 1, 0, 0, 0, 0, 1);
+		CreateProgress(playerid, "ColocandoCaixa","Colocando caixa...", 60);
+		CaixaMao[playerid] = false;
 	}
 	if(Covaconcerto[playerid] == true) 
 	{ 
@@ -14475,6 +14636,17 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				MissaoPlayer[playerid][MISSAO3] = 1;
 			}
 		} 
+		if(PlayerToPoint(3.0, playerid, 939.6504,1733.2004,8.8516)) //correios
+		{
+			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
+			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
+			else
+			{
+				PlayerInfo[playerid][pProfissao] = 8;
+				SuccesMsg(playerid, "Voce foi contratado pela SedeX como Correios.");
+				MissaoPlayer[playerid][MISSAO3] = 1;
+			}
+		}
 	}
 	return 1;
 }
@@ -14977,6 +15149,60 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			DeletePVar(playerid, "IdTransferiu");
 			/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 		}
+		case DIALOG_SEDEX:{
+			if(response){
+				if(PegouVehProf[playerid] == false){
+					carID[playerid] = CreateVehicle(413,981.7181,1733.6261,8.6484,-271.9456,6,16,-1,0);
+
+					sdxobj[0] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+					SetDynamicObjectMaterialText(sdxobj[0], 0, "3", 60, "Webdings", 22, 0, -16759757, 0, 1);
+					AttachDynamicObjectToVehicle(sdxobj[0], carID[playerid], -0.965, -0.107, 0.740, 0.000, 0.000, 177.199);
+					sdxobj[1] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+					SetDynamicObjectMaterialText(sdxobj[1], 0, "3", 60, "Webdings", 22, 0, -16759757, 0, 1);
+					AttachDynamicObjectToVehicle(sdxobj[1], carID[playerid], -0.968, -0.240, 0.610, 0.000, 0.000, 0.000);
+					sdxobj[2] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+					SetDynamicObjectMaterialText(sdxobj[2], 0, "3", 60, "Webdings", 22, 0, -16759757, 0, 1);
+					AttachDynamicObjectToVehicle(sdxobj[2], carID[playerid], 0.992, -0.240, 0.610, 0.000, 0.000, 0.000);
+					sdxobj[3] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+					SetDynamicObjectMaterialText(sdxobj[3], 0, "4", 60, "Webdings", 22, 0, -16759757, 0, 1);
+					AttachDynamicObjectToVehicle(sdxobj[3], carID[playerid], 1.006, -0.007, 0.740, 0.000, 0.000, 0.000);
+					sdxobj[4] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+					SetDynamicObjectMaterialText(sdxobj[4], 0, "4", 60, "Webdings", 22, 0, -16759757, 0, 1);
+					AttachDynamicObjectToVehicle(sdxobj[4], carID[playerid], -0.144, 2.236, 0.347, -0.099, -67.499, 88.999);
+					sdxobj[5] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+					SetDynamicObjectMaterialText(sdxobj[5], 0, "4", 60, "Webdings", 22, 0, -16759757, 0, 1);
+					AttachDynamicObjectToVehicle(sdxobj[5], carID[playerid], 0.082, 2.159, 0.426, -15.899, 89.599, 27.899);
+					sdxobj[6] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+					SetDynamicObjectMaterialText(sdxobj[6], 0, "CORREIOS", 120, "Ariel", 30, 1, -16759757, 0, 1);
+					AttachDynamicObjectToVehicle(sdxobj[6], carID[playerid], -0.965, -1.287, 0.669, 0.199, -1.899, 179.500);
+					sdxobj[7] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+					SetDynamicObjectMaterialText(sdxobj[7], 0, "CORREIOS", 120, "Ariel", 30, 1, -16759757, 0, 1);
+					AttachDynamicObjectToVehicle(sdxobj[7], carID[playerid], 0.945, -1.287, 0.662, 0.000, -7.599, 0.000);
+					sdxobj[8] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+					SetDynamicObjectMaterialText(sdxobj[8], 0, "EMPRESA 100% BRASILEIRA", 140, "Ariel", 15, 1, -16759757, 0, 1);
+					AttachDynamicObjectToVehicle(sdxobj[8], carID[playerid], 1.036, -1.017, 0.338, 0.000, 0.000, 0.000);
+					sdxobj[8] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+					SetDynamicObjectMaterialText(sdxobj[8], 0, "EMPRESA 100% BRASILEIRA", 140, "Ariel", 15, 1, -16759757, 0, 1);
+					AttachDynamicObjectToVehicle(sdxobj[8], carID[playerid], -1.005, -1.016, 0.338, 0.000, 0.000, -179.899);
+					sdxobj[9] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+					SetDynamicObjectMaterialText(sdxobj[9], 0, "CORREIOS", 140, "Ariel", 15, 1, -16759757, 0, 1);
+					AttachDynamicObjectToVehicle(sdxobj[9], carID[playerid], -0.029, 2.472, 0.343, 0.000, -71.699, 90.199);
+
+					PutPlayerInVehicle(playerid, carID[playerid], 0);
+
+					PegouVehProf[playerid] = true;
+
+					SuccesMsg(playerid, "Voce pegou uma van da SedeX na garagem.");
+				}else{
+					for(new o=0;o<10;o++){
+						DestroyDynamicObject(sdxobj[o]);
+					}
+					DestroyVehicle(carID[playerid]);
+					PegouVehProf[playerid] = false;
+					SuccesMsg(playerid, "Voce entregou uma van da SedeX na garagem.");
+				}
+			}
+		}
 		case DIALOG_SELTRABALHO:
 		{
 			if(response)
@@ -15028,6 +15254,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
 					SetPlayerCheckpoint(playerid, 1974.8153, -1779.7526, 13.5432, 3.0);
+					SuccesMsg(playerid, "Foi marcado no seu mapa.");
+				}
+				if(listitem == 7) //correios
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, 1004.1582,1755.0336,10.7734, 3.0);
 					SuccesMsg(playerid, "Foi marcado no seu mapa.");
 				}
 			}
@@ -15265,6 +15498,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						strcat(Str2, "\n{FFFF00}Passo 2:{FFFFFF} Colete todos os lixos e jogue nos baus de lixo.");
 						ShowPlayerDialog(playerid, DIALOG_EMP2, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
+					if(PlayerInfo[playerid][pProfissao] == 8)
+					{
+						strcat(Str2, "\t{FFFF00}- {FFFFFF}Ajuda Correios{FFFF00}- {FFFFFF}\n\n");
+						strcat(Str2, "\n{FFFF00}Passo 1:{FFFFFF} Use /uniforme para iniciar expediente.");
+						strcat(Str2, "\n{FFFF00}Passo 2:{FFFFFF} Use /garagememp para pegar uma van na garagem.");
+						strcat(Str2, "\n{FFFF00}Passo 3:{FFFFFF} Use /carregar para carregar a van com os produtos para entrega.");
+						//strcat(Str2, "\n{FFFF00}Passo 4:{FFFFFF} Use /iniciarentregas para comecar o percurso.");
+						strcat(Str2, "\n{FFFF00}Passo 4:{FFFFFF} Entregue todas as entregas em seu determinado destino.");
+						ShowPlayerDialog(playerid, DIALOG_EMP2, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
+					}
 				}
 				if(listitem == 3)
 				{
@@ -15452,6 +15695,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new Float:c = GetPlayerDistanceFromPoint(playerid, -28.763319, 1363.971313, 9.171875);
 					new Float:d = GetPlayerDistanceFromPoint(playerid, 590.086975, 871.486694, -42.734603);
 					new Float:e = GetPlayerDistanceFromPoint(playerid, -504.495117, -517.457763, 25.523437);
+					new Float:f = GetPlayerDistanceFromPoint(playerid, 1004.1582,1755.0336,10.7734);
 					MEGAString[0] = EOS;
 					new string[800];
 					strcat(MEGAString, "Local\tDistancia\n");
@@ -15464,6 +15708,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					format(string, 128, "{FFFFFF} Minerador \t{FFFF00} %.0f KM\n", d);
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Caminhoneiro \t{FFFF00} %.0f KM\n", e);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Correios \t{FFFF00} %.0f KM\n", f);
 					strcat(MEGAString,string);
 					ShowPlayerDialog(playerid, DIALOG_GPS2, DIALOG_STYLE_TABLIST_HEADERS, "Locais Empregos", MEGAString, "Localizar","X");
 				}
@@ -15746,6 +15992,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
 					SetPlayerCheckpoint(playerid, -504.495117, -517.457763, 25.523437, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 5)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, 1004.1582,1755.0336,10.7734, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 			}
@@ -19269,6 +19522,50 @@ CMD:mostrarrg(playerid,params[])
 	return 1;
 }
 
+CMD:garagememp(playerid){
+	if(PlayerInfo[playerid][pProfissao] == 8){
+		if(PlayerToPoint(3.0, playerid, 981.7181,1733.6261,8.6484)){
+			if(EmServico[playerid] == false) return ErrorMsg(playerid,"Voce nao esta em servico.");
+			if(IsPlayerInAnyVehicle(playerid) && PegouVehProf[playerid] == true){
+				ShowPlayerDialog(playerid,DIALOG_SEDEX,DIALOG_STYLE_MSGBOX,"GARAGEM {FFFF00}SEDEX","Voce deseja entregar um {FFFF00}veiculo{FFFFFF} da empresa SedeX?","Sim","Nao");
+			}else if(!IsPlayerInAnyVehicle(playerid) && PegouVehProf[playerid] == true){
+				PegouVehProf[playerid] = false;
+				DestroyVehicle(carID[playerid]);
+				carID[playerid] = 0;
+				ShowPlayerDialog(playerid,DIALOG_SEDEX,DIALOG_STYLE_MSGBOX,"GARAGEM {FFFF00}SEDEX","Voce deseja pegar um {FFFF00}veiculo{FFFFFF} da empresa SedeX?","Sim","Nao");
+			}else if(PegouVehProf[playerid] == false){
+				ShowPlayerDialog(playerid,DIALOG_SEDEX,DIALOG_STYLE_MSGBOX,"GARAGEM {FFFF00}SEDEX","Voce deseja pegar um {FFFF00}veiculo{FFFFFF} da empresa SedeX?","Sim","Nao");
+			}
+		}else{
+			ErrorMsg(playerid,"Voce nao esta na Garagem da SedeX.");
+		}
+	}else{
+		ErrorMsg(playerid,"Voce nao faz parte de uma empresa/corporacao/organizacao.");
+	}
+	return 1;
+}
+
+CMD:uniforme(playerid){
+	if(PlayerInfo[playerid][pProfissao] == 8){ //Correios
+		if(PlayerToPoint(3.0, playerid, 956.8282,1754.7942,8.6484)){
+			if(EmServico[playerid] == false){
+				EmServico[playerid] = true;
+				SetPlayerSkin(playerid, 71);
+				SuccesMsg(playerid, "Voce vestiu seu uniforme e iniciou servico.");
+			}else{
+				EmServico[playerid] = false;
+				SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
+				SuccesMsg(playerid, "Voce retirou seu uniforme e encerrou servico.");
+			}
+		}else{
+			ErrorMsg(playerid, "Voce nao esta no local correto de colocar sua vestimenta.");
+		}
+	}else{
+		ErrorMsg(playerid, "Voce nao pertence a nenhuma empresa/organizacao/corporacao.");
+	}
+	return 1;
+}
+
 CMD:mvoip(playerid)
 {
 	ShowPlayerDialog(playerid, D_VOIP, DIALOG_STYLE_LIST, "Config VOIP", "{FFFF00}VOIP{FFFFFF} Falando\n{FFFF00}VOIP{FFFFFF} Susurrando\n\
@@ -20544,13 +20841,37 @@ CMD:lferidos(playerid, params[])
 
 CMD:carregar(playerid)
 {
-	if(PlayerToPoint(3.0, playerid, -520.421813, -504.999450, 24.635631) || PlayerToPoint(3.0, playerid, -529.748168, -504.937561, 24.640802) || PlayerToPoint(3.0, playerid, -557.552368, -505.473480, 24.596021))
-	if(PlayerInfo[playerid][pProfissao] != 4) 	return ErrorMsg(playerid, "Nao possui permissao.");
-	if(Cargase[playerid] == true) 	return ErrorMsg(playerid, "Seu caminhao ja esta carregado.");
-	if(Carregou[playerid] == 1) 	return ErrorMsg(playerid, "Ja tem uma carga.");
-	if(GetVehicleModel(GetPlayerVehicleID(playerid)) != 456)  	return ErrorMsg(playerid, "Nao esta no veiculo de trabalho");
-	ShowPlayerDialog(playerid, DIALOG_CARGA, DIALOG_STYLE_LIST, "{FFFF00}Cargas Disponiveis.", "{FFFF00}- {FFFFFF}Ind. Solarion SF\t{32CD32}R$2250\n{FFFF00}- {FFFFFF}Michelin Pneus LV\t{32CD32}R$2400\n{FFFF00}- {FFFFFF}Sprunk LS\t{32CD32}R$2150\n{FFFF00}- {FFFFFF}Xoomer LS\t{32CD32}R$2150\n{FFFF00}- {FFFFFF}FlaischBerg LS\t{32CD32}R$2100\n", "Carregar", "");
+	if(PlayerInfo[playerid][pProfissao] == 4){
+		if(PlayerToPoint(3.0, playerid, -520.421813, -504.999450, 24.635631) || PlayerToPoint(3.0, playerid, -529.748168, -504.937561, 24.640802) || PlayerToPoint(3.0, playerid, -557.552368, -505.473480, 24.596021))
+		if(Cargase[playerid] == true) 	return ErrorMsg(playerid, "Seu caminhao ja esta carregado.");
+		if(Carregou[playerid] == 1) 	return ErrorMsg(playerid, "Ja tem uma carga.");
+		if(GetVehicleModel(GetPlayerVehicleID(playerid)) != 456)  	return ErrorMsg(playerid, "Nao esta no veiculo de trabalho");
+		ShowPlayerDialog(playerid, DIALOG_CARGA, DIALOG_STYLE_LIST, "{FFFF00}Cargas Disponiveis.", "{FFFF00}- {FFFFFF}Ind. Solarion SF\t{32CD32}R$2250\n{FFFF00}- {FFFFFF}Michelin Pneus LV\t{32CD32}R$2400\n{FFFF00}- {FFFFFF}Sprunk LS\t{32CD32}R$2150\n{FFFF00}- {FFFFFF}Xoomer LS\t{32CD32}R$2150\n{FFFF00}- {FFFFFF}FlaischBerg LS\t{32CD32}R$2100\n", "Carregar", "");
+	}else if(PlayerInfo[playerid][pProfissao] == 8){ //Correios
+		if(EmServico[playerid] == false) return ErrorMsg(playerid, "Voce nao iniciou expediente.");
+		if(PegouVehProf[playerid] == false) return ErrorMsg(playerid, "Voce nao pegou uma van de servicos dos Correios.");
+		SetPlayerCheckpoint(playerid, 954.7924,1707.8540,8.6484,1);
+		SuccesMsg(playerid, "Va ate o local marcado.");
+		EntregaSdx[playerid] = true;
+		CaixasSdxObj[playerid][1] = CreatePlayerObject(playerid,1221, 954.870483, 1706.978149, 8.968443, 0.000000, 0.000000, 0.000000, 300.00); 
+		CaixasSdxObj[playerid][2] = CreatePlayerObject(playerid,1221, 954.870483, 1706.978149, 8.078433, 0.000000, 0.000000, 0.000000, 300.00); 
+		CaixasSdxObj[playerid][3] = CreatePlayerObject(playerid,1221, 955.930419, 1706.978149, 8.968428, 0.000000, 0.000000, 0.000000, 300.00); 
+		CaixasSdxObj[playerid][4] = CreatePlayerObject(playerid,1221, 955.930419, 1706.978149, 8.078433, 0.000000, 0.000000, 0.000000, 300.00); 
+		CaixasSdxObj[playerid][5] = CreatePlayerObject(playerid,1221, 956.920593, 1706.978149, 8.988447, 0.000000, 0.000000, 0.000000, 300.00); 
+		CaixasSdxObj[playerid][6] = CreatePlayerObject(playerid,1221, 956.920593, 1706.978149, 8.078433, 0.000000, 0.000000, 0.000000, 300.00); 
+		CaixasSdxObj[playerid][7] = CreatePlayerObject(playerid,1221, 958.100891, 1707.363525, 8.988439, 0.000000, 0.000000, 15.899997, 300.00); 
+		CaixasSdxObj[playerid][8] = CreatePlayerObject(playerid,1221, 958.100891, 1707.363525, 8.078433, 0.000000, 0.000000, 15.899997, 300.00); 
+		CaixasSdxObj[playerid][9] = CreatePlayerObject(playerid,1221, 959.064208, 1708.000976, 8.978438, 0.000000, 0.000000, 41.599994, 300.00); 
+		CaixasSdxObj[playerid][10] = CreatePlayerObject(playerid,1221, 959.064208, 1708.000976, 8.078433, 0.000000, 0.000000, 41.599994, 300.00); 
+	}
 	return 1;
+}
+
+CMD:var(playerid){ //cmd teste
+	new st[40];
+	format(st,sizeof(st),"%i",CaixasSdx[playerid]);
+	SendClientMessage(playerid, -1, st);
+	return true;
 }
 
 CMD:descarregar(playerid)

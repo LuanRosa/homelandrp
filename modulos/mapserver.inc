@@ -14421,12 +14421,50 @@ stock CarregarMapas()
     LojinhaGRP = CreateDynamicObject(8167, 2068.938232, -1861.498535, 12.826956, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
     LojinhaGRP = CreateDynamicObject(8167, 2061.517578, -1861.498535, 12.826956, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
     LojinhaGRP = CreateDynamicObject(8167, 2054.328125, -1861.498535, 12.826956, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+
+    //Map correios
+	new mapsdx;
+	mapsdx = CreateDynamicObject(7696, 942.593994, 1733.229980, 13.281294, 0.000000, 0.000000, 0.000009, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(mapsdx, 0, 1239, "icons6", "lyellow32", 0xFF004433);
+	SetDynamicObjectMaterial(mapsdx, 1, 1239, "icons6", "lyellow32", 0x00000000);
+	mapsdx = CreateDynamicObject(19482, 941.191955, 1729.049560, 13.178442, 0.000000, 0.000014, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(mapsdx, 0, "C", 60, "Calibri", 70, 0, 0xFF004433, 0x00000000, 1);
+	mapsdx = CreateDynamicObject(19482, 941.191955, 1730.651123, 13.178442, 0.000000, 0.000014, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(mapsdx, 0, "O", 60, "Calibri", 70, 0, 0xFF004433, 0x00000000, 1);
+	mapsdx = CreateDynamicObject(19482, 941.191955, 1732.092407, 13.178442, 0.000000, 0.000014, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(mapsdx, 0, "R", 60, "Calibri", 70, 0, 0xFF004433, 0x00000000, 1);
+	mapsdx = CreateDynamicObject(19482, 941.191955, 1733.303588, 13.178442, 0.000000, 0.000014, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(mapsdx, 0, "R", 60, "Calibri", 70, 0, 0xFF004433, 0x00000000, 1);
+	mapsdx = CreateDynamicObject(19482, 941.191955, 1734.444335, 13.178442, 0.000000, 0.000014, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(mapsdx, 0, "E", 60, "Calibri", 70, 0, 0xFF004433, 0x00000000, 1);
+	mapsdx = CreateDynamicObject(19482, 941.191955, 1735.225097, 13.178442, 0.000000, 0.000014, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(mapsdx, 0, "I", 60, "Calibri", 70, 0, 0xFF004433, 0x00000000, 1);
+	mapsdx = CreateDynamicObject(19482, 941.191955, 1736.221923, 13.178442, 0.000000, 0.000014, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(mapsdx, 0, "O", 60, "Calibri", 70, 0, 0xFF004433, 0x00000000, 1);
+	mapsdx = CreateDynamicObject(19482, 941.191955, 1737.473144, 13.178442, 0.000000, 0.000014, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(mapsdx, 0, "S", 60, "Calibri", 70, 0, 0xFF004433, 0x00000000, 1);
+	mapsdx = CreateDynamicObject(19482, 941.191955, 1733.459106, 13.928453, 0.000000, 0.000007, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(mapsdx, 0, "4", 60, "Webdings", 40, 0, 0xFF004433, 0x00000000, 1);
+	mapsdx = CreateDynamicObject(19482, 941.201965, 1733.039794, 14.248456, 0.000000, 0.000007, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(mapsdx, 0, "3", 60, "Webdings", 40, 0, 0xFF004433, 0x00000000, 1);
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	mapsdx = CreateDynamicObject(1251, 998.093994, 1755.689941, 11.265600, 0.000000, 0.000000, 0.000018, -1, -1, -1, 300.00, 300.00); 
+	mapsdx = CreateDynamicObject(1251, 997.046997, 1710.949951, 11.265600, 0.000000, 0.000000, -179.999984, -1, -1, -1, 300.00, 300.00); 
+	mapsdx = CreateDynamicObject(8168, 954.755249, 1757.672973, 9.548460, 0.000000, 0.000000, 16.799991, -1, -1, -1, 300.00, 300.00); 
+
        printf("=> Objetos       		: Carregados");
         return 1;
 }
 
 stock MapRemocao(playerid)
 {
+        //map correios
+        RemoveBuildingForPlayer(playerid, 1251, 998.093, 1755.689, 11.265, 0.250);
+	RemoveBuildingForPlayer(playerid, 1251, 997.046, 1710.949, 11.265, 0.250);
+	RemoveBuildingForPlayer(playerid, 7696, 942.593, 1733.229, 13.281, 0.250);
+	RemoveBuildingForPlayer(playerid, 7697, 942.593, 1733.229, 13.281, 0.250);
         //favela 
         RemoveBuildingForPlayer(playerid, 11640, -1134.2109, 2221.0625, 82.2656, 0.25);
 	RemoveBuildingForPlayer(playerid, 11498, -1134.2109, 2221.0625, 82.2656, 0.25);
