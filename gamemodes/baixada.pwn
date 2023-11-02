@@ -719,6 +719,7 @@ new TimerMensagemAutoBot;
 
 //                          VARIAVEIS SEM COMENT
 
+new Float:PosV[3];
 new Armazenar[MAX_PLAYERS];
 new chosenpid;
 new ChatAtendimento[MAX_PLAYERS];
@@ -740,7 +741,6 @@ new bool:checkcasa[MAX_PLAYERS] = false;
 new bool:PegandoCaixas[MAX_PLAYERS] = false;
 new bool:EmServico[MAX_PLAYERS] = false;
 new sdxobj[10];
-new carID[MAX_PLAYERS];
 new	Assistindo[MAX_PLAYERS] = -1,
 	Erro[MAX_PLAYERS],
 	ID,
@@ -1195,7 +1195,7 @@ new Float:PosEquiparORG[6][4] =
 	{693.719665, 1967.682250, 5.539062}//Moto Clube
 };
 
-new Float:PosVeiculos[9][4] =
+new Float:PosVeiculos[10][4] =
 {
 	{-2033.141479, -988.619567, 32.212158},//Policia Militar
 	{-2441.137939, 522.140869, 29.486917},//ROTA
@@ -1205,7 +1205,8 @@ new Float:PosVeiculos[9][4] =
 	{-478.623901, -506.406524, 25.517845},//Camionero
 	{590.086975, 871.486694, -42.734603},//Minerador
 	{-2074.854492, 1428.281982, 7.101562},//Mecanica
-	{-1278.216552, 2711.282714, 50.132141}//BAEP
+	{-1278.216552, 2711.282714, 50.132141},//BAEP
+	{981.7181, 1733.6261, 8.6484}//Correios
 };
 new VehAlugado[MAX_PLAYERS];
 new VeiculoCivil[MAX_PLAYERS];
@@ -1680,11 +1681,10 @@ CallBack:: EstaSegurandoArmaProibida(playerid)
 Progresso:PegandoCaixasP(playerid, progress){
 	if(progress >= 100){
 		if(CaixaMao[playerid] == false){
-			new Float:PosV[3];
-			new engine, lights, alarm, doors, bonnet, boot, objective,idv = carID[playerid];
+			new engine, lights, alarm, doors, bonnet, boot, objective,idv = VeiculoCivil[playerid];
 			GetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, boot, objective);
 			SetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, 1, objective);
-			GetVehicleTrunkPosition(carID[playerid], PosV[0], PosV[1], PosV[2]);
+			GetVehicleTrunkPosition(VeiculoCivil[playerid], PosV[0], PosV[1], PosV[2]);
 			TogglePlayerControllable(playerid, 1);
 			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
 			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
@@ -1710,7 +1710,7 @@ Progresso:ColocandoCaixa(playerid, progress){
 			new Alt = random(303);
 			SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 0.5);
 			checkcasa[playerid] = true;
-			new engine, lights, alarm, doors, bonnet, boot, objective,idv = carID[playerid];
+			new engine, lights, alarm, doors, bonnet, boot, objective,idv = VeiculoCivil[playerid];
 			GetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, boot, objective);
 			SetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, 0, objective);
 		}else{
@@ -11019,9 +11019,6 @@ stock NpcText()
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}/uniforme{FFFFFF}' para \npegar seu uniforme e bater ponto.", -1, 956.8282,1754.7942,8.6484, 25.0); // Uniforme correios
 	CreateDynamicPickup(1275, 23, 956.8282,1754.7942,8.6484);//Uniforme correios
 
-	CreateDynamic3DTextLabel("{FFFFFF}Garagem {FFFF00}SedeX\n{FFFFFF}Use '{FFFF00}/garagememp{FFFFFF}' para \npegar um veiculo da empresa.", -1, 981.7181,1733.6261,8.6484, 25.0); // garagem correios
-	CreateDynamicPickup(19131, 23, 981.7181,1733.6261,8.6484);//garagem correios
-
 	CreateDynamicPickup(19606,23,-1606.267578, 733.912414, -5.234413,0);
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}/prender{FFFFFF}'para \nprender o jogador.",-1,-1606.267578, 733.912414, -5.234413,15);
 
@@ -11269,7 +11266,6 @@ stock ZerarDados(playerid)
 	PegouVehProf[playerid] = false;
 	CaixaMao[playerid] = false;
 	CaixasSdx[playerid] = 0;
-	carID[playerid] = 0;
 	EtapasMinerador[playerid] = 0;
 	TemMinerio[playerid] = 0;
 	Desossando[playerid] = 0;
@@ -11935,7 +11931,7 @@ public OnGameModeInit()
 		UpdateFuelStation(i, 0);
 	}
 	for(new slot = 0; slot < MAX_MACONHA; slot++)MaconhaInfo[slot][PodeUsar] = true;
-	for(new i; i < 9; i++)
+	for(new i; i < 10; i++)
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{FFFF00}H{FFFFFF}'para \npegar um veiculo.", -1, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2], 10.0);
 		CreateDynamicPickup(1083, 23, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2]); // Veh Spawn
@@ -12193,7 +12189,7 @@ public OnPlayerDisconnect(playerid, reason)
 				for(new o=0;o<10;o++){
 					DestroyDynamicObject(sdxobj[o]); 
 				}
-				DestroyVehicle(carID[playerid]);
+				DestroyVehicle(VeiculoCivil[playerid]);
 			}
 		}
 		if(Patrulha[playerid] == true) 
@@ -12789,11 +12785,10 @@ public OnPlayerEnterCheckpoint(playerid)
 	    SetPVarFloat(playerid, "FindY", Y);
 	    SetPVarFloat(playerid, "FindZ", Z);
 		SetPVarFloat(playerid, "FindA", A);
-		GetVehicleTrunkPosition(carID[playerid], PosV[0], PosV[1], PosV[2]);
 		DisablePlayerCheckpoint(playerid);
 		SetPlayerCheckpoint(playerid, PosV[0], PosV[1], PosV[2],1);
 		Casavehcorreios[playerid] = 1;
-		actorcorreios[playerid] = CreateActor(SkinActor, GetPVarFloat(playerid, "FindX", X),GetPVarFloat(playerid, "FindY", Y),GetPVarFloat(playerid, "FindZ", Z),GetPVarFloat(playerid, "FindA", A));
+		actorcorreios[playerid] = CreateActor(SkinActor, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),GetPVarFloat(playerid, "FindA"));
 	}
 	if(RotaMaconha[playerid] == true) 
 	{ 
@@ -12811,7 +12806,7 @@ public OnPlayerEnterCheckpoint(playerid)
 			DisablePlayerCheckpoint(playerid);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BUDDY", "BUDDY_CROUCHRELOAD", 4.1, 1, 0, 0, 0, 0, 1);
-			CreateProgress(playerid,"PegandoCaixasP","Pegando caixa...", 80);
+			CreateProgress(playerid,"PegandoCaixasP","Pegando caixa...", 50);
 			EntregaSdx[playerid] = false;
 		}
 	}
@@ -12819,7 +12814,7 @@ public OnPlayerEnterCheckpoint(playerid)
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BUDDY", "BUDDY_CROUCHRELOAD", 4.1, 1, 0, 0, 0, 0, 1);
-		CreateProgress(playerid, "ColocandoCaixa","Colocando caixa...", 60);
+		CreateProgress(playerid, "ColocandoCaixa","Colocando caixa...", 20);
 		CaixaMao[playerid] = false;
 	}
 	if(Covaconcerto[playerid] == true) 
@@ -14141,6 +14136,57 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
 			}
 		}
+		else if(PlayerToPoint(3.0, playerid, 981.7181, 1733.6261, 8.6484))
+		{
+			if(PlayerInfo[playerid][pProfissao] != 8)    		return ErrorMsg(playerid, "Nao possui permissao.");
+			if(EmServico[playerid] == false) return ErrorMsg(playerid,"Voce nao esta em servico.");
+			if(VehAlugado[playerid] == 0)
+			{
+				VehAlugado[playerid] = 1;
+				VeiculoCivil[playerid] = CreateVehicle(413,981.7181,1733.6261,8.6484,-271.9456,6,16,-1,0);
+
+				sdxobj[0] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+				SetDynamicObjectMaterialText(sdxobj[0], 0, "3", 60, "Webdings", 22, 0, -16759757, 0, 1);
+				AttachDynamicObjectToVehicle(sdxobj[0], VeiculoCivil[playerid], -0.965, -0.107, 0.740, 0.000, 0.000, 177.199);
+				sdxobj[1] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+				SetDynamicObjectMaterialText(sdxobj[1], 0, "3", 60, "Webdings", 22, 0, -16759757, 0, 1);
+				AttachDynamicObjectToVehicle(sdxobj[1], VeiculoCivil[playerid], -0.968, -0.240, 0.610, 0.000, 0.000, 0.000);
+				sdxobj[2] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+				SetDynamicObjectMaterialText(sdxobj[2], 0, "3", 60, "Webdings", 22, 0, -16759757, 0, 1);
+				AttachDynamicObjectToVehicle(sdxobj[2], VeiculoCivil[playerid], 0.992, -0.240, 0.610, 0.000, 0.000, 0.000);
+				sdxobj[3] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+				SetDynamicObjectMaterialText(sdxobj[3], 0, "4", 60, "Webdings", 22, 0, -16759757, 0, 1);
+				AttachDynamicObjectToVehicle(sdxobj[3], VeiculoCivil[playerid], 1.006, -0.007, 0.740, 0.000, 0.000, 0.000);
+				sdxobj[4] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+				SetDynamicObjectMaterialText(sdxobj[4], 0, "4", 60, "Webdings", 22, 0, -16759757, 0, 1);
+				AttachDynamicObjectToVehicle(sdxobj[4], VeiculoCivil[playerid], -0.144, 2.236, 0.347, -0.099, -67.499, 88.999);
+				sdxobj[5] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+				SetDynamicObjectMaterialText(sdxobj[5], 0, "4", 60, "Webdings", 22, 0, -16759757, 0, 1);
+				AttachDynamicObjectToVehicle(sdxobj[5], VeiculoCivil[playerid], 0.082, 2.159, 0.426, -15.899, 89.599, 27.899);
+				sdxobj[6] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+				SetDynamicObjectMaterialText(sdxobj[6], 0, "CORREIOS", 120, "Ariel", 30, 1, -16759757, 0, 1);
+				AttachDynamicObjectToVehicle(sdxobj[6], VeiculoCivil[playerid], -0.965, -1.287, 0.669, 0.199, -1.899, 179.500);
+				sdxobj[7] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+				SetDynamicObjectMaterialText(sdxobj[7], 0, "CORREIOS", 120, "Ariel", 30, 1, -16759757, 0, 1);
+				AttachDynamicObjectToVehicle(sdxobj[7], VeiculoCivil[playerid], 0.945, -1.287, 0.662, 0.000, -7.599, 0.000);
+				sdxobj[8] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+				SetDynamicObjectMaterialText(sdxobj[8], 0, "EMPRESA 100% BRASILEIRA", 140, "Ariel", 15, 1, -16759757, 0, 1);
+				AttachDynamicObjectToVehicle(sdxobj[8], VeiculoCivil[playerid], 1.036, -1.017, 0.338, 0.000, 0.000, 0.000);
+				sdxobj[8] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+				SetDynamicObjectMaterialText(sdxobj[8], 0, "EMPRESA 100% BRASILEIRA", 140, "Ariel", 15, 1, -16759757, 0, 1);
+				AttachDynamicObjectToVehicle(sdxobj[8], VeiculoCivil[playerid], -1.005, -1.016, 0.338, 0.000, 0.000, -179.899);
+				sdxobj[9] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
+				SetDynamicObjectMaterialText(sdxobj[9], 0, "CORREIOS", 140, "Ariel", 15, 1, -16759757, 0, 1);
+				AttachDynamicObjectToVehicle(sdxobj[9], VeiculoCivil[playerid], -0.029, 2.472, 0.343, 0.000, -71.699, 90.199);
+				PegouVehProf[playerid] = true;
+				PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
+				InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
+			}
+			else
+			{
+				InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
+			}
+		}
 		else if(PlayerToPoint(3.0, playerid, 1179.630615, -1339.028686, 13.838010))
 		{
 			if(PlayerInfo[playerid][pProfissao] != 3)    		return ErrorMsg(playerid, "Nao possui permissao.");
@@ -14999,7 +15045,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.BAIXADARP.COM.BR7777_20230919_225304_0000.png");
 					DCC_SendChannelEmbedMessage(EntradaeSaida, embed);
 					new Account2[255];
-					format(Account2, sizeof(Account2), "IDCONTAS/%d", GetPlayerIdfixo(playerid));
+					format(Account2, sizeof(Account2), "IDCONTAS/%04d.ini", GetPlayerIdfixo(playerid));
 					if(!DOF2_FileExists(Account2))
 					{
 						DOF2_CreateFile(Account2); 
@@ -15185,60 +15231,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			InfoMsg(GetPVarInt(playerid, "IdTransferiu"), Str);
 			DeletePVar(playerid, "IdTransferiu");
 			/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-		}
-		case DIALOG_SEDEX:{
-			if(response){
-				if(PegouVehProf[playerid] == false){
-					carID[playerid] = CreateVehicle(413,981.7181,1733.6261,8.6484,-271.9456,6,16,-1,0);
-
-					sdxobj[0] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
-					SetDynamicObjectMaterialText(sdxobj[0], 0, "3", 60, "Webdings", 22, 0, -16759757, 0, 1);
-					AttachDynamicObjectToVehicle(sdxobj[0], carID[playerid], -0.965, -0.107, 0.740, 0.000, 0.000, 177.199);
-					sdxobj[1] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
-					SetDynamicObjectMaterialText(sdxobj[1], 0, "3", 60, "Webdings", 22, 0, -16759757, 0, 1);
-					AttachDynamicObjectToVehicle(sdxobj[1], carID[playerid], -0.968, -0.240, 0.610, 0.000, 0.000, 0.000);
-					sdxobj[2] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
-					SetDynamicObjectMaterialText(sdxobj[2], 0, "3", 60, "Webdings", 22, 0, -16759757, 0, 1);
-					AttachDynamicObjectToVehicle(sdxobj[2], carID[playerid], 0.992, -0.240, 0.610, 0.000, 0.000, 0.000);
-					sdxobj[3] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
-					SetDynamicObjectMaterialText(sdxobj[3], 0, "4", 60, "Webdings", 22, 0, -16759757, 0, 1);
-					AttachDynamicObjectToVehicle(sdxobj[3], carID[playerid], 1.006, -0.007, 0.740, 0.000, 0.000, 0.000);
-					sdxobj[4] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
-					SetDynamicObjectMaterialText(sdxobj[4], 0, "4", 60, "Webdings", 22, 0, -16759757, 0, 1);
-					AttachDynamicObjectToVehicle(sdxobj[4], carID[playerid], -0.144, 2.236, 0.347, -0.099, -67.499, 88.999);
-					sdxobj[5] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
-					SetDynamicObjectMaterialText(sdxobj[5], 0, "4", 60, "Webdings", 22, 0, -16759757, 0, 1);
-					AttachDynamicObjectToVehicle(sdxobj[5], carID[playerid], 0.082, 2.159, 0.426, -15.899, 89.599, 27.899);
-					sdxobj[6] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
-					SetDynamicObjectMaterialText(sdxobj[6], 0, "CORREIOS", 120, "Ariel", 30, 1, -16759757, 0, 1);
-					AttachDynamicObjectToVehicle(sdxobj[6], carID[playerid], -0.965, -1.287, 0.669, 0.199, -1.899, 179.500);
-					sdxobj[7] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
-					SetDynamicObjectMaterialText(sdxobj[7], 0, "CORREIOS", 120, "Ariel", 30, 1, -16759757, 0, 1);
-					AttachDynamicObjectToVehicle(sdxobj[7], carID[playerid], 0.945, -1.287, 0.662, 0.000, -7.599, 0.000);
-					sdxobj[8] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
-					SetDynamicObjectMaterialText(sdxobj[8], 0, "EMPRESA 100% BRASILEIRA", 140, "Ariel", 15, 1, -16759757, 0, 1);
-					AttachDynamicObjectToVehicle(sdxobj[8], carID[playerid], 1.036, -1.017, 0.338, 0.000, 0.000, 0.000);
-					sdxobj[8] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
-					SetDynamicObjectMaterialText(sdxobj[8], 0, "EMPRESA 100% BRASILEIRA", 140, "Ariel", 15, 1, -16759757, 0, 1);
-					AttachDynamicObjectToVehicle(sdxobj[8], carID[playerid], -1.005, -1.016, 0.338, 0.000, 0.000, -179.899);
-					sdxobj[9] = CreateDynamicObject(19482,0.0,0.0,-1000.0,0.0,0.0,0.0,-1,-1,-1,300.0,300.0);
-					SetDynamicObjectMaterialText(sdxobj[9], 0, "CORREIOS", 140, "Ariel", 15, 1, -16759757, 0, 1);
-					AttachDynamicObjectToVehicle(sdxobj[9], carID[playerid], -0.029, 2.472, 0.343, 0.000, -71.699, 90.199);
-
-					PutPlayerInVehicle(playerid, carID[playerid], 0);
-
-					PegouVehProf[playerid] = true;
-
-					SuccesMsg(playerid, "Voce pegou uma van da SedeX na garagem.");
-				}else{
-					for(new o=0;o<10;o++){
-						DestroyDynamicObject(sdxobj[o]);
-					}
-					DestroyVehicle(carID[playerid]);
-					PegouVehProf[playerid] = false;
-					SuccesMsg(playerid, "Voce entregou uma van da SedeX na garagem.");
-				}
-			}
 		}
 		case DIALOG_SELTRABALHO:
 		{
@@ -15539,9 +15531,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						strcat(Str2, "\t{FFFF00}- {FFFFFF}Ajuda Correios{FFFF00}- {FFFFFF}\n\n");
 						strcat(Str2, "\n{FFFF00}Passo 1:{FFFFFF} Use /uniforme para iniciar expediente.");
-						strcat(Str2, "\n{FFFF00}Passo 2:{FFFFFF} Use /garagememp para pegar uma van na garagem.");
+						strcat(Str2, "\n{FFFF00}Passo 2:{FFFFFF} Pegar uma van na garagem.");
 						strcat(Str2, "\n{FFFF00}Passo 3:{FFFFFF} Use /carregar para carregar a van com os produtos para entrega.");
-						//strcat(Str2, "\n{FFFF00}Passo 4:{FFFFFF} Use /iniciarentregas para comecar o percurso.");
 						strcat(Str2, "\n{FFFF00}Passo 4:{FFFFFF} Entregue todas as entregas em seu determinado destino.");
 						ShowPlayerDialog(playerid, DIALOG_EMP2, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
@@ -19555,29 +19546,6 @@ CMD:mostrarrg(playerid,params[])
 	else
 	{
 		ErrorMsg(playerid, "Voce nao possui um RG");
-	}
-	return 1;
-}
-
-CMD:garagememp(playerid){
-	if(PlayerInfo[playerid][pProfissao] == 8){
-		if(PlayerToPoint(3.0, playerid, 981.7181,1733.6261,8.6484)){
-			if(EmServico[playerid] == false) return ErrorMsg(playerid,"Voce nao esta em servico.");
-			if(IsPlayerInAnyVehicle(playerid) && PegouVehProf[playerid] == true){
-				ShowPlayerDialog(playerid,DIALOG_SEDEX,DIALOG_STYLE_MSGBOX,"GARAGEM {FFFF00}SEDEX","Voce deseja entregar um {FFFF00}veiculo{FFFFFF} da empresa SedeX?","Sim","Nao");
-			}else if(!IsPlayerInAnyVehicle(playerid) && PegouVehProf[playerid] == true){
-				PegouVehProf[playerid] = false;
-				DestroyVehicle(carID[playerid]);
-				carID[playerid] = 0;
-				ShowPlayerDialog(playerid,DIALOG_SEDEX,DIALOG_STYLE_MSGBOX,"GARAGEM {FFFF00}SEDEX","Voce deseja pegar um {FFFF00}veiculo{FFFFFF} da empresa SedeX?","Sim","Nao");
-			}else if(PegouVehProf[playerid] == false){
-				ShowPlayerDialog(playerid,DIALOG_SEDEX,DIALOG_STYLE_MSGBOX,"GARAGEM {FFFF00}SEDEX","Voce deseja pegar um {FFFF00}veiculo{FFFFFF} da empresa SedeX?","Sim","Nao");
-			}
-		}else{
-			ErrorMsg(playerid,"Voce nao esta na Garagem da SedeX.");
-		}
-	}else{
-		ErrorMsg(playerid,"Voce nao faz parte de uma empresa/corporacao/organizacao.");
 	}
 	return 1;
 }
