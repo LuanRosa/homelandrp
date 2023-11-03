@@ -735,7 +735,8 @@ new RecentlyShot[MAX_PLAYERS];
 new CaixasSdxObj[MAX_PLAYERS][11];
 new bool:CaixaMao[MAX_PLAYERS] = false;
 new actorcorreios[MAX_PLAYERS];
-new Casavehcorreios[MAX_PLAYERS];
+new bool:Casavehcorreios[MAX_PLAYERS];
+new bool:Casavehcorreios2[MAX_PLAYERS];
 new CaixasSdx[MAX_PLAYERS];
 new bool:checkcasa[MAX_PLAYERS] = false;
 new bool:PegandoCaixas[MAX_PLAYERS] = false;
@@ -11222,6 +11223,7 @@ stock BanirIP(playerid, administrador, Motivo1[])
 
 stock ZerarDados(playerid)
 {
+	DestroyActor(actorcorreios[playerid]);
 	RotaMaconha[playerid] = false;
 	PlayerInfo[playerid][pSkin] = 0;
 	PlayerInfo[playerid][pDinheiro] = 0;
@@ -12757,23 +12759,29 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 public OnPlayerEnterCheckpoint(playerid)
 {
-	if(Casavehcorreios[playerid] == 1)
+	if(Casavehcorreios[playerid] == true)
 	{
 		CaixasSdx[playerid]--;
 		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 		SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
 		DisablePlayerCheckpoint(playerid);
 		SetPlayerCheckpoint(playerid, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),1);
-		Casavehcorreios[playerid] = 2;
+		Casavehcorreios[playerid] = false;
+		Casavehcorreios2[playerid] = true;
+		InfoMsg(playerid, "Pegou a caixa, entregue ao morador.");
 	}
-	if(Casavehcorreios[playerid] == 2)
+	if(Casavehcorreios2[playerid] == true)
 	{
-		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+		CaixasSdx[playerid]--;
+		ClearAnimations(playerid);
+		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 		RemovePlayerAttachedObject(playerid, 1);
 		DestroyActor(actorcorreios[playerid]);
-		Casavehcorreios[playerid] = 0;
+		Casavehcorreios2[playerid] = false;
 		new Alt = random(303);
+		DisablePlayerCheckpoint(playerid);
 		SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 1);
+		SuccesMsg(playerid, "Entrega feita passe para a proxima entrega.");
 	}
 	if(checkcasa[playerid] == true)
 	{
@@ -12787,8 +12795,10 @@ public OnPlayerEnterCheckpoint(playerid)
 		SetPVarFloat(playerid, "FindA", A);
 		DisablePlayerCheckpoint(playerid);
 		SetPlayerCheckpoint(playerid, PosV[0], PosV[1], PosV[2],1);
-		Casavehcorreios[playerid] = 1;
-		actorcorreios[playerid] = CreateActor(SkinActor, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),GetPVarFloat(playerid, "FindA"));
+		Casavehcorreios[playerid] = true;
+		checkcasa[playerid] = false;
+		actorcorreios[playerid] = CreateActor(SkinActor, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),GetPVarFloat(playerid, "FindA")/2);
+		InfoMsg(playerid, "O morador saiu da casa, pegue a caixa e entregue a ele");
 	}
 	if(RotaMaconha[playerid] == true) 
 	{ 
@@ -12805,7 +12815,7 @@ public OnPlayerEnterCheckpoint(playerid)
 		}else{
 			DisablePlayerCheckpoint(playerid);
 			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "BUDDY", "BUDDY_CROUCHRELOAD", 4.1, 1, 0, 0, 0, 0, 1);
+			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 			CreateProgress(playerid,"PegandoCaixasP","Pegando caixa...", 50);
 			EntregaSdx[playerid] = false;
 		}
@@ -12813,7 +12823,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	if(CaixaMao[playerid] == true){
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
-		ApplyAnimation(playerid, "BUDDY", "BUDDY_CROUCHRELOAD", 4.1, 1, 0, 0, 0, 0, 1);
+		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 		CreateProgress(playerid, "ColocandoCaixa","Colocando caixa...", 20);
 		CaixaMao[playerid] = false;
 	}

@@ -20,3 +20,18 @@
 [10/29/23 22:11:08] [plugins/discord-connector] Can't resolve Discord gateway URL 'gateway.discord.gg': Este host não é conhecido (11001)
 [11/01/23 23:15:24] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712172794642442/messages': end of stream
 [11/01/23 23:40:58] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[11/02/23 19:30:09] [plugins/discord-connector] Discord terminated websocket connection; reason: Not authenticated. (4003)
+[11/02/23 19:30:09] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[11/02/23 19:30:17] [plugins/discord-connector] DCC_SendChannelEmbedMessage: invalid channel id '0'
+[11/02/23 19:30:57] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[11/03/23 16:29:10] [plugins/discord-connector] Can't read from Discord websocket gateway: Foi forçado o cancelamento de uma conexão existente pelo host remoto (10054)
+[11/03/23 16:29:10] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[11/03/23 16:30:22] [plugins/discord-connector] Can't read from Discord websocket gateway: Foi forçado o cancelamento de uma conexão existente pelo host remoto (10054)
+[11/03/23 16:30:22] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[11/03/23 16:30:35] [plugins/discord-connector] Discord terminated websocket connection; reason: Not authenticated. (4003)
+[11/03/23 16:30:35] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[11/03/23 16:38:54] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712172794642442/messages': end of stream
+[11/03/23 16:55:03] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[11/03/23 18:01:58] [plugins/discord-connector] Can't read from Discord websocket gateway: End of file (2)
+[11/03/23 18:01:58] [plugins/discord-connector] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
+[11/03/23 18:55:58] [plugins/discord-connector] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream

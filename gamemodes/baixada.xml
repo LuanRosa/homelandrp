@@ -2125,7 +2125,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="24500">
+		<member name="C:__line" value="24511">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -3222,6 +3222,11 @@
 			<referrer name="cmd_vendercasa"/>
 		</member>
 		<member name="F:Casavehcorreios">
+			<tagname value="bool"/>
+			<referrer name="ac_OnPlayerEnterCheckpoint"/>
+		</member>
+		<member name="F:Casavehcorreios2">
+			<tagname value="bool"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 		</member>
 		<member name="F:CaseSensitive">
@@ -7180,6 +7185,7 @@
 			<referrer name="ac_OnPlayerClickTextDraw"/>
 		</member>
 		<member name="F:actorcorreios">
+			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 		</member>
 		<member name="F:caixaid">
@@ -7790,6 +7796,7 @@
 			<referrer name="_RenderBar"/>
 			<referrer name="ProxDetector"/>
 			<referrer name="ac_OnVehicleDamageStatusUpdate"/>
+			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<dependency name="float"/>
 			<dependency name="floatdiv"/>
 			<param name="oper1">
@@ -14729,6 +14736,7 @@
 		</member>
 		<member name="M:FIXES_DestroyActor" syntax="FIXES_DestroyActor(actorid)">
 			<stacksize value="4"/>
+			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
@@ -27440,6 +27448,7 @@
 			<dependency name="Erro"/>
 			<dependency name="EtapasMinerador"/>
 			<dependency name="ExpiraVIP"/>
+			<dependency name="FIXES_DestroyActor"/>
 			<dependency name="FIXES_SetPlayerColor"/>
 			<dependency name="Falando"/>
 			<dependency name="Falou"/>
@@ -27510,6 +27519,7 @@
 			<dependency name="UsouCMD"/>
 			<dependency name="VehAlugado"/>
 			<dependency name="VeiculoCivil"/>
+			<dependency name="actorcorreios"/>
 			<dependency name="convite"/>
 			<dependency name="cova"/>
 			<dependency name="false"/>
@@ -30463,6 +30473,7 @@
 		<member name="M:ac_OnPlayerEnterCheckpoint" syntax="ac_OnPlayerEnterCheckpoint(playerid)">
 			<attribute name="public"/>
 			<stacksize value="514"/>
+			<dependency name="operator/(Float:,_:)"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="CST_GetPVarFloat"/>
 			<dependency name="CST_SetPVarFloat"/>
@@ -30470,6 +30481,7 @@
 			<dependency name="CaixasSdx"/>
 			<dependency name="CargoTumba"/>
 			<dependency name="Casavehcorreios"/>
+			<dependency name="Casavehcorreios2"/>
 			<dependency name="Covaconcerto"/>
 			<dependency name="CreateProgress"/>
 			<dependency name="Desossando"/>
