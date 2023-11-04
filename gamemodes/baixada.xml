@@ -2138,7 +2138,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="23854">
+		<member name="C:__line" value="23863">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -30708,6 +30708,8 @@
 			<dependency name="acc_SetPlayerPos"/>
 			<dependency name="acc_ShowPlayerDialog"/>
 			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="cmd_abrircorreios"/>
+			<dependency name="cmd_abrircorreios2"/>
 			<dependency name="cmd_carregar"/>
 			<dependency name="cmd_deixarcaixa"/>
 			<dependency name="cmd_deixarcarne"/>
@@ -33021,6 +33023,7 @@
 		<member name="M:cmd_abrircorreios" syntax="cmd_abrircorreios(playerid)">
 			<attribute name="public"/>
 			<stacksize value="10"/>
+			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<dependency name="FIXES_SetTimer"/>
 			<dependency name="MoveDynamicObject"/>
 			<dependency name="false"/>
@@ -33031,6 +33034,7 @@
 		<member name="M:cmd_abrircorreios2" syntax="cmd_abrircorreios2(playerid)">
 			<attribute name="public"/>
 			<stacksize value="10"/>
+			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<dependency name="FIXES_SetTimer"/>
 			<dependency name="MoveDynamicObject"/>
 			<dependency name="false"/>

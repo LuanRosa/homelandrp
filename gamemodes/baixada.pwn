@@ -2039,7 +2039,7 @@ descobrirEE(playerid, eeid){
 		SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 		new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 		format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
-		DCC_SetEmbedColor(embed, 0x0026FF);
+		DCC_SetEmbedColor(embed, 0x5b6ed9);
 		DCC_SetEmbedDescription(embed, vip);
 		DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou 10d de VIP BASICO!", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
@@ -2056,7 +2056,7 @@ descobrirEE(playerid, eeid){
 		DOF2_SaveFile(); 
 		new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 		format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
-		DCC_SetEmbedColor(embed, 0x0026FF);
+		DCC_SetEmbedColor(embed, 0x5b6ed9);
 		DCC_SetEmbedDescription(embed, vip);
 		DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou 10d de VIP BASICO!", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
@@ -2067,7 +2067,7 @@ descobrirEE(playerid, eeid){
 		GanharItem(playerid, 560, 1);
 		new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 		format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um veiculo de inventario\nValor: 5000\nNome Veh: Sultan", PlayerInfo[playerid][IDF]);
-		DCC_SetEmbedColor(embed, 0x0026FF);
+		DCC_SetEmbedColor(embed, 0x5b6ed9);
 		DCC_SetEmbedDescription(embed, string);
 		DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_560.jpg");
 		DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -2079,7 +2079,7 @@ descobrirEE(playerid, eeid){
 		GanharItem(playerid, 434, 1);
 		new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 		format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um veiculo de inventario\nValor: 5000\nNome Veh: HotKnife", PlayerInfo[playerid][IDF]);
-		DCC_SetEmbedColor(embed, 0x0026FF);
+		DCC_SetEmbedColor(embed, 0x5b6ed9);
 		DCC_SetEmbedDescription(embed, string);
 		DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_434.jpg");
 		DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -2098,7 +2098,7 @@ descobrirEE(playerid, eeid){
 		DOF2_SaveFile(); 
 		new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 		format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
-		DCC_SetEmbedColor(embed, 0x0026FF);
+		DCC_SetEmbedColor(embed, 0x5b6ed9);
 		DCC_SetEmbedDescription(embed, vip);
 		DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou VIP BASICO!", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
@@ -3308,7 +3308,7 @@ CallBack::Attplayer(playerid)
 	{
 		format(str,sizeof(str),"{FFFFFF}(%04d)",PlayerInfo[playerid][IDF]);
 	}
-	SetPlayerChatBubble(playerid, str, 0x0026FFFF, 30.0, 20000);
+	SetPlayerChatBubble(playerid, str, 0x5b6ed9FF, 30.0, 20000);
 	return 1;
 }
 
@@ -3417,19 +3417,19 @@ CallBack::loginp(playerid)
 		{
 			LimparChat(playerid, 10);
 			new StrM[450];
-			strcat(StrM, "\t\t{FFFFFF}-x-x-x-x-x- {0026FF}BANIDO{FFFFFF} -x-x-x-x-x-\n\nEsta conta esta banida deste servidor !\n\n{FFA500}Conta:{E64022} ");
+			strcat(StrM, "\t\t{FFFFFF}-x-x-x-x-x- {5b6ed9}BANIDO{FFFFFF} -x-x-x-x-x-\n\nEsta conta esta banida deste servidor !\n\n{FFA500}Conta:{E64022} ");
 			strcat(StrM, Name(playerid));
-			strcat(StrM, "\n{0026FF}Administrador:{FFFFFF} ");
+			strcat(StrM, "\n{5b6ed9}Administrador:{FFFFFF} ");
 			strcat(StrM, DOF2_GetString(File, "Administrador"));
-			strcat(StrM, "\n{0026FF}Motivo:{FFFFFF} ");
+			strcat(StrM, "\n{5b6ed9}Motivo:{FFFFFF} ");
 			strcat(StrM, DOF2_GetString(File, "Motivo"));
-			strcat(StrM, "\n{0026FF}Dia do Ban:{FFFFFF} ");
+			strcat(StrM, "\n{5b6ed9}Dia do Ban:{FFFFFF} ");
 			strcat(StrM, DOF2_GetString(File, "Data"));
-			strcat(StrM, "\n{0026FF}Dia de Desban:{FFFFFF} ");
+			strcat(StrM, "\n{5b6ed9}Dia de Desban:{FFFFFF} ");
 			strcat(StrM, DOF2_GetString(File, "Desban"));
-			strcat(StrM, "\n\n{FFFFFF}Se considera um erro, entre em nosso discord\n{0026FF}\t\t*******{FFFFFF}");
+			strcat(StrM, "\n\n{FFFFFF}Se considera um erro, entre em nosso discord\n{5b6ed9}\t\t*******{FFFFFF}");
 			strcat(StrM, SERVERFORUM);
-			strcat(StrM, "{0026FF}*******");
+			strcat(StrM, "{5b6ed9}*******");
 			ShowPlayerDialog(playerid, DIALOG_BANIDO, DIALOG_STYLE_MSGBOX, "BANIDO:", StrM, "X", "");
 			Kick(playerid);
 			return 0;
@@ -3439,17 +3439,17 @@ CallBack::loginp(playerid)
 	if(DOF2_FileExists(File))
 	{
 		new StrM[450];
-		strcat(StrM, "\t\t{FFFFFF}-x-x-x-x-x- {0026FF}BANIDO{FFFFFF} -x-x-x-x-x-\n\nEste IP esta banido no servidor. !\n\n{0026FF}IP:{FFFFFF} ");
+		strcat(StrM, "\t\t{FFFFFF}-x-x-x-x-x- {5b6ed9}BANIDO{FFFFFF} -x-x-x-x-x-\n\nEste IP esta banido no servidor. !\n\n{5b6ed9}IP:{FFFFFF} ");
 		strcat(StrM, GetPlayerIpEx(playerid));
-		strcat(StrM, "\n{0026FF}Administrador:{FFFFFF} ");
+		strcat(StrM, "\n{5b6ed9}Administrador:{FFFFFF} ");
 		strcat(StrM, DOF2_GetString(File, "Administrador"));
-		strcat(StrM, "\n{0026FF}Motivo:{FFFFFF} ");
+		strcat(StrM, "\n{5b6ed9}Motivo:{FFFFFF} ");
 		strcat(StrM, DOF2_GetString(File, "Motivo"));
-		strcat(StrM, "\n{0026FF}Dia do seu Ban:{0026FF} ");
+		strcat(StrM, "\n{5b6ed9}Dia do seu Ban:{5b6ed9} ");
 		strcat(StrM, DOF2_GetString(File, "Data"));
-		strcat(StrM, "\n\nSe considera um erro, entre em nosso discord\n{0026FF}\t\t*******{FFFFFF}");
+		strcat(StrM, "\n\nSe considera um erro, entre em nosso discord\n{5b6ed9}\t\t*******{FFFFFF}");
 		strcat(StrM, SERVERFORUM);
-		strcat(StrM, "{0026FF}*******");
+		strcat(StrM, "{5b6ed9}*******");
 		ShowPlayerDialog(playerid, DIALOG_BANIDO, DIALOG_STYLE_MSGBOX, "BANIDO:", StrM, "X", "");
 		Kick(playerid);
 		return 0;
@@ -3755,13 +3755,13 @@ ShowDialog(playerid, dialogid)
 		{
 			new vehicleid = GetPVarInt(playerid, "DialogValue1");
 			new caption[32], info[256];
-			format(caption, sizeof(caption), "Veiculo {0026FF}%d", vehicleid);
-			strcat(info, "{0026FF}-{FFFFFF} Motor\n{0026FF}- {FFFFFF}Luzes\n{0026FF}-{FFFFFF} Capo\n{0026FF}-{FFFFFF} Porta Malas", sizeof(info));
-			strcat(info, "\n{0026FF}-{FFFFFF} Tanque de Combustible", sizeof(info));
+			format(caption, sizeof(caption), "Veiculo {5b6ed9}%d", vehicleid);
+			strcat(info, "{5b6ed9}-{FFFFFF} Motor\n{5b6ed9}- {FFFFFF}Luzes\n{5b6ed9}-{FFFFFF} Capo\n{5b6ed9}-{FFFFFF} Porta Malas", sizeof(info));
+			strcat(info, "\n{5b6ed9}-{FFFFFF} Tanque de Combustible", sizeof(info));
 			if(GetPlayerVehicleAccess(playerid, vehicleid) >= 2)
 			{
 				new value = VehicleValue[vehicleid]/2;
-				format(info, sizeof(info), "%s\n{0026FF}-{FFFFFF} Vender veiculo (R${0026FF}%d{FFFFFF})\n{0026FF}-{FFFFFF} Estacionar vehiculo", info, value);
+				format(info, sizeof(info), "%s\n{5b6ed9}-{FFFFFF} Vender veiculo (R${5b6ed9}%d{FFFFFF})\n{5b6ed9}-{FFFFFF} Estacionar vehiculo", info, value);
 			}
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, info, "Selecionar", "X");
 		}
@@ -3769,7 +3769,7 @@ ShowDialog(playerid, dialogid)
 		{
 			new vehicleid = GetPVarInt(playerid, "DialogValue1");
 			new caption[32], info[256];
-			format(caption, sizeof(caption), "Veiculo {0026FF}%d", vehicleid);
+			format(caption, sizeof(caption), "Veiculo {5b6ed9}%d", vehicleid);
 			format(info, sizeof(info), "Este veiculo esta a venda por (R$%d)\n-", VehicleValue[vehicleid]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, caption, info, "Comprar", "X");
 		}
@@ -3779,7 +3779,7 @@ ShowDialog(playerid, dialogid)
 			new id = GetPVarInt(playerid, "DialogValue2");
 			new price = GetPVarInt(playerid, "DialogValue3");
 			new info[256];
-			format(info, sizeof(info), "%04d quer vender  {0026FF}%s {FFFFFF}por {0026FF}R$%d.", PlayerInfo[targetid][IDF],
+			format(info, sizeof(info), "%04d quer vender  {5b6ed9}%s {FFFFFF}por {5b6ed9}R$%d.", PlayerInfo[targetid][IDF],
 				VehicleNames[VehicleModel[id]-400], price);
 			strcat(info, "\n\n Te gustaria comprar?", sizeof(info));
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Comprar Veiculo", info, "Comprar", "X");
@@ -3815,7 +3815,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_FUEL:
 		{
 			new info[255];
-			strcat(info, "Abastecer Veiculo ({0026FF}R$" #PRECO_GASOLINA "{FFFFFF})\nComprar galao ({0026FF}R$" #PRECO_GALAO "{FFFFFF})", sizeof(info));
+			strcat(info, "Abastecer Veiculo ({5b6ed9}R$" #PRECO_GASOLINA "{FFFFFF})\nComprar galao ({5b6ed9}R$" #PRECO_GALAO "{FFFFFF})", sizeof(info));
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Posto Gasolina", info, "OK", "X");
 		}
 		case DIALOG_EDITVEHICLE:
@@ -3961,7 +3961,7 @@ UpdateVehicleLabel(vehicleid, removeold)
 			Delete3DTextLabel(VehicleLabel[vehicleid]);
 		}
 		new labeltext[500];
-		format(labeltext, sizeof(labeltext), "{0026FF}%s\n{FFFFFF}ID: {0026FF}%d\n{FFFFFF}Concessionaria ID: {0026FF}%s\n{FFFFFF}Valor: {0026FF}R$%s", VehicleNames[VehicleModel[vehicleid]-400],
+		format(labeltext, sizeof(labeltext), "{5b6ed9}%s\n{FFFFFF}ID: {5b6ed9}%d\n{FFFFFF}Concessionaria ID: {5b6ed9}%s\n{FFFFFF}Valor: {5b6ed9}R$%s", VehicleNames[VehicleModel[vehicleid]-400],
 			vehicleid, VehicleOwner[vehicleid], ConvertMoney(VehicleValue[vehicleid]));
 		VehicleLabel[vehicleid] = Create3DTextLabel(labeltext, 0xBB7700DD, 0, 0, 0, 10.0, 0);
 		Attach3DTextLabelToVehicle(VehicleLabel[vehicleid], VehicleID[vehicleid], 0, 0, 0);
@@ -4084,7 +4084,7 @@ UpdateDealership(dealerid, removeold)
 			Delete3DTextLabel(DealershipLabel[dealerid]);
 		}
 		new labeltext[500];
-		format(labeltext, sizeof(labeltext), "{0026FF}Spawn Veiculo\n{FFFFFF}ID: {0026FF}%d", dealerid);
+		format(labeltext, sizeof(labeltext), "{5b6ed9}Spawn Veiculo\n{FFFFFF}ID: {5b6ed9}%d", dealerid);
 		DealershipLabel[dealerid] = Create3DTextLabel(labeltext, 0x00BB00DD, DealershipPos[dealerid][0],
 			DealershipPos[dealerid][1], DealershipPos[dealerid][2]+0.5, 20.0, 0);
 	}
@@ -4143,7 +4143,7 @@ UpdateFuelStation(stationid, removeold)
 			Delete3DTextLabel(FuelStationLabel[stationid]);
 		}
 		new labeltext[500];
-		format(labeltext, sizeof(labeltext), "{0026FF}Posto de Gasolina\n{FFFFFF}ID: {0026FF}%d\n{FFFFFF}/abastecer", stationid);
+		format(labeltext, sizeof(labeltext), "{5b6ed9}Posto de Gasolina\n{FFFFFF}ID: {5b6ed9}%d\n{FFFFFF}/abastecer", stationid);
 		FuelStationLabel[stationid] = Create3DTextLabel(labeltext, 0x00BBFFDD, FuelStationPos[stationid][0],
 			FuelStationPos[stationid][1], FuelStationPos[stationid][2]+0.5, 20.0, 0);
 	}
@@ -4668,8 +4668,8 @@ CallBack::PegarMoney(playerid, caixa_id)
 
 	CaixaInfo[caixa_id][Caixa_Dinheiro] -= (CaixaInfo[caixa_id][Caixa_Dinheiro]/picks);
 
-	format(str, sizeof str, "{FFFFFF}Caixa Registradora\n{0026FF}Caixa Destruido\n{FFFFFF}Dinheiro No Caixa: {0026FF}R$%i",CaixaInfo[caixa_id][Caixa_Dinheiro]);
-	Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], 0x0026FFF4, str);
+	format(str, sizeof str, "{FFFFFF}Caixa Registradora\n{5b6ed9}Caixa Destruido\n{FFFFFF}Dinheiro No Caixa: {5b6ed9}R$%i",CaixaInfo[caixa_id][Caixa_Dinheiro]);
+	Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], 0x5b6ed9F4, str);
 
 	CaixaInfo[caixa_id][Caixa_Pickups] --;
 	
@@ -4791,8 +4791,8 @@ CallBack::ExplodirCaixa(caixa_id)
 	new add = random(2000);
 	CaixaInfo[caixa_id][Caixa_Dinheiro] = (MAX_PICKUPS_ROUBO*1600)+add;
 
-	format(str, sizeof str, "{FFFFFF}Caixa Registradora\n{0026FF}Caixa Destruido\n{FFFFFF}Dinheiro No Chao: {0026FF}R$%i",CaixaInfo[caixa_id][Caixa_Dinheiro]);
-	Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], 0x0026FFF4, str);
+	format(str, sizeof str, "{FFFFFF}Caixa Registradora\n{5b6ed9}Caixa Destruido\n{FFFFFF}Dinheiro No Chao: {5b6ed9}R$%i",CaixaInfo[caixa_id][Caixa_Dinheiro]);
+	Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], 0x5b6ed9F4, str);
 
 	GetDynamicObjectPos(CaixaInfo[caixa_id][Caixa_Object], px, py, pz);
 	GetDynamicObjectRot(CaixaInfo[caixa_id][Caixa_Object], rx, ry, rz);
@@ -4828,7 +4828,7 @@ CallBack::RestoreCaixa(caixa_id)
 
 		CaixaInfo[caixa_id][Caixa_Roubada] = false;
 
-		Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], 0x33FFFFFF, "{FFFFFF}Caixa Registradora\nAperte '{0026FF}F{FFFFFF}' para acessar");
+		Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], 0x33FFFFFF, "{FFFFFF}Caixa Registradora\nAperte '{5b6ed9}F{FFFFFF}' para acessar");
 
 		GetDynamicObjectPos(CaixaInfo[caixa_id][Caixa_Object], px, py, pz);
 		GetDynamicObjectRot(CaixaInfo[caixa_id][Caixa_Object], rx, ry, rz);
@@ -5602,7 +5602,7 @@ DroparItem(playerid, modelid)
 					DropItemSlot[i][DropItemID] = PlayerInventario[playerid][modelid][Slot];
 					DropItemSlot[i][Virtual] = GetPlayerVirtualWorld(playerid);
 					DropItemSlot[i][Interior] = GetPlayerInterior(playerid);
-					format(str, sizeof(str), "{0026FF}%s\n{FFFFFF}X%s", ItemNomeInv(PlayerInventario[playerid][modelid][Slot]), ConvertMoney(PlayerInventario[playerid][modelid][Unidades]));
+					format(str, sizeof(str), "{5b6ed9}%s\n{FFFFFF}X%s", ItemNomeInv(PlayerInventario[playerid][modelid][Slot]), ConvertMoney(PlayerInventario[playerid][modelid][Unidades]));
 					DropItemSlot[i][LabelItem] = CreateDynamic3DTextLabel(str, -1, x,y,z-1, 5, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
 					PlayerInventario[playerid][modelid][Unidades] = 0;
 					AtualizarInventario(playerid, modelid);
@@ -5651,21 +5651,21 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(caixar == 0)
 			{
 				GanharItem(playerid, 3013, 1);
-				format(string, sizeof string, "{0026FF}%04d {FFFFFF}acaba de ganhar uma {0026FF}Caixa Media {FFFFFF}na Caixa Basica!", PlayerInfo[playerid][IDF]);
+				format(string, sizeof string, "{5b6ed9}%04d {FFFFFF}acaba de ganhar uma {5b6ed9}Caixa Media {FFFFFF}na Caixa Basica!", PlayerInfo[playerid][IDF]);
 				SendClientMessageToAll(-1, string);
 			}
 			if(caixar == 1 || caixar == 2)
 			{
 				new dinmoney = randomEx(0, 10000);
 				PlayerInfo[playerid][pDinheiro] += dinmoney;
-				format(string, sizeof string, "{0026FF}%04d {FFFFFF}acaba de ganhar {0026FF}%s de dinheiro {FFFFFF}na Caixa Basica!", PlayerInfo[playerid][IDF], ConvertMoney(dinmoney));
+				format(string, sizeof string, "{5b6ed9}%04d {FFFFFF}acaba de ganhar {5b6ed9}%s de dinheiro {FFFFFF}na Caixa Basica!", PlayerInfo[playerid][IDF], ConvertMoney(dinmoney));
 				SendClientMessageToAll(-1, string);
 			}
 			if(caixar == 3)
 			{
 				new dinmoneysuj = randomEx(0, 10000);
 				GanharItem(playerid, 1212, dinmoneysuj);
-				format(string, sizeof string, "{0026FF}%04d {FFFFFF}acaba de ganhar {0026FF}%s de dinheiro {FFFFFF}sujo na Caixa Basica!", PlayerInfo[playerid][IDF], ConvertMoney(dinmoneysuj));
+				format(string, sizeof string, "{5b6ed9}%04d {FFFFFF}acaba de ganhar {5b6ed9}%s de dinheiro {FFFFFF}sujo na Caixa Basica!", PlayerInfo[playerid][IDF], ConvertMoney(dinmoneysuj));
 				SendClientMessageToAll(-1, string);
 			}
 			PlayerInventario[playerid][modelid][Unidades] --;
@@ -5687,31 +5687,31 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 				format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
-				DCC_SetEmbedColor(embed, 0x0026FF);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
 				DCC_SetEmbedDescription(embed, vip);
 				DCC_SendChannelEmbedMessage(VIPAtivado, embed);
-				format(string, sizeof string, "{0026FF}%04d {FFFFFF}acaba de ganhar um {0026FF}VIP BASICO {FFFFFF}por 10dias na Caixa Media!", PlayerInfo[playerid][IDF]);
+				format(string, sizeof string, "{5b6ed9}%04d {FFFFFF}acaba de ganhar um {5b6ed9}VIP BASICO {FFFFFF}por 10dias na Caixa Media!", PlayerInfo[playerid][IDF]);
 				SendClientMessageToAll(-1, string);
 			}
 			if(caixar == 1)
 			{
 				new dinmoney = randomEx(0, 10000);
 				PlayerInfo[playerid][pDinheiro] += dinmoney;
-				format(string, sizeof string, "{0026FF}%04d {FFFFFF}acaba de ganhar {0026FF}%s de dinheiro {FFFFFF}na Caixa Media!", PlayerInfo[playerid][IDF], ConvertMoney(dinmoney));
+				format(string, sizeof string, "{5b6ed9}%04d {FFFFFF}acaba de ganhar {5b6ed9}%s de dinheiro {FFFFFF}na Caixa Media!", PlayerInfo[playerid][IDF], ConvertMoney(dinmoney));
 				SendClientMessageToAll(-1, string);
 			}
 			if(caixar == 2)
 			{
 				new dinmoney = randomEx(0, 10000);
 				PlayerInfo[playerid][pDinheiro] += dinmoney;
-				format(string, sizeof string, "{0026FF}%04d {FFFFFF}acaba de ganhar {0026FF}%s de dinheiro {FFFFFF}na Caixa Media!", PlayerInfo[playerid][IDF], ConvertMoney(dinmoney));
+				format(string, sizeof string, "{5b6ed9}%04d {FFFFFF}acaba de ganhar {5b6ed9}%s de dinheiro {FFFFFF}na Caixa Media!", PlayerInfo[playerid][IDF], ConvertMoney(dinmoney));
 				SendClientMessageToAll(-1, string);
 			}
 			if(caixar == 3)
 			{
 				new dinmoneysuj = randomEx(0, 10000);
 				PlayerInfo[playerid][pCoins] += dinmoneysuj;
-				format(string, sizeof string, "{0026FF}%04d {FFFFFF}acaba de ganhar {0026FF}%s de coins {FFFFFF}na Caixa Media!", PlayerInfo[playerid][IDF], ConvertMoney(dinmoneysuj));
+				format(string, sizeof string, "{5b6ed9}%04d {FFFFFF}acaba de ganhar {5b6ed9}%s de coins {FFFFFF}na Caixa Media!", PlayerInfo[playerid][IDF], ConvertMoney(dinmoneysuj));
 				SendClientMessageToAll(-1, string);
 			}
 			PlayerInventario[playerid][modelid][Unidades] --;
@@ -5733,10 +5733,10 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 				format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP PREMIUM\nValor: 25000", PlayerInfo[playerid][IDF]);
-				DCC_SetEmbedColor(embed, 0x0026FF);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
 				DCC_SetEmbedDescription(embed, vip);
 				DCC_SendChannelEmbedMessage(VIPAtivado, embed);
-				format(string, sizeof string, "{0026FF}%04d {FFFFFF}acaba de ganhar um {0026FF}VIP PREMIUM {FFFFFF}por 10dias na Caixa Avancada!", PlayerInfo[playerid][IDF]);
+				format(string, sizeof string, "{5b6ed9}%04d {FFFFFF}acaba de ganhar um {5b6ed9}VIP PREMIUM {FFFFFF}por 10dias na Caixa Avancada!", PlayerInfo[playerid][IDF]);
 				SendClientMessageToAll(-1, string);
 			}
 			if(caixar == 1)
@@ -5744,24 +5744,24 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				GanharItem(playerid, 560, 1);
 				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 				format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um veiculo de inventario\nValor: 5000\nNome Veh: Sultan", PlayerInfo[playerid][IDF]);
-				DCC_SetEmbedColor(embed, 0x0026FF);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
 				DCC_SetEmbedDescription(embed, string);
 				DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_560.jpg");
 				DCC_SendChannelEmbedMessage(VIPAtivado, embed);
-				format(string, sizeof string, "{0026FF}%04d {FFFFFF}acaba de ganhar {0026FF}Sultan de Inventario {FFFFFF}na Caixa Avancada!", PlayerInfo[playerid][IDF]);
+				format(string, sizeof string, "{5b6ed9}%04d {FFFFFF}acaba de ganhar {5b6ed9}Sultan de Inventario {FFFFFF}na Caixa Avancada!", PlayerInfo[playerid][IDF]);
 				SendClientMessageToAll(-1, string);
 			}
 			if(caixar == 2)
 			{
 				new dinmoney = randomEx(0, 50000);
 				PlayerInfo[playerid][pDinheiro] += dinmoney;
-				format(string, sizeof string, "{0026FF}%04d {FFFFFF}acaba de ganhar {0026FF}%s de dinheiro {FFFFFF}na Caixa Avancada!", PlayerInfo[playerid][IDF], ConvertMoney(dinmoney));
+				format(string, sizeof string, "{5b6ed9}%04d {FFFFFF}acaba de ganhar {5b6ed9}%s de dinheiro {FFFFFF}na Caixa Avancada!", PlayerInfo[playerid][IDF], ConvertMoney(dinmoney));
 				SendClientMessageToAll(-1, string);
 			}
 			if(caixar == 3)
 			{
 				PlayerInfo[playerid][pCoins] += 5000;
-				format(string, sizeof string, "{0026FF}%04d {FFFFFF}acaba de ganhar {0026FF}5000 de coins {FFFFFF}na Caixa Avancada!", PlayerInfo[playerid][IDF]);
+				format(string, sizeof string, "{5b6ed9}%04d {FFFFFF}acaba de ganhar {5b6ed9}5000 de coins {FFFFFF}na Caixa Avancada!", PlayerInfo[playerid][IDF]);
 				SendClientMessageToAll(-1, string);
 			}
 			PlayerInventario[playerid][modelid][Unidades] --;
@@ -6081,7 +6081,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 					return ErrorMsg(playerid, "Este veiculo nao pode ser tunado.");
 
 				cmd_inventario(playerid);
-				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Mecanico", "{0026FF}Mecanica {FFFFFF}Rodas\n{0026FF}Mecanica {FFFFFF}Cores\n{0026FF}Mecanica {FFFFFF}Paintjobs\n{0026FF}Mecanica {FFFFFF}Nitro\n{0026FF}Mecanica {FFFFFF}Suspencao\n{0026FF}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
+				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Mecanico", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
 				PlayerInventario[playerid][modelid][Unidades]--;
 				AtualizarInventario(playerid, modelid);
 			}
@@ -9346,7 +9346,7 @@ stock todastextdraw(playerid)
 	gPlayerFadeInfo[playerid][fadeCurrentAlpha] = MAX_TRANSPARENCY;
 	// detalhes
 	PlayerTextDrawUseBox(playerid, text, 1);
-	PlayerTextDrawBoxColor(playerid, text, 0xFF0026FF);
+	PlayerTextDrawBoxColor(playerid, text, 0xFF5b6ed9);
 	PlayerTextDrawLetterSize(playerid, text, 680.0, 500.0);
 	PlayerTextDrawTextSize(playerid, text, 680.0, 500.0);
 
@@ -10054,7 +10054,7 @@ stock CreateCaixa(objectid, Float:x, Float:y, Float:z, Float:rotx, Float:roty, F
 	GetDynamicObjectPos(CaixaInfo[caixaid][Caixa_Object], pX, pY, pZ);
 	GetXYInFrontOfCaixa(CaixaInfo[caixaid][Caixa_Object], pX, pY, 1.0);
 	CaixaInfo[caixaid][Caixa_Pickup] = CreatePickup(1274 , 1, pX,pY,pZ);
-	CaixaInfo[caixaid][Caixa_Text] = Create3DTextLabel("{FFFFFF}Caixa Registradora\n{FFFFFF}Aperte '{0026FF}F{FFFFFF}' para acessar", 0x33FFFF88, pX, pY, pZ, 15.0, 0);
+	CaixaInfo[caixaid][Caixa_Text] = Create3DTextLabel("{FFFFFF}Caixa Registradora\n{FFFFFF}Aperte '{5b6ed9}F{FFFFFF}' para acessar", 0x33FFFF88, pX, pY, pZ, 15.0, 0);
 
     caixaid ++;
 	return 0;
@@ -10223,109 +10223,109 @@ stock NpcText()
 	new Actor[30+1],Text3D:label[30+1];
 
 	Actor[0] = CreateActor(227, 1689.563598, -2326.089599, 13.546875, 154.224639); 
-	label[0] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {0026FF}Allison_Gomes!\n{FFFFFF}Use {0026FF}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, 1689.563598, -2326.089599, 13.546875, 15.0, 0);
+	label[0] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {5b6ed9}Allison_Gomes!\n{FFFFFF}Use {5b6ed9}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, 1689.563598, -2326.089599, 13.546875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[0], Actor[0], 0.0, 0.0, 0.7);
 
 	Actor[1] = CreateActor(35, 154.188613, -1945.949584, 4.972961, 352.308258);  
-	label[1] = Create3DTextLabel("{0026FF}Pescador\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para pegar o trampo.", 0x008080FF, 154.188613, -1945.949584, 4.972961, 15.0, 0);
+	label[1] = Create3DTextLabel("{5b6ed9}Pescador\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o trampo.", 0x008080FF, 154.188613, -1945.949584, 4.972961, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[1], Actor[1], 0.0, 0.0, 0.7);
  
-	CreateAurea("{0026FF}Loja de Pescados\n{FFFFFF}Use o {0026FF}Inventario{FFFFFF}' para vender.", 163.968444, -1941.403564, 3.773437);
+	CreateAurea("{5b6ed9}Loja de Pescados\n{FFFFFF}Use o {5b6ed9}Inventario{FFFFFF}' para vender.", 163.968444, -1941.403564, 3.773437);
 
 	Actor[3] = CreateActor(34, 584.859375, 877.046569, -42.497318, 266.847808);  
-	label[3] = Create3DTextLabel("{0026FF}Empresa: {FFFFFF}Mineradora LathMor\n{00FF00}Vaga:{FFFFFF} Minerador\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 584.859375, 877.046569, -42.497318, 15.0, 0);
+	label[3] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Mineradora LathMor\n{00FF00}Vaga:{FFFFFF} Minerador\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 584.859375, 877.046569, -42.497318, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[3], Actor[3], 0.0, 0.0, 0.7);
 
 	Actor[4] = CreateActor(133, 960.607055, 2097.604003, 1011.023010, 358.121734);  
-	label[4] = Create3DTextLabel("{0026FF}Empresa: {FFFFFF}FriBoi\n{00FF00}Vaga:{FFFFFF} Acougueiro\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 960.607055, 2097.604003, 1011.023010, 15.0, 0);
+	label[4] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}FriBoi\n{00FF00}Vaga:{FFFFFF} Acougueiro\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 960.607055, 2097.604003, 1011.023010, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[4], Actor[4], 0.0, 0.0, 0.7);
 
 	Actor[5] = CreateActor(78, -504.495117, -517.457763, 25.523437, 258.582305);  
-	label[5] = Create3DTextLabel("{0026FF}Empresa: {FFFFFF}FedeX\n{00FF00}Vaga:{FFFFFF}Caminhoneiro\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -504.495117, -517.457763, 25.523437, 15.0, 0);
+	label[5] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}FedeX\n{00FF00}Vaga:{FFFFFF}Caminhoneiro\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -504.495117, -517.457763, 25.523437, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[5], Actor[5], 0.0, 0.0, 0.7);
 
 	Actor[6] = CreateActor(79, -28.763319, 1363.971313, 9.171875, 37.998077);  
-	label[6] = Create3DTextLabel("{0026FF}Empresa: {FFFFFF}Prefeitura da Homeland\n{00FF00}Vaga:{FFFFFF} Coletor de Lixo\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -28.763319, 1363.971313, 9.171875, 15.0, 0);
+	label[6] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Prefeitura da Homeland\n{00FF00}Vaga:{FFFFFF} Coletor de Lixo\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -28.763319, 1363.971313, 9.171875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[6], Actor[6], 0.0, 0.0, 0.7);
 
 	Actor[7] = CreateActor(188, 1682.130737, -2326.373291, 13.546875, 211.057678);  
-	label[7] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {0026FF}Luan_Rosa!\n{FFFFFF}Aprenda como jogar no servidor \nUse '{0026FF}F{FFFFFF}' para se informar", 0x008080FF, 1682.130737, -2326.373291, 13.546875, 15.0, 0);
+	label[7] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {5b6ed9}Luan_Rosa!\n{FFFFFF}Aprenda como jogar no servidor \nUse '{5b6ed9}F{FFFFFF}' para se informar", 0x008080FF, 1682.130737, -2326.373291, 13.546875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[7], Actor[7], 0.0, 0.0, 0.7);
 
 	Actor[8] = CreateActor(71, 939.6504,1733.2004,8.8516,-87.4139);  
-	label[8] = Create3DTextLabel("{0026FF}Empresa: {FFFFFF}SedeX\n{00FF00}Vaga:{FFFFFF} Correios\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 939.6504,1733.2004,8.8516, 15.0, 0);
+	label[8] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}SedeX\n{00FF00}Vaga:{FFFFFF} Correios\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 939.6504,1733.2004,8.8516, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[8], Actor[8], 0.0, 0.0, 0.7);
 
-	CreateAurea("{0026FF}Prefeitura\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", -501.146118, 294.354156, 2001.094970);
-	CreateAurea("{0026FF}Banco Central\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", 1246.485839, -1651.083862, 17.028537);
-	CreateAurea("{0026FF}Banco Central\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", 1246.481445, -1657.370727, 17.028537);
-	CreateAurea("{0026FF}Banco Central\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", 1246.481811, -1662.939331, 17.028537);
-	CreateAurea("{0026FF}Banco Central\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", 1246.484497, -1669.351562, 17.028537);
-	CreateAurea("{0026FF}Banco Central\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", 1246.486816, -1675.575683, 17.028537);
-	CreateAurea("{0026FF}Hospital Central\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", 1646.425537, -1126.261474, 24.051115);
-	CreateAurea("{0026FF}Cafeteria\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", 1317.508422, -1116.722290, 24.960447);
-	CreateAurea("{0026FF}Loja de Utilidades 1\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", 1345.220703, -1763.755737, 13.551799);
-	CreateAurea("{0026FF}Loja de Utilidades 2\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", 1649.424316, -1889.373535, 13.569334);
-	CreateAurea("{0026FF}Loja de Utilidades 3\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", 2064.488037, -1868.448364, 13.570810);
-	CreateAurea("{0026FF}Loja de Utilidades 4\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", 382.998931, -1909.859863, 7.844120);
-	CreateAurea("{0026FF}Loja de Utilidades 5\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", 1325.427368, -867.394287, 39.597454);
+	CreateAurea("{5b6ed9}Prefeitura\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -501.146118, 294.354156, 2001.094970);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1246.485839, -1651.083862, 17.028537);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1246.481445, -1657.370727, 17.028537);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1246.481811, -1662.939331, 17.028537);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1246.484497, -1669.351562, 17.028537);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1246.486816, -1675.575683, 17.028537);
+	CreateAurea("{5b6ed9}Hospital Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1646.425537, -1126.261474, 24.051115);
+	CreateAurea("{5b6ed9}Cafeteria\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1317.508422, -1116.722290, 24.960447);
+	CreateAurea("{5b6ed9}Loja de Utilidades 1\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1345.220703, -1763.755737, 13.551799);
+	CreateAurea("{5b6ed9}Loja de Utilidades 2\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1649.424316, -1889.373535, 13.569334);
+	CreateAurea("{5b6ed9}Loja de Utilidades 3\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 2064.488037, -1868.448364, 13.570810);
+	CreateAurea("{5b6ed9}Loja de Utilidades 4\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 382.998931, -1909.859863, 7.844120);
+	CreateAurea("{5b6ed9}Loja de Utilidades 5\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1325.427368, -867.394287, 39.597454);
 	// LOCAIS ROUBO
-	CreateAurea("{0026FF}Loja de Utilidades 1\n{FFFFFF}Use '{0026FF}H{FFFFFF}' para para iniciar o roubo.", 1359.730712, -1774.143798, 13.551797);
-	CreateAurea("{0026FF}Loja de Utilidades 2\n{FFFFFF}Use '{0026FF}H{FFFFFF}' para para iniciar o roubo.", 1663.732910, -1899.628295, 13.569333);
-	CreateAurea("{0026FF}Loja de Utilidades 3\n{FFFFFF}Use '{0026FF}H{FFFFFF}' para para iniciar o roubo.", 2054.306152, -1882.930908, 13.570812);
-	CreateAurea("{0026FF}Loja de Utilidades 4\n{FFFFFF}Use '{0026FF}H{FFFFFF}' para para iniciar o roubo.", 393.256683, -1895.677734, 7.844118);
-	CreateAurea("{0026FF}Loja de Utilidades 5\n{FFFFFF}Use '{0026FF}H{FFFFFF}' para para iniciar o roubo.", 1311.017944, -856.895690, 39.597454);
-	CreateAurea("{0026FF}Cafeteria\n{FFFFFF}Use '{0026FF}H{FFFFFF}' para para iniciar o roubo.", 1316.121826, -1113.496704, 24.960447);
+	CreateAurea("{5b6ed9}Loja de Utilidades 1\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1359.730712, -1774.143798, 13.551797);
+	CreateAurea("{5b6ed9}Loja de Utilidades 2\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1663.732910, -1899.628295, 13.569333);
+	CreateAurea("{5b6ed9}Loja de Utilidades 3\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 2054.306152, -1882.930908, 13.570812);
+	CreateAurea("{5b6ed9}Loja de Utilidades 4\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 393.256683, -1895.677734, 7.844118);
+	CreateAurea("{5b6ed9}Loja de Utilidades 5\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1311.017944, -856.895690, 39.597454);
+	CreateAurea("{5b6ed9}Cafeteria\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1316.121826, -1113.496704, 24.960447);
 	//----
-	CreateAurea("{0026FF}Centro de Licenca\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", 617.717346, -3.359961, 1000.990295);
-	CreateAurea("{0026FF}Loja Ilegal\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", 514.712341, -2333.011474, 508.693756);
+	CreateAurea("{5b6ed9}Centro de Licenca\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 617.717346, -3.359961, 1000.990295);
+	CreateAurea("{5b6ed9}Loja Ilegal\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 514.712341, -2333.011474, 508.693756);
 
-	CreateAurea("{FFFFFF}Use '{0026FF}F{FFFFFF}' para \nprocessar a peca de carne.", 942.577758, 2117.902099, 1011.030273);
-	CreateAurea("{FFFFFF}Use '{0026FF}F{FFFFFF}' para \npegar uma embalagem.", 938.006469, 2144.264892, 1011.023437);
-	CreateAurea("{FFFFFF}Use '{0026FF}F{FFFFFF}' para \ncolocar a carne na caixa.",942.416259, 2137.294921, 1011.023437);
-	CreateAurea("{FFFFFF}Use '{0026FF}F{FFFFFF}' para \nrevisar a caixa.", 942.421325, 2153.745849, 1011.023437);
-	CreateAurea("{FFFFFF}Use '{0026FF}F{FFFFFF}' para \npegar a caixa.", 942.288391, 2173.139404, 1011.023437);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nprocessar a peca de carne.", 942.577758, 2117.902099, 1011.030273);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \npegar uma embalagem.", 938.006469, 2144.264892, 1011.023437);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncolocar a carne na caixa.",942.416259, 2137.294921, 1011.023437);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nrevisar a caixa.", 942.421325, 2153.745849, 1011.023437);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \npegar a caixa.", 942.288391, 2173.139404, 1011.023437);
 	CreateAurea("Ponto de entrega.", 964.872192, 2159.816406, 1011.030273);
 	
-	CreateAurea("{FFFFFF}Use '{0026FF}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.961181, 1434.810058, 7.101562);
-	CreateAurea("{FFFFFF}Use '{0026FF}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.800048, 1426.759521, 7.101562);
-	CreateAurea("{FFFFFF}Use '{0026FF}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.942382, 1417.446289, 7.101562);
-	CreateAurea("{FFFFFF}Use '{0026FF}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.715820, 1408.081909, 7.101562);
-	CreateAurea("{FFFFFF}Use '{0026FF}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.961425, 1399.184448, 7.101562);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.961181, 1434.810058, 7.101562);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.800048, 1426.759521, 7.101562);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.942382, 1417.446289, 7.101562);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.715820, 1408.081909, 7.101562);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.961425, 1399.184448, 7.101562);
 
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{0026FF}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -520.421813, -504.999450, 24.635631, 25.0); // Carregamento Caminhoneiro
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -520.421813, -504.999450, 24.635631, 25.0); // Carregamento Caminhoneiro
 	CreateDynamicPickup(1220, 23, -520.421813, -504.999450, 24.635631); //Carregamento Caminhoneiro
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{0026FF}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -529.748168, -504.937561, 24.640802, 25.0); // Carregamento Caminhoneiro
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -529.748168, -504.937561, 24.640802, 25.0); // Carregamento Caminhoneiro
 	CreateDynamicPickup(1220, 23, -529.748168, -504.937561, 24.640802); //Carregamento Caminhoneiro
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{0026FF}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -557.552368, -505.473480, 24.596021, 25.0); // Carregamento Caminhoneiro
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -557.552368, -505.473480, 24.596021, 25.0); // Carregamento Caminhoneiro
 	CreateDynamicPickup(1220, 23, -557.552368, -505.473480, 24.596021); //Carregamento Caminhoneiro
 
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{0026FF}F{FFFFFF}' para \npegar uma camera.", -1, -5467.627441, -4536.831054, 4046.774902, 25.0); // Camera
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \npegar uma camera.", -1, -5467.627441, -4536.831054, 4046.774902, 25.0); // Camera
 	CreateDynamicPickup(1275, 23, -5467.627441, -4536.831054, 4046.774902);//Camera
 
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{0026FF}/uniforme{FFFFFF}' para \npegar seu uniforme e bater ponto.", -1, 956.8282,1754.7942,8.6484, 25.0); // Uniforme correios
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}/uniforme{FFFFFF}' para \npegar seu uniforme e bater ponto.", -1, 956.8282,1754.7942,8.6484, 25.0); // Uniforme correios
 	CreateDynamicPickup(1275, 23, 956.8282,1754.7942,8.6484);//Uniforme correios
 
 	CreateDynamicPickup(19606,23,-1606.267578, 733.912414, -5.234413,0);
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{0026FF}/prender{FFFFFF}'para \nprender o jogador.",-1,-1606.267578, 733.912414, -5.234413,15);
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}/prender{FFFFFF}'para \nprender o jogador.",-1,-1606.267578, 733.912414, -5.234413,15);
 
-	CreateAurea("{0026FF}Rota de Maconha\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", -1143.184814, 2227.874511, 97.219261);
-	CreateAurea("{0026FF}Rota de Cocaina\n{FFFFFF}Use '{0026FF}F{FFFFFF}' para abrir o menu.", -248.257873, 1506.404418, 75.562500);
+	CreateAurea("{5b6ed9}Rota de Maconha\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -1143.184814, 2227.874511, 97.219261);
+	CreateAurea("{5b6ed9}Rota de Cocaina\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -248.257873, 1506.404418, 75.562500);
 
-	CreateDynamicPickup(1314, 23, -2033.067504, -988.365112, 32.212158);
-	CreateDynamic3DTextLabel("{0026FF}Policia Militar{FFFFFF}\nUse '{0026FF}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,-2033.067504, -988.365112, 32.212158,15);
+	CreateDynamicPickup(1314, 23, -2017.083740, -998.231933, 37.254680);
+	CreateDynamic3DTextLabel("{5b6ed9}Policia Militar{FFFFFF}\nUse '{5b6ed9}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,-2017.083740, -998.231933, 37.254680,15);
 	
-	CreateDynamicPickup(1314, 23, -2440.856445, 522.686523, 29.914293);
-	CreateDynamic3DTextLabel("{0026FF}Policia Rodoviaria{FFFFFF}\nUse '{0026FF}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,-2440.856445, 522.686523, 29.914293,15);
+	CreateDynamicPickup(1314, 23, 1638.864746, -248.854202, 49.000457);
+	CreateDynamic3DTextLabel("{5b6ed9}Policia Rodoviaria{FFFFFF}\nUse '{5b6ed9}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,1638.864746, -248.854202, 49.000457,15);
 	
-	CreateDynamicPickup(1314, 23, -1278.104248, 2711.379150, 50.132141);
-	CreateDynamic3DTextLabel("{0026FF}Rondas Ostensivas{FFFFFF}\nUse '{0026FF}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,-1278.104248, 2711.379150, 50.132141,15);
+	CreateDynamicPickup(1314, 23, -2446.826904, 505.566497, 30.090206);
+	CreateDynamic3DTextLabel("{5b6ed9}Rondas Ostensivas{FFFFFF}\nUse '{5b6ed9}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,-2446.826904, 505.566497, 30.090206,15);
 	
-	CreateDynamicPickup(1314, 23, 1662.559692, -285.732208, 39.607868);
-	CreateDynamic3DTextLabel("{0026FF}Acoes Especiais{FFFFFF}\nUse '{0026FF}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,1662.559692, -285.732208, 39.607868,15);
+	CreateDynamicPickup(1314, 23, -1258.899536, 2709.987304, 55.174671);
+	CreateDynamic3DTextLabel("{5b6ed9}Acoes Especiais{FFFFFF}\nUse '{5b6ed9}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,-1258.899536, 2709.987304, 55.174671,15);
 	
 	CreateDynamicPickup(1314, 23, 1634.357543, -1122.493896, 24.051122);
-	CreateDynamic3DTextLabel("{0026FF}Medicos{FFFFFF}\nUse '{0026FF}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,1634.357543, -1122.493896, 24.051122,15);
+	CreateDynamic3DTextLabel("{5b6ed9}Medicos{FFFFFF}\nUse '{5b6ed9}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,1634.357543, -1122.493896, 24.051122,15);
 	
 	printf("=> Textos       		: Carregados");
 	return 1;
@@ -11229,26 +11229,26 @@ public OnGameModeInit()
 	for(new slot = 0; slot < MAX_MACONHA; slot++)MaconhaInfo[slot][PodeUsar] = true;
 	for(new i; i < 10; i++)
 	{
-		CreateDynamic3DTextLabel("{FFFFFF}Use '{0026FF}H{FFFFFF}'para \npegar um veiculo.", -1, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2], 10.0);
+		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}H{FFFFFF}'para \npegar um veiculo.", -1, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2], 10.0);
 		CreateDynamicPickup(1083, 23, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2]); // Veh Spawn
 	}
 	for(new i; i < 4; i++)
 	{
 		CreateDynamicPickup(1275, 23, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]);
-		CreateDynamic3DTextLabel("{FFFFFF}Use '{0026FF}F{FFFFFF}'para \npegar os equipamentos.",-1,PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2],15);
+		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para \npegar os equipamentos.",-1,PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2],15);
 	}
 	for(new i; i < 13; i++)
 	{
-		CreateDynamic3DTextLabel("{FFFFFF}Use '{0026FF}F{FFFFFF}'para\ncomecar a pescar.", -1, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2], 15.0);
+		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para\ncomecar a pescar.", -1, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2], 15.0);
 	}
 	for(new i; i < 8; i++)
 	{
-		CreateDynamic3DTextLabel("{FFFFFF}Use '{0026FF}F{FFFFFF}'para \niniciar o desossamento.", -1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2], 15.0);
+		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para \niniciar o desossamento.", -1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2], 15.0);
 	}
 	for(new i; i < 5; i++)
 	{
 		CreateDynamicPickup(19606,23,Entradas[i][0],Entradas[i][1],Entradas[i][2],0);
-		CreateDynamic3DTextLabel("{FFFFFF}Use '{0026FF}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
+		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
 	}
 	for(new i; i > CountDynamicObjects(); i++)
 	{
@@ -11456,7 +11456,7 @@ public OnPlayerDisconnect(playerid, reason)
 		new string[255];
 		new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 		format(string,sizeof(string),"O jogador %04d saiu do servidor!\n\nJogadores **%d**/500\nHorario: %02d:%02d", PlayerInfo[playerid][IDF], jogadoreson, hora, minuto);
-		DCC_SetEmbedColor(embed, 0x0026FF);
+		DCC_SetEmbedColor(embed, 0x5b6ed9);
 		DCC_SetEmbedDescription(embed, string);
 		DCC_SetEmbedImage(embed, DCIMG);
 		DCC_SendChannelEmbedMessage(EntradaeSaida, embed);
@@ -13421,6 +13421,20 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 return 1;
             }
 		}
+		if(PlayerToPoint(3.0, playerid, 1001.463684, 1755.690063, 10.937376))
+		{
+			if(PlayerInfo[playerid][pProfissao] == 8)
+			{
+				cmd_abrircorreios(playerid);
+			}
+		}
+		if(PlayerToPoint(3.0, playerid, 991.318847, 1710.615966, 10.100306))
+		{
+			if(PlayerInfo[playerid][pProfissao] == 8)
+			{
+				cmd_abrircorreios2(playerid);
+			}
+		}
 		if(PlayerToPoint(3.0, playerid, 1683.301391, -2311.982910, 13.546875))
 		{
 			if(VehAlugado[playerid] == 0)
@@ -13861,16 +13875,16 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, -2064.961181, 1434.810058, 7.101562) || PlayerToPoint(3.0, playerid, -2064.800048, 1426.759521, 7.101562) || PlayerToPoint(3.0, playerid, -2064.942382, 1417.446289, 7.101562) || PlayerToPoint(3.0, playerid, -2064.715820, 1408.081909, 7.101562) || PlayerToPoint(3.0, playerid, -2064.961425, 1399.184448, 7.101562))
 		{
 			if(PlayerInfo[playerid][Org] != 10) 		return ErrorMsg(playerid, "Nao possui permissao.");
-			ShowPlayerDialog(playerid, DIALOG_ARMARIOMEC, DIALOG_STYLE_LIST,"Menu Mecanico", "{0026FF}- {FFFFFF}Caixa de Ferramientas\t{32CD32}R$1200\n{0026FF}- {FFFFFF}Ferramentas de Tunagem\t{32CD32}R$15000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_ARMARIOMEC, DIALOG_STYLE_LIST,"Menu Mecanico", "{5b6ed9}- {FFFFFF}Caixa de Ferramientas\t{32CD32}R$1200\n{5b6ed9}- {FFFFFF}Ferramentas de Tunagem\t{32CD32}R$15000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, -501.146118, 294.354156, 2001.094970))
 		{
-			ShowPlayerDialog(playerid, DIALOG_PREFEITURA, DIALOG_STYLE_LIST,"Prefeitura do Estado", "{0026FF}- {FFFFFF}Emitir Documentos\n{0026FF}- {FFFFFF}Emitir Cart. Trabalho", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_PREFEITURA, DIALOG_STYLE_LIST,"Prefeitura do Estado", "{5b6ed9}- {FFFFFF}Emitir Documentos\n{5b6ed9}- {FFFFFF}Emitir Cart. Trabalho", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 514.767089, -2334.465820, 508.693756))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_LIST,"Loja Ilegal", "{0026FF}- {FFFFFF}Dinamite\t{32CD32}R$25000\n{0026FF}- {FFFFFF}Sementes de Maconha\t{32CD32}R$1000\n{0026FF}- {FFFFFF}LockPick\t{32CD32}R$15000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_LIST,"Loja Ilegal", "{5b6ed9}- {FFFFFF}Dinamite\t{32CD32}R$25000\n{5b6ed9}- {FFFFFF}Sementes de Maconha\t{32CD32}R$1000\n{5b6ed9}- {FFFFFF}LockPick\t{32CD32}R$15000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 1246.486816, -1675.575683, 17.028537) || PlayerToPoint(3.0, playerid, 1246.484497, -1669.351562, 17.028537) || PlayerToPoint(3.0, playerid,  1246.481811, -1662.939331, 17.028537) || PlayerToPoint(3.0, playerid, 1246.481445, -1657.370727, 17.028537) || PlayerToPoint(3.0, playerid, 1246.485839, -1651.083862, 17.028537))
 		{
@@ -13884,7 +13898,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 1317.508422, -1116.722290, 24.960447))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_CATLANCHE, DIALOG_STYLE_LIST, "Cafeteria", "{0026FF}- {FFFFFF}Alimentos\n{0026FF}- {FFFFFF}Refrescos", "Selecionar", "X");
+			ShowPlayerDialog(playerid, DIALOG_CATLANCHE, DIALOG_STYLE_LIST, "Cafeteria", "{5b6ed9}- {FFFFFF}Alimentos\n{5b6ed9}- {FFFFFF}Refrescos", "Selecionar", "X");
 		}
 		if(PlayerToPoint(2.0, playerid, 617.928100, -1.965069, 1001.040832))
 		{
@@ -13892,22 +13906,22 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][pDinheiro] < 4000)	return ErrorMsg(playerid, "Dinheiro insuficiente (R$4000).");
 			if(PlayerInfo[playerid][LicencaConduzir] == 1) return ErrorMsg(playerid, "Ja possui licenca");
 			new StrHab[15000];
-			strcat(StrHab,  "{0026FF}x{FFFFFF} Voce esta prestes a iniciar seu teste de conducao\n");
-			strcat(StrHab,  "{0026FF}x{FFFFFF} Para iniciar o teste, clique em {FFFFFF}'{0026FF}COMECAR{FFFFFF}'\n");
-			strcat(StrHab,  "{0026FF}x{FFFFFF} Lembrando! Apos clicar no botao, o teste sera iniciado automaticamente.\n");
-			strcat(StrHab,  "{0026FF}x{FFFFFF} A cobrancaa sera feita assim que o teste comecar.\n");
-			strcat(StrHab,  "{0026FF}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
+			strcat(StrHab,  "{5b6ed9}x{FFFFFF} Voce esta prestes a iniciar seu teste de conducao\n");
+			strcat(StrHab,  "{5b6ed9}x{FFFFFF} Para iniciar o teste, clique em {FFFFFF}'{5b6ed9}COMECAR{FFFFFF}'\n");
+			strcat(StrHab,  "{5b6ed9}x{FFFFFF} Lembrando! Apos clicar no botao, o teste sera iniciado automaticamente.\n");
+			strcat(StrHab,  "{5b6ed9}x{FFFFFF} A cobrancaa sera feita assim que o teste comecar.\n");
+			strcat(StrHab,  "{5b6ed9}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
 			ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA2, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "COMECAR","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 1649.4332,-1889.2966,13.5878) || PlayerToPoint(3.0, playerid, 2064.6821,-1868.5961,13.5892) || PlayerToPoint(3.0, playerid, 382.9478,-1909.8621,7.8625) || PlayerToPoint(3.0, playerid, 1325.4236,-867.3035,39.6159) || PlayerToPoint(3.0, playerid, 1345.2196,-1763.8044,13.5702))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_LOJA247, DIALOG_STYLE_LIST,"Loja de Utilidades", "{0026FF}- {FFFFFF}Celular\t{32CD32}R$1500\n{0026FF}- {FFFFFF}Vara de Pescar\t{32CD32}R$300\n{0026FF}- {FFFFFF}Capacete\t{32CD32}R$500\n{0026FF}- {FFFFFF}Chaira\t{32CD32}R$150", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_LOJA247, DIALOG_STYLE_LIST,"Loja de Utilidades", "{5b6ed9}- {FFFFFF}Celular\t{32CD32}R$1500\n{5b6ed9}- {FFFFFF}Vara de Pescar\t{32CD32}R$300\n{5b6ed9}- {FFFFFF}Capacete\t{32CD32}R$500\n{5b6ed9}- {FFFFFF}Chaira\t{32CD32}R$150", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 1646.425537, -1126.261474, 24.051115))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_LOJAHP, DIALOG_STYLE_LIST,"Loja do Hospital", "{0026FF}- {FFFFFF}Bandagem\t{32CD32}R$200", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_LOJAHP, DIALOG_STYLE_LIST,"Loja do Hospital", "{5b6ed9}- {FFFFFF}Bandagem\t{32CD32}R$200", "Selecionar","X");
 		}
 		for(new i; i < 4; i++)
 		if(PlayerToPoint(3.0, playerid, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]))
@@ -14092,47 +14106,47 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 0)
 				{
 					new menustr2[255];
-					strcat(menustr2, "{0026FF}Rodas {FFFFFF}Shadow\n");
-					strcat(menustr2, "{0026FF}Rodas {FFFFFF}Mega\n");
-					strcat(menustr2, "{0026FF}Rodas {FFFFFF}Rimshine\n");
-					strcat(menustr2, "{0026FF}Rodas {FFFFFF}Wires\n");
-					strcat(menustr2, "{0026FF}Rodas {FFFFFF}Classic\n");
-					strcat(menustr2, "{0026FF}Rodas {FFFFFF}Twist\n");
-					strcat(menustr2, "{0026FF}Rodas {FFFFFF}Cutter\n");
-					strcat(menustr2, "{0026FF}Rodas {FFFFFF}Doller\n");
-					strcat(menustr2, "{0026FF}Rodas {FFFFFF}Atomic\n");
-					strcat(menustr2, "{0026FF}Rodas {FFFFFF}Virtual\n");
+					strcat(menustr2, "{5b6ed9}Rodas {FFFFFF}Shadow\n");
+					strcat(menustr2, "{5b6ed9}Rodas {FFFFFF}Mega\n");
+					strcat(menustr2, "{5b6ed9}Rodas {FFFFFF}Rimshine\n");
+					strcat(menustr2, "{5b6ed9}Rodas {FFFFFF}Wires\n");
+					strcat(menustr2, "{5b6ed9}Rodas {FFFFFF}Classic\n");
+					strcat(menustr2, "{5b6ed9}Rodas {FFFFFF}Twist\n");
+					strcat(menustr2, "{5b6ed9}Rodas {FFFFFF}Cutter\n");
+					strcat(menustr2, "{5b6ed9}Rodas {FFFFFF}Doller\n");
+					strcat(menustr2, "{5b6ed9}Rodas {FFFFFF}Atomic\n");
+					strcat(menustr2, "{5b6ed9}Rodas {FFFFFF}Virtual\n");
 					ShowPlayerDialog(playerid, DIALOG_MECANICARODAS, DIALOG_STYLE_LIST, "Central do Mecanico", menustr2, "Confirmar", "X");
 				}
 				if(listitem == 1)
 				{
 					new menustr3[255];
-					strcat(menustr3, "{0026FF}Cores {FFFFFF}Branco\n");
-					strcat(menustr3, "{0026FF}Cores {FFFFFF}Azul\n");
-					strcat(menustr3, "{0026FF}Cores {FFFFFF}Amarelo\n");
-					strcat(menustr3, "{0026FF}Cores {FFFFFF}Morado\n");
-					strcat(menustr3, "{0026FF}Cores {FFFFFF}Verde\n");
-					strcat(menustr3, "{0026FF}Cores {FFFFFF}Cinza\n");
-					strcat(menustr3, "{0026FF}Cores {FFFFFF}Rosa\n");
-					strcat(menustr3, "{0026FF}Cores {FFFFFF}Marrom\n");
-					strcat(menustr3, "{0026FF}Cores {FFFFFF}Vermelho\n");
-					strcat(menustr3, "{0026FF}Cores {FFFFFF}Laranja\n");
+					strcat(menustr3, "{5b6ed9}Cores {FFFFFF}Branco\n");
+					strcat(menustr3, "{5b6ed9}Cores {FFFFFF}Azul\n");
+					strcat(menustr3, "{5b6ed9}Cores {FFFFFF}Amarelo\n");
+					strcat(menustr3, "{5b6ed9}Cores {FFFFFF}Morado\n");
+					strcat(menustr3, "{5b6ed9}Cores {FFFFFF}Verde\n");
+					strcat(menustr3, "{5b6ed9}Cores {FFFFFF}Cinza\n");
+					strcat(menustr3, "{5b6ed9}Cores {FFFFFF}Rosa\n");
+					strcat(menustr3, "{5b6ed9}Cores {FFFFFF}Marrom\n");
+					strcat(menustr3, "{5b6ed9}Cores {FFFFFF}Vermelho\n");
+					strcat(menustr3, "{5b6ed9}Cores {FFFFFF}Laranja\n");
 					ShowPlayerDialog(playerid, DIALOG_MECANICACORES, DIALOG_STYLE_LIST, "Central do Mecanico", menustr3, "Confirmar", "X");
 				}
 				if(listitem == 2)
 				{
 					new menustr4[255];
-					strcat(menustr4, "{0026FF}Paintjobs {FFFFFF}Opcao 1\n");
-					strcat(menustr4, "{0026FF}Paintjobs {FFFFFF}Opcao 2\n");
-					strcat(menustr4, "{0026FF}Paintjobs {FFFFFF}Opcao 3\n");
+					strcat(menustr4, "{5b6ed9}Paintjobs {FFFFFF}Opcao 1\n");
+					strcat(menustr4, "{5b6ed9}Paintjobs {FFFFFF}Opcao 2\n");
+					strcat(menustr4, "{5b6ed9}Paintjobs {FFFFFF}Opcao 3\n");
 					ShowPlayerDialog(playerid, DIALOG_MECANICAPJ, DIALOG_STYLE_LIST, "Central do Mecanico", menustr4, "Confirmar", "X");
 				}
 				if(listitem == 3)
 				{
 					new menustr5[255];
-					strcat(menustr5, "{0026FF}Nitro {FFFFFF}Bosster x2\n");
-					strcat(menustr5, "{0026FF}Nitro {FFFFFF}Booster x5\n");
-					strcat(menustr5, "{0026FF}Nitro {FFFFFF}Booster x10\n");
+					strcat(menustr5, "{5b6ed9}Nitro {FFFFFF}Bosster x2\n");
+					strcat(menustr5, "{5b6ed9}Nitro {FFFFFF}Booster x5\n");
+					strcat(menustr5, "{5b6ed9}Nitro {FFFFFF}Booster x10\n");
 					ShowPlayerDialog(playerid, DIALOG_MECANICANITRO, DIALOG_STYLE_LIST, "Central do Mecanico", menustr5, "Confirmar", "X");
 				}
 				if(listitem == 4)
@@ -14488,6 +14502,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Auto Tunagem efetuada.");
 				}
 			}
+			else
+			{
+				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Mecanico", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
+			}
 		}	
 		case DIALOG_MECANICARODAS:
 		{
@@ -14544,6 +14562,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Roda Alterada");
 				}
 			}
+			else
+			{
+				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Mecanico", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
+			}
 		}
 		case DIALOG_MECANICACORES:
 		{
@@ -14599,6 +14621,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					ChangeVehicleColor(wVeiculo, 158, 158), OnVehicleRespray(playerid, wVeiculo, 158, 158);    // LARANJA
 					SuccesMsg(playerid, "Cor Alterada");
 				}
+			}
+			else
+			{
+				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Mecanico", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
 			}
 		}
 		case DIALOG_REGISTRO:
@@ -14709,7 +14735,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new string[255];
 				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 				format(string,sizeof(string),"### NOVO ID GERADO\n\nID: %04d\nPertence: %s", PlayerInfo[playerid][IDF],Name(playerid));
-				DCC_SetEmbedColor(embed, 0x0026FF);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
 				DCC_SetEmbedDescription(embed, string);
 				DCC_SetEmbedImage(embed, DCIMG);
 				DCC_SendChannelEmbedMessage(IDNAME, embed);
@@ -14736,6 +14762,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Design Adicionado.");
 				}
 			}
+			else
+			{
+				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Mecanico", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
+			}
 		}
 		case DIALOG_MECANICANITRO:
 		{
@@ -14756,6 +14786,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					AddVehicleComponent(wVeiculo,1010), OnVehicleMod(playerid, wVeiculo, 1010);    // NITRO 3
 					SuccesMsg(playerid, "Nitro Lv3 Adicionado.");
 				}
+			}
+			else
+			{
+				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Mecanico", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
 			}
 		}
 		case D_VOIP:{
@@ -14919,7 +14953,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"O jogador %04d entrou no servidor!\n\nJogadores **%d**/500\nHorario: %02d:%02d", PlayerInfo[playerid][IDF],jogadoreson, hora, minuto);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedImage(embed, DCIMG);
 					DCC_SendChannelEmbedMessage(EntradaeSaida, embed);
@@ -14951,7 +14985,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							new string[255];
 							new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 							format(string,sizeof(string),"### NOVO EMAIL CADASTRADO\n\nID: %04d\nPertence: %s\nEmail: %s", PlayerInfo[playerid][IDF],Name(playerid), inputtext);
-							DCC_SetEmbedColor(embed, 0x0026FF);
+							DCC_SetEmbedColor(embed, 0x5b6ed9);
 							DCC_SetEmbedDescription(embed, string);
 							DCC_SetEmbedImage(embed, DCIMG);
 							DCC_SendChannelEmbedMessage(MAILLOG, embed);
@@ -15208,11 +15242,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{0026FF}- {FFFFFF}Pizza N1\t{32CD32}R$10\n{0026FF}- {FFFFFF}Pizza N2\t{32CD32}R$18\n{0026FF}- {FFFFFF}Pizza N3\t{32CD32}R$25\n{0026FF}- {FFFFFF}Pizza N4\t{32CD32}R$50", "Selecionar", #);
+					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{5b6ed9}- {FFFFFF}Pizza N1\t{32CD32}R$10\n{5b6ed9}- {FFFFFF}Pizza N2\t{32CD32}R$18\n{5b6ed9}- {FFFFFF}Pizza N3\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Pizza N4\t{32CD32}R$50", "Selecionar", #);
 				}
 				if(listitem == 1)
 				{
-					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_LIST, "Refrecos", "{0026FF}- {FFFFFF}Agua\t{32CD32}R$2\n{0026FF}- {FFFFFF}Suco\t{32CD32}R$5\n{0026FF}- {FFFFFF}Sprite\t{32CD32}R$8\n{0026FF}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", #);
+					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_LIST, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", #);
 				}
 			}
 		}
@@ -15332,25 +15366,25 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 1)
 				{
 					new stg[15000];
-					strcat(stg, "{0026FF}/report{FFFFFF} Para denunciar um jogador.\n");
-					strcat(stg, "{0026FF}/atendimento{FFFFFF} Para denunciar um jogador.\n");
-					strcat(stg, "{0026FF}/duvida{FFFFFF} Para falar no chat de duvida.\n");
-					strcat(stg, "{0026FF}/lojavip{FFFFFF} Para verificar menu de coins.\n");
-					strcat(stg, "{0026FF}/sairemprego{FFFFFF} deixar seu emprego.\n");
-					strcat(stg, "{0026FF}/pedircontas{FFFFFF} Sair de sua org.\n");
-					strcat(stg, "{0026FF}/pagar{FFFFFF} Envia dinheiro a um jogador.\n");
-					strcat(stg, "{0026FF}/maconhas{FFFFFF} Verificar plantacoes.\n");
-					strcat(stg, "{0026FF}/cmaconha{FFFFFF} Colher plantacoes.\n");
-					strcat(stg, "{0026FF}/orgs{FFFFFF} Verificar orgs.\n");
-					strcat(stg, "{0026FF}/menuanim{FFFFFF} Menu de animacoes.\n");
-					strcat(stg, "{0026FF}/missoes{FFFFFF} Menu de missoes.\n");
-					strcat(stg, "{0026FF}/minhaconta{FFFFFF} Informacoes da sua conta.\n");
-					strcat(stg, "{0026FF}/rg{FFFFFF} Ver seu registro geral.\n");
-					strcat(stg, "{0026FF}/mostrarrg{FFFFFF} Mostrar seu rg a outro jogador.\n");
-					strcat(stg, "{0026FF}/mvoip{FFFFFF} Configurar seu voip.\n");
-					strcat(stg, "{0026FF}/limparchat{FFFFFF} Limpar o seu chat.\n");
-					strcat(stg, "{0026FF}/admins{FFFFFF} Verifica admins online.\n");
-					strcat(stg, "{0026FF}/presos{FFFFFF} Verificar os presos do servidor.\n\n");
+					strcat(stg, "{5b6ed9}/report{FFFFFF} Para denunciar um jogador.\n");
+					strcat(stg, "{5b6ed9}/atendimento{FFFFFF} Para denunciar um jogador.\n");
+					strcat(stg, "{5b6ed9}/duvida{FFFFFF} Para falar no chat de duvida.\n");
+					strcat(stg, "{5b6ed9}/lojavip{FFFFFF} Para verificar menu de coins.\n");
+					strcat(stg, "{5b6ed9}/sairemprego{FFFFFF} deixar seu emprego.\n");
+					strcat(stg, "{5b6ed9}/pedircontas{FFFFFF} Sair de sua org.\n");
+					strcat(stg, "{5b6ed9}/pagar{FFFFFF} Envia dinheiro a um jogador.\n");
+					strcat(stg, "{5b6ed9}/maconhas{FFFFFF} Verificar plantacoes.\n");
+					strcat(stg, "{5b6ed9}/cmaconha{FFFFFF} Colher plantacoes.\n");
+					strcat(stg, "{5b6ed9}/orgs{FFFFFF} Verificar orgs.\n");
+					strcat(stg, "{5b6ed9}/menuanim{FFFFFF} Menu de animacoes.\n");
+					strcat(stg, "{5b6ed9}/missoes{FFFFFF} Menu de missoes.\n");
+					strcat(stg, "{5b6ed9}/minhaconta{FFFFFF} Informacoes da sua conta.\n");
+					strcat(stg, "{5b6ed9}/rg{FFFFFF} Ver seu registro geral.\n");
+					strcat(stg, "{5b6ed9}/mostrarrg{FFFFFF} Mostrar seu rg a outro jogador.\n");
+					strcat(stg, "{5b6ed9}/mvoip{FFFFFF} Configurar seu voip.\n");
+					strcat(stg, "{5b6ed9}/limparchat{FFFFFF} Limpar o seu chat.\n");
+					strcat(stg, "{5b6ed9}/admins{FFFFFF} Verifica admins online.\n");
+					strcat(stg, "{5b6ed9}/presos{FFFFFF} Verificar os presos do servidor.\n\n");
 					strcat(stg, "{FFFFFF} Para cada 30min de jogo voce recebera um PayDay,\ncada PayDay lhe dara bonus nos empregos e caixa PayDay.");
 					ShowPlayerDialog(playerid, DIALOG_AJUDACOMANDOS, DIALOG_STYLE_MSGBOX, "Comandos Servidor", stg, "Ok", #);
 				}
@@ -15363,49 +15397,49 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					if(PlayerInfo[playerid][pProfissao] == 1)
 					{
-						strcat(Str2, "\t{0026FF}- {FFFFFF}Ajuda Pescador{0026FF}- {FFFFFF}\n\n");
-						strcat(Str2, "\n{0026FF}Passo 1:{FFFFFF} Compre uma vara de pescar na 24/7.\n{0026FF}Passo 2:{FFFFFF} Use proximo do texto para comecar a pescar.\n{0026FF}Passo 3:{FFFFFF} Venda os peixes na cabana ao lado.");
+						strcat(Str2, "\t{5b6ed9}- {FFFFFF}Ajuda Pescador{5b6ed9}- {FFFFFF}\n\n");
+						strcat(Str2, "\n{5b6ed9}Passo 1:{FFFFFF} Compre uma vara de pescar na 24/7.\n{5b6ed9}Passo 2:{FFFFFF} Use proximo do texto para comecar a pescar.\n{5b6ed9}Passo 3:{FFFFFF} Venda os peixes na cabana ao lado.");
 						ShowPlayerDialog(playerid, DIALOG_EMP1, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
 					if(PlayerInfo[playerid][pProfissao] == 2)
 					{
-						strcat(Str2, "\t{0026FF}- {FFFFFF}Ajuda Minerador{0026FF}- {FFFFFF}\n\n");
-						strcat(Str2, "\n{0026FF}Passo 1:{FFFFFF} Use /iniciarminerador para comecar o percurso.");
-						strcat(Str2, "\n{0026FF}Passo 2:{FFFFFF} Siga todo o checkpoint ate chegar no processamento.");
+						strcat(Str2, "\t{5b6ed9}- {FFFFFF}Ajuda Minerador{5b6ed9}- {FFFFFF}\n\n");
+						strcat(Str2, "\n{5b6ed9}Passo 1:{FFFFFF} Use /iniciarminerador para comecar o percurso.");
+						strcat(Str2, "\n{5b6ed9}Passo 2:{FFFFFF} Siga todo o checkpoint ate chegar no processamento.");
 						ShowPlayerDialog(playerid, DIALOG_EMP2, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
 					if(PlayerInfo[playerid][pProfissao] == 3)
 					{
-						strcat(Str2, "\t{0026FF}- {FFFFFF}Ajuda Acogueiro{0026FF}- {FFFFFF}\n\n");
-						strcat(Str2, "\n{0026FF}Passo 1:{FFFFFF} Comece desossando a carne pendurada.");
-						strcat(Str2, "\n{0026FF}Passo 2:{FFFFFF} Coloque na maquina.");
-						strcat(Str2, "\n{0026FF}Passo 3:{FFFFFF} Pegue uma caixa.");
-						strcat(Str2, "\n{0026FF}Passo 4:{FFFFFF} Coloque a carne da maquina na caixa.");
-						strcat(Str2, "\n{0026FF}Passo 5:{FFFFFF} Leve a caixa para a outra maquina.");
-						strcat(Str2, "\n{0026FF}Passo 6:{FFFFFF} Pegue a caixa e finalize.");
+						strcat(Str2, "\t{5b6ed9}- {FFFFFF}Ajuda Acogueiro{5b6ed9}- {FFFFFF}\n\n");
+						strcat(Str2, "\n{5b6ed9}Passo 1:{FFFFFF} Comece desossando a carne pendurada.");
+						strcat(Str2, "\n{5b6ed9}Passo 2:{FFFFFF} Coloque na maquina.");
+						strcat(Str2, "\n{5b6ed9}Passo 3:{FFFFFF} Pegue uma caixa.");
+						strcat(Str2, "\n{5b6ed9}Passo 4:{FFFFFF} Coloque a carne da maquina na caixa.");
+						strcat(Str2, "\n{5b6ed9}Passo 5:{FFFFFF} Leve a caixa para a outra maquina.");
+						strcat(Str2, "\n{5b6ed9}Passo 6:{FFFFFF} Pegue a caixa e finalize.");
 						ShowPlayerDialog(playerid, DIALOG_EMP3, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
 					if(PlayerInfo[playerid][pProfissao] == 4)
 					{
-						strcat(Str2, "\t{0026FF}- {FFFFFF}Ajuda Caminhoneiro{0026FF}- {FFFFFF}\n\n");
-						strcat(Str2, "\n{0026FF}Passo 1:{FFFFFF} Carregue seu caminhao.");
-						strcat(Str2, "\n{0026FF}Passo 2:{FFFFFF} Apos chegar no local use /descarregar.");
+						strcat(Str2, "\t{5b6ed9}- {FFFFFF}Ajuda Caminhoneiro{5b6ed9}- {FFFFFF}\n\n");
+						strcat(Str2, "\n{5b6ed9}Passo 1:{FFFFFF} Carregue seu caminhao.");
+						strcat(Str2, "\n{5b6ed9}Passo 2:{FFFFFF} Apos chegar no local use /descarregar.");
 						ShowPlayerDialog(playerid, DIALOG_EMP4, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
 					if(PlayerInfo[playerid][pProfissao] == 6)
 					{
-						strcat(Str2, "\t{0026FF}- {FFFFFF}Ajuda Coletor de Lixo{0026FF}- {FFFFFF}\n\n");
-						strcat(Str2, "\n{0026FF}Passo 1:{FFFFFF} Use /iniciarcoleta para comecar o percurso.");
-						strcat(Str2, "\n{0026FF}Passo 2:{FFFFFF} Colete todos os lixos e jogue nos baus de lixo.");
+						strcat(Str2, "\t{5b6ed9}- {FFFFFF}Ajuda Coletor de Lixo{5b6ed9}- {FFFFFF}\n\n");
+						strcat(Str2, "\n{5b6ed9}Passo 1:{FFFFFF} Use /iniciarcoleta para comecar o percurso.");
+						strcat(Str2, "\n{5b6ed9}Passo 2:{FFFFFF} Colete todos os lixos e jogue nos baus de lixo.");
 						ShowPlayerDialog(playerid, DIALOG_EMP2, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
 					if(PlayerInfo[playerid][pProfissao] == 8)
 					{
-						strcat(Str2, "\t{0026FF}- {FFFFFF}Ajuda Correios{0026FF}- {FFFFFF}\n\n");
-						strcat(Str2, "\n{0026FF}Passo 1:{FFFFFF} Use /uniforme para iniciar expediente.");
-						strcat(Str2, "\n{0026FF}Passo 2:{FFFFFF} Pegar uma van na garagem.");
-						strcat(Str2, "\n{0026FF}Passo 3:{FFFFFF} Use /carregar para carregar a van com os produtos para entrega.");
-						strcat(Str2, "\n{0026FF}Passo 4:{FFFFFF} Entregue todas as entregas em seu determinado destino.");
+						strcat(Str2, "\t{5b6ed9}- {FFFFFF}Ajuda Correios{5b6ed9}- {FFFFFF}\n\n");
+						strcat(Str2, "\n{5b6ed9}Passo 1:{FFFFFF} Use /uniforme para iniciar expediente.");
+						strcat(Str2, "\n{5b6ed9}Passo 2:{FFFFFF} Pegar uma van na garagem.");
+						strcat(Str2, "\n{5b6ed9}Passo 3:{FFFFFF} Use /carregar para carregar a van com os produtos para entrega.");
+						strcat(Str2, "\n{5b6ed9}Passo 4:{FFFFFF} Entregue todas as entregas em seu determinado destino.");
 						ShowPlayerDialog(playerid, DIALOG_EMP2, DIALOG_STYLE_MSGBOX, "Ajuda Emprego", Str2, "OK", #);
 					}
 				}
@@ -15414,11 +15448,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerInfo[playerid][Cargo] == 2 || PlayerInfo[playerid][Cargo] == 3)
 					{
 						new stg[1100];
-						strcat(stg, "{0026FF}/infoorg{FFFFFF} Abrir o menu\n");
-						strcat(stg, "{0026FF}/convidar{FFFFFF} Convide um jogador para sua organizacao.\n");
-						strcat(stg, "{0026FF}/limparvagas{FFFFFF} Remova todos os membros da sua organizacao.\n");
-						strcat(stg, "{0026FF}/demitir{FFFFFF} Demitir um membro da organizacao.\n");
-						strcat(stg, "{0026FF}/promover{FFFFFF} Subir cargo de um jogador.\n");
+						strcat(stg, "{5b6ed9}/infoorg{FFFFFF} Abrir o menu\n");
+						strcat(stg, "{5b6ed9}/convidar{FFFFFF} Convide um jogador para sua organizacao.\n");
+						strcat(stg, "{5b6ed9}/limparvagas{FFFFFF} Remova todos os membros da sua organizacao.\n");
+						strcat(stg, "{5b6ed9}/demitir{FFFFFF} Demitir um membro da organizacao.\n");
+						strcat(stg, "{5b6ed9}/promover{FFFFFF} Subir cargo de um jogador.\n");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAJEFORG, DIALOG_STYLE_MSGBOX, "Comandos Chefes Orgs", stg, "Ok", #);
 					}
 				}
@@ -15427,56 +15461,56 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(IsPolicial(playerid)) 
 					{
 						new stg[1100];
-						strcat(stg, "{0026FF}/d{FFFFFF} Central de Policia\n");
-						strcat(stg, "{0026FF}/algemar{FFFFFF} Colocar uma algema em um jogador.\n");
-						strcat(stg, "{0026FF}/desalgemar{FFFFFF} Remove uma algema de um jogador.\n");
-						strcat(stg, "{0026FF}/pveiculo{FFFFFF} Coloque um jogador no veiculo.\n");
-						strcat(stg, "{0026FF}/rveiculo{FFFFFF} Remova um jogador no veiculo.\n");
-						strcat(stg, "{0026FF}/prender{FFFFFF} Acorrentar um jogador.\n");
-						strcat(stg, "{0026FF}/ab{FFFFFF} Anuncia o embarque de um jogador.\n");
-						strcat(stg, "{0026FF}/su{FFFFFF} Coloque nivel de procurado.\n");
-						strcat(stg, "{0026FF}/revistar{FFFFFF} Verificar o inventario de um jogador.\n");
-						strcat(stg, "{0026FF}/rarmas{FFFFFF} Remover armas de um jogador.\n");
-						strcat(stg, "{0026FF}/procurados{FFFFFF} Todos os jogadores pesquisados.\n");
-						strcat(stg, "{0026FF}/multar{FFFFFF} Colocar uma multa em um jogador.\n");
-						strcat(stg, "{0026FF}/qplantacao{FFFFFF} Queimar uma plantacao de maconha.\n");
-						strcat(stg, "{0026FF}/verdocumentos{FFFFFF} Verificar documento de um jogador.\n");
+						strcat(stg, "{5b6ed9}/d{FFFFFF} Central de Policia\n");
+						strcat(stg, "{5b6ed9}/algemar{FFFFFF} Colocar uma algema em um jogador.\n");
+						strcat(stg, "{5b6ed9}/desalgemar{FFFFFF} Remove uma algema de um jogador.\n");
+						strcat(stg, "{5b6ed9}/pveiculo{FFFFFF} Coloque um jogador no veiculo.\n");
+						strcat(stg, "{5b6ed9}/rveiculo{FFFFFF} Remova um jogador no veiculo.\n");
+						strcat(stg, "{5b6ed9}/prender{FFFFFF} Acorrentar um jogador.\n");
+						strcat(stg, "{5b6ed9}/ab{FFFFFF} Anuncia o embarque de um jogador.\n");
+						strcat(stg, "{5b6ed9}/su{FFFFFF} Coloque nivel de procurado.\n");
+						strcat(stg, "{5b6ed9}/revistar{FFFFFF} Verificar o inventario de um jogador.\n");
+						strcat(stg, "{5b6ed9}/rarmas{FFFFFF} Remover armas de um jogador.\n");
+						strcat(stg, "{5b6ed9}/procurados{FFFFFF} Todos os jogadores pesquisados.\n");
+						strcat(stg, "{5b6ed9}/multar{FFFFFF} Colocar uma multa em um jogador.\n");
+						strcat(stg, "{5b6ed9}/qplantacao{FFFFFF} Queimar uma plantacao de maconha.\n");
+						strcat(stg, "{5b6ed9}/verdocumentos{FFFFFF} Verificar documento de um jogador.\n");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAORG, DIALOG_STYLE_MSGBOX, "Comandos Organizacao", stg, "Ok", "");
 					}
 					if(IsBandido(playerid)) 
 					{ 
 						new stg[1100];
-						strcat(stg, "{0026FF}/ga{FFFFFF} Radio de gang\n");
-						strcat(stg, "{0026FF}/ab{FFFFFF} Anuncio de abordagem.\n");
-						strcat(stg, "{0026FF}/pveiculo{FFFFFF} Coloque um jogador no veiculo.\n");
-						strcat(stg, "{0026FF}/rveiculo{FFFFFF} Remova um jogador no veiculo.\n");
-						strcat(stg, "{0026FF}/revistar{FFFFFF} Verificar inventario de um jogador.\n");
-						strcat(stg, "{0026FF}/verdocumentos{FFFFFF} Verificar documento de um jogador.\n");
+						strcat(stg, "{5b6ed9}/ga{FFFFFF} Radio de gang\n");
+						strcat(stg, "{5b6ed9}/ab{FFFFFF} Anuncio de abordagem.\n");
+						strcat(stg, "{5b6ed9}/pveiculo{FFFFFF} Coloque um jogador no veiculo.\n");
+						strcat(stg, "{5b6ed9}/rveiculo{FFFFFF} Remova um jogador no veiculo.\n");
+						strcat(stg, "{5b6ed9}/revistar{FFFFFF} Verificar inventario de um jogador.\n");
+						strcat(stg, "{5b6ed9}/verdocumentos{FFFFFF} Verificar documento de um jogador.\n");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAORG, DIALOG_STYLE_MSGBOX, "Comandos Organizacao", stg, "Ok", "");
 					}
 				}
 				if(listitem == 5)
 				{
 					new stg[1100];
-					strcat(stg, "{0026FF}/mv{FFFFFF} Abre um menu\n");
-					strcat(stg, "{0026FF}/localizarv{FFFFFF} Lozaliza seu veiculo no mapa.\n");
-					strcat(stg, "{0026FF}/trancar{FFFFFF} Tranque seu veiculo.\n");
-					strcat(stg, "{0026FF}/alarmev{FFFFFF} Ligue o alarme do veiculo.\n");
-					strcat(stg, "{0026FF}/mala{FFFFFF} Olhar o porta-malas do veiculo.\n");
-					strcat(stg, "{0026FF}/venderv{FFFFFF} Venda seu veiculo por um jogador.\n");
-					strcat(stg, "{0026FF}/darchaves{FFFFFF} Deixe suas chaves com um jogador.\n");
-					strcat(stg, "{0026FF}/ejetar{FFFFFF} Remova o jogador do seu veiculo.\n");
-					strcat(stg, "{0026FF}/ejetarAll{FFFFFF} Remova todos os jogadores do seu veiculo.\n");
-					strcat(stg, "{0026FF}/limparmods{FFFFFF} Limpar modificações do seu veiculo.\n\n");
-					strcat(stg, "{0026FF}/cinto{FFFFFF} colocar cinto.\n\n");
+					strcat(stg, "{5b6ed9}/mv{FFFFFF} Abre um menu\n");
+					strcat(stg, "{5b6ed9}/localizarv{FFFFFF} Lozaliza seu veiculo no mapa.\n");
+					strcat(stg, "{5b6ed9}/trancar{FFFFFF} Tranque seu veiculo.\n");
+					strcat(stg, "{5b6ed9}/alarmev{FFFFFF} Ligue o alarme do veiculo.\n");
+					strcat(stg, "{5b6ed9}/mala{FFFFFF} Olhar o porta-malas do veiculo.\n");
+					strcat(stg, "{5b6ed9}/venderv{FFFFFF} Venda seu veiculo por um jogador.\n");
+					strcat(stg, "{5b6ed9}/darchaves{FFFFFF} Deixe suas chaves com um jogador.\n");
+					strcat(stg, "{5b6ed9}/ejetar{FFFFFF} Remova o jogador do seu veiculo.\n");
+					strcat(stg, "{5b6ed9}/ejetarAll{FFFFFF} Remova todos os jogadores do seu veiculo.\n");
+					strcat(stg, "{5b6ed9}/limparmods{FFFFFF} Limpar modificações do seu veiculo.\n\n");
+					strcat(stg, "{5b6ed9}/cinto{FFFFFF} colocar cinto.\n\n");
 					strcat(stg, "{FFFFFF} Alguns comandos nao ira funcionar em todos os veiculos,\nPode nao funcionar bem em veiculos que nao sao da concessionaria.");
 					ShowPlayerDialog(playerid, DIALOG_AJUDAVEH, DIALOG_STYLE_MSGBOX, "Comandos Veiculo", stg, "Ok", "");
 				}
 				if(listitem == 6)
 				{
 					new stg[1100];
-					strcat(stg, "{0026FF}/pegaritem{FFFFFF} pegar um item chao.\n");
-					strcat(stg, "{0026FF}/inventario{FFFFFF} Abra e saia do inventario.\n\n");
+					strcat(stg, "{5b6ed9}/pegaritem{FFFFFF} pegar um item chao.\n");
+					strcat(stg, "{5b6ed9}/inventario{FFFFFF} Abra e saia do inventario.\n\n");
 					strcat(stg, "{FFFFFF} Voce tambem pode utilizar o F para pegar itens do chao.");
 					ShowPlayerDialog(playerid, DIALOG_AJUDAINVENTARIO, DIALOG_STYLE_MSGBOX, "Comandos Inventario", stg, "Ok", "");
 				}
@@ -15559,31 +15593,31 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					MEGAString[0] = EOS;
 					new string[800];
 					strcat(MEGAString, "Local\tDistancia\n");
-					format(string, 128, "{FFFFFF} Prefeitura \t{0026FF} %.0f KM\n", a);
+					format(string, 128, "{FFFFFF} Prefeitura \t{5b6ed9} %.0f KM\n", a);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Banco Central \t{0026FF} %.0f KM\n", b);
+					format(string, 128, "{FFFFFF} Banco Central \t{5b6ed9} %.0f KM\n", b);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Hospital \t{0026FF} %.0f KM\n", c);
+					format(string, 128, "{FFFFFF} Hospital \t{5b6ed9} %.0f KM\n", c);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Loja de Utilidades 1 \t{0026FF} %.0f KM\n", d);
+					format(string, 128, "{FFFFFF} Loja de Utilidades 1 \t{5b6ed9} %.0f KM\n", d);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Loja de Utilidades 2 \t{0026FF} %.0f KM\n", e);
+					format(string, 128, "{FFFFFF} Loja de Utilidades 2 \t{5b6ed9} %.0f KM\n", e);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Loja de Utilidades 3 \t{0026FF} %.0f KM\n", f);
+					format(string, 128, "{FFFFFF} Loja de Utilidades 3 \t{5b6ed9} %.0f KM\n", f);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Loja de Utilidades 4 \t{0026FF} %.0f KM\n", n);
+					format(string, 128, "{FFFFFF} Loja de Utilidades 4 \t{5b6ed9} %.0f KM\n", n);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Loja de Utilidades 5 \t{0026FF} %.0f KM\n", o);
+					format(string, 128, "{FFFFFF} Loja de Utilidades 5 \t{5b6ed9} %.0f KM\n", o);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Centro de Licencas \t{0026FF} %.0f KM\n", g);
+					format(string, 128, "{FFFFFF} Centro de Licencas \t{5b6ed9} %.0f KM\n", g);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Cafeteria \t{0026FF} %.0f KM\n", h);
+					format(string, 128, "{FFFFFF} Cafeteria \t{5b6ed9} %.0f KM\n", h);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Concessionaria \t{0026FF} %.0f KM\n", i);
+					format(string, 128, "{FFFFFF} Concessionaria \t{5b6ed9} %.0f KM\n", i);
 					strcat(MEGAString,string);
 					if(IsBandido(playerid))
 					{
-						format(string, 128, "{00FFFF} Navio de materiais \t{0026FF} %.0f KM\n", m);
+						format(string, 128, "{00FFFF} Navio de materiais \t{5b6ed9} %.0f KM\n", m);
 						strcat(MEGAString,string);
 					}
 					ShowPlayerDialog(playerid, DIALOG_GPS1, DIALOG_STYLE_TABLIST_HEADERS, "Locais Importantes", MEGAString, "Localizar","X");
@@ -15598,18 +15632,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new Float:f = GetPlayerDistanceFromPoint(playerid, 1004.1582,1755.0336,10.7734);
 					MEGAString[0] = EOS;
 					new string[800];
-					strcat(MEGAString, "Local\tDistancia\n");
-					format(string, 128, "{FFFFFF} Pescador \t{0026FF} %.0f KM\n", a);
+					strcat(MEGAString, "Local\tDistancia\tRequesitos\n");
+					format(string, 128, "{FFFFFF} Pescador \t{5b6ed9} %.0f KM\t{FFFF00}0H.Jogadas\n", a);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Acogueiro \t{0026FF} %.0f KM\n", b);
+					format(string, 128, "{FFFFFF} Acogueiro \t{5b6ed9} %.0f KM\t{FFFF00}2H.Jogadas\n", b);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Coletor \t{0026FF} %.0f KM\n", c);
+					format(string, 128, "{FFFFFF} Coletor \t{5b6ed9} %.0f KM\t{FFFF00}0H.Jogadas\n", c);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Minerador \t{0026FF} %.0f KM\n", d);
+					format(string, 128, "{FFFFFF} Minerador \t{5b6ed9} %.0f KM\t{FFFF00}3H.Jogadas\n", d);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Caminhoneiro \t{0026FF} %.0f KM\n", e);
+					format(string, 128, "{FFFFFF} Caminhoneiro \t{5b6ed9} %.0f KM\t{FFFF00}4H.Jogadas\n", e);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Correios \t{0026FF} %.0f KM\n", f);
+					format(string, 128, "{FFFFFF} Correios \t{5b6ed9} %.0f KM\t{FFFF00}5H.Jogadas\n", f);
 					strcat(MEGAString,string);
 					ShowPlayerDialog(playerid, DIALOG_GPS2, DIALOG_STYLE_TABLIST_HEADERS, "Locais Empregos", MEGAString, "Localizar","X");
 				}
@@ -15631,37 +15665,37 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					MEGAString[0] = EOS;
 					new string[800];
 					strcat(MEGAString, "Local\tDistancia\n");
-					format(string, 128, "{FFFFFF} Policia Militar \t{0026FF} %.0f KM\n", a);
+					format(string, 128, "{FFFFFF} Policia Militar \t{5b6ed9} %.0f KM\n", a);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Rota \t{0026FF} %.0f KM\n", b);
+					format(string, 128, "{FFFFFF} Rota \t{5b6ed9} %.0f KM\n", b);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Baep \t{0026FF} %.0f KM\n", c);
+					format(string, 128, "{FFFFFF} Baep \t{5b6ed9} %.0f KM\n", c);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} PRF \t{0026FF} %.0f KM\n", d);
+					format(string, 128, "{FFFFFF} PRF \t{5b6ed9} %.0f KM\n", d);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Tropa dos Azul \t{0026FF} %.0f KM\n", e);
+					format(string, 128, "{FFFFFF} Tropa dos Azul \t{5b6ed9} %.0f KM\n", e);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Ballas \t{0026FF} %.0f KM\n", f);
+					format(string, 128, "{FFFFFF} Ballas \t{5b6ed9} %.0f KM\n", f);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Los Vagos \t{0026FF} %.0f KM\n", g);
+					format(string, 128, "{FFFFFF} Los Vagos \t{5b6ed9} %.0f KM\n", g);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Groove Street \t{0026FF} %.0f KM\n", h);
+					format(string, 128, "{FFFFFF} Groove Street \t{5b6ed9} %.0f KM\n", h);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Medicos \t{0026FF} %.0f KM\n", i);
+					format(string, 128, "{FFFFFF} Medicos \t{5b6ed9} %.0f KM\n", i);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Mecanico \t{0026FF} %.0f KM\n", j);
+					format(string, 128, "{FFFFFF} Mecanico \t{5b6ed9} %.0f KM\n", j);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Reportagem \t{0026FF} %.0f KM\n", k);
+					format(string, 128, "{FFFFFF} Reportagem \t{5b6ed9} %.0f KM\n", k);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Mafia Russa \t{0026FF} %.0f KM\n", l);
+					format(string, 128, "{FFFFFF} Mafia Russa \t{5b6ed9} %.0f KM\n", l);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Moto Clube \t{0026FF} %.0f KM\n", m);
+					format(string, 128, "{FFFFFF} Moto Clube \t{5b6ed9} %.0f KM\n", m);
 					strcat(MEGAString,string);
 					ShowPlayerDialog(playerid, DIALOG_GPS3, DIALOG_STYLE_TABLIST_HEADERS, "Locais Organiza��es", MEGAString, "Localizar","X");
 				}
 				if(listitem == 3)
 				{
-					ShowPlayerDialog(playerid, DIALOG_LOCALIZARCASA, DIALOG_STYLE_INPUT, "Localizar Casas", "{0026FF}- {FFFFFF}Introduza o ID da casa que queira localizar", "Localizar", "X");
+					ShowPlayerDialog(playerid, DIALOG_LOCALIZARCASA, DIALOG_STYLE_INPUT, "Localizar Casas", "{5b6ed9}- {FFFFFF}Introduza o ID da casa que queira localizar", "Localizar", "X");
 				}
 			}
 		}
@@ -15925,19 +15959,19 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						else
 						{	
 							ErrorMsg(playerid, "Este ID nao existe.");
-							ShowPlayerDialog(playerid, DIALOG_LOCALIZARCASA, DIALOG_STYLE_INPUT, "Localizar Casas", "{0026FF}- {FFFFFF}Introduza o ID da casa que queira localizar", "Localizar", "X");
+							ShowPlayerDialog(playerid, DIALOG_LOCALIZARCASA, DIALOG_STYLE_INPUT, "Localizar Casas", "{5b6ed9}- {FFFFFF}Introduza o ID da casa que queira localizar", "Localizar", "X");
 						}
 					}
 					else
 					{
 						ErrorMsg(playerid, "Introduza somente numeros");
-						ShowPlayerDialog(playerid, DIALOG_LOCALIZARCASA, DIALOG_STYLE_INPUT, "Localizar Casas", "{0026FF}- {FFFFFF}Introduza o ID da casa que queira localizar", "Localizar", "X");
+						ShowPlayerDialog(playerid, DIALOG_LOCALIZARCASA, DIALOG_STYLE_INPUT, "Localizar Casas", "{5b6ed9}- {FFFFFF}Introduza o ID da casa que queira localizar", "Localizar", "X");
 					}
 				}
 				else
 				{
 					ErrorMsg(playerid, "Introduza o ID para localizar.");
-					ShowPlayerDialog(playerid, DIALOG_LOCALIZARCASA, DIALOG_STYLE_INPUT, "Localizar Casas", "{0026FF}- {FFFFFF}Introduza o ID da casa que queira localizar", "Localizar", "X");
+					ShowPlayerDialog(playerid, DIALOG_LOCALIZARCASA, DIALOG_STYLE_INPUT, "Localizar Casas", "{5b6ed9}- {FFFFFF}Introduza o ID da casa que queira localizar", "Localizar", "X");
 				}
 			}
 		}
@@ -15947,15 +15981,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{0026FF}- {FFFFFF}VIP BASICO{32CD32}\tBC$10,000\n{0026FF}- {FFFFFF}VIP PREMIUM{32CD32}\tBC$25,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{5b6ed9}- {FFFFFF}VIP BASICO{32CD32}\tBC$10,000\n{5b6ed9}- {FFFFFF}VIP PREMIUM{32CD32}\tBC$25,000", "Selecionar", "X");	
 				}
 				if(listitem == 1)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATVEHINV, DIALOG_STYLE_LIST, "CATALOGO VEH INV", "{0026FF}- {FFFFFF}Sultan{0026FF}\tBC$5,000\n{0026FF}- {FFFFFF}HotKnife{0026FF}\tBC$5,000\n{0026FF}- {FFFFFF}RC Bandit{0026FF}\tBC$2,000\n{0026FF}- {FFFFFF}RC Baron{0026FF}\tBC$2,000\n{0026FF}- {FFFFFF}RC Raider{0026FF}\tBC$2,000\n{0026FF}- {FFFFFF}Hotring{0026FF}\tBC$5,000\n{0026FF}- {FFFFFF}RC Goblin{0026FF}\tBC$2,000\n{0026FF}- {FFFFFF}Monster{0026FF}\tBC$5,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATVEHINV, DIALOG_STYLE_LIST, "CATALOGO VEH INV", "{5b6ed9}- {FFFFFF}Sultan{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}HotKnife{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}RC Bandit{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}RC Baron{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}RC Raider{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}Hotring{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}RC Goblin{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}Monster{5b6ed9}\tBC$5,000", "Selecionar", "X");	
 				}
 				if(listitem == 2)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATITENS, DIALOG_STYLE_LIST, "CATALOGO ITEMS", "{0026FF}- {FFFFFF}JetPack{0026FF}\tBC$15,000\n{0026FF}- {FFFFFF}Caixa Basica{0026FF}\tBC$5,000\n{0026FF}- {FFFFFF}Caixa Media{0026FF}\tBC$10,000\n{0026FF}- {FFFFFF}Caixa Avan�ada{0026FF}\tBC$20,000\n{0026FF}- {FFFFFF}+1 Slot Inv{0026FF}\tBC$15,000\n{0026FF}- {FFFFFF}Remover Advertencia{0026FF}\tBC$5,000\n{0026FF}- {FFFFFF}Titulo Personalizado{0026FF}\tBC$5,000\n{0026FF}- {FFFFFF}Troca de Skin{0026FF}\tBC$5,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATITENS, DIALOG_STYLE_LIST, "CATALOGO ITEMS", "{5b6ed9}- {FFFFFF}JetPack{5b6ed9}\tBC$15,000\n{5b6ed9}- {FFFFFF}Caixa Basica{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Caixa Media{5b6ed9}\tBC$10,000\n{5b6ed9}- {FFFFFF}Caixa Avan�ada{5b6ed9}\tBC$20,000\n{5b6ed9}- {FFFFFF}+1 Slot Inv{5b6ed9}\tBC$15,000\n{5b6ed9}- {FFFFFF}Remover Advertencia{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Titulo Personalizado{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Troca de Skin{5b6ed9}\tBC$5,000", "Selecionar", "X");	
 				}
 				if(listitem == 3)
 				{
@@ -16002,7 +16036,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um JetPack\nValor: 15000", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedThumbnail(embed, "https://files.prineside.com/gtasa_samp_model_id/white/370_w_s.jpg");
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -16016,7 +16050,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar uma Caixa Basica\nValor: 5000", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedThumbnail(embed, "https://files.prineside.com/gtasa_samp_model_id/white/3016_w_s.jpg");
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -16030,7 +16064,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar uma Caixa Media\nValor: 10000", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedThumbnail(embed, "https://files.prineside.com/gtasa_samp_model_id/white/3013_w_s.jpg");
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -16044,7 +16078,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar uma Caixa Avancada\nValor: 20000", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedThumbnail(embed, "https://files.prineside.com/gtasa_samp_model_id/white/19056_w_s.jpg");
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -16062,7 +16096,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar uma remocao de avisos\nValor: 5000", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedThumbnail(embed, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHA21FENsrv8B6m57O1aRLc0jsOKQTkqY5Lg&usqp=CAU");
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -16080,7 +16114,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar uma mudanca de skins\nValor: 5000", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedThumbnail(embed, " ");
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -16107,7 +16141,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um veiculo de inventario\nValor: 5000\nNome Veh: Sultan", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_560.jpg");
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -16121,7 +16155,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um veiculo de inventario\nValor: 5000\nNome Veh: HotKnife", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_434.jpg");
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -16135,7 +16169,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um veiculo de inventario\nValor: 2000\nNome Veh: RC Bandit", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_441.jpg");
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -16149,7 +16183,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um veiculo de inventario\nValor: 2000\nNome Veh: RC Baron", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_464.jpg");
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -16163,7 +16197,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um veiculo de inventario\nValor: 2000\nNome Veh: RC Raider", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_465.jpg");
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -16177,7 +16211,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um veiculo de inventario\nValor: 5000\nNome Veh: Hotring", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_502.jpg");
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -16191,7 +16225,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um veiculo de inventario\nValor: 2000\nNome Veh: Goblin", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_501.jpg");
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -16205,7 +16239,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um veiculo de inventario\nValor: 5000\nNome Veh: Monster", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_556.jpg");
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -16230,7 +16264,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
@@ -16247,7 +16281,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SaveFile(); 
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP PREMIUM\nValor: 25000", PlayerInfo[playerid][IDF]);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
@@ -16262,11 +16296,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerInfo[playerid][pDinheiro] < 2000)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					if(CheckInventario2(playerid,1853)) return ErrorMsg(playerid, "Ja possui essa licenca");
 					new StrHab[15000];
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Você está prestes a iniciar um test drive\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} A cobrança será feita assim que o teste começar.\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Você está prestes a iniciar um test drive\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} A cobrança será feita assim que o teste começar.\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
 					ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA1, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "Fazer Teste","X");
 				}
 				if(listitem == 1)
@@ -16274,11 +16308,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerInfo[playerid][pDinheiro] < 2500)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					if(CheckInventario2(playerid,1854)) return ErrorMsg(playerid, "Ja possui essa licenca");
 					new StrHab[15000];
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Você está prestes a iniciar um test drive\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} A cobrança será feita assim que o teste começar.\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Você está prestes a iniciar um test drive\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} A cobrança será feita assim que o teste começar.\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
 					ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA2, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "Fazer Teste","X");
 				}
 				if(listitem == 2)
@@ -16286,11 +16320,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerInfo[playerid][pDinheiro] < 5000)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					if(CheckInventario2(playerid,1855)) return ErrorMsg(playerid, "Ja possui essa licenca");
 					new StrHab[15000];
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Você está prestes a iniciar um test drive\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} A cobrança será feita assim que o teste começar.\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Você está prestes a iniciar um test drive\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} A cobrança será feita assim que o teste começar.\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
 					ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA3, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "Fazer Teste","X");
 				}
 				if(listitem == 3)
@@ -16298,11 +16332,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerInfo[playerid][pDinheiro] < 50000)	return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					if(CheckInventario2(playerid,1856)) return ErrorMsg(playerid, "Ja possui essa licenca");
 					new StrHab[15000];
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Você está prestes a iniciar um test drive\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} A cobrança será feita assim que o teste começar.\n");
-					strcat(StrHab,  "{0026FF}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Você está prestes a iniciar um test drive\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Para iniciar o teste, clique em '{00FF00}COMECAR{BEBEBE}'\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Lembrando! Após clicar no botão, o teste será iniciado automaticamente.\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} A cobrança será feita assim que o teste começar.\n");
+					strcat(StrHab,  "{5b6ed9}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
 					ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA4, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "Fazer Teste","X");
 				}
 			}
@@ -16337,13 +16371,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new string[1000], mercada[1000];
 				strcat(string, "Habilitacion\tValor\n");
-				format(mercada, sizeof(mercada), "{0026FF}- {BEBEBE}Categoria A\t{00FF00}R$2.000\n");
+				format(mercada, sizeof(mercada), "{5b6ed9}- {BEBEBE}Categoria A\t{00FF00}R$2.000\n");
 				strcat(string, mercada);
-				format(mercada, sizeof(mercada), "{0026FF}- {BEBEBE}Categoria B\t{00FF00}R$2.500\n");
+				format(mercada, sizeof(mercada), "{5b6ed9}- {BEBEBE}Categoria B\t{00FF00}R$2.500\n");
 				strcat(string, mercada);
-				format(mercada, sizeof(mercada), "{0026FF}- {BEBEBE}Categoria C\t{00FF00}R$5.000\n");
+				format(mercada, sizeof(mercada), "{5b6ed9}- {BEBEBE}Categoria C\t{00FF00}R$5.000\n");
 				strcat(string, mercada);
-				format(mercada, sizeof(mercada), "{0026FF}- {BEBEBE}Categoria Aerea\t{00FF00}R$50.000");
+				format(mercada, sizeof(mercada), "{5b6ed9}- {BEBEBE}Categoria Aerea\t{00FF00}R$50.000");
 				strcat(string, mercada);
 
 				return ShowPlayerDialog(playerid, DIALOG_AUTO_ESCOLA, DIALOG_STYLE_TABLIST_HEADERS, "Testes de {FF2400}Habilitacoes", string, "Fazer", "X");
@@ -16406,13 +16440,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new string[1000], mercada[1000];
 				strcat(string, "Habilitacion\tValor\n");
-				format(mercada, sizeof(mercada), "{0026FF}- {BEBEBE}Categoria A\t{00FF00}R$2.000\n");
+				format(mercada, sizeof(mercada), "{5b6ed9}- {BEBEBE}Categoria A\t{00FF00}R$2.000\n");
 				strcat(string, mercada);
-				format(mercada, sizeof(mercada), "{0026FF}- {BEBEBE}Categoria B\t{00FF00}R$2.500\n");
+				format(mercada, sizeof(mercada), "{5b6ed9}- {BEBEBE}Categoria B\t{00FF00}R$2.500\n");
 				strcat(string, mercada);
-				format(mercada, sizeof(mercada), "{0026FF}- {BEBEBE}Categoria C\t{00FF00}R$5.000\n");
+				format(mercada, sizeof(mercada), "{5b6ed9}- {BEBEBE}Categoria C\t{00FF00}R$5.000\n");
 				strcat(string, mercada);
-				format(mercada, sizeof(mercada), "{0026FF}- {BEBEBE}Categoria Aerea\t{00FF00}R$50.000");
+				format(mercada, sizeof(mercada), "{5b6ed9}- {BEBEBE}Categoria Aerea\t{00FF00}R$50.000");
 				strcat(string, mercada);
 
 				return ShowPlayerDialog(playerid, DIALOG_AUTO_ESCOLA, DIALOG_STYLE_TABLIST_HEADERS, "Testes de {FF2400}Habilitacoes", string, "Fazer", "X");
@@ -16447,13 +16481,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new string[1000], mercada[1000];
 				strcat(string, "Habilitacion\tValor\n");
-				format(mercada, sizeof(mercada), "{0026FF}- {BEBEBE}Categoria A\t{00FF00}R$2.000\n");
+				format(mercada, sizeof(mercada), "{5b6ed9}- {BEBEBE}Categoria A\t{00FF00}R$2.000\n");
 				strcat(string, mercada);
-				format(mercada, sizeof(mercada), "{0026FF}- {BEBEBE}Categoria B\t{00FF00}R$2.500\n");
+				format(mercada, sizeof(mercada), "{5b6ed9}- {BEBEBE}Categoria B\t{00FF00}R$2.500\n");
 				strcat(string, mercada);
-				format(mercada, sizeof(mercada), "{0026FF}- {BEBEBE}Categoria C\t{00FF00}R$5.000\n");
+				format(mercada, sizeof(mercada), "{5b6ed9}- {BEBEBE}Categoria C\t{00FF00}R$5.000\n");
 				strcat(string, mercada);
-				format(mercada, sizeof(mercada), "{0026FF}- {BEBEBE}Categoria Aerea\t{00FF00}R$50.000");
+				format(mercada, sizeof(mercada), "{5b6ed9}- {BEBEBE}Categoria Aerea\t{00FF00}R$50.000");
 				strcat(string, mercada);
 
 				return ShowPlayerDialog(playerid, DIALOG_AUTO_ESCOLA, DIALOG_STYLE_TABLIST_HEADERS, "Testes de {FF2400}Habilitacoes", string, "Fazer", "X");
@@ -16600,7 +16634,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				PlayerInfo[playerid][Org] = PlayerInfo[playerid][convite];
 				PlayerInfo[playerid][Cargo] = 1;
-				format(String,sizeof(String),"Acaba de entrar na organizacao{0026FF} (%s)",NomeOrg(playerid));
+				format(String,sizeof(String),"Acaba de entrar na organizacao{5b6ed9} (%s)",NomeOrg(playerid));
 				InfoMsg(playerid, String);
 				format(String,sizeof(String),"%04d acaba de entrar na sua organizaccao (%s)",PlayerInfo[playerid][IDF],NomeOrg(playerid));
 				InfoMsg(PlayerInfo[playerid][convite],String);
@@ -16725,19 +16759,19 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_COFREORG1, DIALOG_STYLE_LIST, "Selecionar una opcion", "{0026FF}- {FFFFFF}Sacar\n", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_COFREORG1, DIALOG_STYLE_LIST, "Selecionar una opcion", "{5b6ed9}- {FFFFFF}Sacar\n", "Selecionar", "X");
 				}
 				if(listitem == 1)
 				{
-					ShowPlayerDialog(playerid, DIALOG_COFREORG2, DIALOG_STYLE_LIST, "Selecionar una opcion", "{0026FF}- {FFFFFF}Sacar\n", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_COFREORG2, DIALOG_STYLE_LIST, "Selecionar una opcion", "{5b6ed9}- {FFFFFF}Sacar\n", "Selecionar", "X");
 				}
 				if(listitem == 2)
 				{
-					ShowPlayerDialog(playerid, DIALOG_COFREORG3, DIALOG_STYLE_LIST, "Selecionar una opcion", "{0026FF}- {FFFFFF}Sacar\n", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_COFREORG3, DIALOG_STYLE_LIST, "Selecionar una opcion", "{5b6ed9}- {FFFFFF}Sacar\n", "Selecionar", "X");
 				}
 				if(listitem == 3)
 				{
-					ShowPlayerDialog(playerid, DIALOG_COFREORG4, DIALOG_STYLE_LIST, "Selecionar una opcion", "{0026FF}- {FFFFFF}Sacar\n", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_COFREORG4, DIALOG_STYLE_LIST, "Selecionar una opcion", "{5b6ed9}- {FFFFFF}Sacar\n", "Selecionar", "X");
 				}
 			}
 		}
@@ -18201,7 +18235,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ErrorMsg(playerid,  "Voc� cancelou seu relat�rio!");
 				return 1;
 			}
-			ShowPlayerDialog(playerid, 4547, DIALOG_STYLE_TABLIST_HEADERS, "Solicitar Atendimento", "Prioridade\tDescri��o\nPrioridade {0026FF}BAIXA{FFFFFF}\tAssunto de pouca import�ncia\nPrioridade {FF0000}ALTA{FFFFFF}\tAssunto de MUITA import�ncia\n{0026FF}Relat�rio{FFFFFF}\tEnviar um relat�rio para os admins", "Solicitar", "Fechar");
+			ShowPlayerDialog(playerid, 4547, DIALOG_STYLE_TABLIST_HEADERS, "Solicitar Atendimento", "Prioridade\tDescri��o\nPrioridade {5b6ed9}BAIXA{FFFFFF}\tAssunto de pouca import�ncia\nPrioridade {FF0000}ALTA{FFFFFF}\tAssunto de MUITA import�ncia\n{5b6ed9}Relat�rio{FFFFFF}\tEnviar um relat�rio para os admins", "Solicitar", "Fechar");
 		}
 		case 5409:
 		{
@@ -18319,7 +18353,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			if(listitem == 2)
 			{
-				ShowPlayerDialog(playerid, 4550, DIALOG_STYLE_INPUT, "{0026FF}Particular", "Digite seu Relato", "Enviar", "Cancelar");
+				ShowPlayerDialog(playerid, 4550, DIALOG_STYLE_INPUT, "{5b6ed9}Particular", "Digite seu Relato", "Enviar", "Cancelar");
 				return 1;
 			}
 		}
@@ -18338,13 +18372,13 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 	{
 		if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
 		new megastrings[500], String2[500];
-		format(String2,sizeof(String2), "{FFFFFF}Nome: {0026FF}%s{FFFFFF}({0026FF}%d{FFFFFF})\n{FFFFFF}VIP: {0026FF}%s\n{FFFFFF}Dinheiro: {0026FF}%s\n{FFFFFF}Banco: {0026FF}%s\n", Name(clickedplayerid),PlayerInfo[clickedplayerid][IDF], VIP(clickedplayerid),ConvertMoney(PlayerInfo[clickedplayerid][pDinheiro]),ConvertMoney(PlayerInfo[clickedplayerid][pBanco]));
+		format(String2,sizeof(String2), "{FFFFFF}Nome: {5b6ed9}%s{FFFFFF}({5b6ed9}%d{FFFFFF})\n{FFFFFF}VIP: {5b6ed9}%s\n{FFFFFF}Dinheiro: {5b6ed9}%s\n{FFFFFF}Banco: {5b6ed9}%s\n", Name(clickedplayerid),PlayerInfo[clickedplayerid][IDF], VIP(clickedplayerid),ConvertMoney(PlayerInfo[clickedplayerid][pDinheiro]),ConvertMoney(PlayerInfo[clickedplayerid][pBanco]));
 		strcat(megastrings, String2);
-		format(String2,sizeof(String2), "{FFFFFF}Profissao:{0026FF} %s\n{FFFFFF}Org:{0026FF} %s\n{FFFFFF}Cargo:{0026FF} %s\n", Profs(clickedplayerid), NomeOrg(clickedplayerid), NomeCargo(clickedplayerid));
+		format(String2,sizeof(String2), "{FFFFFF}Profissao:{5b6ed9} %s\n{FFFFFF}Org:{5b6ed9} %s\n{FFFFFF}Cargo:{5b6ed9} %s\n", Profs(clickedplayerid), NomeOrg(clickedplayerid), NomeCargo(clickedplayerid));
 		strcat(megastrings, String2);
-		format(String2,sizeof(String2), "{FFFFFF}Multas:{0026FF} %d\n{FFFFFF}N�Casa:{0026FF} %d\n", PlayerInfo[clickedplayerid][pMultas], PlayerInfo[clickedplayerid][Casa]);
+		format(String2,sizeof(String2), "{FFFFFF}Multas:{5b6ed9} %d\n{FFFFFF}N�Casa:{5b6ed9} %d\n", PlayerInfo[clickedplayerid][pMultas], PlayerInfo[clickedplayerid][Casa]);
 		strcat(megastrings, String2);
-		format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{0026FF} %s\n{FFFFFF}Expira VIP:{0026FF} %s\n{FFFFFF}Licenca Conduzir: {0026FF}%s", convertNumber(PlayerInfo[clickedplayerid][pSegundosJogados]), convertNumber(PlayerInfo[clickedplayerid][ExpiraVIP]-gettime()), temlicenca(clickedplayerid));
+		format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{5b6ed9} %s\n{FFFFFF}Expira VIP:{5b6ed9} %s\n{FFFFFF}Licenca Conduzir: {5b6ed9}%s", convertNumber(PlayerInfo[clickedplayerid][pSegundosJogados]), convertNumber(PlayerInfo[clickedplayerid][ExpiraVIP]-gettime()), temlicenca(clickedplayerid));
 		strcat(megastrings, String2);
 		ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
 	}
@@ -18662,25 +18696,25 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 	{
 		new Ropa[800];
 		if(Patrulha[playerid] == false) 		return InfoMsg(playerid, "Nao esta em servico");
-		strcat(Ropa, "{0026FF}- {FFFFFF}Policia Militar 1\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}Policia Militar 2\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}Policia Militar 3\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}Policia Militar 4\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}Policia Militar 5\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}Policia Rodoviaria 1\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}Policia Rodoviaria 2\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}Batedores\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}Opera��es Especiais 1\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}Policia Rodoviaria 3\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}ROTA 1\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}ROTA 2\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}BAEP 1\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}FEMININA 1\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}FEMININA 2\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}FEMININA 3\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}BAEP 2\n");
-		strcat(Ropa, "{0026FF}- {FFFFFF}BAEP 3\n");
-		strcat(Ropa, "{FFFFFF}- {0026FF}Retirar Uniforme\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Militar 1\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Militar 2\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Militar 3\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Militar 4\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Militar 5\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Rodoviaria 1\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Rodoviaria 2\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}Batedores\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}Opera��es Especiais 1\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Rodoviaria 3\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}ROTA 1\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}ROTA 2\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}BAEP 1\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}FEMININA 1\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}FEMININA 2\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}FEMININA 3\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}BAEP 2\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}BAEP 3\n");
+		strcat(Ropa, "{FFFFFF}- {5b6ed9}Retirar Uniforme\n");
 		ShowPlayerDialog(playerid, DIALOG_ROPACOP, DIALOG_STYLE_LIST, "Fardamentos", Ropa, "Selecionar", "X");
 	}
 	return 1;
@@ -18767,13 +18801,13 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 CMD:minhaconta(playerid)
 {
 	new megastrings[500], String2[500];
-	format(String2,sizeof(String2), "{FFFFFF}Nome: {0026FF}%s{FFFFFF}({0026FF}%d{FFFFFF})\n{FFFFFF}VIP: {0026FF}%s\n{FFFFFF}Dinheiro: {0026FF}%s\n{FFFFFF}Banco: {0026FF}%s\n", Name(playerid),PlayerInfo[playerid][IDF], VIP(playerid),ConvertMoney(PlayerInfo[playerid][pDinheiro]),ConvertMoney(PlayerInfo[playerid][pBanco]));
+	format(String2,sizeof(String2), "{FFFFFF}Nome: {5b6ed9}%s{FFFFFF}({5b6ed9}%d{FFFFFF})\n{FFFFFF}VIP: {5b6ed9}%s\n{FFFFFF}Dinheiro: {5b6ed9}%s\n{FFFFFF}Banco: {5b6ed9}%s\n", Name(playerid),PlayerInfo[playerid][IDF], VIP(playerid),ConvertMoney(PlayerInfo[playerid][pDinheiro]),ConvertMoney(PlayerInfo[playerid][pBanco]));
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Profissao:{0026FF} %s\n{FFFFFF}Org:{0026FF} %s\n{FFFFFF}Cargo:{0026FF} %s\n", Profs(playerid), NomeOrg(playerid), NomeCargo(playerid));
+	format(String2,sizeof(String2), "{FFFFFF}Profissao:{5b6ed9} %s\n{FFFFFF}Org:{5b6ed9} %s\n{FFFFFF}Cargo:{5b6ed9} %s\n", Profs(playerid), NomeOrg(playerid), NomeCargo(playerid));
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Multas:{0026FF} %d\n{FFFFFF}N�Casa:{0026FF} %d\n", PlayerInfo[playerid][pMultas], PlayerInfo[playerid][Casa]);
+	format(String2,sizeof(String2), "{FFFFFF}Multas:{5b6ed9} %d\n{FFFFFF}N�Casa:{5b6ed9} %d\n", PlayerInfo[playerid][pMultas], PlayerInfo[playerid][Casa]);
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{0026FF} %s\n{FFFFFF}Expira VIP:{0026FF} %s\n{FFFFFF}Licenca Conduzir: {0026FF}%s", convertNumber(PlayerInfo[playerid][pSegundosJogados]), convertNumber(PlayerInfo[playerid][ExpiraVIP]-gettime()), temlicenca(playerid));
+	format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{5b6ed9} %s\n{FFFFFF}Expira VIP:{5b6ed9} %s\n{FFFFFF}Licenca Conduzir: {5b6ed9}%s", convertNumber(PlayerInfo[playerid][pSegundosJogados]), convertNumber(PlayerInfo[playerid][ExpiraVIP]-gettime()), temlicenca(playerid));
 	strcat(megastrings, String2);
 	ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
 	return 1;
@@ -18782,14 +18816,14 @@ CMD:minhaconta(playerid)
 CMD:ajuda(playerid)
 {
 	MEGAString[0] = EOS;
-	strcat(MEGAString, "{0026FF}Ajuda {FFFFFF}FAQ\n");
-	strcat(MEGAString, "{0026FF}Ajuda {FFFFFF}Comandos\n");
-	strcat(MEGAString, "{0026FF}Ajuda {FFFFFF}Empregos\n");
-	strcat(MEGAString, "{0026FF}Ajuda {FFFFFF}Comandos Lideres\n");
-	strcat(MEGAString, "{0026FF}Ajuda {FFFFFF}Comandos Organizacao\n");
-	strcat(MEGAString, "{0026FF}Ajuda {FFFFFF}Comandos Veiculo\n");
-	strcat(MEGAString, "{0026FF}Ajuda {FFFFFF}Comandos Inventario\n");
-	strcat(MEGAString, "{0026FF}Ajuda {FFFFFF}Casa\n");
+	strcat(MEGAString, "{5b6ed9}Ajuda {FFFFFF}FAQ\n");
+	strcat(MEGAString, "{5b6ed9}Ajuda {FFFFFF}Comandos\n");
+	strcat(MEGAString, "{5b6ed9}Ajuda {FFFFFF}Empregos\n");
+	strcat(MEGAString, "{5b6ed9}Ajuda {FFFFFF}Comandos Lideres\n");
+	strcat(MEGAString, "{5b6ed9}Ajuda {FFFFFF}Comandos Organizacao\n");
+	strcat(MEGAString, "{5b6ed9}Ajuda {FFFFFF}Comandos Veiculo\n");
+	strcat(MEGAString, "{5b6ed9}Ajuda {FFFFFF}Comandos Inventario\n");
+	strcat(MEGAString, "{5b6ed9}Ajuda {FFFFFF}Casa\n");
 	ShowPlayerDialog(playerid, DIALOG_AJUDA, DIALOG_STYLE_LIST, "Central de Ajuda", MEGAString, "Confirmar", "X");
 	MissaoPlayer[playerid][MISSAO11] = 1;
 	return 1;
@@ -18913,8 +18947,8 @@ CMD:uniforme(playerid){
 
 CMD:mvoip(playerid)
 {
-	ShowPlayerDialog(playerid, D_VOIP, DIALOG_STYLE_LIST, "Config VOIP", "{0026FF}VOIP{FFFFFF} Falando\n{0026FF}VOIP{FFFFFF} Susurrando\n\
-	{0026FF}VOIP{FFFFFF} Gritando\n", "Selecionar", "X");
+	ShowPlayerDialog(playerid, D_VOIP, DIALOG_STYLE_LIST, "Config VOIP", "{5b6ed9}VOIP{FFFFFF} Falando\n{5b6ed9}VOIP{FFFFFF} Susurrando\n\
+	{5b6ed9}VOIP{FFFFFF} Gritando\n", "Selecionar", "X");
 	return 1;
 }
 
@@ -18945,7 +18979,7 @@ CMD:cinto(playerid)
 
 CMD:gps(playerid)
 {
-	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_LIST, "Onde deseja ir?", "{0026FF}GPS {FFFFFF}Locais Importantes\n{0026FF}GPS {FFFFFF}Locais Empregos\n{0026FF}GPS {FFFFFF}Locais Organiza��o\n{0026FF}GPS {FFFFFF}Localizar Casas", "Selecionar", "X");
+	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_LIST, "Onde deseja ir?", "{5b6ed9}GPS {FFFFFF}Locais Importantes\n{5b6ed9}GPS {FFFFFF}Locais Empregos\n{5b6ed9}GPS {FFFFFF}Locais Organiza��o\n{5b6ed9}GPS {FFFFFF}Localizar Casas", "Selecionar", "X");
 	MissaoPlayer[playerid][MISSAO8] = 1;
 	return 1;
 }
@@ -19055,12 +19089,12 @@ CMD:report(playerid, params[])
 			if(PlayerInfo[i][IDF] == ID)
 			{
 				SuccesMsg(playerid, "Os administradores foram notificados. Bom jogo !");
-				format(Str, sizeof(Str), "{FFFFFF}%04d{FFFFFF} report {FFFFFF}%04d{FFFFFF} Motivo: {0026FF}%s", PlayerInfo[playerid][IDF], PlayerInfo[i][IDF], Motivo);
+				format(Str, sizeof(Str), "{FFFFFF}%04d{FFFFFF} report {FFFFFF}%04d{FFFFFF} Motivo: {5b6ed9}%s", PlayerInfo[playerid][IDF], PlayerInfo[i][IDF], Motivo);
 				SendAdminMessage(-1, Str);
 				new string[255];
 				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 				format(string,sizeof(string),"### NOVO REPORT\n\nReporte de %04d \nReportou o %04d\nMotivo: %s", PlayerInfo[playerid][IDF], PlayerInfo[i][IDF], Motivo);
-				DCC_SetEmbedColor(embed, 0x0026FF);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
 				DCC_SetEmbedDescription(embed, string);
 				DCC_SetEmbedImage(embed, DCIMG);
 				DCC_SendChannelEmbedMessage(Reports, embed);
@@ -19080,7 +19114,7 @@ CMD:duvida(playerid, params[])
 	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Voce nao esta logado.");
 	if(sscanf(params, "s[56]", Str))							return ErrorMsg(playerid, "USE: /duvida [TEXTO]");
 	//
-	format(Str, sizeof(Str), "{3ce86a}(/duvida){0026FF} %04d{FFFFFF}({0026FF}%d{FFFFFF}) disse {0026FF}%s", GetPlayerIdfixo(playerid),PlayerInfo[playerid][IDF], Str);
+	format(Str, sizeof(Str), "{3ce86a}(/duvida){5b6ed9} %04d{FFFFFF}({5b6ed9}%d{FFFFFF}) disse {5b6ed9}%s", GetPlayerIdfixo(playerid),PlayerInfo[playerid][IDF], Str);
 	SendClientMessageToAll(-1, Str);
 	return 1;
 }
@@ -19091,7 +19125,7 @@ CMD:presos(playerid)
 	{
 		if(PlayerInfo[i][pCadeia] > 0)
 		{
-			format(Str, sizeof(Str), "{0026FF}%04d - {FFFFFF}Preso por {0026FF}%d {FFFFFF}segundos [{0026FF}%d {FFFFFF}minutes]", GetPlayerIdfixo(i), PlayerInfo[i][pCadeia], PlayerInfo[i][pCadeia] / 60);
+			format(Str, sizeof(Str), "{5b6ed9}%04d - {FFFFFF}Preso por {5b6ed9}%d {FFFFFF}segundos [{5b6ed9}%d {FFFFFF}minutes]", GetPlayerIdfixo(i), PlayerInfo[i][pCadeia], PlayerInfo[i][pCadeia] / 60);
 			ShowPlayerDialog(playerid, DIALOG_PRESOS, DIALOG_STYLE_MSGBOX, "{FF0F0F}Prisioneros", Str, "X", #);
 		}
 	}
@@ -19161,7 +19195,7 @@ CMD:a(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "s[56]", Motivo)) 							return ErrorMsg(playerid, "USE: /a [TEXTO]");
 	//
-	format(Str, sizeof(Str), "{FFFFFF}[{0026FF}%s{FFFFFF}] {0026FF}%s{FFFFFF}({0026FF}%04d{FFFFFF}) disse {0026FF}%s", AdminCargo(playerid), Name(playerid),PlayerInfo[playerid][IDF], Motivo);
+	format(Str, sizeof(Str), "{FFFFFF}[{5b6ed9}%s{FFFFFF}] {5b6ed9}%s{FFFFFF}({5b6ed9}%04d{FFFFFF}) disse {5b6ed9}%s", AdminCargo(playerid), Name(playerid),PlayerInfo[playerid][IDF], Motivo);
 	SendAdminMessage(0xDDA0DDFF, Str);
 	//
 	new string2[100];
@@ -19301,13 +19335,13 @@ CMD:kick(playerid, params[])
 			{
 				SuccesMsg(playerid, "Deu kick no jogador.");
 				InfoMsg(i, "Algum administrador deu kick em voce.");
-				format(Str, sizeof(Str), "{0026FF}AVISO{FFFFFF} O jogador {0026FF}%04d {FFFFFF}foi kickado por administrador {0026FF}%s{FFFFFF}. Motivo: {0026FF}%s", GetPlayerIdfixo(i), Name(playerid), Motivo);
+				format(Str, sizeof(Str), "{5b6ed9}AVISO{FFFFFF} O jogador {5b6ed9}%04d {FFFFFF}foi kickado por administrador {5b6ed9}%s{FFFFFF}. Motivo: {5b6ed9}%s", GetPlayerIdfixo(i), Name(playerid), Motivo);
 				SendClientMessageToAll(-1, Str);
 
 				new string[255];
 				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 				format(string,sizeof(string),"### KICK\n\nID: %04d\nPertence: %s\nExpulso por: %s\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Motivo);
-				DCC_SetEmbedColor(embed, 0x0026FF);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
 				DCC_SetEmbedDescription(embed, string);
 				DCC_SetEmbedImage(embed, DCIMG);
 				DCC_SendChannelEmbedMessage(Punicoes, embed);
@@ -19348,13 +19382,13 @@ CMD:cadeia(playerid, params[])
 				}
 				SuccesMsg(playerid, "Deu cadeia no jogador.");
 				InfoMsg(i, "Algum administrador te colocou na cadeia.");
-				format(Str, sizeof(Str), "{0026FF}AVISO{FFFFFF} O Administrador {0026FF}%s {FFFFFF}prendeu {0026FF}%04d {FFFFFF}por {0026FF}%i {FFFFFF}minutos. Motivo: {0026FF}%s", Name(playerid), GetPlayerIdfixo(i), Numero, Motivo);
+				format(Str, sizeof(Str), "{5b6ed9}AVISO{FFFFFF} O Administrador {5b6ed9}%s {FFFFFF}prendeu {5b6ed9}%04d {FFFFFF}por {5b6ed9}%i {FFFFFF}minutos. Motivo: {5b6ed9}%s", Name(playerid), GetPlayerIdfixo(i), Numero, Motivo);
 				SendClientMessageToAll(-1, Str);
 
 				new string[255];
 				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 				format(string,sizeof(string),"### CADEIA STAFF\n\nID: %04d\nPertence: %s\nPreso por: %s\nTempo: %i minuto(s)\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Numero, Motivo);
-				DCC_SetEmbedColor(embed, 0x0026FF);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
 				DCC_SetEmbedDescription(embed, string);
 				DCC_SetEmbedImage(embed, DCIMG);
 				DCC_SendChannelEmbedMessage(Punicoes, embed);
@@ -19448,11 +19482,11 @@ CMD:contagem(playerid, params[])
 	if(ID < 1 || ID > 20) 										return ErrorMsg(playerid, "20s e o maximo.");
 	if(ContagemIniciada == true)
 	{
-		ErrorMsg(playerid, "{0026FF}AVISO{FFFFFF} Ja tem uma contagem rolando");
+		ErrorMsg(playerid, "{5b6ed9}AVISO{FFFFFF} Ja tem uma contagem rolando");
 	}
 	else
 	{
-		format(Str, sizeof(Str), "{0026FF}AVISO{FFFFFF} O Administrador: {0026FF}%s {FFFFFF}comecou uma contagem {0026FF}%i {FFFFFF}segundos.", Name(playerid), ID);
+		format(Str, sizeof(Str), "{5b6ed9}AVISO{FFFFFF} O Administrador: {5b6ed9}%s {FFFFFF}comecou uma contagem {5b6ed9}%i {FFFFFF}segundos.", Name(playerid), ID);
 		SendClientMessageToAll(-1, Str);
 		SetTimerEx("DiminuirTempo", 1000, false, "i", ID);
 		ContagemIniciada = true;
@@ -19576,7 +19610,7 @@ CMD:banir(playerid, params[])
 				new string[255];
 				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 				format(string,sizeof(string),"### BANIMENTO\n\nID: %04d\nPertence: %s\nBanido por: %s\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Motivo);
-				DCC_SetEmbedColor(embed, 0x0026FF);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
 				DCC_SetEmbedDescription(embed, string);
 				DCC_SetEmbedImage(embed, DCIMG);
 				DCC_SendChannelEmbedMessage(Punicoes, embed);
@@ -19646,13 +19680,13 @@ CMD:tempban(playerid,params[])
 				DOF2_SetString(File, "Desban", Data);
 				DOF2_SetInt(File, "DDesban", gettime() + 60 * 60 * 24 * Dias);
 				DOF2_SaveFile();
-				format(Str, sizeof(Str), "{0026FF}ADMIN{FFFFFF} O jogador {0026FF}%04d {FFFFFF}foi banido por {0026FF}%i {FFFFFF}dias pelo administrador {0026FF}%s{FFFFFF}. Motivo: {0026FF}%s", GetPlayerIdfixo(i), Dias, Name(playerid), Motivo);
+				format(Str, sizeof(Str), "{5b6ed9}ADMIN{FFFFFF} O jogador {5b6ed9}%04d {FFFFFF}foi banido por {5b6ed9}%i {FFFFFF}dias pelo administrador {5b6ed9}%s{FFFFFF}. Motivo: {5b6ed9}%s", GetPlayerIdfixo(i), Dias, Name(playerid), Motivo);
 				SendClientMessageToAll(-1, Str);
 
 				new string[255];
 				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 				format(string,sizeof(string),"### BANIMENTO\n\nID: %04d\nPertence: %s\nBanido por: %s\nTempo: %i Dia(s)\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Dias, Motivo);
-				DCC_SetEmbedColor(embed, 0x0026FF);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
 				DCC_SetEmbedDescription(embed, string);
 				DCC_SetEmbedImage(embed, DCIMG);
 				DCC_SendChannelEmbedMessage(Punicoes, embed);
@@ -19694,13 +19728,13 @@ CMD:agendaban(playerid, params[])
 	if(!DOF2_FileExists(File))              					return ErrorMsg(playerid, "Conta nao existente.");
 	format(Str, sizeof(Str), "Agendado - %s", Motivo);
 	AgendarBan(Nome, playerid, Str, tempo);
-	format(Str, sizeof(Str), "{0026FF}ADMIN{FFFFFF}O Administrador {0026FF}%s {FFFFFF}programou a {0026FF}%s {FFFFFF} um ban. Motivo: {0026FF}%s", Name(playerid), Nome, Motivo);
+	format(Str, sizeof(Str), "{5b6ed9}ADMIN{FFFFFF}O Administrador {5b6ed9}%s {FFFFFF}programou a {5b6ed9}%s {FFFFFF} um ban. Motivo: {5b6ed9}%s", Name(playerid), Nome, Motivo);
 	SendClientMessageToAll(-1, Str);
 
 	new string[255];
 	new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 	format(string,sizeof(string),"### BANIMENTO\n\nConta: %s\nPreso por: %s\nTempo: %i minuto(s)\nMotivo: %s", Nome, Name(playerid), tempo, Motivo);
-	DCC_SetEmbedColor(embed, 0x0026FF);
+	DCC_SetEmbedColor(embed, 0x5b6ed9);
 	DCC_SetEmbedDescription(embed, string);
 	DCC_SetEmbedImage(embed, DCIMG);
 	DCC_SendChannelEmbedMessage(Punicoes, embed);
@@ -19720,13 +19754,13 @@ CMD:agendacadeia(playerid, params[])
 	if(IsPlayerConnected(ID1))                                  return ErrorMsg(playerid, "Jogador esta online use /cadeia.");
 	format(File, sizeof(File), PASTA_CONTAS, Nome);
 	if(!DOF2_FileExists(File))              					return ErrorMsg(playerid, "Cuenta no existente.");
-	format(Str, sizeof(Str), "AdmCmd: {FFFFFF}O Administrador {0026FF}%s{FFFFFF} programou {0026FF}%s {FFFFFF}para cumprir {0026FF}%i {FFFFFF}minutos de cadeia. Motivo: {0026FF}%s", Name(playerid), Nome, ID, Motivo);
+	format(Str, sizeof(Str), "AdmCmd: {FFFFFF}O Administrador {5b6ed9}%s{FFFFFF} programou {5b6ed9}%s {FFFFFF}para cumprir {5b6ed9}%i {FFFFFF}minutos de cadeia. Motivo: {5b6ed9}%s", Name(playerid), Nome, ID, Motivo);
 	SendClientMessageToAll(-1, Str);
 
 	new string[255];
 	new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 	format(string,sizeof(string),"### CADEIA STAFF\n\nConta: %s\nPreso por: %s\nTempo: %i minuto(s)\nMotivo: %s", Nome, Name(playerid), ID, Motivo);
-	DCC_SetEmbedColor(embed, 0x0026FF);
+	DCC_SetEmbedColor(embed, 0x5b6ed9);
 	DCC_SetEmbedDescription(embed, string);
 	DCC_SetEmbedImage(embed, DCIMG);
 	DCC_SendChannelEmbedMessage(Punicoes, embed);
@@ -19751,7 +19785,7 @@ CMD:adv(playerid, params[])
 				SuccesMsg(playerid, "Voce deu advertencia ao jogador.");
 				if(PlayerInfo[playerid][pAvisos] == 3)
 				{
-					format(Str, sizeof(Str), "{0026FF}AVISO{FFFFFF} O jogador {0026FF}%04d {FFFFFF} recebeu uma advertencia do Administrador {0026FF}%s {FFFFFF}e foi banido. {FFFFFF}Motivo: {0026FF}%s", GetPlayerIdfixo(i), Name(playerid), Motivo);
+					format(Str, sizeof(Str), "{5b6ed9}AVISO{FFFFFF} O jogador {5b6ed9}%04d {FFFFFF} recebeu uma advertencia do Administrador {5b6ed9}%s {FFFFFF}e foi banido. {FFFFFF}Motivo: {5b6ed9}%s", GetPlayerIdfixo(i), Name(playerid), Motivo);
 					SendClientMessageToAll(-1, Str);
 					BanirPlayer(i, playerid, "Superou o limite de advertencia");
 				}
@@ -19782,7 +19816,7 @@ CMD:banirip(playerid, params[])
 				new string[255];
 				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 				format(string,sizeof(string),"### BANIMENTO IP\n\nID: %04d\nPertence: %s\nBanido por: %s\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Motivo);
-				DCC_SetEmbedColor(embed, 0x0026FF);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
 				DCC_SetEmbedDescription(embed, string);
 				DCC_SetEmbedImage(embed, DCIMG);
 				DCC_SendChannelEmbedMessage(Punicoes, embed);
@@ -19826,7 +19860,7 @@ CMD:atrabalhar(playerid)
 		SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
 		SendClientMessageToAll(-1,"");
 		SendClientMessageToAll(-1,"");
-		format(Str, sizeof(Str), "{0026FF}AVISO{FFFFFF} O administrador {0026FF}%s{FFFFFF} nao esta mais trabalhando.", Name(playerid));
+		format(Str, sizeof(Str), "{5b6ed9}AVISO{FFFFFF} O administrador {5b6ed9}%s{FFFFFF} nao esta mais trabalhando.", Name(playerid));
 		SendClientMessageToAll(-1, Str);  
 		SendClientMessageToAll(-1,"");
 		SendClientMessageToAll(-1,"");  
@@ -19842,7 +19876,7 @@ CMD:atrabalhar(playerid)
 		SetPlayerSkin(playerid, 217);
 		SendClientMessageToAll(-1,"");
 		SendClientMessageToAll(-1,"");
-		format(Str, sizeof(Str), "{0026FF}AVISO{FFFFFF} O administrador {0026FF}%s{FFFFFF} esta trabalhando.", Name(playerid));
+		format(Str, sizeof(Str), "{5b6ed9}AVISO{FFFFFF} O administrador {5b6ed9}%s{FFFFFF} esta trabalhando.", Name(playerid));
 		SendClientMessageToAll(-1, Str); 
 		SendClientMessageToAll(-1,"");
 		SendClientMessageToAll(-1,"");	
@@ -20022,7 +20056,7 @@ CMD:gmx(playerid)
 		if(pLogado[i] == true) SalvarDados(i), Kick(i);
 		
 	}
-	format(Str, sizeof(Str), "{0026FF}ANUNCIO{FFFFFF} Se realizara um reinicio no servidor.");
+	format(Str, sizeof(Str), "{5b6ed9}ANUNCIO{FFFFFF} Se realizara um reinicio no servidor.");
 	SendClientMessageToAll(-1, Str);
 	SendRconCommand("exit");
 	return 1;
@@ -20071,9 +20105,9 @@ CMD:vips(playerid)
 		{ 
 			PlayerInfo[id][ExpiraVIP] = ConvertDays(days); 
 			PlayerInfo[playerid][pVIP] = nivel;
-			format(string, sizeof(string), "Deu a {0026FF}%s{FFFFFF}por {0026FF}%d {FFFFFF}dias VIP Nivel {0026FF}%d", days, Name(id)); 
+			format(string, sizeof(string), "Deu a {5b6ed9}%s{FFFFFF}por {5b6ed9}%d {FFFFFF}dias VIP Nivel {5b6ed9}%d", days, Name(id)); 
 			SendClientMessage(playerid, -1, string); 
-			format(string, sizeof(string), "Recebeu o VIP Nivel {0026FF}%d {FFFFFF}durante {0026FF}%d {FFFFFF}dias de VIP.", nivel, days); 
+			format(string, sizeof(string), "Recebeu o VIP Nivel {5b6ed9}%d {FFFFFF}durante {5b6ed9}%d {FFFFFF}dias de VIP.", nivel, days); 
 			SendClientMessage(playerid, -1, string); 
 
 			format(string, sizeof(string), PASTA_VIPS, Name(id)); 
@@ -20088,17 +20122,17 @@ CMD:vips(playerid)
 CMD:lojavip(playerid)
 {
 	new StrCash[550],StrCashh[550], String[500];
-	format(StrCashh, sizeof(StrCashh), "{0026FF}LOJA {FFFFFF}VIP's\n");
+	format(StrCashh, sizeof(StrCashh), "{5b6ed9}LOJA {FFFFFF}VIP's\n");
 	strcat(StrCash,StrCashh);
-	format(StrCashh, sizeof(StrCashh), "{0026FF}LOJA {FFFFFF}Veiculos de Inventario\n");
+	format(StrCashh, sizeof(StrCashh), "{5b6ed9}LOJA {FFFFFF}Veiculos de Inventario\n");
 	strcat(StrCash,StrCashh);
-	format(StrCashh, sizeof(StrCashh), "{0026FF}LOJA {FFFFFF}Itens de Utilidades\n");
+	format(StrCashh, sizeof(StrCashh), "{5b6ed9}LOJA {FFFFFF}Itens de Utilidades\n");
 	strcat(StrCash,StrCashh);
-	format(StrCashh, sizeof(StrCashh), "{0026FF}LOJA {FFFFFF}Verifique os Beneficios\n");
+	format(StrCashh, sizeof(StrCashh), "{5b6ed9}LOJA {FFFFFF}Verifique os Beneficios\n");
 	strcat(StrCash,StrCashh);
-	format(StrCashh, sizeof(StrCashh), "{0026FF}LOJA {FFFFFF}Ativa��o de Coins\n");
+	format(StrCashh, sizeof(StrCashh), "{5b6ed9}LOJA {FFFFFF}Ativa��o de Coins\n");
 	strcat(StrCash,StrCashh);
-	format(String, sizeof(String), "Voce possui{0026FF}%i {FFFFFF}coins", PlayerInfo[playerid][pCoins]);
+	format(String, sizeof(String), "Voce possui{5b6ed9}%i {FFFFFF}coins", PlayerInfo[playerid][pCoins]);
 	ShowPlayerDialog(playerid, DIALOG_CATCOINS, DIALOG_STYLE_LIST, String , StrCash, "Selecionar", "X");	
 	return 1;
 }
@@ -20110,6 +20144,10 @@ CMD:dveiculo(playerid)
 		VehAlugado[playerid] = 0;
 		DestroyVehicle(VeiculoCivil[playerid]);
 		SuccesMsg(playerid, "Veiculo destruido.");
+		for(new o=0;o<10;o++)
+		{
+			DestroyDynamicObject(sdxobj[o]); 
+		}
 	}
 	return 1;
 }
@@ -20191,7 +20229,7 @@ CMD:carregar(playerid)
 		if(Cargase[playerid] == true) 	return ErrorMsg(playerid, "Seu caminhao ja esta carregado.");
 		if(Carregou[playerid] == 1) 	return ErrorMsg(playerid, "Ja tem uma carga.");
 		if(GetVehicleModel(GetPlayerVehicleID(playerid)) != 456)  	return ErrorMsg(playerid, "Nao esta no veiculo de trabalho");
-		ShowPlayerDialog(playerid, DIALOG_CARGA, DIALOG_STYLE_LIST, "{0026FF}Cargas Disponiveis.", "{0026FF}- {FFFFFF}Ind. Solarion SF\t{32CD32}R$2250\n{0026FF}- {FFFFFF}Michelin Pneus LV\t{32CD32}R$2400\n{0026FF}- {FFFFFF}Sprunk LS\t{32CD32}R$2150\n{0026FF}- {FFFFFF}Xoomer LS\t{32CD32}R$2150\n{0026FF}- {FFFFFF}FlaischBerg LS\t{32CD32}R$2100\n", "Carregar", "");
+		ShowPlayerDialog(playerid, DIALOG_CARGA, DIALOG_STYLE_LIST, "{5b6ed9}Cargas Disponiveis.", "{5b6ed9}- {FFFFFF}Ind. Solarion SF\t{32CD32}R$2250\n{5b6ed9}- {FFFFFF}Michelin Pneus LV\t{32CD32}R$2400\n{5b6ed9}- {FFFFFF}Sprunk LS\t{32CD32}R$2150\n{5b6ed9}- {FFFFFF}Xoomer LS\t{32CD32}R$2150\n{5b6ed9}- {FFFFFF}FlaischBerg LS\t{32CD32}R$2100\n", "Carregar", "");
 	}else if(PlayerInfo[playerid][pProfissao] == 8){ //Correios
 		if(EmServico[playerid] == false) return ErrorMsg(playerid, "Voce nao iniciou expediente.");
 		if(PegouVehProf[playerid] == false) return ErrorMsg(playerid, "Voce nao pegou uma van de servicos dos Correios.");
@@ -20261,7 +20299,7 @@ CMD:convidar(playerid,params[])
 				if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta perto deste jogador.");
 				if(PlayerInfo[i][Org] != 0)return ErrorMsg(playerid, "Este jogador ja e de uma organizacao.");
 				PlayerInfo[i][convite] = PlayerInfo[playerid][Org];
-				format(String,sizeof(String),"Esta sendo convidado por {0026FF}%04d{FFFFFF}. (%s)",PlayerInfo[playerid][IDF],NomeOrg(playerid));
+				format(String,sizeof(String),"Esta sendo convidado por {5b6ed9}%04d{FFFFFF}. (%s)",PlayerInfo[playerid][IDF],NomeOrg(playerid));
 				ShowPlayerDialog(i,DIALOG_CONVITE,DIALOG_STYLE_MSGBOX,"Convite",String,"Aceitar","X");
 			}
 		}
@@ -20481,259 +20519,259 @@ CMD:aa(playerid)
 		new ComandosAdmins[5000];		
 		if(PlayerInfo[playerid][pAdmin] == 1)
 		{
-			strcat(ComandosAdmins, "\t{0026FF}- {FFFFFF}Estagiario {0026FF}- {FFFFFF}\n\n");
-			strcat(ComandosAdmins, "{0026FF} /htrabalhar {FFFFFF}- Comecar turno de ajudante.\n");
-			strcat(ComandosAdmins, "{0026FF} /a {FFFFFF}- Chat admin.\n");
-			strcat(ComandosAdmins, "{0026FF} /kick {FFFFFF}- Kick um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
-			strcat(ComandosAdmins, "{0026FF} /hir {FFFFFF}- Teleportar ate um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /htrazer {FFFFFF}- Teleportar o jogador ate voce.\n");
-			strcat(ComandosAdmins, "{0026FF} /hbanir {FFFFFF}- Banir a conta do jogador.\n");
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Estagiario {5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /htrabalhar {FFFFFF}- Comecar turno de ajudante.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Chat admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Kick um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /hir {FFFFFF}- Teleportar ate um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /htrazer {FFFFFF}- Teleportar o jogador ate voce.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /hbanir {FFFFFF}- Banir a conta do jogador.\n");
 			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
 		}
 		if(PlayerInfo[playerid][pAdmin] == 2)
 		{
-			strcat(ComandosAdmins, "\t{0026FF}- {FFFFFF}Administrador{0026FF}- {FFFFFF}\n\n");
-			strcat(ComandosAdmins, "{0026FF} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
-			strcat(ComandosAdmins, "{0026FF} /a {FFFFFF}- Chat admin.\n");
-			strcat(ComandosAdmins, "{0026FF} /kick {FFFFFF}- Kick um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
-			strcat(ComandosAdmins, "{0026FF} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /pos {FFFFFF}- Pegar posicao atual.\n");
-			strcat(ComandosAdmins, "{0026FF} /av {FFFFFF}- Anuncio admin.\n");
-			strcat(ComandosAdmins, "{0026FF} /cv {FFFFFF}- Criar um veiculo.\n");
-			strcat(ComandosAdmins, "{0026FF} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
-			strcat(ComandosAdmins, "{0026FF} /ir {FFFFFF}- Teleportar ate um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
-			strcat(ComandosAdmins, "{0026FF} /contagem {FFFFFF}- Iniciar uma contagem.\n");
-			strcat(ComandosAdmins, "{0026FF} /tv {FFFFFF}- Espectar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /banir {FFFFFF}- Banir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
-			strcat(ComandosAdmins, "{0026FF} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /congelar {FFFFFF}- Congelar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /descongelar {FFFFFF}- Descongelar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Administrador{5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Chat admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Kick um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Pegar posicao atual.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Anuncio admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Criar um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Teleportar ate um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Iniciar uma contagem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Espectar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Banir a conta do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Congelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Descongelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
 			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
 		}
 		if(PlayerInfo[playerid][pAdmin] == 3)
 		{
-			strcat(ComandosAdmins, "\t{0026FF}- {FFFFFF}Administrador Geral{0026FF}- {FFFFFF}\n\n");
-			strcat(ComandosAdmins, "{0026FF} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
-			strcat(ComandosAdmins, "{0026FF} /a {FFFFFF}- Chat admin.\n");
-			strcat(ComandosAdmins, "{0026FF} /kick {FFFFFF}- Kick um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
-			strcat(ComandosAdmins, "{0026FF} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /pos {FFFFFF}- Pegar posicao atual.\n");
-			strcat(ComandosAdmins, "{0026FF} /av {FFFFFF}- Anuncio admin.\n");
-			strcat(ComandosAdmins, "{0026FF} /cv {FFFFFF}- Criar um veiculo.\n");
-			strcat(ComandosAdmins, "{0026FF} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
-			strcat(ComandosAdmins, "{0026FF} /ir {FFFFFF}- Teleportar ate um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
-			strcat(ComandosAdmins, "{0026FF} /contagem {FFFFFF}- Iniciar uma contagem.\n");
-			strcat(ComandosAdmins, "{0026FF} /tv {FFFFFF}- Espectar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /banir {FFFFFF}- Banir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
-			strcat(ComandosAdmins, "{0026FF} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /congelar {FFFFFF}- Congelar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /descongelar {FFFFFF}- Descongelar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Administrador Geral{5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Chat admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Kick um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Pegar posicao atual.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Anuncio admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Criar um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Teleportar ate um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Iniciar uma contagem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Espectar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Banir a conta do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Congelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Descongelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
 			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
 		}
 		if(PlayerInfo[playerid][pAdmin] == 4)
 		{
-			strcat(ComandosAdmins, "\t{0026FF}- {FFFFFF}Supervisor{0026FF}- {FFFFFF}\n\n");
-			strcat(ComandosAdmins, "{0026FF} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
-			strcat(ComandosAdmins, "{0026FF} /a {FFFFFF}- Chat admin.\n");
-			strcat(ComandosAdmins, "{0026FF} /kick {FFFFFF}- Kick um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
-			strcat(ComandosAdmins, "{0026FF} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /pos {FFFFFF}- Pegar posicao atual.\n");
-			strcat(ComandosAdmins, "{0026FF} /av {FFFFFF}- Anuncio admin.\n");
-			strcat(ComandosAdmins, "{0026FF} /cv {FFFFFF}- Criar um veiculo.\n");
-			strcat(ComandosAdmins, "{0026FF} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
-			strcat(ComandosAdmins, "{0026FF} /ir {FFFFFF}- Teleportar ate um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
-			strcat(ComandosAdmins, "{0026FF} /contagem {FFFFFF}- Iniciar uma contagem.\n");
-			strcat(ComandosAdmins, "{0026FF} /tv {FFFFFF}- Espectar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /banir {FFFFFF}- Banir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
-			strcat(ComandosAdmins, "{0026FF} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /congelar {FFFFFF}- Congelar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /descongelar {FFFFFF}- Descongelar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
-			strcat(ComandosAdmins, "{0026FF} /banirip {FFFFFF}- Banir o IP de um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /desbanir {FFFFFF}- Desbanir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /desbanirip {FFFFFF}- Desbanir o IP do jogador.\n");
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Supervisor{5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Chat admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Kick um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Pegar posicao atual.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Anuncio admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Criar um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Teleportar ate um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Iniciar uma contagem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Espectar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Banir a conta do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Congelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Descongelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banirip {FFFFFF}- Banir o IP de um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Desbanir a conta do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Desbanir o IP do jogador.\n");
 			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
 		}
 		if(PlayerInfo[playerid][pAdmin] == 5)
 		{
-			strcat(ComandosAdmins, "\t{0026FF}- {FFFFFF}Diretor{0026FF}- {FFFFFF}\n\n");
-			strcat(ComandosAdmins, "{0026FF} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
-			strcat(ComandosAdmins, "{0026FF} /a {FFFFFF}- Chat admin.\n");
-			strcat(ComandosAdmins, "{0026FF} /kick {FFFFFF}- Kick um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
-			strcat(ComandosAdmins, "{0026FF} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /pos {FFFFFF}- Pegar posicao atual.\n");
-			strcat(ComandosAdmins, "{0026FF} /av {FFFFFF}- Anuncio admin.\n");
-			strcat(ComandosAdmins, "{0026FF} /cv {FFFFFF}- Criar um veiculo.\n");
-			strcat(ComandosAdmins, "{0026FF} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
-			strcat(ComandosAdmins, "{0026FF} /ir {FFFFFF}- Teleportar ate um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
-			strcat(ComandosAdmins, "{0026FF} /contagem {FFFFFF}- Iniciar uma contagem.\n");
-			strcat(ComandosAdmins, "{0026FF} /tv {FFFFFF}- Espectar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /banir {FFFFFF}- Banir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
-			strcat(ComandosAdmins, "{0026FF} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /congelar {FFFFFF}- Congelar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /descongelar {FFFFFF}- Descongelar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
-			strcat(ComandosAdmins, "{0026FF} /banirip {FFFFFF}- Banir o IP de um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /desbanir {FFFFFF}- Desbanir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /desbanirip {FFFFFF}- Desbanir o IP do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /daritem {FFFFFF}- Dar um item de inventario a um jogador.\n");
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Diretor{5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Chat admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Kick um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Pegar posicao atual.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Anuncio admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Criar um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Teleportar ate um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Iniciar uma contagem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Espectar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Banir a conta do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Congelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Descongelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banirip {FFFFFF}- Banir o IP de um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Desbanir a conta do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Desbanir o IP do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /daritem {FFFFFF}- Dar um item de inventario a um jogador.\n");
 			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
 		}
 		if(PlayerInfo[playerid][pAdmin] == 6)
 		{
-			strcat(ComandosAdmins, "\t{0026FF}- {FFFFFF}Fundador{0026FF}- {FFFFFF}\n\n");
-			strcat(ComandosAdmins, "{0026FF} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
-			strcat(ComandosAdmins, "{0026FF} /a {FFFFFF}- Chat admin.\n");
-			strcat(ComandosAdmins, "{0026FF} /kick {FFFFFF}- Kick um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
-			strcat(ComandosAdmins, "{0026FF} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /pos {FFFFFF}- Pegar posicao atual.\n");
-			strcat(ComandosAdmins, "{0026FF} /av {FFFFFF}- Anuncio admin.\n");
-			strcat(ComandosAdmins, "{0026FF} /cv {FFFFFF}- Criar um veiculo.\n");
-			strcat(ComandosAdmins, "{0026FF} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
-			strcat(ComandosAdmins, "{0026FF} /ir {FFFFFF}- Teleportar ate um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
-			strcat(ComandosAdmins, "{0026FF} /contagem {FFFFFF}- Iniciar uma contagem.\n");
-			strcat(ComandosAdmins, "{0026FF} /tv {FFFFFF}- Espectar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /banir {FFFFFF}- Banir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
-			strcat(ComandosAdmins, "{0026FF} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /congelar {FFFFFF}- Congelar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /descongelar {FFFFFF}- Descongelar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
-			strcat(ComandosAdmins, "{0026FF} /banirip {FFFFFF}- Banir o IP de um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /desbanir {FFFFFF}- Desbanir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /desbanirip {FFFFFF}- Desbanir o IP do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /daritem {FFFFFF}- Dar um item de inventario a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /setskin {FFFFFF}- Setar skin a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /setvida {FFFFFF}- Setar vida a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /setcolete {FFFFFF}- Setar colete a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /dardinheiro {FFFFFF}- Dar dinheiro a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /setarma {FFFFFF}- Setar arma a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /antiafk {FFFFFF}- Desativar ou Ativar o AntiAFK do servidor.\n");
-			strcat(ComandosAdmins, "{0026FF} /chat {FFFFFF}- Desativar ou Ativar o chat do servidor.\n");
-			strcat(ComandosAdmins, "{0026FF} /gmx {FFFFFF}- Reniciar o servidor (nao recomendado com muitos jogadores).\n");
-			strcat(ComandosAdmins, "{0026FF} /rorgoff {FFFFFF}- Retirar jogador da org.\n");
-			strcat(ComandosAdmins, "{0026FF} /darlider {FFFFFF}- Dar lider a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /limparlider {FFFFFF}- Limpar lider da org.\n");
-			strcat(ComandosAdmins, "{0026FF} /limparlideres {FFFFFF}- Limpar lideres da org.\n");
-			strcat(ComandosAdmins, "{0026FF} /criarcasa {FFFFFF}- Criar casa.\n");
-			strcat(ComandosAdmins, "{0026FF} /dcasa {FFFFFF}- Deletar casa.\n");
-			strcat(ComandosAdmins, "{0026FF} /rtc {FFFFFF}- Respawnar veiculo.\n");
-			strcat(ComandosAdmins, "{0026FF} /rac {FFFFFF}- Respawnar todos os veiculos.\n");
-			strcat(ComandosAdmins, "{0026FF} /setgasolina {FFFFFF}- Setar gasolina em um veiculo.\n");
-			strcat(ComandosAdmins, "{0026FF} /addv {FFFFFF}- Adicionar veiculo de concessionaria.\n");
-			strcat(ComandosAdmins, "{0026FF} /editv {FFFFFF}- Editar veiculo da concessionaria\n");
-			strcat(ComandosAdmins, "{0026FF} /adddealership {FFFFFF}- Adicionar concessionaria.\n");
-			strcat(ComandosAdmins, "{0026FF} /deletedealership {FFFFFF}- Deletar concessionaria.\n");
-			strcat(ComandosAdmins, "{0026FF} /movedealership {FFFFFF}- Mover concessionaria.\n");
-			strcat(ComandosAdmins, "{0026FF} /gotodealership {FFFFFF}- Ir ate a concessionaria.\n");
-			strcat(ComandosAdmins, "{0026FF} /addfuelstation {FFFFFF}- Adicionar posto de gasolina.\n");
-			strcat(ComandosAdmins, "{0026FF} /deletefuelstation {FFFFFF}- Deletar posto de gasolina.\n");
-			strcat(ComandosAdmins, "{0026FF} /movefuelstation {FFFFFF}- Mover posto de gasolina.\n");
-			strcat(ComandosAdmins, "{0026FF} /gotofuelstation {FFFFFF}- Ir ate o posto de gasolina.\n");
-			strcat(ComandosAdmins, "{0026FF} /criarcn {FFFFFF}- Adicionar um caca niquel.\n");
-			strcat(ComandosAdmins, "{0026FF} /dcn {FFFFFF}- Deletar um caca niquel.\n");
-			strcat(ComandosAdmins, "{0026FF} /editcn {FFFFFF}- Editar um caca niquel.\n");
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Fundador{5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Chat admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Kick um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Pegar posicao atual.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Anuncio admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Criar um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Teleportar ate um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Iniciar uma contagem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Espectar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Banir a conta do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Congelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Descongelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banirip {FFFFFF}- Banir o IP de um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Desbanir a conta do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Desbanir o IP do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /daritem {FFFFFF}- Dar um item de inventario a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setskin {FFFFFF}- Setar skin a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setvida {FFFFFF}- Setar vida a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setcolete {FFFFFF}- Setar colete a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dardinheiro {FFFFFF}- Dar dinheiro a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setarma {FFFFFF}- Setar arma a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /antiafk {FFFFFF}- Desativar ou Ativar o AntiAFK do servidor.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /chat {FFFFFF}- Desativar ou Ativar o chat do servidor.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /gmx {FFFFFF}- Reniciar o servidor (nao recomendado com muitos jogadores).\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rorgoff {FFFFFF}- Retirar jogador da org.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /darlider {FFFFFF}- Dar lider a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /limparlider {FFFFFF}- Limpar lider da org.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /limparlideres {FFFFFF}- Limpar lideres da org.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /criarcasa {FFFFFF}- Criar casa.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dcasa {FFFFFF}- Deletar casa.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rtc {FFFFFF}- Respawnar veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rac {FFFFFF}- Respawnar todos os veiculos.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setgasolina {FFFFFF}- Setar gasolina em um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /addv {FFFFFF}- Adicionar veiculo de concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /editv {FFFFFF}- Editar veiculo da concessionaria\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adddealership {FFFFFF}- Adicionar concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /deletedealership {FFFFFF}- Deletar concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /movedealership {FFFFFF}- Mover concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /gotodealership {FFFFFF}- Ir ate a concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /addfuelstation {FFFFFF}- Adicionar posto de gasolina.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /deletefuelstation {FFFFFF}- Deletar posto de gasolina.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /movefuelstation {FFFFFF}- Mover posto de gasolina.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /gotofuelstation {FFFFFF}- Ir ate o posto de gasolina.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /criarcn {FFFFFF}- Adicionar um caca niquel.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dcn {FFFFFF}- Deletar um caca niquel.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /editcn {FFFFFF}- Editar um caca niquel.\n");
 			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
 		}
 		if(PlayerInfo[playerid][pAdmin] == 7)
 		{
-			strcat(ComandosAdmins, "\t{0026FF}- {FFFFFF}Desenvolvedor{0026FF}- {FFFFFF}\n\n");
-			strcat(ComandosAdmins, "{0026FF} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
-			strcat(ComandosAdmins, "{0026FF} /a {FFFFFF}- Chat admin.\n");
-			strcat(ComandosAdmins, "{0026FF} /kick {FFFFFF}- Kick um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
-			strcat(ComandosAdmins, "{0026FF} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /pos {FFFFFF}- Pegar posicao atual.\n");
-			strcat(ComandosAdmins, "{0026FF} /av {FFFFFF}- Anuncio admin.\n");
-			strcat(ComandosAdmins, "{0026FF} /cv {FFFFFF}- Criar um veiculo.\n");
-			strcat(ComandosAdmins, "{0026FF} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
-			strcat(ComandosAdmins, "{0026FF} /ir {FFFFFF}- Teleportar ate um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
-			strcat(ComandosAdmins, "{0026FF} /contagem {FFFFFF}- Iniciar uma contagem.\n");
-			strcat(ComandosAdmins, "{0026FF} /tv {FFFFFF}- Espectar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /banir {FFFFFF}- Banir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
-			strcat(ComandosAdmins, "{0026FF} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /congelar {FFFFFF}- Congelar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /descongelar {FFFFFF}- Descongelar um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
-			strcat(ComandosAdmins, "{0026FF} /banirip {FFFFFF}- Banir o IP de um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /desbanir {FFFFFF}- Desbanir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /desbanirip {FFFFFF}- Desbanir o IP do jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /daritem {FFFFFF}- Dar um item de inventario a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /setskin {FFFFFF}- Setar skin a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /setvida {FFFFFF}- Setar vida a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /setcolete {FFFFFF}- Setar colete a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /dardinheiro {FFFFFF}- Dar dinheiro a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /setarma {FFFFFF}- Setar arma a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /antiafk {FFFFFF}- Desativar ou Ativar o AntiAFK do servidor.\n");
-			strcat(ComandosAdmins, "{0026FF} /chat {FFFFFF}- Desativar ou Ativar o chat do servidor.\n");
-			strcat(ComandosAdmins, "{0026FF} /gmx {FFFFFF}- Reniciar o servidor (nao recomendado com muitos jogadores).\n");
-			strcat(ComandosAdmins, "{0026FF} /rorgoff {FFFFFF}- Retirar jogador da org.\n");
-			strcat(ComandosAdmins, "{0026FF} /darlider {FFFFFF}- Dar lider a um jogador.\n");
-			strcat(ComandosAdmins, "{0026FF} /limparlider {FFFFFF}- Limpar lider da org.\n");
-			strcat(ComandosAdmins, "{0026FF} /limparlideres {FFFFFF}- Limpar lideres da org.\n");
-			strcat(ComandosAdmins, "{0026FF} /criarcasa {FFFFFF}- Criar casa.\n");
-			strcat(ComandosAdmins, "{0026FF} /dcasa {FFFFFF}- Deletar casa.\n");
-			strcat(ComandosAdmins, "{0026FF} /rtc {FFFFFF}- Respawnar veiculo.\n");
-			strcat(ComandosAdmins, "{0026FF} /rac {FFFFFF}- Respawnar todos os veiculos.\n");
-			strcat(ComandosAdmins, "{0026FF} /setgasolina {FFFFFF}- Setar gasolina em um veiculo.\n");
-			strcat(ComandosAdmins, "{0026FF} /addv {FFFFFF}- Adicionar veiculo de concessionaria.\n");
-			strcat(ComandosAdmins, "{0026FF} /editv {FFFFFF}- Editar veiculo da concessionaria\n");
-			strcat(ComandosAdmins, "{0026FF} /adddealership {FFFFFF}- Adicionar concessionaria.\n");
-			strcat(ComandosAdmins, "{0026FF} /deletedealership {FFFFFF}- Deletar concessionaria.\n");
-			strcat(ComandosAdmins, "{0026FF} /movedealership {FFFFFF}- Mover concessionaria.\n");
-			strcat(ComandosAdmins, "{0026FF} /gotodealership {FFFFFF}- Ir ate a concessionaria.\n");
-			strcat(ComandosAdmins, "{0026FF} /addfuelstation {FFFFFF}- Adicionar posto de gasolina.\n");
-			strcat(ComandosAdmins, "{0026FF} /deletefuelstation {FFFFFF}- Deletar posto de gasolina.\n");
-			strcat(ComandosAdmins, "{0026FF} /movefuelstation {FFFFFF}- Mover posto de gasolina.\n");
-			strcat(ComandosAdmins, "{0026FF} /gotofuelstation {FFFFFF}- Ir ate o posto de gasolina.\n");
-			strcat(ComandosAdmins, "{0026FF} /criarcn {FFFFFF}- Adicionar um caca niquel.\n");
-			strcat(ComandosAdmins, "{0026FF} /dcn {FFFFFF}- Deletar um caca niquel.\n");
-			strcat(ComandosAdmins, "{0026FF} /editcn {FFFFFF}- Editar um caca niquel.\n");
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Desenvolvedor{5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Chat admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Kick um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Pegar posicao atual.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Anuncio admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Criar um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Teleportar ate um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Iniciar uma contagem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Espectar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Banir a conta do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Congelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Descongelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banirip {FFFFFF}- Banir o IP de um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Desbanir a conta do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Desbanir o IP do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /daritem {FFFFFF}- Dar um item de inventario a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setskin {FFFFFF}- Setar skin a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setvida {FFFFFF}- Setar vida a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setcolete {FFFFFF}- Setar colete a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dardinheiro {FFFFFF}- Dar dinheiro a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setarma {FFFFFF}- Setar arma a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /antiafk {FFFFFF}- Desativar ou Ativar o AntiAFK do servidor.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /chat {FFFFFF}- Desativar ou Ativar o chat do servidor.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /gmx {FFFFFF}- Reniciar o servidor (nao recomendado com muitos jogadores).\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rorgoff {FFFFFF}- Retirar jogador da org.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /darlider {FFFFFF}- Dar lider a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /limparlider {FFFFFF}- Limpar lider da org.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /limparlideres {FFFFFF}- Limpar lideres da org.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /criarcasa {FFFFFF}- Criar casa.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dcasa {FFFFFF}- Deletar casa.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rtc {FFFFFF}- Respawnar veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rac {FFFFFF}- Respawnar todos os veiculos.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setgasolina {FFFFFF}- Setar gasolina em um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /addv {FFFFFF}- Adicionar veiculo de concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /editv {FFFFFF}- Editar veiculo da concessionaria\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adddealership {FFFFFF}- Adicionar concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /deletedealership {FFFFFF}- Deletar concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /movedealership {FFFFFF}- Mover concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /gotodealership {FFFFFF}- Ir ate a concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /addfuelstation {FFFFFF}- Adicionar posto de gasolina.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /deletefuelstation {FFFFFF}- Deletar posto de gasolina.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /movefuelstation {FFFFFF}- Mover posto de gasolina.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /gotofuelstation {FFFFFF}- Ir ate o posto de gasolina.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /criarcn {FFFFFF}- Adicionar um caca niquel.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dcn {FFFFFF}- Deletar um caca niquel.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /editcn {FFFFFF}- Editar um caca niquel.\n");
 			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
 		}
 	}
@@ -20746,7 +20784,7 @@ CMD:d(playerid, params[])
 	if(Patrulha[playerid] == false) 								return ErrorMsg(playerid, "Nao esta em patrulha.");
 	if(sscanf(params, "s[56]", Str)) 							return ErrorMsg(playerid,"USE: /d [TEXTO]");
 
-	format(Str, sizeof(Str), "{FFFFFF}[{0026FF}%s{FFFFFF}] {0026FF}%04d{FFFFFF} disse {0026FF}%s", NomeCargo(playerid), PlayerInfo[playerid][IDF], Str);
+	format(Str, sizeof(Str), "{FFFFFF}[{5b6ed9}%s{FFFFFF}] {5b6ed9}%04d{FFFFFF} disse {5b6ed9}%s", NomeCargo(playerid), PlayerInfo[playerid][IDF], Str);
 	SendRadioMessage(0xDDA0DDFF, Str);
 
 	return 1;
@@ -20757,7 +20795,7 @@ CMD:ga(playerid, params[])
 	if(!IsBandido(playerid))						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "s[56]", Str)) 							return ErrorMsg(playerid,"USE: /ga [TEXTO]");
 
-	format(Str, sizeof(Str), "{FFFFFF}[{0026FF}%s{FFFFFF}] {0026FF}%04d{FFFFFF} disse {0026FF}%s", NomeCargo(playerid), PlayerInfo[playerid][IDF], Str);
+	format(Str, sizeof(Str), "{FFFFFF}[{5b6ed9}%s{FFFFFF}] {5b6ed9}%04d{FFFFFF} disse {5b6ed9}%s", NomeCargo(playerid), PlayerInfo[playerid][IDF], Str);
 	SendGangMessage(0xDDA0DDFF, Str);
 
 	return 1;
@@ -20908,7 +20946,7 @@ CMD:prender(playerid, params[])
 						PlayerInfo[i][pCadeia] = 1;
 					}
 					//
-					format(Str, sizeof(Str), "{0026FF}AVISO{FFFFFF} O jogador {0026FF}%04d{FFFFFF}foi preso por {0026FF}%s {FFFFFF}por {0026FF}%i {FFFFFF}minutos. Motivo: {0026FF}%s", PlayerInfo[i][IDF], NomeOrg(playerid), Numero, Motivo);
+					format(Str, sizeof(Str), "{5b6ed9}AVISO{FFFFFF} O jogador {5b6ed9}%04d{FFFFFF}foi preso por {5b6ed9}%s {FFFFFF}por {5b6ed9}%i {FFFFFF}minutos. Motivo: {5b6ed9}%s", PlayerInfo[i][IDF], NomeOrg(playerid), Numero, Motivo);
 					SendClientMessageToAll(-1, Str);
 				}
 			}
@@ -21064,7 +21102,7 @@ CMD:procurados(playerid)
 		{ 
 			if(IsPlayerConnected(i)) 
 			{ 
-				format(string, sizeof(string), "{0026FF}%04d{FFFFFF} Nivel:{0026FF}%d", PlayerInfo[i][IDF], GetPlayerWantedLevel(i)); 
+				format(string, sizeof(string), "{5b6ed9}%04d{FFFFFF} Nivel:{5b6ed9}%d", PlayerInfo[i][IDF], GetPlayerWantedLevel(i)); 
 				ShowPlayerDialog(playerid, DIALOG_PROCURADOS, DIALOG_STYLE_LIST,"Lista de Procuraods", string, "X", #);
 				count++; 
 			} 
@@ -21120,13 +21158,13 @@ CMD:verdocumentos(playerid, params[])
 					if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
 					//
 					new megastrings[500], String2[500];
-					format(String2,sizeof(String2), "{FFFFFF}Nome: {0026FF}%s{FFFFFF}({0026FF}%d{FFFFFF})\n{FFFFFF}VIP: {0026FF}%s\n{FFFFFF}Dinheiro: {0026FF}%s\n{FFFFFF}Banco: {0026FF}%s\n", Name(i),PlayerInfo[i][IDF], VIP(i),ConvertMoney(PlayerInfo[i][pDinheiro]),ConvertMoney(PlayerInfo[i][pBanco]));
+					format(String2,sizeof(String2), "{FFFFFF}Nome: {5b6ed9}%s{FFFFFF}({5b6ed9}%d{FFFFFF})\n{FFFFFF}VIP: {5b6ed9}%s\n{FFFFFF}Dinheiro: {5b6ed9}%s\n{FFFFFF}Banco: {5b6ed9}%s\n", Name(i),PlayerInfo[i][IDF], VIP(i),ConvertMoney(PlayerInfo[i][pDinheiro]),ConvertMoney(PlayerInfo[i][pBanco]));
 					strcat(megastrings, String2);
-					format(String2,sizeof(String2), "{FFFFFF}Profissao:{0026FF} %s\n{FFFFFF}Org:{0026FF} %s\n{FFFFFF}Cargo:{0026FF} %s\n", Profs(i), NomeOrg(i), NomeCargo(i));
+					format(String2,sizeof(String2), "{FFFFFF}Profissao:{5b6ed9} %s\n{FFFFFF}Org:{5b6ed9} %s\n{FFFFFF}Cargo:{5b6ed9} %s\n", Profs(i), NomeOrg(i), NomeCargo(i));
 					strcat(megastrings, String2);
-					format(String2,sizeof(String2), "{FFFFFF}Multas:{0026FF} %d\n{FFFFFF}N�Casa:{0026FF} %d\n", PlayerInfo[i][pMultas], PlayerInfo[i][Casa]);
+					format(String2,sizeof(String2), "{FFFFFF}Multas:{5b6ed9} %d\n{FFFFFF}N�Casa:{5b6ed9} %d\n", PlayerInfo[i][pMultas], PlayerInfo[i][Casa]);
 					strcat(megastrings, String2);
-					format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{0026FF} %s\n{FFFFFF}Expira VIP:{0026FF} %s\n{FFFFFF}Licenca Conduzir: {0026FF}%s", convertNumber(PlayerInfo[i][pSegundosJogados]), convertNumber(PlayerInfo[i][ExpiraVIP]-gettime()), temlicenca(i));
+					format(String2,sizeof(String2), "{FFFFFF}Tempo Jogados:{5b6ed9} %s\n{FFFFFF}Expira VIP:{5b6ed9} %s\n{FFFFFF}Licenca Conduzir: {5b6ed9}%s", convertNumber(PlayerInfo[i][pSegundosJogados]), convertNumber(PlayerInfo[i][ExpiraVIP]-gettime()), temlicenca(i));
 					strcat(megastrings, String2);
 					ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
 				}
@@ -21262,7 +21300,7 @@ CMD:ativarkey(playerid, params[])
 			new string[255];
 			new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 			format(string,sizeof(string),"### COINS ATIVADOS\n\nJogador: %04d\nQuantidade Agora: %s\nQuantidade Antes: %s\nCod: %d", PlayerInfo[playerid][IDF],ConvertMoney(PlayerInfo[playerid][pCoins]+Din),ConvertMoney(PlayerInfo[playerid][pCoins]), Cod);
-			DCC_SetEmbedColor(embed, 0x0026FF);
+			DCC_SetEmbedColor(embed, 0x5b6ed9);
 			DCC_SetEmbedDescription(embed, string);
 			DCC_SetEmbedImage(embed, DCIMG);
 			DCC_SendChannelEmbedMessage(AtivarCoins, embed);
@@ -21285,7 +21323,7 @@ CMD:ltumba(playerid)
 	if(PlayerInfo[playerid][pProfissao] != 5) 	return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Cargase[playerid] == true) 	return ErrorMsg(playerid, "Ja localizou um hospital para pegar a tumba."); 
 	if(GetVehicleModel(GetPlayerVehicleID(playerid)) != 442)  	return ErrorMsg(playerid, "Nao esta em veiculo do emprego.");
-	ShowPlayerDialog(playerid, DIALOG_LTUMBA, DIALOG_STYLE_LIST, "Hospital.", "{0026FF}- {FFFFFF}Los Santos\t{32CD32}R$600\n{0026FF}- {FFFFFF}Las Venturas\t{32CD32}R$1200\n{0026FF}- {FFFFFF}San Fierro\t{32CD32}R$2000\n", "Localizar", "");
+	ShowPlayerDialog(playerid, DIALOG_LTUMBA, DIALOG_STYLE_LIST, "Hospital.", "{5b6ed9}- {FFFFFF}Los Santos\t{32CD32}R$600\n{5b6ed9}- {FFFFFF}Las Venturas\t{32CD32}R$1200\n{5b6ed9}- {FFFFFF}San Fierro\t{32CD32}R$2000\n", "Localizar", "");
 	return 1;
 }
 
@@ -21950,7 +21988,7 @@ CMD:vendercasa(playerid, params[])
 
 CMD:menuanim(playerid)
 {
-	ShowPlayerDialog(playerid, DIALOG_MENUANIM, DIALOG_STYLE_LIST, "Menu Anim", "{0026FF}-{FFFFFF} Maos para cima\n{0026FF}+{FFFFFF} Sentar-se\n{0026FF}+{FFFFFF} Deitar-se\n{0026FF}+{FFFFFF} Apontar\n{0026FF}+{FFFFFF} Abaixar\n{0026FF}+{FFFFFF} Bracos Cruzados\n{0026FF}+{FFFFFF} Parar animacoes", "Selecionar", "X");
+	ShowPlayerDialog(playerid, DIALOG_MENUANIM, DIALOG_STYLE_LIST, "Menu Anim", "{5b6ed9}-{FFFFFF} Maos para cima\n{5b6ed9}+{FFFFFF} Sentar-se\n{5b6ed9}+{FFFFFF} Deitar-se\n{5b6ed9}+{FFFFFF} Apontar\n{5b6ed9}+{FFFFFF} Abaixar\n{5b6ed9}+{FFFFFF} Bracos Cruzados\n{5b6ed9}+{FFFFFF} Parar animacoes", "Selecionar", "X");
 	return 1;
 }
 
@@ -21959,107 +21997,107 @@ CMD:missoes(playerid)
 	new megastrings[1000];
 	if(MissaoPlayer[playerid][MISSAO1] == 1)
 	{
-		strcat(megastrings,"{FFFFFF}Fazer Documento: {0026FF}Ja fez{FFFFFF}");
+		strcat(megastrings,"{FFFFFF}Fazer Documento: {5b6ed9}Ja fez{FFFFFF}");
 	}
 	else
 	{
-		strcat(megastrings,"{FFFFFF}Fazer Documento:\t{0026FF}Nao Fez{FFFFFF}\t{00FF00}R$500");
+		strcat(megastrings,"{FFFFFF}Fazer Documento:\t{5b6ed9}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO2] == 1)
 	{
-		strcat(megastrings,"\n{FFFFFF}Primero emprego com carteira: {0026FF}Ja fez{FFFFFF}");
+		strcat(megastrings,"\n{FFFFFF}Primero emprego com carteira: {5b6ed9}Ja fez{FFFFFF}");
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Primero emprego com carteira:\t{0026FF}Nao fez{FFFFFF}\t{00FF00}R$500");
+		strcat(megastrings,"\n{FFFFFF}Primero emprego com carteira:\t{5b6ed9}Nao fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO3] == 1)
 	{
-		strcat(megastrings,"\n{FFFFFF}Primero emprego sem carteira: {0026FF}Ja fez{FFFFFF}");
+		strcat(megastrings,"\n{FFFFFF}Primero emprego sem carteira: {5b6ed9}Ja fez{FFFFFF}");
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Primero emprego sem carteira:\t{0026FF}Nao fez{FFFFFF}\t{00FF00}R$500");
+		strcat(megastrings,"\n{FFFFFF}Primero emprego sem carteira:\t{5b6ed9}Nao fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO4] == 1)
 	{
-		strcat(megastrings,"\n{FFFFFF}Fazer carteira de trabalho: {0026FF}Ja fez{FFFFFF}");
+		strcat(megastrings,"\n{FFFFFF}Fazer carteira de trabalho: {5b6ed9}Ja fez{FFFFFF}");
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Fazer carteira de trabalho:\t{0026FF}Nao Fez{FFFFFF}\t{00FF00}R$500");
+		strcat(megastrings,"\n{FFFFFF}Fazer carteira de trabalho:\t{5b6ed9}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO5] == 1)
 	{
-		strcat(megastrings,"\n{FFFFFF}Fazer licencas: {0026FF}Ja fez{FFFFFF}");
+		strcat(megastrings,"\n{FFFFFF}Fazer licencas: {5b6ed9}Ja fez{FFFFFF}");
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Fazer licencas:\t{0026FF}Nao Fez{FFFFFF}\t{00FF00}R$500");
+		strcat(megastrings,"\n{FFFFFF}Fazer licencas:\t{5b6ed9}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO6] == 1)
 	{
-		strcat(megastrings,"\n{FFFFFF}Comprar telefone: {0026FF}Ja fez{FFFFFF}");
+		strcat(megastrings,"\n{FFFFFF}Comprar telefone: {5b6ed9}Ja fez{FFFFFF}");
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Comprar telefone:\t{0026FF}Nao Fez{FFFFFF}\t{00FF00}R$500");
+		strcat(megastrings,"\n{FFFFFF}Comprar telefone:\t{5b6ed9}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO7] == 1)
 	{
-		strcat(megastrings,"\n{FFFFFF}Comprar uma casa: {0026FF}Ja fez{FFFFFF}");
+		strcat(megastrings,"\n{FFFFFF}Comprar uma casa: {5b6ed9}Ja fez{FFFFFF}");
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Comprar uma casa:\t{0026FF}Nao Fez{FFFFFF}\t{00FF00}R$500");
+		strcat(megastrings,"\n{FFFFFF}Comprar uma casa:\t{5b6ed9}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO8] == 1)
 	{
-		strcat(megastrings,"\n{FFFFFF}Olhar /gps: {0026FF}Ja fez{FFFFFF}");
+		strcat(megastrings,"\n{FFFFFF}Olhar /gps: {5b6ed9}Ja fez{FFFFFF}");
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Olhar /gps:\t{0026FF}Nao Fez{FFFFFF}\t{00FF00}R$500");
+		strcat(megastrings,"\n{FFFFFF}Olhar /gps:\t{5b6ed9}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO9] == 1)
 	{
-		strcat(megastrings,"\n{FFFFFF}Primeiros 100k: {0026FF}Ja fez{FFFFFF}");
+		strcat(megastrings,"\n{FFFFFF}Primeiros 100k: {5b6ed9}Ja fez{FFFFFF}");
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Primeiros 100k:\t{0026FF}Nao Fez{FFFFFF}\t{00FF00}R$15000");
+		strcat(megastrings,"\n{FFFFFF}Primeiros 100k:\t{5b6ed9}Nao Fez{FFFFFF}\t{00FF00}R$15000");
 	}
 	if(MissaoPlayer[playerid][MISSAO10] == 1)
 	{
-		strcat(megastrings,"\n{FFFFFF}Fazer aposta no cassino: {0026FF}Ja fez{FFFFFF}");
+		strcat(megastrings,"\n{FFFFFF}Fazer aposta no cassino: {5b6ed9}Ja fez{FFFFFF}");
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Fazer aposta no cassino:\t{0026FF}Nao Fez{FFFFFF}\t{00FF00}R$500");
+		strcat(megastrings,"\n{FFFFFF}Fazer aposta no cassino:\t{5b6ed9}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO11] == 1)
 	{
-		strcat(megastrings,"\n{FFFFFF}Olhar /ajuda: {0026FF}Ja fez{FFFFFF}");
+		strcat(megastrings,"\n{FFFFFF}Olhar /ajuda: {5b6ed9}Ja fez{FFFFFF}");
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Olhar /ajuda:\t{0026FF}Nao Fez{FFFFFF}\t{00FF00}R$500");
+		strcat(megastrings,"\n{FFFFFF}Olhar /ajuda:\t{5b6ed9}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO12] == 1)
 	{
-		strcat(megastrings,"\n{FFFFFF}Alugar Moto: {0026FF}Ja fez{FFFFFF}");
+		strcat(megastrings,"\n{FFFFFF}Alugar Moto: {5b6ed9}Ja fez{FFFFFF}");
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Alugar Moto:\t{0026FF}Nao Fez{FFFFFF}\t{00FF00}R$500");
+		strcat(megastrings,"\n{FFFFFF}Alugar Moto:\t{5b6ed9}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	if(MissaoPlayer[playerid][MISSAO13] == 1)
 	{
-		strcat(megastrings,"\n{FFFFFF}Entrar em organizacao: {0026FF}Ja fez{FFFFFF}");
+		strcat(megastrings,"\n{FFFFFF}Entrar em organizacao: {5b6ed9}Ja fez{FFFFFF}");
 	}
 	else
 	{
-		strcat(megastrings,"\n{FFFFFF}Entrar em organizacao:\t{0026FF}Nao Fez{FFFFFF}\t{00FF00}R$500");
+		strcat(megastrings,"\n{FFFFFF}Entrar em organizacao:\t{5b6ed9}Nao Fez{FFFFFF}\t{00FF00}R$500");
 	}
 	ShowPlayerDialog(playerid, DIALOG_MISSOES,DIALOG_STYLE_LIST,"Missoes",megastrings,"Concluir","X");
 	return 1;
@@ -22273,7 +22311,7 @@ CMD:localizarv(playerid, params[])
 		if(VehicleCreated[i] == VEHICLE_PLAYER && strcmp(VehicleOwner[i], playername) == 0)
 		{
 			found = true;
-			format(info, sizeof(info), "{0026FF}%s{FFFFFF}ID: {0026FF}%d  {FFFFFF}Name: {0026FF}%s\n", info, i, VehicleNames[VehicleModel[i]-400]);
+			format(info, sizeof(info), "{5b6ed9}%s{FFFFFF}ID: {5b6ed9}%d  {FFFFFF}Name: {5b6ed9}%s\n", info, i, VehicleNames[VehicleModel[i]-400]);
 		}
 	}
 	if(!found) return ErrorMsg(playerid, "Nao possui nenhum veiculo!.");
@@ -22751,7 +22789,7 @@ CMD:vip(playerid, params[])
 	if(PlayerInfo[playerid][pVIP] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "s[56]", Motivo)) 							return ErrorMsg(playerid,"USE: /vip [TEXTO]");
 	//
-	format(Str, sizeof(Str), "[%s] {0026FF}%04d{FFFFFF} disse {0026FF}%s", VIP(playerid), GetPlayerIdfixo(playerid), Motivo);
+	format(Str, sizeof(Str), "[%s] {5b6ed9}%04d{FFFFFF} disse {5b6ed9}%s", VIP(playerid), GetPlayerIdfixo(playerid), Motivo);
 	SendAdminMessage(0xDDA0DDFF, Str);
 	return 1;
 }
@@ -23104,14 +23142,14 @@ CMD:fila(playerid, params[])
 			}
 			else if(DOF2_GetInt(arquivo, "Prioridade") == 1)
 			{
-				prioridade = "{0026FF}BAIXA";
+				prioridade = "{5b6ed9}BAIXA";
 			}
 			format(stringZCMD, sizeof(stringZCMD), "%s[%d]\t%s\t%s\n", NomeFila,lol, AssuntoFila, prioridade);
 			strcat(MEGAString, stringZCMD);
 		}
 		lol++;
 	}
-	ShowPlayerDialog(playerid, 5409, DIALOG_STYLE_TABLIST_HEADERS, "{0026FF}Clique 2x para atender", MEGAString, "Atender","Cancelar");
+	ShowPlayerDialog(playerid, 5409, DIALOG_STYLE_TABLIST_HEADERS, "{5b6ed9}Clique 2x para atender", MEGAString, "Atender","Cancelar");
 	return true;
 }
 
@@ -23728,13 +23766,13 @@ DCMD:cadeiadc(user, channel, params[])
 					}
 					DCC_SendChannelMessage(channel, "Deu cadeia no jogador.");
 					InfoMsg(i, "Algum administrador te colocou na cadeia.");
-					format(Str, sizeof(Str), "{0026FF}AVISO{FFFFFF} O Administrador {0026FF}%s {FFFFFF}prendeu {0026FF}%04d {FFFFFF}por {0026FF}%i {FFFFFF}minutos. Motivo: {0026FF}%s", username, GetPlayerIdfixo(i), Numero, Motivo);
+					format(Str, sizeof(Str), "{5b6ed9}AVISO{FFFFFF} O Administrador {5b6ed9}%s {FFFFFF}prendeu {5b6ed9}%04d {FFFFFF}por {5b6ed9}%i {FFFFFF}minutos. Motivo: {5b6ed9}%s", username, GetPlayerIdfixo(i), Numero, Motivo);
 					SendClientMessageToAll(-1, Str);
 
 					new string[255];
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### CADEIA STAFF\n\nID: %04d\nPertence: %s\nPreso por: %s\nTempo: %i minuto(s)\nMotivo: %s", PlayerInfo[i][IDF],Name(i), username, Numero, Motivo);
-					DCC_SetEmbedColor(embed, 0x0026FF);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SetEmbedImage(embed, DCIMG);
 					DCC_SendChannelEmbedMessage(Punicoes, embed);
