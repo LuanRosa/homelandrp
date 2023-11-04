@@ -1939,6 +1939,10 @@
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
+		<member name="C:DIALOG_LOJAHP" value="106">
+			<referrer name="ac_OnPlayerKeyStateChange"/>
+			<referrer name="ac_OnDialogResponse"/>
+		</member>
 		<member name="C:DIALOG_LTAGS" value="38">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_rorgoff"/>
@@ -2125,7 +2129,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="24511">
+		<member name="C:__line" value="24496">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -5743,10 +5747,6 @@
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 		</member>
-		<member name="F:PosEquiparORG">
-			<tagname value="Float"/>
-			<referrer name="mf_OnGameModeInit"/>
-		</member>
 		<member name="F:PosPesca">
 			<tagname value="Float"/>
 			<referrer name="FuncaoItens"/>
@@ -6670,6 +6670,7 @@
 			<referrer name="FuncaoItens"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
+			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_cv"/>
@@ -13984,6 +13985,7 @@
 			<referrer name="ToggleDoors"/>
 			<referrer name="ToggleBoot"/>
 			<referrer name="ac_OnPlayerStateChange"/>
+			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_trancar"/>
 			<dependency name="ENTER_GetVehicleDoorsEx"/>
@@ -14047,6 +14049,7 @@
 			<referrer name="ToggleDoors"/>
 			<referrer name="ToggleBoot"/>
 			<referrer name="ac_OnPlayerStateChange"/>
+			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_trancar"/>
@@ -14517,7 +14520,6 @@
 			<referrer name="Progress_PegandoCaixasP"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="Progress_Desossar"/>
-			<referrer name="Progress_Minerar"/>
 			<referrer name="mortoxx"/>
 			<referrer name="OnPlayerActivationKeyPress"/>
 			<referrer name="AnimatioN"/>
@@ -18203,6 +18205,7 @@
 		<member name="M:GetVehicleTrunkPosition" syntax="GetVehicleTrunkPosition(vehicleid, &amp;x, &amp;y, &amp;z)">
 			<stacksize value="10"/>
 			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<dependency name="operator-(Float:)"/>
 			<dependency name="operator-(Float:,Float:)"/>
 			<dependency name="operator/(Float:,Float:)"/>
@@ -23532,17 +23535,14 @@
 		</member>
 		<member name="M:Progress_Minerar" syntax="Progress_Minerar(playerid, progress)">
 			<attribute name="public"/>
-			<stacksize value="19"/>
+			<stacksize value="10"/>
 			<dependency name="operator&gt;=(Float:,_:)"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="EtapasMinerador"/>
-			<dependency name="FIXES_ApplyAnimation"/>
 			<dependency name="FIXES_ClearAnimations"/>
 			<dependency name="FIXES_SetPlayerCheckpoint"/>
 			<dependency name="InfoMsg"/>
-			<dependency name="SetPlayerAttachedObject"/>
 			<dependency name="UsouCMD"/>
-			<dependency name="acc_SetPlayerSpecialAction"/>
 			<dependency name="acc_TogglePlayerControllable"/>
 			<dependency name="false"/>
 			<dependency name="randomEx"/>
@@ -25177,7 +25177,6 @@
 			<referrer name="Progress_PegandoCaixasP"/>
 			<referrer name="Progress_Cova"/>
 			<referrer name="Progress_Desossar"/>
-			<referrer name="Progress_Minerar"/>
 			<referrer name="OnPlayerActivationKeyPress"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
@@ -29813,6 +29812,7 @@
 			<dependency name="DIALOG_LOCALIZARCASA"/>
 			<dependency name="DIALOG_LOGIN"/>
 			<dependency name="DIALOG_LOJA247"/>
+			<dependency name="DIALOG_LOJAHP"/>
 			<dependency name="DIALOG_LTAGS"/>
 			<dependency name="DIALOG_LTUMBA"/>
 			<dependency name="DIALOG_MENUANIM"/>
@@ -30485,6 +30485,8 @@
 			<dependency name="Covaconcerto"/>
 			<dependency name="CreateProgress"/>
 			<dependency name="Desossando"/>
+			<dependency name="ENTER_GetVehicleParamsEx"/>
+			<dependency name="ENTER_SetVehicleParamsEx"/>
 			<dependency name="EntregaSdx"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="EtapasMinerador"/>
@@ -30501,6 +30503,7 @@
 			<dependency name="GetPlayerPos"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="GetVehicleModel"/>
+			<dependency name="GetVehicleTrunkPosition"/>
 			<dependency name="InfoMsg"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
@@ -30515,6 +30518,7 @@
 			<dependency name="RotaMaconha"/>
 			<dependency name="SetPlayerAttachedObject"/>
 			<dependency name="SuccesMsg"/>
+			<dependency name="VeiculoCivil"/>
 			<dependency name="acc_SetPlayerSpecialAction"/>
 			<dependency name="acc_TogglePlayerControllable"/>
 			<dependency name="actorcorreios"/>
@@ -30728,6 +30732,7 @@
 			<dependency name="DIALOG_CONFIRMA_ESCOLA2"/>
 			<dependency name="DIALOG_FAQ"/>
 			<dependency name="DIALOG_LOJA247"/>
+			<dependency name="DIALOG_LOJAHP"/>
 			<dependency name="DIALOG_PREFEITURA"/>
 			<dependency name="DIALOG_TIENDAILEGAL"/>
 			<dependency name="DIALOG_VEHCORP1"/>
@@ -30837,6 +30842,7 @@
 			<dependency name="pDinheiro"/>
 			<dependency name="pProfissao"/>
 			<dependency name="pRG"/>
+			<dependency name="pSegundosJogados"/>
 			<dependency name="pulou2vezes"/>
 			<dependency name="sdxobj"/>
 			<dependency name="strcat"/>
@@ -32601,7 +32607,6 @@
 			<referrer name="Progress_PegandoCaixasP"/>
 			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="Progress_Desossar"/>
-			<referrer name="Progress_Minerar"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -37883,8 +37888,6 @@
 			<dependency name="PosDesossa"/>
 			<dependency name="PosEquipar"/>
 			<dependency name="PosEquipar"/>
-			<dependency name="PosEquiparORG"/>
-			<dependency name="PosEquiparORG"/>
 			<dependency name="PosPesca"/>
 			<dependency name="PosPesca"/>
 			<dependency name="PosVeiculos"/>

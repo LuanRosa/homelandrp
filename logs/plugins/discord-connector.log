@@ -44,3 +44,6 @@
 [11/03/23 18:01:58] [ERROR] Can't read from Discord websocket gateway: End of file (2)
 [11/03/23 18:01:58] [ERROR] Can't write to Discord websocket gateway: A operação de E/S foi anulada devido a uma saída de thread ou a uma requisição de aplicativo (995)
 [11/03/23 18:55:58] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[11/03/23 19:46:34] [ERROR] Error while retrieving HTTP POST response from '/api/v8/channels/1145712303124254743/messages': end of stream
+[11/03/23 20:23:01] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
+[11/03/23 20:23:01] [WARNING] Unknown gateway event 'GUILD_AUDIT_LOG_ENTRY_CREATE'
