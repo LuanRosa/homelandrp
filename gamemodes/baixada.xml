@@ -1513,13 +1513,6 @@
 			<member name="C:CMISSAO13" value="25">
 			</member>
 		</member>
-		<member name="T:neon_tuning" value="2">
-			<tagname value="neon_tuning"/>
-			<member name="C:NEON_DIREITO" value="0">
-			</member>
-			<member name="C:NEON_ESQUERDO" value="1">
-			</member>
-		</member>
 		<member name="T:pInfo" value="422">
 			<tagname value="pInfo"/>
 			<member name="C:pSenha" value="0">
@@ -1951,6 +1944,22 @@
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_ltumba"/>
 		</member>
+		<member name="C:DIALOG_MECANICA" value="107">
+			<referrer name="FuncaoItens"/>
+			<referrer name="ac_OnDialogResponse"/>
+		</member>
+		<member name="C:DIALOG_MECANICACORES" value="109">
+			<referrer name="ac_OnDialogResponse"/>
+		</member>
+		<member name="C:DIALOG_MECANICANITRO" value="111">
+			<referrer name="ac_OnDialogResponse"/>
+		</member>
+		<member name="C:DIALOG_MECANICAPJ" value="110">
+			<referrer name="ac_OnDialogResponse"/>
+		</member>
+		<member name="C:DIALOG_MECANICARODAS" value="108">
+			<referrer name="ac_OnDialogResponse"/>
+		</member>
 		<member name="C:DIALOG_MEMBROSORG" value="40">
 			<referrer name="membrosorg"/>
 		</member>
@@ -2129,7 +2138,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="24496">
+		<member name="C:__line" value="23854">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -2572,6 +2581,8 @@
 			<referrer name="cmd_cancelarrota"/>
 			<referrer name="DCMD_cadeiadc"/>
 			<referrer name="cmd_dominar"/>
+			<referrer name="cmd_abrircorreios"/>
+			<referrer name="cmd_abrircorreios2"/>
 		</member>
 		<member name="C:true" value="1">
 			<tagname value="bool"/>
@@ -2739,7 +2750,6 @@
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickPlayer"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
-			<referrer name="ac_OnPlayerClickTextDraw"/>
 			<referrer name="cmd_rg"/>
 			<referrer name="cmd_mostrarrg"/>
 			<referrer name="cmd_uniforme"/>
@@ -6591,7 +6601,6 @@
 		<member name="F:VehicleNames">
 			<referrer name="ShowDialog"/>
 			<referrer name="UpdateVehicleLabel"/>
-			<referrer name="FuncaoItens"/>
 			<referrer name="GetVehicleModelIDFromName"/>
 			<referrer name="cmd_localizarv"/>
 		</member>
@@ -7267,12 +7276,16 @@
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ppb_OnGameModeExit"/>
 		</member>
+		<member name="F:mapsdxzx">
+			<referrer name="FecharCorreios"/>
+			<referrer name="FecharCorreios2"/>
+			<referrer name="CarregarMapas"/>
+			<referrer name="cmd_abrircorreios"/>
+			<referrer name="cmd_abrircorreios2"/>
+		</member>
 		<member name="F:mostrandovelo">
 			<referrer name="VelocimetroEx"/>
 			<referrer name="ac_OnPlayerStateChange"/>
-		</member>
-		<member name="F:neon_add">
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 		</member>
 		<member name="F:object_int">
 			<referrer name="CarregarMapas"/>
@@ -7454,57 +7467,6 @@
 		</member>
 		<member name="F:timerloginname">
 			<referrer name="ac_OnPlayerConnect"/>
-		</member>
-		<member name="F:wBase">
-			<tagname value="Text"/>
-			<referrer name="TextDrawBase"/>
-			<referrer name="FuncaoItens"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
-			<referrer name="ac_OnPlayerClickTextDraw"/>
-		</member>
-		<member name="F:wMenu">
-			<tagname value="PlayerText"/>
-			<referrer name="FuncaoItens"/>
-			<referrer name="todastextdraw"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
-			<referrer name="ac_OnPlayerClickTextDraw"/>
-		</member>
-		<member name="F:wMenuCores">
-			<tagname value="PlayerText"/>
-			<referrer name="todastextdraw"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
-			<referrer name="ac_OnPlayerClickTextDraw"/>
-		</member>
-		<member name="F:wMenuNeon">
-			<tagname value="PlayerText"/>
-			<referrer name="todastextdraw"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
-			<referrer name="ac_OnPlayerClickTextDraw"/>
-		</member>
-		<member name="F:wMenuNitro">
-			<tagname value="PlayerText"/>
-			<referrer name="todastextdraw"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
-			<referrer name="ac_OnPlayerClickTextDraw"/>
-		</member>
-		<member name="F:wMenuPaintJobs">
-			<tagname value="PlayerText"/>
-			<referrer name="todastextdraw"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
-			<referrer name="ac_OnPlayerClickTextDraw"/>
-		</member>
-		<member name="F:wMenuRodas">
-			<tagname value="PlayerText"/>
-			<referrer name="FuncaoItens"/>
-			<referrer name="todastextdraw"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
-			<referrer name="ac_OnPlayerClickTextDraw"/>
-		</member>
-		<member name="F:wTuning">
-			<tagname value="bool"/>
-			<referrer name="FuncaoItens"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
-			<referrer name="ac_OnPlayerClickTextDraw"/>
 		</member>
 		<member name="F:zcmd_g_HasOPCE">
 			<tagname value="bool"/>
@@ -7760,9 +7722,7 @@
 			<referrer name="CreateItemBox"/>
 			<referrer name="UpdateProgress"/>
 			<referrer name="LockpickTimer"/>
-			<referrer name="TextDrawBase"/>
 			<referrer name="FuncaoItens"/>
-			<referrer name="todastextdraw"/>
 			<referrer name="CriarRadares"/>
 			<referrer name="ac_OnVehicleDamageStatusUpdate"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
@@ -9349,32 +9309,6 @@
 				<paraminfo>Float </paraminfo>
 			</param>
 		</member>
-		<member name="M:AttachObjectToVehicle" syntax="AttachObjectToVehicle(objectid, vehicleid, OffsetX, OffsetY, OffsetZ, RotX, RotY, RotZ)">
-			<attribute name="native"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
-			<param name="objectid">
-			</param>
-			<param name="vehicleid">
-			</param>
-			<param name="OffsetX">
-				<paraminfo>Float </paraminfo>
-			</param>
-			<param name="OffsetY">
-				<paraminfo>Float </paraminfo>
-			</param>
-			<param name="OffsetZ">
-				<paraminfo>Float </paraminfo>
-			</param>
-			<param name="RotX">
-				<paraminfo>Float </paraminfo>
-			</param>
-			<param name="RotY">
-				<paraminfo>Float </paraminfo>
-			</param>
-			<param name="RotZ">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
 		<member name="M:AttachTrailerToVehicle__" syntax="AttachTrailerToVehicle__(trailerid, vehicleid)">
 			<attribute name="native"/>
 			<referrer name="FIXES_AttachTrailerToVehicle"/>
@@ -10681,6 +10615,7 @@
 			<dependency name="CreateObject"/>
 			<dependency name="SetDynamicObjectMaterial"/>
 			<dependency name="SetDynamicObjectMaterialText"/>
+			<dependency name="mapsdxzx"/>
 			<dependency name="object_int"/>
 			<dependency name="object_world"/>
 			<dependency name="printf"/>
@@ -10827,7 +10762,6 @@
 			<referrer name="OnVehicleSpawn"/>
 			<referrer name="ac_OnVehicleSpawn"/>
 			<referrer name="ac_OnDialogResponse"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<referrer name="cmd_tunagemvip"/>
 			<param name="vehicleid">
 			</param>
@@ -11566,7 +11500,6 @@
 			<attribute name="native"/>
 			<referrer name="CreateMapFixObjects"/>
 			<referrer name="CarregarMapas"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<param name="modelid">
 			</param>
 			<param name="X">
@@ -13809,7 +13742,6 @@
 		<member name="M:DestroyObject" syntax="DestroyObject(objectid)">
 			<attribute name="native"/>
 			<referrer name="DestroyMapFixObjects"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<param name="objectid">
 			</param>
 		</member>
@@ -14439,7 +14371,7 @@
 			<stacksize value="5"/>
 			<referrer name="UpdateVehicle"/>
 			<referrer name="ac_OnVehicleSpawn"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
+			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_tunagemvip"/>
 			<dependency name="AddVehicleComponent__"/>
 			<dependency name="FIXES_GetVehicleComponentType"/>
@@ -15477,7 +15409,6 @@
 			<referrer name="VelocimetroEx"/>
 			<referrer name="Colete"/>
 			<referrer name="AtualizarInventario"/>
-			<referrer name="FuncaoItens"/>
 			<referrer name="TestAway"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
@@ -15927,6 +15858,8 @@
 			<referrer name="RoubarCaixa"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="cmd_dominar"/>
+			<referrer name="cmd_abrircorreios"/>
+			<referrer name="cmd_abrircorreios2"/>
 			<dependency name="KillTimer__"/>
 			<dependency name="SetTimer__"/>
 			<param name="funcname">
@@ -16155,7 +16088,6 @@
 		<member name="M:FIXES_TextDrawCreate" syntax="FIXES_TextDrawCreate(x, y, text[])">
 			<tagname value="Text"/>
 			<stacksize value="5"/>
-			<referrer name="TextDrawBase"/>
 			<referrer name="CreateTelaLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -16592,6 +16524,18 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:FecharCorreios" syntax="FecharCorreios()">
+			<attribute name="public"/>
+			<stacksize value="10"/>
+			<dependency name="MoveDynamicObject"/>
+			<dependency name="mapsdxzx"/>
+		</member>
+		<member name="M:FecharCorreios2" syntax="FecharCorreios2()">
+			<attribute name="public"/>
+			<stacksize value="10"/>
+			<dependency name="MoveDynamicObject"/>
+			<dependency name="mapsdxzx"/>
+		</member>
 		<member name="M:FomeBar" syntax="FomeBar(playerid)">
 			<attribute name="public"/>
 			<stacksize value="9"/>
@@ -16632,6 +16576,7 @@
 			<dependency name="DCC_SetEmbedDescription"/>
 			<dependency name="DCC_SetEmbedThumbnail"/>
 			<dependency name="DIALOG_CELULAR"/>
+			<dependency name="DIALOG_MECANICA"/>
 			<dependency name="DIALOG_REANIMAR"/>
 			<dependency name="DOF2_CreateFile"/>
 			<dependency name="DOF2_SetInt"/>
@@ -16645,7 +16590,6 @@
 			<dependency name="ExpiraVIP"/>
 			<dependency name="FIXES_ApplyAnimation"/>
 			<dependency name="FIXES_GetPlayerInterior"/>
-			<dependency name="FIXES_PlayerTextDrawSetString"/>
 			<dependency name="FIXES_SetTimerEx"/>
 			<dependency name="FomePlayer"/>
 			<dependency name="GanharItem"/>
@@ -16694,7 +16638,6 @@
 			<dependency name="RemovePlayerAttachedObject"/>
 			<dependency name="RoubandoCaixa"/>
 			<dependency name="SedePlayer"/>
-			<dependency name="SelectTextDraw"/>
 			<dependency name="SendClientMessageToAll"/>
 			<dependency name="SetPlayerAttachedObject"/>
 			<dependency name="SetPlayerFacingAngle"/>
@@ -16702,15 +16645,12 @@
 			<dependency name="Str"/>
 			<dependency name="SuccesMsg"/>
 			<dependency name="TendoRoubo"/>
-			<dependency name="TextDrawShowForPlayer"/>
 			<dependency name="UltimaCaixaRoubada"/>
 			<dependency name="Unidades"/>
 			<dependency name="UsouCMD"/>
 			<dependency name="VIPAtivado"/>
 			<dependency name="VehAlugado"/>
 			<dependency name="VehicleLockedID"/>
-			<dependency name="VehicleNames"/>
-			<dependency name="VehicleNames"/>
 			<dependency name="VeiculoCivil"/>
 			<dependency name="WarningMsg"/>
 			<dependency name="acc_CreateVehicle"/>
@@ -16737,10 +16677,6 @@
 			<dependency name="policiaon"/>
 			<dependency name="randomEx"/>
 			<dependency name="true"/>
-			<dependency name="wBase"/>
-			<dependency name="wMenu"/>
-			<dependency name="wMenuRodas"/>
-			<dependency name="wTuning"/>
 			<param name="playerid">
 			</param>
 			<param name="modelid">
@@ -17681,7 +17617,6 @@
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<referrer name="cmd_cinto"/>
 			<referrer name="cmd_ir"/>
 			<referrer name="cmd_trazer"/>
@@ -18063,7 +17998,7 @@
 			<referrer name="IsBicycle"/>
 			<referrer name="ac_OnPlayerStateChange"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
+			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_carregar"/>
 			<referrer name="cmd_descarregar"/>
 			<referrer name="cmd_ltumba"/>
@@ -19640,8 +19575,12 @@
 		</member>
 		<member name="M:MoveDynamicObject" syntax="MoveDynamicObject(objectid, x, y, z, speed, rx, ry, rz)">
 			<attribute name="native"/>
+			<referrer name="FecharCorreios"/>
+			<referrer name="FecharCorreios2"/>
 			<referrer name="cmd_deixarcarne"/>
 			<referrer name="cmd_deixarcaixa"/>
+			<referrer name="cmd_abrircorreios"/>
+			<referrer name="cmd_abrircorreios2"/>
 			<param name="objectid">
 			</param>
 			<param name="x">
@@ -24917,7 +24856,6 @@
 		<member name="M:SelectTextDraw" syntax="SelectTextDraw(playerid, hovercolor)">
 			<attribute name="native"/>
 			<referrer name="loginp"/>
-			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnPlayerSpawn"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -26547,7 +26485,6 @@
 		</member>
 		<member name="M:TextDrawBackgroundColor" syntax="TextDrawBackgroundColor(text, color)">
 			<attribute name="native"/>
-			<referrer name="TextDrawBase"/>
 			<referrer name="CreateTelaLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -26566,27 +26503,8 @@
 			<param name="color">
 			</param>
 		</member>
-		<member name="M:TextDrawBase" syntax="TextDrawBase()">
-			<stacksize value="6"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<dependency name="operator+(Float:,_:)"/>
-			<dependency name="FIXES_TextDrawCreate"/>
-			<dependency name="TextDrawBackgroundColor"/>
-			<dependency name="TextDrawBoxColor"/>
-			<dependency name="TextDrawColor"/>
-			<dependency name="TextDrawFont"/>
-			<dependency name="TextDrawLetterSize"/>
-			<dependency name="TextDrawSetOutline"/>
-			<dependency name="TextDrawSetProportional"/>
-			<dependency name="TextDrawSetSelectable"/>
-			<dependency name="TextDrawSetShadow"/>
-			<dependency name="TextDrawTextSize"/>
-			<dependency name="TextDrawUseBox"/>
-			<dependency name="wBase"/>
-		</member>
 		<member name="M:TextDrawBoxColor" syntax="TextDrawBoxColor(text, color)">
 			<attribute name="native"/>
-			<referrer name="TextDrawBase"/>
 			<referrer name="CreateTelaLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -26607,7 +26525,6 @@
 		</member>
 		<member name="M:TextDrawColor" syntax="TextDrawColor(text, color)">
 			<attribute name="native"/>
-			<referrer name="TextDrawBase"/>
 			<referrer name="CreateTelaLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -26650,7 +26567,6 @@
 		</member>
 		<member name="M:TextDrawFont" syntax="TextDrawFont(text, font)">
 			<attribute name="native"/>
-			<referrer name="TextDrawBase"/>
 			<referrer name="CreateTelaLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -26696,7 +26612,6 @@
 			<referrer name="ac_OnPlayerStateChange"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
 			<referrer name="cmd_cinto"/>
 			<referrer name="cmd_mudarskin"/>
@@ -26719,7 +26634,6 @@
 		</member>
 		<member name="M:TextDrawLetterSize" syntax="TextDrawLetterSize(text, x, y)">
 			<attribute name="native"/>
-			<referrer name="TextDrawBase"/>
 			<referrer name="CreateTelaLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -26748,7 +26662,6 @@
 		</member>
 		<member name="M:TextDrawSetOutline" syntax="TextDrawSetOutline(text, size)">
 			<attribute name="native"/>
-			<referrer name="TextDrawBase"/>
 			<referrer name="CreateTelaLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -26808,7 +26721,6 @@
 		</member>
 		<member name="M:TextDrawSetProportional" syntax="TextDrawSetProportional(text, set)">
 			<attribute name="native"/>
-			<referrer name="TextDrawBase"/>
 			<referrer name="CreateTelaLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -26829,7 +26741,6 @@
 		</member>
 		<member name="M:TextDrawSetSelectable" syntax="TextDrawSetSelectable(text, set)">
 			<attribute name="native"/>
-			<referrer name="TextDrawBase"/>
 			<referrer name="CreateTelaLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -26841,7 +26752,6 @@
 		</member>
 		<member name="M:TextDrawSetShadow" syntax="TextDrawSetShadow(text, size)">
 			<attribute name="native"/>
-			<referrer name="TextDrawBase"/>
 			<referrer name="CreateTelaLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -26889,7 +26799,6 @@
 			<attribute name="native"/>
 			<referrer name="TxdLogin"/>
 			<referrer name="VelocimetroEx"/>
-			<referrer name="FuncaoItens"/>
 			<referrer name="TestAway"/>
 			<referrer name="ac_OnPlayerRequestClass"/>
 			<referrer name="ac_OnPlayerSpawn"/>
@@ -26908,7 +26817,6 @@
 		</member>
 		<member name="M:TextDrawTextSize" syntax="TextDrawTextSize(text, x, y)">
 			<attribute name="native"/>
-			<referrer name="TextDrawBase"/>
 			<referrer name="CreateTelaLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -26937,7 +26845,6 @@
 		</member>
 		<member name="M:TextDrawUseBox" syntax="TextDrawUseBox(text, use)">
 			<attribute name="native"/>
-			<referrer name="TextDrawBase"/>
 			<referrer name="CreateTelaLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -29652,7 +29559,7 @@
 		</member>
 		<member name="M:ac_OnDialogResponse" syntax="ac_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
-			<stacksize value="15520"/>
+			<stacksize value="15521"/>
 			<dependency name="operator+(Float:,_:)"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="Float:operator=(_:)"/>
@@ -29815,6 +29722,11 @@
 			<dependency name="DIALOG_LOJAHP"/>
 			<dependency name="DIALOG_LTAGS"/>
 			<dependency name="DIALOG_LTUMBA"/>
+			<dependency name="DIALOG_MECANICA"/>
+			<dependency name="DIALOG_MECANICACORES"/>
+			<dependency name="DIALOG_MECANICANITRO"/>
+			<dependency name="DIALOG_MECANICAPJ"/>
+			<dependency name="DIALOG_MECANICARODAS"/>
 			<dependency name="DIALOG_MENUANIM"/>
 			<dependency name="DIALOG_MISSOES"/>
 			<dependency name="DIALOG_POS"/>
@@ -29867,6 +29779,7 @@
 			<dependency name="Erro"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="ExpiraVIP"/>
+			<dependency name="FIXES_AddVehicleComponent"/>
 			<dependency name="FIXES_ApplyAnimation"/>
 			<dependency name="FIXES_ClearAnimations"/>
 			<dependency name="FIXES_CreateActor"/>
@@ -29909,6 +29822,7 @@
 			<dependency name="GetPlayerVehicles"/>
 			<dependency name="GetPlayerVirtualWorld"/>
 			<dependency name="GetVehicleHealth"/>
+			<dependency name="GetVehicleModel"/>
 			<dependency name="GetVehicleModelIDFromName"/>
 			<dependency name="GetVehiclePos"/>
 			<dependency name="GetVehicleZAngle"/>
@@ -30051,6 +29965,10 @@
 			<dependency name="VeiculoCivil"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
+			<dependency name="ac_OnVehicleMod"/>
+			<dependency name="ac_OnVehiclePaintjob"/>
+			<dependency name="ac_OnVehicleRespray"/>
+			<dependency name="acc_ChangeVehiclePaintjob"/>
 			<dependency name="acc_CreateDynamicPickup"/>
 			<dependency name="acc_CreateVehicle"/>
 			<dependency name="acc_DestroyDynamicPickup"/>
@@ -30229,33 +30147,28 @@
 		</member>
 		<member name="M:ac_OnPlayerClickPlayerTextDraw" syntax="ac_OnPlayerClickPlayerTextDraw(playerid, playertextid)">
 			<attribute name="public"/>
-			<stacksize value="1130"/>
+			<stacksize value="1129"/>
 			<dependency name="Float:operator=(_:)"/>
-			<dependency name="AttachObjectToVehicle"/>
 			<dependency name="BancoTD"/>
 			<dependency name="BancoTD"/>
 			<dependency name="CST_GetPVarInt"/>
 			<dependency name="CST_SetPVarInt"/>
 			<dependency name="CancelSelectTextDraw"/>
 			<dependency name="CarregarArmas"/>
-			<dependency name="ChangeVehicleColor"/>
 			<dependency name="CofreBanco"/>
 			<dependency name="ConvertMoney"/>
 			<dependency name="ConvertMoney"/>
 			<dependency name="CopGuns"/>
 			<dependency name="CopGuns"/>
-			<dependency name="CreateObject"/>
 			<dependency name="DIALOG_BANCO4"/>
 			<dependency name="DIALOG_LOGIN"/>
 			<dependency name="DIALOG_REGISTRO"/>
 			<dependency name="DIALOG_ROPACOP"/>
 			<dependency name="DIALOG_VALORTRANSACAO"/>
-			<dependency name="DestroyObject"/>
 			<dependency name="DrawInv"/>
 			<dependency name="DrawInv"/>
 			<dependency name="DroparItem"/>
 			<dependency name="ErrorMsg"/>
-			<dependency name="FIXES_AddVehicleComponent"/>
 			<dependency name="FIXES_CreateActor"/>
 			<dependency name="FIXES_DestroyActor"/>
 			<dependency name="FIXES_PlayerTextDrawSetString"/>
@@ -30263,16 +30176,12 @@
 			<dependency name="FIXES_SetPlayerSkin"/>
 			<dependency name="FirstLogin"/>
 			<dependency name="FuncaoItens"/>
-			<dependency name="GetPlayerVehicleID"/>
-			<dependency name="GetVehicleModel"/>
 			<dependency name="HudCop"/>
 			<dependency name="HudCop"/>
 			<dependency name="InfoMsg"/>
 			<dependency name="ItemNomeInv"/>
 			<dependency name="ItemNomeInv"/>
 			<dependency name="ModoTransacao"/>
-			<dependency name="NEON_DIREITO"/>
-			<dependency name="NEON_ESQUERDO"/>
 			<dependency name="Name"/>
 			<dependency name="Name"/>
 			<dependency name="Patrulha"/>
@@ -30295,12 +30204,7 @@
 			<dependency name="Str"/>
 			<dependency name="SuccesMsg"/>
 			<dependency name="TDCadastro_p"/>
-			<dependency name="TextDrawHideForPlayer"/>
 			<dependency name="Unidades"/>
-			<dependency name="ac_OnVehicleMod"/>
-			<dependency name="ac_OnVehiclePaintjob"/>
-			<dependency name="ac_OnVehicleRespray"/>
-			<dependency name="acc_ChangeVehiclePaintjob"/>
 			<dependency name="acc_GivePlayerWeapon"/>
 			<dependency name="acc_ResetPlayerWeapons"/>
 			<dependency name="acc_SetPlayerArmour"/>
@@ -30311,22 +30215,12 @@
 			<dependency name="false"/>
 			<dependency name="fexist"/>
 			<dependency name="format"/>
-			<dependency name="neon_add"/>
-			<dependency name="neon_add"/>
 			<dependency name="pBanco"/>
 			<dependency name="pDinheiro"/>
 			<dependency name="pSkin"/>
 			<dependency name="policiaon"/>
 			<dependency name="strcat"/>
 			<dependency name="true"/>
-			<dependency name="wBase"/>
-			<dependency name="wMenu"/>
-			<dependency name="wMenuCores"/>
-			<dependency name="wMenuNeon"/>
-			<dependency name="wMenuNitro"/>
-			<dependency name="wMenuPaintJobs"/>
-			<dependency name="wMenuRodas"/>
-			<dependency name="wTuning"/>
 			<param name="playerid">
 			</param>
 			<param name="playertextid">
@@ -30378,15 +30272,6 @@
 			<dependency name="pEstaMorto"/>
 			<dependency name="pSexo"/>
 			<dependency name="pSkin"/>
-			<dependency name="true"/>
-			<dependency name="wBase"/>
-			<dependency name="wMenu"/>
-			<dependency name="wMenuCores"/>
-			<dependency name="wMenuNeon"/>
-			<dependency name="wMenuNitro"/>
-			<dependency name="wMenuPaintJobs"/>
-			<dependency name="wMenuRodas"/>
-			<dependency name="wTuning"/>
 			<param name="playerid">
 			</param>
 			<param name="clickedid">
@@ -31160,7 +31045,7 @@
 		<member name="M:ac_OnVehicleMod" syntax="ac_OnVehicleMod(playerid, vehicleid, componentid)">
 			<attribute name="public"/>
 			<stacksize value="5"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
+			<referrer name="ac_OnDialogResponse"/>
 			<dependency name="FIXES_GetVehicleComponentType"/>
 			<dependency name="GetVehicleID"/>
 			<dependency name="IsValidVehicle1"/>
@@ -31177,7 +31062,7 @@
 		<member name="M:ac_OnVehiclePaintjob" syntax="ac_OnVehiclePaintjob(playerid, vehicleid, paintjobid)">
 			<attribute name="public"/>
 			<stacksize value="5"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
+			<referrer name="ac_OnDialogResponse"/>
 			<dependency name="GetVehicleID"/>
 			<dependency name="IsValidVehicle1"/>
 			<dependency name="SaveVehicle"/>
@@ -31192,7 +31077,7 @@
 		<member name="M:ac_OnVehicleRespray" syntax="ac_OnVehicleRespray(playerid, vehicleid, color1, color2)">
 			<attribute name="public"/>
 			<stacksize value="5"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
+			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_tunagemvip"/>
 			<dependency name="GetVehicleID"/>
 			<dependency name="IsValidVehicle1"/>
@@ -32147,7 +32032,7 @@
 			<referrer name="TIMERFIX_OnPlayerDisconnect"/>
 			<referrer name="UpdateVehicle"/>
 			<referrer name="ac_OnVehicleSpawn"/>
-			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
+			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_limparmods"/>
 			<referrer name="cmd_tunagemvip"/>
 			<dependency name="GetVehicleModel"/>
@@ -33131,6 +33016,26 @@
 			</param>
 			<param name="params">
 				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:cmd_abrircorreios" syntax="cmd_abrircorreios(playerid)">
+			<attribute name="public"/>
+			<stacksize value="10"/>
+			<dependency name="FIXES_SetTimer"/>
+			<dependency name="MoveDynamicObject"/>
+			<dependency name="false"/>
+			<dependency name="mapsdxzx"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:cmd_abrircorreios2" syntax="cmd_abrircorreios2(playerid)">
+			<attribute name="public"/>
+			<stacksize value="10"/>
+			<dependency name="FIXES_SetTimer"/>
+			<dependency name="MoveDynamicObject"/>
+			<dependency name="false"/>
+			<dependency name="mapsdxzx"/>
+			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:cmd_adddealership" syntax="cmd_adddealership(playerid, params[])">
@@ -37903,7 +37808,6 @@
 			<dependency name="SvCreateGStream"/>
 			<dependency name="TextDrawAlignment"/>
 			<dependency name="TextDrawBackgroundColor"/>
-			<dependency name="TextDrawBase"/>
 			<dependency name="TextDrawBoxColor"/>
 			<dependency name="TextDrawColor"/>
 			<dependency name="TextDrawFont"/>
@@ -39295,7 +39199,6 @@
 		<member name="M:todastextdraw" syntax="todastextdraw(playerid)">
 			<stacksize value="14"/>
 			<referrer name="ac_OnPlayerConnect"/>
-			<dependency name="operator+(Float:,_:)"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="BancoTD"/>
 			<dependency name="BancoTD"/>
@@ -39348,12 +39251,6 @@
 			<dependency name="gPlayerFadeInfo"/>
 			<dependency name="gPlayerFaderTextId"/>
 			<dependency name="true"/>
-			<dependency name="wMenu"/>
-			<dependency name="wMenuCores"/>
-			<dependency name="wMenuNeon"/>
-			<dependency name="wMenuNitro"/>
-			<dependency name="wMenuPaintJobs"/>
-			<dependency name="wMenuRodas"/>
 			<param name="playerid">
 			</param>
 		</member>
