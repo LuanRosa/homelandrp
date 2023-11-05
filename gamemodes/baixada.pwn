@@ -724,6 +724,7 @@ new RecentlyShot[MAX_PLAYERS];
 new CaixasSdxObj[MAX_PLAYERS][11]; 
 new bool:CaixaMao[MAX_PLAYERS] = false;
 new actorcorreios[MAX_PLAYERS];
+new Text3D:textcorreios[MAX_PLAYERS];
 new bool:Casavehcorreios[MAX_PLAYERS] = false;
 new bool:Casavehcorreios2[MAX_PLAYERS] = false;
 new CaixasSdx[MAX_PLAYERS];
@@ -1665,6 +1666,46 @@ CallBack:: EstaSegurandoArmaProibida(playerid)
     }
 
     return false;
+}
+
+stock MsgSdx(){
+	new msg = random(5),retorno[148];
+	if(msg == 0) retorno = "{FFFF00}Morador(a)\n{FFFFFF}Ola, obrigado por trazer minha encomenda!";
+	if(msg == 1) retorno = "{FFFF00}Morador(a)\n{FFFFFF}Uau, voce e muito rapido!";
+	if(msg == 2) retorno = "{FFFF00}Morador(a)\n{FFFFFF}Muito obrigado, tenha um otimo servico.";
+	if(msg == 3) retorno = "{FFFF00}Morador(a)\n{FFFFFF}Ainda bem que minha encomenda chegou em\nseguranca haha..";
+	if(msg == 4) retorno = "{FFFF00}Morador(a)\n{FFFFFF}Ola, como vai o senhor(a)?";
+	if(msg == 5) retorno = "{FFFF00}Morador(a)\n{FFFFFF}Desculpe a pergunta, voce recebe bem nos correios?";
+	return retorno;
+}
+
+Progresso:BatendoPorta(playerid, progress){
+	if(progress >= 100){
+		new SkinActor = random(311),txt[148];
+		static Float:X, Float:Y, Float:Z,Float:A;
+		new engine, lights, alarm, doors, bonnet, boot, objective,idv = VeiculoCivil[playerid];
+		GetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, boot, objective);
+		SetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, 1, objective);
+		GetVehicleTrunkPosition(VeiculoCivil[playerid], PosV[0], PosV[1], PosV[2]);
+		ClearAnimations(playerid);
+		TogglePlayerControllable(playerid, 1);
+		GetPlayerPos(playerid, Float:X, Float:Y, Float:Z);
+		GetPlayerFacingAngle(playerid, Float:A);
+		SetPVarFloat(playerid, "FindX", X);
+	    SetPVarFloat(playerid, "FindY", Y);
+	    SetPVarFloat(playerid, "FindZ", Z);
+		SetPVarFloat(playerid, "FindA", A);
+		//DisablePlayerCheckpoint(playerid);
+		SetPlayerCheckpoint(playerid, PosV[0], PosV[1], PosV[2],1);
+		checkcasa[playerid] = false;
+		Casavehcorreios[playerid] = true;
+		format(txt,sizeof(txt),"%s",MsgSdx());
+		actorcorreios[playerid] = CreateActor(SkinActor, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),GetPVarFloat(playerid, "FindA")-180);
+		textcorreios[playerid] = Create3DTextLabel(txt, 0x008080FF, 1689.563598, -2326.089599, 13.546875, 15.0, 0);
+		Attach3DTextLabelToPlayer(textcorreios[playerid], actorcorreios[playerid], 0.0, 0.0, 0.7);
+		InfoMsg(playerid, "O morador saiu da casa, pegue a caixa e entregue a ele");
+	}
+	return 1;
 }
 
 Progresso:PegandoCaixasP(playerid, progress){
@@ -10590,6 +10631,9 @@ stock ZerarDados(playerid)
 	Falando[playerid] = false;
 	Gritando[playerid] = false;
 	MostrandoMenu[playerid] = false;
+	Casavehcorreios[playerid] = false;
+	Casavehcorreios2[playerid] = false;
+	checkcasa[playerid] = false;
 	Falou[playerid] = false;
 	Susurrou[playerid] = false;
 	Gritou[playerid] = false;
@@ -10598,6 +10642,7 @@ stock ZerarDados(playerid)
 	Moved[playerid] = false;
 	FirstLogin[playerid] = false;
 	pJogando[playerid] = false;
+	
 	pLogado[playerid] = false;
 	IsAssistindo[playerid] = false;
 	UsouCMD[playerid] = false;
@@ -11775,7 +11820,7 @@ public OnPlayerText(playerid, text[])
 	UltimaFala[playerid] = gettime();
 	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Nao esta conectado");
 	{
-		format(string, sizeof string, "{5b6ed9}(%04d) {FFFFFF}disse {#d6d0d0}%s", PlayerInfo[playerid][IDF], text);
+		format(string, sizeof string, "{5b6ed9}(%04d) {FFFFFF}disse {d6d0d0}%s", PlayerInfo[playerid][IDF], text);
 		ProxDetector(30.0, playerid, string, -1,-1,-1,-1,-1);
 
 		format(string,sizeof(string),"%04d falou %s", PlayerInfo[playerid][IDF],text);
@@ -12050,49 +12095,50 @@ public OnPlayerEnterCheckpoint(playerid)
 {
 	if(Casavehcorreios[playerid] == true)
 	{
-		CaixasSdx[playerid]--;
-		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
-		SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
-		DisablePlayerCheckpoint(playerid);
-		SetPlayerCheckpoint(playerid, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),1);
-		Casavehcorreios[playerid] = false;
-		Casavehcorreios2[playerid] = true;
-		InfoMsg(playerid, "Pegou a caixa, entregue ao morador.");
+		if(CaixasSdx[playerid] > 0){
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+			SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+			//DisablePlayerCheckpoint(playerid);
+			Casavehcorreios[playerid] = false;
+			Casavehcorreios2[playerid] = true;
+			CaixasSdx[playerid]--;
+			InfoMsg(playerid, "Pegou a caixa, entregue ao morador.");
+			SetPlayerCheckpoint(playerid, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),1);
+		}
 	}
 	if(Casavehcorreios2[playerid] == true)
 	{
-		CaixasSdx[playerid]--;
-		ClearAnimations(playerid);
-		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-		RemovePlayerAttachedObject(playerid, 1);
-		DestroyActor(actorcorreios[playerid]);
-		Casavehcorreios2[playerid] = false;
-		new Alt = random(303);
-		DisablePlayerCheckpoint(playerid);
-		SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 1);
-		checkcasa[playerid] = true;
-		SuccesMsg(playerid, "Entrega feita passe para a proxima entrega.");
+		if(CaixasSdx[playerid] == 0){
+			new str[128],malote = randomEx(500,1300);
+			ClearAnimations(playerid);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+			RemovePlayerAttachedObject(playerid, 1);
+			DestroyActor(actorcorreios[playerid]);
+			Casavehcorreios2[playerid] = false;
+			//DisablePlayerCheckpoint(playerid);
+			GivePlayerMoney(playerid, malote);
+			format(str,sizeof(str),"Todas as entregas foram concluidas e voce recebeu um bonus extra de (R$%i).",malote);
+			SuccesMsg(playerid, str);
+			SuccesMsg(playerid, "Volte ao qg dos Correios para pegar mais produtos.");
+			SetPlayerCheckpoint(playerid, 1004.1582,1755.0336,10.7734, 1);
+		}else{
+			ClearAnimations(playerid);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+			RemovePlayerAttachedObject(playerid, 1);
+			DestroyActor(actorcorreios[playerid]);
+			Casavehcorreios2[playerid] = false;
+			new Alt = random(303);
+			//DisablePlayerCheckpoint(playerid);
+			SuccesMsg(playerid, "Entrega feita passe para a proxima entrega.");
+			SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 1);
+			checkcasa[playerid] = true;
+		}
 	}
 	if(checkcasa[playerid] == true)
 	{
-		new SkinActor = random(311);
-		new Float:X, Float:Y, Float:Z,Float:A;
-		new engine, lights, alarm, doors, bonnet, boot, objective,idv = VeiculoCivil[playerid];
-		GetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, boot, objective);
-		SetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, 1, objective);
-		GetVehicleTrunkPosition(VeiculoCivil[playerid], PosV[0], PosV[1], PosV[2]);
-		GetPlayerPos(playerid, Float:X, Float:Y, Float:Z);
-		GetPlayerFacingAngle(playerid, Float:A);
-		SetPVarFloat(playerid, "FindX", X);
-	    SetPVarFloat(playerid, "FindY", Y);
-	    SetPVarFloat(playerid, "FindZ", Z);
-		SetPVarFloat(playerid, "FindA", A);
-		DisablePlayerCheckpoint(playerid);
-		SetPlayerCheckpoint(playerid, PosV[0], PosV[1], PosV[2],1);
-		Casavehcorreios[playerid] = true;
-		checkcasa[playerid] = false;
-		actorcorreios[playerid] = CreateActor(SkinActor, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),GetPVarFloat(playerid, "FindA")/2);
-		InfoMsg(playerid, "O morador saiu da casa, pegue a caixa e entregue a ele");
+		CreateProgress(playerid, "BatendoPorta","Aguardando morador...", 110);
+		SuccesMsg(playerid, "Voce esta batendo na porta aguarde o morador...");
+		TogglePlayerControllable(playerid, 0);
 	}
 	if(RotaMaconha[playerid] == true) 
 	{ 
@@ -13421,14 +13467,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 return 1;
             }
 		}
-		if(PlayerToPoint(3.0, playerid, 1001.463684, 1755.690063, 10.937376))
+		if(PlayerToPoint(5.0, playerid, 1001.463684, 1755.690063, 10.937376))
 		{
 			if(PlayerInfo[playerid][pProfissao] == 8)
 			{
 				cmd_abrircorreios(playerid);
 			}
 		}
-		if(PlayerToPoint(3.0, playerid, 991.318847, 1710.615966, 10.100306))
+		if(PlayerToPoint(5.0, playerid, 991.318847, 1710.615966, 10.100306))
 		{
 			if(PlayerInfo[playerid][pProfissao] == 8)
 			{
@@ -14047,8 +14093,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 939.6504,1733.2004,8.8516)) //correios
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			if(PlayerInfo[playerid][pSegundosJogados] < 18000000) return InfoMsg(playerid, "Voce precisa ter 5hrs de jogo.");
-			if(PlayerInfo[playerid][LicencaConduzir] == 0) return InfoMsg(playerid, "Voce nao possui licenca de conducao.");
+			//if(PlayerInfo[playerid][pSegundosJogados] < 18000000) return InfoMsg(playerid, "Voce precisa ter 5hrs de jogo.");
+			//if(PlayerInfo[playerid][LicencaConduzir] == 0) return InfoMsg(playerid, "Voce nao possui licenca de conducao.");
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
 			else
 			{
