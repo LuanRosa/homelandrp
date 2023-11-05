@@ -19,17 +19,19 @@ CarregarMapIcons()
 	CreateDynamicMapIcon(-1278.104248, 2711.379150, 50.132141, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//BAEP
 	CreateDynamicMapIcon(1662.559692, -285.732208, 39.607868, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PRF
 	// ORG CRIMINOSA
-	CreateDynamicMapIcon(188.515975, -106.426063, 2.023437, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Amarelo
+	/*CreateDynamicMapIcon(188.515975, -106.426063, 2.023437, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Amarelo
 	CreateDynamicMapIcon(-789.252563, 1622.004394, 27.117187, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Azul
 	CreateDynamicMapIcon(-2087.006591, -2544.948974, 30.625000, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Vermelho
 	CreateDynamicMapIcon(-96.821380, 1041.751953, 19.664335, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Verde
 	CreateDynamicMapIcon(-688.271423, 938.216918, 13.632812, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Mafia Russa
-	CreateDynamicMapIcon(698.636657, 1964.867065, 5.539062, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Moto Clube
+	CreateDynamicMapIcon(698.636657, 1964.867065, 5.539062, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Moto Clube*/
 	// EMPREGOS
 	CreateDynamicMapIcon(154.188613, -1945.949584, 4.972961, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PESCADOR
 	CreateDynamicMapIcon(590.086975, 871.486694, -42.734603, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//MINEIRADOR
 	CreateDynamicMapIcon(2501.888916, -1494.696533, 24.000000, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//ACOUGUEIRO
 	CreateDynamicMapIcon(-504.495117, -517.457763, 25.523437, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//CAMIONERO
 	CreateDynamicMapIcon(-28.763319, 1363.971313, 9.171875, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//COLETOR
+	CreateDynamicMapIcon(939.6504,1733.2004,8.8516, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Correios
+	CreateDynamicMapIcon(1281.080810, -1267.302612, 13.535926, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Pedreiro
     printf("=> MapIcons       		: Carregados");
 }
