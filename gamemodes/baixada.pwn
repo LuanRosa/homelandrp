@@ -1697,7 +1697,7 @@ Progresso:BatendoPorta(playerid, progress){
 	    SetPVarFloat(playerid, "FindZ", Z);
 		SetPVarFloat(playerid, "FindA", A);
 		checkcasa[playerid] = false;
-		Casavehcorreios[playerid] = true;
+		DisablePlayerCheckpoint(playerid);
 		format(txt,sizeof(txt),"%s",MsgSdx());
 		actorcorreios[playerid] = CreateActor(SkinActor, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),GetPVarFloat(playerid, "FindA")-180);
 		textcorreios[playerid] = Create3DTextLabel(txt, 0x008080FF, 1689.563598, -2326.089599, 13.546875, 15.0, 0);
@@ -2320,76 +2320,76 @@ Progresso:DescarregarCarga(playerid, progress)
 {
 	if(progress >= 100)
 	{
-		if(PlayerToPoint(3.0, playerid, -225.2885,-209.2343,2.0181))
+		if(PlayerToPoint(3.0, playerid, -72.730911, -1176.907714, 2.940625))
 		{
 			Cargase[playerid] = false;
 			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
 			if(PlayerInfo[playerid][pVIP] == 0)
 			{
-				PlayerInfo[playerid][pDinheiro] += 2100;
-				SuccesMsg(playerid, "Entregou a carga e ganhou R$2100.");
+				PlayerInfo[playerid][pDinheiro] += 360;
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$360.");
 			}   
 			if(PlayerInfo[playerid][pVIP] == 2)
 			{
-				PlayerInfo[playerid][pDinheiro] += 2100*2;
-				SuccesMsg(playerid, "Entregou a carga e ganhou R$4200.");
+				PlayerInfo[playerid][pDinheiro] += 360*2;
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$720.");
 			}
 			DisablePlayerCheckpoint(playerid);
 			Carregou[playerid] = 0;
 		}
-		if(PlayerToPoint(3.0, playerid, 219.3734,9.5520,3.1495))
+		if(PlayerToPoint(3.0, playerid, -185.473693, -280.008880, 1.603357))
 		{
 			Cargase[playerid] = false;
 			if(PlayerInfo[playerid][pVIP] == 0)
 			{
-				PlayerInfo[playerid][pDinheiro] += 2150;
-				SuccesMsg(playerid, "Entregou a carga e ganhou R$2150.");
+				PlayerInfo[playerid][pDinheiro] += 980;
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$980.");
 			}   
 			if(PlayerInfo[playerid][pVIP] == 2)
 			{
-				PlayerInfo[playerid][pDinheiro] += 2150*2;
-				SuccesMsg(playerid, "Entregou a carga e ganhou R$4300.");
-			}
-			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
-			DisablePlayerCheckpoint(playerid);
-			Carregou[playerid] = 0;
-		}
-		if(PlayerToPoint(3.0, playerid, 1338.3881,286.8327,20.1563))
-		{
-			Cargase[playerid] = false;
-			if(PlayerInfo[playerid][pVIP] == 0)
-			{
-				PlayerInfo[playerid][pDinheiro] += 2150;
-				SuccesMsg(playerid, "Entregou a carga e ganhou R$2150.");
-			}   
-			if(PlayerInfo[playerid][pVIP] == 2)
-			{
-				PlayerInfo[playerid][pDinheiro] += 2150*2;
-				SuccesMsg(playerid, "Entregou a carga e ganhou R$4300.");
+				PlayerInfo[playerid][pDinheiro] += 980*2;
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$1960.");
 			}
 			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
 			DisablePlayerCheckpoint(playerid);
 			Carregou[playerid] = 0;
 		}
-		if(PlayerToPoint(3.0, playerid, 1635.2142,2192.1284,11.4099))
+		if(PlayerToPoint(3.0, playerid, 2168.514404, -2275.264892, 13.128628))
 		{
 			Cargase[playerid] = false;
 			if(PlayerInfo[playerid][pVIP] == 0)
 			{
-				PlayerInfo[playerid][pDinheiro] += 2400;
+				PlayerInfo[playerid][pDinheiro] += 1200;
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$1200.");
+			}   
+			if(PlayerInfo[playerid][pVIP] == 2)
+			{
+				PlayerInfo[playerid][pDinheiro] += 1200*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$2400.");
+			}
+			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
+			DisablePlayerCheckpoint(playerid);
+			Carregou[playerid] = 0;
+		}
+		if(PlayerToPoint(3.0, playerid, -2096.593017, -2243.229492, 30.352083))
+		{
+			Cargase[playerid] = false;
+			if(PlayerInfo[playerid][pVIP] == 0)
+			{
+				PlayerInfo[playerid][pDinheiro] += 1800;
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$1800.");
 			}   
 			if(PlayerInfo[playerid][pVIP] == 2)
 			{
-				PlayerInfo[playerid][pDinheiro] += 2400*2;
-				SuccesMsg(playerid, "Entregou a carga e ganhou R$4800.");
+				PlayerInfo[playerid][pDinheiro] += 1800*2;
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$3500.");
 			}
 			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
 			DisablePlayerCheckpoint(playerid);
 			Carregou[playerid] = 0;
 				
 		}
-		if(PlayerToPoint(3.0, playerid, -1934.6858,259.0710,41.6420))
+		if(PlayerToPoint(3.0, playerid, 2834.454833, 958.061462, 10.479191))
 		{
 			Cargase[playerid] = false;
 			if(PlayerInfo[playerid][pVIP] == 0)
@@ -2406,18 +2406,69 @@ Progresso:DescarregarCarga(playerid, progress)
 			DisablePlayerCheckpoint(playerid);
 			Carregou[playerid] = 0;
 		}
-		if(PlayerToPoint(3.0, playerid, -1823.9757,54.3441,15.1228))
+		if(PlayerToPoint(3.0, playerid, 2524.153076, 2816.919189, 10.547390))
 		{
 			Cargase[playerid] = false;
 			if(PlayerInfo[playerid][pVIP] == 0)
 			{
-				PlayerInfo[playerid][pDinheiro] += 2250;
-				SuccesMsg(playerid, "Entregou a carga e ganhou R$2250.");
+				PlayerInfo[playerid][pDinheiro] += 3200;
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$3200.");
 			}   
 			if(PlayerInfo[playerid][pVIP] == 2)
 			{
-				PlayerInfo[playerid][pDinheiro] += 2250*2;
+				PlayerInfo[playerid][pDinheiro] += 3200*2;
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$6400.");
+			}
+			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
+			DisablePlayerCheckpoint(playerid);	
+			Carregou[playerid] = 0;
+		}
+		if(PlayerToPoint(3.0, playerid, -1789.979858, 1421.842895, 6.914581))
+		{
+			Cargase[playerid] = false;
+			if(PlayerInfo[playerid][pVIP] == 0)
+			{
+				PlayerInfo[playerid][pDinheiro] += 3800;
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$3800.");
+			}   
+			if(PlayerInfo[playerid][pVIP] == 2)
+			{
+				PlayerInfo[playerid][pDinheiro] += 3800*2;
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$7600.");
+			}
+			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
+			DisablePlayerCheckpoint(playerid);	
+			Carregou[playerid] = 0;
+		}
+		if(PlayerToPoint(3.0, playerid, -1862.919433, -202.232727, 18.125516))
+		{
+			Cargase[playerid] = false;
+			if(PlayerInfo[playerid][pVIP] == 0)
+			{
+				PlayerInfo[playerid][pDinheiro] += 4500;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$4500.");
+			}   
+			if(PlayerInfo[playerid][pVIP] == 2)
+			{
+				PlayerInfo[playerid][pDinheiro] += 4500*2;
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$9000.");
+			}
+			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
+			DisablePlayerCheckpoint(playerid);	
+			Carregou[playerid] = 0;
+		}
+		if(PlayerToPoint(3.0, playerid, 1039.057983, 2132.961425, 10.547390))
+		{
+			Cargase[playerid] = false;
+			if(PlayerInfo[playerid][pVIP] == 0)
+			{
+				PlayerInfo[playerid][pDinheiro] += 5000;
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$5000.");
+			}   
+			if(PlayerInfo[playerid][pVIP] == 2)
+			{
+				PlayerInfo[playerid][pDinheiro] += 5000*2;
+				SuccesMsg(playerid, "Entregou a carga e ganhou R$10000.");
 			}
 			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
 			DisablePlayerCheckpoint(playerid);	
@@ -12107,7 +12158,6 @@ public OnPlayerEnterCheckpoint(playerid)
 			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 			RemovePlayerAttachedObject(playerid, 1);
 			DestroyActor(actorcorreios[playerid]);
-			Casavehcorreios2[playerid] = false;
 			//DisablePlayerCheckpoint(playerid);
 			GivePlayerMoney(playerid, malote);
 			format(str,sizeof(str),"Todas as entregas foram concluidas e voce recebeu um bonus extra de (R$%i).",malote);
@@ -12119,7 +12169,6 @@ public OnPlayerEnterCheckpoint(playerid)
 			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 			RemovePlayerAttachedObject(playerid, 1);
 			DestroyActor(actorcorreios[playerid]);
-			Casavehcorreios2[playerid] = false;
 			new Alt = random(303);
 			//DisablePlayerCheckpoint(playerid);
 			SuccesMsg(playerid, "Entrega feita passe para a proxima entrega.");
@@ -12165,14 +12214,14 @@ public OnPlayerEnterCheckpoint(playerid)
 		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.1, 1, 0, 0, 0, 0, 1);
 		DisablePlayerCheckpoint(playerid); 
-		CreateProgress(playerid, "Cova","Coletando lixo...", 130);
+		CreateProgress(playerid, "Cova","Coletando lixo...", 20);
 	}
 	if(PegouLixo[playerid] == true) 
 	{ 
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-		CreateProgress(playerid, "BotouBau","Colocando lixo...", 100);
+		CreateProgress(playerid, "BotouBau","Colocando lixo...", 50);
 	}
 	if(ltumba[playerid] == true)
 	{
@@ -16641,63 +16690,94 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					SuccesMsg(playerid, "Seu caminhao foi carregado para Ind. Solarin!");
+					SuccesMsg(playerid, "Seu caminhao foi carregado!");
 					SuccesMsg(playerid, "Foi marcado um ponto para descarregar.");
-					GameTextForPlayer(playerid, "~y~~h~carregado", 1000, 0);
 					Cargase[playerid] = true;
 					Carregou[playerid] = 1;
 					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -1823.9757,54.3441,15.1228, 10.0);
+					SetPlayerCheckpoint(playerid, -72.730911, -1176.907714, 2.940625, 10.0);
 				}
 				if(listitem == 1)
 				{
-					SuccesMsg(playerid, "Seu caminhao foi carregado para Michelin Pneus!");
+					SuccesMsg(playerid, "Seu caminhao foi carregado!");
 					SuccesMsg(playerid, "Foi marcado um ponto para descarregar.");
-					GameTextForPlayer(playerid, "~y~~h~carregado", 1000, 0);
 					Cargase[playerid] = true;
 					Carregou[playerid] = 1;
 					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1635.2142,2192.1284,11.4099, 10.0);
+					SetPlayerCheckpoint(playerid, -185.473693, -280.008880, 1.603357, 10.0);
 				}
 				if(listitem == 2)
 				{
-					GameTextForPlayer(playerid, "~y~~h~carregado", 1000, 0);
-					SuccesMsg(playerid, "Seu caminhao foi carregado para Sprunk!");
+					SuccesMsg(playerid, "Seu caminhao foi carregado!");
 					SuccesMsg(playerid, "Foi marcado um ponto para descarregar.");
 					Cargase[playerid] = true;
 					Carregou[playerid] = 1;
 					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1338.3881,286.8327,20.1563, 10.0);
+					SetPlayerCheckpoint(playerid, 2168.514404, -2275.264892, 13.128628, 10.0);
 				}
 				if(listitem == 3)
 				{
-					SuccesMsg(playerid, "Seu caminhao foi carregado para Xoomer!");
+					SuccesMsg(playerid, "Seu caminhao foi carregado!");
 					SuccesMsg(playerid, "Foi marcado um ponto para descarregar.");
-					GameTextForPlayer(playerid, "~y~~h~carregado", 1000, 0);
 					Cargase[playerid] = true;
 					Carregou[playerid] = 1;
 					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 219.3734,9.5520,3.1495, 10.0);
+					SetPlayerCheckpoint(playerid, -2096.593017, -2243.229492, 30.352083, 10.0);
 				}
 				if(listitem == 4)
-			   {
-					SuccesMsg(playerid, "Seu caminhao foi carregado para FlaischBerg!");
+			    {
+					SuccesMsg(playerid, "Seu caminhao foi carregado!");
 					SuccesMsg(playerid, "Foi marcado um ponto para descarregar.");
-					GameTextForPlayer(playerid, "~y~~h~carregado", 1000, 0);
 					Cargase[playerid] = true;
 					Carregou[playerid] = 1;
 					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -225.2885,-209.2343,2.0181, 10.0);
+					SetPlayerCheckpoint(playerid, 2834.454833, 958.061462, 10.479191, 10.0);
 				}
-			}
-			else
-			{
-				ErrorMsg(playerid, "Você tem entregas não selecionadas.");
+				if(listitem == 5)
+			    {
+					SuccesMsg(playerid, "Seu caminhao foi carregado!");
+					SuccesMsg(playerid, "Foi marcado um ponto para descarregar.");
+					Cargase[playerid] = true;
+					Carregou[playerid] = 1;
+					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, 2524.153076, 2816.919189, 10.547390, 10.0);
+				}
+				if(listitem == 6)
+			    {
+					SuccesMsg(playerid, "Seu caminhao foi carregado!");
+					SuccesMsg(playerid, "Foi marcado um ponto para descarregar.");
+					Cargase[playerid] = true;
+					Carregou[playerid] = 1;
+					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -1789.979858, 1421.842895, 6.914581, 10.0);
+				}
+				if(listitem == 7)
+			    {
+					SuccesMsg(playerid, "Seu caminhao foi carregado!");
+					SuccesMsg(playerid, "Foi marcado um ponto para descarregar.");
+					Cargase[playerid] = true;
+					Carregou[playerid] = 1;
+					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, -1862.919433, -202.232727, 18.125516, 10.0);
+				}
+				if(listitem == 8)
+			    {
+					SuccesMsg(playerid, "Seu caminhao foi carregado!");
+					SuccesMsg(playerid, "Foi marcado um ponto para descarregar.");
+					Cargase[playerid] = true;
+					Carregou[playerid] = 1;
+					SetTimerEx("CheckComandos", 30000, false, "d", playerid);
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, 1039.057983, 2132.961425, 10.547390, 10.0);
+				}
 			}
 		}
 		case DIALOG_CONVITE:
@@ -20344,7 +20424,18 @@ CMD:carregar(playerid)
 		if(Cargase[playerid] == true) 	return ErrorMsg(playerid, "Seu caminhao ja esta carregado.");
 		if(Carregou[playerid] == 1) 	return ErrorMsg(playerid, "Ja tem uma carga.");
 		if(GetVehicleModel(GetPlayerVehicleID(playerid)) != 456)  	return ErrorMsg(playerid, "Nao esta no veiculo de trabalho");
-		ShowPlayerDialog(playerid, DIALOG_CARGA, DIALOG_STYLE_LIST, "{5b6ed9}Cargas Disponiveis.", "{5b6ed9}- {FFFFFF}Ind. Solarion SF\t{32CD32}R$2250\n{5b6ed9}- {FFFFFF}Michelin Pneus LV\t{32CD32}R$2400\n{5b6ed9}- {FFFFFF}Sprunk LS\t{32CD32}R$2150\n{5b6ed9}- {FFFFFF}Xoomer LS\t{32CD32}R$2150\n{5b6ed9}- {FFFFFF}FlaischBerg LS\t{32CD32}R$2100\n", "Carregar", "");
+	
+		MEGAString[0] = EOS;
+		strcat(MEGAString, "{5b6ed9}- {FFFFFF}Pecas de Veiculos\t{32CD32}R$360\n");
+		strcat(MEGAString, "{5b6ed9}- {FFFFFF}Produtos Agricolas\t{32CD32}R$980\n");
+		strcat(MEGAString, "{5b6ed9}- {FFFFFF}Produtos Industriais\t{32CD32}R$1200\n");
+		strcat(MEGAString, "{5b6ed9}- {FFFFFF}Madeiras e Lenhas\t{32CD32}R$1800\n");
+		strcat(MEGAString, "{5b6ed9}- {FFFFFF}Roupas e Complementos\t{32CD32}R$2500\n");
+		strcat(MEGAString, "{5b6ed9}- {FFFFFF}Produtos de Limpezas\t{32CD32}R$3200\n");
+		strcat(MEGAString, "{5b6ed9}- {FFFFFF}Produtos de Pesca\t{32CD32}R$3800\n");
+		strcat(MEGAString, "{5b6ed9}- {FFFFFF}Produtos Quimicos\t{32CD32}R$4500\n");
+		strcat(MEGAString, "{5b6ed9}- {FFFFFF}Produtos Tecnologicos\t{32CD32}R$5000\n");
+		ShowPlayerDialog(playerid, DIALOG_CARGA, DIALOG_STYLE_LIST, "Mercadorias\tValor", MEGAString, "Confirmar", "X");
 	}else if(PlayerInfo[playerid][pProfissao] == 8){ //Correios
 		if(EmServico[playerid] == false) return ErrorMsg(playerid, "Voce nao iniciou expediente.");
 		if(PegouVehProf[playerid] == false) return ErrorMsg(playerid, "Voce nao pegou uma van de servicos dos Correios.");
@@ -20526,7 +20617,7 @@ CMD:orgs(playerid)
 	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}8{FFFFFF} - Groove Street %s\n", DOF2_GetString("InfoOrg/8.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}9{FFFFFF} - Medicos: %s\n", DOF2_GetString("InfoOrg/9.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}9{FFFFFF} - Bennys: %s\n", DOF2_GetString("InfoOrg/9.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}10{FFFFFF} - Mecanicos: %s\n", DOF2_GetString("InfoOrg/10.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
@@ -24008,13 +24099,12 @@ CMD:pcaixa(playerid)
 {
 	if(PTP(3.0, playerid, PosV[0], PosV[1], PosV[2]))
 	{
-		if(Casavehcorreios[playerid] == true)
+		if(checkcasa[playerid] == false)
 		{
 			if(CaixasSdx[playerid] > 0){
 				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 				SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
-				Casavehcorreios[playerid] = false;
-				Casavehcorreios2[playerid] = true;
+				Casavehcorreios[playerid] = true;
 				CaixasSdx[playerid]--;
 				InfoMsg(playerid, "Pegou a caixa, entregue ao morador.");
 				SetPlayerCheckpoint(playerid, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),1);

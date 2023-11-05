@@ -1,13 +1,4 @@
 {
   "editor.tabSize": 4,
-  "files.encoding": "windows1252",
-  "cmake.configureOnOpen": false,
-  "pawn.compilerPath": "E:\\Baixada-Roleplay\\pawno",
-  "pawn.compileOptions": [
-    
-    "-d1",
-    "-O1",
-    "-(",
-    "-;"
-  ]
+  "files.encoding": "windows1252"
 }

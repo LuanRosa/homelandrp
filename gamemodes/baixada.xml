@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <?xml-stylesheet href="file:///E|/Baixada-Roleplay/pawno/xml/pawndoc.xsl" type="text/xsl"?>
-<doc source="e:\Baixada-Roleplay\gamemodes\baixada.pwn">
+<doc source="E:\Baixada-Roleplay\gamemodes\baixada.pwn">
 	<assembly>
 		<name>baixada.pwn</name>
 	</assembly>
@@ -1783,7 +1783,6 @@
 		</member>
 		<member name="C:DIALOG_CARGA" value="36">
 			<referrer name="ac_OnDialogResponse"/>
-			<referrer name="cmd_carregar"/>
 		</member>
 		<member name="C:DIALOG_CASAS" value="69">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
@@ -2142,7 +2141,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="24017">
+		<member name="C:__line" value="24020">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -2677,7 +2676,6 @@
 			<referrer name="SetPlayerProgressBarPos"/>
 			<referrer name="CreateProgress"/>
 			<referrer name="EstaSegurandoArmaProibida"/>
-			<referrer name="Progress_BatendoPorta"/>
 			<referrer name="Progress_PegandoCaixasP"/>
 			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="descobrirEE"/>
@@ -3246,14 +3244,11 @@
 		</member>
 		<member name="F:Casavehcorreios">
 			<tagname value="bool"/>
-			<referrer name="Progress_BatendoPorta"/>
 			<referrer name="ZerarDados"/>
-			<referrer name="cmd_pcaixa"/>
 		</member>
 		<member name="F:Casavehcorreios2">
 			<tagname value="bool"/>
 			<referrer name="ZerarDados"/>
-			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="cmd_pcaixa"/>
 		</member>
 		<member name="F:CaseSensitive">
@@ -7222,6 +7217,7 @@
 			<referrer name="Progress_ColocandoCaixa"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
+			<referrer name="cmd_pcaixa"/>
 		</member>
 		<member name="F:chosenpid">
 			<referrer name="ac_OnDialogResponse"/>
@@ -7987,7 +7983,6 @@
 			<referrer name="ConvertTimeX"/>
 			<referrer name="NpcText"/>
 			<referrer name="ZerarDados"/>
-			<referrer name="CarregarMapas"/>
 			<referrer name="CarregarMapIcons"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
@@ -10634,12 +10629,10 @@
 			<dependency name="printf"/>
 		</member>
 		<member name="M:CarregarMapas" syntax="CarregarMapas()">
-			<stacksize value="34"/>
+			<stacksize value="58"/>
 			<referrer name="mf_OnGameModeInit"/>
-			<dependency name="Float:operator=(_:)"/>
 			<dependency name="CreateDynamicObject"/>
 			<dependency name="CreateDynamicObjectEx"/>
-			<dependency name="CreateObject"/>
 			<dependency name="SetDynamicObjectMaterial"/>
 			<dependency name="SetDynamicObjectMaterialText"/>
 			<dependency name="mapsdxzx"/>
@@ -11526,7 +11519,6 @@
 		<member name="M:CreateObject" syntax="CreateObject(modelid, X, Y, Z, rX, rY, rZ, DrawDistance)">
 			<attribute name="native"/>
 			<referrer name="CreateMapFixObjects"/>
-			<referrer name="CarregarMapas"/>
 			<param name="modelid">
 			</param>
 			<param name="X">
@@ -14762,6 +14754,7 @@
 		</member>
 		<member name="M:FIXES_DisablePlayerCheckpoint" syntax="FIXES_DisablePlayerCheckpoint(playerid)">
 			<stacksize value="3"/>
+			<referrer name="Progress_BatendoPorta"/>
 			<referrer name="Progress_DescarregarCarga"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -23340,11 +23333,11 @@
 			<dependency name="CST_Create3DTextLabel"/>
 			<dependency name="CST_GetPVarFloat"/>
 			<dependency name="CST_SetPVarFloat"/>
-			<dependency name="Casavehcorreios"/>
 			<dependency name="ENTER_GetVehicleParamsEx"/>
 			<dependency name="ENTER_SetVehicleParamsEx"/>
 			<dependency name="FIXES_ClearAnimations"/>
 			<dependency name="FIXES_CreateActor"/>
+			<dependency name="FIXES_DisablePlayerCheckpoint"/>
 			<dependency name="FIXES_random"/>
 			<dependency name="GetPlayerFacingAngle"/>
 			<dependency name="GetPlayerPos"/>
@@ -23360,7 +23353,6 @@
 			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="textcorreios"/>
-			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 			<param name="progress">
@@ -30443,7 +30435,6 @@
 			<dependency name="CaixaMao"/>
 			<dependency name="CaixasSdx"/>
 			<dependency name="CargoTumba"/>
-			<dependency name="Casavehcorreios2"/>
 			<dependency name="Covaconcerto"/>
 			<dependency name="CreateProgress"/>
 			<dependency name="Desossando"/>
@@ -32767,7 +32758,6 @@
 			<referrer name="cmd_gps"/>
 			<referrer name="cmd_presos"/>
 			<referrer name="cmd_lojavip"/>
-			<referrer name="cmd_carregar"/>
 			<referrer name="cmd_rorgoff"/>
 			<referrer name="cmd_convidar"/>
 			<referrer name="cmd_orgs"/>
@@ -33673,7 +33663,6 @@
 			<dependency name="Cargase"/>
 			<dependency name="Carregou"/>
 			<dependency name="CreatePlayerObject"/>
-			<dependency name="DIALOG_CARGA"/>
 			<dependency name="EmServico"/>
 			<dependency name="EntregaSdx"/>
 			<dependency name="ErrorMsg"/>
@@ -33684,7 +33673,6 @@
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerToPoint"/>
 			<dependency name="SuccesMsg"/>
-			<dependency name="acc_ShowPlayerDialog"/>
 			<dependency name="false"/>
 			<dependency name="pProfissao"/>
 			<dependency name="true"/>
@@ -35492,7 +35480,6 @@
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="CST_GetPVarFloat"/>
 			<dependency name="CaixasSdx"/>
-			<dependency name="Casavehcorreios"/>
 			<dependency name="Casavehcorreios2"/>
 			<dependency name="FIXES_SetPlayerCheckpoint"/>
 			<dependency name="InfoMsg"/>
@@ -35500,6 +35487,7 @@
 			<dependency name="PosV"/>
 			<dependency name="SetPlayerAttachedObject"/>
 			<dependency name="acc_SetPlayerSpecialAction"/>
+			<dependency name="checkcasa"/>
 			<dependency name="false"/>
 			<dependency name="true"/>
 			<param name="playerid">
