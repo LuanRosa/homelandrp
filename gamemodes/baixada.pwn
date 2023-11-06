@@ -24533,3 +24533,73 @@ CMD:vault(playerid)
 	}
 	return 1;
 }
+
+/*
+CMD:habilitarsistemas(playerid)
+{
+
+	MEGAString[0] = EOS;
+	new Status[190];
+	if(CanalNoob == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
+	else if(CanalNoob == 1) format(Status, sizeof(Status), "{289928}Habilitado");
+	format(stringZCMD, sizeof(stringZCMD), "{848686}1341  {ffffff}Canal Duvida\t%s\t{888a8b}%s\n", Status, AlteracaoMS[0]);
+	strcat(MEGAString,stringZCMD);
+
+	if(bonusRP == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
+	else if(bonusRP == 1) format(Status, sizeof(Status), "{289928}Habilitado");
+	format(stringZCMD, sizeof(stringZCMD), "{848686}1341  {ffffff}Bônus Payday\t%s\t{888a8b}%s\n", Status, AlteracaoMS[1]);
+	strcat(MEGAString,stringZCMD);
+
+	if(MusicaLogin == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
+	else if(MusicaLogin == 1) format(Status, sizeof(Status), "{289928}Habilitado");
+	format(stringZCMD, sizeof(stringZCMD), "{848686}1341  {ffffff}Música no Login\t%s\t{888a8b}%s\n", Status, AlteracaoMS[7]);
+	strcat(MEGAString,stringZCMD);
+
+	if(ChatvSis == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
+	else if(ChatvSis == 1) format(Status, sizeof(Status), "{289928}Habilitado");
+	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}Chat VIP\t%s\t{888a8b}%s\n", Status, AlteracaoMS[10]);
+	strcat(MEGAString,stringZCMD);
+
+	if(AnuncioSis == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
+	else if(AnuncioSis == 1) format(Status, sizeof(Status), "{289928}Habilitado");
+	format(stringZCMD, sizeof(stringZCMD), "{848686}1341  {ffffff}Anúncio\t%s\t{888a8b}%s\n", Status, AlteracaoMS[12]);
+	strcat(MEGAString,stringZCMD);
+
+	if(HorarioVerao == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
+	else if(HorarioVerao == 1) format(Status, sizeof(Status), "{289928}Habilitado");
+	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}Horário de Verão\t%s\t{888a8b}%s\n", Status, AlteracaoMS[16]);
+	strcat(MEGAString,stringZCMD);
+
+	if(ChatServidor == 1) format(Status, sizeof(Status), "{fd5858}Desabilitado");
+	else if(ChatServidor == 0) format(Status, sizeof(Status), "{289928}Habilitado");
+ 	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}Chat do Servidor\t%s\t{888a8b}%s\n", Status, AlteracaoMS[20]);
+	strcat(MEGAString,stringZCMD);
+
+	if(MissoesSistema == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
+	else if(MissoesSistema == 1) format(Status, sizeof(Status), "{289928}Habilitado");
+	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}Sistema de Missões\t%s\t{888a8b}%s\n", Status, AlteracaoMS[21]);
+	strcat(MEGAString,stringZCMD);
+
+	if(LojaVIPSis == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
+	else if(LojaVIPSis == 1) format(Status, sizeof(Status), "{289928}Habilitado");
+	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}Loja VIP\t%s\t{888a8b}%s\n", Status, AlteracaoMS[22]);
+	strcat(MEGAString,stringZCMD);
+
+	if(CaixinhaSis == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
+	else if(CaixinhaSis == 1) format(Status, sizeof(Status), "{289928}Habilitado");
+	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}/Caixinha\t%s\t{888a8b}%s\n", Status, AlteracaoMS[23]);
+	strcat(MEGAString,stringZCMD);
+
+	if(GmxSis == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
+	else if(GmxSis == 1) format(Status, sizeof(Status), "{289928}Habilitado");
+	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}Reinicialização Automática (06:00H)\t%s\t{888a8b}%s\n", Status, AlteracaoMS[28]);
+	strcat(MEGAString,stringZCMD);
+
+	if(FomeSis == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
+	else if(FomeSis == 1) format(Status, sizeof(Status), "{289928}Habilitado");
+	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}Fome e Sede\t%s\t{888a8b}%s\n", Status, AlteracaoMS[28]);
+	strcat(MEGAString,stringZCMD);
+
+	ShowPlayerDialog(playerid, DIALOG_MENUSISTEMA, DIALOG_STYLE_TABLIST_HEADERS, "Permissão/Sistema\tStatus\tÚltima alteração", MEGAString, "Alternar", "Fechar");
+	return 1;
+}*/
