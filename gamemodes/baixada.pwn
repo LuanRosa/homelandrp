@@ -285,7 +285,9 @@ enum
 	DIALOG_MECANICACORES,
 	DIALOG_MECANICAPJ,
 	DIALOG_MECANICANITRO,
-	DIALOG_VEHHP
+	DIALOG_VEHHP,
+	DIALOG_AMMU,
+	DIALOG_JOALHERIA
 }
 
 //                          VARIAVEIS
@@ -304,6 +306,8 @@ new	CofreLoja1,
 	CofreLoja4,
 	CofreLoja5,
 	CofreRestaurante,
+	CofreAmmu,
+	CofreJoalheria,
 	CofreNiobio,
 	CofreGoverno,
 	CofreBanco;
@@ -313,7 +317,9 @@ new bool:RouboLoja1 = false,
 	bool:RouboLoja3 = false,
 	bool:RouboLoja4 = false,
 	bool:RouboLoja5 = false,
-	bool:RouboRestaurante = false;
+	bool:RouboRestaurante = false,
+	bool:RouboAmmu = false,
+	bool:RouboBanco = false;
 
 new GuerraBarragem = 0,
 	GuerraParabolica = 0;
@@ -773,8 +779,144 @@ new PlayerBar:Loadsc_b[MAX_PLAYERS][1];
 
 //                          FLOATS E LOCAIS DEFINIDOS
 
-new Float:PosRota[303][3] =
+new Float:PosFabricar[12][4] =
 {
+	{-2157.122314, -248.935806, 36.515625, 355.106536},//fabricar
+	{-2160.616699, -248.983566, 36.515625, 356.517822},//fabricar
+	{-2164.118164, -248.982788, 36.515625, 350.047882},//fabricar
+	{-2167.786865, -248.987106, 36.515625, 352.402282},//fabricar
+	{-2171.196289, -248.983810, 36.515625, 351.929931},//fabricar
+	{-2174.770263, -248.991104, 36.515625, 0.913645},//fabricar
+	{-2174.864746, -247.075210, 36.515625, 177.132965},//fabricar
+	{-2171.260986, -247.074645, 36.515625, 182.948501},//fabricar
+	{-2167.732177, -247.076126, 36.515625, 169.494232},//fabricar
+	{-2164.125732, -247.075317, 36.515625, 182.630996},//fabricar
+	{-2160.752685, -247.075744, 36.515625, 178.518249},//fabricar
+	{-2157.237304, -247.073394, 36.515625, 188.530838}//fabricar
+};
+
+new Float:PosRota[303+120][4] =
+{
+	{2105.142822, -1056.896972, 27.104923, 334.190032},//rota
+	{2808.172119, -1176.212036, 25.375709, 6.721523},//rota
+	{2413.960937, -1648.018310, 13.546875, 3.779785},//rota
+	{1828.053833, -1981.512207, 13.546875, 1.236697},//rota
+	{2486.439208, -2021.551391, 13.998847, 170.424621},//rota
+	{2627.643798, -1085.165039, 69.715583, 96.224319},//rota
+	{2499.515869, -947.000793, 82.470779, 9.152744},//rota
+	{2370.374023, -1034.556396, 54.410556, 16.894420},//rota
+	{2049.053710, -987.279113, 44.979995, 189.006240},//rota
+	{652.563232, -1694.180664, 14.556596, 308.196411},//rota
+	{316.009948, -1769.434448, 4.624336, 8.606946},//rota
+	{1122.712158, -2036.958984, 69.894241, 77.975959},//rota
+	{1673.576171, -2122.361816, 14.146014, 129.312576},//rota
+	{1938.541625, -1911.323852, 15.256797, 273.674987},//rota
+	{1863.500000, -1597.281982, 14.306245, 349.681976},//rota
+	{1421.985717, -886.168090, 50.684162, 158.072509},//rota
+	{1496.832275, -687.896484, 95.563308, 0.071326},//rota
+	{808.184692, -759.105285, 76.531364, 112.033973},//rota
+	{265.537292, -1287.906494, 74.632507, 31.694501},//rota
+	{251.043441, -1220.680175, 76.102371, 38.149269},//rota
+	{142.342193, -1470.140747, 25.210937, 152.830398},//rota
+	{692.881347, -1602.773559, 15.046875, 182.369766},//rota
+	{2207.988281, -1281.229492, 24.790222, 357.062744},//rota
+	{2230.570800, -1397.243041, 24.573816, 176.455566},//rota
+	{2256.607666, -1397.242309, 24.573816, 165.488800},//rota
+	{2433.933837, -1303.296142, 25.323432, 97.204864},//rota
+	{2469.183105, -1278.376220, 30.366352, 284.180511},//rota
+	{2470.370361, -1295.708862, 30.233222, 271.333740},//rota
+	{2476.431396, -1399.100341, 28.834783, 354.830169},//rota
+	{2637.103515, -1991.673706, 14.324020, 44.901271},//rota
+	{2673.415283, -2020.132934, 14.168166, 167.353073},//rota
+	{2696.104980, -1990.357910, 14.222853, 4.002864},//rota
+	{2787.068847, -1925.870971, 13.546875, 260.664550},//rota
+	{2013.578491, -1656.189941, 14.136316, 274.451354},//rota
+	{2018.243652, -1703.370849, 14.234375, 269.688598},//rota
+	{2067.049560, -1731.549804, 14.206628, 83.465164},//rota
+	{2139.307373, -1697.511718, 15.078443, 3.564362},//rota
+	{2158.308349, -1611.294433, 14.351449, 352.973815},//rota
+	{2143.577148, -1604.885986, 14.351562, 335.422027},//rota
+	{2492.364257, -1239.011108, 37.905414, 4.402642},//rota
+	{2473.031982, -1238.120361, 32.569477, 3.047417},//rota
+	{2467.482421, -1200.408691, 36.811664, 179.621017},//rota
+	{2520.607421, -1197.997680, 56.598068, 177.928298},//rota
+	{2550.326416, -1197.523437, 60.843387, 181.688186},//rota
+	{2587.396484, -1207.571166, 57.651489, 256.763671},//rota
+	{2781.949218, -1333.190307, 32.393020, 88.439308},//rota
+	{2809.398925, -1324.730834, 33.803436, 279.198425},//rota
+	{2807.982910, -1353.803588, 27.218326, 275.148590},//rota
+	{2798.112548, -1245.545410, 47.310150, 8.334819},//rota
+	{2776.016113, -1245.522216, 49.478694, 2.945435},//rota
+	{2750.388427, -1238.803710, 61.524539, 272.955261},//rota
+	{1183.475830, -1099.069946, 28.257812, 286.702758},//rota
+	{1141.808349, -1070.176513, 31.765625, 68.706687},//rota
+	{1196.490112, -1017.035034, 32.546875, 277.678985},//rota
+	{1291.841186, -903.073486, 42.882812, 271.161651},//rota
+	{1298.670166, -798.501220, 84.140625, 14.186517},//rota
+	{1332.234130, -633.461364, 109.134902, 202.610153},//rota
+	{1095.114501, -647.914184, 113.648437, 181.455490},//rota
+	{1045.107177, -642.948364, 120.117187, 188.012451},//rota
+	{980.258544, -677.402526, 121.976257, 210.137939},//rota
+	{645.739746, -1117.683349, 44.207038, 233.536376},//rota
+	{648.267456, -1058.757446, 52.579917, 238.400985},//rota
+	{673.011291, -1020.356811, 55.759605, 252.062393},//rota
+	{731.442626, -1012.945007, 52.737854, 337.289947},//rota
+	{785.862731, -828.598815, 70.289581, 192.967132},//rota
+	{890.956176, -783.256713, 101.313224, 204.019851},//rota
+	{946.155212, -710.783081, 122.619873, 210.161285},//rota
+	{898.144653, -677.044860, 116.890441, 56.775310},//rota
+	{2249.211181, -1060.201416, 55.968750, 129.719802},//rota
+	{2259.595703, -1018.911132, 59.298297, 45.306930},//rota
+	{2219.049560, -1031.898925, 60.264492, 122.802902},//rota
+	{2278.691162, -1077.391113, 48.241233, 160.027420},//rota
+	{2287.539550, -1080.894531, 48.094551, 186.410324},//rota
+	{2351.340087, -1170.345947, 28.059146, 215.174621},//rota
+	{2374.394042, -1139.079589, 29.058792, 345.459869},//rota
+	{2394.907226, -1133.538330, 30.718750, 355.737304},//rota
+	{2427.472167, -1135.771484, 34.710937, 357.805267},//rota
+	{2488.252929, -1135.236572, 39.585937, 346.799316},//rota
+	{2510.571289, -1132.578247, 41.620693, 282.377319},//rota
+	{2587.395996, -1229.575927, 51.190628, 286.638732},//rota
+	{2326.890869, -1682.118408, 14.929687, 97.321014},//rota
+	{2362.668457, -1644.137207, 13.531471, 5.137705},//rota
+	{2326.751464, -1716.702880, 14.237878, 351.703613},//rota
+	{2308.791992, -1714.330444, 14.980066, 353.332855},//rota
+	{2402.333007, -1714.922607, 14.132812, 346.087432},//rota
+	{2459.172607, -1691.659912, 13.550004, 178.327423},//rota
+	{2495.466552, -1691.134033, 14.765625, 185.283355},//rota
+	{2514.379394, -1691.541870, 14.046038, 240.743591},//rota
+	{2523.061279, -1679.131591, 15.496999, 263.241027},//rota
+	{2524.706542, -1658.782470, 15.824020, 259.919830},//rota
+	{2513.760742, -1650.289916, 14.355666, 302.909576},//rota
+	{2486.733398, -1644.535034, 14.077178, 3.634156},//rota
+	{2469.443359, -1646.348876, 13.780097, 7.080971},//rota
+	{2452.074218, -1641.413696, 14.066207, 359.498382},//rota
+	{2247.770263, -1469.336425, 24.480066, 14.977051},//rota
+	{2232.562500, -1469.334960, 24.581628, 40.921302},//rota
+	{2190.452148, -1470.578857, 25.914062, 82.469718},//rota
+	{2148.935302, -1484.948974, 26.623981, 272.374755},//rota
+	{2146.795898, -1470.571899, 26.042566, 265.042694},//rota
+	{2149.853515, -1433.892578, 26.070312, 284.383117},//rota
+	{2150.907226, -1419.281738, 25.921875, 282.816345},//rota
+	{2151.185302, -1400.772583, 26.128503, 273.792175},//rota
+	{2129.677978, -1361.687500, 26.136316, 356.011779},//rota
+	{2203.063720, -1363.671142, 26.191003, 5.686030},//rota
+	{2185.101318, -1363.707031, 26.159753, 326.769683},//rota
+	{2230.028320, -1280.066650, 25.628503, 7.691283},//rota
+	{2250.538818, -1280.046630, 25.476562, 4.996692},//rota
+	{2191.775146, -1239.227783, 24.487878, 190.131515},//rota
+	{2209.793457, -1239.847778, 24.149595, 189.755355},//rota
+	{2229.548339, -1241.610595, 25.656250, 186.747390},//rota
+	{2250.019042, -1238.915405, 25.898437, 165.691253},//rota
+	{2108.665771, -1082.221435, 25.489658, 135.195510},//rota
+	{2101.553710, -1075.805664, 25.927520, 138.642227},//rota
+	{2091.631835, -1068.241333, 28.085100, 133.127487},//rota
+	{2077.158447, -1056.885742, 31.345624, 149.044952},//rota
+	{2083.032226, -1039.789428, 32.093864, 326.056549},//rota
+	{2000.375000, -991.911865, 31.921875, 37.873291},//rota
+	{2007.298706, -984.636718, 34.460937, 23.585084},//rota
+	{2073.478515, -965.301513, 49.269283, 333.075347},//rota
+	{2089.455810, -996.076660, 53.019863, 180.417312},//rota
     {1189.3232,-1083.6021,29.2662},
     {2324.4709,-1218.8455,27.9766},
     {2438.6965,-1105.7920,43.0816},
@@ -1714,7 +1856,7 @@ Progresso:BatendoPorta(playerid, progress){
 		SetPVarFloat(playerid, "FindA", A);
 		format(txt,sizeof(txt),"%s",MsgSdx()); 
 		actorcorreios[playerid] = CreateActor(SkinActor, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),GetPVarFloat(playerid, "FindA")-180);
-		textcorreios[playerid] = CreateDynamic3DTextLabel(txt, 0x008080FF, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"), 15.0);
+		textcorreios[playerid] = CreateDynamic3DTextLabel(txt, -1, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"), 15.0);
 		Attach3DTextLabelToPlayer(textcorreios[playerid], actorcorreios[playerid], 0.0, 0.0, 0.7);
 		SetPlayerPos(playerid, X,Y,Z+1);
 		InfoMsg(playerid, "O morador saiu da casa, pegue a caixa no veiculo");
@@ -1757,7 +1899,7 @@ Progresso:EntregandoCx(playerid, progress){
 			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 			RemovePlayerAttachedObject(playerid, 1);
 			DestroyActor(actorcorreios[playerid]);
-			new Alt = random(303);
+			new Alt = random(303+120);
 			SuccesMsg(playerid, "Entrega feita passe para a proxima entrega.");
 			SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 1);
 			DestroyDynamic3DTextLabel(textcorreios[playerid]);
@@ -1797,7 +1939,7 @@ Progresso:ColocandoCaixa(playerid, progress){
 			TogglePlayerControllable(playerid, 1);
 			ClearAnimations(playerid);
 			SetPlayerSpecialAction(playerid, 0);
-			new Alt = random(303);
+			new Alt = random(303+120);
 			SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 0.5);
 			checkcasa[playerid] = true;
 			new engine, lights, alarm, doors, bonnet, boot, objective,idv = VeiculoCivil[playerid];
@@ -3873,6 +4015,8 @@ CallBack::SendMSG()
 	RouboLoja4 = false;
 	RouboLoja5 = false;
 	RouboRestaurante = false;
+	RouboBanco = false;
+	RouboAmmu = false;
 	return 1;
 }
 
@@ -4868,7 +5012,7 @@ Progresso:RoubarLoja(playerid, progress)
 {
 	if(progress >= 100)
 	{
-		if(PlayerToPoint(5.0, playerid, 1316.121826, -1113.496704, 24.960447))
+		if(PlayerToPoint(5.0, playerid, 800.242553, -1617.385986, 14.032936))
 		{
 			GanharItem(playerid, 1212, CofreRestaurante);
 			CofreRestaurante = 0;
@@ -4877,6 +5021,26 @@ Progresso:RoubarLoja(playerid, progress)
 			SetPlayerWantedLevel(playerid, GetPlayerWantedLevel(playerid)+3);
 			TogglePlayerControllable(playerid, 1);
 			RouboRestaurante = true;
+		}
+		if(PlayerToPoint(5.0, playerid, 1789.135253, -1921.435058, 14.287462))
+		{
+			GanharItem(playerid, 1212, CofreAmmu);
+			CofreAmmu = 0;
+			SuccesMsg(playerid, "Roubo efetuado com sucesso.");
+			ClearAnimations(playerid, 1);
+			SetPlayerWantedLevel(playerid, GetPlayerWantedLevel(playerid)+3);
+			TogglePlayerControllable(playerid, 1);
+			RouboAmmu = true;
+		}
+		if(PlayerToPoint(5.0, playerid, 1442.647583, -1120.358276, 23.959011))
+		{
+			GanharItem(playerid, 1212, CofreBanco);
+			CofreBanco = 0;
+			SuccesMsg(playerid, "Roubo efetuado com sucesso.");
+			ClearAnimations(playerid, 1);
+			SetPlayerWantedLevel(playerid, GetPlayerWantedLevel(playerid)+5);
+			TogglePlayerControllable(playerid, 1);
+			RouboBanco = true;
 		}
 		if(PlayerToPoint(5.0, playerid, 1359.730712, -1774.143798, 13.551797))
 		{
@@ -4980,7 +5144,7 @@ CallBack::RestoreCaixa(caixa_id)
 
 		CaixaInfo[caixa_id][Caixa_Roubada] = false;
 
-		Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], 0x33FFFFFF, "{FFFFFF}Caixa Registradora\nAperte '{5b6ed9}F{FFFFFF}' para acessar");
+		Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], -1, "{FFFFFF}Caixa Registradora\nAperte '{5b6ed9}F{FFFFFF}' para acessar");
 
 		GetDynamicObjectPos(CaixaInfo[caixa_id][Caixa_Object], px, py, pz);
 		GetDynamicObjectRot(CaixaInfo[caixa_id][Caixa_Object], rx, ry, rz);
@@ -5664,8 +5828,7 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 18645: name = "Capacete";
 		case 18870: name = "Celular";
 		case 11738: name = "Caixa Primeiros Socorros";
-		case 3027: name = "Maconha";
-		case 1279: name = "Cocaine";
+		case 1575: name = "Cocaina";
 		case 3930: name = "Crack";
 		case 3520: name = "Semente de Maconha";
 		case 19921: name = "Caixa de ferramentas";
@@ -5678,6 +5841,10 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 3016: name = "Caixa Basica";
 		case 3013: name = "Caixa Media";
 		case 19056: name = "Caixa Avancada";
+		case 854: name = "Pasta Base";
+		case 1279: name = "Embalagem";
+		case 2710: name = "Rolex";
+		case 1316: name = "Anel";
 		default: name = "Desconhecido";
 	}
 	return name;
@@ -6259,11 +6426,11 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 		}
 		case 1576:
 		{
-			for(new i; i < 303; i++)
+			for(new i; i < 303+120; i++)
 			if(IsPlayerInRangeOfPoint(playerid,2.0,PosRota[i][0],PosRota[i][1],PosRota[i][2]))
 			{
 				new dinma = randomEx(100, 2000);
-				new qtdka = randomEx(10, 80);
+				new qtdka = randomEx(10, 100);
 				new noti = randomEx(0, 2);
 				cmd_iniciarrotamaconha(playerid);
 				SuccesMsg(playerid, "Entrega feita, passe para a proxima rota.");
@@ -6287,12 +6454,12 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 		}
 		case 1575:
 		{
-			for(new i; i < 303; i++)
+			for(new i; i < 303+120; i++)
 			if(IsPlayerInRangeOfPoint(playerid,2.0,PosRota[i][0],PosRota[i][1],PosRota[i][2]))
 			{
 				cmd_inventario(playerid);
 				new dinma = randomEx(100, 2000);
-				new qtdka = randomEx(10, 80);
+				new qtdka = randomEx(10, 100);
 				new noti = randomEx(0, 2);
 				cmd_iniciarrotacocaina(playerid);
 				SuccesMsg(playerid, "Entrega feita, passe para a proxima rota.");
@@ -6308,6 +6475,34 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 						if(Patrulha[p] == true)
 						{
 							format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo vendendo entorpecentes em %s", location);
+							WarningMsg(p, Str);
+						}
+					}
+				}
+			}
+		}
+		case 1212:
+		{
+			if(IsPlayerInRangeOfPoint(playerid,2.0,1489.208862, -1719.420043, 8.242919))
+			{
+				cmd_inventario(playerid);
+				new noti = randomEx(0, 2);
+				PlayerInfo[playerid][pDinheiro] += PlayerInventario[playerid][modelid][Unidades]/2;
+				format(Str, sizeof(Str), "Lavagem feita, ganhou %s", ConvertMoney(PlayerInventario[playerid][modelid][Unidades]/2));
+				SuccesMsg(playerid, Str);
+				CofreNiobio += PlayerInventario[playerid][modelid][Unidades]/2;
+				SalvarDinRoubos();
+				PlayerInventario[playerid][modelid][Unidades] = 0;
+				AtualizarInventario(playerid, modelid);
+				new location[MAX_ZONE_NAME];
+				GetPlayer2DZone2(playerid, location, MAX_ZONE_NAME);
+				if(noti == 1)
+				{
+					foreach(new p: Player)
+					{
+						if(Patrulha[p] == true)
+						{
+							format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo lavando dinheiro em %s", location);
 							WarningMsg(p, Str);
 						}
 					}
@@ -6482,8 +6677,8 @@ IsValidItemInv(itemid) //AQUI VOCÊ DEVE DEFINIR OS ID'S DOS ITENS PARA SER VALI
 		18951, 19488, 18921, 18922, 18923, 18924, 18925, 18939, 18940, 18941, 18942, 18943, 11750,
 		1314, 19578, 18636, 19942, 18646, 19141, 19558, 19801, 19330, 1210, 19528, 1576, 370, 3016, 3013, 19056,
 		19134, 19904, 19515, 19142, 19315, 19527, 19317, 18688, 18702, 18728, 19605, 19606, 18632,
-		19607, 19577, 1485, 19574, 19575, 19576, 2703, 2880, 19883, 19896, 19897, 2768, 1212, 
-		2601, 19835, 2881, 2702, 2769, 2709, 19579, 19094, 1582, 19580, 19602, 11738, 
+		19607, 19577, 1485, 19574, 19575, 19576, 2703, 2880, 19883, 19896, 19897, 2768, 1212, 2710, 1316,
+		2601, 19835, 2881, 2702, 2769, 2709, 19579, 19094, 1582, 19580, 19602, 11738, 1575, 854,
 		1654, 11736, 1650, 1252, 19893, 19921, 2226, 19054, 19055, 19057,19058: return 1;
 	}
 	return 0;
@@ -6916,6 +7111,8 @@ stock CarregarDinRoubos()
 		CofreNiobio = DOF2_GetInt(controlFile, "Niobio");
 		CofreGoverno = DOF2_GetInt(controlFile, "Governo");
 		CofreBanco = DOF2_GetInt(controlFile, "Banco");
+		CofreAmmu = DOF2_GetInt(controlFile, "Ammu");
+		CofreJoalheria = DOF2_GetInt(controlFile, "Joalheria");
 	}
 	CofreLoja1 = DOF2_GetInt(controlFile, "Loja1");
 	CofreLoja2 = DOF2_GetInt(controlFile, "Loja2");
@@ -6926,6 +7123,8 @@ stock CarregarDinRoubos()
 	CofreNiobio = DOF2_GetInt(controlFile, "Niobio");
 	CofreGoverno = DOF2_GetInt(controlFile, "Governo");
 	CofreBanco = DOF2_GetInt(controlFile, "Banco");
+	CofreAmmu = DOF2_GetInt(controlFile, "Ammu");
+	CofreJoalheria = DOF2_GetInt(controlFile, "Joalheria");
 	return 1;
 }
 
@@ -6945,6 +7144,8 @@ stock SalvarDinRoubos()
 		DOF2_SetInt(controlFile, "Niobio", CofreNiobio);
 		DOF2_SetInt(controlFile, "Governo", CofreGoverno);
 		DOF2_SetInt(controlFile, "Banco", CofreBanco);
+		DOF2_SetInt(controlFile, "Ammu", CofreAmmu);
+		DOF2_SetInt(controlFile, "Joalheria", CofreJoalheria);
 	}
 	DOF2_SetInt(controlFile, "Loja1", CofreLoja1);
 	DOF2_SetInt(controlFile, "Loja2", CofreLoja2);
@@ -6955,6 +7156,8 @@ stock SalvarDinRoubos()
 	DOF2_SetInt(controlFile, "Niobio", CofreNiobio);
 	DOF2_SetInt(controlFile, "Governo", CofreGoverno);
 	DOF2_SetInt(controlFile, "Banco", CofreBanco);
+	DOF2_SetInt(controlFile, "Ammu", CofreAmmu);
+	DOF2_SetInt(controlFile, "Joalheria", CofreJoalheria);
     return 1;
 }
 
@@ -7488,6 +7691,8 @@ stock VaiProHospital(playerid)
 	FomePlayer[playerid] = 100;
 	SedePlayer[playerid] = 100;
 	RetirarItem(playerid, 1212);
+	RetirarItem(playerid, 854);
+	RetirarItem(playerid, 1279);
 	RetirarItem(playerid, 902);
 	RetirarItem(playerid, 19630);
 	RetirarItem(playerid, 1599);
@@ -7514,17 +7719,6 @@ stock VaiProHospital(playerid)
 	RetirarItem(playerid, 18632);
 	RetirarItem(playerid, 18645);
 	RetirarItem(playerid, 18644);
-
-	if(sphp == 0)
-	{
-    	SetPlayerPos(playerid, 1629.030639, -1123.190185, 24.769485);
-		SetPlayerFacingAngle(playerid, 175.770599);
-	}
-	if(sphp == 1)
-	{
-    	SetPlayerPos(playerid, 1628.926025, -1139.238525, 24.769485);
-		SetPlayerFacingAngle(playerid, 353.194946);
-	}
 	TogglePlayerControllable(playerid, true);
     ClearAnimations(playerid);
     for(new idx=0; idx<9; idx++){
@@ -7532,6 +7726,16 @@ stock VaiProHospital(playerid)
 	PlayerTextDrawHide(playerid, TDmorte_p[playerid][0]);
 	CancelSelectTextDraw(playerid);
 	InfoMsg(playerid, "Morreu e perdeu todo seu dinheiro e alguns itens do seu inventario.");
+	if(sphp == 0)
+	{
+    	SetPlayerPos(playerid, 1629.030639, -1123.190185, 24.769485);
+		SetPlayerFacingAngle(playerid, 175.770599);
+	}
+	else if(sphp == 1)
+	{
+    	SetPlayerPos(playerid, 1628.926025, -1139.238525, 24.769485);
+		SetPlayerFacingAngle(playerid, 353.194946);
+	}
 	return 1;
 }
 
@@ -10413,29 +10617,34 @@ stock NpcText()
 	Attach3DTextLabelToPlayer(label[8], Actor[8], 0.0, 0.0, 0.7);
 
 	CreateAurea("{5b6ed9}Prefeitura\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -501.146118, 294.354156, 2001.094970);
-	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1246.485839, -1651.083862, 17.028537);
-	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1246.481445, -1657.370727, 17.028537);
-	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1246.481811, -1662.939331, 17.028537);
-	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1246.484497, -1669.351562, 17.028537);
-	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1246.486816, -1675.575683, 17.028537);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1443.961181, -1138.289184, 23.958011);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1445.757080, -1136.793090, 23.958011);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1448.275756, -1134.693725, 23.958011);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1456.284912, -1128.022460, 23.958011);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1458.722656, -1125.988525, 23.958011);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1460.913208, -1124.163940, 23.958011);
 	CreateAurea("{5b6ed9}Hospital Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1646.425537, -1126.261474, 24.051115);
-	CreateAurea("{5b6ed9}Cafeteria\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1317.508422, -1116.722290, 24.960447);
+	CreateAurea("{5b6ed9}Subway\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 797.993225, -1618.977661, 14.032936);
 	CreateAurea("{5b6ed9}Loja de Utilidades 1\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1345.220703, -1763.755737, 13.551799);
 	CreateAurea("{5b6ed9}Loja de Utilidades 2\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1649.424316, -1889.373535, 13.569334);
 	CreateAurea("{5b6ed9}Loja de Utilidades 3\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 2064.488037, -1868.448364, 13.570810);
 	CreateAurea("{5b6ed9}Loja de Utilidades 4\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 382.998931, -1909.859863, 7.844120);
 	CreateAurea("{5b6ed9}Loja de Utilidades 5\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1325.427368, -867.394287, 39.597454);
+	CreateAurea("{5b6ed9}Centro de Licenca\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 617.717346, -3.359961, 1000.990295);
+	CreateAurea("{5b6ed9}Loja Ilegal\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 514.712341, -2333.011474, 508.693756);
+	CreateAurea("{5b6ed9}AmmuNation\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1785.501586, -1916.644165, 14.295277);
+	CreateAurea("{5b6ed9}Joalheria\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 468.658203, -1517.271606, 20.477876);
 	// LOCAIS ROUBO
 	CreateAurea("{5b6ed9}Loja de Utilidades 1\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1359.730712, -1774.143798, 13.551797);
 	CreateAurea("{5b6ed9}Loja de Utilidades 2\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1663.732910, -1899.628295, 13.569333);
 	CreateAurea("{5b6ed9}Loja de Utilidades 3\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 2054.306152, -1882.930908, 13.570812);
 	CreateAurea("{5b6ed9}Loja de Utilidades 4\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 393.256683, -1895.677734, 7.844118);
 	CreateAurea("{5b6ed9}Loja de Utilidades 5\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1311.017944, -856.895690, 39.597454);
-	CreateAurea("{5b6ed9}Cafeteria\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1316.121826, -1113.496704, 24.960447);
+	CreateAurea("{5b6ed9}Subway\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 800.242553, -1617.385986, 14.032936);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1442.647583, -1120.358276, 23.959011);
+	CreateAurea("{5b6ed9}AmmuNation\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1789.135253, -1921.435058, 14.287462);
 	//----
-	CreateAurea("{5b6ed9}Centro de Licenca\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 617.717346, -3.359961, 1000.990295);
-	CreateAurea("{5b6ed9}Loja Ilegal\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 514.712341, -2333.011474, 508.693756);
-
+	
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nprocessar a peca de carne.", 942.577758, 2117.902099, 1011.030273);
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \npegar uma embalagem.", 938.006469, 2144.264892, 1011.023437);
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncolocar a carne na caixa.",942.416259, 2137.294921, 1011.023437);
@@ -10467,7 +10676,8 @@ stock NpcText()
 
 	CreateAurea("{5b6ed9}Rota de Maconha\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -1143.184814, 2227.874511, 97.219261);
 	CreateAurea("{5b6ed9}Rota de Cocaina\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -248.257873, 1506.404418, 75.562500);
-
+	CreateAurea("{5b6ed9}Lavagem\n{FFFFFF}Utilize '{5b6ed9}Dinheiro Sujo{FFFFFF}' para \nefetuar a lavagem.", 1489.208862, -1719.420043, 8.242919);
+	
 	CreateAurea("{5b6ed9}Material\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar um material.", 1273.534545, -1292.359985, 13.481081);
 	CreateAurea("{5b6ed9}Material\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para deixar o material.", 1257.569458, -1263.111206, 17.821365);
 
@@ -11404,6 +11614,10 @@ public OnGameModeInit()
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para\ncomecar a pescar.", -1, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2], 15.0);
 	}
+	for(new i; i < 12; i++)
+	{
+		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para\ncomecar a fabricar cocaina.", -1, PosFabricar[i][0], PosFabricar[i][1], PosFabricar[i][2], 15.0);
+	}
 	for(new i; i < 8; i++)
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para \niniciar o desossamento.", -1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2], 15.0);
@@ -11628,7 +11842,7 @@ public OnPlayerDisconnect(playerid, reason)
 		SalvarMissoes(playerid);
 		SalvarInventario(playerid);
 		SalvarAvaliacao(playerid);
-		DestroyVehicle(VeiculoCivil[playerid]);
+		cmd_dveiculo(playerid);
 		KillTimer(TimerFomebar[playerid]);
 		KillTimer(TimerSedebar[playerid]);
 		KillTimer(TimerUpdate[playerid]);
@@ -11638,14 +11852,6 @@ public OnPlayerDisconnect(playerid, reason)
 		KillTimer(TimerPayDay[playerid]);
 		KillTimer(TimerAttVeh[playerid]);
 		KillTimer(TimerHacker[playerid]);
-		if(PegouVehProf[playerid] == true){
-			if(PlayerInfo[playerid][pProfissao] == 8){
-				for(new o=0;o<10;o++){
-					DestroyDynamicObject(sdxobj[o]); 
-				}
-				DestroyVehicle(VeiculoCivil[playerid]);
-			}
-		}
 		if(Patrulha[playerid] == true) 
 		{
 			policiaon --;
@@ -13536,6 +13742,23 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		return 1;
  	}
+	if(newkeys == KEY_CROUCH)
+	{
+		if(PlayerToPoint(5.0, playerid, 1001.463684, 1755.690063, 10.937376))
+		{
+			if(PlayerInfo[playerid][pProfissao] == 8)
+			{
+				cmd_abrircorreios(playerid);
+			}
+		}
+		if(PlayerToPoint(5.0, playerid, 991.318847, 1710.615966, 10.100306))
+		{
+			if(PlayerInfo[playerid][pProfissao] == 8)
+			{
+				cmd_abrircorreios2(playerid);
+			}
+		}
+	}
 	if(newkeys == KEY_CTRL_BACK)
 	{
 		cmd_roubar(playerid);
@@ -13559,20 +13782,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 ErrorMsg(playerid, "Voce nao e um Criminoso");
                 return 1;
             }
-		}
-		if(PlayerToPoint(5.0, playerid, 1001.463684, 1755.690063, 10.937376))
-		{
-			if(PlayerInfo[playerid][pProfissao] == 8)
-			{
-				cmd_abrircorreios(playerid);
-			}
-		}
-		if(PlayerToPoint(5.0, playerid, 991.318847, 1710.615966, 10.100306))
-		{
-			if(PlayerInfo[playerid][pProfissao] == 8)
-			{
-				cmd_abrircorreios2(playerid);
-			}
 		}
 		if(PlayerToPoint(3.0, playerid, 1683.301391, -2311.982910, 13.546875))
 		{
@@ -14028,9 +14237,9 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 514.767089, -2334.465820, 508.693756))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_LIST,"Loja Ilegal", "{5b6ed9}- {FFFFFF}Dinamite\t{32CD32}R$25000\n{5b6ed9}- {FFFFFF}Sementes de Maconha\t{32CD32}R$1000\n{5b6ed9}- {FFFFFF}LockPick\t{32CD32}R$15000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_LIST,"Loja Ilegal", "{5b6ed9}- {FFFFFF}Dinamite\t{32CD32}R$25000\n{5b6ed9}- {FFFFFF}Sementes de Maconha\t{32CD32}R$5000\n{5b6ed9}- {FFFFFF}LockPick\t{32CD32}R$15000\n{5b6ed9}- {FFFFFF}Pasta Base\t{32CD32}R$4000", "Selecionar","X");
 		}
-		if(PlayerToPoint(3.0, playerid, 1246.486816, -1675.575683, 17.028537) || PlayerToPoint(3.0, playerid, 1246.484497, -1669.351562, 17.028537) || PlayerToPoint(3.0, playerid,  1246.481811, -1662.939331, 17.028537) || PlayerToPoint(3.0, playerid, 1246.481445, -1657.370727, 17.028537) || PlayerToPoint(3.0, playerid, 1246.485839, -1651.083862, 17.028537))
+		if(PlayerToPoint(3.0, playerid, 1460.913208, -1124.163940, 23.958011) || PlayerToPoint(3.0, playerid, 1458.722656, -1125.988525, 23.958011) || PlayerToPoint(3.0, playerid,  1456.284912, -1128.022460, 23.958011) || PlayerToPoint(3.0, playerid, 1448.275756, -1134.693725, 23.958011) || PlayerToPoint(3.0, playerid, 1445.757080, -1136.793090, 23.958011))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
 			for(new i; i < 34; i++)
@@ -14039,10 +14248,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			}
 			SelectTextDraw(playerid, 0xFF0000FF);
 		}
-		if(PlayerToPoint(3.0, playerid, 1317.508422, -1116.722290, 24.960447))
+		if(PlayerToPoint(3.0, playerid, 797.993225, -1618.977661, 14.032936))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_CATLANCHE, DIALOG_STYLE_LIST, "Cafeteria", "{5b6ed9}- {FFFFFF}Alimentos\n{5b6ed9}- {FFFFFF}Refrescos", "Selecionar", "X");
+			ShowPlayerDialog(playerid, DIALOG_CATLANCHE, DIALOG_STYLE_LIST, "Subway", "{5b6ed9}- {FFFFFF}Alimentos\n{5b6ed9}- {FFFFFF}Refrescos", "Selecionar", "X");
 		}
 		if(PlayerToPoint(2.0, playerid, 617.928100, -1.965069, 1001.040832))
 		{
@@ -14060,12 +14269,22 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 1649.4332,-1889.2966,13.5878) || PlayerToPoint(3.0, playerid, 2064.6821,-1868.5961,13.5892) || PlayerToPoint(3.0, playerid, 382.9478,-1909.8621,7.8625) || PlayerToPoint(3.0, playerid, 1325.4236,-867.3035,39.6159) || PlayerToPoint(3.0, playerid, 1345.2196,-1763.8044,13.5702))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_LOJA247, DIALOG_STYLE_LIST,"Loja de Utilidades", "{5b6ed9}- {FFFFFF}Celular\t{32CD32}R$1500\n{5b6ed9}- {FFFFFF}Vara de Pescar\t{32CD32}R$300\n{5b6ed9}- {FFFFFF}Capacete\t{32CD32}R$500\n{5b6ed9}- {FFFFFF}Chaira\t{32CD32}R$150", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_LOJA247, DIALOG_STYLE_LIST,"Loja de Utilidades\tValor", "{5b6ed9}- {FFFFFF}Celular\t{32CD32}R$1500\n{5b6ed9}- {FFFFFF}Capacete\t{32CD32}R$500\n{5b6ed9}- {FFFFFF}Embalagem\t{32CD32}R$1000", "Selecionar","X");
+		}
+		if(PlayerToPoint(3.0, playerid, 1785.501586, -1916.644165, 14.295277))
+		{
+			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
+			ShowPlayerDialog(playerid, DIALOG_AMMU, DIALOG_STYLE_LIST,"AmmuNation\tValor", "{5b6ed9}- {FFFFFF}Vara de Pescar\t{32CD32}R$300\n{5b6ed9}- {FFFFFF}Chaira\t{32CD32}R$150\n{5b6ed9}- {FFFFFF}Faca\t{32CD32}R$5000", "Selecionar","X");
+		}
+		if(PlayerToPoint(3.0, playerid, 468.658203, -1517.271606, 20.477876))
+		{
+			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
+			ShowPlayerDialog(playerid, DIALOG_JOALHERIA, DIALOG_STYLE_LIST,"Joalheria\tValor", "{5b6ed9}- {FFFFFF}Rolex\t{32CD32}R$15000\n{5b6ed9}- {FFFFFF}Anel\t{32CD32}R$30000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 1646.425537, -1126.261474, 24.051115))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_LOJAHP, DIALOG_STYLE_LIST,"Loja do Hospital", "{5b6ed9}- {FFFFFF}Bandagem\t{32CD32}R$200", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_LOJAHP, DIALOG_STYLE_LIST,"Loja do Hospital\tValor", "{5b6ed9}- {FFFFFF}Bandagem\t{32CD32}R$200", "Selecionar","X");
 		}
 		for(new i; i < 4; i++)
 		if(PlayerToPoint(3.0, playerid, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]))
@@ -15742,17 +15961,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 0)
 				{
 					new Float:a = GetPlayerDistanceFromPoint(playerid, 1481.094482, -1772.313720, 18.795755);
-					new Float:b = GetPlayerDistanceFromPoint(playerid, 1284.393920, -1654.818237, 13.544199);
+					new Float:b = GetPlayerDistanceFromPoint(playerid, 1456.284912, -1128.022460, 23.958011);
 					new Float:c = GetPlayerDistanceFromPoint(playerid, 1638.175415, -1134.294311, 24.051120);
 					new Float:d = GetPlayerDistanceFromPoint(playerid, 1649.4332,-1889.2966,13.5878);
 					new Float:e = GetPlayerDistanceFromPoint(playerid, 2064.6821,-1868.5961,13.5892);
 					new Float:f = GetPlayerDistanceFromPoint(playerid, 382.9478,-1909.8621,7.8625);
 					new Float:g = GetPlayerDistanceFromPoint(playerid, 1081.261840, -1696.785888, 13.546875);
-					new Float:h = GetPlayerDistanceFromPoint(playerid, 1317.508422, -1116.722290, 24.960447);
+					new Float:h = GetPlayerDistanceFromPoint(playerid, 797.993225, -1618.977661, 14.032936);
 					new Float:i = GetPlayerDistanceFromPoint(playerid, -1973.108276, 288.896331, 35.171875);
-					new Float:m = GetPlayerDistanceFromPoint(playerid, 2333.359130, -1883.562255, 15.000000);
+					new Float:m = GetPlayerDistanceFromPoint(playerid, 1785.501586, -1916.644165, 14.295277);
 					new Float:n = GetPlayerDistanceFromPoint(playerid, 1325.4236,-867.3035,39.6159);
 					new Float:o = GetPlayerDistanceFromPoint(playerid, 1345.2196,-1763.8044,13.5702);
+					new Float:p = GetPlayerDistanceFromPoint(playerid, 468.658203, -1517.271606, 20.477876);
 					MEGAString[0] = EOS;
 					new string[800];
 					strcat(MEGAString, "Local\tDistancia\n");
@@ -15774,15 +15994,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Centro de Licencas \t{5b6ed9} %.0f KM\n", g);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Cafeteria \t{5b6ed9} %.0f KM\n", h);
+					format(string, 128, "{FFFFFF} Subway \t{5b6ed9} %.0f KM\n", h);
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Concessionaria \t{5b6ed9} %.0f KM\n", i);
 					strcat(MEGAString,string);
-					if(IsBandido(playerid))
-					{
-						format(string, 128, "{00FFFF} Navio de materiais \t{5b6ed9} %.0f KM\n", m);
-						strcat(MEGAString,string);
-					}
+					format(string, 128, "{00FFFF} AmmuNation \t{5b6ed9} %.0f KM\n", m);
+					strcat(MEGAString,string);
+					format(string, 128, "{00FFFF} Joalheria \t{5b6ed9} %.0f KM\n", p);
+					strcat(MEGAString,string);
 					ShowPlayerDialog(playerid, DIALOG_GPS1, DIALOG_STYLE_TABLIST_HEADERS, "Locais Importantes", MEGAString, "Localizar","X");
 				}
 				if(listitem == 1)
@@ -15979,7 +16198,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid,1284.393920, -1654.818237, 13.544199, 8.0);
+					SetPlayerCheckpoint(playerid,1456.284912, -1128.022460, 23.958011, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 2)
@@ -16035,7 +16254,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1317.508422, -1116.722290, 24.960447, 8.0);
+					SetPlayerCheckpoint(playerid, 797.993225, -1618.977661, 14.032936, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 10)
@@ -16050,7 +16269,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 2333.359130, -1883.562255, 15.000000, 8.0);
+					SetPlayerCheckpoint(playerid, 1785.501586, -1916.644165, 14.295277, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 12)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, 468.658203, -1517.271606, 20.477876, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 			}
@@ -16563,6 +16789,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				DisablePlayerRaceCheckpoint(playerid);
 				DisablePlayerCheckpoint(playerid);
 				PlayerInfo[playerid][pDinheiro] -= 4000;
+				CofreGoverno += 4000;
 				IniciouTesteHabilitacaoB[playerid] = 1;
 				RotaHabilitacaoVeiculo[playerid] = 1;
 				CheckpointPontosVeiculo[playerid] = 1;
@@ -17134,20 +17361,35 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Compro uma Dinamite.");
 					PlayerInfo[playerid][pDinheiro] -= 25000;
 					GanharItem(playerid, 1654, 1);
+					CofreNiobio += 25000;
+					SalvarDinRoubos();
 				}
 				if(listitem == 1)
 				{
-					if(PlayerInfo[playerid][pDinheiro] < 1000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 5000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Compro uma semente.");
-					PlayerInfo[playerid][pDinheiro] -= 1000;
+					PlayerInfo[playerid][pDinheiro] -= 5000;
 					GanharItem(playerid, 3520, 1);
+					CofreNiobio += 5000;
+					SalvarDinRoubos();
 				}
-				if(listitem == 1)
+				if(listitem == 2)
 				{
 					if(PlayerInfo[playerid][pDinheiro] < 15000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Compro uma lockpick.");
 					PlayerInfo[playerid][pDinheiro] -= 15000;
 					GanharItem(playerid, 11746, 1);
+					CofreNiobio += 15000;
+					SalvarDinRoubos();
+				}
+				if(listitem == 3)
+				{
+					if(PlayerInfo[playerid][pDinheiro] < 4000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Compro Pasta Base.");
+					PlayerInfo[playerid][pDinheiro] -= 4000;
+					GanharItem(playerid, 854, 1);
+					CofreNiobio += 4000;
+					SalvarDinRoubos();
 				}
 			}
 		}
@@ -17339,6 +17581,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerInfo[playerid][pDinheiro] < 1200) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					PlayerInfo[playerid][pDinheiro] -= 1200;
 					GanharItem(playerid, 19921, 1);
+					CofreGoverno += 1200;
 					SuccesMsg(playerid, "Comprou uma caixa de ferramientas.");
 				}
 				if(listitem == 1)
@@ -17346,6 +17589,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerInfo[playerid][pDinheiro] < 15000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					PlayerInfo[playerid][pDinheiro] -= 15000;
 					GanharItem(playerid, 1010, 1);
+					CofreGoverno += 15000;
 					SuccesMsg(playerid, "Comprou una kit de tunagem.");
 				}
 			}
@@ -18318,6 +18562,63 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				return 1;
 			}
 		}
+		case DIALOG_JOALHERIA:
+		{
+			if(response)
+			{
+				if(listitem == 0)
+				{
+					if(PlayerInfo[playerid][pDinheiro] < 15000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Item comprado.");
+					PlayerInfo[playerid][pDinheiro] -= 15000;
+					GanharItem(playerid, 2710, 1);
+					CofreJoalheria += 15000;
+					SalvarDinRoubos();
+				}
+				if(listitem == 1)
+				{
+					if(PlayerInfo[playerid][pDinheiro] < 30000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Item comprado.");
+					PlayerInfo[playerid][pDinheiro] -= 30000;
+					GanharItem(playerid, 1316, 1);
+					CofreJoalheria += 30000;
+					SalvarDinRoubos();
+				}
+			}
+		}
+		case DIALOG_AMMU:
+		{
+			if(response)
+			{
+				if(listitem == 0)
+				{
+					if(PlayerInfo[playerid][pDinheiro] < 300) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Item comprado.");
+					PlayerInfo[playerid][pDinheiro] -= 300;
+					GanharItem(playerid, 18632, 1);
+					CofreAmmu += 300;
+					SalvarDinRoubos();
+				}
+				if(listitem == 1)
+				{
+					if(PlayerInfo[playerid][pDinheiro] < 150) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Item comprado.");
+					PlayerInfo[playerid][pDinheiro] -= 150;
+					GanharItem(playerid, 18644, 1);
+					CofreAmmu += 150;
+					SalvarDinRoubos();
+				}
+				if(listitem == 2)
+				{
+					if(PlayerInfo[playerid][pDinheiro] < 5000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Item comprado.");
+					PlayerInfo[playerid][pDinheiro] -= 5000;
+					GanharItem(playerid, 335, 1);
+					CofreAmmu += 5000;
+					SalvarDinRoubos();
+				}
+			}
+		}
 		case DIALOG_LOJA247:
 		{
 			if(response)
@@ -18353,34 +18654,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 1)
 				{
-					if(PlayerInfo[playerid][pDinheiro] < 300) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
-					SuccesMsg(playerid, "Item comprado.");
-					PlayerInfo[playerid][pDinheiro] -= 300;
-					GanharItem(playerid, 18632, 1);
-					if(PlayerToPoint(10.0, playerid, 1345.220703, -1763.755737, 13.551799))
-					{
-						CofreLoja1 += 300;
-					}
-					if(PlayerToPoint(10.0, playerid, 1649.424316, -1889.373535, 13.569334))
-					{
-						CofreLoja2 += 300;
-					}
-					if(PlayerToPoint(10.0, playerid, 2064.488037, -1868.448364, 13.570810))
-					{
-						CofreLoja3 += 300;
-					}
-					if(PlayerToPoint(10.0, playerid, 382.998931, -1909.859863, 7.844120))
-					{
-						CofreLoja4 += 300;
-					}
-					if(PlayerToPoint(10.0, playerid, 1325.427368, -867.394287, 39.597454))
-					{
-						CofreLoja5 += 300;
-					}
-					SalvarDinRoubos();
-				}
-				if(listitem == 2)
-				{
 					if(PlayerInfo[playerid][pDinheiro] < 500) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Item comprado.");
 					PlayerInfo[playerid][pDinheiro] -= 500;
@@ -18407,31 +18680,31 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					SalvarDinRoubos();
 				}
-				if(listitem == 3)
+				if(listitem == 2)
 				{
-					if(PlayerInfo[playerid][pDinheiro] < 150) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 1000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Item comprado.");
-					PlayerInfo[playerid][pDinheiro] -= 150;
-					GanharItem(playerid, 18644, 1);
+					PlayerInfo[playerid][pDinheiro] -= 1000;
+					GanharItem(playerid, 1279, 1);
 					if(PlayerToPoint(10.0, playerid, 1345.220703, -1763.755737, 13.551799))
 					{
-						CofreLoja1 += 150;
+						CofreLoja1 += 1000;
 					}
 					if(PlayerToPoint(10.0, playerid, 1649.424316, -1889.373535, 13.569334))
 					{
-						CofreLoja2 += 150;
+						CofreLoja2 += 1000;
 					}
 					if(PlayerToPoint(10.0, playerid, 2064.488037, -1868.448364, 13.570810))
 					{
-						CofreLoja3 += 150;
+						CofreLoja3 += 1000;
 					}
 					if(PlayerToPoint(10.0, playerid, 382.998931, -1909.859863, 7.844120))
 					{
-						CofreLoja4 += 150;
+						CofreLoja4 += 1000;
 					}
 					if(PlayerToPoint(10.0, playerid, 1325.427368, -867.394287, 39.597454))
 					{
-						CofreLoja5 += 150;
+						CofreLoja5 += 1000;
 					}
 					SalvarDinRoubos();
 				}
@@ -18447,6 +18720,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Item comprado.");
 					PlayerInfo[playerid][pDinheiro] -= 200;
 					GanharItem(playerid, 11736, 1);
+					CofreGoverno += 200;
 				}
 			}
 		}
@@ -18679,6 +18953,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		if(ModoTransacao[playerid] == 0) 			return ErrorMsg(playerid, "Voce precisa selecionar a operacao.");
 		if(ModoTransacao[playerid] == 1)
 		{
+			if(CofreBanco < GetPVarInt(playerid, "QtdTransacao")) 			return ErrorMsg(playerid, "O Banco nao consegue liberar o valor requerido.");
 			if(PlayerInfo[playerid][pBanco] < GetPVarInt(playerid, "QtdTransacao")) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 			PlayerInfo[playerid][pDinheiro] += GetPVarInt(playerid, "QtdTransacao");
 			PlayerInfo[playerid][pBanco] -= GetPVarInt(playerid, "QtdTransacao");
@@ -18698,6 +18973,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 	}
 	if(playertextid == BancoTD[playerid][31])
 	{
+		if(CofreBanco < 50000) 			return ErrorMsg(playerid, "O Banco nao consegue liberar o valor requerido.");
 		if(PlayerInfo[playerid][pBanco] < 50000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 		PlayerInfo[playerid][pDinheiro] += 50000;
 		PlayerInfo[playerid][pBanco] -= 50000;
@@ -18707,6 +18983,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 	}
 	if(playertextid == BancoTD[playerid][32])
 	{
+		if(CofreBanco < 100000) 			return ErrorMsg(playerid, "O Banco nao consegue liberar o valor requerido.");
 		if(PlayerInfo[playerid][pBanco] < 100000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 		PlayerInfo[playerid][pDinheiro] += 100000;
 		PlayerInfo[playerid][pBanco] -= 100000;
@@ -18716,6 +18993,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 	}
 	if(playertextid == BancoTD[playerid][33])
 	{
+		if(CofreBanco < 5000) 			return ErrorMsg(playerid, "O Banco nao consegue liberar o valor requerido.");
 		if(PlayerInfo[playerid][pBanco] < 5000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 		PlayerInfo[playerid][pDinheiro] += 5000;
 		PlayerInfo[playerid][pBanco] -= 5000;
@@ -21193,17 +21471,46 @@ CMD:prender(playerid, params[])
 					if(Numero != 0)
 					{
 						new randval = randomEx(500,1200),str[128];
-						PlayerInfo[playerid][pBanco] = randval;
+						PlayerInfo[playerid][pBanco] += randval;
 						format(str,sizeof(str),"Voce recebeu uma bonificacao de (R$%i) pela apreensao do individuo.",randval);
 						PlayerInfo[i][pCadeia] = Numero * 60;
 						SetPlayerPos(i, 322.197998,302.497985,999.148437);
 						SetPlayerInterior(i, 5);
 						SetPlayerVirtualWorld(i, 0);
-						InfoMsg(playerid, "Preso por cometer delitos.");
-						SetPlayerWantedLevel(playerid, 0);
+						InfoMsg(i, "Preso por cometer delitos.");
+						SetPlayerWantedLevel(i, 0);
 						TogglePlayerControllable(i, true);
 						RemovePlayerFromVehicle(i);
-						ResetPlayerWeapons(playerid);
+						ResetPlayerWeapons(i);
+						RetirarItem(i, 1212);
+						RetirarItem(i, 854);
+						RetirarItem(i, 1279);
+						RetirarItem(i, 902);
+						RetirarItem(i, 19630);
+						RetirarItem(i, 1599);
+						RetirarItem(i, 1600);
+						RetirarItem(i, 1603);
+						RetirarItem(i, 1604);
+						RetirarItem(i, 1608);
+						RetirarItem(i, 1576);
+						RetirarItem(i, 1654);
+						RetirarItem(i, 2218);
+						RetirarItem(i, 2355);
+						RetirarItem(i, 2219);
+						RetirarItem(i, 2220);
+						RetirarItem(i, 1484);
+						RetirarItem(i, 1644);
+						RetirarItem(i, 1546);
+						RetirarItem(i, 2601);
+						RetirarItem(i, 3520);
+						RetirarItem(i, 11746);
+						RetirarItem(i, 19921);
+						RetirarItem(i, 1010);
+						RetirarItem(i, 18870);
+						RetirarItem(i, 11736);
+						RetirarItem(i, 18632);
+						RetirarItem(i, 18645);
+						RetirarItem(i, 18644);
 						TogglePlayerControllable(i, false);
 						SetTimerEx("carregarobj", 5000, 0, "i", i);
 
@@ -23659,7 +23966,7 @@ CMD:trazercofre(playerid, params[])
 
 CMD:iniciarrotamaconha(playerid)
 {
-	new Alt = randomEx(0,303);
+	new Alt = randomEx(0,303+120);
 	SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 0.5);
 	InfoMsg(playerid, "Rota iniciada, fa�a a entrega no local marcado. use /cancelarrota.");
 	RotaMaconha[playerid] = true;
@@ -23668,7 +23975,7 @@ CMD:iniciarrotamaconha(playerid)
 
 CMD:iniciarrotacocaina(playerid)
 {
-	new Alt = randomEx(0,303);
+	new Alt = randomEx(0,303+120);
 	SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 0.5);
 	InfoMsg(playerid, "Rota iniciada, fa�a a entrega no local marcado. use /cancelarrota.");
 	RotaMaconha[playerid] = true;
@@ -23817,15 +24124,15 @@ CMD:roubar(playerid)
 			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 5.");
 			return 1;
 		}
-		if(PlayerToPoint(5.0, playerid, 1316.121826, -1113.496704, 24.960447))
+		if(PlayerToPoint(5.0, playerid, 800.242553, -1617.385986, 14.032936))
 		{
-			if(RouboRestaurante == true)return ErrorMsg(playerid, "Esta cafeteria ja roubado.");
+			if(RouboRestaurante == true)return ErrorMsg(playerid, "Esta Subway ja roubado.");
 			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
 
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 				
-			CreateProgress(playerid, "RoubarLoja","Roubando caixa cafeteria...", 1000);
+			CreateProgress(playerid, "RoubarLoja","Roubando caixa Subway...", 1000);
 			
 			if(noti == 1)
 			{
@@ -23833,14 +24140,66 @@ CMD:roubar(playerid)
 				{
 					if(Patrulha[i] == true)
 					{
-						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Cafeteria");
+						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Subway");
 						WarningMsg(i, Str);
 					}
 				}
 			}
-			InfoMsg(playerid, "Voce comecou a roubar a Cafeteria.");
+			InfoMsg(playerid, "Voce comecou a roubar a Subway.");
 			return 1;
 		}
+		if(PlayerToPoint(5.0, playerid, 1442.647583, -1120.358276, 23.959011))
+		{
+			if(RouboBanco == true)return ErrorMsg(playerid, "O Banco ja foi roubado.");
+			if(policiaon < 6) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
+				
+			CreateProgress(playerid, "RoubarLoja","Roubando Banco...", 1000);
+			
+			if(noti == 1)
+			{
+				foreach(Player, i)
+				{
+					if(Patrulha[i] == true)
+					{
+						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar o Banco");
+						WarningMsg(i, Str);
+					}
+				}
+			}
+			InfoMsg(playerid, "Voce comecou a roubar o Banco.");
+			return 1;
+		}
+		if(PlayerToPoint(5.0, playerid, 1789.135253, -1921.435058, 14.287462))
+		{
+			if(RouboAmmu == true)return ErrorMsg(playerid, "A AmmuNation ja foi roubado.");
+			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
+				
+			CreateProgress(playerid, "RoubarLoja","Roubando AmmuNation...", 1000);
+			
+			if(noti == 1)
+			{
+				foreach(Player, i)
+				{
+					if(Patrulha[i] == true)
+					{
+						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a AmmuNation");
+						WarningMsg(i, Str);
+					}
+				}
+			}
+			InfoMsg(playerid, "Voce comecou a roubar o AmmuNation.");
+			return 1;
+		}
+	}
+	else
+	{
+		ErrorMsg(playerid, "Voce precisa ter armas para roubar.");
 	}
 	return 1;	
 }
@@ -24148,11 +24507,29 @@ CMD:abrircorreios(playerid)
 {
 	MoveDynamicObject(mapsdxzx[0], 998.093994, 1755.689941, 8.265600,2.0);
 	SetTimer("FecharCorreios", 5000, false);
+	return 1;
 }
 
 CMD:abrircorreios2(playerid)
 {
 	MoveDynamicObject(mapsdxzx[1], 997.046997, 1710.949951, 8.265600,2.0);
 	SetTimer("FecharCorreios2", 5000, false);
+	return 1;
 }
 
+CMD:vault(playerid)
+{
+	if(vaultState)
+	{
+	    //Close Vault
+	    vaultState = false;
+	    MoveDynamicObject(vaultDoor, 1444.822631, -1124.319946, 24.488027-0.0001, 0.0001, 0.000000, 0.000000, 579.799987);
+	}
+	else
+	{
+	    //Open Vault
+	    vaultState = true;
+	    MoveDynamicObject(vaultDoor, 1444.822631, -1124.319946, 24.488027+0.0001, 0.0001, 0.000000, 0.000000, 127.799964);
+	}
+	return 1;
+}
