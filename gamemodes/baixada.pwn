@@ -1670,13 +1670,27 @@ CallBack:: EstaSegurandoArmaProibida(playerid)
 }
 
 stock MsgSdx(){
-	new msg = random(5),retorno[148];
-	if(msg == 0) retorno = "{FFFF00}Morador(a)\n{FFFFFF}Ola, obrigado por trazer minha encomenda!";
-	if(msg == 1) retorno = "{FFFF00}Morador(a)\n{FFFFFF}Uau, voce e muito rapido!";
-	if(msg == 2) retorno = "{FFFF00}Morador(a)\n{FFFFFF}Muito obrigado, tenha um otimo servico.";
-	if(msg == 3) retorno = "{FFFF00}Morador(a)\n{FFFFFF}Ainda bem que minha encomenda chegou em\nseguranca haha..";
-	if(msg == 4) retorno = "{FFFF00}Morador(a)\n{FFFFFF}Ola, como vai o senhor(a)?";
-	if(msg == 5) retorno = "{FFFF00}Morador(a)\n{FFFFFF}Desculpe a pergunta, voce recebe bem nos correios?";
+	new retorno[248],msg = random(5);
+	switch(msg){
+		case 0:{
+			retorno = "{FFFF00}Morador(a)\n{FFFFFF}Ola, obrigado por trazer minha encomenda!";
+		}
+		case 1:{
+			retorno = "{FFFF00}Morador(a)\n{FFFFFF}Uau, voce e muito rapido!";
+		}
+		case 2:{
+			retorno = "{FFFF00}Morador(a)\n{FFFFFF}Muito obrigado, tenha um otimo servico.";
+		}
+		case 3:{
+			retorno = "{FFFF00}Morador(a)\n{FFFFFF}Ainda bem que minha encomenda chegou em\nseguranca haha..";
+		}
+		case 4:{
+			retorno = "{FFFF00}Morador(a)\n{FFFFFF}Ola, como vai o senhor(a)?";
+		}
+		case 5:{
+			retorno = "{FFFF00}Morador(a)\n{FFFFFF}Desculpe a pergunta, voce recebe bem nos correios?";
+		}
+	}
 	return retorno;
 }
 
@@ -1688,6 +1702,8 @@ Progresso:BatendoPorta(playerid, progress){
 		GetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, boot, objective);
 		SetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, 1, objective);
 		GetVehicleTrunkPosition(VeiculoCivil[playerid], PosV[0], PosV[1], PosV[2]);
+		SetPlayerCheckpoint(playerid, PosV[0], PosV[1], PosV[2], 1);
+		Casavehcorreios[playerid] = true;
 		ClearAnimations(playerid);
 		TogglePlayerControllable(playerid, 1);
 		GetPlayerPos(playerid, Float:X, Float:Y, Float:Z);
@@ -1696,13 +1712,58 @@ Progresso:BatendoPorta(playerid, progress){
 	    SetPVarFloat(playerid, "FindY", Y);
 	    SetPVarFloat(playerid, "FindZ", Z);
 		SetPVarFloat(playerid, "FindA", A);
-		checkcasa[playerid] = false;
-		DisablePlayerCheckpoint(playerid);
-		format(txt,sizeof(txt),"%s",MsgSdx());
+		format(txt,sizeof(txt),"%s",MsgSdx()); 
 		actorcorreios[playerid] = CreateActor(SkinActor, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),GetPVarFloat(playerid, "FindA")-180);
-		textcorreios[playerid] = Create3DTextLabel(txt, 0x008080FF, 1689.563598, -2326.089599, 13.546875, 15.0, 0);
+		textcorreios[playerid] = CreateDynamic3DTextLabel(txt, 0x008080FF, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"), 15.0);
 		Attach3DTextLabelToPlayer(textcorreios[playerid], actorcorreios[playerid], 0.0, 0.0, 0.7);
-		InfoMsg(playerid, "O morador saiu da casa, pegue a caixa no veiculo /pcaixa");
+		SetPlayerPos(playerid, X,Y,Z+1);
+		InfoMsg(playerid, "O morador saiu da casa, pegue a caixa no veiculo");
+	}
+	return 1;
+}
+
+Progresso:PegandoCaixaV(playerid, progress){
+	if(progress >= 100){
+		if(CaixasSdx[playerid] > 0){
+			static Float:aPos[3];
+			TogglePlayerControllable(playerid,1);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+			SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
+			Casavehcorreios2[playerid] = true;
+			CaixasSdx[playerid]--;
+			InfoMsg(playerid, "Pegou a caixa, entregue ao morador.");
+			GetActorPos(actorcorreios[playerid],aPos[0],aPos[1],aPos[2]);
+			SetPlayerCheckpoint(playerid, aPos[0],aPos[1],aPos[2],1);
+		}
+	}
+	return 1;
+}
+
+Progresso:EntregandoCx(playerid, progress){
+	if(progress >= 100){
+		if(CaixasSdx[playerid] == 0){
+			new str[128],malote = randomEx(500,1300);
+			ClearAnimations(playerid);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+			RemovePlayerAttachedObject(playerid, 1);
+			DestroyActor(actorcorreios[playerid]);
+			GivePlayerMoney(playerid, malote);
+			format(str,sizeof(str),"Todas as entregas foram concluidas e voce recebeu um bonus extra de (R$%i).",malote);
+			SuccesMsg(playerid, str);
+			SuccesMsg(playerid, "Volte ao qg dos Correios para pegar mais produtos.");
+			SetPlayerCheckpoint(playerid, 1004.1582,1755.0336,10.7734, 1);
+		}else{
+			ClearAnimations(playerid);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+			RemovePlayerAttachedObject(playerid, 1);
+			DestroyActor(actorcorreios[playerid]);
+			new Alt = random(303);
+			SuccesMsg(playerid, "Entrega feita passe para a proxima entrega.");
+			SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 1);
+			DestroyDynamic3DTextLabel(textcorreios[playerid]);
+			checkcasa[playerid] = true;
+		}
+		TogglePlayerControllable(playerid,1);
 	}
 	return 1;
 }
@@ -12152,35 +12213,25 @@ public OnPlayerEnterCheckpoint(playerid)
 {
 	if(Casavehcorreios2[playerid] == true)
 	{
-		if(CaixasSdx[playerid] == 0){
-			new str[128],malote = randomEx(500,1300);
-			ClearAnimations(playerid);
-			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-			RemovePlayerAttachedObject(playerid, 1);
-			DestroyActor(actorcorreios[playerid]);
-			//DisablePlayerCheckpoint(playerid);
-			GivePlayerMoney(playerid, malote);
-			format(str,sizeof(str),"Todas as entregas foram concluidas e voce recebeu um bonus extra de (R$%i).",malote);
-			SuccesMsg(playerid, str);
-			SuccesMsg(playerid, "Volte ao qg dos Correios para pegar mais produtos.");
-			SetPlayerCheckpoint(playerid, 1004.1582,1755.0336,10.7734, 1);
-		}else{
-			ClearAnimations(playerid);
-			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-			RemovePlayerAttachedObject(playerid, 1);
-			DestroyActor(actorcorreios[playerid]);
-			new Alt = random(303);
-			//DisablePlayerCheckpoint(playerid);
-			SuccesMsg(playerid, "Entrega feita passe para a proxima entrega.");
-			SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 1);
-			checkcasa[playerid] = true;
-		}
+		CreateProgress(playerid, "EntregandoCx","Entregando caixa...", 80);
+		TogglePlayerControllable(playerid,0);
+		DisablePlayerCheckpoint(playerid);
+		Casavehcorreios2[playerid] = false;
+	}
+	if(Casavehcorreios[playerid] == true){
+		Casavehcorreios[playerid] = false;
+		DisablePlayerCheckpoint(playerid);
+		CreateProgress(playerid, "PegandoCaixaV","Pegando caixa...", 50);
+		TogglePlayerControllable(playerid,0);
+		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 	}
 	if(checkcasa[playerid] == true)
 	{
+		DisablePlayerCheckpoint(playerid);
 		CreateProgress(playerid, "BatendoPorta","Aguardando morador...", 110);
 		SuccesMsg(playerid, "Voce esta batendo na porta aguarde o morador...");
 		TogglePlayerControllable(playerid, 0);
+		checkcasa[playerid] = false;
 	}
 	if(RotaMaconha[playerid] == true) 
 	{ 
@@ -20463,6 +20514,13 @@ CMD:var(playerid){ //cmd teste
 	return true;
 }
 
+CMD:setvar(playerid,params[]){
+	new vvar;
+	if(sscanf(params,"d",vvar)) return SendClientMessage(playerid, -1,"Use /setvar [value]");
+	CaixasSdx[playerid] = vvar;
+	return 1;
+}
+
 CMD:descarregar(playerid)
 {
 	if(PlayerInfo[playerid][pProfissao] != 4) 	return ErrorMsg(playerid, "Nao possui permissao.");
@@ -21120,7 +21178,7 @@ CMD:prender(playerid, params[])
 {
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
-	if(sscanf(params, "iis[56]", ID, Numero, Motivo))			return ErrorMsg(playerid,"USE: /prender [ID] [TIEMPO EM MINUTOS] [RAZON]");
+	if(sscanf(params, "iis[56]", ID, Numero, Motivo))			return ErrorMsg(playerid,"USE: /prender [ID] [TEMPO EM MINUTOS] [MOTIVO]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -21134,6 +21192,9 @@ CMD:prender(playerid, params[])
 
 					if(Numero != 0)
 					{
+						new randval = randomEx(500,1200),str[128];
+						PlayerInfo[playerid][pBanco] = randval;
+						format(str,sizeof(str),"Voce recebeu uma bonificacao de (R$%i) pela apreensao do individuo.",randval);
 						PlayerInfo[i][pCadeia] = Numero * 60;
 						SetPlayerPos(i, 322.197998,302.497985,999.148437);
 						SetPlayerInterior(i, 5);
@@ -24095,20 +24156,3 @@ CMD:abrircorreios2(playerid)
 	SetTimer("FecharCorreios2", 5000, false);
 }
 
-CMD:pcaixa(playerid)
-{
-	if(PTP(3.0, playerid, PosV[0], PosV[1], PosV[2]))
-	{
-		if(checkcasa[playerid] == false)
-		{
-			if(CaixasSdx[playerid] > 0){
-				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
-				SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
-				Casavehcorreios[playerid] = true;
-				CaixasSdx[playerid]--;
-				InfoMsg(playerid, "Pegou a caixa, entregue ao morador.");
-				SetPlayerCheckpoint(playerid, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),1);
-			}
-		}
-	}
-}
