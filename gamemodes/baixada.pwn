@@ -10502,17 +10502,17 @@ stock Profs(playerid)
 stock temlicenca(playerid)
 {
 	new LipeStrongLicenca[64];
-	if(PlayerInfo[playerid][LicencaConduzir] == 0) { LipeStrongLicenca = "Sem Licenca"; }
-	else if(PlayerInfo[playerid][LicencaConduzir] == 1) { LipeStrongLicenca = "Tem Licenca"; }
+	if(PlayerInfo[playerid][LicencaConduzir] == 0) { LipeStrongLicenca = "N/A"; }
+	else if(PlayerInfo[playerid][LicencaConduzir] == 1) { LipeStrongLicenca = "Possui"; }
 	return LipeStrongLicenca;
 }
 stock VIP(playerid)
 {
 	new LipeStrondaVIP[64];
-	if(PlayerInfo[playerid][pVIP] != 0) { LipeStrondaVIP = " "; }
-	if(PlayerInfo[playerid][pVIP] == 1) { LipeStrondaVIP = "VIP CLASSIC"; }
-	else if(PlayerInfo[playerid][pVIP] == 2) { LipeStrondaVIP = "VIP ADVANCED"; }
-	else if(PlayerInfo[playerid][pVIP] == 3) { LipeStrondaVIP = "VIP PREMIUM"; }
+	if(PlayerInfo[playerid][pVIP] != 0) { LipeStrondaVIP = "GRATIS"; }
+	if(PlayerInfo[playerid][pVIP] == 1) { LipeStrondaVIP = "CLASSIC"; }
+	else if(PlayerInfo[playerid][pVIP] == 2) { LipeStrondaVIP = "ADVANCED"; }
+	else if(PlayerInfo[playerid][pVIP] == 3) { LipeStrondaVIP = "PREMIUM"; }
 	return LipeStrondaVIP;
 }
 
@@ -11473,7 +11473,7 @@ stock GetXYInFrontOfCaixa(objectid, &Float:q, &Float:w, Float:distance)
 public OnGameModeInit()
 {
 	SetGameModeText(VERSAOSERVER);
-    SendRconCommand("language Portugues Brasil");
+    SendRconCommand("language Português - Brasil");
 	SendRconCommand("ackslimit 5000");
  	SendRconCommand("connseedtime 3000");
  	SendRconCommand("minconnectiontime 1000");
@@ -11517,7 +11517,7 @@ public OnGameModeInit()
 	Punicoes = DCC_FindChannelById("1170199996008779816");
 	ComandosIG = DCC_FindChannelById("1170200061678985246");
 	printf("=> Canais DC       		: Carregados");
-	createEE(0, "HALLOWEEN EVENT 1", 19320,3.0, -984.33557, 1293.37805, 33.30560,   0.00000, 0.00000, 0.00000);
+	/*createEE(0, "HALLOWEEN EVENT 1", 19320,3.0, -984.33557, 1293.37805, 33.30560,   0.00000, 0.00000, 0.00000);
 	createEE(1, "HALLOWEEN EVENT 2", 19320,3.0, -2354.78540, 142.00720, 38.22280,  0.00000, 0.00000, 0.00000);
 	createEE(2, "HALLOWEEN EVENT 3", 19320,3.0, -1077.87439, -1157.65149, 128.21820,   0.00000, 0.00000, 0.00000);
 	createEE(3, "HALLOWEEN EVENT 4", 19320,3.0, 420.86520, 1166.28906, 18.71620,   0.00000, 0.00000, 0.00000);
@@ -11548,7 +11548,7 @@ public OnGameModeInit()
 	createEE(28, "HALLOWEEN EVENT 29", 19320,3.0, -476.585144, -541.589050, 25.529611,   0.00000, 0.00000, 0.00000);
 	createEE(29, "HALLOWEEN EVENT 30", 19320,3.0, -25.881288, 1359.155029, 9.171875,   0.00000, 0.00000, 0.00000);
 	createEE(30, "HALLOWEEN EVENT 31", 19320,3.0, -1909.961059, 277.745422, 41.046875,   0.00000, 0.00000, 0.00000);
-
+	*/
 	loadEE();
 	saveEE();
     printf(" ");
@@ -18902,7 +18902,7 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 	{
 		if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
 		new megastrings[500], String2[500];
-		format(String2,sizeof(String2), "{FFFFFF}Seu Beneficio: {5b6ed9}%s\n{FFFFFF}Nome: {5b6ed9}%s{FFFFFF}(%04d{FFFFFF})\n{FFFFFF}Email: {5b6ed9}%s\n{FFFFFF}Dispositivo: {5b6ed9}%s\n", VIP(clickedplayerid),Name(clickedplayerid), GetPlayerIdfixo(clickedplayerid), PlayerInfo[clickedplayerid][pEmail],Dispositivo(clickedplayerid));
+		format(String2,sizeof(String2), "{FFFFFF}Seu Beneficio: {5b6ed9}%s\n{FFFFFF}Nome: {5b6ed9}%s{FFFFFF}({5b6ed9}%04d{FFFFFF})\n{FFFFFF}Email: {5b6ed9}%s\n{FFFFFF}Dispositivo: {5b6ed9}%s\n", VIP(clickedplayerid),Name(clickedplayerid), GetPlayerIdfixo(clickedplayerid), PlayerInfo[clickedplayerid][pEmail],Dispositivo(clickedplayerid));
 		strcat(megastrings, String2);
 		format(String2,sizeof(String2), "{FFFFFF}T.Acumulado:{5b6ed9} %s\n{FFFFFF}Coins:{5b6ed9} %s\n{FFFFFF}Dinheiro:{5b6ed9} %s\n", convertNumber(PlayerInfo[clickedplayerid][pSegundosJogados]), ConvertMoney(PlayerInfo[clickedplayerid][pCoins]), ConvertMoney(PlayerInfo[clickedplayerid][pDinheiro]));
 		strcat(megastrings, String2);
@@ -19336,7 +19336,7 @@ CMD:minhaconta(playerid)
 {
 	new megastrings[500], String2[500];
 
-	format(String2,sizeof(String2), "{FFFFFF}Seu Beneficio: {5b6ed9}%s\n{FFFFFF}Nome: {5b6ed9}%s{FFFFFF}(%04d{FFFFFF})\n{FFFFFF}Email: {5b6ed9}%s\n{FFFFFF}Dispositivo: {5b6ed9}%s\n", VIP(playerid),Name(playerid), GetPlayerIdfixo(playerid), PlayerInfo[playerid][pEmail],Dispositivo(playerid));
+	format(String2,sizeof(String2), "{FFFFFF}Seu Beneficio: {5b6ed9}%s\n{FFFFFF}Nome: {5b6ed9}%s{FFFFFF}({5b6ed9}%04d{FFFFFF})\n{FFFFFF}Email: {5b6ed9}%s\n{FFFFFF}Dispositivo: {5b6ed9}%s\n", VIP(playerid),Name(playerid), GetPlayerIdfixo(playerid), PlayerInfo[playerid][pEmail],Dispositivo(playerid));
 	strcat(megastrings, String2);
 	format(String2,sizeof(String2), "{FFFFFF}T.Acumulado:{5b6ed9} %s\n{FFFFFF}Coins:{5b6ed9} %s\n{FFFFFF}Dinheiro:{5b6ed9} %s\n", convertNumber(PlayerInfo[playerid][pSegundosJogados]), ConvertMoney(PlayerInfo[playerid][pCoins]), ConvertMoney(PlayerInfo[playerid][pDinheiro]));
 	strcat(megastrings, String2);
@@ -21743,7 +21743,7 @@ CMD:verdocumentos(playerid, params[])
 					if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
 					//
 					new megastrings[500], String2[500];
-					format(String2,sizeof(String2), "{FFFFFF}Seu Beneficio: {5b6ed9}%s\n{FFFFFF}Nome: {5b6ed9}%s{FFFFFF}(%04d{FFFFFF})\n{FFFFFF}Email: {5b6ed9}%s\n{FFFFFF}Dispositivo: {5b6ed9}%s\n", VIP(i),Name(i), GetPlayerIdfixo(i), PlayerInfo[i][pEmail],Dispositivo(i));
+					format(String2,sizeof(String2), "{FFFFFF}Seu Beneficio: {5b6ed9}%s\n{FFFFFF}Nome: {5b6ed9}%s{FFFFFF}({5b6ed9}%04d{FFFFFF})\n{FFFFFF}Email: {5b6ed9}%s\n{FFFFFF}Dispositivo: {5b6ed9}%s\n", VIP(i),Name(i), GetPlayerIdfixo(i), PlayerInfo[i][pEmail],Dispositivo(i));
 					strcat(megastrings, String2);
 					format(String2,sizeof(String2), "{FFFFFF}T.Acumulado:{5b6ed9} %s\n{FFFFFF}Coins:{5b6ed9} %s\n{FFFFFF}Dinheiro:{5b6ed9} %s\n", convertNumber(PlayerInfo[i][pSegundosJogados]), ConvertMoney(PlayerInfo[i][pCoins]), ConvertMoney(PlayerInfo[i][pDinheiro]));
 					strcat(megastrings, String2);
