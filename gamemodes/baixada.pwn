@@ -18904,11 +18904,11 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 		new megastrings[500], String2[500];
 		format(String2,sizeof(String2), "{FFFFFF}Seu Beneficio: {5b6ed9}%s\n{FFFFFF}Nome: {5b6ed9}%s{FFFFFF}(%04d{FFFFFF})\n{FFFFFF}Email: {5b6ed9}%s\n{FFFFFF}Dispositivo: {5b6ed9}%s\n", VIP(clickedplayerid),Name(clickedplayerid), GetPlayerIdfixo(clickedplayerid), PlayerInfo[clickedplayerid][pEmail],Dispositivo(clickedplayerid));
 		strcat(megastrings, String2);
-		format(String2,sizeof(String2), "{FFFFFF}Tempo Acumulados:{5b6ed9} %s\n{FFFFFF}Coins:{5b6ed9} %s\n{FFFFFF}Dinheiro:{5b6ed9} %s\n", convertNumber(PlayerInfo[clickedplayerid][pSegundosJogados]), ConvertMoney(PlayerInfo[clickedplayerid][pCoins]), ConvertMoney(PlayerInfo[clickedplayerid][pDinheiro]));
+		format(String2,sizeof(String2), "{FFFFFF}T.Acumulado:{5b6ed9} %s\n{FFFFFF}Coins:{5b6ed9} %s\n{FFFFFF}Dinheiro:{5b6ed9} %s\n", convertNumber(PlayerInfo[clickedplayerid][pSegundosJogados]), ConvertMoney(PlayerInfo[clickedplayerid][pCoins]), ConvertMoney(PlayerInfo[clickedplayerid][pDinheiro]));
 		strcat(megastrings, String2);
 		format(String2,sizeof(String2), "{FFFFFF}Banco:{5b6ed9} %s\n{FFFFFF}Avisos:{5b6ed9} %d\n{FFFFFF}Emprego:{5b6ed9} %s\n{FFFFFF}Org:{5b6ed9} %s\n", ConvertMoney(PlayerInfo[clickedplayerid][pBanco]), ConvertMoney(PlayerInfo[clickedplayerid][pAvisos]),Profs(clickedplayerid),NomeOrg(clickedplayerid));
 		strcat(megastrings, String2);
-		format(String2,sizeof(String2), "{FFFFFF}Multas:{5b6ed9} %s\n{FFFFFF}Casa ID:{5b6ed9} %s\n{FFFFFF}Licenca Conduzir: {5b6ed9}%s", ConvertMoney(PlayerInfo[clickedplayerid][pMultas]), PlayerInfo[clickedplayerid][Casa], temlicenca(clickedplayerid));
+		format(String2,sizeof(String2), "{FFFFFF}Multas:{5b6ed9} %s\n{FFFFFF}Casa ID:{5b6ed9} %d\n{FFFFFF}CNH: {5b6ed9}%s", ConvertMoney(PlayerInfo[clickedplayerid][pMultas]), PlayerInfo[clickedplayerid][Casa], temlicenca(clickedplayerid));
 		strcat(megastrings, String2);
 		ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Informacoes de conta",megastrings,"X",#);
 	}
@@ -19338,11 +19338,11 @@ CMD:minhaconta(playerid)
 
 	format(String2,sizeof(String2), "{FFFFFF}Seu Beneficio: {5b6ed9}%s\n{FFFFFF}Nome: {5b6ed9}%s{FFFFFF}(%04d{FFFFFF})\n{FFFFFF}Email: {5b6ed9}%s\n{FFFFFF}Dispositivo: {5b6ed9}%s\n", VIP(playerid),Name(playerid), GetPlayerIdfixo(playerid), PlayerInfo[playerid][pEmail],Dispositivo(playerid));
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Tempo Acumulados:{5b6ed9} %s\n{FFFFFF}Coins:{5b6ed9} %s\n{FFFFFF}Dinheiro:{5b6ed9} %s\n", convertNumber(PlayerInfo[playerid][pSegundosJogados]), ConvertMoney(PlayerInfo[playerid][pCoins]), ConvertMoney(PlayerInfo[playerid][pDinheiro]));
+	format(String2,sizeof(String2), "{FFFFFF}T.Acumulado:{5b6ed9} %s\n{FFFFFF}Coins:{5b6ed9} %s\n{FFFFFF}Dinheiro:{5b6ed9} %s\n", convertNumber(PlayerInfo[playerid][pSegundosJogados]), ConvertMoney(PlayerInfo[playerid][pCoins]), ConvertMoney(PlayerInfo[playerid][pDinheiro]));
 	strcat(megastrings, String2);
 	format(String2,sizeof(String2), "{FFFFFF}Banco:{5b6ed9} %s\n{FFFFFF}Avisos:{5b6ed9} %d\n{FFFFFF}Emprego:{5b6ed9} %s\n{FFFFFF}Org:{5b6ed9} %s\n", ConvertMoney(PlayerInfo[playerid][pBanco]), ConvertMoney(PlayerInfo[playerid][pAvisos]),Profs(playerid),NomeOrg(playerid));
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Multas:{5b6ed9} %s\n{FFFFFF}Casa ID:{5b6ed9} %s\n{FFFFFF}Licenca Conduzir: {5b6ed9}%s", ConvertMoney(PlayerInfo[playerid][pMultas]), PlayerInfo[playerid][Casa], temlicenca(playerid));
+	format(String2,sizeof(String2), "{FFFFFF}Multas:{5b6ed9} %s\n{FFFFFF}Casa ID:{5b6ed9} %d\n{FFFFFF}CNH: {5b6ed9}%s", ConvertMoney(PlayerInfo[playerid][pMultas]), PlayerInfo[playerid][Casa], temlicenca(playerid));
 	strcat(megastrings, String2);
 	ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Informacoes de conta",megastrings,"X",#);
 	return 1;
@@ -20318,7 +20318,7 @@ CMD:adv(playerid, params[])
 				PlayerInfo[i][pAvisos]++;
 				InfoMsg(i, "Algum administrador lhe deu uma advertencia.");
 				SuccesMsg(playerid, "Voce deu advertencia ao jogador.");
-				if(PlayerInfo[playerid][pAvisos] == 3)
+				if(PlayerInfo[i][pAvisos] == 3)
 				{
 					format(Str, sizeof(Str), "{5b6ed9}AVISO{FFFFFF} O jogador {5b6ed9}%04d {FFFFFF} recebeu uma advertencia do Administrador {5b6ed9}%s {FFFFFF}e foi banido. {FFFFFF}Motivo: {5b6ed9}%s", GetPlayerIdfixo(i), Name(playerid), Motivo);
 					SendClientMessageToAll(-1, Str);
@@ -21745,11 +21745,11 @@ CMD:verdocumentos(playerid, params[])
 					new megastrings[500], String2[500];
 					format(String2,sizeof(String2), "{FFFFFF}Seu Beneficio: {5b6ed9}%s\n{FFFFFF}Nome: {5b6ed9}%s{FFFFFF}(%04d{FFFFFF})\n{FFFFFF}Email: {5b6ed9}%s\n{FFFFFF}Dispositivo: {5b6ed9}%s\n", VIP(i),Name(i), GetPlayerIdfixo(i), PlayerInfo[i][pEmail],Dispositivo(i));
 					strcat(megastrings, String2);
-					format(String2,sizeof(String2), "{FFFFFF}Tempo Acumulados:{5b6ed9} %s\n{FFFFFF}Coins:{5b6ed9} %s\n{FFFFFF}Dinheiro:{5b6ed9} %s\n", convertNumber(PlayerInfo[i][pSegundosJogados]), ConvertMoney(PlayerInfo[i][pCoins]), ConvertMoney(PlayerInfo[i][pDinheiro]));
+					format(String2,sizeof(String2), "{FFFFFF}T.Acumulado:{5b6ed9} %s\n{FFFFFF}Coins:{5b6ed9} %s\n{FFFFFF}Dinheiro:{5b6ed9} %s\n", convertNumber(PlayerInfo[i][pSegundosJogados]), ConvertMoney(PlayerInfo[i][pCoins]), ConvertMoney(PlayerInfo[i][pDinheiro]));
 					strcat(megastrings, String2);
 					format(String2,sizeof(String2), "{FFFFFF}Banco:{5b6ed9} %s\n{FFFFFF}Avisos:{5b6ed9} %d\n{FFFFFF}Emprego:{5b6ed9} %s\n{FFFFFF}Org:{5b6ed9} %s\n", ConvertMoney(PlayerInfo[i][pBanco]), ConvertMoney(PlayerInfo[i][pAvisos]),Profs(i),NomeOrg(i));
 					strcat(megastrings, String2);
-					format(String2,sizeof(String2), "{FFFFFF}Multas:{5b6ed9} %s\n{FFFFFF}Casa ID:{5b6ed9} %s\n{FFFFFF}Licenca Conduzir: {5b6ed9}%s", ConvertMoney(PlayerInfo[i][pMultas]), PlayerInfo[i][Casa], temlicenca(i));
+					format(String2,sizeof(String2), "{FFFFFF}Multas:{5b6ed9} %s\n{FFFFFF}Casa ID:{5b6ed9} %d\n{FFFFFF}CNH: {5b6ed9}%s", ConvertMoney(PlayerInfo[i][pMultas]), PlayerInfo[i][Casa], temlicenca(i));
 					strcat(megastrings, String2);
 					ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
 				}
