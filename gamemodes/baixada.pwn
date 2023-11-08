@@ -1222,12 +1222,11 @@ new Float:PosRota[303+120][4] =
     {2313.880371, -124.964256, 28.153551}//rota	
 };
 
-new Float:Entradas[5][3] =
+new Float:Entradas[4][3] =
 {
 	{2333.359130, -1883.562255, 15.000000},//Mercado Negro
 	{1481.094482, -1772.313720, 18.795755},//Prefeitura
 	{649.302062, -1357.399658, 13.567605},//San News
-	{1081.261840, -1696.785888, 13.546875},//LICENCAS
 	{2501.888916, -1494.696533, 24.000000}//AÇOUGUE
 };
 
@@ -5620,9 +5619,9 @@ ItemNomeInv(itemid) // AQUI VOCÃŠ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 	else
 	switch(itemid) 
 	{
-		case 19625: name = "Cigarro do K2";//Editavel
+		case 19625: name = "Cigarro do K2";
 		case 11746: name = "LockPick";
-		case 3044: name = "Baseado";//Editavel
+		case 3044: name = "Baseado";
 		case 19039: name = "Relogio de Ouro";
 		case 19040: name = "Relogio de Prata";
 		case 19042: name = "Relogio Dourado";
@@ -10638,7 +10637,7 @@ stock NpcText()
 	CreateAurea("{5b6ed9}Loja de Utilidades 3\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 2064.488037, -1868.448364, 13.570810);
 	CreateAurea("{5b6ed9}Loja de Utilidades 4\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 382.998931, -1909.859863, 7.844120);
 	CreateAurea("{5b6ed9}Loja de Utilidades 5\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1325.427368, -867.394287, 39.597454);
-	CreateAurea("{5b6ed9}Centro de Licenca\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 617.717346, -3.359961, 1000.990295);
+	CreateAurea("{5b6ed9}Centro de Licenca\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1083.447998, -1766.307128, 13.928387);
 	CreateAurea("{5b6ed9}Loja Ilegal\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 514.712341, -2333.011474, 508.693756);
 	CreateAurea("{5b6ed9}AmmuNation\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1785.501586, -1916.644165, 14.295277);
 	CreateAurea("{5b6ed9}Joalheria\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 468.658203, -1517.271606, 20.477876);
@@ -10679,8 +10678,8 @@ stock NpcText()
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}/uniforme{FFFFFF}' para \npegar seu uniforme e bater ponto.", -1, 956.8282,1754.7942,8.6484, 25.0); // Uniforme correios
 	CreateDynamicPickup(1275, 23, 956.8282,1754.7942,8.6484);//Uniforme correios
 
-	CreateDynamicPickup(19606,23,-1606.267578, 733.912414, -5.234413,0);
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}/prender{FFFFFF}'para \nprender o jogador.",-1,-1606.267578, 733.912414, -5.234413,15);
+	CreateDynamicPickup(1247,23,658.691955, -1465.217651, 15.439466,0);
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}/prender{FFFFFF}'para \nprender o jogador.",-1,658.691955, -1465.217651, 15.439466,15);
 
 	CreateAurea("{5b6ed9}Rota de Maconha\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -1143.184814, 2227.874511, 97.219261);
 	CreateAurea("{5b6ed9}Rota de Cocaina\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -248.257873, 1506.404418, 75.562500);
@@ -11630,7 +11629,7 @@ public OnGameModeInit()
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para \niniciar o desossamento.", -1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2], 15.0);
 	}
-	for(new i; i < 5; i++)
+	for(new i; i < 4; i++)
 	{
 		CreateDynamicPickup(19606,23,Entradas[i][0],Entradas[i][1],Entradas[i][2],0);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
@@ -12727,7 +12726,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 
 stock terminouteste(playerid)
 {
-	SetPlayerPos(playerid, 616.849304, -9.415119, 1000.990295);
+	SetPlayerPos(playerid, 1083.447998, -1766.307128, 13.928387);
 	SetPlayerInterior(playerid, 0);
 	return 1;
 }
@@ -13971,30 +13970,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			SetPVarInt(playerid, "DialogValue1", id);
 			ShowDialog(playerid, DIALOG_VEHICLE);
 		}
-		else
-		{
-			//
-		}
-		//ESTACIONAMENTO ENTRADA
-		if(IsPlayerInRangeOfPoint(playerid,2.0, 330.382019, 1843.160156, 2241.584960))
-		{
-			SetPlayerPos(playerid,  -1594.212402, 716.171325, -4.906250);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//ESTACIONAMENTO SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,-1594.212402, 716.171325, -4.906250))
-		{
-			SetPlayerPos(playerid, 330.382019, 1843.160156, 2241.584960);
-			SetPlayerInterior(playerid, 1);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
 		//SAN NEWS ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 649.302062, -1357.399658, 13.567605))
+		else if(IsPlayerInRangeOfPoint(playerid, 2.0, 649.302062, -1357.399658, 13.567605))
 		{
 			SetPlayerPos(playerid, -5465.766113, -4536.025878, 4051.079589);
 			SetPlayerInterior(playerid, 1);
@@ -14024,42 +14001,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,-501.1714,286.6785,2001.0950))
 		{
 			SetPlayerPos(playerid, 1481.094482, -1772.313720, 18.795755);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//LICENCAS ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 1081.261840, -1696.785888, 13.546875))
-		{
-			SetPlayerPos(playerid,  617.5486,-25.6596,1000.9903);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//LICENCAS SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,617.5486,-25.6596,1000.9903))
-		{
-			SetPlayerPos(playerid, 1081.261840, -1696.785888, 13.546875);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//POLICIA DE PATRULLA ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, -1605.569213, 710.272521, 13.867187))
-		{
-			SetPlayerPos(playerid, 350.7115,1834.2186,2241.5850);
-			SetPlayerInterior(playerid, 1);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//POLICIA DE PATRULLA SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,350.7115,1834.2186,2241.5850))
-		{
-			SetPlayerPos(playerid, -1605.569213, 710.272521, 13.867187);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
@@ -14261,7 +14202,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
 			ShowPlayerDialog(playerid, DIALOG_CATLANCHE, DIALOG_STYLE_LIST, "Subway", "{5b6ed9}- {FFFFFF}Alimentos\n{5b6ed9}- {FFFFFF}Refrescos", "Selecionar", "X");
 		}
-		if(PlayerToPoint(2.0, playerid, 617.928100, -1.965069, 1001.040832))
+		if(PlayerToPoint(2.0, playerid, 1083.447998, -1766.307128, 13.928387))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
 			if(PlayerInfo[playerid][pDinheiro] < 4000)	return ErrorMsg(playerid, "Dinheiro insuficiente (R$4000).");
@@ -15976,7 +15917,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new Float:d = GetPlayerDistanceFromPoint(playerid, 1649.4332,-1889.2966,13.5878);
 					new Float:e = GetPlayerDistanceFromPoint(playerid, 2064.6821,-1868.5961,13.5892);
 					new Float:f = GetPlayerDistanceFromPoint(playerid, 382.9478,-1909.8621,7.8625);
-					new Float:g = GetPlayerDistanceFromPoint(playerid, 1081.261840, -1696.785888, 13.546875);
+					new Float:g = GetPlayerDistanceFromPoint(playerid, 1083.447998, -1766.307128, 13.928387);
 					new Float:h = GetPlayerDistanceFromPoint(playerid, 797.993225, -1618.977661, 14.032936);
 					new Float:i = GetPlayerDistanceFromPoint(playerid, -1973.108276, 288.896331, 35.171875);
 					new Float:m = GetPlayerDistanceFromPoint(playerid, 1785.501586, -1916.644165, 14.295277);
@@ -16257,7 +16198,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1081.261840, -1696.785888, 13.546875, 8.0);
+					SetPlayerCheckpoint(playerid, 1083.447998, -1766.307128, 13.928387, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 9)
@@ -20956,17 +20897,17 @@ CMD:orgs(playerid)
 	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}4{FFFFFF} - BAEP: %s\n", DOF2_GetString("InfoOrg/4.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}5{FFFFFF} - Los Vagos: %s\n", DOF2_GetString("InfoOrg/5.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}5{FFFFFF} - Tropa dos Vermelhos: %s\n", DOF2_GetString("InfoOrg/5.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}6{FFFFFF} - Los Rifas: %s\n", DOF2_GetString("InfoOrg/6.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}6{FFFFFF} - Tropa dos Azuis: %s\n", DOF2_GetString("InfoOrg/6.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}7{FFFFFF} - Ballas: %s\n", DOF2_GetString("InfoOrg/7.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}7{FFFFFF} - Tropa dos Vermelhos: %s\n", DOF2_GetString("InfoOrg/7.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}8{FFFFFF} - Groove Street %s\n", DOF2_GetString("InfoOrg/8.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}8{FFFFFF} - Tropa dos Verdes %s\n", DOF2_GetString("InfoOrg/8.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}9{FFFFFF} - Bennys: %s\n", DOF2_GetString("InfoOrg/9.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}10{FFFFFF} - Mecanicos: %s\n", DOF2_GetString("InfoOrg/10.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}10{FFFFFF} - Medicos: %s\n", DOF2_GetString("InfoOrg/10.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}11{FFFFFF} - Reportagem: %s\n", DOF2_GetString("InfoOrg/11.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
@@ -21476,7 +21417,7 @@ CMD:prender(playerid, params[])
 			{
 				if(!IsPlayerInAnyVehicle(playerid))			return ErrorMsg(playerid, "Voce nao esta em um veiculo.");
 				if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
-				if(PlayerToPoint(3.0, playerid, -1606.267578, 733.912414, -5.234413))
+				if(PlayerToPoint(3.0, playerid, 658.691955, -1465.217651, 15.439466))
 				{
 
 					if(Numero != 0)
