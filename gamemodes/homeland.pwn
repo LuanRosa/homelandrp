@@ -2174,7 +2174,7 @@ enum eastE{
 };
 new EEInfo[MAX_EASTER_EGGS][eastE];
 
-createEE(eeid, descricao[], modelid, Float:range, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz){
+stock createEE(eeid, descricao[], modelid, Float:range, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz){
 
 	static
 		Str2[98]
@@ -8004,7 +8004,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBoxColor(playerid, Loadsc_p[playerid][0], 50);
 	PlayerTextDrawUseBox(playerid, Loadsc_p[playerid][0], 0);
 	PlayerTextDrawSetProportional(playerid, Loadsc_p[playerid][0], 1);
-	Loadsc_b[playerid][0] = CreatePlayerProgressBar(playerid, 224.000000, 284.000000, 200.000000, -13.000000, -65281, 100.000000, 0);
+	Loadsc_b[playerid][0] = CreatePlayerProgressBar(playerid, 224.000000, 284.000000, 200.000000, -13.000000, 1097458175, 100.000000, 0);
 	SetPlayerProgressBarValue(playerid, Loadsc_b[playerid][0], 0);
 
 	//VELOCIMETRO STRINGS
@@ -14309,7 +14309,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 960.607055, 2097.604003, 1011.023010))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			if(PlayerInfo[playerid][pSegundosJogados] < 7200000) return InfoMsg(playerid, "Voce precisa ter 2hrs de jogo.");
+			//if(PlayerInfo[playerid][pSegundosJogados] < 7200000) return InfoMsg(playerid, "Voce precisa ter 2hrs de jogo.");
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
 			else
 			{
