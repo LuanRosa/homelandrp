@@ -1,5 +1,47 @@
 CarregarTxdGlobal()
 {
+	LogoHM[0] = TextDrawCreate(322.000000, 6.000000, "HOME");
+	TextDrawFont(LogoHM[0], 2);
+	TextDrawLetterSize(LogoHM[0], 0.408333, 2.049998);
+	TextDrawTextSize(LogoHM[0], 400.000000, 17.000000);
+	TextDrawSetOutline(LogoHM[0], 1);
+	TextDrawSetShadow(LogoHM[0], 0);
+	TextDrawAlignment(LogoHM[0], 2);
+	TextDrawColor(LogoHM[0], -146);
+	TextDrawBackgroundColor(LogoHM[0], 1097458175);
+	TextDrawBoxColor(LogoHM[0], 50);
+	TextDrawUseBox(LogoHM[0], 0);
+	TextDrawSetProportional(LogoHM[0], 1);
+	TextDrawSetSelectable(LogoHM[0], 0);
+
+	LogoHM[1] = TextDrawCreate(322.000000, 19.000000, "LAND");
+	TextDrawFont(LogoHM[1], 2);
+	TextDrawLetterSize(LogoHM[1], 0.408333, 2.049998);
+	TextDrawTextSize(LogoHM[1], 400.000000, 17.000000);
+	TextDrawSetOutline(LogoHM[1], 1);
+	TextDrawSetShadow(LogoHM[1], 0);
+	TextDrawAlignment(LogoHM[1], 2);
+	TextDrawColor(LogoHM[1], -146);
+	TextDrawBackgroundColor(LogoHM[1], 1097458175);
+	TextDrawBoxColor(LogoHM[1], 50);
+	TextDrawUseBox(LogoHM[1], 0);
+	TextDrawSetProportional(LogoHM[1], 1);
+	TextDrawSetSelectable(LogoHM[1], 0);
+
+	LogoHM[2] = TextDrawCreate(310.000000, 10.000000, "]");
+	TextDrawFont(LogoHM[2], 2);
+	TextDrawLetterSize(LogoHM[2], 0.316666, 1.300000);
+	TextDrawTextSize(LogoHM[2], 400.000000, 17.000000);
+	TextDrawSetOutline(LogoHM[2], 0);
+	TextDrawSetShadow(LogoHM[2], 0);
+	TextDrawAlignment(LogoHM[2], 1);
+	TextDrawColor(LogoHM[2], -65281);
+	TextDrawBackgroundColor(LogoHM[2], 255);
+	TextDrawBoxColor(LogoHM[2], 50);
+	TextDrawUseBox(LogoHM[2], 0);
+	TextDrawSetProportional(LogoHM[2], 1);
+	TextDrawSetSelectable(LogoHM[2], 0);
+
 	Textdraw0 = TextDrawCreate(320.000000, 180.000000, "ALERTA~n~~n~~n~");
 	TextDrawAlignment(Textdraw0, 2);
 	TextDrawBackgroundColor(Textdraw0, 255);
@@ -586,7 +628,7 @@ CarregarTxdGlobal()
 	TextDrawAlignment(Tdcinto[0], 1);
 	TextDrawColor(Tdcinto[0], -2686721);
 	TextDrawBackgroundColor(Tdcinto[0], 255);
-	TextDrawBoxColor(Tdcinto[0], 50);
+	TextDrawBoxColor(Tdcinto[0], 1097458119);
 	TextDrawUseBox(Tdcinto[0], 1);
 	TextDrawSetProportional(Tdcinto[0], 1);
 
