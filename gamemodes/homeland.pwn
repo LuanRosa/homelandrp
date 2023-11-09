@@ -1857,7 +1857,7 @@ Progresso:BatendoPorta(playerid, progress){
 		actorcorreios[playerid] = CreateActor(SkinActor, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),GetPVarFloat(playerid, "FindA")-180);
 		textcorreios[playerid] = CreateDynamic3DTextLabel(txt, -1, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"), 15.0);
 		Attach3DTextLabelToPlayer(textcorreios[playerid], actorcorreios[playerid], 0.0, 0.0, 0.7);
-		SetPlayerPos(playerid, X,Y,Z+1);
+		SetPlayerPos(playerid, X,Y,Z+2);
 		InfoMsg(playerid, "O morador saiu da casa, pegue a caixa no veiculo");
 	}
 	return 1;
@@ -1888,7 +1888,7 @@ Progresso:EntregandoCx(playerid, progress){
 			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 			RemovePlayerAttachedObject(playerid, 1);
 			DestroyActor(actorcorreios[playerid]);
-			GivePlayerMoney(playerid, malote);
+			PlayerInfo[playerid][pDinheiro] += malote;
 			format(str,sizeof(str),"Todas as entregas foram concluidas e voce recebeu um bonus extra de (R$%i).",malote);
 			SuccesMsg(playerid, str);
 			SuccesMsg(playerid, "Volte ao qg dos Correios para pegar mais produtos.");
