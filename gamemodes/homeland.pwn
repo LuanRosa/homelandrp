@@ -87,7 +87,7 @@ new	UltimaFala[MAX_PLAYERS];
 #define FUEL_STATION_FILE_PATH 		"Conce/Postos/"
 #define PASTA_SLOTS 				"Cacaniquel/Slot%i.ini"
 #define PASTA_MORTOS 				"Mortos/%s.ini"
-#define PASTA_AVALIACAO				"AdminAvaliacao/%s.ini"
+#define PASTA_AVALIACAO				"Admins/%s.ini"
 #define Pasta_Eastereggs       		"EasterEggs.cfg"
 #define Pasta_Relatorios        	"Relatorios/%d.ini"
 
@@ -298,7 +298,19 @@ enum anuncios
 };
 new Anuncio[NA][anuncios];
 new TiempoAnuncio[MAX_PLAYERS],Text:TextDraw[5];
+new Din[MAX_PLAYERS];
 
+const VEHICLE_SYNC = 200;
+new CallbackTime[MAX_PLAYERS];
+static const DetectedModels[] =
+{
+    //Add here ModelIDs of vehicles you want to disallow firing from vehicle
+    //In this examlpe I will add Hunter, Sea Sparrow and Rhino
+    //Try not to use this in normal vehicles, as it will prevent nitro syncing
+    425,
+    432,
+    447
+};
 
 new	CofreLoja1,
 	CofreLoja2,
@@ -1797,6 +1809,54 @@ CallBack::FecharCorreios2()
 	MoveDynamicObject(mapsdxzx[1], 997.046997, 1710.949951, 11.265600,2.0);
 }
 
+CallBack::OnPlayerFiresForbiddenVeh(playerid)
+{
+    SendClientMessage(playerid, -1, "You can't fire with this vehicle! Your action will not be synced!"); //Example, better to do this with a Dialog or something to scare the player
+    return 1;
+}
+
+IPacket:VEHICLE_SYNC(playerid, BitStream:bs)
+{
+    new inCarData[PR_InCarSync];
+
+    BS_IgnoreBits(bs, 8);
+    BS_ReadInCarSync(bs, inCarData);
+   
+    new modelid = GetVehicleModel(inCarData[PR_vehicleId]);
+
+    //RIDE2DAY
+    for(new i; i != sizeof(DetectedModels); i++)
+    {
+        if(modelid == DetectedModels[i])
+        {
+            break;
+        }
+
+        if(sizeof(DetectedModels) - i == 1)
+        {
+            return 1;
+        }
+    }
+    
+    if((inCarData[PR_keys] & KEY_FIRE) || (inCarData[PR_keys] & KEY_ACTION))
+    {
+        inCarData[PR_keys] &= ~KEY_FIRE;
+        inCarData[PR_keys] &= ~KEY_ACTION;
+
+        BS_SetWriteOffset(bs, 8);
+        BS_WriteInCarSync(bs, inCarData);
+        
+        if(CallbackTime[playerid] < gettime())
+        {
+            CallLocalFunction("OnPlayerFiresForbiddenVeh", "d", playerid);
+            CallbackTime[playerid] = gettime() + 5;
+        }
+
+    }
+
+    return 1;
+}
+
 CallBack:: EstaSegurandoArmaProibida(playerid)
 {
     new idArma = GetPlayerWeapon(playerid);
@@ -2274,10 +2334,6 @@ descobrirEE(playerid, eeid){
 		new vip[255];
 		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(10); 
 		PlayerInfo[playerid][pVIP] = 1;
-		format(vip, sizeof(vip), PASTA_VIPS, Name(playerid)); 
-		DOF2_CreateFile(vip); 
-		DOF2_SetInt(vip,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
-		DOF2_SaveFile(); 
 		SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 		new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 		format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
@@ -2292,10 +2348,6 @@ descobrirEE(playerid, eeid){
 		new vip[255];
 		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
 		PlayerInfo[playerid][pVIP] = 1;
-		format(vip, sizeof(vip), PASTA_VIPS, Name(playerid)); 
-		DOF2_CreateFile(vip); 
-		DOF2_SetInt(vip,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
-		DOF2_SaveFile(); 
 		new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 		format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
 		DCC_SetEmbedColor(embed, 0x5b6ed9);
@@ -2334,10 +2386,6 @@ descobrirEE(playerid, eeid){
 		new daysvip = randomEx(3,30);
 		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(daysvip); 
 		PlayerInfo[playerid][pVIP] = 1;
-		format(vip, sizeof(vip), PASTA_VIPS, Name(playerid)); 
-		DOF2_CreateFile(vip); 
-		DOF2_SetInt(vip,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
-		DOF2_SaveFile(); 
 		new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 		format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
 		DCC_SetEmbedColor(embed, 0x5b6ed9);
@@ -5404,6 +5452,43 @@ CallBack::SedeBar(playerid)
 	return 1;
 }
 
+stock GetWeaponModel(weaponid)
+{
+    switch(weaponid)
+    {
+        case 1:
+            return 331;
+
+        case 2..8:
+            return weaponid+331;
+
+        case 9:
+            return 341;
+
+        case 10..15:
+            return weaponid+311;
+
+        case 16..18:
+            return weaponid+326;
+
+        case 22..29:
+            return weaponid+324;
+
+        case 30,31:
+            return weaponid+325;
+
+        case 32:
+            return 372;
+
+        case 33..45:
+            return weaponid+324;
+
+        case 46:
+            return 371;
+    }
+    return 0;
+}
+
 CallBack::Colete(playerid)
 {
 	if(!IsPlayerConnected(playerid))
@@ -5433,8 +5518,81 @@ CallBack::Colete(playerid)
 
 	format(str, sizeof(str), "%.0f", colete);
 	PlayerTextDrawSetString(playerid, HudServer_p[playerid][1], str);
-
 	checkEE(playerid);
+	    //Armas nas costas dos Players
+    static armedbody_pTick[MAX_PLAYERS];
+    if(GetTickCount() - armedbody_pTick[playerid] > 113)
+    {
+
+        new weaponid[13],weaponammo[13],pArmedWeapon;
+        pArmedWeapon = GetPlayerWeapon(playerid);
+        GetPlayerWeaponData(playerid,1,weaponid[1],weaponammo[1]);
+        GetPlayerWeaponData(playerid,2,weaponid[2],weaponammo[2]);
+        GetPlayerWeaponData(playerid,4,weaponid[4],weaponammo[4]);
+        GetPlayerWeaponData(playerid,5,weaponid[5],weaponammo[5]);
+        GetPlayerWeaponData(playerid,7,weaponid[7],weaponammo[7]);
+        if(weaponid[1] && weaponammo[1] > 0){
+            if(pArmedWeapon != weaponid[1]){
+                if(!IsPlayerAttachedObjectSlotUsed(playerid,0)){
+                    SetPlayerAttachedObject(playerid,0,GetWeaponModel(weaponid[1]),1, 0.199999, -0.139999, 0.030000, 0.500007, -115.000000, 0.000000, 1.000000, 1.000000, 1.000000);
+                }
+            }
+            else {
+                if(IsPlayerAttachedObjectSlotUsed(playerid,0)){
+                    RemovePlayerAttachedObject(playerid,0);
+                }
+            }
+        }
+        else if(IsPlayerAttachedObjectSlotUsed(playerid,0)){
+            RemovePlayerAttachedObject(playerid,0);
+        }
+        if(weaponid[2] && weaponammo[2] > 0){
+            if(pArmedWeapon != weaponid[2]){
+                if(!IsPlayerAttachedObjectSlotUsed(playerid,1)){
+                    SetPlayerAttachedObject(playerid,1,GetWeaponModel(weaponid[2]),8, -0.079999, -0.039999, 0.109999, -90.100006, 0.000000, 0.000000, 1.000000, 1.000000, 1.000000);
+                }
+            }
+            else {
+                if(IsPlayerAttachedObjectSlotUsed(playerid,1)){
+                    RemovePlayerAttachedObject(playerid,1);
+                }
+            }
+        }
+        else if(IsPlayerAttachedObjectSlotUsed(playerid,1)){
+            RemovePlayerAttachedObject(playerid,1);
+        }
+        if(weaponid[4] && weaponammo[4] > 0){
+            if(pArmedWeapon != weaponid[4]){
+                if(!IsPlayerAttachedObjectSlotUsed(playerid,2)){
+                    SetPlayerAttachedObject(playerid,2,GetWeaponModel(weaponid[4]),7, 0.000000, -0.100000, -0.080000, -95.000000, -10.000000, 0.000000, 1.000000, 1.000000, 1.000000);
+                }
+            }
+            else {
+                if(IsPlayerAttachedObjectSlotUsed(playerid,2)){
+                    RemovePlayerAttachedObject(playerid,2);
+                }
+            }
+        }
+        else if(IsPlayerAttachedObjectSlotUsed(playerid,2)){
+            RemovePlayerAttachedObject(playerid,2);
+        }
+        if(weaponid[5] && weaponammo[5] > 0){
+            if(pArmedWeapon != weaponid[5]){
+                if(!IsPlayerAttachedObjectSlotUsed(playerid,3)){
+                    SetPlayerAttachedObject(playerid,3,GetWeaponModel(weaponid[5]),1, 0.200000, -0.119999, -0.059999, 0.000000, 206.000000, 0.000000, 1.000000, 1.000000, 1.000000);
+                }
+            }
+            else {
+                if(IsPlayerAttachedObjectSlotUsed(playerid,3)){
+                    RemovePlayerAttachedObject(playerid,3);
+                }
+            }
+        }
+        else if(IsPlayerAttachedObjectSlotUsed(playerid,3)){
+            RemovePlayerAttachedObject(playerid,3);
+        }
+        armedbody_pTick[playerid] = GetTickCount();
+    }
 	return 1;
 }
 
@@ -5998,10 +6156,6 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				new vip[255];
 				PlayerInfo[playerid][ExpiraVIP] = ConvertDays(10); 
 				PlayerInfo[playerid][pVIP] = 1;
-				format(vip, sizeof(vip), PASTA_VIPS, Name(playerid)); 
-				DOF2_CreateFile(vip); 
-				DOF2_SetInt(vip,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
-				DOF2_SaveFile(); 
 				SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 				format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
@@ -6044,10 +6198,6 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				new vip[255];
 				PlayerInfo[playerid][ExpiraVIP] = ConvertDays(10); 
 				PlayerInfo[playerid][pVIP] = 2;
-				format(vip, sizeof(vip), PASTA_VIPS, Name(playerid)); 
-				DOF2_CreateFile(vip); 
-				DOF2_SetInt(vip,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
-				DOF2_SaveFile(); 
 				SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 				format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP PREMIUM\nValor: 25000", PlayerInfo[playerid][IDF]);
@@ -6414,7 +6564,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			AtualizarInventario(playerid, modelid);
 			return 1;
 		}
-		case 2218, 2355, 2219, 2220:
+		case 19847, 2769, 2702, 19882:
 		{
 			if(FomePlayer[playerid] >= 80) return ErrorMsg(playerid, "Nao esta com fome.");
 			FomePlayer[playerid] += fomesede;
@@ -6675,7 +6825,7 @@ IsValidItemInv(itemid) //AQUI VOCÊ DEVE DEFINIR OS ID'S DOS ITENS PARA SER VALI
 		18902, 18892, 18900, 18897, 18896, 18895, 18893, 18810, 18947, 18948, 18949, 18950, 18644,
 		18951, 19488, 18921, 18922, 18923, 18924, 18925, 18939, 18940, 18941, 18942, 18943, 11750,
 		1314, 19578, 18636, 19942, 18646, 19141, 19558, 19801, 19330, 1210, 19528, 1576, 370, 3016, 3013, 19056,
-		19134, 19904, 19515, 19142, 19315, 19527, 19317, 18688, 18702, 18728, 19605, 19606, 18632,
+		19134, 19904, 19515, 19142, 19315, 19527, 19317, 18688, 18702, 18728, 19605, 19606, 18632, 19847, 2769, 2702, 19882,
 		19607, 19577, 1485, 19574, 19575, 19576, 2703, 2880, 19883, 19896, 19897, 2768, 1212, 2710, 1316,
 		2601, 19835, 2881, 2702, 2769, 2709, 19579, 19094, 1582, 19580, 19602, 11738, 1575, 854,
 		1654, 11736, 1650, 1252, 19893, 19921, 2226, 19054, 19055, 19057,19058: return 1;
@@ -10557,6 +10707,7 @@ stock CarregarVIP(playerid)
 	if(DOF2_FileExists(string)) 
 	{ 
 		PlayerInfo[playerid][ExpiraVIP] = DOF2_GetInt(string,"VipExpira"); 
+		PlayerInfo[playerid][pVIP] = DOF2_GetInt(string,"Level"); 
 		if(gettime() > PlayerInfo[playerid][ExpiraVIP]) 
 		{ 
 			DOF2_RemoveFile(string); 
@@ -10573,6 +10724,22 @@ stock CarregarVIP(playerid)
 	} 
 	return 1; 
 } 
+
+stock SalvarVIP(playerid)
+{
+	new File[50];
+	if(PlayerInfo[playerid][pVIP] > 0)
+	{
+		format(File, sizeof(File), PASTA_VIPS, Name(playerid));
+		if(!DOF2_FileExists(File)) DOF2_CreateFile(File);
+		//
+		DOF2_SetInt(File, "VipExpira", PlayerInfo[playerid][ExpiraVIP]);
+		DOF2_SetInt(File, "Level", PlayerInfo[playerid][pVIP]);
+		DOF2_SaveFile();
+	}
+	return 1;
+}
+
 stock PreloadAnimLib(playerid, animlib[])
 {
 	ApplyAnimation(playerid,animlib,"null",0.0,0,0,0,0,0);
@@ -10631,7 +10798,7 @@ stock NpcText()
 	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1458.722656, -1125.988525, 23.958011);
 	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1460.913208, -1124.163940, 23.958011);
 	CreateAurea("{5b6ed9}Hospital Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1646.425537, -1126.261474, 24.051115);
-	CreateAurea("{5b6ed9}Subway\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 797.993225, -1618.977661, 14.032936);
+	CreateAurea("{5b6ed9}HomeLand Food\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 797.993225, -1618.977661, 14.032936);
 	CreateAurea("{5b6ed9}Loja de Utilidades 1\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1345.220703, -1763.755737, 13.551799);
 	CreateAurea("{5b6ed9}Loja de Utilidades 2\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1649.424316, -1889.373535, 13.569334);
 	CreateAurea("{5b6ed9}Loja de Utilidades 3\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 2064.488037, -1868.448364, 13.570810);
@@ -10647,7 +10814,7 @@ stock NpcText()
 	CreateAurea("{5b6ed9}Loja de Utilidades 3\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 2054.306152, -1882.930908, 13.570812);
 	CreateAurea("{5b6ed9}Loja de Utilidades 4\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 393.256683, -1895.677734, 7.844118);
 	CreateAurea("{5b6ed9}Loja de Utilidades 5\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1311.017944, -856.895690, 39.597454);
-	CreateAurea("{5b6ed9}Subway\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 800.242553, -1617.385986, 14.032936);
+	CreateAurea("{5b6ed9}HomeLand Food\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 800.242553, -1617.385986, 14.032936);
 	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1442.647583, -1120.358276, 23.959011);
 	CreateAurea("{5b6ed9}AmmuNation\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1789.135253, -1921.435058, 14.287462);
 	//----
@@ -10897,6 +11064,7 @@ stock ZerarDados(playerid)
 	DestroyActor(actorcorreios[playerid]);
 	RotaMaconha[playerid] = false;
 	PlayerInfo[playerid][pSkin] = 0;
+	Din[playerid] = 0;
 	PlayerInfo[playerid][pDinheiro] = 0;
 	PlayerInfo[playerid][pBanco] = 0;
 	PlayerInfo[playerid][pIdade] = 0;
@@ -11064,7 +11232,6 @@ stock SalvarDados(playerid)
 		DOF2_SetInt(File, "pSegundosJogados", PlayerInfo[playerid][pSegundosJogados]);
 		DOF2_SetInt(File, "pAvisos", PlayerInfo[playerid][pAvisos]);
 		DOF2_SetInt(File, "pCadeia", PlayerInfo[playerid][pCadeia]);
-		DOF2_SetInt(File, "pAdmin", PlayerInfo[playerid][pAdmin]);
 		DOF2_SetString(File, "pLastLogin", Data);
 		DOF2_SetInt(File, "pInterior", GetPlayerInterior(playerid));
 		DOF2_SetFloat(File, "pPosX", Pos[0]);
@@ -11078,7 +11245,6 @@ stock SalvarDados(playerid)
 		DOF2_SetBool(File, "pCalado", PlayerInfo[playerid][pCalado]);
 		DOF2_SetInt(File, "pFome", FomePlayer[playerid]);
 		DOF2_SetInt(File, "pSede", SedePlayer[playerid]);
-		DOF2_SetInt(File, "pVIP", PlayerInfo[playerid][pVIP]);
 		DOF2_SetInt(File, "pCoins", PlayerInfo[playerid][pCoins]);
 		DOF2_SetInt(File, "pProfissao", PlayerInfo[playerid][pProfissao]);
 		DOF2_SetInt(File, "pOrg", PlayerInfo[playerid][Org]);
@@ -11127,7 +11293,6 @@ stock SalvarDadosSkin(playerid)
 		DOF2_SetInt(File, "pSegundosJogados", PlayerInfo[playerid][pSegundosJogados]);
 		DOF2_SetInt(File, "pAvisos", PlayerInfo[playerid][pAvisos]);
 		DOF2_SetInt(File, "pCadeia", PlayerInfo[playerid][pCadeia]);
-		DOF2_SetInt(File, "pAdmin", PlayerInfo[playerid][pAdmin]);
 		DOF2_SetString(File, "pLastLogin", Data);
 		DOF2_SetInt(File, "pInterior", GetPlayerInterior(playerid));
 		DOF2_SetFloat(File, "pPosX", Pos[0]);
@@ -11141,7 +11306,6 @@ stock SalvarDadosSkin(playerid)
 		DOF2_SetBool(File, "pCalado", PlayerInfo[playerid][pCalado]);
 		DOF2_SetInt(File, "pFome", FomePlayer[playerid]);
 		DOF2_SetInt(File, "pSede", SedePlayer[playerid]);
-		DOF2_SetInt(File, "pVIP", PlayerInfo[playerid][pVIP]);
 		DOF2_SetInt(File, "pCoins", PlayerInfo[playerid][pCoins]);
 		DOF2_SetInt(File, "pProfissao", PlayerInfo[playerid][pProfissao]);
 		DOF2_SetInt(File, "pOrg", PlayerInfo[playerid][Org]);
@@ -11246,6 +11410,7 @@ stock SalvarAvaliacao(playerid)
 		if(!DOF2_FileExists(File)) DOF2_CreateFile(File);
 		//
 		DOF2_SetInt(File, "Avaliacao", PlayerInfo[playerid][pAvaliacao]);
+		DOF2_SetInt(File, "AdminLevel", PlayerInfo[playerid][pAdmin]);
 		DOF2_SaveFile();
 	}
 	return 1;
@@ -11260,6 +11425,7 @@ stock CarregarAvaliacao(playerid)
 		if(DOF2_FileExists(File))
 		//
 		PlayerInfo[playerid][pAvaliacao] = DOF2_GetInt(File, "Avaliacao");
+		PlayerInfo[playerid][pAdmin] = DOF2_GetInt(File, "AdminLevel");
 	}
 	return 1;
 }
@@ -11849,6 +12015,7 @@ public OnPlayerDisconnect(playerid, reason)
 		SalvarMissoes(playerid);
 		SalvarInventario(playerid);
 		SalvarAvaliacao(playerid);
+		SalvarVIP(playerid);
 		cmd_dveiculo(playerid);
 		KillTimer(TimerFomebar[playerid]);
 		KillTimer(TimerSedebar[playerid]);
@@ -14200,7 +14367,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 797.993225, -1618.977661, 14.032936))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_CATLANCHE, DIALOG_STYLE_LIST, "Subway", "{5b6ed9}- {FFFFFF}Alimentos\n{5b6ed9}- {FFFFFF}Refrescos", "Selecionar", "X");
+			ShowPlayerDialog(playerid, DIALOG_CATLANCHE, DIALOG_STYLE_LIST, "HomeLand Food", "{5b6ed9}- {FFFFFF}Alimentos\n{5b6ed9}- {FFFFFF}Refrescos", "Selecionar", "X");
 		}
 		if(PlayerToPoint(2.0, playerid, 1083.447998, -1766.307128, 13.928387))
 		{
@@ -14998,7 +15165,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SetInt(Account, "pSegundosJogados", 0);
 					DOF2_SetInt(Account, "pAvisos", 0);
 					DOF2_SetInt(Account, "pCadeia", 0);
-					DOF2_SetInt(Account, "pAdmin", 0);
 					DOF2_SetInt(Account, "pLastLogin", 0);
 					DOF2_SetInt(Account, "pInterior", 0);
 					DOF2_SetFloat(Account, "pPosX", 0);
@@ -15014,7 +15180,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					FomePlayer[playerid] = 100;
 					DOF2_SetInt(Account, "pSede", 0);
 					SedePlayer[playerid] = 100;
-					DOF2_SetInt(Account, "pVIP", 0);
 					DOF2_SetInt(Account, "pCoins", 0);
 					DOF2_SetInt(Account, "pProfissao", 0);
 					DOF2_SetInt(Account, "pOrg", 0);
@@ -15197,7 +15362,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						PlayerInfo[playerid][pSegundosJogados] = DOF2_GetInt(Account, "pSegundosJogados");
 						PlayerInfo[playerid][pAvisos] = DOF2_GetInt(Account, "pAvisos");
 						PlayerInfo[playerid][pCadeia] = DOF2_GetInt(Account, "pCadeia");
-						PlayerInfo[playerid][pAdmin] = DOF2_GetInt(Account, "pAdmin");
 						PlayerInfo[playerid][pInterior] = DOF2_GetInt(Account, "pInterior");
 						PlayerInfo[playerid][pPosX] = DOF2_GetFloat(Account, "pPosX");
 						PlayerInfo[playerid][pPosY] = DOF2_GetFloat(Account, "pPosY");
@@ -15210,7 +15374,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						PlayerInfo[playerid][pCalado] = DOF2_GetBool(Account, "pCalado");
 						FomePlayer[playerid] = DOF2_GetInt(Account, "pFome");
 						SedePlayer[playerid] = DOF2_GetInt(Account, "pSede");
-						PlayerInfo[playerid][pVIP] = DOF2_GetInt(Account, "pVIP");
 						PlayerInfo[playerid][pCoins] = DOF2_GetInt(Account, "pCoins");
 						PlayerInfo[playerid][pProfissao] = DOF2_GetInt(Account, "pProfissao");
 						PlayerInfo[playerid][Org] = DOF2_GetInt(Account, "pOrg");
@@ -15567,11 +15730,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{5b6ed9}- {FFFFFF}Pizza N1\t{32CD32}R$10\n{5b6ed9}- {FFFFFF}Pizza N2\t{32CD32}R$18\n{5b6ed9}- {FFFFFF}Pizza N3\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Pizza N4\t{32CD32}R$50", "Selecionar", #);
+					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
 				}
 				if(listitem == 1)
 				{
-					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_LIST, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", #);
+					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_LIST, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
 				}
 			}
 		}
@@ -15581,39 +15744,43 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					if(PlayerInfo[playerid][pDinheiro] < 10) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
-					SuccesMsg(playerid, "Voce comprou Pizza N1.");
-					PlayerInfo[playerid][pDinheiro] -= 10;
-					GanharItem(playerid, 2218, 1);
-					CofreRestaurante += 10;
+					if(PlayerInfo[playerid][pDinheiro] < 25) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Voce comprou Pedaco de Pizza.");
+					PlayerInfo[playerid][pDinheiro] -= 25;
+					GanharItem(playerid, 2702, 1);
+					CofreRestaurante += 25;
 					SalvarDinRoubos();
+					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
 				}
 				if(listitem == 1)
 				{
-					if(PlayerInfo[playerid][pDinheiro] < 18) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
-					SuccesMsg(playerid, "Voce comprou Pizza N2.");
-					PlayerInfo[playerid][pDinheiro] -= 18;
-					GanharItem(playerid, 2355, 1);
-					CofreRestaurante += 18;
+					if(PlayerInfo[playerid][pDinheiro] < 35) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Voce comprou Tacos");
+					PlayerInfo[playerid][pDinheiro] -= 35;
+					GanharItem(playerid, 2769, 1);
+					CofreRestaurante += 35;
 					SalvarDinRoubos();
+					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
 				}
 				if(listitem == 2)
 				{
-					if(PlayerInfo[playerid][pDinheiro] < 25) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
-					SuccesMsg(playerid, "Voce comprou Pizza N3.");
-					PlayerInfo[playerid][pDinheiro] -= 25;
-					GanharItem(playerid, 2219, 1);
-					CofreRestaurante += 25;
+					if(PlayerInfo[playerid][pDinheiro] < 40) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Voce comprou Pedaco de Frango.");
+					PlayerInfo[playerid][pDinheiro] -= 40;
+					GanharItem(playerid, 19847, 1);
+					CofreRestaurante += 40;
 					SalvarDinRoubos();
+					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
 				}
 				if(listitem == 3)
 				{
 					if(PlayerInfo[playerid][pDinheiro] < 50) 	return ErrorMsg(playerid, "Dinheiro insuficiente.");
-					SuccesMsg(playerid, "Voce comprou Pizzza N4.");
+					SuccesMsg(playerid, "Voce comprou Carne Assada.");
 					PlayerInfo[playerid][pDinheiro] -= 50;
-					GanharItem(playerid, 2220, 1);
+					GanharItem(playerid, 19882, 1);
 					CofreRestaurante += 50;
 					SalvarDinRoubos();
+					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
 				}
 			}
 		}
@@ -15629,6 +15796,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GanharItem(playerid, 1484, 1);
 					CofreRestaurante += 2;
 					SalvarDinRoubos();
+					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_LIST, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
 				}
 				if(listitem == 1)
 				{
@@ -15638,6 +15806,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GanharItem(playerid, 1644, 1);
 					CofreRestaurante += 5;
 					SalvarDinRoubos();
+					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_LIST, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
 				}
 				if(listitem == 2)
 				{
@@ -15647,6 +15816,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GanharItem(playerid, 1546, 1);
 					CofreRestaurante += 8;
 					SalvarDinRoubos();
+					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_LIST, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
 				}
 				if(listitem == 3)
 				{
@@ -15656,6 +15826,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GanharItem(playerid, 2601, 1);
 					CofreRestaurante += 10;
 					SalvarDinRoubos();
+					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_LIST, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
 				}
 			}
 		}
@@ -15945,7 +16116,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Centro de Licencas \t{5b6ed9} %.0f KM\n", g);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Subway \t{5b6ed9} %.0f KM\n", h);
+					format(string, 128, "{FFFFFF} HomeLand Food \t{5b6ed9} %.0f KM\n", h);
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Concessionaria \t{5b6ed9} %.0f KM\n", i);
 					strcat(MEGAString,string);
@@ -16331,7 +16502,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{5b6ed9}- {FFFFFF}VIP BASICO{32CD32}\tBC$10,000\n{5b6ed9}- {FFFFFF}VIP PREMIUM{32CD32}\tBC$25,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{5b6ed9}- {FFFFFF}VIP CLASSIC{32CD32}\tBC$10,000\n{5b6ed9}- {FFFFFF}VIP ADVANCED{32CD32}\tBC$25,000\n{5b6ed9}- {FFFFFF}VIP PREMIUM{32CD32}\tBC$25,000", "Selecionar", "X");	
 				}
 				if(listitem == 1)
 				{
@@ -16603,34 +16774,39 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new string[255];
 				if(listitem == 0)
 				{
-					if(PlayerInfo[playerid][pCoins] < 10000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					PlayerInfo[playerid][pCoins] -= 10000;
+					if(PlayerInfo[playerid][pCoins] < 5000) 	return ErrorMsg(playerid, "Coins insuficiente.");
+					PlayerInfo[playerid][pCoins] -= 5000;
 					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
 					PlayerInfo[playerid][pVIP] = 1;
-					format(string, sizeof(string), PASTA_VIPS, Name(playerid)); 
-					DOF2_CreateFile(string); 
-					DOF2_SetInt(string,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
-					DOF2_SaveFile(); 
 					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
-					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP CLASSIC\nValor: 5.000", PlayerInfo[playerid][IDF]);
 					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
 				}
 				if(listitem == 1)
 				{
-					if(PlayerInfo[playerid][pCoins] < 25000) 	return ErrorMsg(playerid, "Coins insuficiente.");
+					if(PlayerInfo[playerid][pCoins] < 15000) 	return ErrorMsg(playerid, "Coins insuficiente.");
 					PlayerInfo[playerid][pBanco] += 23000;
-					PlayerInfo[playerid][pCoins] -= 25000;
+					PlayerInfo[playerid][pCoins] -= 15000;
 					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
 					PlayerInfo[playerid][pVIP] = 2;
-					format(string, sizeof(string), PASTA_VIPS, Name(playerid)); 
-					DOF2_CreateFile(string); 
-					DOF2_SetInt(string,"VipExpira", PlayerInfo[playerid][ExpiraVIP]); 
-					DOF2_SaveFile(); 
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
-					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP PREMIUM\nValor: 25000", PlayerInfo[playerid][IDF]);
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP ADVANCED\nValor: 15.000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
+				}
+				if(listitem == 2)
+				{
+					if(PlayerInfo[playerid][pCoins] < 30000) 	return ErrorMsg(playerid, "Coins insuficiente.");
+					PlayerInfo[playerid][pBanco] += 23000;
+					PlayerInfo[playerid][pCoins] -= 30000;
+					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
+					PlayerInfo[playerid][pVIP] = 3; 
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP PREMIUM\nValor: 30.000", PlayerInfo[playerid][IDF]);
 					DCC_SetEmbedColor(embed, 0x5b6ed9);
 					DCC_SetEmbedDescription(embed, string);
 					DCC_SendChannelEmbedMessage(VIPAtivado, embed);
@@ -21809,6 +21985,7 @@ CMD:criarkey(playerid, params[])
 		new str[180];
 		format(str, sizeof(str), "O cupom %d se criou com %i de coins.", Cod, vl);
 		SuccesMsg(playerid,  str);
+		vl = 0;
 	}
 	return 1;
 }
@@ -21816,22 +21993,22 @@ CMD:criarkey(playerid, params[])
 CMD:ativarkey(playerid, params[])
 {
 	new File[255];
-	new Cod, Din;
+	new Cod;
 	if(sscanf(params, "d", Cod)) return ErrorMsg(playerid,  "Use: /ativarkey [Codigo]");
 	{
 		format(File, sizeof(File), PASTA_KEYS, Cod);
 		if(DOF2_FileExists(File)) 
 		{
-			Din = DOF2_GetInt(File, "Valor");
+			Din[playerid] = DOF2_GetInt(File, "Valor");
 			new string[255];
 			new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
-			format(string,sizeof(string),"### COINS ATIVADOS\n\nJogador: %04d\nQuantidade Agora: %s\nQuantidade Antes: %s\nCod: %d", PlayerInfo[playerid][IDF],ConvertMoney(PlayerInfo[playerid][pCoins]+Din),ConvertMoney(PlayerInfo[playerid][pCoins]), Cod);
+			format(string,sizeof(string),"### COINS ATIVADOS\n\nJogador: %04d\nQuantidade Agora: %s\nQuantidade Antes: %s\nCod: %d", PlayerInfo[playerid][IDF],ConvertMoney(PlayerInfo[playerid][pCoins]+Din[playerid]),ConvertMoney(PlayerInfo[playerid][pCoins]), Cod);
 			DCC_SetEmbedColor(embed, 0x5b6ed9);
 			DCC_SetEmbedDescription(embed, string);
 			DCC_SetEmbedImage(embed, DCIMG);
 			DCC_SendChannelEmbedMessage(AtivarCoins, embed);
-			PlayerInfo[playerid][pCoins] += Din;
-			Din = 0;
+			PlayerInfo[playerid][pCoins] += Din[playerid];
+			Din[playerid] = 0;
 			SuccesMsg(playerid, "Codigo utilizado!");
 			DOF2_RemoveFile(File);
 		}
@@ -24078,13 +24255,13 @@ CMD:roubar(playerid)
 		}
 		if(PlayerToPoint(5.0, playerid, 800.242553, -1617.385986, 14.032936))
 		{
-			if(RouboRestaurante == true)return ErrorMsg(playerid, "Esta Subway ja roubado.");
+			if(RouboRestaurante == true)return ErrorMsg(playerid, "Esta HomeLand Food ja roubado.");
 			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
 
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 				
-			CreateProgress(playerid, "RoubarLoja","Roubando caixa Subway...", 1000);
+			CreateProgress(playerid, "RoubarLoja","Roubando caixa HomeLand Food...", 1000);
 			
 			if(noti == 1)
 			{
@@ -24092,12 +24269,12 @@ CMD:roubar(playerid)
 				{
 					if(Patrulha[i] == true)
 					{
-						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Subway");
+						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a HomeLand Food");
 						WarningMsg(i, Str);
 					}
 				}
 			}
-			InfoMsg(playerid, "Voce comecou a roubar a Subway.");
+			InfoMsg(playerid, "Voce comecou a roubar a HomeLand Food.");
 			return 1;
 		}
 		if(PlayerToPoint(5.0, playerid, 1442.647583, -1120.358276, 23.959011))

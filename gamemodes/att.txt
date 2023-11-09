@@ -1,4 +1,6 @@
-Chat desbugado
-InfomaÃ§Ãµes do emprego
-Salario nos empregos
-Uniforme nos empregos
+Desbugado sistema de coins
+Reformulado Sistema Admin (Agora salva em pasta separada)
+Reformulado Sistema VIP (Agora salva em pasta separada)
+Bloqueio uso de armas de veh
+Subway agora é HL FOOD
+Mudança no cardapio da HL FOOD

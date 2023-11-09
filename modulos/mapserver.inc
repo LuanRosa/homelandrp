@@ -17807,7 +17807,7 @@ stock CarregarMapas()
         SetDynamicObjectMaterial(subwaymap, 0, 19130, "matarrows", "green", 0x00000000);
         subwaymap = CreateDynamicObject(19327, 807.255371, -1618.421020, 18.706209, 0.000000, 0.000000, 119.597999, object_world, object_int, -1, 300.00, 300.00); 
         SetDynamicObjectMaterial(subwaymap, 0, 4829, "airport_las", "Grass_128HV", 0x00000000);
-        SetDynamicObjectMaterialText(subwaymap, 0, "{FFFFFF}SUB", 140, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(subwaymap, 0, "{FFFFFF}HL", 140, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
         subwaymap = CreateDynamicObject(19360, 805.679931, -1613.510986, 11.516300, 0.000000, 0.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00); 
         SetDynamicObjectMaterial(subwaymap, 0, 13691, "bevcunto2_lahills", "adeta", 0x00000000);
         subwaymap = CreateDynamicObject(19360, 810.310119, -1627.088867, 11.516300, 0.000000, 0.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00); 
@@ -17875,7 +17875,7 @@ stock CarregarMapas()
         subwaymap = CreateDynamicObject(19433, 807.648437, -1623.796386, 16.742324, -33.000000, 90.000000, -90.199981, object_world, object_int, -1, 300.00, 300.00); 
         SetDynamicObjectMaterial(subwaymap, 0, 19130, "matarrows", "green", 0x00000000);
         subwaymap = CreateDynamicObject(19327, 795.013854, -1614.970214, 18.034431, 0.000000, 0.000000, 180.000000, object_world, object_int, -1, 300.00, 300.00); 
-        SetDynamicObjectMaterialText(subwaymap, 0, "{FFFFFF}SUB", 140, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(subwaymap, 0, "{FFFFFF}HL", 140, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
         subwaymap = CreateDynamicObject(19359, 796.118652, -1625.329345, 14.658109, 0.000000, 0.000000, 0.000000, object_world, object_int, -1, 300.00, 300.00); 
         SetDynamicObjectMaterial(subwaymap, 0, 19130, "matarrows", "green", 0x00000000);
         subwaymap = CreateDynamicObject(19359, 796.115112, -1622.195556, 14.658109, 0.000000, 0.000000, 0.000000, object_world, object_int, -1, 300.00, 300.00); 
@@ -18073,7 +18073,7 @@ stock CarregarMapas()
         SetDynamicObjectMaterial(subwaymap, 9, 18646, "matcolours", "grey-95-percent", 0x00000000);
         subwaymap = CreateDynamicObject(19327, 799.685729, -1626.878417, 15.255999, 0.000000, 0.000000, 180.000000, object_world, object_int, -1, 300.00, 300.00); 
         SetDynamicObjectMaterial(subwaymap, 0, 13691, "bevcunto2_lahills", "adeta", 0x00000000);
-        SetDynamicObjectMaterialText(subwaymap, 0, "{00FF00}OS MELHORES", 140, "Arial", 70, 1, 0x00000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(subwaymap, 0, " ", 140, "Arial", 70, 1, 0x00000000, 0x00000000, 1);
         subwaymap = CreateDynamicObject(19329, 806.054870, -1626.847778, 15.311200, 0.000000, 90.000000, 0.000000, object_world, object_int, -1, 300.00, 300.00); 
         SetDynamicObjectMaterial(subwaymap, 0, 18646, "matcolours", "grey-60-percent", 0x00000000);
         subwaymap = CreateDynamicObject(19329, 803.048950, -1626.804199, 15.311200, 0.000000, 90.000000, 0.000000, object_world, object_int, -1, 300.00, 300.00); 
@@ -18100,10 +18100,10 @@ stock CarregarMapas()
         SetDynamicObjectMaterial(subwaymap, 0, 18646, "matcolours", "grey-10-percent", 0x00000000);
         subwaymap = CreateDynamicObject(19327, 800.714904, -1620.939941, 13.038800, -90.000000, 0.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00); 
         SetDynamicObjectMaterial(subwaymap, 0, 13691, "bevcunto2_lahills", "adeta", 0x00000000);
-        SetDynamicObjectMaterialText(subwaymap, 0, "{FFF000}WAY", 130, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(subwaymap, 0, "{FFF000}FOOD", 130, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
         subwaymap = CreateDynamicObject(19327, 800.024902, -1622.020019, 13.038800, -90.000000, 0.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00); 
         SetDynamicObjectMaterial(subwaymap, 0, 13691, "bevcunto2_lahills", "adeta", 0x00000000);
-        SetDynamicObjectMaterialText(subwaymap, 0, "{FFFFFF}SUB", 130, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(subwaymap, 0, "{FFFFFF}HL", 130, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
         subwaymap = CreateDynamicObject(19379, 800.924438, -1622.081298, 16.292039, 0.000000, 90.000000, 0.000000, object_world, object_int, -1, 300.00, 300.00); 
         SetDynamicObjectMaterial(subwaymap, 0, 19595, "lsappartments1", "ceilingtiles3-128x128", 0x00000000);
         subwaymap = CreateDynamicObject(19379, 797.292785, -1619.998168, 16.292039, 0.000000, 90.000000, 0.000000, object_world, object_int, -1, 300.00, 300.00); 
@@ -18228,17 +18228,17 @@ stock CarregarMapas()
         SetDynamicObjectMaterial(subwaymap, 9, 18646, "matcolours", "grey-95-percent", 0x00000000);
         subwaymap = CreateDynamicObject(19327, 806.405639, -1616.925659, 18.706209, 0.000000, 0.000000, 119.597999, object_world, object_int, -1, 300.00, 300.00); 
         SetDynamicObjectMaterial(subwaymap, 0, 13691, "bevcunto2_lahills", "adeta", 0x00000000);
-        SetDynamicObjectMaterialText(subwaymap, 0, "{FFF000}WAY", 140, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(subwaymap, 0, "{FFF000}FOOD", 140, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
         subwaymap = CreateDynamicObject(19327, 793.343811, -1614.970214, 18.034431, 0.000000, 0.000000, 180.000000, object_world, object_int, -1, 300.00, 300.00); 
         SetDynamicObjectMaterial(subwaymap, 1, 4829, "airport_las", "Grass_128HV", 0x00000000);
-        SetDynamicObjectMaterialText(subwaymap, 0, "{FFF000}WAY", 140, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(subwaymap, 0, "{FFF000}FOOD", 140, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
         subwaymap = CreateDynamicObject(19327, 807.508728, -1625.632568, 18.086463, 0.000000, 0.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00); 
-        SetDynamicObjectMaterialText(subwaymap, 0, "{FFFFFF}SUB", 140, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(subwaymap, 0, "{FFFFFF}HL", 140, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
         subwaymap = CreateDynamicObject(19327, 807.508728, -1623.952392, 18.086463, 0.000000, 0.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00); 
-        SetDynamicObjectMaterialText(subwaymap, 0, "{FFF000}WAY", 140, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(subwaymap, 0, "{FFF000}FOOD", 140, "Arial", 199, 1, 0x00000000, 0x00000000, 1);
         subwaymap = CreateDynamicObject(19327, 798.635498, -1626.878417, 14.865996, 0.000000, 0.000000, 180.000000, object_world, object_int, -1, 300.00, 300.00); 
         SetDynamicObjectMaterial(subwaymap, 0, 13691, "bevcunto2_lahills", "adeta", 0x00000000);
-        SetDynamicObjectMaterialText(subwaymap, 0, "{00FF00}LANCHES", 140, "Arial", 70, 1, 0x00000000, 0x00000000, 1);
+        SetDynamicObjectMaterialText(subwaymap, 0, "", 140, "Arial", 70, 1, 0x00000000, 0x00000000, 1);
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
