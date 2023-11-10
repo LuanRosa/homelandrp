@@ -226,7 +226,6 @@
 				<tagname value="Float"/>
 			</member>
 			<referrer name="pr_ip_AC_DRIVER_SYNC"/>
-			<referrer name="pr_ip_VEHICLE_SYNC"/>
 		</member>
 		<member name="T:PR_MarkersSync" value="2501">
 			<tagname value="PR_MarkersSync"/>
@@ -2148,14 +2147,11 @@
 			<referrer name="fadeIn"/>
 			<referrer name="fadeOut"/>
 		</member>
-		<member name="C:VEHICLE_SYNC" value="200">
-			<referrer name="pr_rip_VEHICLE_SYNC"/>
-		</member>
 		<member name="C:__Pawn" value="778">
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="24768">
+		<member name="C:__line" value="24687">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -3228,9 +3224,6 @@
 			<referrer name="Progress_PegandoCaixasP"/>
 			<referrer name="cmd_carregar"/>
 		</member>
-		<member name="F:CallbackTime">
-			<referrer name="pr_ip_VEHICLE_SYNC"/>
-		</member>
 		<member name="F:Cargase">
 			<tagname value="bool"/>
 			<referrer name="Progress_DescarregarCarga"/>
@@ -3556,9 +3549,6 @@
 			<referrer name="cmd_empacotarcarne"/>
 			<referrer name="cmd_deixarcaixa"/>
 			<referrer name="cmd_pegarcaixa2"/>
-		</member>
-		<member name="F:DetectedModels">
-			<referrer name="pr_ip_VEHICLE_SYNC"/>
 		</member>
 		<member name="F:DialogReturn">
 			<referrer name="ac_OnDialogResponse"/>
@@ -5213,7 +5203,6 @@
 		</member>
 		<member name="F:LogoHM">
 			<tagname value="Text"/>
-			<referrer name="TxdLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 		</member>
 		<member name="F:MAILLOG">
@@ -5318,7 +5307,6 @@
 		<member name="F:Motivo">
 			<referrer name="TestAway"/>
 			<referrer name="cmd_report"/>
-			<referrer name="cmd_duvida"/>
 			<referrer name="cmd_a"/>
 			<referrer name="cmd_av"/>
 			<referrer name="cmd_kick"/>
@@ -7396,7 +7384,6 @@
 			<referrer name="Attplayer"/>
 			<referrer name="GetPlayerVehicleAccess"/>
 			<referrer name="ZerarDados"/>
-			<referrer name="ac_OnPlayerText"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_logaradm"/>
 			<referrer name="cmd_av"/>
@@ -8636,7 +8623,6 @@
 		<member name="M:AdminCargo" syntax="AdminCargo(playerid)">
 			<stacksize value="65"/>
 			<referrer name="Attplayer"/>
-			<referrer name="ac_OnPlayerText"/>
 			<referrer name="cmd_a"/>
 			<referrer name="cmd_admins"/>
 			<dependency name="AdminCargo"/>
@@ -9552,7 +9538,6 @@
 			<referrer name="pr_ip_AC_UNOCCUPIED_SYNC"/>
 			<referrer name="pr_ip_AC_TRAILER_SYNC"/>
 			<referrer name="pr_ip_AC_PASSENGER_SYNC"/>
-			<referrer name="pr_ip_VEHICLE_SYNC"/>
 			<param name="bs">
 				<paraminfo>BitStream </paraminfo>
 			</param>
@@ -9641,7 +9626,6 @@
 		<member name="M:BS_ReadInCarSync" syntax="BS_ReadInCarSync(bs, data[], outgoing)">
 			<stacksize value="55"/>
 			<referrer name="pr_ip_AC_DRIVER_SYNC"/>
-			<referrer name="pr_ip_VEHICLE_SYNC"/>
 			<dependency name="BS_ReadValue"/>
 			<dependency name="BS_UnpackHealthArmour"/>
 			<dependency name="PR_BITS"/>
@@ -9895,7 +9879,6 @@
 			<referrer name="pr_ip_AC_AIM_SYNC"/>
 			<referrer name="pr_ip_AC_ONFOOT_SYNC"/>
 			<referrer name="pr_ip_AC_TRAILER_SYNC"/>
-			<referrer name="pr_ip_VEHICLE_SYNC"/>
 			<param name="bs">
 				<paraminfo>BitStream </paraminfo>
 			</param>
@@ -9978,7 +9961,6 @@
 		<member name="M:BS_WriteInCarSync" syntax="BS_WriteInCarSync(bs, data[], outgoing)">
 			<stacksize value="55"/>
 			<referrer name="pr_ip_AC_DRIVER_SYNC"/>
-			<referrer name="pr_ip_VEHICLE_SYNC"/>
 			<dependency name="operator!(Float:)"/>
 			<dependency name="BS_PackHealthArmour"/>
 			<dependency name="BS_WriteValue"/>
@@ -10561,7 +10543,6 @@
 			<referrer name="ac_OnGameModeInit"/>
 			<referrer name="ac_OnPlayerCommandText"/>
 			<referrer name="UpdateProgress"/>
-			<referrer name="pr_ip_VEHICLE_SYNC"/>
 			<param name="function">
 				<paraminfo> [] </paraminfo>
 			</param>
@@ -13955,6 +13936,7 @@
 		</member>
 		<member name="M:DisableCrashDetectLongCall" syntax="DisableCrashDetectLongCall()">
 			<stacksize value="1"/>
+			<referrer name="mf_OnGameModeInit"/>
 		</member>
 		<member name="M:DisableInteriorEnterExits" syntax="DisableInteriorEnterExits()">
 			<attribute name="native"/>
@@ -18163,7 +18145,6 @@
 			<referrer name="AntiCheatGetVehicleZAngle"/>
 			<referrer name="AntiCheatGetVehicleSpawnPos"/>
 			<referrer name="AntiCheatGetVehicleSpawnZAngle"/>
-			<referrer name="pr_ip_VEHICLE_SYNC"/>
 			<referrer name="AttVeh"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="GetVehicleTrunkPosition"/>
@@ -19876,6 +19857,7 @@
 			<referrer name="cmd_maconhas"/>
 			<referrer name="cmd_vendercasa"/>
 			<referrer name="cmd_atendimento"/>
+			<referrer name="cmd_terminar"/>
 			<referrer name="DCMD_cadeiadc"/>
 			<dependency name="GetPlayerName"/>
 			<dependency name="Name"/>
@@ -20764,13 +20746,6 @@
 			<attribute name="public"/>
 			<stacksize value="1"/>
 			<referrer name="Fader_PlayerProcess"/>
-			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:OnPlayerFiresForbiddenVeh" syntax="OnPlayerFiresForbiddenVeh(playerid)">
-			<attribute name="public"/>
-			<stacksize value="5"/>
-			<dependency name="SendClientMessage"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -22508,7 +22483,6 @@
 			<referrer name="pr_rip_AC_PASSENGER_SYNC"/>
 			<referrer name="pr_rir_AC_RPC_RequestClass"/>
 			<referrer name="pr_rir_AC_RPC_DamageVehicle"/>
-			<referrer name="pr_rip_VEHICLE_SYNC"/>
 			<param name="eventid">
 			</param>
 			<param name="publicname">
@@ -24862,7 +24836,6 @@
 		<member name="M:SalvarDadosSkin" syntax="SalvarDadosSkin(playerid)">
 			<stacksize value="323"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
-			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
 			<referrer name="cmd_setskin"/>
 			<referrer name="cmd_mudarskin"/>
@@ -25202,7 +25175,6 @@
 		<member name="M:SendClientMessage" syntax="SendClientMessage(playerid, color, message[])">
 			<attribute name="native"/>
 			<referrer name="ac_OnCheatDetected"/>
-			<referrer name="OnPlayerFiresForbiddenVeh"/>
 			<referrer name="AChatAtendimento"/>
 			<referrer name="TimerHack"/>
 			<referrer name="ProxDetector"/>
@@ -27297,7 +27269,6 @@
 			<dependency name="HudServer"/>
 			<dependency name="HudServer_p"/>
 			<dependency name="HudServer_p"/>
-			<dependency name="LogoHM"/>
 			<dependency name="PlayerTextDrawHide"/>
 			<dependency name="PlayerTextDrawShow"/>
 			<dependency name="Registration_PTD"/>
@@ -27474,7 +27445,6 @@
 		</member>
 		<member name="M:VIP" syntax="VIP(playerid)">
 			<stacksize value="65"/>
-			<referrer name="ac_OnPlayerText"/>
 			<referrer name="ac_OnPlayerClickPlayer"/>
 			<referrer name="cmd_minhaconta"/>
 			<referrer name="cmd_verdocumentos"/>
@@ -30235,7 +30205,6 @@
 			<dependency name="SacarGranaOrg"/>
 			<dependency name="SacarMaconhaOrg"/>
 			<dependency name="SalvarCofre"/>
-			<dependency name="SalvarDadosSkin"/>
 			<dependency name="SalvarDinRoubos"/>
 			<dependency name="SaveVehicle"/>
 			<dependency name="SedePlayer"/>
@@ -30380,7 +30349,6 @@
 			<dependency name="pSkin"/>
 			<dependency name="pVIP"/>
 			<dependency name="pXP"/>
-			<dependency name="randomEx"/>
 			<dependency name="strcat"/>
 			<dependency name="stringZCMD"/>
 			<dependency name="strlen"/>
@@ -31241,10 +31209,8 @@
 		</member>
 		<member name="M:ac_OnPlayerText" syntax="ac_OnPlayerText(playerid, text[])">
 			<attribute name="public"/>
-			<stacksize value="327"/>
+			<stacksize value="266"/>
 			<dependency name="AChatAtendimento"/>
-			<dependency name="AdminCargo"/>
-			<dependency name="AdminCargo"/>
 			<dependency name="Chat"/>
 			<dependency name="ChatAtendimento"/>
 			<dependency name="ChatLigado"/>
@@ -31261,15 +31227,11 @@
 			<dependency name="ProxDetector"/>
 			<dependency name="Str"/>
 			<dependency name="UltimaFala"/>
-			<dependency name="VIP"/>
-			<dependency name="VIP"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="gettime"/>
 			<dependency name="pCalado"/>
-			<dependency name="pJogando"/>
 			<dependency name="pLogado"/>
-			<dependency name="pVIP"/>
 			<dependency name="true"/>
 			<param name="playerid">
 			</param>
@@ -34773,7 +34735,6 @@
 			<dependency name="ErrorMsg"/>
 			<dependency name="GetPlayerIdfixo"/>
 			<dependency name="IDF"/>
-			<dependency name="Motivo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SSCANF__"/>
@@ -36640,13 +36601,15 @@
 		</member>
 		<member name="M:cmd_terminar" syntax="cmd_terminar(playerid, x_Emprego[])">
 			<attribute name="public"/>
-			<stacksize value="262"/>
+			<stacksize value="288"/>
 			<dependency name="ChatAtendimento"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="FIXES_IsPlayerConnected"/>
 			<dependency name="FIXES_strcmp"/>
 			<dependency name="IDAvaliou"/>
 			<dependency name="InviteAtt"/>
+			<dependency name="Name"/>
+			<dependency name="Name"/>
 			<dependency name="NumeroChatAtendimento"/>
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="SendClientMessage"/>
@@ -37988,7 +37951,6 @@
 			<referrer name="DOF2_MakeBackup"/>
 			<referrer name="CreateProgress"/>
 			<referrer name="UpdateProgress"/>
-			<referrer name="pr_ip_VEHICLE_SYNC"/>
 			<referrer name="loginp"/>
 			<referrer name="Colete"/>
 			<referrer name="Relogio"/>
@@ -38148,6 +38110,7 @@
 			<dependency name="CriarRadares"/>
 			<dependency name="DCC_FindChannelById"/>
 			<dependency name="Dinn"/>
+			<dependency name="DisableCrashDetectLongCall"/>
 			<dependency name="E_STREAMER_DRAW_DISTANCE"/>
 			<dependency name="E_STREAMER_STREAM_DISTANCE"/>
 			<dependency name="EntradaeSaida"/>
@@ -39034,27 +38997,6 @@
 				<paraminfo>BitStream </paraminfo>
 			</param>
 		</member>
-		<member name="M:pr_ip_VEHICLE_SYNC" syntax="pr_ip_VEHICLE_SYNC(playerid, bs)">
-			<attribute name="public"/>
-			<stacksize value="32"/>
-			<dependency name="BS_IgnoreBits"/>
-			<dependency name="BS_ReadInCarSync"/>
-			<dependency name="BS_SetWriteOffset"/>
-			<dependency name="BS_WriteInCarSync"/>
-			<dependency name="CallLocalFunction"/>
-			<dependency name="CallbackTime"/>
-			<dependency name="DetectedModels"/>
-			<dependency name="GetVehicleModel"/>
-			<dependency name="PR_InCarSync"/>
-			<dependency name="PR_keys"/>
-			<dependency name="PR_vehicleId"/>
-			<dependency name="gettime"/>
-			<param name="playerid">
-			</param>
-			<param name="bs">
-				<paraminfo>BitStream </paraminfo>
-			</param>
-		</member>
 		<member name="M:pr_ir_AC_RPC_DamageVehicle" syntax="pr_ir_AC_RPC_DamageVehicle(playerid, bs)">
 			<attribute name="public"/>
 			<stacksize value="7"/>
@@ -39148,13 +39090,6 @@
 			<dependency name="AC_UNOCCUPIED_SYNC"/>
 			<dependency name="PR_INCOMING_PACKET"/>
 			<dependency name="PR_RegHandler"/>
-		</member>
-		<member name="M:pr_rip_VEHICLE_SYNC" syntax="pr_rip_VEHICLE_SYNC()">
-			<attribute name="public"/>
-			<stacksize value="5"/>
-			<dependency name="PR_INCOMING_PACKET"/>
-			<dependency name="PR_RegHandler"/>
-			<dependency name="VEHICLE_SYNC"/>
 		</member>
 		<member name="M:pr_rir_AC_RPC_DamageVehicle" syntax="pr_rir_AC_RPC_DamageVehicle()">
 			<attribute name="public"/>
@@ -39279,7 +39214,6 @@
 			<referrer name="FuncaoItens"/>
 			<referrer name="VaiProHospital"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
-			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_prender"/>
 			<referrer name="cmd_criarkey"/>
 			<referrer name="cmd_iniciarminerador"/>
