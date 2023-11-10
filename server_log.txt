@@ -1,0 +1,140 @@
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[13:54:01] filterscripts = ""  (string)
+[13:54:01] 
+[13:54:01] Server Plugins
+[13:54:01] --------------
+[13:54:01]  Loading plugin: crashdetect
+[13:54:01]   Failed.
+[13:54:01]  Loading plugin: sscanf
+[13:54:01] 
+[13:54:01]  ===============================
+[13:54:01] 
+[13:54:01]       sscanf plugin loaded.     
+[13:54:01] 
+[13:54:01]          Version: 2.13.8
+[13:54:01] 
+[13:54:01]    (c) 2022 Alex "Y_Less" Cole  
+[13:54:01] 
+[13:54:01]  ===============================
+[13:54:01] 
+[13:54:01]   Loaded.
+[13:54:01]  Loading plugin: streamer
+[13:54:01] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[13:54:01]   Loaded.
+[13:54:01]  Loading plugin: timerfix
+[13:54:02]   >> TimerFix v1.5 successfully loaded.
+[13:54:02]   Loaded.
+[13:54:02]  Loading plugin: pawnraknet
+[13:54:02] [Pawn.RakNet] plugin v1.6.0 loading...
+[13:54:02] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[13:54:02]   Loaded.
+[13:54:02]  Loading plugin: sampvoice
+[13:54:02] [sv:dbg:network:init] : module initializing...
+[13:54:02] [dbg:raknet:init] : module initializing...
+[13:54:02] [dbg:raknet:init] : module initialized
+[13:54:02] [sv:dbg:network:init] : module initialized
+[13:54:02] [sv:dbg:main:Load] : creating 2 work threads...
+[13:54:02]  -------------------------------------------    
+[13:54:02]    ___                __   __    _              
+[13:54:02]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[13:54:02]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[13:54:02]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[13:54:02]                   |_|                           
+[13:54:02]  -------------------------------------------    
+[13:54:02]            SampVoice by MOR loaded              
+[13:54:02]  -------------------------------------------    
+[13:54:02]   Loaded.
+[13:54:02]  Loading plugin: discord-connector
+[13:54:04]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[13:54:04]   Loaded.
+[13:54:05]  Loaded 6 plugins.
+
+[13:54:05] I couldn't load any gamemode scripts. Please verify your server.cfg
+[13:54:05] It needs a gamemode0 line at the very least.
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[13:55:12] filterscripts = ""  (string)
+[13:55:12] 
+[13:55:12] Server Plugins
+[13:55:12] --------------
+[13:55:12]  Loading plugin: sscanf
+[13:55:12] 
+[13:55:12]  ===============================
+[13:55:12] 
+[13:55:12]       sscanf plugin loaded.     
+[13:55:12] 
+[13:55:12]          Version: 2.13.8
+[13:55:12] 
+[13:55:12]    (c) 2022 Alex "Y_Less" Cole  
+[13:55:12] 
+[13:55:12]  ===============================
+[13:55:12] 
+[13:55:12]   Loaded.
+[13:55:12]  Loading plugin: crashdetect
+[13:55:12]   Failed.
+[13:55:12]  Loading plugin: streamer
+[13:55:12] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[13:55:12]   Loaded.
+[13:55:12]  Loading plugin: timerfix
+[13:55:12]   >> TimerFix v1.5 successfully loaded.
+[13:55:12]   Loaded.
+[13:55:12]  Loading plugin: pawnraknet
+[13:55:12] [Pawn.RakNet] plugin v1.6.0 loading...
+[13:55:12] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[13:55:12]   Loaded.
+[13:55:12]  Loading plugin: sampvoice
+[13:55:12] [sv:dbg:network:init] : module initializing...
+[13:55:12] [dbg:raknet:init] : module initializing...
+[13:55:12] [dbg:raknet:init] : module initialized
+[13:55:13] [sv:dbg:network:init] : module initialized
+[13:55:13] [sv:dbg:main:Load] : creating 2 work threads...
+[13:55:13]  -------------------------------------------    
+[13:55:13]    ___                __   __    _              
+[13:55:13]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[13:55:13]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[13:55:13]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|

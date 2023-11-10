@@ -4450,7 +4450,6 @@ CallBack::MainTimer()
 {
 	new string[128];
 	new Float:x, Float:y, Float:z;
-	SalvarPlantacao();
 	foreach(Player, i)
 	{
 		if(IsPlayerConnected(i))
@@ -10675,7 +10674,7 @@ stock CarregarVIP(playerid)
 stock SalvarVIP(playerid)
 {
 	new File[50];
-	if(PlayerInfo[playerid][pVIP] < 1)
+	if(PlayerInfo[playerid][pVIP] > 1)
 	{
 		format(File, sizeof(File), PASTA_VIPS, Name(playerid));
 		if(!DOF2_FileExists(File)) DOF2_CreateFile(File);
@@ -11351,7 +11350,7 @@ stock CarregarMissoes(playerid)
 stock SalvarAvaliacao(playerid)
 {
 	new File[50];
-	if(PlayerInfo[playerid][pAdmin] < 1)
+	if(PlayerInfo[playerid][pAdmin] > 1)
 	{
 		format(File, sizeof(File), PASTA_AVALIACAO, Name(playerid));
 		if(!DOF2_FileExists(File)) DOF2_CreateFile(File);
@@ -11947,6 +11946,7 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
+	SalvarPlantacao();
 	if(pLogado[playerid] == true)
 	{
 		new hora, minuto;
@@ -16451,15 +16451,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{5b6ed9}- {FFFFFF}VIP CLASSIC{32CD32}\tBC$10,000\n{5b6ed9}- {FFFFFF}VIP ADVANCED{32CD32}\tBC$25,000\n{5b6ed9}- {FFFFFF}VIP PREMIUM{32CD32}\tBC$25,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{5b6ed9}- {FFFFFF}VIP CLASSIC{32CD32}\thC$5,000\n{5b6ed9}- {FFFFFF}VIP ADVANCED{32CD32}\thC$15,000\n{5b6ed9}- {FFFFFF}VIP PREMIUM{32CD32}\thC$30,000", "Selecionar", "X");	
 				}
 				if(listitem == 1)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATVEHINV, DIALOG_STYLE_LIST, "CATALOGO VEH INV", "{5b6ed9}- {FFFFFF}Sultan{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}HotKnife{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}RC Bandit{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}RC Baron{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}RC Raider{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}Hotring{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}RC Goblin{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}Monster{5b6ed9}\tBC$5,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATVEHINV, DIALOG_STYLE_LIST, "CATALOGO VEH INV", "{5b6ed9}- {FFFFFF}Sultan{5b6ed9}\thC$5,000\n{5b6ed9}- {FFFFFF}HotKnife{5b6ed9}\thC$5,000\n{5b6ed9}- {FFFFFF}RC Bandit{5b6ed9}\thC$2,000\n{5b6ed9}- {FFFFFF}RC Baron{5b6ed9}\thC$2,000\n{5b6ed9}- {FFFFFF}RC Raider{5b6ed9}\thC$2,000\n{5b6ed9}- {FFFFFF}Hotring{5b6ed9}\thC$5,000\n{5b6ed9}- {FFFFFF}RC Goblin{5b6ed9}\thC$2,000\n{5b6ed9}- {FFFFFF}Monster{5b6ed9}\thC$5,000", "Selecionar", "X");	
 				}
 				if(listitem == 2)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATITENS, DIALOG_STYLE_LIST, "CATALOGO ITEMS", "{5b6ed9}- {FFFFFF}JetPack{5b6ed9}\tBC$15,000\n{5b6ed9}- {FFFFFF}Caixa Basica{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Caixa Media{5b6ed9}\tBC$10,000\n{5b6ed9}- {FFFFFF}Caixa Avançada{5b6ed9}\tBC$20,000\n{5b6ed9}- {FFFFFF}+1 Slot Inv{5b6ed9}\tBC$15,000\n{5b6ed9}- {FFFFFF}Remover Advertencia{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Titulo Personalizado{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Troca de Skin{5b6ed9}\tBC$5,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATITENS, DIALOG_STYLE_LIST, "CATALOGO ITEMS", "{5b6ed9}- {FFFFFF}JetPack{5b6ed9}\thC$15,000\n{5b6ed9}- {FFFFFF}Caixa Basica{5b6ed9}\thC$5,000\n{5b6ed9}- {FFFFFF}Caixa Media{5b6ed9}\thC$10,000\n{5b6ed9}- {FFFFFF}Caixa Avançada{5b6ed9}\thC$20,000\n{5b6ed9}- {FFFFFF}+1 Slot Inv{5b6ed9}\thC$15,000\n{5b6ed9}- {FFFFFF}Remover Advertencia{5b6ed9}\thC$5,000\n{5b6ed9}- {FFFFFF}Titulo Personalizado{5b6ed9}\thC$5,000\n{5b6ed9}- {FFFFFF}Troca de Skin{5b6ed9}\thC$5,000", "Selecionar", "X");	
 				}
 				if(listitem == 3)
 				{
@@ -16741,6 +16741,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 15000;
 					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
 					PlayerInfo[playerid][pVIP] = 2;
+					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP ADVANCED\nValor: 15.000", PlayerInfo[playerid][IDF]);
 					DCC_SetEmbedColor(embed, 0x5b6ed9);
@@ -16754,6 +16755,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 30000;
 					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
 					PlayerInfo[playerid][pVIP] = 3; 
+					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP PREMIUM\nValor: 30.000", PlayerInfo[playerid][IDF]);
 					DCC_SetEmbedColor(embed, 0x5b6ed9);
@@ -18817,10 +18819,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 1)
 				{
-					if(CheckInventario2(playerid, 19792)) return ErrorMsg(playerid, "Ja possui carteira de trabalho");
+					if(PlayerInfo[playerid][pCarteiraT] == 1) return ErrorMsg(playerid, "Ja possui carteira de trabalho");
 					SuccesMsg(playerid, "Fez a carteira de trabalho agora podera trabalhar em empregos que necessita disso e receber salario a cada PayDay.");
-					GanharItem(playerid, 19792, 1);
-					MissaoPlayer[playerid][MISSAO4] = 1;
+					PlayerInfo[playerid][pCarteiraT] = 1;
 				}
 			}
 		}
