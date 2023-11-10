@@ -6291,7 +6291,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 			{
 				cmd_inventario(playerid);
-				CreateProgress(playerid, "Pesca","Pescando...", 60);
+				CreateProgress(playerid, "Pesca","Pescando...", 110);
 				TogglePlayerControllable(playerid, 0);
 				UsouCMD[playerid] = true;	
 			}
@@ -12549,7 +12549,7 @@ public OnPlayerEnterCheckpoint(playerid)
 {
 	if(Casavehcorreios2[playerid] == true)
 	{
-		CreateProgress(playerid, "EntregandoCx","Entregando caixa...", 80);
+		CreateProgress(playerid, "EntregandoCx","Entregando caixa...", 110);
 		TogglePlayerControllable(playerid,0);
 		DisablePlayerCheckpoint(playerid);
 		Casavehcorreios2[playerid] = false;
@@ -12557,7 +12557,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	if(Casavehcorreios[playerid] == true){
 		Casavehcorreios[playerid] = false;
 		DisablePlayerCheckpoint(playerid);
-		CreateProgress(playerid, "PegandoCaixaV","Pegando caixa...", 50);
+		CreateProgress(playerid, "PegandoCaixaV","Pegando caixa...", 100);
 		TogglePlayerControllable(playerid,0);
 		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 	}
@@ -12585,7 +12585,7 @@ public OnPlayerEnterCheckpoint(playerid)
 			DisablePlayerCheckpoint(playerid);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-			CreateProgress(playerid,"PegandoCaixasP","Pegando caixa...", 20);
+			CreateProgress(playerid,"PegandoCaixasP","Pegando caixa...", 100);
 			EntregaSdx[playerid] = false;
 		}
 	}
@@ -12593,7 +12593,7 @@ public OnPlayerEnterCheckpoint(playerid)
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-		CreateProgress(playerid, "ColocandoCaixa","Colocando caixa...", 20);
+		CreateProgress(playerid, "ColocandoCaixa","Colocando caixa...", 100);
 		CaixaMao[playerid] = false;
 	}
 	if(Covaconcerto[playerid] == true) 
@@ -12601,14 +12601,14 @@ public OnPlayerEnterCheckpoint(playerid)
 		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.1, 1, 0, 0, 0, 0, 1);
 		DisablePlayerCheckpoint(playerid); 
-		CreateProgress(playerid, "Cova","Coletando lixo...", 20);
+		CreateProgress(playerid, "Cova","Coletando lixo...", 100);
 	}
 	if(PegouLixo[playerid] == true) 
 	{ 
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-		CreateProgress(playerid, "BotouBau","Colocando lixo...", 50);
+		CreateProgress(playerid, "BotouBau","Colocando lixo...", 100);
 	}
 	if(ltumba[playerid] == true)
 	{
@@ -12774,7 +12774,7 @@ public OnPlayerEnterCheckpoint(playerid)
 
 		TogglePlayerControllable(playerid, 0);
 		DisablePlayerCheckpoint(playerid);
-		CreateProgress(playerid, "Minerar","Coletando Rocha...", 80);
+		CreateProgress(playerid, "Minerar","Coletando Rocha...", 100);
 	}
 	return 1;
 }
@@ -23962,7 +23962,7 @@ CMD:pescar(playerid)
 	for(new i; i < 13; i++)
 	if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 	{
-		CreateProgress(playerid, "Pesca","Pescando...", 60);
+		CreateProgress(playerid, "Pesca","Pescando...", 100);
 		TogglePlayerControllable(playerid, 0);
 		UsouCMD[playerid] = true;	
 	}
