@@ -24,7 +24,7 @@ new Progress_Info[MAX_PLAYERS][ProgressInfo], PlayerText:ProgressoBar[MAX_PLAYER
 #define Progresso:%0(%1,%2) \
 	forward Progress_%0(%1,Float:%2); public Progress_%0(%1,Float:%2)
 
-stock CreateProgress(playerid, callback[],title[], time = 1000){
+stock CreateProgress(playerid, callback[],title[], time = 100){
 	new string[128];
 	Progress_Info[playerid][p_percent] = 0;
 	Reloginho[playerid] = 0;
@@ -42,12 +42,9 @@ stock CreateProgress(playerid, callback[],title[], time = 1000){
 
 CallProg:: UpdateProgress(playerid)
 {
-	if(Progress_Info[playerid][p_percent] >= 100.0)
-	{
-		return KillProgress(playerid);
-	}
+	if(Progress_Info[playerid][p_percent] >= 100.0) return KillProgress(playerid);
 	new string[80];
-	Progress_Info[playerid][p_percent] += 1; //(100 / Progress_Info[playerid][p_percent]); //
+	Progress_Info[playerid][p_percent]++; //(100 / Progress_Info[playerid][p_percent]); //
 	SetPlayerProgressBarValue(playerid, ProgressoBar_pp[playerid][0], Progress_Info[playerid][p_percent]); 
 	format(string, sizeof(string), "%.0f%", Progress_Info[playerid][p_percent]);
 	PlayerTextDrawSetString(playerid, ProgressoBar[playerid][7], string);
@@ -69,7 +66,7 @@ stock KillProgress(playerid)
 	DestroyPlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
 	format(Progress_Info[playerid][p_callback], 32, ""); 
 	KillTimer(Progress_Info[playerid][p_timer]);
-	Progress_Info[playerid][p_time] = 18;
+	Progress_Info[playerid][p_time] = 0;
 	Progress_Info[playerid][p_percent] = 0;
 	return 1;
 }

@@ -24424,23 +24424,20 @@ DCMD:verificar(user, channel, params[])
 
 DCMD:criarkeydc(user, channel, params[]) {
 
-	new File[255];
-	new vl; 
-	new
-        DCC_Message:message;
+	new File[255],value,DCC_Message:message;
     message = DCMD_GetCommandMessageId();
 	if(channel == ComandosIG)
 	{ 
-	    if(sscanf(params, "d", vl)) return DCC_SendChannelMessage(channel, "!criarkeydc [Valor]");
+	    if(sscanf(params, "d", value)) return DCC_SendChannelMessage(channel, "!criarkeydc [Valor]");
 		{
 			DCC_DeleteMessage(message);
 			new Cod = randomEx(0,99999999);
 			format(File, sizeof(File), PASTA_KEYS, Cod);
 			DOF2_CreateFile(File);
-			DOF2_SetInt(File, "Valor", vl);
+			DOF2_SetInt(File, "Valor", value);
 			DOF2_SaveFile();
 			new str[180];
-			format(str, sizeof(str), "O cupom **%d** se criou com %s de coins.", Cod, ConvertMoney(vl));
+			format(str, sizeof(str), "O cupom **%d** se criou com %s de coins.", Cod, ConvertMoney(value));
 			DCC_SendChannelMessage(channel, str);
 		}
 	}
