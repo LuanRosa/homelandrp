@@ -60,7 +60,7 @@ main()
 #define MAX_DEALERSHIPS 			100
 #define MAX_FUEL_STATIONS 			100
 #define MAX_PLAYER_VEHICLES 		10
-#define MAX_FREQUENCIAS				10000
+#define MAX_FREQUENCIAS				200
 new	UltimaFala[MAX_PLAYERS];
 #define MAX_SEGUNDOSFALAR  			2  
 #define MAX_EASTER_EGGS         	31
