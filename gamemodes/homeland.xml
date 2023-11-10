@@ -2151,7 +2151,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="24686">
+		<member name="C:__line" value="24683">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -3555,7 +3555,6 @@
 		</member>
 		<member name="F:Din">
 			<referrer name="ZerarDados"/>
-			<referrer name="cmd_ativarkey"/>
 		</member>
 		<member name="F:Dinn">
 			<tagname value="DCC_Channel"/>
@@ -5203,6 +5202,7 @@
 		</member>
 		<member name="F:LogoHM">
 			<tagname value="Text"/>
+			<referrer name="TxdLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 		</member>
 		<member name="F:MAILLOG">
@@ -27268,6 +27268,7 @@
 			<dependency name="HudServer"/>
 			<dependency name="HudServer_p"/>
 			<dependency name="HudServer_p"/>
+			<dependency name="LogoHM"/>
 			<dependency name="PlayerTextDrawHide"/>
 			<dependency name="PlayerTextDrawShow"/>
 			<dependency name="Registration_PTD"/>
@@ -33686,7 +33687,7 @@
 		</member>
 		<member name="M:cmd_ativarkey" syntax="cmd_ativarkey(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="722"/>
+			<stacksize value="723"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<dependency name="AtivarCoins"/>
 			<dependency name="ConvertMoney"/>
@@ -33698,7 +33699,6 @@
 			<dependency name="DCC_SetEmbedImage"/>
 			<dependency name="DOF2_GetInt"/>
 			<dependency name="DOF2_RemoveFile"/>
-			<dependency name="Din"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="IDF"/>
 			<dependency name="PlayerInfo"/>

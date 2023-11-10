@@ -298,8 +298,10 @@ enum anuncios
 };
 new Anuncio[NA][anuncios];
 new TiempoAnuncio[MAX_PLAYERS],Text:TextDraw[5];
-new Din[MAX_PLAYERS];
 new PortaNiobio;
+new Text:LogoHM[3];
+new Din[MAX_PLAYERS];
+new vl[MAX_PLAYERS];
 
 new	CofreLoja1,
 	CofreLoja2,
@@ -648,7 +650,6 @@ new PlayerText:CopGuns[MAX_PLAYERS][6];
 new Text:Textdraw0,
 	Text:Textdraw1;
 new Text:HudServer[17];
-new Text:LogoHM[3];
 new PlayerText:HudServer_p[MAX_PLAYERS][7];
 new PlayerText:Registration_PTD[MAX_PLAYERS][23];
 new Text:TDCadastro[18];
@@ -1794,6 +1795,7 @@ CallBack::FecharCorreios()
 {
 	MoveDynamicObject(mapsdxzx[0], 998.093994, 1755.689941, 11.265600,2.0);
 }
+
 CallBack::FecharCorreios2()
 {
 	MoveDynamicObject(mapsdxzx[1], 997.046997, 1710.949951, 11.265600,2.0);
@@ -2165,6 +2167,10 @@ CallBack::TxdLogin(playerid)
 	{
 		TextDrawShowForPlayer(playerid, HudServer[i]);
 	}
+	for(new i = 0; i < 3; i ++)
+	{
+		TextDrawShowForPlayer(playerid, LogoHM[i]);
+	}
 }
 //------------- Sistema de Easter Eggs ------------------
 enum eastE{
@@ -2281,6 +2287,7 @@ descobrirEE(playerid, eeid){
 		new vip[255];
 		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(10); 
 		PlayerInfo[playerid][pVIP] = 1;
+
 		SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 		new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 		format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
@@ -5465,7 +5472,7 @@ CallBack::Colete(playerid)
 	format(str, sizeof(str), "%.0f", colete);
 	PlayerTextDrawSetString(playerid, HudServer_p[playerid][1], str);
 	checkEE(playerid);
-	    //Armas nas costas dos Players
+//Armas nas costas dos Players
     static armedbody_pTick[MAX_PLAYERS];
     if(GetTickCount() - armedbody_pTick[playerid] > 113)
     {
@@ -6101,7 +6108,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 			{
 				new vip[255];
 				PlayerInfo[playerid][ExpiraVIP] = ConvertDays(10); 
-				PlayerInfo[playerid][pVIP] = 1;
+				PlayerInfo[playerid][pVIP] = 1; 
 				SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 				format(vip,sizeof(vip),"### LOJA VIP\n\nO jogador %04d acaba de comprar VIP BASICO\nValor: 10000", PlayerInfo[playerid][IDF]);
@@ -10642,7 +10649,7 @@ stock convertNumber(n)
 	dia = resto; 
 
 	new str[50]; 
-	format(str, sizeof(str), "%ddias, %02dh %02dm %02ds", dia, hr, mn, seg); 
+	format(str, sizeof(str), "%dd, %02dh %02dm %02ds", dia, hr, mn, seg); 
 	return str; 
 } 
 
@@ -10685,7 +10692,6 @@ stock SalvarVIP(playerid)
 	}
 	return 1;
 }
-
 stock PreloadAnimLib(playerid, animlib[])
 {
 	ApplyAnimation(playerid,animlib,"null",0.0,0,0,0,0,0);
@@ -11011,6 +11017,7 @@ stock ZerarDados(playerid)
 	RotaMaconha[playerid] = false;
 	PlayerInfo[playerid][pSkin] = 0;
 	Din[playerid] = 0;
+	vl[playerid] = 0;
 	PlayerInfo[playerid][pDinheiro] = 0;
 	PlayerInfo[playerid][pBanco] = 0;
 	PlayerInfo[playerid][pIdade] = 0;
@@ -11625,7 +11632,7 @@ public OnGameModeInit()
 	Punicoes = DCC_FindChannelById("1170199996008779816");
 	ComandosIG = DCC_FindChannelById("1170200061678985246");
 	printf("=> Canais DC       		: Carregados");
-	/*createEE(0, "HALLOWEEN EVENT 1", 19320,3.0, -984.33557, 1293.37805, 33.30560,   0.00000, 0.00000, 0.00000);
+	createEE(0, "HALLOWEEN EVENT 1", 19320,3.0, -984.33557, 1293.37805, 33.30560,   0.00000, 0.00000, 0.00000);
 	createEE(1, "HALLOWEEN EVENT 2", 19320,3.0, -2354.78540, 142.00720, 38.22280,  0.00000, 0.00000, 0.00000);
 	createEE(2, "HALLOWEEN EVENT 3", 19320,3.0, -1077.87439, -1157.65149, 128.21820,   0.00000, 0.00000, 0.00000);
 	createEE(3, "HALLOWEEN EVENT 4", 19320,3.0, 420.86520, 1166.28906, 18.71620,   0.00000, 0.00000, 0.00000);
@@ -11656,7 +11663,7 @@ public OnGameModeInit()
 	createEE(28, "HALLOWEEN EVENT 29", 19320,3.0, -476.585144, -541.589050, 25.529611,   0.00000, 0.00000, 0.00000);
 	createEE(29, "HALLOWEEN EVENT 30", 19320,3.0, -25.881288, 1359.155029, 9.171875,   0.00000, 0.00000, 0.00000);
 	createEE(30, "HALLOWEEN EVENT 31", 19320,3.0, -1909.961059, 277.745422, 41.046875,   0.00000, 0.00000, 0.00000);
-	*/
+
 	loadEE();
 	saveEE();
     printf(" ");
@@ -14316,7 +14323,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 797.993225, -1618.977661, 14.032936))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_CATLANCHE, DIALOG_STYLE_LIST, "HomeLand Food", "{5b6ed9}- {FFFFFF}Alimentos\n{5b6ed9}- {FFFFFF}Refrescos", "Selecionar", "X");
+			ShowPlayerDialog(playerid, DIALOG_CATLANCHE, DIALOG_STYLE_LIST, "Subway", "{5b6ed9}- {FFFFFF}Alimentos\n{5b6ed9}- {FFFFFF}Refrescos", "Selecionar", "X");
 		}
 		if(PlayerToPoint(2.0, playerid, 1083.447998, -1766.307128, 13.928387))
 		{
@@ -14425,7 +14432,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 960.607055, 2097.604003, 1011.023010))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			//if(PlayerInfo[playerid][pSegundosJogados] < 7200000) return InfoMsg(playerid, "Voce precisa ter 2hrs de jogo.");
+			if(PlayerInfo[playerid][pSegundosJogados] < 7200000) return InfoMsg(playerid, "Voce precisa ter 2hrs de jogo.");
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
 			else
 			{
@@ -14486,8 +14493,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 939.6504,1733.2004,8.8516)) //correios
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			//if(PlayerInfo[playerid][pSegundosJogados] < 18000000) return InfoMsg(playerid, "Voce precisa ter 5hrs de jogo.");
-			//if(PlayerInfo[playerid][LicencaConduzir] == 0) return InfoMsg(playerid, "Voce nao possui licenca de conducao.");
+			if(PlayerInfo[playerid][pSegundosJogados] < 18000000) return InfoMsg(playerid, "Voce precisa ter 5hrs de jogo.");
+			if(PlayerInfo[playerid][LicencaConduzir] == 0) return InfoMsg(playerid, "Voce nao possui licenca de conducao.");
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
 			else
 			{
@@ -15311,6 +15318,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						PlayerInfo[playerid][pSegundosJogados] = DOF2_GetInt(Account, "pSegundosJogados");
 						PlayerInfo[playerid][pAvisos] = DOF2_GetInt(Account, "pAvisos");
 						PlayerInfo[playerid][pCadeia] = DOF2_GetInt(Account, "pCadeia");
+						PlayerInfo[playerid][pAdmin] = DOF2_GetInt(Account, "pAdmin");
 						PlayerInfo[playerid][pInterior] = DOF2_GetInt(Account, "pInterior");
 						PlayerInfo[playerid][pPosX] = DOF2_GetFloat(Account, "pPosX");
 						PlayerInfo[playerid][pPosY] = DOF2_GetFloat(Account, "pPosY");
@@ -15323,6 +15331,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						PlayerInfo[playerid][pCalado] = DOF2_GetBool(Account, "pCalado");
 						FomePlayer[playerid] = DOF2_GetInt(Account, "pFome");
 						SedePlayer[playerid] = DOF2_GetInt(Account, "pSede");
+						PlayerInfo[playerid][pVIP] = DOF2_GetInt(Account, "pVIP");
 						PlayerInfo[playerid][pCoins] = DOF2_GetInt(Account, "pCoins");
 						PlayerInfo[playerid][pProfissao] = DOF2_GetInt(Account, "pProfissao");
 						PlayerInfo[playerid][Org] = DOF2_GetInt(Account, "pOrg");
@@ -15727,7 +15736,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Voce comprou Carne Assada.");
 					PlayerInfo[playerid][pDinheiro] -= 50;
 					GanharItem(playerid, 19882, 1);
-					CofreRestaurante += 50;
+					CofreRestaurante += 50;	
 					SalvarDinRoubos();
 					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
 				}
@@ -16451,15 +16460,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{5b6ed9}- {FFFFFF}VIP CLASSIC{32CD32}\thC$5,000\n{5b6ed9}- {FFFFFF}VIP ADVANCED{32CD32}\thC$15,000\n{5b6ed9}- {FFFFFF}VIP PREMIUM{32CD32}\thC$30,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{5b6ed9}- {FFFFFF}VIP BASICO{32CD32}\tBC$10,000\n{5b6ed9}- {FFFFFF}VIP PREMIUM{32CD32}\tBC$25,000", "Selecionar", "X");	
 				}
 				if(listitem == 1)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATVEHINV, DIALOG_STYLE_LIST, "CATALOGO VEH INV", "{5b6ed9}- {FFFFFF}Sultan{5b6ed9}\thC$5,000\n{5b6ed9}- {FFFFFF}HotKnife{5b6ed9}\thC$5,000\n{5b6ed9}- {FFFFFF}RC Bandit{5b6ed9}\thC$2,000\n{5b6ed9}- {FFFFFF}RC Baron{5b6ed9}\thC$2,000\n{5b6ed9}- {FFFFFF}RC Raider{5b6ed9}\thC$2,000\n{5b6ed9}- {FFFFFF}Hotring{5b6ed9}\thC$5,000\n{5b6ed9}- {FFFFFF}RC Goblin{5b6ed9}\thC$2,000\n{5b6ed9}- {FFFFFF}Monster{5b6ed9}\thC$5,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATVEHINV, DIALOG_STYLE_LIST, "CATALOGO VEH INV", "{5b6ed9}- {FFFFFF}Sultan{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}HotKnife{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}RC Bandit{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}RC Baron{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}RC Raider{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}Hotring{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}RC Goblin{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}Monster{5b6ed9}\tBC$5,000", "Selecionar", "X");	
 				}
 				if(listitem == 2)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATITENS, DIALOG_STYLE_LIST, "CATALOGO ITEMS", "{5b6ed9}- {FFFFFF}JetPack{5b6ed9}\thC$15,000\n{5b6ed9}- {FFFFFF}Caixa Basica{5b6ed9}\thC$5,000\n{5b6ed9}- {FFFFFF}Caixa Media{5b6ed9}\thC$10,000\n{5b6ed9}- {FFFFFF}Caixa Avançada{5b6ed9}\thC$20,000\n{5b6ed9}- {FFFFFF}+1 Slot Inv{5b6ed9}\thC$15,000\n{5b6ed9}- {FFFFFF}Remover Advertencia{5b6ed9}\thC$5,000\n{5b6ed9}- {FFFFFF}Titulo Personalizado{5b6ed9}\thC$5,000\n{5b6ed9}- {FFFFFF}Troca de Skin{5b6ed9}\thC$5,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATITENS, DIALOG_STYLE_LIST, "CATALOGO ITEMS", "{5b6ed9}- {FFFFFF}JetPack{5b6ed9}\tBC$15,000\n{5b6ed9}- {FFFFFF}Caixa Basica{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Caixa Media{5b6ed9}\tBC$10,000\n{5b6ed9}- {FFFFFF}Caixa Avançada{5b6ed9}\tBC$20,000\n{5b6ed9}- {FFFFFF}+1 Slot Inv{5b6ed9}\tBC$15,000\n{5b6ed9}- {FFFFFF}Remover Advertencia{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Titulo Personalizado{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Troca de Skin{5b6ed9}\tBC$5,000", "Selecionar", "X");	
 				}
 				if(listitem == 3)
 				{
@@ -21923,19 +21932,18 @@ CMD:reanimar(playerid)
 CMD:criarkey(playerid, params[])
 {
 	new File[255];
-	new vl;  
 	if(PlayerInfo[playerid][pAdmin] < 7)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "d", vl)) return ErrorMsg(playerid, "Use: /criarkey [Valor]");
 	{
 		new Cod = randomEx(0,99999999);
 		format(File, sizeof(File), PASTA_KEYS, Cod);
 		DOF2_CreateFile(File);
-		DOF2_SetInt(File, "Valor", vl);
+		DOF2_SetInt(File, "Valor", vl[playerid]);
 		DOF2_SaveFile();
 		new str[180];
-		format(str, sizeof(str), "O cupom %d se criou com %i de coins.", Cod, vl);
+		format(str, sizeof(str), "O cupom %d se criou com %i de coins.", Cod, vl[playerid]);
 		SuccesMsg(playerid,  str);
-		vl = 0;
+		vl[playerid] = 0;
 	}
 	return 1;
 }
@@ -24276,7 +24284,7 @@ CMD:roubar(playerid)
 			return 1;
 		}
 	}
-	return 1;	
+		return 1;	
 }
 
 CMD:desmanchar(playerid)
