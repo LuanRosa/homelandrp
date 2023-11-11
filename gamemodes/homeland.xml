@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet href="file:///E|/22/Baixada-Roleplay/pawno/xml/pawndoc.xsl" type="text/xsl"?>
-<doc source="E:\22\Baixada-Roleplay\gamemodes\homeland.pwn">
+<?xml-stylesheet href="file:///C|/Users/Administrador/Desktop/Baixada-Roleplay/pawno/xml/pawndoc.xsl" type="text/xsl"?>
+<doc source="C:\Users\Administrador\Desktop\Baixada-Roleplay\gamemodes\homeland.pwn">
 	<assembly>
 		<name>homeland.pwn</name>
 	</assembly>
@@ -67,19 +67,6 @@
 			</member>
 			<member name="C:CofrePosR" value="4">
 				<tagname value="Float"/>
-			</member>
-		</member>
-		<member name="T:CofreInfoD" value="5">
-			<tagname value="CofreInfoD"/>
-			<member name="C:Dinheiro" value="0">
-			</member>
-			<member name="C:Maconha" value="1">
-			</member>
-			<member name="C:Cocaina" value="2">
-			</member>
-			<member name="C:Crack" value="3">
-			</member>
-			<member name="C:Equipar" value="4">
 			</member>
 		</member>
 		<member name="T:E_BAR_DATA" value="9">
@@ -1458,61 +1445,6 @@
 			<member name="C:GramasProntas" value="32">
 			</member>
 		</member>
-		<member name="T:misiones" value="26">
-			<tagname value="misiones"/>
-			<member name="C:MISSAO1" value="0">
-			</member>
-			<member name="C:MISSAO2" value="1">
-			</member>
-			<member name="C:MISSAO3" value="2">
-			</member>
-			<member name="C:MISSAO4" value="3">
-			</member>
-			<member name="C:MISSAO5" value="4">
-			</member>
-			<member name="C:MISSAO6" value="5">
-			</member>
-			<member name="C:MISSAO7" value="6">
-			</member>
-			<member name="C:MISSAO8" value="7">
-			</member>
-			<member name="C:MISSAO9" value="8">
-			</member>
-			<member name="C:MISSAO10" value="9">
-			</member>
-			<member name="C:MISSAO11" value="10">
-			</member>
-			<member name="C:MISSAO12" value="11">
-			</member>
-			<member name="C:MISSAO13" value="12">
-			</member>
-			<member name="C:CMISSAO1" value="13">
-			</member>
-			<member name="C:CMISSAO2" value="14">
-			</member>
-			<member name="C:CMISSAO3" value="15">
-			</member>
-			<member name="C:CMISSAO4" value="16">
-			</member>
-			<member name="C:CMISSAO5" value="17">
-			</member>
-			<member name="C:CMISSAO6" value="18">
-			</member>
-			<member name="C:CMISSAO7" value="19">
-			</member>
-			<member name="C:CMISSAO8" value="20">
-			</member>
-			<member name="C:CMISSAO9" value="21">
-			</member>
-			<member name="C:CMISSAO10" value="22">
-			</member>
-			<member name="C:CMISSAO11" value="23">
-			</member>
-			<member name="C:CMISSAO12" value="24">
-			</member>
-			<member name="C:CMISSAO13" value="25">
-			</member>
-		</member>
 		<member name="T:pInfo" value="422">
 			<tagname value="pInfo"/>
 			<member name="C:pSenha" value="0">
@@ -1712,9 +1644,6 @@
 			<referrer name="_RenderBar"/>
 			<referrer name="SetPlayerProgressBarValue"/>
 		</member>
-		<member name="C:DCMD_TOTAL_CMD_SIZE" value="256">
-			<referrer name="DCC_OnMessageCreate"/>
-		</member>
 		<member name="C:DIALOG_AJUDA" value="13">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_ajuda"/>
@@ -1722,19 +1651,19 @@
 		<member name="C:DIALOG_AJUDA1" value="14">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AJUDACOMANDOS" value="58">
+		<member name="C:DIALOG_AJUDACOMANDOS" value="47">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AJUDAINVENTARIO" value="63">
+		<member name="C:DIALOG_AJUDAINVENTARIO" value="52">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AJUDAJEFORG" value="60">
+		<member name="C:DIALOG_AJUDAJEFORG" value="49">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AJUDAORG" value="61">
+		<member name="C:DIALOG_AJUDAORG" value="50">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AJUDAVEH" value="62">
+		<member name="C:DIALOG_AJUDAVEH" value="51">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_AJUDA_ADMIN" value="41">
@@ -1743,31 +1672,31 @@
 		<member name="C:DIALOG_ALIMENTOS" value="10">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AMMU" value="113">
+		<member name="C:DIALOG_AMMU" value="102">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_ANUNCIOOLX" value="97">
+		<member name="C:DIALOG_ANUNCIOOLX" value="86">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_ARMARIOMEC" value="74">
+		<member name="C:DIALOG_ARMARIOMEC" value="63">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_ARMAS12" value="89">
+		<member name="C:DIALOG_ARMAS12" value="78">
 			<referrer name="ItemOpcoes2"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_ARMAS2" value="88">
+		<member name="C:DIALOG_ARMAS2" value="77">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 		</member>
-		<member name="C:DIALOG_ATIVARCOINS" value="103">
+		<member name="C:DIALOG_ATIVARCOINS" value="92">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_AUTO_ESCOLA" value="17">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_AVALIAR" value="91">
+		<member name="C:DIALOG_AVALIAR" value="80">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_pediravaliar"/>
 		</member>
@@ -1782,14 +1711,14 @@
 			<referrer name="loginp"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_BENEVIP" value="90">
+		<member name="C:DIALOG_BENEVIP" value="79">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_CARGA" value="36">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_carregar"/>
 		</member>
-		<member name="C:DIALOG_CASAS" value="69">
+		<member name="C:DIALOG_CASAS" value="58">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
@@ -1797,14 +1726,14 @@
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_lojavip"/>
 		</member>
-		<member name="C:DIALOG_CATITENS" value="105">
+		<member name="C:DIALOG_CATITENS" value="94">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_CATLANCHE" value="11">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_CATVEHINV" value="71">
+		<member name="C:DIALOG_CATVEHINV" value="60">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_CATVIPS" value="16">
@@ -1818,33 +1747,6 @@
 			<referrer name="ac_OnPlayerClickPlayer"/>
 			<referrer name="cmd_minhaconta"/>
 			<referrer name="cmd_verdocumentos"/>
-		</member>
-		<member name="C:DIALOG_COFREORG" value="43">
-			<referrer name="ac_OnDialogResponse"/>
-		</member>
-		<member name="C:DIALOG_COFREORG1" value="44">
-			<referrer name="ac_OnDialogResponse"/>
-		</member>
-		<member name="C:DIALOG_COFREORG12" value="45">
-			<referrer name="ac_OnDialogResponse"/>
-		</member>
-		<member name="C:DIALOG_COFREORG2" value="46">
-			<referrer name="ac_OnDialogResponse"/>
-		</member>
-		<member name="C:DIALOG_COFREORG22" value="47">
-			<referrer name="ac_OnDialogResponse"/>
-		</member>
-		<member name="C:DIALOG_COFREORG3" value="48">
-			<referrer name="ac_OnDialogResponse"/>
-		</member>
-		<member name="C:DIALOG_COFREORG32" value="50">
-			<referrer name="ac_OnDialogResponse"/>
-		</member>
-		<member name="C:DIALOG_COFREORG4" value="51">
-			<referrer name="ac_OnDialogResponse"/>
-		</member>
-		<member name="C:DIALOG_COFREORG42" value="53">
-			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_CONFIRMA_ESCOLA1" value="18">
 			<referrer name="ac_OnDialogResponse"/>
@@ -1863,10 +1765,10 @@
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_convidar"/>
 		</member>
-		<member name="C:DIALOG_CREDITOS" value="104">
+		<member name="C:DIALOG_CREDITOS" value="93">
 			<referrer name="cmd_creditos"/>
 		</member>
-		<member name="C:DIALOG_EDITVEHICLE" value="85">
+		<member name="C:DIALOG_EDITVEHICLE" value="74">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_editv"/>
@@ -1886,48 +1788,48 @@
 		<member name="C:DIALOG_EMP4" value="32">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_ERROR" value="76">
+		<member name="C:DIALOG_ERROR" value="65">
 			<referrer name="AttVeh"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_FAQ" value="57">
+		<member name="C:DIALOG_FAQ" value="46">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_FAQ1" value="64">
+		<member name="C:DIALOG_FAQ1" value="53">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_FINDVEHICLE" value="80">
+		<member name="C:DIALOG_FINDVEHICLE" value="69">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_localizarv"/>
 		</member>
-		<member name="C:DIALOG_FUEL" value="84">
+		<member name="C:DIALOG_FUEL" value="73">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_abastecer"/>
 		</member>
-		<member name="C:DIALOG_GPS" value="65">
+		<member name="C:DIALOG_GPS" value="54">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_gps"/>
 		</member>
-		<member name="C:DIALOG_GPS1" value="66">
+		<member name="C:DIALOG_GPS1" value="55">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_GPS2" value="67">
+		<member name="C:DIALOG_GPS2" value="56">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_GPS3" value="99">
+		<member name="C:DIALOG_GPS3" value="88">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_JOALHERIA" value="114">
+		<member name="C:DIALOG_JOALHERIA" value="103">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_LMARIHUANA" value="55">
+		<member name="C:DIALOG_LMARIHUANA" value="44">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_maconhas"/>
 		</member>
-		<member name="C:DIALOG_LOCALIZARCASA" value="70">
+		<member name="C:DIALOG_LOCALIZARCASA" value="59">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_LOGIN" value="0">
@@ -1936,11 +1838,11 @@
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
 		</member>
-		<member name="C:DIALOG_LOJA247" value="101">
+		<member name="C:DIALOG_LOJA247" value="90">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_LOJAHP" value="106">
+		<member name="C:DIALOG_LOJAHP" value="95">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
@@ -1948,36 +1850,32 @@
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_rorgoff"/>
 		</member>
-		<member name="C:DIALOG_LTUMBA" value="68">
+		<member name="C:DIALOG_LTUMBA" value="57">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_ltumba"/>
 		</member>
-		<member name="C:DIALOG_MECANICA" value="107">
+		<member name="C:DIALOG_MECANICA" value="96">
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_MECANICACORES" value="109">
+		<member name="C:DIALOG_MECANICACORES" value="98">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_MECANICANITRO" value="111">
+		<member name="C:DIALOG_MECANICANITRO" value="100">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_MECANICAPJ" value="110">
+		<member name="C:DIALOG_MECANICAPJ" value="99">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_MECANICARODAS" value="108">
+		<member name="C:DIALOG_MECANICARODAS" value="97">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_MEMBROSORG" value="40">
 			<referrer name="membrosorg"/>
 		</member>
-		<member name="C:DIALOG_MENUANIM" value="73">
+		<member name="C:DIALOG_MENUANIM" value="62">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_menuanim"/>
-		</member>
-		<member name="C:DIALOG_MISSOES" value="75">
-			<referrer name="ac_OnDialogResponse"/>
-			<referrer name="cmd_missoes"/>
 		</member>
 		<member name="C:DIALOG_ORGS" value="39">
 			<referrer name="cmd_orgs"/>
@@ -1985,14 +1883,14 @@
 		<member name="C:DIALOG_POS" value="4">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_PREFEITURA" value="102">
+		<member name="C:DIALOG_PREFEITURA" value="91">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_PRESOS" value="5">
 			<referrer name="cmd_presos"/>
 		</member>
-		<member name="C:DIALOG_PROCURADOS" value="100">
+		<member name="C:DIALOG_PROCURADOS" value="89">
 			<referrer name="cmd_procurados"/>
 		</member>
 		<member name="C:DIALOG_REANIMAR" value="35">
@@ -2030,63 +1928,63 @@
 		<member name="C:DIALOG_SELTRABALHO" value="9">
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_TELEPORTARMAP" value="92">
+		<member name="C:DIALOG_TELEPORTARMAP" value="81">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickMap"/>
 		</member>
-		<member name="C:DIALOG_TIENDAILEGAL" value="54">
+		<member name="C:DIALOG_TIENDAILEGAL" value="43">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_TRUNK" value="81">
+		<member name="C:DIALOG_TRUNK" value="70">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_mala"/>
 		</member>
-		<member name="C:DIALOG_TRUNK_ACTION" value="82">
+		<member name="C:DIALOG_TRUNK_ACTION" value="71">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VALORTRANSACAO" value="98">
+		<member name="C:DIALOG_VALORTRANSACAO" value="87">
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 		</member>
-		<member name="C:DIALOG_VEHCORP1" value="93">
+		<member name="C:DIALOG_VEHCORP1" value="82">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VEHCORP2" value="94">
+		<member name="C:DIALOG_VEHCORP2" value="83">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VEHCORP3" value="95">
+		<member name="C:DIALOG_VEHCORP3" value="84">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VEHCORP4" value="96">
+		<member name="C:DIALOG_VEHCORP4" value="85">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VEHHP" value="112">
+		<member name="C:DIALOG_VEHHP" value="101">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VEHICLE" value="77">
+		<member name="C:DIALOG_VEHICLE" value="66">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_mv"/>
 		</member>
-		<member name="C:DIALOG_VEHICLE_BUY" value="78">
+		<member name="C:DIALOG_VEHICLE_BUY" value="67">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnPlayerStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VEHICLE_PLATE" value="83">
+		<member name="C:DIALOG_VEHICLE_PLATE" value="72">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_VEHICLE_SELL" value="79">
+		<member name="C:DIALOG_VEHICLE_SELL" value="68">
 			<referrer name="ShowDialog"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_venderv"/>
@@ -2096,7 +1994,7 @@
 			<referrer name="cmd_mvoip"/>
 		</member>
 		<member name="C:EOS" value="0">
-			<referrer name="cmd_halloween"/>
+			<referrer name="cmd_EVENTO"/>
 			<referrer name="IsValidInput"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -2151,7 +2049,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="24683">
+		<member name="C:__line" value="23473">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -2235,9 +2133,6 @@
 			<referrer name="cmd_atendimento"/>
 			<referrer name="cmd_anuncio"/>
 			<referrer name="cmd_trazercofre"/>
-			<referrer name="DCMD_verificar"/>
-			<referrer name="DCMD_criarkeydc"/>
-			<referrer name="DCMD_cadeiadc"/>
 		</member>
 		<member name="C:cellbits" value="32">
 		</member>
@@ -2441,7 +2336,6 @@
 			<referrer name="BS_WriteInCarSync"/>
 			<referrer name="Iter_OnPlayerConnect"/>
 			<referrer name="Iter_OnPlayerDisconnect"/>
-			<referrer name="DCC_OnMessageCreate"/>
 			<referrer name="ac_DestroyVehicle"/>
 			<referrer name="ac_DisableInteriorEnterExits"/>
 			<referrer name="ac_TogglePlayerSpectating"/>
@@ -2594,7 +2488,6 @@
 			<referrer name="cmd_mudarskin"/>
 			<referrer name="cmd_mudarskin2"/>
 			<referrer name="cmd_cancelarrota"/>
-			<referrer name="DCMD_cadeiadc"/>
 			<referrer name="cmd_dominar"/>
 			<referrer name="cmd_abrircorreios"/>
 			<referrer name="cmd_abrircorreios2"/>
@@ -2620,7 +2513,6 @@
 			<referrer name="BS_WriteInCarSync"/>
 			<referrer name="Iter_OnPlayerConnect"/>
 			<referrer name="pr_irp_ID_CUSTOM_SYNC"/>
-			<referrer name="DCC_OnMessageCreate"/>
 			<referrer name="ac_AddStaticVehicle"/>
 			<referrer name="ac_CreatePickup"/>
 			<referrer name="ac_DestroyPickup"/>
@@ -2734,15 +2626,6 @@
 			<referrer name="todastextdraw"/>
 			<referrer name="GetVehicleModelIDFromName"/>
 			<referrer name="CriarCasas"/>
-			<referrer name="DepositarGranaOrg"/>
-			<referrer name="SacarGranaOrg"/>
-			<referrer name="DepositarMaconhaOrg"/>
-			<referrer name="SacarMaconhaOrg"/>
-			<referrer name="DepositarCocainaOrg"/>
-			<referrer name="SacarCocainaOrg"/>
-			<referrer name="DepositarCrackOrg"/>
-			<referrer name="SacarCrackOrg"/>
-			<referrer name="DiminuirEquiparOrg"/>
 			<referrer name="addlider"/>
 			<referrer name="tirarlider"/>
 			<referrer name="convidarmembro"/>
@@ -2852,7 +2735,6 @@
 			<referrer name="cmd_roubar"/>
 			<referrer name="cmd_creditos"/>
 			<referrer name="cmd_terminar"/>
-			<referrer name="DCMD_cadeiadc"/>
 			<referrer name="cmd_vault"/>
 		</member>
 
@@ -3086,11 +2968,6 @@
 			<referrer name="ac_OnPlayerInteriorChange"/>
 			<referrer name="cmd_tv"/>
 		</member>
-		<member name="F:AtivarCoins">
-			<tagname value="DCC_Channel"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<referrer name="cmd_ativarkey"/>
-		</member>
 		<member name="F:AutoEscolaAerea">
 			<referrer name="ZerarDados"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
@@ -3294,16 +3171,6 @@
 			<referrer name="SSCANF_OnGameModeInit"/>
 			<referrer name="Iter_OPDCInternal"/>
 		</member>
-		<member name="F:Chat">
-			<tagname value="DCC_Channel"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<referrer name="ac_OnPlayerText"/>
-		</member>
-		<member name="F:ChatAdm">
-			<tagname value="DCC_Channel"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<referrer name="cmd_a"/>
-		</member>
 		<member name="F:ChatAtendimento">
 			<referrer name="AChatAtendimento"/>
 			<referrer name="ac_OnPlayerText"/>
@@ -3425,30 +3292,11 @@
 			<referrer name="SalvarDinRoubos"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="F:CofreOrg">
-			<referrer name="LoadCofreOrg"/>
-			<referrer name="DepositarGranaOrg"/>
-			<referrer name="SacarGranaOrg"/>
-			<referrer name="DepositarMaconhaOrg"/>
-			<referrer name="SacarMaconhaOrg"/>
-			<referrer name="DepositarCocainaOrg"/>
-			<referrer name="SacarCocainaOrg"/>
-			<referrer name="DepositarCrackOrg"/>
-			<referrer name="SacarCrackOrg"/>
-			<referrer name="DiminuirEquiparOrg"/>
-			<referrer name="ac_OnDialogResponse"/>
-		</member>
 		<member name="F:CofreRestaurante">
 			<referrer name="Progress_RoubarLoja"/>
 			<referrer name="CarregarDinRoubos"/>
 			<referrer name="SalvarDinRoubos"/>
 			<referrer name="ac_OnDialogResponse"/>
-		</member>
-		<member name="F:ComandosIG">
-			<tagname value="DCC_Channel"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<referrer name="DCMD_criarkeydc"/>
-			<referrer name="DCMD_cadeiadc"/>
 		</member>
 		<member name="F:ContagemIniciada">
 			<tagname value="bool"/>
@@ -3555,11 +3403,7 @@
 		</member>
 		<member name="F:Din">
 			<referrer name="ZerarDados"/>
-		</member>
-		<member name="F:Dinn">
-			<tagname value="DCC_Channel"/>
-			<referrer name="PayDay"/>
-			<referrer name="mf_OnGameModeInit"/>
+			<referrer name="cmd_ativarkey"/>
 		</member>
 		<member name="F:DoorsLockPick">
 			<referrer name="LockpickTimer"/>
@@ -3587,7 +3431,7 @@
 			<referrer name="saveEE"/>
 			<referrer name="descobrirEE"/>
 			<referrer name="checkEE"/>
-			<referrer name="cmd_halloween"/>
+			<referrer name="cmd_EVENTO"/>
 		</member>
 		<member name="F:EmServico">
 			<tagname value="bool"/>
@@ -3600,12 +3444,6 @@
 			<referrer name="LockpickTimer"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
-		</member>
-		<member name="F:EntradaeSaida">
-			<tagname value="DCC_Channel"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<referrer name="ppb_OnPlayerDisconnect"/>
-			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:Entradas">
 			<tagname value="Float"/>
@@ -4998,15 +4836,9 @@
 			<referrer name="cmd_multar"/>
 			<referrer name="cmd_verdocumentos"/>
 			<referrer name="cmd_pediravaliar"/>
-			<referrer name="DCMD_cadeiadc"/>
 		</member>
 		<member name="F:IDAvaliou">
 			<referrer name="cmd_terminar"/>
-		</member>
-		<member name="F:IDNAME">
-			<tagname value="DCC_Channel"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:INVALID_DIALOG_ID">
 			<remarks>  Set when a player can't see a dialog.  </remarks> 
@@ -5205,11 +5037,6 @@
 			<referrer name="TxdLogin"/>
 			<referrer name="CarregarTxdGlobal"/>
 		</member>
-		<member name="F:MAILLOG">
-			<tagname value="DCC_Channel"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<referrer name="ac_OnDialogResponse"/>
-		</member>
 		<member name="F:MATCH_NAME_FIRST">
 			<library>sscanf</library>  <remarks>  The <c>MATCH_NAME_FIRST</c> option as a constant string so you can get compile-  time spell checking on the name.  Specify whether <c>u</c> etc keep searching  for better matching player names after finding one:  <code>  SSCANF_Option(MATCH_NAME_FIRST, 0); // Enable scanning for the best name match not the first (default).  <br />  SSCANF_Option(MATCH_NAME_FIRST, 1); // Enable scanning for the first name match not the best (old behaviour).  </code>  </remarks> 
 		</member>
@@ -5223,7 +5050,7 @@
 			<referrer name="ac_OnCheatDetected"/>
 		</member>
 		<member name="F:MEGAString">
-			<referrer name="cmd_halloween"/>
+			<referrer name="cmd_EVENTO"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_ajuda"/>
@@ -5272,17 +5099,6 @@
 			<referrer name="HideNotify"/>
 			<referrer name="ShowNotify"/>
 		</member>
-		<member name="F:MissaoPlayer">
-			<referrer name="PayDay"/>
-			<referrer name="SalvarMissoes"/>
-			<referrer name="CarregarMissoes"/>
-			<referrer name="ac_OnPlayerEnterRaceCheckpoint"/>
-			<referrer name="ac_OnPlayerKeyStateChange"/>
-			<referrer name="ac_OnDialogResponse"/>
-			<referrer name="cmd_ajuda"/>
-			<referrer name="cmd_gps"/>
-			<referrer name="cmd_missoes"/>
-		</member>
 		<member name="F:ModoTransacao">
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
@@ -5307,6 +5123,7 @@
 		<member name="F:Motivo">
 			<referrer name="TestAway"/>
 			<referrer name="cmd_report"/>
+			<referrer name="cmd_duvida"/>
 			<referrer name="cmd_a"/>
 			<referrer name="cmd_av"/>
 			<referrer name="cmd_kick"/>
@@ -5321,7 +5138,6 @@
 			<referrer name="cmd_desbanirip"/>
 			<referrer name="cmd_prender"/>
 			<referrer name="cmd_vip"/>
-			<referrer name="DCMD_cadeiadc"/>
 		</member>
 		<member name="F:MotorOn">
 			<referrer name="ZerarDados"/>
@@ -5345,7 +5161,6 @@
 			<referrer name="cmd_prender"/>
 			<referrer name="cmd_su"/>
 			<referrer name="cmd_multar"/>
-			<referrer name="DCMD_cadeiadc"/>
 		</member>
 		<member name="F:NumeroChatAtendimento">
 			<referrer name="AChatAtendimento"/>
@@ -5572,7 +5387,6 @@
 			<referrer name="cmd_pediravaliar"/>
 			<referrer name="cmd_roubar"/>
 			<referrer name="cmd_terminar"/>
-			<referrer name="DCMD_cadeiadc"/>
 		</member>
 		<member name="F:Player@YSII_Cg">
 			<tagname value="_Y_ITER_C3"/>
@@ -5645,7 +5459,6 @@
 			<referrer name="cmd_daritem"/>
 			<referrer name="cmd_inventario"/>
 			<referrer name="cmd_report"/>
-			<referrer name="cmd_duvida"/>
 			<referrer name="cmd_presos"/>
 			<referrer name="cmd_logaradm"/>
 			<referrer name="cmd_pos"/>
@@ -5751,7 +5564,6 @@
 			<referrer name="cmd_anuncio"/>
 			<referrer name="cmd_trazercofre"/>
 			<referrer name="cmd_desmanchar"/>
-			<referrer name="DCMD_cadeiadc"/>
 			<referrer name="cmd_dominar"/>
 		</member>
 		<member name="F:PlayerInventario">
@@ -5819,10 +5631,6 @@
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 		</member>
-		<member name="F:PosFabricar">
-			<tagname value="Float"/>
-			<referrer name="mf_OnGameModeInit"/>
-		</member>
 		<member name="F:PosPesca">
 			<tagname value="Float"/>
 			<referrer name="FuncaoItens"/>
@@ -5871,18 +5679,6 @@
 			<referrer name="KillProgress"/>
 			<referrer name="CreateTDProgress"/>
 		</member>
-		<member name="F:Punicoes">
-			<tagname value="DCC_Channel"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<referrer name="cmd_kick"/>
-			<referrer name="cmd_cadeia"/>
-			<referrer name="cmd_banir"/>
-			<referrer name="cmd_tempban"/>
-			<referrer name="cmd_agendaban"/>
-			<referrer name="cmd_agendacadeia"/>
-			<referrer name="cmd_banirip"/>
-			<referrer name="DCMD_cadeiadc"/>
-		</member>
 		<member name="F:RG_p">
 			<tagname value="PlayerText"/>
 			<referrer name="todastextdraw"/>
@@ -5898,9 +5694,6 @@
 		</member>
 		<member name="F:RandomMSG">
 			<referrer name="SendMSG"/>
-		</member>
-		<member name="F:RandomPresence">
-			<referrer name="SendMSGBot"/>
 		</member>
 		<member name="F:RdonPickups">
 			<tagname value="Float"/>
@@ -5933,11 +5726,6 @@
 			<referrer name="AttVeh"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnDialogResponse"/>
-		</member>
-		<member name="F:Reports">
-			<tagname value="DCC_Channel"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<referrer name="cmd_report"/>
 		</member>
 		<member name="F:RotaCocaina">
 			<tagname value="bool"/>
@@ -6161,16 +5949,6 @@
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_atrabalhar"/>
 		</member>
-		<member name="F:Sets">
-			<tagname value="DCC_Channel"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<referrer name="cmd_setskin"/>
-			<referrer name="cmd_setvida"/>
-			<referrer name="cmd_setcolete"/>
-			<referrer name="cmd_setarma"/>
-			<referrer name="cmd_dardinheiro"/>
-			<referrer name="cmd_setadmin"/>
-		</member>
 		<member name="F:SortedEntryList">
 			<referrer name="DOF2_SearchEntry"/>
 			<referrer name="DOF2_SetString"/>
@@ -6201,21 +5979,15 @@
 			<referrer name="cmd_presos"/>
 			<referrer name="cmd_a"/>
 			<referrer name="cmd_av"/>
-			<referrer name="cmd_setskin"/>
-			<referrer name="cmd_setvida"/>
-			<referrer name="cmd_setcolete"/>
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_contagem"/>
-			<referrer name="cmd_setarma"/>
 			<referrer name="cmd_tempban"/>
 			<referrer name="cmd_agendaban"/>
 			<referrer name="cmd_agendacadeia"/>
 			<referrer name="cmd_adv"/>
 			<referrer name="cmd_admins"/>
 			<referrer name="cmd_atrabalhar"/>
-			<referrer name="cmd_dardinheiro"/>
-			<referrer name="cmd_setadmin"/>
 			<referrer name="cmd_gmx"/>
 			<referrer name="cmd_d"/>
 			<referrer name="cmd_ga"/>
@@ -6226,7 +5998,6 @@
 			<referrer name="cmd_reanimar"/>
 			<referrer name="cmd_vip"/>
 			<referrer name="cmd_roubar"/>
-			<referrer name="DCMD_cadeiadc"/>
 		</member>
 		<member name="F:Streamer_IncludeFileVersion">
 			<attribute name="public"/>
@@ -6433,10 +6204,6 @@
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ppb_OnGameModeExit"/>
 		</member>
-		<member name="F:TimerMensagemAutoBot">
-			<referrer name="mf_OnGameModeInit"/>
-			<referrer name="ppb_OnGameModeExit"/>
-		</member>
 		<member name="F:TimerMorto">
 			<referrer name="mortoxx"/>
 			<referrer name="ParaDeBugaPoraaaDk"/>
@@ -6545,13 +6312,6 @@
 		</member>
 		<member name="F:VERSION_WARNING">
 			<referrer name="PawnRakNet_OnGameModeInit"/>
-		</member>
-		<member name="F:VIPAtivado">
-			<tagname value="DCC_Channel"/>
-			<referrer name="descobrirEE"/>
-			<referrer name="FuncaoItens"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:VagasORG">
 			<referrer name="ORGCarrega"/>
@@ -6992,12 +6752,6 @@
 		<member name="F:__file">
 		</member>
 		<member name="F:__file">
-		</member>
-		<member name="F:__file">
-		</member>
-		<member name="F:__file">
-		</member>
-		<member name="F:__file">
 			<referrer name="LoadVehicles"/>
 			<referrer name="LoadDealerships"/>
 			<referrer name="LoadFuelStations"/>
@@ -7078,9 +6832,6 @@
 			<referrer name="cmd_atendimento"/>
 			<referrer name="cmd_anuncio"/>
 			<referrer name="cmd_trazercofre"/>
-			<referrer name="DCMD_verificar"/>
-			<referrer name="DCMD_criarkeydc"/>
-			<referrer name="DCMD_cadeiadc"/>
 		</member>
 		<member name="F:__time">
 		</member>
@@ -7321,11 +7072,6 @@
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
-		<member name="F:g_DCMDMessageID">
-			<tagname value="DCC_Message"/>
-			<referrer name="DCMD_GetCommandMessageId"/>
-			<referrer name="DCC_OnMessageCreate"/>
-		</member>
 		<member name="F:gstream">
 			<referrer name="OnPlayerActivationKeyPress"/>
 			<referrer name="OnPlayerActivationKeyRelease"/>
@@ -7474,7 +7220,6 @@
 			<referrer name="cmd_venderv"/>
 			<referrer name="cmd_darchaves"/>
 			<referrer name="cmd_pediravaliar"/>
-			<referrer name="DCMD_cadeiadc"/>
 		</member>
 		<member name="F:pbar_Data">
 			<referrer name="CreatePlayerProgressBar"/>
@@ -7562,6 +7307,10 @@
 		<member name="F:vaultState">
 			<tagname value="bool"/>
 			<referrer name="cmd_vault"/>
+		</member>
+		<member name="F:vl">
+			<referrer name="ZerarDados"/>
+			<referrer name="cmd_criarkey"/>
 		</member>
 		<member name="F:zcmd_g_HasOPCE">
 			<tagname value="bool"/>
@@ -10539,7 +10288,6 @@
 			<referrer name="SSCANF_OnFilterScriptInit"/>
 			<referrer name="SSCANF_OnGameModeInit"/>
 			<referrer name="SSCANF_OnPlayerDisconnect"/>
-			<referrer name="DCC_OnMessageCreate"/>
 			<referrer name="ac_OnGameModeInit"/>
 			<referrer name="ac_OnPlayerCommandText"/>
 			<referrer name="UpdateProgress"/>
@@ -10726,44 +10474,6 @@
 			<dependency name="object_world"/>
 			<dependency name="printf"/>
 			<dependency name="vaultDoor"/>
-		</member>
-		<member name="M:CarregarMissoes" syntax="CarregarMissoes(playerid)">
-			<stacksize value="57"/>
-			<referrer name="ac_OnDialogResponse"/>
-			<dependency name="CMISSAO1"/>
-			<dependency name="CMISSAO10"/>
-			<dependency name="CMISSAO11"/>
-			<dependency name="CMISSAO12"/>
-			<dependency name="CMISSAO13"/>
-			<dependency name="CMISSAO2"/>
-			<dependency name="CMISSAO3"/>
-			<dependency name="CMISSAO4"/>
-			<dependency name="CMISSAO5"/>
-			<dependency name="CMISSAO6"/>
-			<dependency name="CMISSAO7"/>
-			<dependency name="CMISSAO8"/>
-			<dependency name="CMISSAO9"/>
-			<dependency name="DOF2_GetInt"/>
-			<dependency name="MISSAO1"/>
-			<dependency name="MISSAO10"/>
-			<dependency name="MISSAO11"/>
-			<dependency name="MISSAO12"/>
-			<dependency name="MISSAO13"/>
-			<dependency name="MISSAO2"/>
-			<dependency name="MISSAO3"/>
-			<dependency name="MISSAO4"/>
-			<dependency name="MISSAO5"/>
-			<dependency name="MISSAO6"/>
-			<dependency name="MISSAO7"/>
-			<dependency name="MISSAO8"/>
-			<dependency name="MISSAO9"/>
-			<dependency name="MissaoPlayer"/>
-			<dependency name="MissaoPlayer"/>
-			<dependency name="Name"/>
-			<dependency name="fexist"/>
-			<dependency name="format"/>
-			<param name="playerid">
-			</param>
 		</member>
 		<member name="M:CarregarMortos" syntax="CarregarMortos(playerid)">
 			<stacksize value="47"/>
@@ -10991,27 +10701,19 @@
 		</member>
 		<member name="M:Colete" syntax="Colete(playerid)">
 			<attribute name="public"/>
-			<stacksize value="561"/>
+			<stacksize value="523"/>
 			<dependency name="BancoTD"/>
 			<dependency name="BancoTD"/>
-			<dependency name="FIXES_GetPlayerWeapon"/>
-			<dependency name="FIXES_GetPlayerWeaponData"/>
 			<dependency name="FIXES_IsPlayerConnected"/>
 			<dependency name="FIXES_PlayerTextDrawSetString"/>
 			<dependency name="FomePlayer"/>
 			<dependency name="GetPlayerArmour"/>
 			<dependency name="GetPlayerHealth"/>
-			<dependency name="GetTickCount"/>
-			<dependency name="GetWeaponModel"/>
 			<dependency name="HudServer_p"/>
 			<dependency name="HudServer_p"/>
-			<dependency name="IsPlayerAttachedObjectSlotUsed"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="RemovePlayerAttachedObject"/>
 			<dependency name="SedePlayer"/>
-			<dependency name="SetPlayerAttachedObject"/>
-			<dependency name="checkEE"/>
 			<dependency name="format"/>
 			<dependency name="gettime"/>
 			<dependency name="pBanco"/>
@@ -11057,9 +10759,7 @@
 			<referrer name="cmd_minhaconta"/>
 			<referrer name="cmd_pegaritem"/>
 			<referrer name="cmd_verdocumentos"/>
-			<referrer name="cmd_ativarkey"/>
 			<referrer name="cmd_criarcasa"/>
-			<referrer name="DCMD_criarkeydc"/>
 			<dependency name="ConvertMoney"/>
 			<dependency name="format"/>
 			<param name="number">
@@ -11948,602 +11648,6 @@
 			<dependency name="format"/>
 			<dependency name="printf"/>
 		</member>
-		<member name="M:DCC_AddGuildMemberRole" syntax="DCC_AddGuildMemberRole(guild, user, role)">
-			<attribute name="native"/>
-			<referrer name="DCMD_verificar"/>
-			<param name="guild">
-				<paraminfo>DCC_Guild </paraminfo>
-			</param>
-			<param name="user">
-				<paraminfo>DCC_User </paraminfo>
-			</param>
-			<param name="role">
-				<paraminfo>DCC_Role </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_ClearBotActivity" syntax="DCC_ClearBotActivity()">
-			<stacksize value="3"/>
-			<dependency name="DCC_SetBotActivity"/>
-		</member>
-		<member name="M:DCC_ClearBotNickname" syntax="DCC_ClearBotNickname(guild)">
-			<stacksize value="4"/>
-			<dependency name="DCC_SetBotNickname"/>
-			<param name="guild">
-				<paraminfo>DCC_Guild </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_CreateEmbed" syntax="DCC_CreateEmbed(title[], description[], url[], timestamp[], color, footer_text[], footer_icon_url[], thumbnail_url[], image_url[])">
-			<tagname value="DCC_Embed"/>
-			<attribute name="native"/>
-			<referrer name="descobrirEE"/>
-			<referrer name="FuncaoItens"/>
-			<referrer name="ppb_OnPlayerDisconnect"/>
-			<referrer name="ac_OnDialogResponse"/>
-			<referrer name="cmd_report"/>
-			<referrer name="cmd_kick"/>
-			<referrer name="cmd_cadeia"/>
-			<referrer name="cmd_banir"/>
-			<referrer name="cmd_tempban"/>
-			<referrer name="cmd_agendaban"/>
-			<referrer name="cmd_agendacadeia"/>
-			<referrer name="cmd_banirip"/>
-			<referrer name="cmd_ativarkey"/>
-			<referrer name="DCMD_cadeiadc"/>
-			<param name="title">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="description">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="url">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="timestamp">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="color">
-			</param>
-			<param name="footer_text">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="footer_icon_url">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="thumbnail_url">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="image_url">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_DeleteMessage" syntax="DCC_DeleteMessage(message)">
-			<attribute name="native"/>
-			<referrer name="DCMD_verificar"/>
-			<referrer name="DCMD_criarkeydc"/>
-			<param name="message">
-				<paraminfo>DCC_Message </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_FindChannelById" syntax="DCC_FindChannelById(channel_id[])">
-			<tagname value="DCC_Channel"/>
-			<attribute name="native"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<param name="channel_id">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_FindGuildById" syntax="DCC_FindGuildById(guild_id[])">
-			<tagname value="DCC_Guild"/>
-			<attribute name="native"/>
-			<referrer name="DCMD_verificar"/>
-			<param name="guild_id">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_FindRoleById" syntax="DCC_FindRoleById(role_id[])">
-			<tagname value="DCC_Role"/>
-			<attribute name="native"/>
-			<referrer name="DCMD_verificar"/>
-			<param name="role_id">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_GetMessageAuthor" syntax="DCC_GetMessageAuthor(message, &amp;author)">
-			<attribute name="native"/>
-			<referrer name="DCC_OnMessageCreate"/>
-			<param name="message">
-				<paraminfo>DCC_Message </paraminfo>
-			</param>
-			<param name="author">
-				<paraminfo>DCC_User &amp; </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_GetMessageChannel" syntax="DCC_GetMessageChannel(message, &amp;channel)">
-			<attribute name="native"/>
-			<referrer name="DCC_OnMessageCreate"/>
-			<param name="message">
-				<paraminfo>DCC_Message </paraminfo>
-			</param>
-			<param name="channel">
-				<paraminfo>DCC_Channel &amp; </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_GetMessageContent" syntax="DCC_GetMessageContent(message, dest[], max_size)">
-			<attribute name="native"/>
-			<referrer name="DCC_OnMessageCreate"/>
-			<param name="message">
-				<paraminfo>DCC_Message </paraminfo>
-			</param>
-			<param name="dest">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="max_size">
-			</param>
-		</member>
-		<member name="M:DCC_GetUserId" syntax="DCC_GetUserId(user, dest[], max_size)">
-			<attribute name="native"/>
-			<referrer name="DCMD_verificar"/>
-			<param name="user">
-				<paraminfo>DCC_User </paraminfo>
-			</param>
-			<param name="dest">
-				<paraminfo> [21] </paraminfo>
-			</param>
-			<param name="max_size">
-			</param>
-		</member>
-		<member name="M:DCC_GetUserName" syntax="DCC_GetUserName(user, dest[], max_size)">
-			<attribute name="native"/>
-			<referrer name="DCMD_verificar"/>
-			<referrer name="DCMD_cadeiadc"/>
-			<param name="user">
-				<paraminfo>DCC_User </paraminfo>
-			</param>
-			<param name="dest">
-				<paraminfo> [33] </paraminfo>
-			</param>
-			<param name="max_size">
-			</param>
-		</member>
-		<member name="M:DCC_IsUserBot" syntax="DCC_IsUserBot(user, &amp;is_bot)">
-			<attribute name="native"/>
-			<referrer name="DCC_OnMessageCreate"/>
-			<param name="user">
-				<paraminfo>DCC_User </paraminfo>
-			</param>
-			<param name="is_bot">
-				<paraminfo>bool &amp; </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnChannelCreate" syntax="DCC_OnChannelCreate(channel)">
-			<stacksize value="1"/>
-			<param name="channel">
-				<paraminfo>DCC_Channel </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnChannelDelete" syntax="DCC_OnChannelDelete(channel)">
-			<stacksize value="1"/>
-			<param name="channel">
-				<paraminfo>DCC_Channel </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnChannelUpdate" syntax="DCC_OnChannelUpdate(channel)">
-			<stacksize value="1"/>
-			<param name="channel">
-				<paraminfo>DCC_Channel </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnGuildCreate" syntax="DCC_OnGuildCreate(guild)">
-			<stacksize value="1"/>
-			<param name="guild">
-				<paraminfo>DCC_Guild </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnGuildDelete" syntax="DCC_OnGuildDelete(guild)">
-			<stacksize value="1"/>
-			<param name="guild">
-				<paraminfo>DCC_Guild </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnGuildMemberAdd" syntax="DCC_OnGuildMemberAdd(guild, user)">
-			<stacksize value="1"/>
-			<param name="guild">
-				<paraminfo>DCC_Guild </paraminfo>
-			</param>
-			<param name="user">
-				<paraminfo>DCC_User </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnGuildMemberRemove" syntax="DCC_OnGuildMemberRemove(guild, user)">
-			<stacksize value="1"/>
-			<param name="guild">
-				<paraminfo>DCC_Guild </paraminfo>
-			</param>
-			<param name="user">
-				<paraminfo>DCC_User </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnGuildMemberUpdate" syntax="DCC_OnGuildMemberUpdate(guild, user)">
-			<stacksize value="1"/>
-			<param name="guild">
-				<paraminfo>DCC_Guild </paraminfo>
-			</param>
-			<param name="user">
-				<paraminfo>DCC_User </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnGuildMemberVoiceUpdate" syntax="DCC_OnGuildMemberVoiceUpdate(guild, user, channel)">
-			<stacksize value="1"/>
-			<param name="guild">
-				<paraminfo>DCC_Guild </paraminfo>
-			</param>
-			<param name="user">
-				<paraminfo>DCC_User </paraminfo>
-			</param>
-			<param name="channel">
-				<paraminfo>DCC_Channel </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnGuildRoleCreate" syntax="DCC_OnGuildRoleCreate(guild, role)">
-			<stacksize value="1"/>
-			<param name="guild">
-				<paraminfo>DCC_Guild </paraminfo>
-			</param>
-			<param name="role">
-				<paraminfo>DCC_Role </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnGuildRoleDelete" syntax="DCC_OnGuildRoleDelete(guild, role)">
-			<stacksize value="1"/>
-			<param name="guild">
-				<paraminfo>DCC_Guild </paraminfo>
-			</param>
-			<param name="role">
-				<paraminfo>DCC_Role </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnGuildRoleUpdate" syntax="DCC_OnGuildRoleUpdate(guild, role)">
-			<stacksize value="1"/>
-			<param name="guild">
-				<paraminfo>DCC_Guild </paraminfo>
-			</param>
-			<param name="role">
-				<paraminfo>DCC_Role </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnGuildUpdate" syntax="DCC_OnGuildUpdate(guild)">
-			<stacksize value="1"/>
-			<param name="guild">
-				<paraminfo>DCC_Guild </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnMessageCreate" syntax="DCC_OnMessageCreate(message)">
-			<attribute name="public"/>
-			<stacksize value="269"/>
-			<dependency name="CallLocalFunction"/>
-			<dependency name="DCC_GetMessageAuthor"/>
-			<dependency name="DCC_GetMessageChannel"/>
-			<dependency name="DCC_GetMessageContent"/>
-			<dependency name="DCC_IsUserBot"/>
-			<dependency name="DCMD_TOTAL_CMD_SIZE"/>
-			<dependency name="false"/>
-			<dependency name="g_DCMDMessageID"/>
-			<dependency name="true"/>
-			<param name="message">
-				<paraminfo>DCC_Message </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnMessageDelete" syntax="DCC_OnMessageDelete(message)">
-			<stacksize value="1"/>
-			<param name="message">
-				<paraminfo>DCC_Message </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnMessageReaction" syntax="DCC_OnMessageReaction(message, reaction_user, emoji, reaction_type)">
-			<stacksize value="1"/>
-			<param name="message">
-				<paraminfo>DCC_Message </paraminfo>
-			</param>
-			<param name="reaction_user">
-				<paraminfo>DCC_User </paraminfo>
-			</param>
-			<param name="emoji">
-				<paraminfo>DCC_Emoji </paraminfo>
-			</param>
-			<param name="reaction_type">
-				<paraminfo>DCC_MessageReactionType </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_OnUserUpdate" syntax="DCC_OnUserUpdate(user)">
-			<stacksize value="1"/>
-			<param name="user">
-				<paraminfo>DCC_User </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_RemoveGuildMemberRole" syntax="DCC_RemoveGuildMemberRole(guild, user, role)">
-			<attribute name="native"/>
-			<referrer name="DCMD_verificar"/>
-			<param name="guild">
-				<paraminfo>DCC_Guild </paraminfo>
-			</param>
-			<param name="user">
-				<paraminfo>DCC_User </paraminfo>
-			</param>
-			<param name="role">
-				<paraminfo>DCC_Role </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_SendChannelEmbedMessage" syntax="DCC_SendChannelEmbedMessage(channel, embed, message[], callback[], format[], ...)">
-			<attribute name="native"/>
-			<referrer name="descobrirEE"/>
-			<referrer name="FuncaoItens"/>
-			<referrer name="ppb_OnPlayerDisconnect"/>
-			<referrer name="ac_OnDialogResponse"/>
-			<referrer name="cmd_report"/>
-			<referrer name="cmd_kick"/>
-			<referrer name="cmd_cadeia"/>
-			<referrer name="cmd_banir"/>
-			<referrer name="cmd_tempban"/>
-			<referrer name="cmd_agendaban"/>
-			<referrer name="cmd_agendacadeia"/>
-			<referrer name="cmd_banirip"/>
-			<referrer name="cmd_ativarkey"/>
-			<referrer name="DCMD_cadeiadc"/>
-			<param name="channel">
-				<paraminfo>DCC_Channel </paraminfo>
-			</param>
-			<param name="embed">
-				<paraminfo>DCC_Embed </paraminfo>
-			</param>
-			<param name="message">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="callback">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="format">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="...">
-				<paraminfo> {Float,_} </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_SendChannelMessage" syntax="DCC_SendChannelMessage(channel, message[], callback[], format[], ...)">
-			<attribute name="native"/>
-			<referrer name="PayDay"/>
-			<referrer name="ac_OnPlayerText"/>
-			<referrer name="cmd_a"/>
-			<referrer name="cmd_setskin"/>
-			<referrer name="cmd_setvida"/>
-			<referrer name="cmd_setcolete"/>
-			<referrer name="cmd_setarma"/>
-			<referrer name="cmd_dardinheiro"/>
-			<referrer name="cmd_setadmin"/>
-			<referrer name="DCMD_verificar"/>
-			<referrer name="DCMD_criarkeydc"/>
-			<referrer name="DCMD_cadeiadc"/>
-			<param name="channel">
-				<paraminfo>DCC_Channel </paraminfo>
-			</param>
-			<param name="message">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="callback">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="format">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="...">
-				<paraminfo> {Float,_} </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_SetBotActivity" syntax="DCC_SetBotActivity(name[])">
-			<attribute name="native"/>
-			<referrer name="DCC_ClearBotActivity"/>
-			<referrer name="SendMSGBot"/>
-			<param name="name">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_SetBotNickname" syntax="DCC_SetBotNickname(guild, nickname[])">
-			<attribute name="native"/>
-			<referrer name="DCC_ClearBotNickname"/>
-			<param name="guild">
-				<paraminfo>DCC_Guild </paraminfo>
-			</param>
-			<param name="nickname">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_SetEmbedColor" syntax="DCC_SetEmbedColor(embed, color)">
-			<attribute name="native"/>
-			<referrer name="descobrirEE"/>
-			<referrer name="FuncaoItens"/>
-			<referrer name="ppb_OnPlayerDisconnect"/>
-			<referrer name="ac_OnDialogResponse"/>
-			<referrer name="cmd_report"/>
-			<referrer name="cmd_kick"/>
-			<referrer name="cmd_cadeia"/>
-			<referrer name="cmd_banir"/>
-			<referrer name="cmd_tempban"/>
-			<referrer name="cmd_agendaban"/>
-			<referrer name="cmd_agendacadeia"/>
-			<referrer name="cmd_banirip"/>
-			<referrer name="cmd_ativarkey"/>
-			<referrer name="DCMD_cadeiadc"/>
-			<param name="embed">
-				<paraminfo>DCC_Embed </paraminfo>
-			</param>
-			<param name="color">
-			</param>
-		</member>
-		<member name="M:DCC_SetEmbedDescription" syntax="DCC_SetEmbedDescription(embed, description[])">
-			<attribute name="native"/>
-			<referrer name="descobrirEE"/>
-			<referrer name="FuncaoItens"/>
-			<referrer name="ppb_OnPlayerDisconnect"/>
-			<referrer name="ac_OnDialogResponse"/>
-			<referrer name="cmd_report"/>
-			<referrer name="cmd_kick"/>
-			<referrer name="cmd_cadeia"/>
-			<referrer name="cmd_banir"/>
-			<referrer name="cmd_tempban"/>
-			<referrer name="cmd_agendaban"/>
-			<referrer name="cmd_agendacadeia"/>
-			<referrer name="cmd_banirip"/>
-			<referrer name="cmd_ativarkey"/>
-			<referrer name="DCMD_cadeiadc"/>
-			<param name="embed">
-				<paraminfo>DCC_Embed </paraminfo>
-			</param>
-			<param name="description">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_SetEmbedImage" syntax="DCC_SetEmbedImage(embed, image_url[])">
-			<attribute name="native"/>
-			<referrer name="ppb_OnPlayerDisconnect"/>
-			<referrer name="ac_OnDialogResponse"/>
-			<referrer name="cmd_report"/>
-			<referrer name="cmd_kick"/>
-			<referrer name="cmd_cadeia"/>
-			<referrer name="cmd_banir"/>
-			<referrer name="cmd_tempban"/>
-			<referrer name="cmd_agendaban"/>
-			<referrer name="cmd_agendacadeia"/>
-			<referrer name="cmd_banirip"/>
-			<referrer name="cmd_ativarkey"/>
-			<referrer name="DCMD_cadeiadc"/>
-			<param name="embed">
-				<paraminfo>DCC_Embed </paraminfo>
-			</param>
-			<param name="image_url">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCC_SetEmbedThumbnail" syntax="DCC_SetEmbedThumbnail(embed, thumbnail_url[])">
-			<attribute name="native"/>
-			<referrer name="descobrirEE"/>
-			<referrer name="FuncaoItens"/>
-			<referrer name="ac_OnDialogResponse"/>
-			<param name="embed">
-				<paraminfo>DCC_Embed </paraminfo>
-			</param>
-			<param name="thumbnail_url">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCMD_GetCommandMessageId" syntax="DCMD_GetCommandMessageId()">
-			<tagname value="DCC_Message"/>
-			<stacksize value="1"/>
-			<referrer name="DCMD_verificar"/>
-			<referrer name="DCMD_criarkeydc"/>
-			<dependency name="g_DCMDMessageID"/>
-		</member>
-		<member name="M:DCMD_cadeiadc" syntax="DCMD_cadeiadc(user, channel, params[])">
-			<attribute name="public"/>
-			<stacksize value="324"/>
-			<dependency name="ComandosIG"/>
-			<dependency name="DCC_CreateEmbed"/>
-			<dependency name="DCC_GetUserName"/>
-			<dependency name="DCC_SendChannelEmbedMessage"/>
-			<dependency name="DCC_SendChannelMessage"/>
-			<dependency name="DCC_SetEmbedColor"/>
-			<dependency name="DCC_SetEmbedDescription"/>
-			<dependency name="DCC_SetEmbedImage"/>
-			<dependency name="FIXES_SetTimerEx"/>
-			<dependency name="GetPlayerIdfixo"/>
-			<dependency name="ID"/>
-			<dependency name="IDF"/>
-			<dependency name="InfoMsg"/>
-			<dependency name="Motivo"/>
-			<dependency name="Name"/>
-			<dependency name="Name"/>
-			<dependency name="Numero"/>
-			<dependency name="Player@YSII_Ag"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="Punicoes"/>
-			<dependency name="SSCANF__"/>
-			<dependency name="SendClientMessageToAll"/>
-			<dependency name="SetPlayerVirtualWorld"/>
-			<dependency name="Str"/>
-			<dependency name="__file"/>
-			<dependency name="__line"/>
-			<dependency name="acc_SetPlayerInterior"/>
-			<dependency name="acc_SetPlayerPos"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="false"/>
-			<dependency name="format"/>
-			<dependency name="pCadeia"/>
-			<dependency name="pLogado"/>
-			<dependency name="true"/>
-			<param name="user">
-				<paraminfo>DCC_User </paraminfo>
-			</param>
-			<param name="channel">
-				<paraminfo>DCC_Channel </paraminfo>
-			</param>
-			<param name="params">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCMD_criarkeydc" syntax="DCMD_criarkeydc(user, channel, params[])">
-			<attribute name="public"/>
-			<stacksize value="547"/>
-			<dependency name="ComandosIG"/>
-			<dependency name="ConvertMoney"/>
-			<dependency name="ConvertMoney"/>
-			<dependency name="DCC_DeleteMessage"/>
-			<dependency name="DCC_SendChannelMessage"/>
-			<dependency name="DCMD_GetCommandMessageId"/>
-			<dependency name="DOF2_CreateFile"/>
-			<dependency name="DOF2_SetInt"/>
-			<dependency name="DOF2_WriteFile"/>
-			<dependency name="SSCANF__"/>
-			<dependency name="__file"/>
-			<dependency name="__line"/>
-			<dependency name="format"/>
-			<dependency name="randomEx"/>
-			<param name="user">
-				<paraminfo>DCC_User </paraminfo>
-			</param>
-			<param name="channel">
-				<paraminfo>DCC_Channel </paraminfo>
-			</param>
-			<param name="params">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:DCMD_verificar" syntax="DCMD_verificar(user, channel, params[])">
-			<attribute name="public"/>
-			<stacksize value="576"/>
-			<dependency name="DCC_AddGuildMemberRole"/>
-			<dependency name="DCC_DeleteMessage"/>
-			<dependency name="DCC_FindGuildById"/>
-			<dependency name="DCC_FindRoleById"/>
-			<dependency name="DCC_GetUserId"/>
-			<dependency name="DCC_GetUserName"/>
-			<dependency name="DCC_RemoveGuildMemberRole"/>
-			<dependency name="DCC_SendChannelMessage"/>
-			<dependency name="DCMD_GetCommandMessageId"/>
-			<dependency name="DOF2_RemoveFile"/>
-			<dependency name="SSCANF__"/>
-			<dependency name="__file"/>
-			<dependency name="__line"/>
-			<dependency name="fexist"/>
-			<dependency name="format"/>
-			<param name="user">
-				<paraminfo>DCC_User </paraminfo>
-			</param>
-			<param name="channel">
-				<paraminfo>DCC_Channel </paraminfo>
-			</param>
-			<param name="params">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
 		<member name="M:DOF2_CheckLogin" syntax="DOF2_CheckLogin(file[], password[])">
 			<tagname value="bool"/>
 			<stacksize value="7"/>
@@ -12596,7 +11700,6 @@
 			<referrer name="AgendarBan"/>
 			<referrer name="AgendarCadeia"/>
 			<referrer name="BanirIP"/>
-			<referrer name="SalvarMissoes"/>
 			<referrer name="SalvarAvaliacao"/>
 			<referrer name="Log"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -12605,7 +11708,6 @@
 			<referrer name="cmd_criarcasa"/>
 			<referrer name="cmd_criarradar"/>
 			<referrer name="cmd_fila"/>
-			<referrer name="DCMD_criarkeydc"/>
 			<dependency name="DOF2_SetInt"/>
 			<dependency name="DOF2_num_hash"/>
 			<dependency name="FIXES_fclose"/>
@@ -12718,7 +11820,6 @@
 			<referrer name="loginp"/>
 			<referrer name="CarregarPlantacao"/>
 			<referrer name="CarregarArmas"/>
-			<referrer name="LoadCofreOrg"/>
 			<referrer name="CarregarCofre"/>
 			<referrer name="CarregarDinRoubos"/>
 			<referrer name="CarregarGZ2"/>
@@ -12730,7 +11831,6 @@
 			<referrer name="NomeCargoOff"/>
 			<referrer name="CarregarVIP"/>
 			<referrer name="AgendarCadeia"/>
-			<referrer name="CarregarMissoes"/>
 			<referrer name="CarregarAvaliacao"/>
 			<referrer name="ac_OnPlayerSpawn"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -12972,7 +12072,6 @@
 			<referrer name="cmd_ativarkey"/>
 			<referrer name="cmd_dcasa"/>
 			<referrer name="cmd_dradar"/>
-			<referrer name="DCMD_verificar"/>
 			<dependency name="CurrentFile"/>
 			<dependency name="FIXES_strcmp"/>
 			<dependency name="fremove"/>
@@ -13233,22 +12332,12 @@
 			<referrer name="SalvarGZ"/>
 			<referrer name="GetIdfixo"/>
 			<referrer name="SalvarMortos"/>
-			<referrer name="DepositarGranaOrg"/>
-			<referrer name="SacarGranaOrg"/>
-			<referrer name="DepositarMaconhaOrg"/>
-			<referrer name="SacarMaconhaOrg"/>
-			<referrer name="DepositarCocainaOrg"/>
-			<referrer name="SacarCocainaOrg"/>
-			<referrer name="DepositarCrackOrg"/>
-			<referrer name="SacarCrackOrg"/>
-			<referrer name="DiminuirEquiparOrg"/>
 			<referrer name="SalvarVIP"/>
 			<referrer name="BanirPlayer"/>
 			<referrer name="AgendarBan"/>
 			<referrer name="AgendarCadeia"/>
 			<referrer name="SalvarDados"/>
 			<referrer name="SalvarDadosSkin"/>
-			<referrer name="SalvarMissoes"/>
 			<referrer name="SalvarAvaliacao"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_tempban"/>
@@ -13256,7 +12345,6 @@
 			<referrer name="cmd_criarcasa"/>
 			<referrer name="cmd_vendercasa"/>
 			<referrer name="cmd_criarradar"/>
-			<referrer name="DCMD_criarkeydc"/>
 			<dependency name="DOF2_SetString"/>
 			<dependency name="format"/>
 			<param name="file">
@@ -13523,15 +12611,6 @@
 			<referrer name="SalvarCofreF"/>
 			<referrer name="SalvarCofre"/>
 			<referrer name="SalvarMortos"/>
-			<referrer name="DepositarGranaOrg"/>
-			<referrer name="SacarGranaOrg"/>
-			<referrer name="DepositarMaconhaOrg"/>
-			<referrer name="SacarMaconhaOrg"/>
-			<referrer name="DepositarCocainaOrg"/>
-			<referrer name="SacarCocainaOrg"/>
-			<referrer name="DepositarCrackOrg"/>
-			<referrer name="SacarCrackOrg"/>
-			<referrer name="DiminuirEquiparOrg"/>
 			<referrer name="addlider"/>
 			<referrer name="convidarmembro"/>
 			<referrer name="expulsarmembro"/>
@@ -13542,7 +12621,6 @@
 			<referrer name="BanirIP"/>
 			<referrer name="SalvarDados"/>
 			<referrer name="SalvarDadosSkin"/>
-			<referrer name="SalvarMissoes"/>
 			<referrer name="SalvarAvaliacao"/>
 			<referrer name="Log"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -13553,7 +12631,6 @@
 			<referrer name="cmd_criarcasa"/>
 			<referrer name="cmd_vendercasa"/>
 			<referrer name="cmd_criarradar"/>
-			<referrer name="DCMD_criarkeydc"/>
 			<dependency name="CurrentFile"/>
 			<dependency name="Entries_Line"/>
 			<dependency name="Entries_Line"/>
@@ -13709,62 +12786,6 @@
 				<paraminfo>Text3D </paraminfo>
 			</param>
 		</member>
-		<member name="M:DepositarCocainaOrg" syntax="DepositarCocainaOrg(org, valor)">
-			<stacksize value="264"/>
-			<dependency name="Cocaina"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="DOF2_SetInt"/>
-			<dependency name="DOF2_WriteFile"/>
-			<dependency name="format"/>
-			<dependency name="true"/>
-			<param name="org">
-			</param>
-			<param name="valor">
-			</param>
-		</member>
-		<member name="M:DepositarCrackOrg" syntax="DepositarCrackOrg(org, valor)">
-			<stacksize value="264"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="Crack"/>
-			<dependency name="DOF2_SetInt"/>
-			<dependency name="DOF2_WriteFile"/>
-			<dependency name="format"/>
-			<dependency name="true"/>
-			<param name="org">
-			</param>
-			<param name="valor">
-			</param>
-		</member>
-		<member name="M:DepositarGranaOrg" syntax="DepositarGranaOrg(org, valor)">
-			<stacksize value="264"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="DOF2_SetInt"/>
-			<dependency name="DOF2_WriteFile"/>
-			<dependency name="Dinheiro"/>
-			<dependency name="format"/>
-			<dependency name="true"/>
-			<param name="org">
-			</param>
-			<param name="valor">
-			</param>
-		</member>
-		<member name="M:DepositarMaconhaOrg" syntax="DepositarMaconhaOrg(org, valor)">
-			<stacksize value="264"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="DOF2_SetInt"/>
-			<dependency name="DOF2_WriteFile"/>
-			<dependency name="Maconha"/>
-			<dependency name="format"/>
-			<dependency name="true"/>
-			<param name="org">
-			</param>
-			<param name="valor">
-			</param>
-		</member>
 		<member name="M:DestroyActor__" syntax="DestroyActor__(actorid)">
 			<attribute name="native"/>
 			<referrer name="FIXES_DestroyActor"/>
@@ -13903,20 +12924,6 @@
 			<attribute name="native"/>
 			<referrer name="cmd_remolcar"/>
 			<param name="vehicleid">
-			</param>
-		</member>
-		<member name="M:DiminuirEquiparOrg" syntax="DiminuirEquiparOrg(org, valor)">
-			<stacksize value="264"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="DOF2_SetInt"/>
-			<dependency name="DOF2_WriteFile"/>
-			<dependency name="Equipar"/>
-			<dependency name="format"/>
-			<dependency name="true"/>
-			<param name="org">
-			</param>
-			<param name="valor">
 			</param>
 		</member>
 		<member name="M:DiminuirTempo" syntax="DiminuirTempo(Time)">
@@ -14088,7 +13095,8 @@
 		</member>
 		<member name="M:ENTER_OnPlayerUpdate" syntax="ENTER_OnPlayerUpdate(playerid)">
 			<attribute name="public"/>
-			<stacksize value="1"/>
+			<stacksize value="4"/>
+			<dependency name="checkEE"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -15122,7 +14130,6 @@
 			<referrer name="On_PlayerUpdate"/>
 			<referrer name="On_PlayerKeyStateChange"/>
 			<referrer name="EstaSegurandoArmaProibida"/>
-			<referrer name="Colete"/>
 			<referrer name="GuardarItem2"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -15140,7 +14147,6 @@
 			<referrer name="ac_Timer"/>
 			<referrer name="SalvarArmas"/>
 			<referrer name="RemovePlayerWeapon"/>
-			<referrer name="Colete"/>
 			<referrer name="RemoverItem2"/>
 			<dependency name="GetPlayerWeaponData__"/>
 			<param name="playerid">
@@ -16074,7 +15080,6 @@
 			<referrer name="cmd_gotodealership"/>
 			<referrer name="cmd_gotofuelstation"/>
 			<referrer name="cmd_freq"/>
-			<referrer name="DCMD_cadeiadc"/>
 			<dependency name="KillTimer"/>
 			<dependency name="SetTimerEx"/>
 			<param name="funcname">
@@ -16455,7 +15460,6 @@
 			<referrer name="Progress_BotouBau"/>
 			<referrer name="Progress_Cova"/>
 			<referrer name="SendMSG"/>
-			<referrer name="SendMSGBot"/>
 			<referrer name="ExplodirCaixa"/>
 			<referrer name="PayDay"/>
 			<referrer name="randomEx"/>
@@ -16689,7 +15693,7 @@
 			</param>
 		</member>
 		<member name="M:FuncaoItens" syntax="FuncaoItens(playerid, modelid)">
-			<stacksize value="524"/>
+			<stacksize value="266"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<dependency name="operator+(Float:,_:)"/>
 			<dependency name="Float:operator=(_:)"/>
@@ -16709,11 +15713,6 @@
 			<dependency name="CountPlantacao"/>
 			<dependency name="CreateLocPick"/>
 			<dependency name="CreateProgress"/>
-			<dependency name="DCC_CreateEmbed"/>
-			<dependency name="DCC_SendChannelEmbedMessage"/>
-			<dependency name="DCC_SetEmbedColor"/>
-			<dependency name="DCC_SetEmbedDescription"/>
-			<dependency name="DCC_SetEmbedThumbnail"/>
 			<dependency name="DIALOG_CELULAR"/>
 			<dependency name="DIALOG_MECANICA"/>
 			<dependency name="DIALOG_REANIMAR"/>
@@ -16784,7 +15783,6 @@
 			<dependency name="UltimaCaixaRoubada"/>
 			<dependency name="Unidades"/>
 			<dependency name="UsouCMD"/>
-			<dependency name="VIPAtivado"/>
 			<dependency name="VehAlugado"/>
 			<dependency name="VehicleLockedID"/>
 			<dependency name="VeiculoCivil"/>
@@ -17277,16 +16275,10 @@
 			<referrer name="cmd_minhaconta"/>
 			<referrer name="cmd_duvida"/>
 			<referrer name="cmd_presos"/>
-			<referrer name="cmd_setskin"/>
-			<referrer name="cmd_setvida"/>
-			<referrer name="cmd_setcolete"/>
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
-			<referrer name="cmd_setarma"/>
 			<referrer name="cmd_tempban"/>
 			<referrer name="cmd_adv"/>
-			<referrer name="cmd_dardinheiro"/>
-			<referrer name="cmd_setadmin"/>
 			<referrer name="cmd_vips"/>
 			<referrer name="cmd_verdocumentos"/>
 			<referrer name="cmd_ejetar"/>
@@ -17296,7 +16288,6 @@
 			<referrer name="cmd_rac"/>
 			<referrer name="cmd_freq"/>
 			<referrer name="cmd_vip"/>
-			<referrer name="DCMD_cadeiadc"/>
 			<dependency name="IDF"/>
 			<dependency name="PlayerInfo"/>
 			<param name="playerid">
@@ -18003,7 +16994,6 @@
 			<referrer name="DOF2_MakeBackup"/>
 			<referrer name="ac_OnPlayerEnterVehicle"/>
 			<referrer name="ac_OnPlayerUpdate"/>
-			<referrer name="Colete"/>
 		</member>
 		<member name="M:GetTickCount__" syntax="GetTickCount__()">
 			<attribute name="native"/>
@@ -18356,7 +17346,6 @@
 		</member>
 		<member name="M:GetWeaponModel" syntax="GetWeaponModel(weaponid)">
 			<stacksize value="1"/>
-			<referrer name="Colete"/>
 			<param name="weaponid">
 			</param>
 		</member>
@@ -18640,7 +17629,6 @@
 			<referrer name="cmd_iniciarrotacocaina"/>
 			<referrer name="cmd_cancelarrota"/>
 			<referrer name="cmd_roubar"/>
-			<referrer name="DCMD_cadeiadc"/>
 			<dependency name="IsPlayerMobile"/>
 			<dependency name="PlayerPlaySound"/>
 			<dependency name="ShowNotify"/>
@@ -18801,7 +17789,6 @@
 			<attribute name="native"/>
 			<referrer name="OnPlayerActivationKeyPress"/>
 			<referrer name="OnPlayerActivationKeyRelease"/>
-			<referrer name="Colete"/>
 			<param name="playerid">
 			</param>
 			<param name="index">
@@ -19430,21 +18417,6 @@
 			<param name="interiorid">
 			</param>
 		</member>
-		<member name="M:LoadCofreOrg" syntax="LoadCofreOrg()">
-			<attribute name="public"/>
-			<stacksize value="263"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<dependency name="Cocaina"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="Crack"/>
-			<dependency name="DOF2_GetInt"/>
-			<dependency name="Dinheiro"/>
-			<dependency name="Equipar"/>
-			<dependency name="Maconha"/>
-			<dependency name="format"/>
-			<dependency name="printf"/>
-		</member>
 		<member name="M:LoadDealerships" syntax="LoadDealerships()">
 			<stacksize value="397"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -19818,8 +18790,6 @@
 			<referrer name="BanirIP"/>
 			<referrer name="SalvarDados"/>
 			<referrer name="SalvarDadosSkin"/>
-			<referrer name="SalvarMissoes"/>
-			<referrer name="CarregarMissoes"/>
 			<referrer name="SalvarAvaliacao"/>
 			<referrer name="CarregarAvaliacao"/>
 			<referrer name="MaconhaPronta"/>
@@ -19832,23 +18802,15 @@
 			<referrer name="cmd_minhaconta"/>
 			<referrer name="cmd_inventario"/>
 			<referrer name="cmd_a"/>
-			<referrer name="cmd_setskin"/>
-			<referrer name="cmd_setvida"/>
-			<referrer name="cmd_setcolete"/>
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_contagem"/>
-			<referrer name="cmd_setarma"/>
-			<referrer name="cmd_banir"/>
 			<referrer name="cmd_tempban"/>
 			<referrer name="cmd_agendaban"/>
 			<referrer name="cmd_agendacadeia"/>
 			<referrer name="cmd_adv"/>
-			<referrer name="cmd_banirip"/>
 			<referrer name="cmd_admins"/>
 			<referrer name="cmd_atrabalhar"/>
-			<referrer name="cmd_dardinheiro"/>
-			<referrer name="cmd_setadmin"/>
 			<referrer name="cmd_darlider"/>
 			<referrer name="cmd_revistar"/>
 			<referrer name="cmd_verdocumentos"/>
@@ -19857,7 +18819,6 @@
 			<referrer name="cmd_vendercasa"/>
 			<referrer name="cmd_atendimento"/>
 			<referrer name="cmd_terminar"/>
-			<referrer name="DCMD_cadeiadc"/>
 			<dependency name="GetPlayerName"/>
 			<dependency name="Name"/>
 			<param name="playerid">
@@ -22667,26 +21628,18 @@
 		</member>
 		<member name="M:PayDay" syntax="PayDay(playerid)">
 			<attribute name="public"/>
-			<stacksize value="612"/>
-			<dependency name="DCC_SendChannelMessage"/>
-			<dependency name="Dinn"/>
+			<stacksize value="512"/>
 			<dependency name="FIXES_IsPlayerConnected"/>
 			<dependency name="FIXES_SetTimerEx"/>
 			<dependency name="FIXES_random"/>
-			<dependency name="IDF"/>
 			<dependency name="InfoMsg"/>
-			<dependency name="MISSAO9"/>
-			<dependency name="MissaoPlayer"/>
-			<dependency name="MissaoPlayer"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerPlaySound"/>
 			<dependency name="SalvarDados"/>
 			<dependency name="TimerPayDay"/>
 			<dependency name="false"/>
-			<dependency name="format"/>
 			<dependency name="pBanco"/>
-			<dependency name="pDinheiro"/>
 			<dependency name="pLogado"/>
 			<dependency name="pVIP"/>
 			<dependency name="true"/>
@@ -24025,7 +22978,6 @@
 			<referrer name="Progress_BotouBau"/>
 			<referrer name="OnPlayerActivationKeyRelease"/>
 			<referrer name="RObject"/>
-			<referrer name="Colete"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="cmd_desalgemar"/>
@@ -24621,9 +23573,6 @@
 			<referrer name="cmd_atendimento"/>
 			<referrer name="cmd_anuncio"/>
 			<referrer name="cmd_trazercofre"/>
-			<referrer name="DCMD_verificar"/>
-			<referrer name="DCMD_criarkeydc"/>
-			<referrer name="DCMD_cadeiadc"/>
 			<param name="file">
 				<paraminfo> [] </paraminfo>
 				The file in which this call is found.
@@ -24643,66 +23592,6 @@
 				<paraminfo> {T_WEAPON,Float,_} </paraminfo>
 			</param>
 			<library>sscanf</library>          <remarks>  The current true implementation of <c>sscanf</c> in the plugin.  This is  wrapped by macros to provide <c>sscanf</c> enhanced with filenames and line  numbers so that errors have more information.  The plugin also contains a  native function called <c>sscanf</c> which is only for backwards-  compatibility with older versions of this include.  </remarks> 
-		</member>
-		<member name="M:SacarCocainaOrg" syntax="SacarCocainaOrg(org, valor)">
-			<stacksize value="264"/>
-			<referrer name="ac_OnDialogResponse"/>
-			<dependency name="Cocaina"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="DOF2_SetInt"/>
-			<dependency name="DOF2_WriteFile"/>
-			<dependency name="format"/>
-			<dependency name="true"/>
-			<param name="org">
-			</param>
-			<param name="valor">
-			</param>
-		</member>
-		<member name="M:SacarCrackOrg" syntax="SacarCrackOrg(org, valor)">
-			<stacksize value="264"/>
-			<referrer name="ac_OnDialogResponse"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="Crack"/>
-			<dependency name="DOF2_SetInt"/>
-			<dependency name="DOF2_WriteFile"/>
-			<dependency name="format"/>
-			<dependency name="true"/>
-			<param name="org">
-			</param>
-			<param name="valor">
-			</param>
-		</member>
-		<member name="M:SacarGranaOrg" syntax="SacarGranaOrg(org, valor)">
-			<stacksize value="264"/>
-			<referrer name="ac_OnDialogResponse"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="DOF2_SetInt"/>
-			<dependency name="DOF2_WriteFile"/>
-			<dependency name="Dinheiro"/>
-			<dependency name="format"/>
-			<dependency name="true"/>
-			<param name="org">
-			</param>
-			<param name="valor">
-			</param>
-		</member>
-		<member name="M:SacarMaconhaOrg" syntax="SacarMaconhaOrg(org, valor)">
-			<stacksize value="264"/>
-			<referrer name="ac_OnDialogResponse"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="DOF2_SetInt"/>
-			<dependency name="DOF2_WriteFile"/>
-			<dependency name="Maconha"/>
-			<dependency name="format"/>
-			<dependency name="true"/>
-			<param name="org">
-			</param>
-			<param name="valor">
-			</param>
 		</member>
 		<member name="M:SalvarArmas" syntax="SalvarArmas(playerid)">
 			<attribute name="public"/>
@@ -24778,6 +23667,7 @@
 		</member>
 		<member name="M:SalvarDados" syntax="SalvarDados(playerid)">
 			<stacksize value="323"/>
+			<referrer name="TimerHack"/>
 			<referrer name="PayDay"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
@@ -24941,45 +23831,6 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:SalvarMissoes" syntax="SalvarMissoes(playerid)">
-			<stacksize value="58"/>
-			<referrer name="ppb_OnGameModeExit"/>
-			<referrer name="ppb_OnPlayerDisconnect"/>
-			<dependency name="CMISSAO1"/>
-			<dependency name="CMISSAO10"/>
-			<dependency name="CMISSAO11"/>
-			<dependency name="CMISSAO2"/>
-			<dependency name="CMISSAO3"/>
-			<dependency name="CMISSAO4"/>
-			<dependency name="CMISSAO5"/>
-			<dependency name="CMISSAO6"/>
-			<dependency name="CMISSAO7"/>
-			<dependency name="CMISSAO8"/>
-			<dependency name="CMISSAO9"/>
-			<dependency name="DOF2_CreateFile"/>
-			<dependency name="DOF2_SetInt"/>
-			<dependency name="DOF2_WriteFile"/>
-			<dependency name="MISSAO1"/>
-			<dependency name="MISSAO10"/>
-			<dependency name="MISSAO11"/>
-			<dependency name="MISSAO12"/>
-			<dependency name="MISSAO13"/>
-			<dependency name="MISSAO2"/>
-			<dependency name="MISSAO3"/>
-			<dependency name="MISSAO4"/>
-			<dependency name="MISSAO5"/>
-			<dependency name="MISSAO6"/>
-			<dependency name="MISSAO7"/>
-			<dependency name="MISSAO8"/>
-			<dependency name="MISSAO9"/>
-			<dependency name="MissaoPlayer"/>
-			<dependency name="MissaoPlayer"/>
-			<dependency name="Name"/>
-			<dependency name="fexist"/>
-			<dependency name="format"/>
-			<param name="playerid">
-			</param>
-		</member>
 		<member name="M:SalvarMortos" syntax="SalvarMortos(playerid)">
 			<stacksize value="48"/>
 			<referrer name="ppb_OnGameModeExit"/>
@@ -25007,7 +23858,6 @@
 			<attribute name="public"/>
 			<stacksize value="137"/>
 			<referrer name="ppb_OnGameModeExit"/>
-			<referrer name="ppb_OnPlayerDisconnect"/>
 			<dependency name="Crescida"/>
 			<dependency name="DOF2_CreateFile"/>
 			<dependency name="DOF2_RemoveFile"/>
@@ -25212,7 +24062,6 @@
 			<referrer name="cmd_atrabalhar"/>
 			<referrer name="cmd_gmx"/>
 			<referrer name="cmd_prender"/>
-			<referrer name="DCMD_cadeiadc"/>
 			<param name="color">
 			</param>
 			<param name="message">
@@ -25252,14 +24101,6 @@
 			<dependency name="false"/>
 			<dependency name="pLogado"/>
 			<dependency name="true"/>
-		</member>
-		<member name="M:SendMSGBot" syntax="SendMSGBot()">
-			<attribute name="public"/>
-			<stacksize value="4"/>
-			<dependency name="DCC_SetBotActivity"/>
-			<dependency name="FIXES_random"/>
-			<dependency name="RandomPresence"/>
-			<dependency name="RandomPresence"/>
 		</member>
 		<member name="M:SendRadioMessage" syntax="SendRadioMessage(Cor, Mensagem[])">
 			<stacksize value="6"/>
@@ -25404,7 +24245,6 @@
 			<referrer name="Progress_Cova"/>
 			<referrer name="Progress_Desossar"/>
 			<referrer name="OnPlayerActivationKeyPress"/>
-			<referrer name="Colete"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="cmd_algemar"/>
@@ -25853,7 +24693,6 @@
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_tv"/>
 			<referrer name="cmd_prender"/>
-			<referrer name="DCMD_cadeiadc"/>
 			<param name="playerid">
 			</param>
 			<param name="worldid">
@@ -27168,6 +26007,7 @@
 			<dependency name="FIXES_SetTimerEx"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
+			<dependency name="SalvarDados"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="acc_GivePlayerMoney"/>
 			<dependency name="acc_ResetPlayerMoney"/>
@@ -27758,6 +26598,7 @@
 			<dependency name="true"/>
 			<dependency name="vCoins"/>
 			<dependency name="vKey"/>
+			<dependency name="vl"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -29874,19 +28715,6 @@
 			<dependency name="BancoTD"/>
 			<dependency name="BancoTD"/>
 			<dependency name="Barragem"/>
-			<dependency name="CMISSAO1"/>
-			<dependency name="CMISSAO10"/>
-			<dependency name="CMISSAO11"/>
-			<dependency name="CMISSAO12"/>
-			<dependency name="CMISSAO13"/>
-			<dependency name="CMISSAO2"/>
-			<dependency name="CMISSAO3"/>
-			<dependency name="CMISSAO4"/>
-			<dependency name="CMISSAO5"/>
-			<dependency name="CMISSAO6"/>
-			<dependency name="CMISSAO7"/>
-			<dependency name="CMISSAO8"/>
-			<dependency name="CMISSAO9"/>
 			<dependency name="CST_DeletePVar"/>
 			<dependency name="CST_GetPVarFloat"/>
 			<dependency name="CST_GetPVarInt"/>
@@ -29901,7 +28729,6 @@
 			<dependency name="CarregarArmas"/>
 			<dependency name="CarregarAvaliacao"/>
 			<dependency name="CarregarGZ"/>
-			<dependency name="CarregarMissoes"/>
 			<dependency name="CarregarMortos"/>
 			<dependency name="CarregarVIP"/>
 			<dependency name="Carregou"/>
@@ -29928,7 +28755,6 @@
 			<dependency name="CheckpointPontosCaminhao"/>
 			<dependency name="CheckpointPontosMoto"/>
 			<dependency name="CheckpointPontosVeiculo"/>
-			<dependency name="Cocaina"/>
 			<dependency name="CofreAmmo"/>
 			<dependency name="CofreAmmo"/>
 			<dependency name="CofreAmmu"/>
@@ -29942,22 +28768,13 @@
 			<dependency name="CofreLoja4"/>
 			<dependency name="CofreLoja5"/>
 			<dependency name="CofreNiobio"/>
-			<dependency name="CofreOrg"/>
-			<dependency name="CofreOrg"/>
 			<dependency name="CofreRestaurante"/>
 			<dependency name="ConvertDays"/>
 			<dependency name="ConvertMoney"/>
 			<dependency name="ConvertMoney"/>
-			<dependency name="Crack"/>
 			<dependency name="CreateDynamic3DTextLabel"/>
 			<dependency name="CreateDynamicMapIcon"/>
 			<dependency name="CriarInventario"/>
-			<dependency name="DCC_CreateEmbed"/>
-			<dependency name="DCC_SendChannelEmbedMessage"/>
-			<dependency name="DCC_SetEmbedColor"/>
-			<dependency name="DCC_SetEmbedDescription"/>
-			<dependency name="DCC_SetEmbedImage"/>
-			<dependency name="DCC_SetEmbedThumbnail"/>
 			<dependency name="DIALOG_AJUDA"/>
 			<dependency name="DIALOG_AJUDA1"/>
 			<dependency name="DIALOG_AJUDACOMANDOS"/>
@@ -29985,15 +28802,6 @@
 			<dependency name="DIALOG_CATVEHINV"/>
 			<dependency name="DIALOG_CATVIPS"/>
 			<dependency name="DIALOG_CELULAR"/>
-			<dependency name="DIALOG_COFREORG"/>
-			<dependency name="DIALOG_COFREORG1"/>
-			<dependency name="DIALOG_COFREORG12"/>
-			<dependency name="DIALOG_COFREORG2"/>
-			<dependency name="DIALOG_COFREORG22"/>
-			<dependency name="DIALOG_COFREORG3"/>
-			<dependency name="DIALOG_COFREORG32"/>
-			<dependency name="DIALOG_COFREORG4"/>
-			<dependency name="DIALOG_COFREORG42"/>
 			<dependency name="DIALOG_CONFIRMA_ESCOLA1"/>
 			<dependency name="DIALOG_CONFIRMA_ESCOLA2"/>
 			<dependency name="DIALOG_CONFIRMA_ESCOLA3"/>
@@ -30028,7 +28836,6 @@
 			<dependency name="DIALOG_MECANICAPJ"/>
 			<dependency name="DIALOG_MECANICARODAS"/>
 			<dependency name="DIALOG_MENUANIM"/>
-			<dependency name="DIALOG_MISSOES"/>
 			<dependency name="DIALOG_POS"/>
 			<dependency name="DIALOG_PREFEITURA"/>
 			<dependency name="DIALOG_REANIMAR"/>
@@ -30071,12 +28878,10 @@
 			<dependency name="Delete3DTextLabel"/>
 			<dependency name="DestroyDynamicMapIcon"/>
 			<dependency name="DialogReturn"/>
-			<dependency name="Dinheiro"/>
 			<dependency name="ENTER_GetVehicleParamsEx"/>
 			<dependency name="ENTER_SetVehicleParamsEx"/>
 			<dependency name="EOS"/>
 			<dependency name="Entrada"/>
-			<dependency name="EntradaeSaida"/>
 			<dependency name="Erro"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="ExpiraVIP"/>
@@ -30129,7 +28934,6 @@
 			<dependency name="GetVehicleZAngle"/>
 			<dependency name="Gritando"/>
 			<dependency name="IDF"/>
-			<dependency name="IDNAME"/>
 			<dependency name="InfoMsg"/>
 			<dependency name="IniciouTesteHabilitacaoA"/>
 			<dependency name="IniciouTesteHabilitacaoB"/>
@@ -30148,28 +28952,11 @@
 			<dependency name="ItemOpcao"/>
 			<dependency name="LicencaConduzir"/>
 			<dependency name="LocalizeMaconha"/>
-			<dependency name="MAILLOG"/>
 			<dependency name="MEGAString"/>
-			<dependency name="MISSAO1"/>
-			<dependency name="MISSAO10"/>
-			<dependency name="MISSAO11"/>
-			<dependency name="MISSAO12"/>
-			<dependency name="MISSAO13"/>
-			<dependency name="MISSAO2"/>
-			<dependency name="MISSAO3"/>
-			<dependency name="MISSAO4"/>
-			<dependency name="MISSAO5"/>
-			<dependency name="MISSAO6"/>
-			<dependency name="MISSAO7"/>
-			<dependency name="MISSAO8"/>
-			<dependency name="MISSAO9"/>
-			<dependency name="Maconha"/>
 			<dependency name="MaconhaInfo"/>
 			<dependency name="MaconhaInfo"/>
 			<dependency name="MapIconCasa"/>
 			<dependency name="MapRemocao"/>
-			<dependency name="MissaoPlayer"/>
-			<dependency name="MissaoPlayer"/>
 			<dependency name="MostrandoMenu"/>
 			<dependency name="Name"/>
 			<dependency name="Name"/>
@@ -30200,10 +28987,6 @@
 			<dependency name="RotaHabilitacaoMoto"/>
 			<dependency name="RotaHabilitacaoVeiculo"/>
 			<dependency name="SSCANF__"/>
-			<dependency name="SacarCocainaOrg"/>
-			<dependency name="SacarCrackOrg"/>
-			<dependency name="SacarGranaOrg"/>
-			<dependency name="SacarMaconhaOrg"/>
 			<dependency name="SalvarCofre"/>
 			<dependency name="SalvarDinRoubos"/>
 			<dependency name="SaveVehicle"/>
@@ -30240,7 +29023,6 @@
 			<dependency name="TrackCar"/>
 			<dependency name="UpdateVehicle"/>
 			<dependency name="UpdateVehicleLabel"/>
-			<dependency name="VIPAtivado"/>
 			<dependency name="VehAlugado"/>
 			<dependency name="VehicleAlarm"/>
 			<dependency name="VehicleColor"/>
@@ -30735,9 +29517,6 @@
 			<dependency name="IniciouTesteHabilitacaoC"/>
 			<dependency name="IniciouTesteHabilitacaoD"/>
 			<dependency name="LicencaConduzir"/>
-			<dependency name="MISSAO5"/>
-			<dependency name="MissaoPlayer"/>
-			<dependency name="MissaoPlayer"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerPlaySound"/>
@@ -30950,11 +29729,6 @@
 			<dependency name="LockTimer"/>
 			<dependency name="LockUse"/>
 			<dependency name="MEGAString"/>
-			<dependency name="MISSAO12"/>
-			<dependency name="MISSAO2"/>
-			<dependency name="MISSAO3"/>
-			<dependency name="MissaoPlayer"/>
-			<dependency name="MissaoPlayer"/>
 			<dependency name="MostrandoMenu"/>
 			<dependency name="Objective"/>
 			<dependency name="Org"/>
@@ -31211,10 +29985,8 @@
 			<attribute name="public"/>
 			<stacksize value="266"/>
 			<dependency name="AChatAtendimento"/>
-			<dependency name="Chat"/>
 			<dependency name="ChatAtendimento"/>
 			<dependency name="ChatLigado"/>
-			<dependency name="DCC_SendChannelMessage"/>
 			<dependency name="Erro"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="FIXES_SetTimerEx"/>
@@ -32720,7 +31492,6 @@
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_tv"/>
 			<referrer name="cmd_prender"/>
-			<referrer name="DCMD_cadeiadc"/>
 			<dependency name="ac_SetPlayerInterior"/>
 			<param name="playerid">
 			</param>
@@ -32747,7 +31518,6 @@
 			<referrer name="cmd_gotodealership"/>
 			<referrer name="cmd_gotofuelstation"/>
 			<referrer name="cmd_trazercofre"/>
-			<referrer name="DCMD_cadeiadc"/>
 			<dependency name="ac_SetPlayerPos"/>
 			<param name="playerid">
 			</param>
@@ -32964,7 +31734,7 @@
 		</member>
 		<member name="M:acc_ShowPlayerDialog" syntax="acc_ShowPlayerDialog(playerid, dialogid, style, caption[], info[], button1[], button2[])">
 			<stacksize value="10"/>
-			<referrer name="cmd_halloween"/>
+			<referrer name="cmd_EVENTO"/>
 			<referrer name="criandorg"/>
 			<referrer name="loginp"/>
 			<referrer name="ShowDialog"/>
@@ -32995,7 +31765,6 @@
 			<referrer name="cmd_reanimar"/>
 			<referrer name="cmd_ltumba"/>
 			<referrer name="cmd_menuanim"/>
-			<referrer name="cmd_missoes"/>
 			<referrer name="cmd_localizarv"/>
 			<referrer name="cmd_pediravaliar"/>
 			<referrer name="cmd_atendimento"/>
@@ -33110,7 +31879,6 @@
 			<referrer name="cmd_pescar"/>
 			<referrer name="cmd_roubar"/>
 			<referrer name="cmd_desmanchar"/>
-			<referrer name="DCMD_cadeiadc"/>
 			<dependency name="ac_TogglePlayerControllable"/>
 			<param name="playerid">
 			</param>
@@ -33201,7 +31969,7 @@
 		</member>
 		<member name="M:checkEE" syntax="checkEE(playerid)">
 			<stacksize value="8"/>
-			<referrer name="Colete"/>
+			<referrer name="ENTER_OnPlayerUpdate"/>
 			<dependency name="EEInfo"/>
 			<dependency name="EEInfo"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
@@ -33242,13 +32010,27 @@
 			<param name="max">
 			</param>
 		</member>
+		<member name="M:cmd_EVENTO" syntax="cmd_EVENTO(playerid)">
+			<attribute name="public"/>
+			<stacksize value="10"/>
+			<dependency name="EEInfo"/>
+			<dependency name="EEInfo"/>
+			<dependency name="EOS"/>
+			<dependency name="MEGAString"/>
+			<dependency name="acc_ShowPlayerDialog"/>
+			<dependency name="eaDescoberto"/>
+			<dependency name="eaDescricao"/>
+			<dependency name="eaNick"/>
+			<dependency name="format"/>
+			<dependency name="strcat"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:cmd_a" syntax="cmd_a(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="132"/>
+			<stacksize value="97"/>
 			<dependency name="AdminCargo"/>
 			<dependency name="AdminCargo"/>
-			<dependency name="ChatAdm"/>
-			<dependency name="DCC_SendChannelMessage"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="IDF"/>
 			<dependency name="Motivo"/>
@@ -33493,19 +32275,13 @@
 		</member>
 		<member name="M:cmd_agendaban" syntax="cmd_agendaban(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="569"/>
+			<stacksize value="312"/>
 			<dependency name="AgendarBan"/>
-			<dependency name="DCC_CreateEmbed"/>
-			<dependency name="DCC_SendChannelEmbedMessage"/>
-			<dependency name="DCC_SetEmbedColor"/>
-			<dependency name="DCC_SetEmbedDescription"/>
-			<dependency name="DCC_SetEmbedImage"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="Motivo"/>
 			<dependency name="Name"/>
 			<dependency name="Name"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="Punicoes"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessageToAll"/>
 			<dependency name="Str"/>
@@ -33525,13 +32301,8 @@
 		</member>
 		<member name="M:cmd_agendacadeia" syntax="cmd_agendacadeia(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="569"/>
+			<stacksize value="313"/>
 			<dependency name="AgendarCadeia"/>
-			<dependency name="DCC_CreateEmbed"/>
-			<dependency name="DCC_SendChannelEmbedMessage"/>
-			<dependency name="DCC_SetEmbedColor"/>
-			<dependency name="DCC_SetEmbedDescription"/>
-			<dependency name="DCC_SetEmbedImage"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="FIXES_IsPlayerConnected"/>
 			<dependency name="GetPlayerID"/>
@@ -33540,7 +32311,6 @@
 			<dependency name="Name"/>
 			<dependency name="Name"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="Punicoes"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessageToAll"/>
 			<dependency name="Str"/>
@@ -33563,9 +32333,6 @@
 			<dependency name="DIALOG_AJUDA"/>
 			<dependency name="EOS"/>
 			<dependency name="MEGAString"/>
-			<dependency name="MISSAO11"/>
-			<dependency name="MissaoPlayer"/>
-			<dependency name="MissaoPlayer"/>
 			<dependency name="acc_ShowPlayerDialog"/>
 			<dependency name="strcat"/>
 			<param name="playerid">
@@ -33687,20 +32454,12 @@
 		</member>
 		<member name="M:cmd_ativarkey" syntax="cmd_ativarkey(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="723"/>
+			<stacksize value="263"/>
 			<referrer name="ac_OnDialogResponse"/>
-			<dependency name="AtivarCoins"/>
-			<dependency name="ConvertMoney"/>
-			<dependency name="ConvertMoney"/>
-			<dependency name="DCC_CreateEmbed"/>
-			<dependency name="DCC_SendChannelEmbedMessage"/>
-			<dependency name="DCC_SetEmbedColor"/>
-			<dependency name="DCC_SetEmbedDescription"/>
-			<dependency name="DCC_SetEmbedImage"/>
 			<dependency name="DOF2_GetInt"/>
 			<dependency name="DOF2_RemoveFile"/>
+			<dependency name="Din"/>
 			<dependency name="ErrorMsg"/>
-			<dependency name="IDF"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SSCANF__"/>
@@ -33767,29 +32526,19 @@
 		</member>
 		<member name="M:cmd_banir" syntax="cmd_banir(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="315"/>
+			<stacksize value="8"/>
 			<dependency name="BanirPlayer"/>
-			<dependency name="DCC_CreateEmbed"/>
-			<dependency name="DCC_SendChannelEmbedMessage"/>
-			<dependency name="DCC_SetEmbedColor"/>
-			<dependency name="DCC_SetEmbedDescription"/>
-			<dependency name="DCC_SetEmbedImage"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="ID"/>
 			<dependency name="IDF"/>
 			<dependency name="InfoMsg"/>
 			<dependency name="Motivo"/>
-			<dependency name="Name"/>
-			<dependency name="Name"/>
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="Punicoes"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SuccesMsg"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
-			<dependency name="format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pJogando"/>
 			<dependency name="pLogado"/>
@@ -33802,29 +32551,19 @@
 		</member>
 		<member name="M:cmd_banirip" syntax="cmd_banirip(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="315"/>
+			<stacksize value="8"/>
 			<dependency name="BanirIP"/>
-			<dependency name="DCC_CreateEmbed"/>
-			<dependency name="DCC_SendChannelEmbedMessage"/>
-			<dependency name="DCC_SetEmbedColor"/>
-			<dependency name="DCC_SetEmbedDescription"/>
-			<dependency name="DCC_SetEmbedImage"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="ID"/>
 			<dependency name="IDF"/>
 			<dependency name="InfoMsg"/>
 			<dependency name="Motivo"/>
-			<dependency name="Name"/>
-			<dependency name="Name"/>
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="Punicoes"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SuccesMsg"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
-			<dependency name="format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pJogando"/>
 			<dependency name="pLogado"/>
@@ -33837,12 +32576,7 @@
 		</member>
 		<member name="M:cmd_cadeia" syntax="cmd_cadeia(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="315"/>
-			<dependency name="DCC_CreateEmbed"/>
-			<dependency name="DCC_SendChannelEmbedMessage"/>
-			<dependency name="DCC_SetEmbedColor"/>
-			<dependency name="DCC_SetEmbedDescription"/>
-			<dependency name="DCC_SetEmbedImage"/>
+			<stacksize value="35"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="FIXES_SetTimerEx"/>
 			<dependency name="GetPlayerIdfixo"/>
@@ -33856,7 +32590,6 @@
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="Punicoes"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessageToAll"/>
 			<dependency name="SetPlayerVirtualWorld"/>
@@ -34128,7 +32861,7 @@
 		</member>
 		<member name="M:cmd_criarkey" syntax="cmd_criarkey(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="444"/>
+			<stacksize value="443"/>
 			<dependency name="DOF2_CreateFile"/>
 			<dependency name="DOF2_SetInt"/>
 			<dependency name="DOF2_WriteFile"/>
@@ -34141,6 +32874,7 @@
 			<dependency name="format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="randomEx"/>
+			<dependency name="vl"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -34270,26 +33004,19 @@
 		</member>
 		<member name="M:cmd_dardinheiro" syntax="cmd_dardinheiro(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="34"/>
-			<dependency name="DCC_SendChannelMessage"/>
+			<stacksize value="8"/>
 			<dependency name="ErrorMsg"/>
-			<dependency name="GetPlayerIdfixo"/>
 			<dependency name="ID"/>
 			<dependency name="IDF"/>
 			<dependency name="InfoMsg"/>
-			<dependency name="Name"/>
-			<dependency name="Name"/>
 			<dependency name="Numero"/>
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SSCANF__"/>
-			<dependency name="Sets"/>
-			<dependency name="Str"/>
 			<dependency name="SuccesMsg"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
-			<dependency name="format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pDinheiro"/>
 			<dependency name="pJogando"/>
@@ -34730,12 +33457,10 @@
 		</member>
 		<member name="M:cmd_duvida" syntax="cmd_duvida(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="9"/>
+			<stacksize value="8"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="GetPlayerIdfixo"/>
-			<dependency name="IDF"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
+			<dependency name="Motivo"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessageToAll"/>
 			<dependency name="Str"/>
@@ -34987,26 +33712,7 @@
 			<attribute name="public"/>
 			<stacksize value="10"/>
 			<dependency name="DIALOG_GPS"/>
-			<dependency name="MISSAO8"/>
-			<dependency name="MissaoPlayer"/>
-			<dependency name="MissaoPlayer"/>
 			<dependency name="acc_ShowPlayerDialog"/>
-			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:cmd_halloween" syntax="cmd_halloween(playerid)">
-			<attribute name="public"/>
-			<stacksize value="10"/>
-			<dependency name="EEInfo"/>
-			<dependency name="EEInfo"/>
-			<dependency name="EOS"/>
-			<dependency name="MEGAString"/>
-			<dependency name="acc_ShowPlayerDialog"/>
-			<dependency name="eaDescoberto"/>
-			<dependency name="eaDescricao"/>
-			<dependency name="eaNick"/>
-			<dependency name="format"/>
-			<dependency name="strcat"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -35153,12 +33859,7 @@
 		</member>
 		<member name="M:cmd_kick" syntax="cmd_kick(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="315"/>
-			<dependency name="DCC_CreateEmbed"/>
-			<dependency name="DCC_SendChannelEmbedMessage"/>
-			<dependency name="DCC_SetEmbedColor"/>
-			<dependency name="DCC_SetEmbedDescription"/>
-			<dependency name="DCC_SetEmbedImage"/>
+			<stacksize value="35"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="FIXES_SetTimerEx"/>
 			<dependency name="GetPlayerIdfixo"/>
@@ -35170,8 +33871,6 @@
 			<dependency name="Name"/>
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="Punicoes"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessageToAll"/>
 			<dependency name="Str"/>
@@ -35469,29 +34168,6 @@
 			<dependency name="strcat"/>
 			<dependency name="temlicenca"/>
 			<dependency name="temlicenca"/>
-			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:cmd_missoes" syntax="cmd_missoes(playerid)">
-			<attribute name="public"/>
-			<stacksize value="1010"/>
-			<dependency name="DIALOG_MISSOES"/>
-			<dependency name="MISSAO1"/>
-			<dependency name="MISSAO10"/>
-			<dependency name="MISSAO11"/>
-			<dependency name="MISSAO12"/>
-			<dependency name="MISSAO13"/>
-			<dependency name="MISSAO2"/>
-			<dependency name="MISSAO3"/>
-			<dependency name="MISSAO4"/>
-			<dependency name="MISSAO5"/>
-			<dependency name="MISSAO6"/>
-			<dependency name="MISSAO7"/>
-			<dependency name="MISSAO8"/>
-			<dependency name="MISSAO9"/>
-			<dependency name="MissaoPlayer"/>
-			<dependency name="acc_ShowPlayerDialog"/>
-			<dependency name="strcat"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -36118,12 +34794,7 @@
 		</member>
 		<member name="M:cmd_report" syntax="cmd_report(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="268"/>
-			<dependency name="DCC_CreateEmbed"/>
-			<dependency name="DCC_SendChannelEmbedMessage"/>
-			<dependency name="DCC_SetEmbedColor"/>
-			<dependency name="DCC_SetEmbedDescription"/>
-			<dependency name="DCC_SetEmbedImage"/>
+			<stacksize value="9"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="ID"/>
 			<dependency name="IDF"/>
@@ -36131,7 +34802,6 @@
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="Reports"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SendAdminMessage"/>
 			<dependency name="Str"/>
@@ -36328,26 +34998,19 @@
 		</member>
 		<member name="M:cmd_setadmin" syntax="cmd_setadmin(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="34"/>
-			<dependency name="DCC_SendChannelMessage"/>
+			<stacksize value="8"/>
 			<dependency name="ErrorMsg"/>
-			<dependency name="GetPlayerIdfixo"/>
 			<dependency name="ID"/>
 			<dependency name="IDF"/>
 			<dependency name="InfoMsg"/>
-			<dependency name="Name"/>
-			<dependency name="Name"/>
 			<dependency name="Numero"/>
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SSCANF__"/>
-			<dependency name="Sets"/>
-			<dependency name="Str"/>
 			<dependency name="SuccesMsg"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
-			<dependency name="format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pJogando"/>
 			<dependency name="pLogado"/>
@@ -36360,25 +35023,18 @@
 		</member>
 		<member name="M:cmd_setarma" syntax="cmd_setarma(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="37"/>
-			<dependency name="DCC_SendChannelMessage"/>
+			<stacksize value="11"/>
 			<dependency name="ErrorMsg"/>
-			<dependency name="GetPlayerIdfixo"/>
 			<dependency name="ID"/>
 			<dependency name="IDF"/>
 			<dependency name="InfoMsg"/>
-			<dependency name="Name"/>
-			<dependency name="Name"/>
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SSCANF__"/>
-			<dependency name="Sets"/>
-			<dependency name="Str"/>
 			<dependency name="SuccesMsg"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
 			<dependency name="acc_GivePlayerWeapon"/>
-			<dependency name="format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pJogando"/>
 			<dependency name="pLogado"/>
@@ -36391,27 +35047,20 @@
 		</member>
 		<member name="M:cmd_setcolete" syntax="cmd_setcolete(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="34"/>
+			<stacksize value="8"/>
 			<dependency name="Float:operator=(_:)"/>
-			<dependency name="DCC_SendChannelMessage"/>
 			<dependency name="ErrorMsg"/>
-			<dependency name="GetPlayerIdfixo"/>
 			<dependency name="ID"/>
 			<dependency name="IDF"/>
 			<dependency name="InfoMsg"/>
-			<dependency name="Name"/>
-			<dependency name="Name"/>
 			<dependency name="Numero"/>
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SSCANF__"/>
-			<dependency name="Sets"/>
-			<dependency name="Str"/>
 			<dependency name="SuccesMsg"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
 			<dependency name="acc_SetPlayerArmour"/>
-			<dependency name="format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pJogando"/>
 			<dependency name="pLogado"/>
@@ -36445,28 +35094,21 @@
 		</member>
 		<member name="M:cmd_setskin" syntax="cmd_setskin(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="34"/>
-			<dependency name="DCC_SendChannelMessage"/>
+			<stacksize value="8"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="FIXES_SetPlayerSkin"/>
-			<dependency name="GetPlayerIdfixo"/>
 			<dependency name="ID"/>
 			<dependency name="IDF"/>
 			<dependency name="InfoMsg"/>
-			<dependency name="Name"/>
-			<dependency name="Name"/>
 			<dependency name="Numero"/>
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SalvarDadosSkin"/>
-			<dependency name="Sets"/>
-			<dependency name="Str"/>
 			<dependency name="SuccesMsg"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
-			<dependency name="format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pJogando"/>
 			<dependency name="pLogado"/>
@@ -36494,27 +35136,20 @@
 		</member>
 		<member name="M:cmd_setvida" syntax="cmd_setvida(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="34"/>
+			<stacksize value="8"/>
 			<dependency name="Float:operator=(_:)"/>
-			<dependency name="DCC_SendChannelMessage"/>
 			<dependency name="ErrorMsg"/>
-			<dependency name="GetPlayerIdfixo"/>
 			<dependency name="ID"/>
 			<dependency name="IDF"/>
 			<dependency name="InfoMsg"/>
-			<dependency name="Name"/>
-			<dependency name="Name"/>
 			<dependency name="Numero"/>
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SSCANF__"/>
-			<dependency name="Sets"/>
-			<dependency name="Str"/>
 			<dependency name="SuccesMsg"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
 			<dependency name="acc_SetPlayerHealth"/>
-			<dependency name="format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pJogando"/>
 			<dependency name="pLogado"/>
@@ -36557,12 +35192,7 @@
 		</member>
 		<member name="M:cmd_tempban" syntax="cmd_tempban(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="600"/>
-			<dependency name="DCC_CreateEmbed"/>
-			<dependency name="DCC_SendChannelEmbedMessage"/>
-			<dependency name="DCC_SetEmbedColor"/>
-			<dependency name="DCC_SetEmbedDescription"/>
-			<dependency name="DCC_SetEmbedImage"/>
+			<stacksize value="321"/>
 			<dependency name="DOF2_CreateFile"/>
 			<dependency name="DOF2_SetInt"/>
 			<dependency name="DOF2_SetString"/>
@@ -36577,8 +35207,6 @@
 			<dependency name="Name"/>
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="Punicoes"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessageToAll"/>
 			<dependency name="Str"/>
@@ -37020,6 +35648,7 @@
 		</member>
 		<member name="M:createEE" syntax="createEE(eeid, descricao[], modelid, range, x, y, z, rx, ry, rz)">
 			<stacksize value="17"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<dependency name="CreateDynamic3DTextLabel"/>
 			<dependency name="CreateDynamicObject"/>
 			<dependency name="EEInfo"/>
@@ -37132,15 +35761,10 @@
 			</param>
 		</member>
 		<member name="M:descobrirEE" syntax="descobrirEE(playerid, eeid)">
-			<stacksize value="269"/>
+			<stacksize value="18"/>
 			<referrer name="checkEE"/>
 			<dependency name="ConvertDays"/>
 			<dependency name="CreateDynamic3DTextLabel"/>
-			<dependency name="DCC_CreateEmbed"/>
-			<dependency name="DCC_SendChannelEmbedMessage"/>
-			<dependency name="DCC_SetEmbedColor"/>
-			<dependency name="DCC_SetEmbedDescription"/>
-			<dependency name="DCC_SetEmbedThumbnail"/>
 			<dependency name="DestroyDynamic3DTextLabel"/>
 			<dependency name="EEInfo"/>
 			<dependency name="EEInfo"/>
@@ -37152,7 +35776,6 @@
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageToAll"/>
 			<dependency name="SuccesMsg"/>
-			<dependency name="VIPAtivado"/>
 			<dependency name="eaDescoberto"/>
 			<dependency name="eaDescricao"/>
 			<dependency name="eaNick"/>
@@ -37335,8 +35958,6 @@
 			<referrer name="AgendarCadeia"/>
 			<referrer name="SalvarDados"/>
 			<referrer name="SalvarDadosSkin"/>
-			<referrer name="SalvarMissoes"/>
-			<referrer name="CarregarMissoes"/>
 			<referrer name="SalvarAvaliacao"/>
 			<referrer name="CarregarAvaliacao"/>
 			<referrer name="Log"/>
@@ -37356,7 +35977,6 @@
 			<referrer name="cmd_criarradar"/>
 			<referrer name="cmd_dradar"/>
 			<referrer name="cmd_fila"/>
-			<referrer name="DCMD_verificar"/>
 			<param name="pattern">
 				<paraminfo> [] </paraminfo>
 			</param>
@@ -37621,7 +36241,7 @@
 			<referrer name="loadEE"/>
 			<referrer name="saveEE"/>
 			<referrer name="descobrirEE"/>
-			<referrer name="cmd_halloween"/>
+			<referrer name="cmd_EVENTO"/>
 			<referrer name="Progress_DesmancharVeh"/>
 			<referrer name="Progress_BotouBau"/>
 			<referrer name="Progress_Pesca"/>
@@ -37651,11 +36271,9 @@
 			<referrer name="SalvarArmas"/>
 			<referrer name="CarregarArmas"/>
 			<referrer name="PachWeapon"/>
-			<referrer name="LoadCofreOrg"/>
 			<referrer name="ORGCarrega"/>
 			<referrer name="PegarMoney"/>
 			<referrer name="ExplodirCaixa"/>
-			<referrer name="PayDay"/>
 			<referrer name="Colete"/>
 			<referrer name="CriarInventario"/>
 			<referrer name="LoadInv"/>
@@ -37676,15 +36294,6 @@
 			<referrer name="PastaNomeX"/>
 			<referrer name="CriarRadares"/>
 			<referrer name="CriarCasas"/>
-			<referrer name="DepositarGranaOrg"/>
-			<referrer name="SacarGranaOrg"/>
-			<referrer name="DepositarMaconhaOrg"/>
-			<referrer name="SacarMaconhaOrg"/>
-			<referrer name="DepositarCocainaOrg"/>
-			<referrer name="SacarCocainaOrg"/>
-			<referrer name="DepositarCrackOrg"/>
-			<referrer name="SacarCrackOrg"/>
-			<referrer name="DiminuirEquiparOrg"/>
 			<referrer name="addlider"/>
 			<referrer name="tirarlider"/>
 			<referrer name="convidarmembro"/>
@@ -37703,8 +36312,6 @@
 			<referrer name="BanirIP"/>
 			<referrer name="SalvarDados"/>
 			<referrer name="SalvarDadosSkin"/>
-			<referrer name="SalvarMissoes"/>
-			<referrer name="CarregarMissoes"/>
 			<referrer name="SalvarAvaliacao"/>
 			<referrer name="CarregarAvaliacao"/>
 			<referrer name="Log"/>
@@ -37732,25 +36339,17 @@
 			<referrer name="cmd_pos"/>
 			<referrer name="cmd_a"/>
 			<referrer name="cmd_av"/>
-			<referrer name="cmd_setskin"/>
-			<referrer name="cmd_setvida"/>
-			<referrer name="cmd_setcolete"/>
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_contagem"/>
-			<referrer name="cmd_setarma"/>
-			<referrer name="cmd_banir"/>
 			<referrer name="cmd_tempban"/>
 			<referrer name="cmd_agendaban"/>
 			<referrer name="cmd_agendacadeia"/>
 			<referrer name="cmd_adv"/>
-			<referrer name="cmd_banirip"/>
 			<referrer name="cmd_admins"/>
 			<referrer name="cmd_atrabalhar"/>
 			<referrer name="cmd_desbanir"/>
 			<referrer name="cmd_desbanirip"/>
-			<referrer name="cmd_dardinheiro"/>
-			<referrer name="cmd_setadmin"/>
 			<referrer name="cmd_gmx"/>
 			<referrer name="cmd_vips"/>
 			<referrer name="cmd_lojavip"/>
@@ -37809,9 +36408,6 @@
 			<referrer name="cmd_trazercofre"/>
 			<referrer name="cmd_roubar"/>
 			<referrer name="cmd_terminar"/>
-			<referrer name="DCMD_verificar"/>
-			<referrer name="DCMD_criarkeydc"/>
-			<referrer name="DCMD_cadeiadc"/>
 			<param name="output">
 				<paraminfo> [] </paraminfo>
 			</param>
@@ -37963,7 +36559,6 @@
 			<referrer name="Log"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ppb_OnGameModeExit"/>
-			<referrer name="ppb_OnPlayerDisconnect"/>
 			<referrer name="ac_OnPlayerSpawn"/>
 			<referrer name="ac_OnPlayerText"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -38088,7 +36683,6 @@
 			<stacksize value="23"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="AntiDeAMX"/>
-			<dependency name="AtivarCoins"/>
 			<dependency name="Barragem"/>
 			<dependency name="CST_SendRconCommand"/>
 			<dependency name="CarregarCaixas"/>
@@ -38099,20 +36693,14 @@
 			<dependency name="CarregarMapas"/>
 			<dependency name="CarregarPlantacao"/>
 			<dependency name="CarregarTxdGlobal"/>
-			<dependency name="Chat"/>
-			<dependency name="ChatAdm"/>
-			<dependency name="ComandosIG"/>
 			<dependency name="CountDynamicObjects"/>
 			<dependency name="CreateDynamic3DTextLabel"/>
 			<dependency name="CreateTelaLogin"/>
 			<dependency name="CriarCasas"/>
 			<dependency name="CriarRadares"/>
-			<dependency name="DCC_FindChannelById"/>
-			<dependency name="Dinn"/>
 			<dependency name="DisableCrashDetectLongCall"/>
 			<dependency name="E_STREAMER_DRAW_DISTANCE"/>
 			<dependency name="E_STREAMER_STREAM_DISTANCE"/>
-			<dependency name="EntradaeSaida"/>
 			<dependency name="Entradas"/>
 			<dependency name="Entradas"/>
 			<dependency name="FIXES_AllowInteriorWeapons"/>
@@ -38120,12 +36708,9 @@
 			<dependency name="FIXES_SetTimer"/>
 			<dependency name="FIXES_TextDrawCreate"/>
 			<dependency name="Frequencia"/>
-			<dependency name="IDNAME"/>
-			<dependency name="LoadCofreOrg"/>
 			<dependency name="LoadDealerships"/>
 			<dependency name="LoadFuelStations"/>
 			<dependency name="LoadVehicles"/>
-			<dependency name="MAILLOG"/>
 			<dependency name="MaconhaInfo"/>
 			<dependency name="MaconhaInfo"/>
 			<dependency name="ManualVehicleEngineAndLights"/>
@@ -38137,17 +36722,12 @@
 			<dependency name="PosDesossa"/>
 			<dependency name="PosEquipar"/>
 			<dependency name="PosEquipar"/>
-			<dependency name="PosFabricar"/>
-			<dependency name="PosFabricar"/>
 			<dependency name="PosPesca"/>
 			<dependency name="PosPesca"/>
 			<dependency name="PosVeiculos"/>
 			<dependency name="PosVeiculos"/>
-			<dependency name="Punicoes"/>
-			<dependency name="Reports"/>
 			<dependency name="SetGameModeText"/>
 			<dependency name="SetNameTagDrawDistance"/>
-			<dependency name="Sets"/>
 			<dependency name="ShowNameTags"/>
 			<dependency name="ShowPlayerMarkers"/>
 			<dependency name="Streamer_SetFloatData"/>
@@ -38168,16 +36748,15 @@
 			<dependency name="TimerCadeia"/>
 			<dependency name="TimerMaconha"/>
 			<dependency name="TimerMensagemAuto"/>
-			<dependency name="TimerMensagemAutoBot"/>
 			<dependency name="TimerRelogio"/>
 			<dependency name="UpdateDealership"/>
 			<dependency name="UpdateFuelStation"/>
 			<dependency name="UpdateVehicle"/>
-			<dependency name="VIPAtivado"/>
 			<dependency name="acc_CreateDynamicPickup"/>
 			<dependency name="acc_DisableInteriorEnterExits"/>
 			<dependency name="acc_EnableStuntBonusForAll"/>
 			<dependency name="acc_UsePlayerPedAnims"/>
+			<dependency name="createEE"/>
 			<dependency name="gServerTextdraws"/>
 			<dependency name="getdate"/>
 			<dependency name="gettime"/>
@@ -38705,7 +37284,6 @@
 			<dependency name="SalvarDinRoubos"/>
 			<dependency name="SalvarGZ"/>
 			<dependency name="SalvarInventario"/>
-			<dependency name="SalvarMissoes"/>
 			<dependency name="SalvarMortos"/>
 			<dependency name="SalvarPlantacao"/>
 			<dependency name="SalvarVIP"/>
@@ -38714,7 +37292,6 @@
 			<dependency name="TimerCadeia"/>
 			<dependency name="TimerMaconha"/>
 			<dependency name="TimerMensagemAuto"/>
-			<dependency name="TimerMensagemAutoBot"/>
 			<dependency name="TimerRelogio"/>
 			<dependency name="VehicleCreated"/>
 			<dependency name="VehicleID"/>
@@ -38731,7 +37308,7 @@
 		</member>
 		<member name="M:ppb_OnPlayerDisconnect" syntax="ppb_OnPlayerDisconnect(playerid, reason)">
 			<attribute name="public"/>
-			<stacksize value="328"/>
+			<stacksize value="266"/>
 			<dependency name="AutoEscolaAerea"/>
 			<dependency name="AutoEscolaCaminhao"/>
 			<dependency name="AutoEscolaMoto"/>
@@ -38740,13 +37317,7 @@
 			<dependency name="CheckpointPontosCaminhao"/>
 			<dependency name="CheckpointPontosMoto"/>
 			<dependency name="CheckpointPontosVeiculo"/>
-			<dependency name="DCC_CreateEmbed"/>
-			<dependency name="DCC_SendChannelEmbedMessage"/>
-			<dependency name="DCC_SetEmbedColor"/>
-			<dependency name="DCC_SetEmbedDescription"/>
-			<dependency name="DCC_SetEmbedImage"/>
 			<dependency name="DOF2_RemoveFile"/>
-			<dependency name="EntradaeSaida"/>
 			<dependency name="FIXES_DisablePlayerRaceCP"/>
 			<dependency name="FIXES_KillTimer"/>
 			<dependency name="Gritandos"/>
@@ -38768,9 +37339,7 @@
 			<dependency name="SalvarAvaliacao"/>
 			<dependency name="SalvarDados"/>
 			<dependency name="SalvarInventario"/>
-			<dependency name="SalvarMissoes"/>
 			<dependency name="SalvarMortos"/>
-			<dependency name="SalvarPlantacao"/>
 			<dependency name="SalvarVIP"/>
 			<dependency name="Susurrandos"/>
 			<dependency name="SvDeleteStream"/>
@@ -38797,7 +37366,6 @@
 			<dependency name="cmd_dveiculo"/>
 			<dependency name="fexist"/>
 			<dependency name="format"/>
-			<dependency name="gettime"/>
 			<dependency name="jogadoreson"/>
 			<dependency name="lstream"/>
 			<dependency name="pLogado"/>
@@ -39173,7 +37741,6 @@
 			<referrer name="LoadFuelStations"/>
 			<referrer name="AntiDeAMX"/>
 			<referrer name="CarregarPlantacao"/>
-			<referrer name="LoadCofreOrg"/>
 			<referrer name="ORGCarrega"/>
 			<referrer name="CriarRadares"/>
 			<referrer name="CriarCasas"/>
@@ -39220,7 +37787,6 @@
 			<referrer name="cmd_iniciarrotamaconha"/>
 			<referrer name="cmd_iniciarrotacocaina"/>
 			<referrer name="cmd_roubar"/>
-			<referrer name="DCMD_criarkeydc"/>
 			<dependency name="FIXES_random"/>
 			<param name="minnum">
 			</param>
@@ -39326,7 +37892,7 @@
 			<referrer name="DOF2_strreplace"/>
 			<referrer name="DOF2_udb_encode"/>
 			<referrer name="DOF2_udb_decode"/>
-			<referrer name="cmd_halloween"/>
+			<referrer name="cmd_EVENTO"/>
 			<referrer name="loginp"/>
 			<referrer name="ShowDialog"/>
 			<referrer name="membrosorg"/>
@@ -39342,7 +37908,6 @@
 			<referrer name="cmd_aa"/>
 			<referrer name="cmd_verdocumentos"/>
 			<referrer name="cmd_maconhas"/>
-			<referrer name="cmd_missoes"/>
 			<referrer name="cmd_atendimento"/>
 			<referrer name="cmd_fila"/>
 			<referrer name="cmd_creditos"/>
