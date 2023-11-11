@@ -3828,7 +3828,7 @@ CallBack::VelocimetroEx(playerid)
 			if(Fuel[GetPlayerVehicleID(playerid)] > 19){
 				PlayerTextDrawBoxColor(playerid, VeloC[playerid][4], 16711935); 
 			}else{
-				PlayerTextDrawBoxColor(playerid, VeloC[playerid][4], -65281); //amarelo critico
+				PlayerTextDrawBoxColor(playerid, VeloC[playerid][4], 1097458119); //amarelo critico
 			}if(Fuel[GetPlayerVehicleID(playerid)] == 0){
 				PlayerTextDrawBoxColor(playerid, VeloC[playerid][4], -16776961);
 			}
@@ -7943,7 +7943,7 @@ stock todastextdraw(playerid)
 	Registration_PTD[playerid][6] = CreatePlayerTextDraw(playerid, 304.5830, 160.7037, "ld_pool:ball"); // ïóñòî
 	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][6], 26.0000, 31.0000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][6], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][6], -65281);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][6], 1097458119);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][6], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][6], 4);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][6], 0);
@@ -7952,7 +7952,7 @@ stock todastextdraw(playerid)
 	Registration_PTD[playerid][7] = CreatePlayerTextDraw(playerid, 312.4002, 167.3332, "ld_pool:ball"); // ïóñòî
 	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][7], 23.0000, 29.0000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][7], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][7], -65281);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][7], 1097458119);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][7], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][7], 4);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][7], 0);
@@ -9519,7 +9519,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawAlignment(playerid, BancoTD[playerid][21], 2);
 	PlayerTextDrawColor(playerid, BancoTD[playerid][21], -15);
 	PlayerTextDrawBackgroundColor(playerid, BancoTD[playerid][21], 255);
-	PlayerTextDrawBoxColor(playerid, BancoTD[playerid][21], -65337);
+	PlayerTextDrawBoxColor(playerid, BancoTD[playerid][21], 1097458119);
 	PlayerTextDrawUseBox(playerid, BancoTD[playerid][21], 1);
 	PlayerTextDrawSetProportional(playerid, BancoTD[playerid][21], 1);
 	PlayerTextDrawSetSelectable(playerid, BancoTD[playerid][21], 1);
@@ -9559,7 +9559,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetOutline(playerid, BancoTD[playerid][24], 1);
 	PlayerTextDrawSetShadow(playerid, BancoTD[playerid][24], 0);
 	PlayerTextDrawAlignment(playerid, BancoTD[playerid][24], 2);
-	PlayerTextDrawColor(playerid, BancoTD[playerid][24], -65281);
+	PlayerTextDrawColor(playerid, BancoTD[playerid][24], 1097458119);
 	PlayerTextDrawBackgroundColor(playerid, BancoTD[playerid][24], 51);
 	PlayerTextDrawBoxColor(playerid, BancoTD[playerid][24], 200);
 	PlayerTextDrawUseBox(playerid, BancoTD[playerid][24], 0);
@@ -9659,7 +9659,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawAlignment(playerid, BancoTD[playerid][31], 2);
 	PlayerTextDrawColor(playerid, BancoTD[playerid][31], -15);
 	PlayerTextDrawBackgroundColor(playerid, BancoTD[playerid][31], 255);
-	PlayerTextDrawBoxColor(playerid, BancoTD[playerid][31], -65337);
+	PlayerTextDrawBoxColor(playerid, BancoTD[playerid][31], 1097458119);
 	PlayerTextDrawUseBox(playerid, BancoTD[playerid][31], 1);
 	PlayerTextDrawSetProportional(playerid, BancoTD[playerid][31], 1);
 	PlayerTextDrawSetSelectable(playerid, BancoTD[playerid][31], 1);
@@ -9673,7 +9673,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawAlignment(playerid, BancoTD[playerid][32], 2);
 	PlayerTextDrawColor(playerid, BancoTD[playerid][32], -15);
 	PlayerTextDrawBackgroundColor(playerid, BancoTD[playerid][32], 255);
-	PlayerTextDrawBoxColor(playerid, BancoTD[playerid][32], -65337);
+	PlayerTextDrawBoxColor(playerid, BancoTD[playerid][32], 1097458119);
 	PlayerTextDrawUseBox(playerid, BancoTD[playerid][32], 1);
 	PlayerTextDrawSetProportional(playerid, BancoTD[playerid][32], 1);
 	PlayerTextDrawSetSelectable(playerid, BancoTD[playerid][32], 1);
@@ -9687,7 +9687,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawAlignment(playerid, BancoTD[playerid][33], 2);
 	PlayerTextDrawColor(playerid, BancoTD[playerid][33], -15);
 	PlayerTextDrawBackgroundColor(playerid, BancoTD[playerid][33], 255);
-	PlayerTextDrawBoxColor(playerid, BancoTD[playerid][33], -65337);
+	PlayerTextDrawBoxColor(playerid, BancoTD[playerid][33], 1097458119);
 	PlayerTextDrawUseBox(playerid, BancoTD[playerid][33], 1);
 	PlayerTextDrawSetProportional(playerid, BancoTD[playerid][33], 1);
 	PlayerTextDrawSetSelectable(playerid, BancoTD[playerid][33], 1);
@@ -9700,7 +9700,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetOutline(playerid, TDmorte_p[playerid][0], 0);
 	PlayerTextDrawSetShadow(playerid, TDmorte_p[playerid][0], 0);
 	PlayerTextDrawAlignment(playerid, TDmorte_p[playerid][0], 1);
-	PlayerTextDrawColor(playerid, TDmorte_p[playerid][0], -65281);
+	PlayerTextDrawColor(playerid, TDmorte_p[playerid][0], 1097458119);
 	PlayerTextDrawBackgroundColor(playerid, TDmorte_p[playerid][0], 255);
 	PlayerTextDrawBoxColor(playerid, TDmorte_p[playerid][0], 50);
 	PlayerTextDrawUseBox(playerid, TDmorte_p[playerid][0], 0);
@@ -11892,7 +11892,7 @@ public OnPlayerConnect(playerid)
 	LockText[0] = CreatePlayerTextDraw(playerid, 320.0, 360.0, "_"), PlayerTextDrawUseBox(playerid, LockText[0], 1);
 	PlayerTextDrawLetterSize(playerid, LockText[0], 0.5, 5.599999), PlayerTextDrawTextSize(playerid, LockText[0], 20.0, 240.0);
 	PlayerTextDrawFont(playerid, LockText[0], 1), PlayerTextDrawSetProportional(playerid, LockText[0], 1), PlayerTextDrawAlignment(playerid, LockText[0], 2);
-	PlayerTextDrawBackgroundColor(playerid, LockText[0], -65281), PlayerTextDrawBoxColor(playerid, LockText[0], 150);
+	PlayerTextDrawBackgroundColor(playerid, LockText[0], 1097458119), PlayerTextDrawBoxColor(playerid, LockText[0], 150);
 
 	LockText[1] = CreatePlayerTextDraw(playerid, 205.0, 365.0, "NECESSARIOS: 5"), PlayerTextDrawSetShadow(playerid, LockText[1], 0);
 	PlayerTextDrawBackgroundColor(playerid, LockText[1], 255), PlayerTextDrawLetterSize(playerid, LockText[1], 0.2, 1.2);
@@ -11926,7 +11926,7 @@ public OnPlayerConnect(playerid)
 	LockText[11] = CreatePlayerTextDraw(playerid, 320.0, 414.0, "_"), PlayerTextDrawUseBox(playerid, LockText[11], 1);
 	PlayerTextDrawLetterSize(playerid, LockText[11], 0.5, -0.1), PlayerTextDrawTextSize(playerid, LockText[11], 20.0, 240.0);
 	PlayerTextDrawFont(playerid, LockText[11], 1), PlayerTextDrawSetProportional(playerid, LockText[11], 1), PlayerTextDrawAlignment(playerid, LockText[11], 2);
-	PlayerTextDrawBackgroundColor(playerid, LockText[11], -65281), PlayerTextDrawBoxColor(playerid, LockText[11], -5963521);
+	PlayerTextDrawBackgroundColor(playerid, LockText[11], 1097458119), PlayerTextDrawBoxColor(playerid, LockText[11], -5963521);
 	SetPlayerCameraPos(playerid, 1981.038940, 1191.061401, 27.828259); 
 	SetPlayerCameraLookAt(playerid, 1985.139648, 1195.111572, 27.636171);
 	todastextdraw(playerid);
@@ -12549,7 +12549,7 @@ public OnPlayerEnterCheckpoint(playerid)
 {
 	if(Casavehcorreios2[playerid] == true)
 	{
-		CreateProgress(playerid, "EntregandoCx","Entregando caixa...", 110);
+		CreateProgress(playerid, "EntregandoCx","Entregando caixa...", 80);
 		TogglePlayerControllable(playerid,0);
 		DisablePlayerCheckpoint(playerid);
 		Casavehcorreios2[playerid] = false;
@@ -12557,7 +12557,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	if(Casavehcorreios[playerid] == true){
 		Casavehcorreios[playerid] = false;
 		DisablePlayerCheckpoint(playerid);
-		CreateProgress(playerid, "PegandoCaixaV","Pegando caixa...", 100);
+		CreateProgress(playerid, "PegandoCaixaV","Pegando caixa...", 50);
 		TogglePlayerControllable(playerid,0);
 		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 	}
@@ -12585,7 +12585,7 @@ public OnPlayerEnterCheckpoint(playerid)
 			DisablePlayerCheckpoint(playerid);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-			CreateProgress(playerid,"PegandoCaixasP","Pegando caixa...", 100);
+			CreateProgress(playerid,"PegandoCaixasP","Pegando caixa...", 20);
 			EntregaSdx[playerid] = false;
 		}
 	}
@@ -12593,7 +12593,7 @@ public OnPlayerEnterCheckpoint(playerid)
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-		CreateProgress(playerid, "ColocandoCaixa","Colocando caixa...", 100);
+		CreateProgress(playerid, "ColocandoCaixa","Colocando caixa...", 20);
 		CaixaMao[playerid] = false;
 	}
 	if(Covaconcerto[playerid] == true) 
@@ -12601,14 +12601,14 @@ public OnPlayerEnterCheckpoint(playerid)
 		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.1, 1, 0, 0, 0, 0, 1);
 		DisablePlayerCheckpoint(playerid); 
-		CreateProgress(playerid, "Cova","Coletando lixo...", 100);
+		CreateProgress(playerid, "Cova","Coletando lixo...", 20);
 	}
 	if(PegouLixo[playerid] == true) 
 	{ 
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-		CreateProgress(playerid, "BotouBau","Colocando lixo...", 100);
+		CreateProgress(playerid, "BotouBau","Colocando lixo...", 50);
 	}
 	if(ltumba[playerid] == true)
 	{
@@ -15736,7 +15736,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SuccesMsg(playerid, "Voce comprou Carne Assada.");
 					PlayerInfo[playerid][pDinheiro] -= 50;
 					GanharItem(playerid, 19882, 1);
-					CofreRestaurante += 50;	
+					CofreRestaurante += 50;
 					SalvarDinRoubos();
 					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
 				}
@@ -16460,7 +16460,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{5b6ed9}- {FFFFFF}VIP BASICO{32CD32}\tBC$10,000\n{5b6ed9}- {FFFFFF}VIP PREMIUM{32CD32}\tBC$25,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{5b6ed9}- {FFFFFF}VIP CLASSIC{32CD32}\thC$5,000\n{5b6ed9}- {FFFFFF}VIP ADVANCED{32CD32}\thC$15,000\n{5b6ed9}- {FFFFFF}VIP PREMIUM{32CD32}\thC$30,000", "Selecionar", "X");	
 				}
 				if(listitem == 1)
 				{
