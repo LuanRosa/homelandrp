@@ -2049,7 +2049,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="23493">
+		<member name="C:__line" value="23512">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -6198,7 +6198,6 @@
 			<referrer name="ac_OnPlayerRequestClass"/>
 		</member>
 		<member name="F:TimerMaconha">
-			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ppb_OnGameModeExit"/>
 		</member>
 		<member name="F:TimerMensagemAuto">
@@ -23588,7 +23587,6 @@
 		</member>
 		<member name="M:SalvarAvaliacao" syntax="SalvarAvaliacao(playerid)">
 			<stacksize value="58"/>
-			<referrer name="TimerHack"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
 			<dependency name="DOF2_CreateFile"/>
@@ -23606,7 +23604,6 @@
 		</member>
 		<member name="M:SalvarCofre" syntax="SalvarCofre(idorg)">
 			<stacksize value="10009"/>
-			<referrer name="UpdateDrogas"/>
 			<referrer name="GuardarItem2"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -23645,7 +23642,6 @@
 		</member>
 		<member name="M:SalvarDados" syntax="SalvarDados(playerid)">
 			<stacksize value="323"/>
-			<referrer name="TimerHack"/>
 			<referrer name="PayDay"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
@@ -23794,7 +23790,6 @@
 		<member name="M:SalvarInventario" syntax="SalvarInventario(playerid)">
 			<attribute name="public"/>
 			<stacksize value="329"/>
-			<referrer name="TimerHack"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
 			<dependency name="DOF2_CreateFile"/>
@@ -23812,7 +23807,6 @@
 		</member>
 		<member name="M:SalvarMortos" syntax="SalvarMortos(playerid)">
 			<stacksize value="58"/>
-			<referrer name="TimerHack"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
 			<referrer name="ac_OnPlayerSpawn"/>
@@ -23864,7 +23858,6 @@
 		</member>
 		<member name="M:SalvarVIP" syntax="SalvarVIP(playerid)">
 			<stacksize value="58"/>
-			<referrer name="TimerHack"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
 			<dependency name="DOF2_CreateFile"/>
@@ -25992,11 +25985,6 @@
 			<dependency name="FIXES_SetTimerEx"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="SalvarAvaliacao"/>
-			<dependency name="SalvarDados"/>
-			<dependency name="SalvarInventario"/>
-			<dependency name="SalvarMortos"/>
-			<dependency name="SalvarVIP"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="acc_GivePlayerMoney"/>
 			<dependency name="acc_ResetPlayerMoney"/>
@@ -26136,7 +26124,6 @@
 			<dependency name="MaconhaInfo"/>
 			<dependency name="MaconhaPronta"/>
 			<dependency name="PodeUsar"/>
-			<dependency name="SalvarCofre"/>
 			<dependency name="TT"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
@@ -36739,7 +36726,6 @@
 			<dependency name="TextDrawUseBox"/>
 			<dependency name="TimerAfk"/>
 			<dependency name="TimerCadeia"/>
-			<dependency name="TimerMaconha"/>
 			<dependency name="TimerMensagemAuto"/>
 			<dependency name="TimerRelogio"/>
 			<dependency name="UpdateDealership"/>

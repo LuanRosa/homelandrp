@@ -3906,11 +3906,11 @@ CallBack::TimerHack(playerid)
         SendClientMessage(playerid, -1, "Você está segurando uma arma proibida! Você foi expulso!");
         Kick(playerid);
     }
-	SalvarDados(playerid);
+	/*SalvarDados(playerid);
 	SalvarMortos(playerid);
 	SalvarInventario(playerid);
 	SalvarAvaliacao(playerid);
-	SalvarVIP(playerid);
+	SalvarVIP(playerid);*/
 	return true;
 }
 
@@ -4646,10 +4646,6 @@ CallBack::UpdateDrogas()
 			MaconhaPronta(i);
 		}
 	}
-	for(new i; i < MAX_ORGS; i++)
-    {
-        SalvarCofre(i);
-    }
 	return true;
 }
 
@@ -6105,6 +6101,29 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
 					format(Str,sizeof(Str),"Vendeu 5 tilapia e ganhou R$%i.", dinpeixes*2);
+					SuccesMsg(playerid, Str); 
+				}
+				AtualizarInventario(playerid, modelid);
+			}
+			return 1;		
+		}
+		case 1604:
+		{
+			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
+			{
+				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
+				new dinpeixes = randomEx(50, 250);
+				PlayerInventario[playerid][modelid][Unidades] -= 5;
+				if(PlayerInfo[playerid][pVIP] == 0)
+				{
+					PlayerInfo[playerid][pDinheiro] += dinpeixes;
+					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes);
+					SuccesMsg(playerid, Str); 
+				}   
+				if(PlayerInfo[playerid][pVIP] == 2)
+				{
+					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
+					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes*2);
 					SuccesMsg(playerid, Str); 
 				}
 				AtualizarInventario(playerid, modelid);
@@ -11397,7 +11416,7 @@ public OnGameModeInit()
 	TimerRelogio = SetTimer("Relogio",1000,true);
 	TimerCadeia = SetTimer("CheckCadeia", 2000, true);
 	TimerAfk = SetTimer("AntiAway", minutos(10), true);
-	TimerMaconha = SetTimer("UpdateDrogas", minutos(15), true);
+	//TimerMaconha = SetTimer("UpdateDrogas", minutos(15), true);
 	TimerMensagemAuto = SetTimer("SendMSG", minutos(10), true);
 	maintimer = SetTimer("MainTimer", 1000, true);
 	savetimer = SetTimer("SaveTimer", 2222, true);
