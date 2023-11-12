@@ -5462,7 +5462,7 @@ CallBack::LoadInv(playerid)
 
 CallBack::SalvarInventario(playerid)
 {
-	new file[128], str[200], string[60];
+	new file[128], str[200], string[200];
 	format(file, sizeof(file), PASTA_INVENTARIO, Name(playerid));
 	if(!DOF2_FileExists(file)){DOF2_CreateFile(file);}
 	for(new i = 1; i < 31; ++i)

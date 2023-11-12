@@ -24,7 +24,7 @@ new Progress_Info[MAX_PLAYERS][ProgressInfo], PlayerText:ProgressoBar[MAX_PLAYER
 #define Progresso:%0(%1,%2) \
 	forward Progress_%0(%1,Float:%2); public Progress_%0(%1,Float:%2)
 
-stock CreateProgress(playerid, callback[],title[], time = 100){
+CreateProgress(playerid, callback[],title[], time = 100){
 	new string[128];
 	Progress_Info[playerid][p_percent] = 0;
 	Reloginho[playerid] = 0;
@@ -57,7 +57,7 @@ CallProg:: UpdateProgress(playerid)
 	return 1;
 }
 
-stock KillProgress(playerid)
+KillProgress(playerid)
 {
 	for(new i = 0; i < 14; i++)
 	{
@@ -72,7 +72,7 @@ stock KillProgress(playerid)
 	return 1;
 }
 
-stock CreateTDProgress(playerid)
+CreateTDProgress(playerid)
 {
 	ProgressoBar[playerid][0] = CreatePlayerTextDraw(playerid, 317.000000, 332.000000, "_");
 	PlayerTextDrawFont(playerid, ProgressoBar[playerid][0], 1);
