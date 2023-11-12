@@ -2049,7 +2049,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="23512">
+		<member name="C:__line" value="25284">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -4791,7 +4791,7 @@
 		<member name="F:HudServer">
 			<tagname value="Text"/>
 			<referrer name="TxdLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:HudServer_p">
@@ -5035,7 +5035,7 @@
 		<member name="F:LogoHM">
 			<tagname value="Text"/>
 			<referrer name="TxdLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 		</member>
 		<member name="F:MATCH_NAME_FIRST">
 			<library>sscanf</library>  <remarks>  The <c>MATCH_NAME_FIRST</c> option as a constant string so you can get compile-  time spell checking on the name.  Specify whether <c>u</c> etc keep searching  for better matching player names after finding one:  <code>  SSCANF_Option(MATCH_NAME_FIRST, 0); // Enable scanning for the best name match not the first (default).  <br />  SSCANF_Option(MATCH_NAME_FIRST, 1); // Enable scanning for the first name match not the best (old behaviour).  </code>  </remarks> 
@@ -6025,7 +6025,7 @@
 		</member>
 		<member name="F:TDCadastro">
 			<tagname value="Text"/>
-			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
@@ -6046,7 +6046,7 @@
 		</member>
 		<member name="F:TD_RG">
 			<tagname value="Text"/>
-			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
 			<referrer name="cmd_rg"/>
 			<referrer name="cmd_mostrarrg"/>
@@ -6054,7 +6054,7 @@
 		<member name="F:TDmorte">
 			<tagname value="Text"/>
 			<referrer name="VaiProHospital"/>
-			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnPlayerSpawn"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
@@ -6069,7 +6069,7 @@
 		</member>
 		<member name="F:Tdcinto">
 			<tagname value="Text"/>
-			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnVehicleDamageStatusUpdate"/>
 			<referrer name="ac_OnPlayerExitVehicle"/>
 			<referrer name="ac_OnPlayerStateChange"/>
@@ -6094,7 +6094,7 @@
 		</member>
 		<member name="F:TextDraw">
 			<tagname value="Text"/>
-			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="cmd_resetanuncios"/>
 			<referrer name="cmd_anuncio"/>
 		</member>
@@ -6120,12 +6120,12 @@
 		<member name="F:Textdraw0">
 			<tagname value="Text"/>
 			<referrer name="TestAway"/>
-			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 		</member>
 		<member name="F:Textdraw1">
 			<tagname value="Text"/>
 			<referrer name="TestAway"/>
-			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 		</member>
 		<member name="F:Textdraw2">
 			<tagname value="PlayerText"/>
@@ -6532,13 +6532,13 @@
 		<member name="F:VeloC_G">
 			<tagname value="Text"/>
 			<referrer name="VelocimetroEx"/>
-			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnPlayerStateChange"/>
 		</member>
 		<member name="F:Velomob">
 			<tagname value="Text"/>
 			<referrer name="VelocimetroEx"/>
-			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnPlayerStateChange"/>
 		</member>
 		<member name="F:Velomob_p">
@@ -6661,12 +6661,6 @@
 			<remarks>  Stores the current server world time (hours).  </remarks> 
 		</member>
 		<member name="F:__date">
-		</member>
-		<member name="F:__file">
-		</member>
-		<member name="F:__file">
-		</member>
-		<member name="F:__file">
 		</member>
 		<member name="F:__file">
 		</member>
@@ -7814,7 +7808,6 @@
 			<referrer name="ConvertTimeX"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="CarregarMapas"/>
-			<referrer name="CarregarMapIcons"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnPlayerWeaponShot"/>
 			<referrer name="ac_OnPlayerEnterRaceCheckpoint"/>
@@ -10378,12 +10371,6 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:CarregarCaixas" syntax="CarregarCaixas()">
-			<stacksize value="10"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<dependency name="CreateCaixa"/>
-			<dependency name="printf"/>
-		</member>
 		<member name="M:CarregarCofre" syntax="CarregarCofre(idorg)">
 			<stacksize value="10467"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -10450,13 +10437,6 @@
 			<dependency name="GuerraParabolica"/>
 			<dependency name="fexist"/>
 		</member>
-		<member name="M:CarregarMapIcons" syntax="CarregarMapIcons()">
-			<stacksize value="14"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="CreateDynamicMapIcon"/>
-			<dependency name="printf"/>
-		</member>
 		<member name="M:CarregarMapas" syntax="CarregarMapas()">
 			<stacksize value="67"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -10518,38 +10498,6 @@
 			<dependency name="mX"/>
 			<dependency name="mY"/>
 			<dependency name="mZ"/>
-			<dependency name="printf"/>
-		</member>
-		<member name="M:CarregarTxdGlobal" syntax="CarregarTxdGlobal()">
-			<stacksize value="7"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<dependency name="FIXES_TextDrawCreate"/>
-			<dependency name="HudServer"/>
-			<dependency name="LogoHM"/>
-			<dependency name="TDCadastro"/>
-			<dependency name="TD_RG"/>
-			<dependency name="TDmorte"/>
-			<dependency name="Tdcinto"/>
-			<dependency name="TextDraw"/>
-			<dependency name="TextDrawAlignment"/>
-			<dependency name="TextDrawBackgroundColor"/>
-			<dependency name="TextDrawBoxColor"/>
-			<dependency name="TextDrawColor"/>
-			<dependency name="TextDrawFont"/>
-			<dependency name="TextDrawLetterSize"/>
-			<dependency name="TextDrawSetOutline"/>
-			<dependency name="TextDrawSetPreviewModel"/>
-			<dependency name="TextDrawSetPreviewRot"/>
-			<dependency name="TextDrawSetPreviewVehCol"/>
-			<dependency name="TextDrawSetProportional"/>
-			<dependency name="TextDrawSetSelectable"/>
-			<dependency name="TextDrawSetShadow"/>
-			<dependency name="TextDrawTextSize"/>
-			<dependency name="TextDrawUseBox"/>
-			<dependency name="Textdraw0"/>
-			<dependency name="Textdraw1"/>
-			<dependency name="VeloC_G"/>
-			<dependency name="Velomob"/>
 			<dependency name="printf"/>
 		</member>
 		<member name="M:CarregarVIP" syntax="CarregarVIP(playerid)">
@@ -10843,7 +10791,7 @@
 		</member>
 		<member name="M:CreateCaixa" syntax="CreateCaixa(objectid, x, y, z, rotx, roty, rotz)">
 			<stacksize value="16"/>
-			<referrer name="CarregarCaixas"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<dependency name="CST_Create3DTextLabel"/>
 			<dependency name="CaixaInfo"/>
 			<dependency name="CaixaInfo"/>
@@ -10935,7 +10883,7 @@
 		<member name="M:CreateDynamicMapIcon" syntax="CreateDynamicMapIcon(x, y, z, type, color, worldid, interiorid, playerid, streamdistance, style, areaid, priority)">
 			<attribute name="native"/>
 			<referrer name="CriarCasas"/>
-			<referrer name="CarregarMapIcons"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_criarcasa"/>
 			<referrer name="cmd_vendercasa"/>
@@ -15221,7 +15169,6 @@
 			<tagname value="Text"/>
 			<stacksize value="5"/>
 			<referrer name="CreateTelaLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<dependency name="FIXES_gsSpace"/>
 			<dependency name="TextDrawCreate__"/>
@@ -23075,7 +23022,6 @@
 		</member>
 		<member name="M:RetirarItem" syntax="RetirarItem(playerid, modelid)">
 			<stacksize value="8"/>
-			<referrer name="VaiProHospital"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<referrer name="cmd_prender"/>
 			<dependency name="AtualizarInventario"/>
@@ -23586,7 +23532,7 @@
 			</param>
 		</member>
 		<member name="M:SalvarAvaliacao" syntax="SalvarAvaliacao(playerid)">
-			<stacksize value="58"/>
+			<stacksize value="5008"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
 			<dependency name="DOF2_CreateFile"/>
@@ -23641,7 +23587,7 @@
 			</param>
 		</member>
 		<member name="M:SalvarDados" syntax="SalvarDados(playerid)">
-			<stacksize value="323"/>
+			<stacksize value="568"/>
 			<referrer name="PayDay"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
@@ -23789,7 +23735,7 @@
 		</member>
 		<member name="M:SalvarInventario" syntax="SalvarInventario(playerid)">
 			<attribute name="public"/>
-			<stacksize value="329"/>
+			<stacksize value="15009"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
 			<dependency name="DOF2_CreateFile"/>
@@ -23806,7 +23752,7 @@
 			</param>
 		</member>
 		<member name="M:SalvarMortos" syntax="SalvarMortos(playerid)">
-			<stacksize value="58"/>
+			<stacksize value="508"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
 			<referrer name="ac_OnPlayerSpawn"/>
@@ -23857,7 +23803,7 @@
 			<dependency name="mZ"/>
 		</member>
 		<member name="M:SalvarVIP" syntax="SalvarVIP(playerid)">
-			<stacksize value="58"/>
+			<stacksize value="5008"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
 			<dependency name="DOF2_CreateFile"/>
@@ -25572,7 +25518,6 @@
 		<member name="M:TextDrawAlignment" syntax="TextDrawAlignment(text, alignment)">
 			<attribute name="native"/>
 			<referrer name="CreateTelaLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
@@ -25592,7 +25537,6 @@
 		<member name="M:TextDrawBackgroundColor" syntax="TextDrawBackgroundColor(text, color)">
 			<attribute name="native"/>
 			<referrer name="CreateTelaLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
@@ -25612,7 +25556,6 @@
 		<member name="M:TextDrawBoxColor" syntax="TextDrawBoxColor(text, color)">
 			<attribute name="native"/>
 			<referrer name="CreateTelaLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
@@ -25632,7 +25575,6 @@
 		<member name="M:TextDrawColor" syntax="TextDrawColor(text, color)">
 			<attribute name="native"/>
 			<referrer name="CreateTelaLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
@@ -25674,7 +25616,6 @@
 		<member name="M:TextDrawFont" syntax="TextDrawFont(text, font)">
 			<attribute name="native"/>
 			<referrer name="CreateTelaLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
@@ -25741,7 +25682,6 @@
 		<member name="M:TextDrawLetterSize" syntax="TextDrawLetterSize(text, x, y)">
 			<attribute name="native"/>
 			<referrer name="CreateTelaLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
@@ -25769,7 +25709,6 @@
 		<member name="M:TextDrawSetOutline" syntax="TextDrawSetOutline(text, size)">
 			<attribute name="native"/>
 			<referrer name="CreateTelaLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
@@ -25788,7 +25727,7 @@
 		</member>
 		<member name="M:TextDrawSetPreviewModel" syntax="TextDrawSetPreviewModel(text, modelindex)">
 			<attribute name="native"/>
-			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
 			</param>
@@ -25797,7 +25736,7 @@
 		</member>
 		<member name="M:TextDrawSetPreviewRot" syntax="TextDrawSetPreviewRot(text, fRotX, fRotY, fRotZ, fZoom)">
 			<attribute name="native"/>
-			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
 			</param>
@@ -25816,7 +25755,7 @@
 		</member>
 		<member name="M:TextDrawSetPreviewVehCol" syntax="TextDrawSetPreviewVehCol(text, color1, color2)">
 			<attribute name="native"/>
-			<referrer name="CarregarTxdGlobal"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
 			</param>
@@ -25828,7 +25767,6 @@
 		<member name="M:TextDrawSetProportional" syntax="TextDrawSetProportional(text, set)">
 			<attribute name="native"/>
 			<referrer name="CreateTelaLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
@@ -25848,7 +25786,6 @@
 		<member name="M:TextDrawSetSelectable" syntax="TextDrawSetSelectable(text, set)">
 			<attribute name="native"/>
 			<referrer name="CreateTelaLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
@@ -25859,7 +25796,6 @@
 		<member name="M:TextDrawSetShadow" syntax="TextDrawSetShadow(text, size)">
 			<attribute name="native"/>
 			<referrer name="CreateTelaLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
@@ -25924,7 +25860,6 @@
 		<member name="M:TextDrawTextSize" syntax="TextDrawTextSize(text, x, y)">
 			<attribute name="native"/>
 			<referrer name="CreateTelaLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
@@ -25952,7 +25887,6 @@
 		<member name="M:TextDrawUseBox" syntax="TextDrawUseBox(text, use)">
 			<attribute name="native"/>
 			<referrer name="CreateTelaLogin"/>
-			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo>Text </paraminfo>
@@ -26286,7 +26220,6 @@
 			<dependency name="PlayerMorto"/>
 			<dependency name="PlayerMorto"/>
 			<dependency name="PlayerTextDrawHide"/>
-			<dependency name="RetirarItem"/>
 			<dependency name="SedePlayer"/>
 			<dependency name="SetPlayerFacingAngle"/>
 			<dependency name="TDmorte"/>
@@ -36664,17 +36597,16 @@
 			<dependency name="Barragem"/>
 			<dependency name="CST_Create3DTextLabel"/>
 			<dependency name="CST_SendRconCommand"/>
-			<dependency name="CarregarCaixas"/>
 			<dependency name="CarregarCofre"/>
 			<dependency name="CarregarDinRoubos"/>
 			<dependency name="CarregarGZ2"/>
-			<dependency name="CarregarMapIcons"/>
 			<dependency name="CarregarMapas"/>
 			<dependency name="CarregarPlantacao"/>
-			<dependency name="CarregarTxdGlobal"/>
 			<dependency name="CountDynamicObjects"/>
 			<dependency name="CreateAurea"/>
+			<dependency name="CreateCaixa"/>
 			<dependency name="CreateDynamic3DTextLabel"/>
+			<dependency name="CreateDynamicMapIcon"/>
 			<dependency name="CreateTelaLogin"/>
 			<dependency name="CriarCasas"/>
 			<dependency name="CriarRadares"/>
@@ -36689,9 +36621,11 @@
 			<dependency name="FIXES_SetTimer"/>
 			<dependency name="FIXES_TextDrawCreate"/>
 			<dependency name="Frequencia"/>
+			<dependency name="HudServer"/>
 			<dependency name="LoadDealerships"/>
 			<dependency name="LoadFuelStations"/>
 			<dependency name="LoadVehicles"/>
+			<dependency name="LogoHM"/>
 			<dependency name="MaconhaInfo"/>
 			<dependency name="MaconhaInfo"/>
 			<dependency name="ManualVehicleEngineAndLights"/>
@@ -36712,6 +36646,11 @@
 			<dependency name="ShowPlayerMarkers"/>
 			<dependency name="Streamer_SetFloatData"/>
 			<dependency name="SvCreateGStream"/>
+			<dependency name="TDCadastro"/>
+			<dependency name="TD_RG"/>
+			<dependency name="TDmorte"/>
+			<dependency name="Tdcinto"/>
+			<dependency name="TextDraw"/>
 			<dependency name="TextDrawAlignment"/>
 			<dependency name="TextDrawBackgroundColor"/>
 			<dependency name="TextDrawBoxColor"/>
@@ -36719,11 +36658,16 @@
 			<dependency name="TextDrawFont"/>
 			<dependency name="TextDrawLetterSize"/>
 			<dependency name="TextDrawSetOutline"/>
+			<dependency name="TextDrawSetPreviewModel"/>
+			<dependency name="TextDrawSetPreviewRot"/>
+			<dependency name="TextDrawSetPreviewVehCol"/>
 			<dependency name="TextDrawSetProportional"/>
 			<dependency name="TextDrawSetSelectable"/>
 			<dependency name="TextDrawSetShadow"/>
 			<dependency name="TextDrawTextSize"/>
 			<dependency name="TextDrawUseBox"/>
+			<dependency name="Textdraw0"/>
+			<dependency name="Textdraw1"/>
 			<dependency name="TimerAfk"/>
 			<dependency name="TimerCadeia"/>
 			<dependency name="TimerMensagemAuto"/>
@@ -36731,6 +36675,8 @@
 			<dependency name="UpdateDealership"/>
 			<dependency name="UpdateFuelStation"/>
 			<dependency name="UpdateVehicle"/>
+			<dependency name="VeloC_G"/>
+			<dependency name="Velomob"/>
 			<dependency name="acc_CreateDynamicPickup"/>
 			<dependency name="acc_DisableInteriorEnterExits"/>
 			<dependency name="acc_EnableStuntBonusForAll"/>
@@ -37287,7 +37233,7 @@
 		</member>
 		<member name="M:ppb_OnPlayerDisconnect" syntax="ppb_OnPlayerDisconnect(playerid, reason)">
 			<attribute name="public"/>
-			<stacksize value="266"/>
+			<stacksize value="5006"/>
 			<dependency name="AutoEscolaAerea"/>
 			<dependency name="AutoEscolaCaminhao"/>
 			<dependency name="AutoEscolaMoto"/>
@@ -37725,9 +37671,6 @@
 			<referrer name="CriarCasas"/>
 			<referrer name="DeletarLog"/>
 			<referrer name="CarregarMapas"/>
-			<referrer name="CarregarMapIcons"/>
-			<referrer name="CarregarCaixas"/>
-			<referrer name="CarregarTxdGlobal"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<param name="format">

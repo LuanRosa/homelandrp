@@ -535,7 +535,7 @@ new Parabolica;
 
 //                          STRINGS
 
-new	Motivo[255],
+new	Motivo[5000],
 	Str[1200];
 new MEGAString[2860];
 
@@ -5456,7 +5456,7 @@ CallBack::LoadInv(playerid)
 
 CallBack::SalvarInventario(playerid)
 {
-	new file[64], str[128], string[128];
+	new file[5000], str[5000], string[5000];
 	format(file, sizeof(file), PASTA_INVENTARIO, Name(playerid));
 	if(!DOF2_FileExists(file)){DOF2_CreateFile(file);}
 	for(new i = 1; i < 31; ++i)
@@ -7564,7 +7564,7 @@ stock VaiProHospital(playerid)
 	PlayerInfo[playerid][pDinheiro] = 0;
 	FomePlayer[playerid] = 100;
 	SedePlayer[playerid] = 100;
-	RetirarItem(playerid, 1212);
+	/*RetirarItem(playerid, 1212);
 	RetirarItem(playerid, 854);
 	RetirarItem(playerid, 1279);
 	RetirarItem(playerid, 902);
@@ -7592,7 +7592,7 @@ stock VaiProHospital(playerid)
 	RetirarItem(playerid, 11736);
 	RetirarItem(playerid, 18632);
 	RetirarItem(playerid, 18645);
-	RetirarItem(playerid, 18644);
+	RetirarItem(playerid, 18644);*/
 	TogglePlayerControllable(playerid, true);
     ClearAnimations(playerid);
     for(new idx=0; idx<9; idx++){
@@ -7621,7 +7621,7 @@ stock ParaDeBugaPoraaaDk(playerid)
 
 stock SalvarMortos(playerid)
 {
-	new File[50];
+	new File[500];
 	if(PlayerInfo[playerid][pAdmin] > 1)
 	{
 		format(File, sizeof(File), PASTA_MORTOS, Name(playerid));
@@ -10398,7 +10398,7 @@ stock CarregarVIP(playerid)
 
 stock SalvarVIP(playerid)
 {
-	new File[50];
+	new File[5000];
 	if(PlayerInfo[playerid][pVIP] > 1)
 	{
 		format(File, sizeof(File), PASTA_VIPS, Name(playerid));
@@ -10754,7 +10754,7 @@ stock ZerarDados(playerid)
 
 stock SalvarDados(playerid)
 {
-	new File[255];
+	new File[500];
 	new Data[24], Email[25], Dia, Mes, Ano, Hora, Minuto, Float:A, Float:X, Float:Y, Float:Z;
 	GetPlayerCameraPos(playerid, X, Y, Z);
 	gettime(Hora, Minuto);
@@ -10875,7 +10875,7 @@ stock SalvarDadosSkin(playerid)
 
 stock SalvarAvaliacao(playerid)
 {
-	new File[50];
+	new File[5000];
 	if(PlayerInfo[playerid][pAdmin] > 1)
 	{
 		format(File, sizeof(File), PASTA_AVALIACAO, Name(playerid));
@@ -11100,9 +11100,6 @@ stock GetXYInFrontOfCaixa(objectid, &Float:q, &Float:w, Float:distance)
 	return 1;
 }
 #include 		"../modulos/mapserver.inc" 
-#include 		"../modulos/mapicons.inc" 
-#include 		"../modulos/caixas.inc"
-#include 		"../modulos/txdglobal.inc"
 
 public OnGameModeInit()
 {
@@ -11121,9 +11118,6 @@ public OnGameModeInit()
 	AntiDeAMX();
 	DisableCrashDetectLongCall();
 	ORGCarrega();
-	CarregarMapIcons();
-	CarregarCaixas();
-	CarregarTxdGlobal();
 	LoadVehicles();
 	LoadDealerships();
 	LoadFuelStations();
@@ -11134,7 +11128,1785 @@ public OnGameModeInit()
 	CarregarPlantacao();	
 	CarregarDinRoubos();
 	CreateTelaLogin();
-	printf("=> Canais DC       		: Carregados");
+	
+	LogoHM[0] = TextDrawCreate(322.000000, 6.000000, "HOME");
+	TextDrawFont(LogoHM[0], 2);
+	TextDrawLetterSize(LogoHM[0], 0.408333, 2.049998);
+	TextDrawTextSize(LogoHM[0], 400.000000, 17.000000);
+	TextDrawSetOutline(LogoHM[0], 1);
+	TextDrawSetShadow(LogoHM[0], 0);
+	TextDrawAlignment(LogoHM[0], 2);
+	TextDrawColor(LogoHM[0], -146);
+	TextDrawBackgroundColor(LogoHM[0], 1097458175);
+	TextDrawBoxColor(LogoHM[0], 50);
+	TextDrawUseBox(LogoHM[0], 0);
+	TextDrawSetProportional(LogoHM[0], 1);
+	TextDrawSetSelectable(LogoHM[0], 0);
+
+	LogoHM[1] = TextDrawCreate(322.000000, 19.000000, "LAND");
+	TextDrawFont(LogoHM[1], 2);
+	TextDrawLetterSize(LogoHM[1], 0.408333, 2.049998);
+	TextDrawTextSize(LogoHM[1], 400.000000, 17.000000);
+	TextDrawSetOutline(LogoHM[1], 1);
+	TextDrawSetShadow(LogoHM[1], 0);
+	TextDrawAlignment(LogoHM[1], 2);
+	TextDrawColor(LogoHM[1], -146);
+	TextDrawBackgroundColor(LogoHM[1], 1097458175);
+	TextDrawBoxColor(LogoHM[1], 50);
+	TextDrawUseBox(LogoHM[1], 0);
+	TextDrawSetProportional(LogoHM[1], 1);
+	TextDrawSetSelectable(LogoHM[1], 0);
+
+	LogoHM[2] = TextDrawCreate(310.000000, 10.000000, "]");
+	TextDrawFont(LogoHM[2], 2);
+	TextDrawLetterSize(LogoHM[2], 0.316666, 1.300000);
+	TextDrawTextSize(LogoHM[2], 400.000000, 17.000000);
+	TextDrawSetOutline(LogoHM[2], 0);
+	TextDrawSetShadow(LogoHM[2], 0);
+	TextDrawAlignment(LogoHM[2], 1);
+	TextDrawColor(LogoHM[2], -65281);
+	TextDrawBackgroundColor(LogoHM[2], 255);
+	TextDrawBoxColor(LogoHM[2], 50);
+	TextDrawUseBox(LogoHM[2], 0);
+	TextDrawSetProportional(LogoHM[2], 1);
+	TextDrawSetSelectable(LogoHM[2], 0);
+
+	Textdraw0 = TextDrawCreate(320.000000, 180.000000, "ALERTA~n~~n~~n~");
+	TextDrawAlignment(Textdraw0, 2);
+	TextDrawBackgroundColor(Textdraw0, 255);
+	TextDrawFont(Textdraw0, 1);
+	TextDrawLetterSize(Textdraw0, 0.600000, 3.000000);
+	TextDrawColor(Textdraw0, -16776961);
+	TextDrawSetOutline(Textdraw0, 0);
+	TextDrawSetProportional(Textdraw0, 1);
+	TextDrawSetShadow(Textdraw0, 2);
+	TextDrawUseBox(Textdraw0, 1);
+	TextDrawBoxColor(Textdraw0, 1768515920);
+	TextDrawTextSize(Textdraw0, 20.000000, 170.000000);
+
+	Textdraw1 = TextDrawCreate(237.000000, 212.000000, "MOVA-SE OU SERA KICKADO");
+	TextDrawBackgroundColor(Textdraw1, 255);
+	TextDrawFont(Textdraw1, 1);
+	TextDrawLetterSize(Textdraw1, 0.340000, 1.300000);
+	TextDrawColor(Textdraw1, 1162167807);
+	TextDrawSetOutline(Textdraw1, 1);
+	TextDrawSetProportional(Textdraw1, 1);
+
+	//VELOCIMETRO
+	VeloC_G[0] = TextDrawCreate(595.007385, 364.416839, "box");
+	TextDrawLetterSize(VeloC_G[0], -0.001398, 4.130434);
+	TextDrawTextSize(VeloC_G[0], 590.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[0], 1);
+	TextDrawColor(VeloC_G[0], -1);
+	TextDrawUseBox(VeloC_G[0], 1);
+	TextDrawBoxColor(VeloC_G[0], 255);
+	TextDrawSetShadow(VeloC_G[0], 0);
+	TextDrawBackgroundColor(VeloC_G[0], 255);
+	TextDrawFont(VeloC_G[0], 1);
+	TextDrawSetProportional(VeloC_G[0], 1);
+
+	VeloC_G[1] = TextDrawCreate(590.622924, 356.249938, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[1], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[1], 1);
+	TextDrawColor(VeloC_G[1], 255);
+	TextDrawSetShadow(VeloC_G[1], 0);
+	TextDrawBackgroundColor(VeloC_G[1], 255);
+	TextDrawFont(VeloC_G[1], 4);
+	TextDrawSetProportional(VeloC_G[1], 0);
+
+	VeloC_G[2] = TextDrawCreate(620.307739, 365.000213, "box");
+	TextDrawLetterSize(VeloC_G[2], -0.011242, 3.962932);
+	TextDrawTextSize(VeloC_G[2], 612.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[2], 1);
+	TextDrawColor(VeloC_G[2], -1);
+	TextDrawUseBox(VeloC_G[2], 1);
+	TextDrawBoxColor(VeloC_G[2], 255);
+	TextDrawSetShadow(VeloC_G[2], 0);
+	TextDrawBackgroundColor(VeloC_G[2], 255);
+	TextDrawFont(VeloC_G[2], 1);
+	TextDrawSetProportional(VeloC_G[2], 1);
+
+	VeloC_G[3] = TextDrawCreate(609.832275, 356.833282, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[3], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[3], 1);
+	TextDrawColor(VeloC_G[3], 255);
+	TextDrawSetShadow(VeloC_G[3], 0);
+	TextDrawBackgroundColor(VeloC_G[3], 255);
+	TextDrawFont(VeloC_G[3], 4);
+	TextDrawSetProportional(VeloC_G[3], 0);
+
+	VeloC_G[4] = TextDrawCreate(595.476257, 364.416931, "box");
+	TextDrawLetterSize(VeloC_G[4], -0.002339, 3.757107);
+	TextDrawTextSize(VeloC_G[4], 614.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[4], 1);
+	TextDrawColor(VeloC_G[4], -1);
+	TextDrawUseBox(VeloC_G[4], 1);
+	TextDrawBoxColor(VeloC_G[4], 255);
+	TextDrawSetShadow(VeloC_G[4], 0);
+	TextDrawBackgroundColor(VeloC_G[4], 255);
+	TextDrawFont(VeloC_G[4], 1);
+	TextDrawSetProportional(VeloC_G[4], 1);
+
+	VeloC_G[5] = TextDrawCreate(590.622863, 400.583404, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[5], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[5], 1);
+	TextDrawColor(VeloC_G[5], 255);
+	TextDrawSetShadow(VeloC_G[5], 0);
+	TextDrawBackgroundColor(VeloC_G[5], 255);
+	TextDrawFont(VeloC_G[5], 4);
+	TextDrawSetProportional(VeloC_G[5], 0);
+
+	VeloC_G[6] = TextDrawCreate(609.832275, 400.583404, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[6], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[6], 1);
+	TextDrawColor(VeloC_G[6], 255);
+	TextDrawSetShadow(VeloC_G[6], 0);
+	TextDrawBackgroundColor(VeloC_G[6], 255);
+	TextDrawFont(VeloC_G[6], 4);
+	TextDrawSetProportional(VeloC_G[6], 0);
+
+	VeloC_G[7] = TextDrawCreate(600.161315, 362.083526, "box");
+	TextDrawLetterSize(VeloC_G[7], -0.003279, -0.011229);
+	TextDrawTextSize(VeloC_G[7], 612.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[7], 1);
+	TextDrawColor(VeloC_G[7], -1);
+	TextDrawUseBox(VeloC_G[7], 1);
+	TextDrawBoxColor(VeloC_G[7], 255);
+	TextDrawSetShadow(VeloC_G[7], 0);
+	TextDrawBackgroundColor(VeloC_G[7], 255);
+	TextDrawFont(VeloC_G[7], 1);
+	TextDrawSetProportional(VeloC_G[7], 1);
+
+	VeloC_G[8] = TextDrawCreate(598.755920, 404.083557, "box");
+	TextDrawLetterSize(VeloC_G[8], -0.000468, -0.063729);
+	TextDrawTextSize(VeloC_G[8], 612.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[8], 1);
+	TextDrawColor(VeloC_G[8], -1);
+	TextDrawUseBox(VeloC_G[8], 1);
+	TextDrawBoxColor(VeloC_G[8], 255);
+	TextDrawSetShadow(VeloC_G[8], 0);
+	TextDrawBackgroundColor(VeloC_G[8], 255);
+	TextDrawFont(VeloC_G[8], 1);
+	TextDrawSetProportional(VeloC_G[8], 1);
+
+	VeloC_G[9] = TextDrawCreate(603.909606, 372.583374, "box");
+	TextDrawLetterSize(VeloC_G[9], -0.003279, 0.068277);
+	TextDrawTextSize(VeloC_G[9], 604.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[9], 1);
+	TextDrawColor(VeloC_G[9], -1);
+	TextDrawUseBox(VeloC_G[9], 1);
+	TextDrawBoxColor(VeloC_G[9], -16776961);
+	TextDrawSetShadow(VeloC_G[9], 0);
+	TextDrawBackgroundColor(VeloC_G[9], 255);
+	TextDrawFont(VeloC_G[9], 1);
+	TextDrawSetProportional(VeloC_G[9], 1);
+
+	VeloC_G[10] = TextDrawCreate(603.909606, 367.916717, "box");
+	TextDrawLetterSize(VeloC_G[10], -0.003745, 0.074110);
+	TextDrawTextSize(VeloC_G[10], 599.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[10], 1);
+	TextDrawColor(VeloC_G[10], -1);
+	TextDrawUseBox(VeloC_G[10], 1);
+	TextDrawBoxColor(VeloC_G[10], -16776961);
+	TextDrawSetShadow(VeloC_G[10], 0);
+	TextDrawBackgroundColor(VeloC_G[10], 255);
+	TextDrawFont(VeloC_G[10], 1);
+	TextDrawSetProportional(VeloC_G[10], 1);
+
+	VeloC_G[11] = TextDrawCreate(609.063476, 367.916625, "box");
+	TextDrawLetterSize(VeloC_G[11], -0.003279, 0.068277);
+	TextDrawTextSize(VeloC_G[11], 604.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[11], 1);
+	TextDrawColor(VeloC_G[11], -1);
+	TextDrawUseBox(VeloC_G[11], 1);
+	TextDrawBoxColor(VeloC_G[11], -16776961);
+	TextDrawSetShadow(VeloC_G[11], 0);
+	TextDrawBackgroundColor(VeloC_G[11], 255);
+	TextDrawFont(VeloC_G[11], 1);
+	TextDrawSetProportional(VeloC_G[11], 1);
+
+	VeloC_G[12] = TextDrawCreate(603.909545, 367.916625, "box");
+	TextDrawLetterSize(VeloC_G[12], 0.000000, -0.742551);
+	TextDrawTextSize(VeloC_G[12], 603.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[12], 1);
+	TextDrawColor(VeloC_G[12], -1);
+	TextDrawUseBox(VeloC_G[12], 1);
+	TextDrawBoxColor(VeloC_G[12], -16776961);
+	TextDrawSetShadow(VeloC_G[12], 0);
+	TextDrawBackgroundColor(VeloC_G[12], 255);
+	TextDrawFont(VeloC_G[12], 1);
+	TextDrawSetProportional(VeloC_G[12], 1);
+
+	VeloC_G[13] = TextDrawCreate(607.189086, 357.999938, "s");
+	TextDrawLetterSize(VeloC_G[13], 0.218213, 2.329164);
+	TextDrawTextSize(VeloC_G[13], -4.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[13], 1);
+	TextDrawColor(VeloC_G[13], -16776961);
+	TextDrawSetShadow(VeloC_G[13], 0);
+	TextDrawBackgroundColor(VeloC_G[13], 255);
+	TextDrawFont(VeloC_G[13], 1);
+	TextDrawSetProportional(VeloC_G[13], 1);
+
+	VeloC_G[14] = TextDrawCreate(569.539306, 357.416564, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[14], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[14], 1);
+	TextDrawColor(VeloC_G[14], 255);
+	TextDrawSetShadow(VeloC_G[14], 0);
+	TextDrawBackgroundColor(VeloC_G[14], 255);
+	TextDrawFont(VeloC_G[14], 4);
+	TextDrawSetProportional(VeloC_G[14], 0);
+
+	VeloC_G[15] = TextDrawCreate(573.923889, 365.583526, "box");
+	TextDrawLetterSize(VeloC_G[15], 0.017333, 0.181268);
+	TextDrawTextSize(VeloC_G[15], 569.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[15], 1);
+	TextDrawColor(VeloC_G[15], -1);
+	TextDrawUseBox(VeloC_G[15], 1);
+	TextDrawBoxColor(VeloC_G[15], 255);
+	TextDrawSetShadow(VeloC_G[15], 0);
+	TextDrawBackgroundColor(VeloC_G[15], 255);
+	TextDrawFont(VeloC_G[15], 1);
+	TextDrawSetProportional(VeloC_G[15], 1);
+
+	VeloC_G[16] = TextDrawCreate(579.378295, 357.416503, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[16], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[16], 1);
+	TextDrawColor(VeloC_G[16], 255);
+	TextDrawSetShadow(VeloC_G[16], 0);
+	TextDrawBackgroundColor(VeloC_G[16], 255);
+	TextDrawFont(VeloC_G[16], 4);
+	TextDrawSetProportional(VeloC_G[16], 0);
+
+	VeloC_G[17] = TextDrawCreate(588.448242, 365.583496, "box");
+	TextDrawLetterSize(VeloC_G[17], -0.020145, 0.216268);
+	TextDrawTextSize(VeloC_G[17], 584.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[17], 1);
+	TextDrawColor(VeloC_G[17], -1);
+	TextDrawUseBox(VeloC_G[17], 1);
+	TextDrawBoxColor(VeloC_G[17], 255);
+	TextDrawSetShadow(VeloC_G[17], 0);
+	TextDrawBackgroundColor(VeloC_G[17], 255);
+	TextDrawFont(VeloC_G[17], 1);
+	TextDrawSetProportional(VeloC_G[17], 1);
+
+	VeloC_G[18] = TextDrawCreate(569.539123, 367.333007, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[18], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[18], 1);
+	TextDrawColor(VeloC_G[18], 255);
+	TextDrawSetShadow(VeloC_G[18], 0);
+	TextDrawBackgroundColor(VeloC_G[18], 255);
+	TextDrawFont(VeloC_G[18], 4);
+	TextDrawSetProportional(VeloC_G[18], 0);
+
+	VeloC_G[19] = TextDrawCreate(579.846801, 367.333099, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[19], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[19], 1);
+	TextDrawColor(VeloC_G[19], 255);
+	TextDrawSetShadow(VeloC_G[19], 0);
+	TextDrawBackgroundColor(VeloC_G[19], 255);
+	TextDrawFont(VeloC_G[19], 4);
+	TextDrawSetProportional(VeloC_G[19], 0);
+
+	VeloC_G[20] = TextDrawCreate(576.266906, 363.250152, "box");
+	TextDrawLetterSize(VeloC_G[20], -0.007027, -0.542064);
+	TextDrawTextSize(VeloC_G[20], 582.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[20], 1);
+	TextDrawColor(VeloC_G[20], -1);
+	TextDrawUseBox(VeloC_G[20], 1);
+	TextDrawBoxColor(VeloC_G[20], 255);
+	TextDrawSetShadow(VeloC_G[20], 0);
+	TextDrawBackgroundColor(VeloC_G[20], 255);
+	TextDrawFont(VeloC_G[20], 1);
+	TextDrawSetProportional(VeloC_G[20], 1);
+
+	VeloC_G[21] = TextDrawCreate(578.140808, 374.333404, "box");
+	TextDrawLetterSize(VeloC_G[21], -0.007027, -0.542064);
+	TextDrawTextSize(VeloC_G[21], 580.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[21], 1);
+	TextDrawColor(VeloC_G[21], -1);
+	TextDrawUseBox(VeloC_G[21], 1);
+	TextDrawBoxColor(VeloC_G[21], 255);
+	TextDrawSetShadow(VeloC_G[21], 0);
+	TextDrawBackgroundColor(VeloC_G[21], 255);
+	TextDrawFont(VeloC_G[21], 1);
+	TextDrawSetProportional(VeloC_G[21], 1);
+
+	VeloC_G[22] = TextDrawCreate(574.393005, 365.000091, "box");
+	TextDrawLetterSize(VeloC_G[22], -0.004215, 0.210435);
+	TextDrawTextSize(VeloC_G[22], 584.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[22], 1);
+	TextDrawColor(VeloC_G[22], -1);
+	TextDrawUseBox(VeloC_G[22], 1);
+	TextDrawBoxColor(VeloC_G[22], 255);
+	TextDrawSetShadow(VeloC_G[22], 0);
+	TextDrawBackgroundColor(VeloC_G[22], 255);
+	TextDrawFont(VeloC_G[22], 1);
+	TextDrawSetProportional(VeloC_G[22], 1);
+
+	VeloC_G[23] = TextDrawCreate(579.078002, 367.916778, "box");
+	TextDrawLetterSize(VeloC_G[23], -0.005621, -0.238729);
+	TextDrawTextSize(VeloC_G[23], 580.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[23], 1);
+	TextDrawColor(VeloC_G[23], -1);
+	TextDrawUseBox(VeloC_G[23], 1);
+	TextDrawBoxColor(VeloC_G[23], -1);
+	TextDrawSetShadow(VeloC_G[23], 0);
+	TextDrawBackgroundColor(VeloC_G[23], 255);
+	TextDrawFont(VeloC_G[23], 1);
+	TextDrawSetProportional(VeloC_G[23], 1);
+
+	VeloC_G[24] = TextDrawCreate(577.672424, 369.083465, "box");
+	TextDrawLetterSize(VeloC_G[24], -0.004215, -0.536230);
+	TextDrawTextSize(VeloC_G[24], 579.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[24], 1);
+	TextDrawColor(VeloC_G[24], -1);
+	TextDrawUseBox(VeloC_G[24], 1);
+	TextDrawBoxColor(VeloC_G[24], -1);
+	TextDrawSetShadow(VeloC_G[24], 0);
+	TextDrawBackgroundColor(VeloC_G[24], 255);
+	TextDrawFont(VeloC_G[24], 1);
+	TextDrawSetProportional(VeloC_G[24], 1);
+
+	VeloC_G[25] = TextDrawCreate(580.015075, 366.750061, "box");
+	TextDrawLetterSize(VeloC_G[25], -0.004215, -0.536230);
+	TextDrawTextSize(VeloC_G[25], 578.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[25], 1);
+	TextDrawColor(VeloC_G[25], -1);
+	TextDrawUseBox(VeloC_G[25], 1);
+	TextDrawBoxColor(VeloC_G[25], -1);
+	TextDrawSetShadow(VeloC_G[25], 0);
+	TextDrawBackgroundColor(VeloC_G[25], 255);
+	TextDrawFont(VeloC_G[25], 1);
+	TextDrawSetProportional(VeloC_G[25], 1);
+
+	VeloC_G[26] = TextDrawCreate(570.007751, 374.916564, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[26], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[26], 1);
+	TextDrawColor(VeloC_G[26], 255);
+	TextDrawSetShadow(VeloC_G[26], 0);
+	TextDrawBackgroundColor(VeloC_G[26], 255);
+	TextDrawFont(VeloC_G[26], 4);
+	TextDrawSetProportional(VeloC_G[26], 0);
+
+	VeloC_G[27] = TextDrawCreate(576.734863, 384.250274, "box");
+	TextDrawLetterSize(VeloC_G[27], 0.017333, 0.181268);
+	TextDrawTextSize(VeloC_G[27], 568.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[27], 1);
+	TextDrawColor(VeloC_G[27], -1);
+	TextDrawUseBox(VeloC_G[27], 1);
+	TextDrawBoxColor(VeloC_G[27], 255);
+	TextDrawSetShadow(VeloC_G[27], 0);
+	TextDrawBackgroundColor(VeloC_G[27], 255);
+	TextDrawFont(VeloC_G[27], 1);
+	TextDrawSetProportional(VeloC_G[27], 1);
+
+	VeloC_G[28] = TextDrawCreate(579.846740, 374.916503, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[28], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[28], 1);
+	TextDrawColor(VeloC_G[28], 255);
+	TextDrawSetShadow(VeloC_G[28], 0);
+	TextDrawBackgroundColor(VeloC_G[28], 255);
+	TextDrawFont(VeloC_G[28], 4);
+	TextDrawSetProportional(VeloC_G[28], 0);
+
+	VeloC_G[29] = TextDrawCreate(588.916748, 384.250183, "box");
+	TextDrawLetterSize(VeloC_G[29], -0.020145, 0.216268);
+	TextDrawTextSize(VeloC_G[29], 584.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[29], 1);
+	TextDrawColor(VeloC_G[29], -1);
+	TextDrawUseBox(VeloC_G[29], 1);
+	TextDrawBoxColor(VeloC_G[29], 255);
+	TextDrawSetShadow(VeloC_G[29], 0);
+	TextDrawBackgroundColor(VeloC_G[29], 255);
+	TextDrawFont(VeloC_G[29], 1);
+	TextDrawSetProportional(VeloC_G[29], 1);
+
+	VeloC_G[30] = TextDrawCreate(570.007629, 384.833007, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[30], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[30], 1);
+	TextDrawColor(VeloC_G[30], 255);
+	TextDrawSetShadow(VeloC_G[30], 0);
+	TextDrawBackgroundColor(VeloC_G[30], 255);
+	TextDrawFont(VeloC_G[30], 4);
+	TextDrawSetProportional(VeloC_G[30], 0);
+
+	VeloC_G[31] = TextDrawCreate(579.846923, 385.416503, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[31], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[31], 1);
+	TextDrawColor(VeloC_G[31], 255);
+	TextDrawSetShadow(VeloC_G[31], 0);
+	TextDrawBackgroundColor(VeloC_G[31], 255);
+	TextDrawFont(VeloC_G[31], 4);
+	TextDrawSetProportional(VeloC_G[31], 0);
+
+	VeloC_G[32] = TextDrawCreate(575.798400, 380.750091, "box");
+	TextDrawLetterSize(VeloC_G[32], -0.007027, -0.542064);
+	TextDrawTextSize(VeloC_G[32], 582.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[32], 1);
+	TextDrawColor(VeloC_G[32], -1);
+	TextDrawUseBox(VeloC_G[32], 1);
+	TextDrawBoxColor(VeloC_G[32], 255);
+	TextDrawSetShadow(VeloC_G[32], 0);
+	TextDrawBackgroundColor(VeloC_G[32], 255);
+	TextDrawFont(VeloC_G[32], 1);
+	TextDrawSetProportional(VeloC_G[32], 1);
+
+	VeloC_G[33] = TextDrawCreate(576.735351, 392.416778, "box");
+	TextDrawLetterSize(VeloC_G[33], -0.007027, -0.542064);
+	TextDrawTextSize(VeloC_G[33], 581.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[33], 1);
+	TextDrawColor(VeloC_G[33], -1);
+	TextDrawUseBox(VeloC_G[33], 1);
+	TextDrawBoxColor(VeloC_G[33], 255);
+	TextDrawSetShadow(VeloC_G[33], 0);
+	TextDrawBackgroundColor(VeloC_G[33], 255);
+	TextDrawFont(VeloC_G[33], 1);
+	TextDrawSetProportional(VeloC_G[33], 1);
+
+	VeloC_G[34] = TextDrawCreate(574.393005, 382.500091, "box");
+	TextDrawLetterSize(VeloC_G[34], -0.004215, 0.210435);
+	TextDrawTextSize(VeloC_G[34], 584.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[34], 1);
+	TextDrawColor(VeloC_G[34], -1);
+	TextDrawUseBox(VeloC_G[34], 1);
+	TextDrawBoxColor(VeloC_G[34], 255);
+	TextDrawSetShadow(VeloC_G[34], 0);
+	TextDrawBackgroundColor(VeloC_G[34], 255);
+	TextDrawFont(VeloC_G[34], 1);
+	TextDrawSetProportional(VeloC_G[34], 1);
+
+	VeloC_G[35] = TextDrawCreate(577.504028, 378.999938, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[35], 5.000000, 7.000000);
+	TextDrawAlignment(VeloC_G[35], 1);
+	TextDrawColor(VeloC_G[35], -1);
+	TextDrawSetShadow(VeloC_G[35], 0);
+	TextDrawBackgroundColor(VeloC_G[35], 255);
+	TextDrawFont(VeloC_G[35], 4);
+	TextDrawSetProportional(VeloC_G[35], 0);
+
+	VeloC_G[36] = TextDrawCreate(575.161499, 384.249847, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[36], 9.000000, 7.000000);
+	TextDrawAlignment(VeloC_G[36], 1);
+	TextDrawColor(VeloC_G[36], -1);
+	TextDrawSetShadow(VeloC_G[36], 0);
+	TextDrawBackgroundColor(VeloC_G[36], 255);
+	TextDrawFont(VeloC_G[36], 4);
+	TextDrawSetProportional(VeloC_G[36], 0);
+
+	VeloC_G[37] = TextDrawCreate(575.329589, 384.833465, "/");
+	TextDrawLetterSize(VeloC_G[37], 0.605210, 0.503332);
+	TextDrawTextSize(VeloC_G[37], 11.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[37], 1);
+	TextDrawColor(VeloC_G[37], 255);
+	TextDrawSetShadow(VeloC_G[37], 0);
+	TextDrawBackgroundColor(VeloC_G[37], 255);
+	TextDrawFont(VeloC_G[37], 1);
+	TextDrawSetProportional(VeloC_G[37], 1);
+
+	VeloC_G[38] = TextDrawCreate(569.539306, 391.249938, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[38], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[38], 1);
+	TextDrawColor(VeloC_G[38], 255);
+	TextDrawSetShadow(VeloC_G[38], 0);
+	TextDrawBackgroundColor(VeloC_G[38], 255);
+	TextDrawFont(VeloC_G[38], 4);
+	TextDrawSetProportional(VeloC_G[38], 0);
+
+	VeloC_G[39] = TextDrawCreate(577.671936, 401.166961, "box");
+	TextDrawLetterSize(VeloC_G[39], -0.002803, 0.187102);
+	TextDrawTextSize(VeloC_G[39], 568.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[39], 1);
+	TextDrawColor(VeloC_G[39], -1);
+	TextDrawUseBox(VeloC_G[39], 1);
+	TextDrawBoxColor(VeloC_G[39], 255);
+	TextDrawSetShadow(VeloC_G[39], 0);
+	TextDrawBackgroundColor(VeloC_G[39], 255);
+	TextDrawFont(VeloC_G[39], 1);
+	TextDrawSetProportional(VeloC_G[39], 1);
+
+	VeloC_G[40] = TextDrawCreate(579.846740, 391.249877, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[40], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[40], 1);
+	TextDrawColor(VeloC_G[40], 255);
+	TextDrawSetShadow(VeloC_G[40], 0);
+	TextDrawBackgroundColor(VeloC_G[40], 255);
+	TextDrawFont(VeloC_G[40], 4);
+	TextDrawSetProportional(VeloC_G[40], 0);
+
+	VeloC_G[41] = TextDrawCreate(587.511169, 400.583465, "box");
+	TextDrawLetterSize(VeloC_G[41], 0.011242, 0.169602);
+	TextDrawTextSize(VeloC_G[41], 584.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[41], 1);
+	TextDrawColor(VeloC_G[41], -1);
+	TextDrawUseBox(VeloC_G[41], 1);
+	TextDrawBoxColor(VeloC_G[41], 255);
+	TextDrawSetShadow(VeloC_G[41], 0);
+	TextDrawBackgroundColor(VeloC_G[41], 255);
+	TextDrawFont(VeloC_G[41], 1);
+	TextDrawSetProportional(VeloC_G[41], 1);
+
+	VeloC_G[42] = TextDrawCreate(569.539123, 401.749633, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[42], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[42], 1);
+	TextDrawColor(VeloC_G[42], 255);
+	TextDrawSetShadow(VeloC_G[42], 0);
+	TextDrawBackgroundColor(VeloC_G[42], 255);
+	TextDrawFont(VeloC_G[42], 4);
+	TextDrawSetProportional(VeloC_G[42], 0);
+
+	VeloC_G[43] = TextDrawCreate(579.846618, 401.749664, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[43], 9.000000, 8.000000);
+	TextDrawAlignment(VeloC_G[43], 1);
+	TextDrawColor(VeloC_G[43], 255);
+	TextDrawSetShadow(VeloC_G[43], 0);
+	TextDrawBackgroundColor(VeloC_G[43], 255);
+	TextDrawFont(VeloC_G[43], 4);
+	TextDrawSetProportional(VeloC_G[43], 0);
+
+	VeloC_G[44] = TextDrawCreate(575.798400, 397.083465, "box");
+	TextDrawLetterSize(VeloC_G[44], -0.007027, -0.542064);
+	TextDrawTextSize(VeloC_G[44], 582.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[44], 1);
+	TextDrawColor(VeloC_G[44], -1);
+	TextDrawUseBox(VeloC_G[44], 1);
+	TextDrawBoxColor(VeloC_G[44], 255);
+	TextDrawSetShadow(VeloC_G[44], 0);
+	TextDrawBackgroundColor(VeloC_G[44], 255);
+	TextDrawFont(VeloC_G[44], 1);
+	TextDrawSetProportional(VeloC_G[44], 1);
+
+	VeloC_G[45] = TextDrawCreate(576.735473, 408.750152, "box");
+	TextDrawLetterSize(VeloC_G[45], -0.007027, -0.542064);
+	TextDrawTextSize(VeloC_G[45], 583.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[45], 1);
+	TextDrawColor(VeloC_G[45], -1);
+	TextDrawUseBox(VeloC_G[45], 1);
+	TextDrawBoxColor(VeloC_G[45], 255);
+	TextDrawSetShadow(VeloC_G[45], 0);
+	TextDrawBackgroundColor(VeloC_G[45], 255);
+	TextDrawFont(VeloC_G[45], 1);
+	TextDrawSetProportional(VeloC_G[45], 1);
+
+	VeloC_G[46] = TextDrawCreate(573.924499, 399.416870, "box");
+	TextDrawLetterSize(VeloC_G[46], -0.004215, 0.210435);
+	TextDrawTextSize(VeloC_G[46], 584.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[46], 1);
+	TextDrawColor(VeloC_G[46], -1);
+	TextDrawUseBox(VeloC_G[46], 1);
+	TextDrawBoxColor(VeloC_G[46], 255);
+	TextDrawSetShadow(VeloC_G[46], 0);
+	TextDrawBackgroundColor(VeloC_G[46], 255);
+	TextDrawFont(VeloC_G[46], 1);
+	TextDrawSetProportional(VeloC_G[46], 1);
+
+	VeloC_G[47] = TextDrawCreate(580.015197, 404.083282, "box");
+	TextDrawLetterSize(VeloC_G[47], 0.005152, -0.442896);
+	TextDrawTextSize(VeloC_G[47], 579.000000, 0.000000);
+	TextDrawAlignment(VeloC_G[47], 1);
+	TextDrawColor(VeloC_G[47], -1);
+	TextDrawUseBox(VeloC_G[47], 1);
+	TextDrawBoxColor(VeloC_G[47], -1);
+	TextDrawSetShadow(VeloC_G[47], 0);
+	TextDrawBackgroundColor(VeloC_G[47], 255);
+	TextDrawFont(VeloC_G[47], 1);
+	TextDrawSetProportional(VeloC_G[47], 1);
+
+	VeloC_G[48] = TextDrawCreate(576.735351, 401.166717, "U");
+	TextDrawLetterSize(VeloC_G[48], 0.261785, -0.832499);
+	TextDrawAlignment(VeloC_G[48], 1);
+	TextDrawColor(VeloC_G[48], -1);
+	TextDrawSetShadow(VeloC_G[48], 0);
+	TextDrawBackgroundColor(VeloC_G[48], 255);
+	TextDrawFont(VeloC_G[48], 1);
+	TextDrawSetProportional(VeloC_G[48], 1);
+
+	VeloC_G[49] = TextDrawCreate(526.135131, 356.250030, "(");
+	TextDrawLetterSize(VeloC_G[49], 1.056861, 4.353330);
+	TextDrawAlignment(VeloC_G[49], 1);
+	TextDrawColor(VeloC_G[49], -16776961);
+	TextDrawSetShadow(VeloC_G[49], 0);
+	TextDrawBackgroundColor(VeloC_G[49], 255);
+	TextDrawFont(VeloC_G[49], 1);
+	TextDrawSetProportional(VeloC_G[49], 1);
+
+	VeloC_G[50] = TextDrawCreate(561.742919, 382.499877, "HM/H");
+	TextDrawLetterSize(VeloC_G[50], 0.251477, 0.684166);
+	TextDrawAlignment(VeloC_G[50], 3);
+	TextDrawColor(VeloC_G[50], -1);
+	TextDrawSetShadow(VeloC_G[50], 0);
+	TextDrawBackgroundColor(VeloC_G[50], 255);
+	TextDrawFont(VeloC_G[50], 1);
+	TextDrawSetProportional(VeloC_G[50], 1);
+
+	VeloC_G[51] = TextDrawCreate(541.896301, 361.499633, "LD_BEAT:chit");
+	TextDrawTextSize(VeloC_G[51], 15.000000, 15.000000);
+	TextDrawAlignment(VeloC_G[51], 1);
+	TextDrawColor(VeloC_G[51], -16776961);
+	TextDrawSetShadow(VeloC_G[51], 0);
+	TextDrawBackgroundColor(VeloC_G[51], 255);
+	TextDrawFont(VeloC_G[51], 4);
+	TextDrawSetProportional(VeloC_G[51], 0);
+
+		//Cinto
+	Tdcinto[0] = TextDrawCreate(524.000000, 296.000000, "ld_beat:chit");
+	TextDrawFont(Tdcinto[0], 4);
+	TextDrawLetterSize(Tdcinto[0], 0.600000, 2.000000);
+	TextDrawTextSize(Tdcinto[0], 34.000000, 33.500000);
+	TextDrawSetOutline(Tdcinto[0], 1);
+	TextDrawSetShadow(Tdcinto[0], 0);
+	TextDrawAlignment(Tdcinto[0], 1);
+	TextDrawColor(Tdcinto[0], -2686721);
+	TextDrawBackgroundColor(Tdcinto[0], 255);
+	TextDrawBoxColor(Tdcinto[0], 1097458119);
+	TextDrawUseBox(Tdcinto[0], 1);
+	TextDrawSetProportional(Tdcinto[0], 1);
+
+	Tdcinto[1] = TextDrawCreate(535.000000, 310.000000, "ld_beat:chit");
+	TextDrawFont(Tdcinto[1], 4);
+	TextDrawLetterSize(Tdcinto[1], 0.600000, 2.000000);
+	TextDrawTextSize(Tdcinto[1], 12.500000, 10.500000);
+	TextDrawSetOutline(Tdcinto[1], 1);
+	TextDrawSetShadow(Tdcinto[1], 0);
+	TextDrawAlignment(Tdcinto[1], 1);
+	TextDrawColor(Tdcinto[1], -1);
+	TextDrawBackgroundColor(Tdcinto[1], 255);
+	TextDrawBoxColor(Tdcinto[1], 50);
+	TextDrawUseBox(Tdcinto[1], 1);
+	TextDrawSetProportional(Tdcinto[1], 1);
+
+	Tdcinto[2] = TextDrawCreate(538.000000, 304.000000, "ld_beat:chit");
+	TextDrawFont(Tdcinto[2], 4);
+	TextDrawLetterSize(Tdcinto[2], 0.600000, 2.000000);
+	TextDrawTextSize(Tdcinto[2], 6.500000, 8.500000);
+	TextDrawSetOutline(Tdcinto[2], 1);
+	TextDrawSetShadow(Tdcinto[2], 0);
+	TextDrawAlignment(Tdcinto[2], 1);
+	TextDrawColor(Tdcinto[2], -1);
+	TextDrawBackgroundColor(Tdcinto[2], 255);
+	TextDrawBoxColor(Tdcinto[2], 50);
+	TextDrawUseBox(Tdcinto[2], 1);
+	TextDrawSetProportional(Tdcinto[2], 1);
+
+	Tdcinto[3] = TextDrawCreate(538.000000, 311.000000, "/");
+	TextDrawFont(Tdcinto[3], 1);
+	TextDrawLetterSize(Tdcinto[3], 0.445833, 0.800000);
+	TextDrawTextSize(Tdcinto[3], 400.000000, 17.000000);
+	TextDrawSetOutline(Tdcinto[3], 0);
+	TextDrawSetShadow(Tdcinto[3], 0);
+	TextDrawAlignment(Tdcinto[3], 1);
+	TextDrawColor(Tdcinto[3], 255);
+	TextDrawBackgroundColor(Tdcinto[3], 255);
+	TextDrawBoxColor(Tdcinto[3], 50);
+	TextDrawUseBox(Tdcinto[3], 0);
+	TextDrawSetProportional(Tdcinto[3], 1);
+
+	Tdcinto[4] = TextDrawCreate(515.000000, 326.000000, "COLOQUE O ~y~/CINTO");
+	TextDrawFont(Tdcinto[4], 2);
+	TextDrawLetterSize(Tdcinto[4], 0.141667, 1.000000);
+	TextDrawTextSize(Tdcinto[4], 613.000000, -53.000000);
+	TextDrawSetOutline(Tdcinto[4], 0);
+	TextDrawSetShadow(Tdcinto[4], 0);
+	TextDrawAlignment(Tdcinto[4], 1);
+	TextDrawColor(Tdcinto[4], -1);
+	TextDrawBackgroundColor(Tdcinto[4], 255);
+	TextDrawBoxColor(Tdcinto[4], 50);
+	TextDrawUseBox(Tdcinto[4], 0);
+	TextDrawSetProportional(Tdcinto[4], 1);
+
+		//TEXTDRAW CADASTRO
+	TDCadastro[0] = TextDrawCreate(150.000000, 117.000000, "_");
+	TextDrawFont(TDCadastro[0], 1);
+	TextDrawLetterSize(TDCadastro[0], 0.645833, 22.399971);
+	TextDrawTextSize(TDCadastro[0], 303.500000, 130.500000);
+	TextDrawSetOutline(TDCadastro[0], 1);
+	TextDrawSetShadow(TDCadastro[0], 0);
+	TextDrawAlignment(TDCadastro[0], 2);
+	TextDrawColor(TDCadastro[0], -1);
+	TextDrawBackgroundColor(TDCadastro[0], 255);
+	TextDrawBoxColor(TDCadastro[0], 218959359);
+	TextDrawUseBox(TDCadastro[0], 1);
+	TextDrawSetProportional(TDCadastro[0], 1);
+
+	TDCadastro[1] = TextDrawCreate(150.000000, 324.000000, "_");
+	TextDrawFont(TDCadastro[1], 1);
+	TextDrawLetterSize(TDCadastro[1], 0.645833, 1.299978);
+	TextDrawTextSize(TDCadastro[1], 303.500000, 131.000000);
+	TextDrawSetOutline(TDCadastro[1], 1);
+	TextDrawSetShadow(TDCadastro[1], 0);
+	TextDrawAlignment(TDCadastro[1], 2);
+	TextDrawColor(TDCadastro[1], -1);
+	TextDrawBackgroundColor(TDCadastro[1], 255);
+	TextDrawBoxColor(TDCadastro[1], 2094792959);
+	TextDrawUseBox(TDCadastro[1], 1);
+	TextDrawSetProportional(TDCadastro[1], 1);
+
+	TDCadastro[2] = TextDrawCreate(202.000000, 304.000000, "ld_beat:right");
+	TextDrawFont(TDCadastro[2], 4);
+	TextDrawLetterSize(TDCadastro[2], 0.600000, 2.000000);
+	TextDrawTextSize(TDCadastro[2], 11.000000, 13.000000);
+	TextDrawSetOutline(TDCadastro[2], 1);
+	TextDrawSetShadow(TDCadastro[2], 0);
+	TextDrawAlignment(TDCadastro[2], 1);
+	TextDrawColor(TDCadastro[2], -1);
+	TextDrawBackgroundColor(TDCadastro[2], 255);
+	TextDrawBoxColor(TDCadastro[2], 50);
+	TextDrawUseBox(TDCadastro[2], 1);
+	TextDrawSetProportional(TDCadastro[2], 1);
+	TextDrawSetSelectable(TDCadastro[2], 1);
+
+	TDCadastro[3] = TextDrawCreate(89.000000, 304.000000, "ld_beat:left");
+	TextDrawFont(TDCadastro[3], 4);
+	TextDrawLetterSize(TDCadastro[3], 0.600000, 2.000000);
+	TextDrawTextSize(TDCadastro[3], 11.000000, 13.000000);
+	TextDrawSetOutline(TDCadastro[3], 1);
+	TextDrawSetShadow(TDCadastro[3], 0);
+	TextDrawAlignment(TDCadastro[3], 1);
+	TextDrawColor(TDCadastro[3], -1);
+	TextDrawBackgroundColor(TDCadastro[3], 255);
+	TextDrawBoxColor(TDCadastro[3], 50);
+	TextDrawUseBox(TDCadastro[3], 1);
+	TextDrawSetProportional(TDCadastro[3], 1);
+	TextDrawSetSelectable(TDCadastro[3], 1);
+
+	TDCadastro[4] = TextDrawCreate(209.000000, 334.000000, "ld_beat:chit");
+	TextDrawFont(TDCadastro[4], 4);
+	TextDrawLetterSize(TDCadastro[4], 0.600000, 2.000000);
+	TextDrawTextSize(TDCadastro[4], 11.500000, 11.000000);
+	TextDrawSetOutline(TDCadastro[4], 1);
+	TextDrawSetShadow(TDCadastro[4], 0);
+	TextDrawAlignment(TDCadastro[4], 1);
+	TextDrawColor(TDCadastro[4], 2094792959);
+	TextDrawBackgroundColor(TDCadastro[4], 255);
+	TextDrawBoxColor(TDCadastro[4], 2094792754);
+	TextDrawUseBox(TDCadastro[4], 1);
+	TextDrawSetProportional(TDCadastro[4], 1);
+
+	TDCadastro[5] = TextDrawCreate(80.000000, 334.000000, "ld_beat:chit");
+	TextDrawFont(TDCadastro[5], 4);
+	TextDrawLetterSize(TDCadastro[5], 0.600000, 2.000000);
+	TextDrawTextSize(TDCadastro[5], 11.500000, 11.000000);
+	TextDrawSetOutline(TDCadastro[5], 1);
+	TextDrawSetShadow(TDCadastro[5], 0);
+	TextDrawAlignment(TDCadastro[5], 1);
+	TextDrawColor(TDCadastro[5], 2094792959);
+	TextDrawBackgroundColor(TDCadastro[5], 255);
+	TextDrawBoxColor(TDCadastro[5], 2094792754);
+	TextDrawUseBox(TDCadastro[5], 1);
+	TextDrawSetProportional(TDCadastro[5], 1);
+
+	TDCadastro[6] = TextDrawCreate(150.000000, 328.000000, "_");
+	TextDrawFont(TDCadastro[6], 1);
+	TextDrawLetterSize(TDCadastro[6], 0.645833, 1.299978);
+	TextDrawTextSize(TDCadastro[6], 303.500000, 123.000000);
+	TextDrawSetOutline(TDCadastro[6], 1);
+	TextDrawSetShadow(TDCadastro[6], 0);
+	TextDrawAlignment(TDCadastro[6], 2);
+	TextDrawColor(TDCadastro[6], -1);
+	TextDrawBackgroundColor(TDCadastro[6], 255);
+	TextDrawBoxColor(TDCadastro[6], 2094792959);
+	TextDrawUseBox(TDCadastro[6], 1);
+	TextDrawSetProportional(TDCadastro[6], 1);
+
+	TDCadastro[7] = TextDrawCreate(209.000000, 106.000000, "ld_beat:chit");
+	TextDrawFont(TDCadastro[7], 4);
+	TextDrawLetterSize(TDCadastro[7], 0.600000, 2.000000);
+	TextDrawTextSize(TDCadastro[7], 11.500000, 12.000000);
+	TextDrawSetOutline(TDCadastro[7], 1);
+	TextDrawSetShadow(TDCadastro[7], 0);
+	TextDrawAlignment(TDCadastro[7], 1);
+	TextDrawColor(TDCadastro[7], 218959359);
+	TextDrawBackgroundColor(TDCadastro[7], 255);
+	TextDrawBoxColor(TDCadastro[7], 2094792754);
+	TextDrawUseBox(TDCadastro[7], 1);
+	TextDrawSetProportional(TDCadastro[7], 1);
+
+	TDCadastro[8] = TextDrawCreate(80.000000, 106.000000, "ld_beat:chit");
+	TextDrawFont(TDCadastro[8], 4);
+	TextDrawLetterSize(TDCadastro[8], 0.600000, 2.000000);
+	TextDrawTextSize(TDCadastro[8], 9.500000, 12.500000);
+	TextDrawSetOutline(TDCadastro[8], 1);
+	TextDrawSetShadow(TDCadastro[8], 0);
+	TextDrawAlignment(TDCadastro[8], 1);
+	TextDrawColor(TDCadastro[8], 218959359);
+	TextDrawBackgroundColor(TDCadastro[8], 255);
+	TextDrawBoxColor(TDCadastro[8], 2094792754);
+	TextDrawUseBox(TDCadastro[8], 1);
+	TextDrawSetProportional(TDCadastro[8], 1);
+
+	TDCadastro[9] = TextDrawCreate(150.000000, 112.000000, "_");
+	TextDrawFont(TDCadastro[9], 1);
+	TextDrawLetterSize(TDCadastro[9], 0.645833, 0.049981);
+	TextDrawTextSize(TDCadastro[9], 301.500000, 127.500000);
+	TextDrawSetOutline(TDCadastro[9], 1);
+	TextDrawSetShadow(TDCadastro[9], 0);
+	TextDrawAlignment(TDCadastro[9], 2);
+	TextDrawColor(TDCadastro[9], -1);
+	TextDrawBackgroundColor(TDCadastro[9], 255);
+	TextDrawBoxColor(TDCadastro[9], 218959359);
+	TextDrawUseBox(TDCadastro[9], 1);
+	TextDrawSetProportional(TDCadastro[9], 1);
+
+	TDCadastro[10] = TextDrawCreate(52.000000, 131.000000, "ld_beat:chit");
+	TextDrawFont(TDCadastro[10], 4);
+	TextDrawLetterSize(TDCadastro[10], 0.600000, 2.000000);
+	TextDrawTextSize(TDCadastro[10], 194.500000, -1.000000);
+	TextDrawSetOutline(TDCadastro[10], 1);
+	TextDrawSetShadow(TDCadastro[10], 0);
+	TextDrawAlignment(TDCadastro[10], 1);
+	TextDrawColor(TDCadastro[10], -741092353);
+	TextDrawBackgroundColor(TDCadastro[10], 255);
+	TextDrawBoxColor(TDCadastro[10], 2094792754);
+	TextDrawUseBox(TDCadastro[10], 1);
+	TextDrawSetProportional(TDCadastro[10], 1);
+
+	TDCadastro[11] = TextDrawCreate(118.000000, 151.000000, "HOMEM");
+	TextDrawFont(TDCadastro[11], 2);
+	TextDrawLetterSize(TDCadastro[11], 0.233333, 1.349977);
+	TextDrawTextSize(TDCadastro[11], 14.500000, 40.500000);
+	TextDrawSetOutline(TDCadastro[11], 0);
+	TextDrawSetShadow(TDCadastro[11], 0);
+	TextDrawAlignment(TDCadastro[11], 2);
+	TextDrawColor(TDCadastro[11], -1);
+	TextDrawBackgroundColor(TDCadastro[11], 255);
+	TextDrawBoxColor(TDCadastro[11], 512819199);
+	TextDrawUseBox(TDCadastro[11], 1);
+	TextDrawSetProportional(TDCadastro[11], 1);
+	TextDrawSetSelectable(TDCadastro[11], 1);
+
+	TDCadastro[12] = TextDrawCreate(182.000000, 151.000000, "MULHER");
+	TextDrawFont(TDCadastro[12], 2);
+	TextDrawLetterSize(TDCadastro[12], 0.233333, 1.349977);
+	TextDrawTextSize(TDCadastro[12], 14.500000, 40.500000);
+	TextDrawSetOutline(TDCadastro[12], 0);
+	TextDrawSetShadow(TDCadastro[12], 0);
+	TextDrawAlignment(TDCadastro[12], 2);
+	TextDrawColor(TDCadastro[12], -1);
+	TextDrawBackgroundColor(TDCadastro[12], 255);
+	TextDrawBoxColor(TDCadastro[12], -9849601);
+	TextDrawUseBox(TDCadastro[12], 1);
+	TextDrawSetProportional(TDCadastro[12], 1);
+	TextDrawSetSelectable(TDCadastro[12], 1);
+
+	TDCadastro[13] = TextDrawCreate(149.000000, 115.000000, "CADASTRO");
+	TextDrawFont(TDCadastro[13], 2);
+	TextDrawLetterSize(TDCadastro[13], 0.233333, 1.349977);
+	TextDrawTextSize(TDCadastro[13], 313.000000, 40.500000);
+	TextDrawSetOutline(TDCadastro[13], 0);
+	TextDrawSetShadow(TDCadastro[13], 0);
+	TextDrawAlignment(TDCadastro[13], 2);
+	TextDrawColor(TDCadastro[13], -1);
+	TextDrawBackgroundColor(TDCadastro[13], 255);
+	TextDrawBoxColor(TDCadastro[13], 512819199);
+	TextDrawUseBox(TDCadastro[13], 0);
+	TextDrawSetProportional(TDCadastro[13], 1);
+
+	TDCadastro[14] = TextDrawCreate(149.000000, 325.000000, "SELECIONAR");
+	TextDrawFont(TDCadastro[14], 2);
+	TextDrawLetterSize(TDCadastro[14], 0.224999, 1.399976);
+	TextDrawTextSize(TDCadastro[14], 9.500000, 125.500000);
+	TextDrawSetOutline(TDCadastro[14], 0);
+	TextDrawSetShadow(TDCadastro[14], 0);
+	TextDrawAlignment(TDCadastro[14], 2);
+	TextDrawColor(TDCadastro[14], -1);
+	TextDrawBackgroundColor(TDCadastro[14], 255);
+	TextDrawBoxColor(TDCadastro[14], 512819199);
+	TextDrawUseBox(TDCadastro[14], 0);
+	TextDrawSetProportional(TDCadastro[14], 1);
+	TextDrawSetSelectable(TDCadastro[14], 1);
+
+	TDCadastro[15] = TextDrawCreate(149.000000, 133.000000, "SELECIONE SEU GENERO");
+	TextDrawFont(TDCadastro[15], 2);
+	TextDrawLetterSize(TDCadastro[15], 0.129167, 1.049978);
+	TextDrawTextSize(TDCadastro[15], 490.500000, 199.500000);
+	TextDrawSetOutline(TDCadastro[15], 0);
+	TextDrawSetShadow(TDCadastro[15], 0);
+	TextDrawAlignment(TDCadastro[15], 2);
+	TextDrawColor(TDCadastro[15], -1);
+	TextDrawBackgroundColor(TDCadastro[15], 255);
+	TextDrawBoxColor(TDCadastro[15], 512819199);
+	TextDrawUseBox(TDCadastro[15], 0);
+	TextDrawSetProportional(TDCadastro[15], 1);
+
+	TDCadastro[16] = TextDrawCreate(52.000000, 178.000000, "ld_beat:chit");
+	TextDrawFont(TDCadastro[16], 4);
+	TextDrawLetterSize(TDCadastro[16], 0.600000, 2.000000);
+	TextDrawTextSize(TDCadastro[16], 194.500000, -1.000000);
+	TextDrawSetOutline(TDCadastro[16], 1);
+	TextDrawSetShadow(TDCadastro[16], 0);
+	TextDrawAlignment(TDCadastro[16], 1);
+	TextDrawColor(TDCadastro[16], -741092353);
+	TextDrawBackgroundColor(TDCadastro[16], 255);
+	TextDrawBoxColor(TDCadastro[16], 2094792754);
+	TextDrawUseBox(TDCadastro[16], 1);
+	TextDrawSetProportional(TDCadastro[16], 1);
+
+	TDCadastro[17] = TextDrawCreate(149.000000, 179.000000, "SELECIONE SEU PERSONAGEM");
+	TextDrawFont(TDCadastro[17], 2);
+	TextDrawLetterSize(TDCadastro[17], 0.129167, 1.049978);
+	TextDrawTextSize(TDCadastro[17], 490.500000, 199.500000);
+	TextDrawSetOutline(TDCadastro[17], 0);
+	TextDrawSetShadow(TDCadastro[17], 0);
+	TextDrawAlignment(TDCadastro[17], 2);
+	TextDrawColor(TDCadastro[17], -1);
+	TextDrawBackgroundColor(TDCadastro[17], 255);
+	TextDrawBoxColor(TDCadastro[17], 512819199);
+	TextDrawUseBox(TDCadastro[17], 0);
+	TextDrawSetProportional(TDCadastro[17], 1);
+
+		//NEW HUD SERVER
+	HudServer[0] = TextDrawCreate(545.000000, 88.000000, "ld_beat:chit");
+	TextDrawFont(HudServer[0], 4);
+	TextDrawLetterSize(HudServer[0], 0.600000, 2.000000);
+	TextDrawTextSize(HudServer[0], 18.500000, 19.500000);
+	TextDrawSetOutline(HudServer[0], 1);
+	TextDrawSetShadow(HudServer[0], 0);
+	TextDrawAlignment(HudServer[0], 1);
+	TextDrawColor(HudServer[0], -65281);
+	TextDrawBackgroundColor(HudServer[0], 255);
+	TextDrawBoxColor(HudServer[0], 50);
+	TextDrawUseBox(HudServer[0], 1);
+	TextDrawSetProportional(HudServer[0], 1);
+
+	HudServer[1] = TextDrawCreate(546.000000, 90.000000, "ld_beat:chit");
+	TextDrawFont(HudServer[1], 4);
+	TextDrawLetterSize(HudServer[1], 0.600000, 2.000000);
+	TextDrawTextSize(HudServer[1], 16.000000, 15.500000);
+	TextDrawSetOutline(HudServer[1], 0);
+	TextDrawSetShadow(HudServer[1], 0);
+	TextDrawAlignment(HudServer[1], 1);
+	TextDrawColor(HudServer[1], 255);
+	TextDrawBackgroundColor(HudServer[1], 255);
+	TextDrawBoxColor(HudServer[1], 50);
+	TextDrawUseBox(HudServer[1], 1);
+	TextDrawSetProportional(HudServer[1], 1);
+
+	HudServer[2] = TextDrawCreate(551.000000, 95.000000, "HUD:radar_girlfriend");
+	TextDrawFont(HudServer[2], 4);
+	TextDrawLetterSize(HudServer[2], 0.600000, 2.000000);
+	TextDrawTextSize(HudServer[2], 6.500000, 6.000000);
+	TextDrawSetOutline(HudServer[2], 0);
+	TextDrawSetShadow(HudServer[2], 0);
+	TextDrawAlignment(HudServer[2], 1);
+	TextDrawColor(HudServer[2], -16776961);
+	TextDrawBackgroundColor(HudServer[2], 255);
+	TextDrawBoxColor(HudServer[2], 50);
+	TextDrawUseBox(HudServer[2], 1);
+	TextDrawSetProportional(HudServer[2], 1);
+
+	HudServer[3] = TextDrawCreate(560.000000, 88.000000, "ld_beat:chit");
+	TextDrawFont(HudServer[3], 4);
+	TextDrawLetterSize(HudServer[3], 0.600000, 2.000000);
+	TextDrawTextSize(HudServer[3], 18.500000, 19.500000);
+	TextDrawSetOutline(HudServer[3], 1);
+	TextDrawSetShadow(HudServer[3], 0);
+	TextDrawAlignment(HudServer[3], 1);
+	TextDrawColor(HudServer[3], -65281);
+	TextDrawBackgroundColor(HudServer[3], 255);
+	TextDrawBoxColor(HudServer[3], 50);
+	TextDrawUseBox(HudServer[3], 1);
+	TextDrawSetProportional(HudServer[3], 1);
+
+	HudServer[4] = TextDrawCreate(562.000000, 90.000000, "ld_beat:chit");
+	TextDrawFont(HudServer[4], 4);
+	TextDrawLetterSize(HudServer[4], 0.600000, 2.000000);
+	TextDrawTextSize(HudServer[4], 15.000000, 15.500000);
+	TextDrawSetOutline(HudServer[4], 0);
+	TextDrawSetShadow(HudServer[4], 0);
+	TextDrawAlignment(HudServer[4], 1);
+	TextDrawColor(HudServer[4], 255);
+	TextDrawBackgroundColor(HudServer[4], 255);
+	TextDrawBoxColor(HudServer[4], 50);
+	TextDrawUseBox(HudServer[4], 1);
+	TextDrawSetProportional(HudServer[4], 1);
+
+	HudServer[5] = TextDrawCreate(564.000000, 94.000000, "Preview_Model");
+	TextDrawFont(HudServer[5], 5);
+	TextDrawLetterSize(HudServer[5], 0.600000, 2.000000);
+	TextDrawTextSize(HudServer[5], 11.000000, 8.500000);
+	TextDrawSetOutline(HudServer[5], 0);
+	TextDrawSetShadow(HudServer[5], 0);
+	TextDrawAlignment(HudServer[5], 1);
+	TextDrawColor(HudServer[5], -1);
+	TextDrawBackgroundColor(HudServer[5], 0);
+	TextDrawBoxColor(HudServer[5], 255);
+	TextDrawUseBox(HudServer[5], 0);
+	TextDrawSetProportional(HudServer[5], 1);
+	TextDrawSetPreviewModel(HudServer[5], 1242);
+	TextDrawSetPreviewRot(HudServer[5], -10.000000, 0.000000, 0.000000, 1.000000);
+	TextDrawSetPreviewVehCol(HudServer[5], 1, 1);
+
+	HudServer[6] = TextDrawCreate(576.000000, 88.000000, "ld_beat:chit");
+	TextDrawFont(HudServer[6], 4);
+	TextDrawLetterSize(HudServer[6], 0.600000, 2.000000);
+	TextDrawTextSize(HudServer[6], 18.500000, 19.500000);
+	TextDrawSetOutline(HudServer[6], 1);
+	TextDrawSetShadow(HudServer[6], 0);
+	TextDrawAlignment(HudServer[6], 1);
+	TextDrawColor(HudServer[6], -65281);
+	TextDrawBackgroundColor(HudServer[6], 255);
+	TextDrawBoxColor(HudServer[6], 50);
+	TextDrawUseBox(HudServer[6], 1);
+	TextDrawSetProportional(HudServer[6], 1);
+
+	HudServer[7] = TextDrawCreate(577.000000, 90.000000, "ld_beat:chit");
+	TextDrawFont(HudServer[7], 4);
+	TextDrawLetterSize(HudServer[7], 0.600000, 2.000000);
+	TextDrawTextSize(HudServer[7], 16.500000, 15.500000);
+	TextDrawSetOutline(HudServer[7], 0);
+	TextDrawSetShadow(HudServer[7], 0);
+	TextDrawAlignment(HudServer[7], 1);
+	TextDrawColor(HudServer[7], 255);
+	TextDrawBackgroundColor(HudServer[7], 255);
+	TextDrawBoxColor(HudServer[7], 50);
+	TextDrawUseBox(HudServer[7], 1);
+	TextDrawSetProportional(HudServer[7], 1);
+
+	HudServer[8] = TextDrawCreate(582.000000, 95.000000, "HUD:radar_burgerShot");
+	TextDrawFont(HudServer[8], 4);
+	TextDrawLetterSize(HudServer[8], 0.600000, 2.000000);
+	TextDrawTextSize(HudServer[8], 6.500000, 6.000000);
+	TextDrawSetOutline(HudServer[8], 0);
+	TextDrawSetShadow(HudServer[8], 0);
+	TextDrawAlignment(HudServer[8], 1);
+	TextDrawColor(HudServer[8], -1);
+	TextDrawBackgroundColor(HudServer[8], 255);
+	TextDrawBoxColor(HudServer[8], 50);
+	TextDrawUseBox(HudServer[8], 1);
+	TextDrawSetProportional(HudServer[8], 1);
+
+	HudServer[9] = TextDrawCreate(591.000000, 88.000000, "ld_beat:chit");
+	TextDrawFont(HudServer[9], 4);
+	TextDrawLetterSize(HudServer[9], 0.600000, 2.000000);
+	TextDrawTextSize(HudServer[9], 18.500000, 19.500000);
+	TextDrawSetOutline(HudServer[9], 1);
+	TextDrawSetShadow(HudServer[9], 0);
+	TextDrawAlignment(HudServer[9], 1);
+	TextDrawColor(HudServer[9], -65281);
+	TextDrawBackgroundColor(HudServer[9], 255);
+	TextDrawBoxColor(HudServer[9], 50);
+	TextDrawUseBox(HudServer[9], 1);
+	TextDrawSetProportional(HudServer[9], 1);
+
+	HudServer[10] = TextDrawCreate(592.000000, 90.000000, "ld_beat:chit");
+	TextDrawFont(HudServer[10], 4);
+	TextDrawLetterSize(HudServer[10], 0.600000, 2.000000);
+	TextDrawTextSize(HudServer[10], 16.500000, 15.500000);
+	TextDrawSetOutline(HudServer[10], 0);
+	TextDrawSetShadow(HudServer[10], 0);
+	TextDrawAlignment(HudServer[10], 1);
+	TextDrawColor(HudServer[10], 255);
+	TextDrawBackgroundColor(HudServer[10], 255);
+	TextDrawBoxColor(HudServer[10], 50);
+	TextDrawUseBox(HudServer[10], 1);
+	TextDrawSetProportional(HudServer[10], 1);
+
+	HudServer[11] = TextDrawCreate(597.000000, 94.000000, "HUD:radar_centre");
+	TextDrawFont(HudServer[11], 4);
+	TextDrawLetterSize(HudServer[11], 0.600000, 2.000000);
+	TextDrawTextSize(HudServer[11], 6.500000, 6.000000);
+	TextDrawSetOutline(HudServer[11], 0);
+	TextDrawSetShadow(HudServer[11], 0);
+	TextDrawAlignment(HudServer[11], 1);
+	TextDrawColor(HudServer[11], 1097458175);
+	TextDrawBackgroundColor(HudServer[11], 255);
+	TextDrawBoxColor(HudServer[11], 50);
+	TextDrawUseBox(HudServer[11], 1);
+	TextDrawSetProportional(HudServer[11], 1);
+
+	HudServer[12] = TextDrawCreate(577.000000, 121.000000, "_");
+	TextDrawFont(HudServer[12], 1);
+	TextDrawLetterSize(HudServer[12], 0.600000, 1.050001);
+	TextDrawTextSize(HudServer[12], 298.500000, 49.500000);
+	TextDrawSetOutline(HudServer[12], 1);
+	TextDrawSetShadow(HudServer[12], 0);
+	TextDrawAlignment(HudServer[12], 2);
+	TextDrawColor(HudServer[12], -1);
+	TextDrawBackgroundColor(HudServer[12], 255);
+	TextDrawBoxColor(HudServer[12], 255);
+	TextDrawUseBox(HudServer[12], 1);
+	TextDrawSetProportional(HudServer[12], 1);
+
+	HudServer[13] = TextDrawCreate(545.000000, 113.000000, "ld_beat:chit");
+	TextDrawFont(HudServer[13], 4);
+	TextDrawLetterSize(HudServer[13], 0.600000, 2.000000);
+	TextDrawTextSize(HudServer[13], 8.500000, 25.500000);
+	TextDrawSetOutline(HudServer[13], 0);
+	TextDrawSetShadow(HudServer[13], 0);
+	TextDrawAlignment(HudServer[13], 1);
+	TextDrawColor(HudServer[13], 255);
+	TextDrawBackgroundColor(HudServer[13], 255);
+	TextDrawBoxColor(HudServer[13], 50);
+	TextDrawUseBox(HudServer[13], 1);
+	TextDrawSetProportional(HudServer[13], 1);
+
+	HudServer[14] = TextDrawCreate(601.000000, 113.000000, "ld_beat:chit");
+	TextDrawFont(HudServer[14], 4);
+	TextDrawLetterSize(HudServer[14], 0.600000, 2.000000);
+	TextDrawTextSize(HudServer[14], 8.500000, 25.500000);
+	TextDrawSetOutline(HudServer[14], 0);
+	TextDrawSetShadow(HudServer[14], 0);
+	TextDrawAlignment(HudServer[14], 1);
+	TextDrawColor(HudServer[14], 255);
+	TextDrawBackgroundColor(HudServer[14], 255);
+	TextDrawBoxColor(HudServer[14], 50);
+	TextDrawUseBox(HudServer[14], 1);
+	TextDrawSetProportional(HudServer[14], 1);
+
+	HudServer[15] = TextDrawCreate(552.000000, 127.000000, "U");
+	TextDrawFont(HudServer[15], 1);
+	TextDrawLetterSize(HudServer[15], 0.204167, -0.799999);
+	TextDrawTextSize(HudServer[15], 400.000000, 17.000000);
+	TextDrawSetOutline(HudServer[15], 0);
+	TextDrawSetShadow(HudServer[15], 0);
+	TextDrawAlignment(HudServer[15], 1);
+	TextDrawColor(HudServer[15], -1094795521);
+	TextDrawBackgroundColor(HudServer[15], 255);
+	TextDrawBoxColor(HudServer[15], 50);
+	TextDrawUseBox(HudServer[15], 0);
+	TextDrawSetProportional(HudServer[15], 1);
+
+	HudServer[16] = TextDrawCreate(552.000000, 124.000000, "T");
+	TextDrawFont(HudServer[16], 1);
+	TextDrawLetterSize(HudServer[16], 0.250000, 1.050000);
+	TextDrawTextSize(HudServer[16], 400.000000, 17.000000);
+	TextDrawSetOutline(HudServer[16], 0);
+	TextDrawSetShadow(HudServer[16], 0);
+	TextDrawAlignment(HudServer[16], 1);
+	TextDrawColor(HudServer[16], -1094795521);
+	TextDrawBackgroundColor(HudServer[16], 255);
+	TextDrawBoxColor(HudServer[16], 50);
+	TextDrawUseBox(HudServer[16], 0);
+	TextDrawSetProportional(HudServer[16], 1);
+
+		//TD MORTE
+	TDmorte[0] = TextDrawCreate(316.000000, -14.000000, "_");
+	TextDrawFont(TDmorte[0], 1);
+	TextDrawLetterSize(TDmorte[0], 0.766664, 54.350002);
+	TextDrawTextSize(TDmorte[0], 298.500000, 674.000000);
+	TextDrawSetOutline(TDmorte[0], 1);
+	TextDrawSetShadow(TDmorte[0], 0);
+	TextDrawAlignment(TDmorte[0], 2);
+	TextDrawColor(TDmorte[0], -1);
+	TextDrawBackgroundColor(TDmorte[0], 255);
+	TextDrawBoxColor(TDmorte[0], 202);
+	TextDrawUseBox(TDmorte[0], 1);
+	TextDrawSetProportional(TDmorte[0], 1);
+
+	TDmorte[1] = TextDrawCreate(323.000000, 337.000000, "REVIVER IMEDIATAMENTE");
+	TextDrawFont(TDmorte[1], 3);
+	TextDrawLetterSize(TDmorte[1], 0.408331, 1.750000);
+	TextDrawTextSize(TDmorte[1], 16.500000, 190.000000);
+	TextDrawSetOutline(TDmorte[1], 0);
+	TextDrawSetShadow(TDmorte[1], 0);
+	TextDrawAlignment(TDmorte[1], 2);
+	TextDrawColor(TDmorte[1], -65281);
+	TextDrawBackgroundColor(TDmorte[1], 255);
+	TextDrawBoxColor(TDmorte[1], 200);
+	TextDrawUseBox(TDmorte[1], 1);
+	TextDrawSetProportional(TDmorte[1], 1);
+	TextDrawSetSelectable(TDmorte[1], 1);
+
+	TDmorte[2] = TextDrawCreate(235.000000, 208.000000, "DESACORDADO");
+	TextDrawFont(TDmorte[2], 3);
+	TextDrawLetterSize(TDmorte[2], 0.774999, 3.199996);
+	TextDrawTextSize(TDmorte[2], 892.000000, 29.000000);
+	TextDrawSetOutline(TDmorte[2], 0);
+	TextDrawSetShadow(TDmorte[2], 0);
+	TextDrawAlignment(TDmorte[2], 1);
+	TextDrawColor(TDmorte[2], -65281);
+	TextDrawBackgroundColor(TDmorte[2], 255);
+	TextDrawBoxColor(TDmorte[2], 50);
+	TextDrawUseBox(TDmorte[2], 0);
+	TextDrawSetProportional(TDmorte[2], 0);
+
+	TDmorte[3] = TextDrawCreate(200.000000, 237.000000, "VOCE PRECISA BUSCAR AJUDA IMEDIATAMENTE");
+	TextDrawFont(TDmorte[3], 1);
+	TextDrawLetterSize(TDmorte[3], 0.333332, 1.750002);
+	TextDrawTextSize(TDmorte[3], 1566.500000, 17.000000);
+	TextDrawSetOutline(TDmorte[3], 0);
+	TextDrawSetShadow(TDmorte[3], 0);
+	TextDrawAlignment(TDmorte[3], 1);
+	TextDrawColor(TDmorte[3], -1);
+	TextDrawBackgroundColor(TDmorte[3], 255);
+	TextDrawBoxColor(TDmorte[3], 50);
+	TextDrawUseBox(TDmorte[3], 0);
+	TextDrawSetProportional(TDmorte[3], 1);
+
+	TDmorte[4] = TextDrawCreate(223.000000, 250.000000, "APOS A MORTE VOCE PERDERA TUDO");
+	TextDrawFont(TDmorte[4], 1);
+	TextDrawLetterSize(TDmorte[4], 0.333332, 1.750002);
+	TextDrawTextSize(TDmorte[4], 1566.500000, 17.000000);
+	TextDrawSetOutline(TDmorte[4], 0);
+	TextDrawSetShadow(TDmorte[4], 0);
+	TextDrawAlignment(TDmorte[4], 1);
+	TextDrawColor(TDmorte[4], -1);
+	TextDrawBackgroundColor(TDmorte[4], 255);
+	TextDrawBoxColor(TDmorte[4], 50);
+	TextDrawUseBox(TDmorte[4], 0);
+	TextDrawSetProportional(TDmorte[4], 1);
+
+	TDmorte[5] = TextDrawCreate(396.000000, 178.000000, "Z");
+	TextDrawFont(TDmorte[5], 2);
+	TextDrawLetterSize(TDmorte[5], 0.774999, 3.199996);
+	TextDrawTextSize(TDmorte[5], 892.000000, 29.000000);
+	TextDrawSetOutline(TDmorte[5], 0);
+	TextDrawSetShadow(TDmorte[5], 0);
+	TextDrawAlignment(TDmorte[5], 1);
+	TextDrawColor(TDmorte[5], -1);
+	TextDrawBackgroundColor(TDmorte[5], 255);
+	TextDrawBoxColor(TDmorte[5], 50);
+	TextDrawUseBox(TDmorte[5], 0);
+	TextDrawSetProportional(TDmorte[5], 0);
+
+	TDmorte[6] = TextDrawCreate(417.000000, 167.000000, "Z");
+	TextDrawFont(TDmorte[6], 2);
+	TextDrawLetterSize(TDmorte[6], 0.774999, 3.199996);
+	TextDrawTextSize(TDmorte[6], 892.000000, 29.000000);
+	TextDrawSetOutline(TDmorte[6], 0);
+	TextDrawSetShadow(TDmorte[6], 0);
+	TextDrawAlignment(TDmorte[6], 1);
+	TextDrawColor(TDmorte[6], -1);
+	TextDrawBackgroundColor(TDmorte[6], 255);
+	TextDrawBoxColor(TDmorte[6], 50);
+	TextDrawUseBox(TDmorte[6], 0);
+	TextDrawSetProportional(TDmorte[6], 0);
+
+	TDmorte[7] = TextDrawCreate(437.000000, 156.000000, "Z");
+	TextDrawFont(TDmorte[7], 2);
+	TextDrawLetterSize(TDmorte[7], 0.774999, 3.199996);
+	TextDrawTextSize(TDmorte[7], 892.000000, 29.000000);
+	TextDrawSetOutline(TDmorte[7], 0);
+	TextDrawSetShadow(TDmorte[7], 0);
+	TextDrawAlignment(TDmorte[7], 1);
+	TextDrawColor(TDmorte[7], -1);
+	TextDrawBackgroundColor(TDmorte[7], 255);
+	TextDrawBoxColor(TDmorte[7], 50);
+	TextDrawUseBox(TDmorte[7], 0);
+	TextDrawSetProportional(TDmorte[7], 0);
+
+	TDmorte[8] = TextDrawCreate(323.000000, 313.000000, "_");
+	TextDrawFont(TDmorte[8], 1);
+	TextDrawLetterSize(TDmorte[8], 0.600000, -0.449997);
+	TextDrawTextSize(TDmorte[8], 298.500000, 320.500000);
+	TextDrawSetOutline(TDmorte[8], 1);
+	TextDrawSetShadow(TDmorte[8], 0);
+	TextDrawAlignment(TDmorte[8], 2);
+	TextDrawColor(TDmorte[8], -1);
+	TextDrawBackgroundColor(TDmorte[8], 255);
+	TextDrawBoxColor(TDmorte[8], -1);
+	TextDrawUseBox(TDmorte[8], 1);
+	TextDrawSetProportional(TDmorte[8], 1);
+
+		//TD RG
+	TD_RG[0] = TextDrawCreate(318.000000, 155.000000, "_");
+	TextDrawFont(TD_RG[0], 1);
+	TextDrawLetterSize(TD_RG[0], 0.604166, 15.850008);
+	TextDrawTextSize(TD_RG[0], 298.500000, 199.500000);
+	TextDrawSetOutline(TD_RG[0], 1);
+	TextDrawSetShadow(TD_RG[0], 0);
+	TextDrawAlignment(TD_RG[0], 2);
+	TextDrawColor(TD_RG[0], -1);
+	TextDrawBackgroundColor(TD_RG[0], 255);
+	TextDrawBoxColor(TD_RG[0], -167773441);
+	TextDrawUseBox(TD_RG[0], 1);
+	TextDrawSetProportional(TD_RG[0], 1);
+	TextDrawSetSelectable(TD_RG[0], 0);
+
+	TD_RG[1] = TextDrawCreate(318.000000, 160.000000, "_");
+	TextDrawFont(TD_RG[1], 1);
+	TextDrawLetterSize(TD_RG[1], 0.604166, 14.750004);
+	TextDrawTextSize(TD_RG[1], 298.500000, 189.500000);
+	TextDrawSetOutline(TD_RG[1], 1);
+	TextDrawSetShadow(TD_RG[1], 0);
+	TextDrawAlignment(TD_RG[1], 2);
+	TextDrawColor(TD_RG[1], -1);
+	TextDrawBackgroundColor(TD_RG[1], 255);
+	TextDrawBoxColor(TD_RG[1], 1018393087);
+	TextDrawUseBox(TD_RG[1], 1);
+	TextDrawSetProportional(TD_RG[1], 1);
+	TextDrawSetSelectable(TD_RG[1], 0);
+
+	TD_RG[2] = TextDrawCreate(318.000000, 172.000000, "_");
+	TextDrawFont(TD_RG[2], 1);
+	TextDrawLetterSize(TD_RG[2], 0.604166, 12.049994);
+	TextDrawTextSize(TD_RG[2], 298.500000, 166.000000);
+	TextDrawSetOutline(TD_RG[2], 1);
+	TextDrawSetShadow(TD_RG[2], 0);
+	TextDrawAlignment(TD_RG[2], 2);
+	TextDrawColor(TD_RG[2], -1);
+	TextDrawBackgroundColor(TD_RG[2], 255);
+	TextDrawBoxColor(TD_RG[2], -520093697);
+	TextDrawUseBox(TD_RG[2], 1);
+	TextDrawSetProportional(TD_RG[2], 1);
+	TextDrawSetSelectable(TD_RG[2], 0);
+
+	TD_RG[3] = TextDrawCreate(236.000000, 170.000000, "]");
+	TextDrawFont(TD_RG[3], 0);
+	TextDrawLetterSize(TD_RG[3], 0.762499, 3.149998);
+	TextDrawTextSize(TD_RG[3], 400.000000, 17.000000);
+	TextDrawSetOutline(TD_RG[3], 0);
+	TextDrawSetShadow(TD_RG[3], 0);
+	TextDrawAlignment(TD_RG[3], 1);
+	TextDrawColor(TD_RG[3], 780883967);
+	TextDrawBackgroundColor(TD_RG[3], 255);
+	TextDrawBoxColor(TD_RG[3], 50);
+	TextDrawUseBox(TD_RG[3], 0);
+	TextDrawSetProportional(TD_RG[3], 1);
+	TextDrawSetSelectable(TD_RG[3], 0);
+
+	TD_RG[4] = TextDrawCreate(297.000000, 168.000000, "ESTADO DE SAO PAULO");
+	TextDrawFont(TD_RG[4], 2);
+	TextDrawLetterSize(TD_RG[4], 0.141666, 1.200000);
+	TextDrawTextSize(TD_RG[4], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[4], 0);
+	TextDrawSetShadow(TD_RG[4], 0);
+	TextDrawAlignment(TD_RG[4], 2);
+	TextDrawColor(TD_RG[4], 780883933);
+	TextDrawBackgroundColor(TD_RG[4], 255);
+	TextDrawBoxColor(TD_RG[4], 50);
+	TextDrawUseBox(TD_RG[4], 0);
+	TextDrawSetProportional(TD_RG[4], 1);
+	TextDrawSetSelectable(TD_RG[4], 0);
+
+	TD_RG[5] = TextDrawCreate(309.000000, 176.000000, "SECRETARIA DE DEFESA SOCIAL");
+	TextDrawFont(TD_RG[5], 2);
+	TextDrawLetterSize(TD_RG[5], 0.141666, 1.050000);
+	TextDrawTextSize(TD_RG[5], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[5], 0);
+	TextDrawSetShadow(TD_RG[5], 0);
+	TextDrawAlignment(TD_RG[5], 2);
+	TextDrawColor(TD_RG[5], 780883933);
+	TextDrawBackgroundColor(TD_RG[5], 255);
+	TextDrawBoxColor(TD_RG[5], 50);
+	TextDrawUseBox(TD_RG[5], 0);
+	TextDrawSetProportional(TD_RG[5], 1);
+	TextDrawSetSelectable(TD_RG[5], 0);
+
+	TD_RG[6] = TextDrawCreate(304.000000, 183.000000, "POLICIA CIVIL DE SAO PAULO");
+	TextDrawFont(TD_RG[6], 2);
+	TextDrawLetterSize(TD_RG[6], 0.141666, 1.050000);
+	TextDrawTextSize(TD_RG[6], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[6], 0);
+	TextDrawSetShadow(TD_RG[6], 0);
+	TextDrawAlignment(TD_RG[6], 2);
+	TextDrawColor(TD_RG[6], 780883933);
+	TextDrawBackgroundColor(TD_RG[6], 255);
+	TextDrawBoxColor(TD_RG[6], 50);
+	TextDrawUseBox(TD_RG[6], 0);
+	TextDrawSetProportional(TD_RG[6], 1);
+	TextDrawSetSelectable(TD_RG[6], 0);
+
+	TD_RG[7] = TextDrawCreate(319.000000, 190.000000, "INSTITUTO DE IDENTIFICACAO TAVARES CALTON");
+	TextDrawFont(TD_RG[7], 2);
+	TextDrawLetterSize(TD_RG[7], 0.116666, 0.850000);
+	TextDrawTextSize(TD_RG[7], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[7], 0);
+	TextDrawSetShadow(TD_RG[7], 0);
+	TextDrawAlignment(TD_RG[7], 2);
+	TextDrawColor(TD_RG[7], 780883933);
+	TextDrawBackgroundColor(TD_RG[7], 255);
+	TextDrawBoxColor(TD_RG[7], 50);
+	TextDrawUseBox(TD_RG[7], 0);
+	TextDrawSetProportional(TD_RG[7], 1);
+	TextDrawSetSelectable(TD_RG[7], 0);
+
+	TD_RG[8] = TextDrawCreate(261.000000, 203.000000, "NOME");
+	TextDrawFont(TD_RG[8], 2);
+	TextDrawLetterSize(TD_RG[8], 0.129166, 0.950000);
+	TextDrawTextSize(TD_RG[8], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[8], 0);
+	TextDrawSetShadow(TD_RG[8], 0);
+	TextDrawAlignment(TD_RG[8], 2);
+	TextDrawColor(TD_RG[8], 6553804);
+	TextDrawBackgroundColor(TD_RG[8], 255);
+	TextDrawBoxColor(TD_RG[8], 50);
+	TextDrawUseBox(TD_RG[8], 0);
+	TextDrawSetProportional(TD_RG[8], 1);
+	TextDrawSetSelectable(TD_RG[8], 0);
+
+	TD_RG[9] = TextDrawCreate(301.000000, 218.000000, "FILIACAO");
+	TextDrawFont(TD_RG[9], 2);
+	TextDrawLetterSize(TD_RG[9], 0.129166, 0.950000);
+	TextDrawTextSize(TD_RG[9], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[9], 0);
+	TextDrawSetShadow(TD_RG[9], 0);
+	TextDrawAlignment(TD_RG[9], 2);
+	TextDrawColor(TD_RG[9], 6553804);
+	TextDrawBackgroundColor(TD_RG[9], 255);
+	TextDrawBoxColor(TD_RG[9], 50);
+	TextDrawUseBox(TD_RG[9], 0);
+	TextDrawSetProportional(TD_RG[9], 1);
+	TextDrawSetSelectable(TD_RG[9], 0);
+
+	TD_RG[10] = TextDrawCreate(308.000000, 242.000000, "NATURALIDADE");
+	TextDrawFont(TD_RG[10], 2);
+	TextDrawLetterSize(TD_RG[10], 0.129166, 0.950000);
+	TextDrawTextSize(TD_RG[10], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[10], 0);
+	TextDrawSetShadow(TD_RG[10], 0);
+	TextDrawAlignment(TD_RG[10], 2);
+	TextDrawColor(TD_RG[10], 6553804);
+	TextDrawBackgroundColor(TD_RG[10], 255);
+	TextDrawBoxColor(TD_RG[10], 50);
+	TextDrawUseBox(TD_RG[10], 0);
+	TextDrawSetProportional(TD_RG[10], 1);
+	TextDrawSetSelectable(TD_RG[10], 0);
+
+	TD_RG[11] = TextDrawCreate(332.000000, 243.000000, "Guarulhos - SP");
+	TextDrawFont(TD_RG[11], 1);
+	TextDrawLetterSize(TD_RG[11], 0.162500, 0.850000);
+	TextDrawTextSize(TD_RG[11], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[11], 0);
+	TextDrawSetShadow(TD_RG[11], 0);
+	TextDrawAlignment(TD_RG[11], 1);
+	TextDrawColor(TD_RG[11], 255);
+	TextDrawBackgroundColor(TD_RG[11], 255);
+	TextDrawBoxColor(TD_RG[11], 50);
+	TextDrawUseBox(TD_RG[11], 0);
+	TextDrawSetProportional(TD_RG[11], 1);
+	TextDrawSetSelectable(TD_RG[11], 0);
+
+	TD_RG[12] = TextDrawCreate(308.000000, 250.000000, "DATA NASCIMENTO");
+	TextDrawFont(TD_RG[12], 2);
+	TextDrawLetterSize(TD_RG[12], 0.104166, 0.950000);
+	TextDrawTextSize(TD_RG[12], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[12], 0);
+	TextDrawSetShadow(TD_RG[12], 0);
+	TextDrawAlignment(TD_RG[12], 2);
+	TextDrawColor(TD_RG[12], 6553804);
+	TextDrawBackgroundColor(TD_RG[12], 255);
+	TextDrawBoxColor(TD_RG[12], 50);
+	TextDrawUseBox(TD_RG[12], 0);
+	TextDrawSetProportional(TD_RG[12], 1);
+	TextDrawSetSelectable(TD_RG[12], 0);
+
+	TD_RG[13] = TextDrawCreate(353.000000, 250.000000, "ORGAO EXPEDIDOR");
+	TextDrawFont(TD_RG[13], 2);
+	TextDrawLetterSize(TD_RG[13], 0.100000, 0.950000);
+	TextDrawTextSize(TD_RG[13], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[13], 0);
+	TextDrawSetShadow(TD_RG[13], 0);
+	TextDrawAlignment(TD_RG[13], 2);
+	TextDrawColor(TD_RG[13], 6553804);
+	TextDrawBackgroundColor(TD_RG[13], 255);
+	TextDrawBoxColor(TD_RG[13], 50);
+	TextDrawUseBox(TD_RG[13], 0);
+	TextDrawSetProportional(TD_RG[13], 1);
+	TextDrawSetSelectable(TD_RG[13], 0);
+
+	TD_RG[14] = TextDrawCreate(388.000000, 249.000000, "TIPO SANG");
+	TextDrawFont(TD_RG[14], 2);
+	TextDrawLetterSize(TD_RG[14], 0.100000, 0.950000);
+	TextDrawTextSize(TD_RG[14], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[14], 0);
+	TextDrawSetShadow(TD_RG[14], 0);
+	TextDrawAlignment(TD_RG[14], 2);
+	TextDrawColor(TD_RG[14], 6553804);
+	TextDrawBackgroundColor(TD_RG[14], 255);
+	TextDrawBoxColor(TD_RG[14], 50);
+	TextDrawUseBox(TD_RG[14], 0);
+	TextDrawSetProportional(TD_RG[14], 1);
+	TextDrawSetSelectable(TD_RG[14], 0);
+
+	TD_RG[15] = TextDrawCreate(334.000000, 258.000000, "SDS/SP");
+	TextDrawFont(TD_RG[15], 1);
+	TextDrawLetterSize(TD_RG[15], 0.162500, 0.850000);
+	TextDrawTextSize(TD_RG[15], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[15], 0);
+	TextDrawSetShadow(TD_RG[15], 0);
+	TextDrawAlignment(TD_RG[15], 1);
+	TextDrawColor(TD_RG[15], 255);
+	TextDrawBackgroundColor(TD_RG[15], 255);
+	TextDrawBoxColor(TD_RG[15], 50);
+	TextDrawUseBox(TD_RG[15], 0);
+	TextDrawSetProportional(TD_RG[15], 1);
+	TextDrawSetSelectable(TD_RG[15], 0);
+
+	TD_RG[16] = TextDrawCreate(306.000000, 265.000000, "OBSERVACAO");
+	TextDrawFont(TD_RG[16], 2);
+	TextDrawLetterSize(TD_RG[16], 0.129166, 0.950000);
+	TextDrawTextSize(TD_RG[16], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[16], 0);
+	TextDrawSetShadow(TD_RG[16], 0);
+	TextDrawAlignment(TD_RG[16], 2);
+	TextDrawColor(TD_RG[16], 6553804);
+	TextDrawBackgroundColor(TD_RG[16], 255);
+	TextDrawBoxColor(TD_RG[16], 50);
+	TextDrawUseBox(TD_RG[16], 0);
+	TextDrawSetProportional(TD_RG[16], 1);
+	TextDrawSetSelectable(TD_RG[16], 0);
+
+	TD_RG[17] = TextDrawCreate(311.000000, 278.000000, "_");
+	TextDrawFont(TD_RG[17], 1);
+	TextDrawLetterSize(TD_RG[17], 0.600000, -0.450000);
+	TextDrawTextSize(TD_RG[17], 298.500000, 40.000000);
+	TextDrawSetOutline(TD_RG[17], 1);
+	TextDrawSetShadow(TD_RG[17], 0);
+	TextDrawAlignment(TD_RG[17], 2);
+	TextDrawColor(TD_RG[17], -1);
+	TextDrawBackgroundColor(TD_RG[17], 255);
+	TextDrawBoxColor(TD_RG[17], 255);
+	TextDrawUseBox(TD_RG[17], 1);
+	TextDrawSetProportional(TD_RG[17], 1);
+	TextDrawSetSelectable(TD_RG[17], 0);
+
+	TD_RG[18] = TextDrawCreate(381.000000, 264.000000, "_");
+	TextDrawFont(TD_RG[18], 1);
+	TextDrawLetterSize(TD_RG[18], 0.600000, -0.450000);
+	TextDrawTextSize(TD_RG[18], 298.500000, 0.000000);
+	TextDrawSetOutline(TD_RG[18], 1);
+	TextDrawSetShadow(TD_RG[18], 0);
+	TextDrawAlignment(TD_RG[18], 2);
+	TextDrawColor(TD_RG[18], -1);
+	TextDrawBackgroundColor(TD_RG[18], 255);
+	TextDrawBoxColor(TD_RG[18], 255);
+	TextDrawUseBox(TD_RG[18], 1);
+	TextDrawSetProportional(TD_RG[18], 1);
+	TextDrawSetSelectable(TD_RG[18], 0);
+
+	TD_RG[19] = TextDrawCreate(347.000000, 276.000000, "Assinatura do identificado");
+	TextDrawFont(TD_RG[19], 1);
+	TextDrawLetterSize(TD_RG[19], 0.104166, 0.750000);
+	TextDrawTextSize(TD_RG[19], 481.500000, -248.000000);
+	TextDrawSetOutline(TD_RG[19], 0);
+	TextDrawSetShadow(TD_RG[19], 0);
+	TextDrawAlignment(TD_RG[19], 1);
+	TextDrawColor(TD_RG[19], 255);
+	TextDrawBackgroundColor(TD_RG[19], 255);
+	TextDrawBoxColor(TD_RG[19], 50);
+	TextDrawUseBox(TD_RG[19], 0);
+	TextDrawSetProportional(TD_RG[19], 1);
+	TextDrawSetSelectable(TD_RG[19], 0);
+
+	TD_RG[20] = TextDrawCreate(315.000000, 296.000000, "Industria Grafica Brasileira LTDA");
+	TextDrawFont(TD_RG[20], 1);
+	TextDrawLetterSize(TD_RG[20], 0.091666, 0.600000);
+	TextDrawTextSize(TD_RG[20], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[20], 0);
+	TextDrawSetShadow(TD_RG[20], 0);
+	TextDrawAlignment(TD_RG[20], 2);
+	TextDrawColor(TD_RG[20], 6553804);
+	TextDrawBackgroundColor(TD_RG[20], 255);
+	TextDrawBoxColor(TD_RG[20], 50);
+	TextDrawUseBox(TD_RG[20], 0);
+	TextDrawSetProportional(TD_RG[20], 1);
+	TextDrawSetSelectable(TD_RG[20], 0);
+
+	TD_RG[21] = TextDrawCreate(319.000000, 156.000000, "REPUBLICA FEDERATIVA DO BRASIL");
+	TextDrawFont(TD_RG[21], 2);
+	TextDrawLetterSize(TD_RG[21], 0.150000, 1.100000);
+	TextDrawTextSize(TD_RG[21], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[21], 1);
+	TextDrawSetShadow(TD_RG[21], 0);
+	TextDrawAlignment(TD_RG[21], 2);
+	TextDrawColor(TD_RG[21], -35);
+	TextDrawBackgroundColor(TD_RG[21], 780883882);
+	TextDrawBoxColor(TD_RG[21], 50);
+	TextDrawUseBox(TD_RG[21], 0);
+	TextDrawSetProportional(TD_RG[21], 1);
+	TextDrawSetSelectable(TD_RG[21], 0);
+
+	TD_RG[22] = TextDrawCreate(319.000000, 285.000000, "CARTEIRA DE IDENTIDADE");
+	TextDrawFont(TD_RG[22], 2);
+	TextDrawLetterSize(TD_RG[22], 0.150000, 1.100000);
+	TextDrawTextSize(TD_RG[22], 400.000000, 320.500000);
+	TextDrawSetOutline(TD_RG[22], 1);
+	TextDrawSetShadow(TD_RG[22], 0);
+	TextDrawAlignment(TD_RG[22], 2);
+	TextDrawColor(TD_RG[22], -35);
+	TextDrawBackgroundColor(TD_RG[22], 780883882);
+	TextDrawBoxColor(TD_RG[22], 50);
+	TextDrawUseBox(TD_RG[22], 0);
+	TextDrawSetProportional(TD_RG[22], 1);
+	TextDrawSetSelectable(TD_RG[22], 0);
+
+	TD_RG[23] = TextDrawCreate(399.000000, 140.000000, "FECHAR");
+	TextDrawFont(TD_RG[23], 2);
+	TextDrawLetterSize(TD_RG[23], 0.170833, 0.850000);
+	TextDrawTextSize(TD_RG[23], 9.500000, 36.500000);
+	TextDrawSetOutline(TD_RG[23], 0);
+	TextDrawSetShadow(TD_RG[23], 0);
+	TextDrawAlignment(TD_RG[23], 2);
+	TextDrawColor(TD_RG[23], -65315);
+	TextDrawBackgroundColor(TD_RG[23], 255);
+	TextDrawBoxColor(TD_RG[23], -16776961);
+	TextDrawUseBox(TD_RG[23], 1);
+	TextDrawSetProportional(TD_RG[23], 1);
+	TextDrawSetSelectable(TD_RG[23], 1);
+
+	//VELOCIMETRO MOBILE
+	Velomob[0] = TextDrawCreate(293.000000, 384.000000, "(");
+	TextDrawFont(Velomob[0], 1);
+	TextDrawLetterSize(Velomob[0], 0.670832, 5.350002);
+	TextDrawTextSize(Velomob[0], 400.000000, 17.000000);
+	TextDrawSetOutline(Velomob[0], 0);
+	TextDrawSetShadow(Velomob[0], 0);
+	TextDrawAlignment(Velomob[0], 1);
+	TextDrawColor(Velomob[0], -16776961);
+	TextDrawBackgroundColor(Velomob[0], 255);
+	TextDrawBoxColor(Velomob[0], 50);
+	TextDrawUseBox(Velomob[0], 0);
+	TextDrawSetProportional(Velomob[0], 1);
+	TextDrawSetSelectable(Velomob[0], 0);
+
+	Velomob[1] = TextDrawCreate(338.000000, 384.000000, ")");
+	TextDrawFont(Velomob[1], 1);
+	TextDrawLetterSize(Velomob[1], 0.670832, 5.200002);
+	TextDrawTextSize(Velomob[1], 400.000000, 17.000000);
+	TextDrawSetOutline(Velomob[1], 0);
+	TextDrawSetShadow(Velomob[1], 0);
+	TextDrawAlignment(Velomob[1], 1);
+	TextDrawColor(Velomob[1], -16776961);
+	TextDrawBackgroundColor(Velomob[1], 255);
+	TextDrawBoxColor(Velomob[1], 50);
+	TextDrawUseBox(Velomob[1], 0);
+	TextDrawSetProportional(Velomob[1], 1);
+	TextDrawSetSelectable(Velomob[1], 0);
+
+	Velomob[2] = TextDrawCreate(312.000000, 387.000000, "ld_beat:chit");
+	TextDrawFont(Velomob[2], 4);
+	TextDrawLetterSize(Velomob[2], 0.600000, 2.000000);
+	TextDrawTextSize(Velomob[2], 15.500000, 15.500000);
+	TextDrawSetOutline(Velomob[2], 1);
+	TextDrawSetShadow(Velomob[2], 0);
+	TextDrawAlignment(Velomob[2], 1);
+	TextDrawColor(Velomob[2], -16776961);
+	TextDrawBackgroundColor(Velomob[2], 255);
+	TextDrawBoxColor(Velomob[2], 50);
+	TextDrawUseBox(Velomob[2], 1);
+	TextDrawSetProportional(Velomob[2], 1);
+	TextDrawSetSelectable(Velomob[2], 0);
+
+	Velomob[3] = TextDrawCreate(320.000000, 410.000000, "KM/H");
+	TextDrawFont(Velomob[3], 2);
+	TextDrawLetterSize(Velomob[3], 0.150000, 1.049999);
+	TextDrawTextSize(Velomob[3], 400.000000, 17.000000);
+	TextDrawSetOutline(Velomob[3], 0);
+	TextDrawSetShadow(Velomob[3], 0);
+	TextDrawAlignment(Velomob[3], 2);
+	TextDrawColor(Velomob[3], -1);
+	TextDrawBackgroundColor(Velomob[3], 255);
+	TextDrawBoxColor(Velomob[3], 50);
+	TextDrawUseBox(Velomob[3], 0);
+	TextDrawSetProportional(Velomob[3], 1);
+	TextDrawSetSelectable(Velomob[3], 0);
+
+	TextDraw[0] = TextDrawCreate(360.625000, 363.833374, "~g~Anuncio:~w~ Se vende un pito de goma a gran precio ~g~(Movil: 3250)");
+	TextDrawLetterSize(TextDraw[0], 0.152500, 1.232499);
+	TextDrawAlignment(TextDraw[0], 1);
+	TextDrawColor(TextDraw[0], -1);
+	TextDrawSetShadow(TextDraw[0], 0);
+	TextDrawSetOutline(TextDraw[0], 1);
+	TextDrawBackgroundColor(TextDraw[0], 255);
+	TextDrawFont(TextDraw[0], 1);
+	TextDrawSetProportional(TextDraw[0], 1);
+	TextDrawSetShadow(TextDraw[0], 0);
+
+	TextDraw[1] = TextDrawCreate(360.625000, 376.083007, "~g~Anuncio:~w~ Se vende un pito de goma a gran precio ~g~(Movil: 3250)");
+	TextDrawLetterSize(TextDraw[1], 0.152500, 1.232499);
+	TextDrawAlignment(TextDraw[1], 1);
+	TextDrawColor(TextDraw[1], -1);
+	TextDrawSetShadow(TextDraw[1], 0);
+	TextDrawSetOutline(TextDraw[1], 1);
+	TextDrawBackgroundColor(TextDraw[1], 255);
+	TextDrawFont(TextDraw[1], 1);
+	TextDrawSetProportional(TextDraw[1], 1);
+	TextDrawSetShadow(TextDraw[1], 0);
+
+	TextDraw[2] = TextDrawCreate(360.625000, 390.666503, "~g~Anuncio:~w~ Se vende un pito de goma a gran precio ~g~(Movil: 3250)");
+	TextDrawLetterSize(TextDraw[2], 0.152500, 1.232499);
+	TextDrawAlignment(TextDraw[2], 1);
+	TextDrawColor(TextDraw[2], -1);
+	TextDrawSetShadow(TextDraw[2], 0);
+	TextDrawSetOutline(TextDraw[2], 1);
+	TextDrawBackgroundColor(TextDraw[2], 255);
+	TextDrawFont(TextDraw[2], 1);
+	TextDrawSetProportional(TextDraw[2], 1);
+	TextDrawSetShadow(TextDraw[2], 0);
+
+	TextDraw[3] = TextDrawCreate(360.000000, 405.249847, "~g~Anuncio:~w~ Se vende un pito de goma a gran precio ~g~(Movil: 3250)");
+	TextDrawLetterSize(TextDraw[3], 0.152500, 1.232499);
+	TextDrawAlignment(TextDraw[3], 1);
+	TextDrawColor(TextDraw[3], -1);
+	TextDrawSetShadow(TextDraw[3], 0);
+	TextDrawSetOutline(TextDraw[3], 1);
+	TextDrawBackgroundColor(TextDraw[3], 255);
+	TextDrawFont(TextDraw[3], 1);
+	TextDrawSetProportional(TextDraw[3], 1);
+	TextDrawSetShadow(TextDraw[3], 0);
+
+	TextDraw[4] = TextDrawCreate(360.625000, 419.250000, "~g~Anuncio:~w~ Se vende un pito de goma a gran precio ~g~(Movil: 3250)");
+	TextDrawLetterSize(TextDraw[4], 0.152500, 1.232499);
+	TextDrawAlignment(TextDraw[4], 1);
+	TextDrawColor(TextDraw[4], -1);
+	TextDrawSetShadow(TextDraw[4], 0);
+	TextDrawSetOutline(TextDraw[4], 1);
+	TextDrawBackgroundColor(TextDraw[4], 255);
+	TextDrawFont(TextDraw[4], 1);
+	TextDrawSetProportional(TextDraw[4], 1);
+	TextDrawSetShadow(TextDraw[4], 0);
+
+	CreateDynamicMapIcon(800.242553, -1617.385986, 14.032936, 10, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PIZZARIA
+	CreateDynamicMapIcon(1481.094482, -1772.313720, 18.795755, 40, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PREFEITURA
+	CreateDynamicMapIcon(1456.284912, -1128.022460, 23.958011, 52, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//BANCO
+	CreateDynamicMapIcon(1083.447998, -1766.307128, 13.928387, 36, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//AUTO ESCOLA
+	CreateDynamicMapIcon(468.658203, -1517.271606, 20.477876, 56, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//JOIALHERIA
+	CreateDynamicMapIcon(1785.501586, -1916.644165, 14.295277, 6, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//AMMUNATION
+	CreateDynamicMapIcon(1319.3506,-876.0737,39.5781, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//27-7
+	CreateDynamicMapIcon(2073.4036,-1874.4497,13.5469, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//27-7
+	CreateDynamicMapIcon(1655.4888,-1880.6477,13.5440, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//27-7
+	CreateDynamicMapIcon(374.2604,-1903.8306,7.6719, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//27-7
+	CreateDynamicMapIcon(1351.2615,-1755.5823,13.3519, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//27-7
+	// ORG NEUTRAS
+	CreateDynamicMapIcon(1973.031616, -1779.866455, 13.543199, 27, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//MECANICA
+	CreateDynamicMapIcon(1638.175415, -1134.294311, 24.051120, 22, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//HOSPITAL
+	CreateDynamicMapIcon(649.302062, -1357.399658, 13.567605, 34, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//SAN NEWS
+	// ORG MILITARES	
+	CreateDynamicMapIcon(-2033.067504, -988.365112, 32.212158, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//POLICIA MILITAR
+	CreateDynamicMapIcon(-2440.856445, 522.686523, 29.914293, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//ROTA
+	CreateDynamicMapIcon(-1278.104248, 2711.379150, 50.132141, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//BAEP
+	CreateDynamicMapIcon(1662.559692, -285.732208, 39.607868, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PRF
+	CreateDynamicMapIcon(671.580932, -1501.122802, 17.498348, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PRF
+	// ORG CRIMINOSA
+	CreateDynamicMapIcon(1858.289306, -1590.896484, 13.574988, 60, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Amarelo
+	CreateDynamicMapIcon(2650.068359, -2018.365234, 13.552066, 58, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Azul
+	CreateDynamicMapIcon(2095.946044, -1143.877807, 25.586040, 59, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Vermelho
+	CreateDynamicMapIcon(2275.367187, -1785.524414, 13.546875, 62, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Verde
+	CreateDynamicMapIcon(-692.327087, 939.566345, 13.632812, 44, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Mafia Russa
+	CreateDynamicMapIcon(385.094787, 2448.588378, 16.500000, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Moto Clube
+	// EMPREGOS
+	CreateDynamicMapIcon(154.188613, -1945.949584, 4.972961, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PESCADOR
+	CreateDynamicMapIcon(590.086975, 871.486694, -42.734603, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//MINEIRADOR
+	CreateDynamicMapIcon(2501.888916, -1494.696533, 24.000000, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//ACOUGUEIRO
+	CreateDynamicMapIcon(-504.495117, -517.457763, 25.523437, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//CAMIONERO
+	CreateDynamicMapIcon(-28.763319, 1363.971313, 9.171875, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//COLETOR
+	CreateDynamicMapIcon(939.6504,1733.2004,8.8516, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Correios
+	CreateDynamicMapIcon(1281.080810, -1267.302612, 13.535926, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Pedreiro
+	CreateCaixa(2942, 1097.9000000,-1829.3000000,16.2000000,0.0000000,0.0000000,318.0000000); 
+	CreateCaixa(2942, 1551.242798, -1669.691528, 13.154342, 0.0000, 0.0000, 270.0000);
+	CreateCaixa(2942, 999.2000100,-910.7999900,42.0000000,0.0000000,0.0000000,277.0000000);
+	CreateCaixa(2942, 1928.69604, -1784.04639, 13.15720,   0.00000, 0.00000, 88.44680);
+	CreateCaixa(2942, 1837.20667, -1692.44824, 13.01124,   0.00000, 0.00000, 269.46243);
+	CreateCaixa(2942, 1831.94666, -1405.75806, 12.99174,   0.00000, 0.00000, 176.68292);
+	CreateCaixa(2942, 1363.55298, -1750.63855, 13.17531,   0.00000, 0.00000, 271.14401);
+	CreateCaixa(2942, 1070.77478, -1881.54370, 13.16587,   0.00000, 0.00000, 271.18671);
+	CreateCaixa(2942, 833.72095, -1384.92908, 13.07656,   0.00000, 0.00000, 0.00000);
+	CreateCaixa(2942, 1186.30676, -1371.22632, 13.16235,   0.00000, 0.00000, 89.22408);
+	CreateCaixa(2942, 1797.89026, -1190.45325, 23.54218,   0.00000, 0.00000, 182.18976);
+	CreateCaixa(2942, 2209.10791, -1141.88208, 25.39645,   0.00000, 0.00000, 88.60888);
+	CreateCaixa(2942, 2313.50586, -1373.55334, 23.69597,   0.00000, 0.00000, 271.93027);
+	CreateCaixa(2942, 2351.94897, -1548.61584, 23.54486,   0.00000, 0.00000, 264.68781);
+	CreateCaixa(2942, 2243.18921, -1722.77673, 13.15102,   0.00000, 0.00000, 0.00000);
+	CreateCaixa(2942, 1940.07886, -2113.70752, 13.30774,   0.00000, 0.00000, 89.08496);
+	CreateCaixa(2942, 1736.49780, -1863.44666, 13.17641,   0.00000, 0.00000, 178.34193);
+	CreateCaixa(2942, 2310.53125, -7.17057, 26.34110,   0.00000, 0.00000, 359.03336);
+	CreateCaixa(2942, 365.37585, -1354.45508, 14.12511,   0.00000, 0.00000, 29.47749);
+	CreateCaixa(2942, 1296.89661, -1158.12537, 23.39852,   0.00000, 0.00000, 177.93507);
+	CreateCaixa(2942, 1492.36804, -1022.19519, 23.41977,   0.00000, 0.00000, 0.00000);
+	CreateCaixa(2942, 1830.88367, -1071.68689, 23.48169,   0.00000, 0.00000, 269.40909);
+	CreateCaixa(2942, 1863.66504, -1270.39185, 13.16138,   0.00000, 0.00000, 182.03978);
+	CreateCaixa(2942, 1673.760620, -2326.699218, 13.16138,   0.00000, 0.00000, 92.392776);
+	CreateCaixa(2942, -1980.607666, 131.965667, 27.16138,   0.00000, 0.00000, 263.507263);
 	createEE(0, "WELLCOME EVENT 1", 19057,3.0, -984.33557, 1293.37805, 33.30560,   0.00000, 0.00000, 0.00000);
 	createEE(1, "WELLCOME EVENT 2", 19057,3.0, -2354.78540, 142.00720, 38.22280,  0.00000, 0.00000, 0.00000);
 	createEE(2, "WELLCOME EVENT 3", 19057,3.0, -1077.87439, -1157.65149, 128.21820,   0.00000, 0.00000, 0.00000);
@@ -11633,7 +13405,7 @@ public OnPlayerDisconnect(playerid, reason)
 		{
 			SalvarArmas(playerid);
 		}
-		new arquivofila[64];
+		new arquivofila[5000];
 		format(arquivofila, sizeof(arquivofila), Pasta_Relatorios,playerid);
 		if(DOF2_FileExists(arquivofila))
 		{
@@ -11711,7 +13483,7 @@ public OnPlayerDisconnect(playerid, reason)
 		SvDeleteStream(Gritandos[playerid]);
 		Gritandos[playerid] = SV_NULL;
 	}
-	for(new t; t < 60; t++)
+	for(new t; t < 10; t++)
 	{
 	    PlayerTextDrawDestroy(playerid, VeloC[playerid][t]);
 	}
