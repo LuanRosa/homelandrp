@@ -522,7 +522,7 @@ enum iInv
 	Slot,
 	Unidades
 };
-new PlayerInventario[MAX_PLAYERS][31][iInv];
+new PlayerInventario[MAX_PLAYERS][33][iInv];
 new DropItemSlot[MAX_OBJECTS][iInv];
 new PlayerText:DrawInv[MAX_PLAYERS][40];
 new InventarioAberto[MAX_PLAYERS] = false;
@@ -1900,7 +1900,7 @@ CallBack::ColocandoCaixa(playerid, progress){
 
 CallBack::AChatAtendimento(COLOR,const string[],level)
 {
-	foreach(new i: Player)
+	foreach(new i: Player) 
 	{
 		if(IsPlayerConnected(i))
 		{
@@ -2223,7 +2223,7 @@ CallBack::DesmancharVeh(playerid, progress)
 		GetPlayer2DZone2(playerid, location, MAX_ZONE_NAME);
 		if(noti == 1)
 		{
-			foreach(Player, i)
+			foreach(new i: Player) 
 			{
 				if(Patrulha[i] == true)
 				{
@@ -3451,7 +3451,6 @@ CallBack::VelocimetroEx(playerid)
 			if(mostrandovelo[playerid] == 0){
 				for(new t=0;t<4;t++){
 					TextDrawShowForPlayer(playerid,Velomob[t]);
-					break;
 				}
 				mostrandovelo[playerid] = 1;
 			}
@@ -3524,7 +3523,6 @@ CallBack::VelocimetroEx(playerid)
 			if(mostrandovelo[playerid] == 0){
 				for(new t=0;t<52;t++){
 					TextDrawShowForPlayer(playerid,VeloC_G[t]);
-					break;
 				}
 				mostrandovelo[playerid] = 1;
 			}
@@ -3534,11 +3532,9 @@ CallBack::VelocimetroEx(playerid)
 			if(mostrandovelo[playerid] != 0){
 				for(new t=0;t<3;t++){
 					PlayerTextDrawHide(playerid,Velomob_p[playerid][t]);
-					break;
 				}
 				for(new t=0;t<4;t++){
 					TextDrawHideForPlayer(playerid,Velomob[t]);
-					break;
 				}
 				mostrandovelo[playerid] = 0;
 			}
@@ -3546,11 +3542,9 @@ CallBack::VelocimetroEx(playerid)
 			if(mostrandovelo[playerid] != 0){
 				for(new t=0;t<10;t++){
 					PlayerTextDrawHide(playerid,VeloC[playerid][t]);
-					break;
 				}
 				for(new t=0;t<52;t++){
 					TextDrawHideForPlayer(playerid,VeloC_G[t]);
-					break;
 				}
 				mostrandovelo[playerid] = 0;
 			}
@@ -4130,7 +4124,7 @@ CallBack::MainTimer()
 {
 	new string[128];
 	new Float:x, Float:y, Float:z;
-	foreach(Player, i)
+	foreach(new i: Player) 
 	{
 		if(IsPlayerConnected(i))
 		{
@@ -5138,7 +5132,7 @@ split(const strsrc[], const strdest[][], delimiter)
 GanharItem(playerid, itemid, quantia)
 {
 	ShowItemBox(playerid, ItemNomeInv(itemid), "Recebeu", itemid, 3);
-	for(new i = 1; i < 31; ++i)
+	for(new i = 1; i < 33; ++i)
 	{
 		if(PlayerInventario[playerid][i][Slot] == itemid)
 		{
@@ -5212,23 +5206,24 @@ stock RetirarItem2(playerid, modelid, qtd)
     return 1;
 }
 
-CallBack::CriarInventario(playerid)
+Callback::CriarInventario(playerid)
 {
 	new file[64], str[128], string[128];
-	format(file, sizeof(file), PASTA_INVENTARIO, Name(playerid));
+	format(file, sizeof(file), PASTA_INVENTARIO, PlayerName(playerid));
 	
 	if(!DOF2_FileExists(file))
 	{
-		DOF2_CreateFile(file);
-		for(new i = 1; i < 31; ++i)
+		DOF2_CreateFile(file); printf("Criou arquivo!");
+		for(new i = 1; i < 33; ++i)
 		{
-			PlayerInventario[playerid][i][Slot] = -1;
-			PlayerInventario[playerid][i][Unidades] = -1;
+		    PlayerInventario[playerid][i][Slot] = -1;
+		    PlayerInventario[playerid][i][Unidades] = -1;
 
 			format(string, sizeof(string), "Item_%d", i);
 			format(str, sizeof(str), "%d|%d", PlayerInventario[playerid][i][Slot], PlayerInventario[playerid][i][Unidades]);
 			DOF2_SetString(file, string, str);
 			DOF2_SaveFile();
+			break;
 		}
 	}else{
 		LoadInv(playerid);
@@ -5236,12 +5231,12 @@ CallBack::CriarInventario(playerid)
 	return 1;
 }
 
-CallBack::LoadInv(playerid)
+Callback::LoadInv(playerid)
 {
 	new file[64], key[64], string[2][64], str[64];
-	format(file, sizeof(file), PASTA_INVENTARIO, Name(playerid));
+	format(file, sizeof(file), PASTA_INVENTARIO, PlayerName(playerid));
 	SetPVarInt(playerid, #VarSlotInv, 0);
-	for(new i = 1; i < 31; ++i)
+	for(new i = 1; i < 33; ++i)
 	{
 		PlayerInventario[playerid][i][Slot] = -1;
 		PlayerInventario[playerid][i][Unidades] = 0;
@@ -5250,16 +5245,17 @@ CallBack::LoadInv(playerid)
 		split(str, string, '|');
 		PlayerInventario[playerid][i][Slot] = strval(string[0]);
 		PlayerInventario[playerid][i][Unidades] = strval(string[1]);
+		break;
 	}
 	return 1;
 }
 
-CallBack::SalvarInventario(playerid)
+Callback::SalvarInventario(playerid)
 {
-	new file[128], str[200], string[200];
-	format(file, sizeof(file), PASTA_INVENTARIO, Name(playerid));
+	new file[64], str[128], string[128];
+	format(file, sizeof(file), PASTA_INVENTARIO, PlayerName(playerid));
 	if(!DOF2_FileExists(file)){DOF2_CreateFile(file);}
-	for(new i = 1; i < 31; ++i)
+	for(new i = 1; i < 33; ++i)
 	{
 		format(string, sizeof(string), "Item_%d", i);
 		format(str, sizeof(str), "%d|%d", PlayerInventario[playerid][i][Slot], PlayerInventario[playerid][i][Unidades]);
@@ -6119,7 +6115,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				GetPlayer2DZone2(playerid, location, MAX_ZONE_NAME);
 				if(noti == 1)
 				{
-					foreach(new p: Player)
+					foreach(new p: Player) 
 					{
 						if(Patrulha[p] == true)
 						{
@@ -6261,7 +6257,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			new noti = randomEx(0, 2);
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i: Player) 
 				{
 					if(Patrulha[i] == true)
 					{
@@ -7426,7 +7422,7 @@ stock ParaDeBugaPoraaaDk(playerid)
 stock SalvarMortos(playerid)
 {
 	new File[500];
-	if(PlayerInfo[playerid][pAdmin] > 1)
+	if(PlayerMorto[playerid][pEstaMorto] == 1)
 	{
 		format(File, sizeof(File), PASTA_MORTOS, Name(playerid));
 		if(!DOF2_FileExists(File)) DOF2_CreateFile(File);
@@ -9974,11 +9970,11 @@ stock NomeOrg(playerid)
 	}
 	if(org == 9)
 	{
-		orG = "Medicos";
+		orG = "Mecanicos";
 	}
 	if(org == 10)
 	{
-		orG = "Mecanicos";
+		orG = "Medicos";
 	}
 	if(org == 11)
 	{
@@ -10249,7 +10245,7 @@ stock BanirPlayer(playerid, administrador, Motivo1[])
 	DOF2_SetString(File, "Desban", "Nunca");
 	DOF2_SetInt(File, "DDesban", gettime() + 60 * 60 * 24 * 999);
 	DOF2_SaveFile();
-	foreach(Player, i)
+	foreach(new i: Player) 
 	{
 		format(Str, sizeof(Str), "O Administrador %s(%d) baniu o jogador %s(%d). Motivo: %s", Name(playerid),PlayerInfo[playerid][IDF], Name(administrador),PlayerInfo[administrador][IDF], Motivo1);
 		WarningMsg(i, Str);
@@ -10396,7 +10392,7 @@ stock BanirIP(playerid, administrador, Motivo1[])
 	DOF2_SetString(File, "Motivo", Motivo1);
 	DOF2_SetString(File, "Data", Data);
 	DOF2_SaveFile();
-	foreach(Player, i)
+	foreach(new i: Player) 
 	{
 		format(Str, sizeof(Str), "O Administrador %s(%d) baniu o jogador %s(%d). Motivo: %s", Name(playerid),PlayerInfo[playerid][IDF], Name(administrador),PlayerInfo[administrador][IDF], Motivo1);
 		WarningMsg(i, Str);
@@ -13002,7 +12998,7 @@ public OnGameModeInit()
 
 public OnGameModeExit()
 {
-	foreach(Player, i)
+	foreach(new i: Player) 
 	{
 		if(pLogado[i] == true) 
 		{
@@ -13215,6 +13211,13 @@ public OnPlayerDisconnect(playerid, reason)
 		{
 			DOF2_RemoveFile(arquivofila);
 		}
+		new gstring[255];
+		switch(reason) {
+			case 0: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Conexao ou crash{FFFFFF})", PlayerInfo[playerid][IDF]);
+			case 1: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Quitou - /q{FFFFFF})", PlayerInfo[playerid][IDF]);
+			case 2: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Kickado ou Banido{FFFFFF})", PlayerInfo[playerid][IDF]);
+		}
+		ProxDetector(30.0, playerid, gstring,-1,-1,-1,-1,-1);
 	}
 	if(IniciouTesteHabilitacaoA[playerid] == 1)
 	{
@@ -13301,13 +13304,6 @@ public OnPlayerDisconnect(playerid, reason)
 	}
 	PlayerTextDrawDestroy(playerid, Textdraw2[playerid]);
 	ZerarDados(playerid);
-	new gstring[255];
-	switch(reason) {
-     	case 0: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Conexao ou crash{FFFFFF})", PlayerInfo[playerid][IDF]);
-     	case 1: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Quitou - /q{FFFFFF})", PlayerInfo[playerid][IDF]);
-     	case 2: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Kickado ou Banido{FFFFFF})", PlayerInfo[playerid][IDF]);
-  	}
-  	ProxDetector(30.0, playerid, gstring,-1,-1,-1,-1,-1);
 	return 1;
 }
 
@@ -15427,7 +15423,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		if(PlayerToPoint(3.0, playerid, 1982.807739, -1783.678100, 13.543199) || PlayerToPoint(3.0, playerid, 1991.699951, -1783.279541, 13.543199) || PlayerToPoint(3.0, playerid, 2001.068359, -1783.499389, 13.543199) || PlayerToPoint(3.0, playerid, 2010.380981, -1783.100097, 13.543199) || PlayerToPoint(3.0, playerid, 2018.434692, -1783.255126, 13.543199))
 		{
-			if(PlayerInfo[playerid][Org] != 10) 		return ErrorMsg(playerid, "Nao possui permissao.");
+			if(PlayerInfo[playerid][Org] != 9) 		return ErrorMsg(playerid, "Nao possui permissao.");
 			ShowPlayerDialog(playerid, DIALOG_ARMARIOMEC, DIALOG_STYLE_LIST,"Menu Mecanico", "{5b6ed9}- {FFFFFF}Caixa de Ferramientas\t{32CD32}R$1200\n{5b6ed9}- {FFFFFF}Ferramentas de Tunagem\t{32CD32}R$15000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, -501.146118, 294.354156, 2001.094970))
@@ -16650,7 +16646,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 				if(!IsNumeric(inputtext)) return ErrorMsg(playerid, "Somente numeros");
 				if(strlen(inputtext) > 3) return ErrorMsg(playerid, "Valor invalido.");
-				foreach(Player,i)
+				foreach(new i: Player) 
 			  	{
 					if(pLogado[i] == true)
 					{
@@ -17988,7 +17984,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				id = strval(inputtext);
 				/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 				if(!IsNumeric(inputtext)) return ErrorMsg(playerid, "Valor invalido.");
-				foreach(Player,i)
+				foreach(new i: Player) 
 				{
 					if(pLogado[i] == true)
 					{
@@ -20106,7 +20102,7 @@ CMD:mostrarrg(playerid,params[])
 	{
 		if(MostrandoRG[playerid] == false)
 		{
-			foreach(Player,i){
+			foreach(new i: Player) {
 				if(PlayerInfo[i][IDF] == id){
 					static Float:XYZ[3];
 					GetPlayerPos(i,XYZ[0],XYZ[1],XYZ[2]);
@@ -20252,7 +20248,7 @@ CMD:daritem(playerid, const params[])
 	if(PlayerInfo[playerid][pAdmin] < 5)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "iii", id, item, quantia)) return ErrorMsg(playerid, "Use: /daritem [ID] [ITEM ID] [UNIDADES].");
 	if(quantia < 1) return ErrorMsg(playerid, "Coloque uma quantia.");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -20312,7 +20308,7 @@ CMD:inventario(playerid)
 CMD:report(playerid, params[])
 {
 	if(sscanf(params, "is[56]", ID, Motivo))					return ErrorMsg(playerid, "USE: /report [ID] [RAZON]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -20424,7 +20420,7 @@ CMD:av(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "s[56]", Motivo)) 						return ErrorMsg(playerid, "USE: /av [TEXTO]");
-	foreach(Player,i)
+	foreach(new i: Player) 
 	{
 		format(Str, sizeof(Str), "%s", Motivo);
 		AvMsg(i, Str);
@@ -20437,7 +20433,7 @@ CMD:setskin(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "di", ID, Numero))						return ErrorMsg(playerid, "USE: /setskin [ID] [SKIN ID]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -20460,7 +20456,7 @@ CMD:setvida(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "dd", ID, Numero))						return ErrorMsg(playerid,"USE: /setvida [ID] [VIDA]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -20481,7 +20477,7 @@ CMD:setcolete(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "dd", ID, Numero))						return ErrorMsg(playerid,"USE: /setcolete [ID] [COLETE]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -20524,7 +20520,7 @@ CMD:kick(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "ds[56]", ID, Motivo))					return ErrorMsg(playerid,"USE: /kick [ID] [MOTIVO]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -20547,7 +20543,7 @@ CMD:cadeia(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "iis[56]", ID, Numero, Motivo))			return ErrorMsg(playerid,"USE: /cadeia [ID] [TEMPO EM MINUTOS] [MOTIVO]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -20582,7 +20578,7 @@ CMD:ir(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /ir [ID]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -20615,7 +20611,7 @@ CMD:trazer(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "u", ID))									return ErrorMsg(playerid,"USE: /trazer [ID]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -20672,7 +20668,7 @@ CMD:tv(playerid, params[])
 	if(IsAssistindo[playerid] == false)
 	{
 		if(sscanf(params, "i", ID))								return ErrorMsg(playerid,"USE: /tv [ID]");
-		foreach(Player,i)
+		foreach(new i: Player) 
 		{
 			if(pLogado[i] == true)
 			{
@@ -20714,7 +20710,7 @@ CMD:setarma(playerid, params[])
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "iii", ID, Arma, Municao))				return ErrorMsg(playerid,"USE: /setarma [ID] [ARMA] [MUNIÇÃO]");
 	if(Arma<1 || Arma==19 || Arma==20||Arma==21||Arma>46)		return ErrorMsg(playerid, "ID nao valido.");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -20734,7 +20730,7 @@ CMD:desarmar(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /desarmar [ID]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -20755,7 +20751,7 @@ CMD:banir(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "is[56]", ID, Motivo)) 					return ErrorMsg(playerid,"ERRO: Use /banir [ID] [MOTIVO]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -20781,7 +20777,7 @@ CMD:tempban(playerid,params[])
 	if(sscanf(params, "iis[56]", ID, Dias, Motivo)) 			return ErrorMsg(playerid,"ERRO: Use /tempban [ID] [TEMPO] [MOTIVO]");
 	if(Dias == 0)                                               return ErrorMsg(playerid, "Nao pode banir alguem durante 0 dias. USA: /ban para banir permanentes.");
 	if(Dias >= 360)                                             return ErrorMsg(playerid, "Voce so pode banir alguem por no maximo 360 dias.");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -20893,7 +20889,7 @@ CMD:adv(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "is[56]", ID, Motivo)) 					return ErrorMsg(playerid,"ERRO: Use /adv [ID] [MOTIVO]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -20920,7 +20916,7 @@ CMD:banirip(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 4)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "is[56]", ID, Motivo)) 					return ErrorMsg(playerid,"ERRO: Use /banirip [ID] [MOTIVO]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -21003,7 +20999,7 @@ CMD:congelar(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /congelar [ID]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -21025,7 +21021,7 @@ CMD:descongelar(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /descongelar [ID]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -21098,7 +21094,7 @@ CMD:dardinheiro(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "dd", ID, Numero))		return ErrorMsg(playerid,"USE: /dardinheiro [ID] [QUANTIA]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -21120,7 +21116,7 @@ CMD:setadmin(playerid, params[])
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "ii", ID, Numero))		return ErrorMsg(playerid,"USE: /setadmin [ID] [LEVEL]");
 	if(Numero > 9)				return ErrorMsg(playerid, "O numero deve ser entre 0 a 9");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -21276,7 +21272,7 @@ CMD:lferidos(playerid, params[])
 	if(PlayerInfo[playerid][pProfissao] != 3)
 	{
 		if(sscanf(params, "u", id)) return ErrorMsg(playerid,  "* Use: /lferidos (id)");
-		foreach(Player,i)
+		foreach(new i: Player) 
 		{
 			if(pLogado[i] == true)
 			{
@@ -21394,7 +21390,7 @@ CMD:convidar(playerid,params[])
 	if(PlayerInfo[playerid][Org] == 0)return ErrorMsg(playerid, "Nao e de nenhuma organizacao.");
 	if(PlayerInfo[playerid][Cargo] < 2)return ErrorMsg(playerid, "Nao superior de nenhuma organizacao.");
 	if(sscanf(params,"i",id))return ErrorMsg(playerid,"Use: /convidar [ID]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -21438,7 +21434,7 @@ CMD:demitir(playerid,params[])
 	new xPlayer;
 	if(sscanf(params,"i",xPlayer))
 		return ErrorMsg(playerid , "/demitir [playerid]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -21465,7 +21461,7 @@ CMD:promover(playerid,params[])
 	if(PlayerInfo[playerid][Org] == 0)return 1;
 	if(PlayerInfo[playerid][Cargo] < 2)return ErrorMsg(playerid, "Nao e superior de nenhuma organizacao.");
 	if(sscanf(params,"ii",id,cargo))return ErrorMsg(playerid,"/promover [ID] [CARGO]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -21525,7 +21521,7 @@ CMD:darlider(playerid,params[])
 	new id,org,String[500];
 	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params,"ii",id,org))return ErrorMsg(playerid,"/darlider [ID] [IDORG]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -21582,7 +21578,7 @@ CMD:pagar(playerid, params[])
 {
 	new id, quantia, string[800];
 	if(sscanf(params,"ii",id,quantia)) return ErrorMsg(playerid,  " /pagar [ID] [QUANTIA]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -21898,7 +21894,7 @@ CMD:algemar(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /algemar [ID]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -21921,7 +21917,7 @@ CMD:desalgemar(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /desalgemar [ID]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -21947,7 +21943,7 @@ CMD:pveiculo(playerid, params[])
 	if(IsPolicial(playerid) || IsBandido(playerid))
 	{
 		if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /pveiculo [ID]");
-		foreach(Player,i)
+		foreach(new i: Player) 
 		{
 			if(pLogado[i] == true)
 			{
@@ -21971,7 +21967,7 @@ CMD:rveiculo(playerid, params[])
 	if(IsPolicial(playerid) || IsBandido(playerid))
 	{
 		if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /rveiculo [ID]");
-		foreach(Player,i)
+		foreach(new i: Player) 
 		{
 			if(pLogado[i] == true)
 			{
@@ -21995,7 +21991,7 @@ CMD:prender(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "iis[56]", ID, Numero, Motivo))			return ErrorMsg(playerid,"USE: /prender [ID] [TEMPO EM MINUTOS] [MOTIVO]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -22088,7 +22084,7 @@ CMD:su(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "di", ID, Numero))						return ErrorMsg(playerid,"USE: /su [ID] [LEVEL]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -22115,7 +22111,7 @@ CMD:revistar(playerid, params[])
 	if(IsPolicial(playerid) || IsBandido(playerid))	
 	{
 		if(sscanf(params, "d", ID))                        return ErrorMsg(playerid,"USE: /verinv [ID]");
-		foreach(Player,i)
+		foreach(new i: Player) 
 		{
 			if(pLogado[i] == true)
 			{
@@ -22169,7 +22165,7 @@ CMD:rarmas(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /rarmas [ID]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -22219,7 +22215,7 @@ CMD:multar(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "dd", ID, Numero))		return ErrorMsg(playerid,"USE: /multar [ID] [QUANTIA]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -22246,7 +22242,7 @@ CMD:verdocumentos(playerid, params[])
 	{
 		if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 		if(sscanf(params, "dd", ID))		return ErrorMsg(playerid,"USE: /verdocumentos [ID] ");
-		foreach(Player,i)
+		foreach(new i: Player) 
 		{
 			if(pLogado[i] == true)
 			{
@@ -23212,7 +23208,7 @@ CMD:ejetar(playerid, params[])
 	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "Nao esta em um veiculo!"); 
 	new pid, msg[128];
 	if(sscanf(params, "u", pid)) return ErrorMsg(playerid,  "USAGE: /ejetar [player]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -23236,7 +23232,7 @@ CMD:ejetarll(playerid, params[])
 	new vehicleid = GetPlayerVehicleID(playerid);
 	new msg[128];
 	format(msg, sizeof(msg), "O condutor do veiculo %04d (%d) te expulsou do veiculo.", GetPlayerIdfixo(playerid), playerid);
-	foreach(Player, i)
+	foreach(new i: Player) 
 	{
 		if(IsPlayerConnected(i) && i != playerid && IsPlayerInVehicle(i, vehicleid))
 		{
@@ -23309,7 +23305,7 @@ CMD:venderv(playerid, params[])
 {
 	new pid, id, price, msg[128];
 	if(sscanf(params, "udd", pid, id, price)) return ErrorMsg(playerid,  "USAGE: /venderv [player] [vehicleid] [price]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -23336,7 +23332,7 @@ CMD:darchaves(playerid, params[])
 {
 	new pid, id, msg[128];
 	if(sscanf(params, "ud", pid, id)) return ErrorMsg(playerid,  "USAGE: /darchaves [player] [vehicleid]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -23475,7 +23471,7 @@ CMD:rac(playerid, params[])
 {
 	new bool:vehicleused[MAX_VEHICLES];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	foreach(Player, i)
+	foreach(new i: Player) 
 	{
 		if(IsPlayerConnected(i) && IsPlayerInAnyVehicle(i))
 		{
@@ -23490,7 +23486,7 @@ CMD:rac(playerid, params[])
 		}
 	}
 	new msg[128];
-	foreach(Player, i)
+	foreach(new i: Player) 
 	{
 		format(msg, sizeof(msg), "O Administrador %04d respawnou todos os veiculos sem motorista.", GetPlayerIdfixo(playerid), playerid);
 		InfoMsg(i, msg);
@@ -24037,7 +24033,7 @@ CMD:pediravaliar(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1) return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "d", ID)) return ErrorMsg(playerid,"USE: /pediravaliar [ID]");
-	foreach(Player,i)
+	foreach(new i: Player) 
   	{
 		if(pLogado[i] == true)
 		{
@@ -24408,7 +24404,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i: Player) 
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24432,7 +24428,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i: Player) 
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24456,7 +24452,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i: Player) 
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24480,7 +24476,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i: Player) 
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24504,7 +24500,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i: Player) 
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24528,7 +24524,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i: Player) 
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24552,7 +24548,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i: Player) 
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24576,7 +24572,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i: Player) 
 				{
 					if(Patrulha[i] == true)
 					{
