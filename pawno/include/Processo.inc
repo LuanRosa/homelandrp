@@ -19,12 +19,12 @@ new Progress_Info[MAX_PLAYERS][ProgressInfo], PlayerText:ProgressoBar[MAX_PLAYER
 
 #define CallProg::%0(%1) forward %0(%1); public %0(%1)
 
-#define DEFAULT_TIMER (100) // Melhor
+#define DEFAULT_TIMER (50) // Melhor
 
 #define Progresso:%0(%1,%2) \
 	forward Progress_%0(%1,Float:%2); public Progress_%0(%1,Float:%2)
 
-CreateProgress(playerid, callback[],title[], time = 100){
+stock CreateProgress(playerid, callback[],title[], time = 1000){
 	new string[128];
 	Progress_Info[playerid][p_percent] = 0;
 	Reloginho[playerid] = 0;
@@ -42,9 +42,12 @@ CreateProgress(playerid, callback[],title[], time = 100){
 
 CallProg:: UpdateProgress(playerid)
 {
-	if(Progress_Info[playerid][p_percent] >= 100.0) return KillProgress(playerid);
+	if(Progress_Info[playerid][p_percent] >= 100.0)
+	{
+		return KillProgress(playerid);
+	}
 	new string[80];
-	Progress_Info[playerid][p_percent] += 5; //(100 / Progress_Info[playerid][p_percent]); //
+	Progress_Info[playerid][p_percent] += 1; //(100 / Progress_Info[playerid][p_percent]); //
 	SetPlayerProgressBarValue(playerid, ProgressoBar_pp[playerid][0], Progress_Info[playerid][p_percent]); 
 	format(string, sizeof(string), "%.0f%", Progress_Info[playerid][p_percent]);
 	PlayerTextDrawSetString(playerid, ProgressoBar[playerid][7], string);
@@ -57,22 +60,21 @@ CallProg:: UpdateProgress(playerid)
 	return 1;
 }
 
-KillProgress(playerid)
+stock KillProgress(playerid)
 {
 	for(new i = 0; i < 14; i++)
 	{
 		PlayerTextDrawDestroy(playerid, ProgressoBar[playerid][i]);
-		break;
 	}
 	DestroyPlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
 	format(Progress_Info[playerid][p_callback], 32, ""); 
 	KillTimer(Progress_Info[playerid][p_timer]);
-	Progress_Info[playerid][p_time] = 0;
+	Progress_Info[playerid][p_time] = 18;
 	Progress_Info[playerid][p_percent] = 0;
 	return 1;
 }
 
-CreateTDProgress(playerid)
+stock CreateTDProgress(playerid)
 {
 	ProgressoBar[playerid][0] = CreatePlayerTextDraw(playerid, 317.000000, 332.000000, "_");
 	PlayerTextDrawFont(playerid, ProgressoBar[playerid][0], 1);
@@ -274,7 +276,6 @@ CreateTDProgress(playerid)
 	for(new i = 0; i < 14; i++)
 	{
 		PlayerTextDrawShow(playerid, ProgressoBar[playerid][i]);
-		break;
 	}
 	ShowPlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
 	return 1;

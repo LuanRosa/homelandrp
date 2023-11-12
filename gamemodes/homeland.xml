@@ -399,22 +399,6 @@
 				<size value="13"/>
 			</member>
 		</member>
-		<member name="T:ProgressInfo" value="99">
-			<tagname value="ProgressInfo"/>
-			<member name="C:p_callback" value="0">
-				<size value="32"/>
-			</member>
-			<member name="C:p_title" value="32">
-				<size value="64"/>
-			</member>
-			<member name="C:p_time" value="96">
-			</member>
-			<member name="C:p_timer" value="97">
-			</member>
-			<member name="C:p_percent" value="98">
-				<tagname value="Float"/>
-			</member>
-		</member>
 		<member name="T:RInfo" value="6">
 			<tagname value="RInfo"/>
 			<member name="C:RadarID" value="0">
@@ -2049,7 +2033,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="25291">
+		<member name="C:__line" value="24798">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -2380,17 +2364,17 @@
 			<referrer name="IsValidPlayerProgressBar"/>
 			<referrer name="SetPlayerProgressBarPos"/>
 			<referrer name="EstaSegurandoArmaProibida"/>
-			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="PegandoCaixasP"/>
 			<referrer name="createEE"/>
 			<referrer name="ResetarPulo"/>
 			<referrer name="LockpickTimer"/>
 			<referrer name="DestroyLockPick"/>
-			<referrer name="Progress_DescarregarCarga"/>
-			<referrer name="Progress_BotouBau"/>
-			<referrer name="Progress_Cova"/>
-			<referrer name="Progress_Desossar"/>
-			<referrer name="Progress_Minerar"/>
-			<referrer name="Progress_Pesca"/>
+			<referrer name="DescarregarCarga"/>
+			<referrer name="BotouBau"/>
+			<referrer name="Cova"/>
+			<referrer name="Desossar"/>
+			<referrer name="Minerar"/>
+			<referrer name="Pesca"/>
 			<referrer name="ExpireAntComannd"/>
 			<referrer name="Attplayer"/>
 			<referrer name="mostrarTelaLogin"/>
@@ -2487,8 +2471,11 @@
 			<referrer name="cmd_freq"/>
 			<referrer name="cmd_mudarskin"/>
 			<referrer name="cmd_mudarskin2"/>
+			<referrer name="cmd_desossar"/>
+			<referrer name="cmd_pescar"/>
 			<referrer name="cmd_cancelarrota"/>
-			<referrer name="cmd_dominar"/>
+			<referrer name="cmd_roubar"/>
+			<referrer name="cmd_desmanchar"/>
 			<referrer name="cmd_abrircorreios"/>
 			<referrer name="cmd_abrircorreios2"/>
 			<referrer name="cmd_abrirniobio"/>
@@ -2578,18 +2565,17 @@
 			<referrer name="ShowPlayerProgressBar"/>
 			<referrer name="_RenderBar"/>
 			<referrer name="SetPlayerProgressBarPos"/>
-			<referrer name="CreateProgress"/>
 			<referrer name="EstaSegurandoArmaProibida"/>
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_PegandoCaixaV"/>
-			<referrer name="Progress_EntregandoCx"/>
-			<referrer name="Progress_PegandoCaixasP"/>
-			<referrer name="Progress_ColocandoCaixa"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="PegandoCaixaV"/>
+			<referrer name="EntregandoCx"/>
+			<referrer name="PegandoCaixasP"/>
+			<referrer name="ColocandoCaixa"/>
 			<referrer name="descobrirEE"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="TimerAn"/>
-			<referrer name="Progress_DesmancharVeh"/>
-			<referrer name="Progress_Cova"/>
+			<referrer name="DesmancharVeh"/>
+			<referrer name="Cova"/>
 			<referrer name="ExpireAntComannd"/>
 			<referrer name="AttCad"/>
 			<referrer name="Attplayer"/>
@@ -2610,7 +2596,7 @@
 			<referrer name="ORGCarrega"/>
 			<referrer name="AnimatioN2"/>
 			<referrer name="RoubarCaixa"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="RestoreCaixa"/>
 			<referrer name="LocalizarPlayer"/>
 			<referrer name="PayDay"/>
@@ -3022,11 +3008,9 @@
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 		</member>
 		<member name="F:Barragem">
-			<referrer name="Progress_DominarLBarragem"/>
 			<referrer name="CarregarGZ"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnDialogResponse"/>
-			<referrer name="cmd_dominar"/>
 		</member>
 		<member name="F:BigEar">
 			<referrer name="ZerarDados"/>
@@ -3084,26 +3068,26 @@
 		</member>
 		<member name="F:CaixaMao">
 			<tagname value="bool"/>
-			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="PegandoCaixasP"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 		</member>
 		<member name="F:CaixasSdx">
-			<referrer name="Progress_PegandoCaixaV"/>
-			<referrer name="Progress_EntregandoCx"/>
-			<referrer name="Progress_PegandoCaixasP"/>
-			<referrer name="Progress_ColocandoCaixa"/>
+			<referrer name="PegandoCaixaV"/>
+			<referrer name="EntregandoCx"/>
+			<referrer name="PegandoCaixasP"/>
+			<referrer name="ColocandoCaixa"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="cmd_var"/>
 			<referrer name="cmd_setvar"/>
 		</member>
 		<member name="F:CaixasSdxObj">
-			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="PegandoCaixasP"/>
 			<referrer name="cmd_carregar"/>
 		</member>
 		<member name="F:Cargase">
 			<tagname value="bool"/>
-			<referrer name="Progress_DescarregarCarga"/>
+			<referrer name="DescarregarCarga"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_carregar"/>
@@ -3111,18 +3095,14 @@
 			<referrer name="cmd_ltumba"/>
 		</member>
 		<member name="F:CargoTumba">
-			<referrer name="Progress_RotaCova1"/>
-			<referrer name="Progress_RotaCova2"/>
-			<referrer name="Progress_RotaCova3"/>
 			<referrer name="ZerarDados"/>
-			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 		</member>
 		<member name="F:CarregandoTelaLogin">
 			<referrer name="mostrarTelaLogin"/>
 			<referrer name="ZerarDados"/>
 		</member>
 		<member name="F:Carregou">
-			<referrer name="Progress_DescarregarCarga"/>
+			<referrer name="DescarregarCarga"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_carregar"/>
@@ -3137,13 +3117,13 @@
 		</member>
 		<member name="F:Casavehcorreios">
 			<tagname value="bool"/>
-			<referrer name="Progress_BatendoPorta"/>
+			<referrer name="BatendoPorta"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 		</member>
 		<member name="F:Casavehcorreios2">
 			<tagname value="bool"/>
-			<referrer name="Progress_PegandoCaixaV"/>
+			<referrer name="PegandoCaixaV"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 		</member>
@@ -3220,7 +3200,7 @@
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:CofreAmmu">
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="CarregarDinRoubos"/>
 			<referrer name="SalvarDinRoubos"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -3234,7 +3214,7 @@
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:CofreBanco">
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="CarregarDinRoubos"/>
 			<referrer name="SalvarDinRoubos"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
@@ -3257,31 +3237,31 @@
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:CofreLoja1">
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="CarregarDinRoubos"/>
 			<referrer name="SalvarDinRoubos"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:CofreLoja2">
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="CarregarDinRoubos"/>
 			<referrer name="SalvarDinRoubos"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:CofreLoja3">
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="CarregarDinRoubos"/>
 			<referrer name="SalvarDinRoubos"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:CofreLoja4">
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="CarregarDinRoubos"/>
 			<referrer name="SalvarDinRoubos"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:CofreLoja5">
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="CarregarDinRoubos"/>
 			<referrer name="SalvarDinRoubos"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -3293,7 +3273,7 @@
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:CofreRestaurante">
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="CarregarDinRoubos"/>
 			<referrer name="SalvarDinRoubos"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -3315,7 +3295,7 @@
 		</member>
 		<member name="F:Covaconcerto">
 			<tagname value="bool"/>
-			<referrer name="Progress_Cova"/>
+			<referrer name="Cova"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="cmd_iniciarcoleta"/>
@@ -3387,7 +3367,7 @@
 			<referrer name="cmd_gotodealership"/>
 		</member>
 		<member name="F:Desossando">
-			<referrer name="Progress_Desossar"/>
+			<referrer name="Desossar"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
@@ -3451,7 +3431,7 @@
 		</member>
 		<member name="F:EntregaSdx">
 			<tagname value="bool"/>
-			<referrer name="Progress_ColocandoCaixa"/>
+			<referrer name="ColocandoCaixa"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="cmd_carregar"/>
@@ -3512,7 +3492,7 @@
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:EtapasMinerador">
-			<referrer name="Progress_Minerar"/>
+			<referrer name="Minerar"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="cmd_iniciarminerador"/>
@@ -4771,13 +4751,11 @@
 			<referrer name="ZerarDados"/>
 		</member>
 		<member name="F:GuerraBarragem">
-			<referrer name="Progress_DominarLBarragem"/>
 			<referrer name="CarregarGZ2"/>
 			<referrer name="CarregarGZ"/>
 			<referrer name="SalvarGZ"/>
 		</member>
 		<member name="F:GuerraParabolica">
-			<referrer name="Progress_DominarLParabolica"/>
 			<referrer name="CarregarGZ2"/>
 			<referrer name="CarregarGZ"/>
 			<referrer name="SalvarGZ"/>
@@ -5215,11 +5193,9 @@
 			<referrer name="ac_OnPlayerClickTextDraw"/>
 		</member>
 		<member name="F:Parabolica">
-			<referrer name="Progress_DominarLParabolica"/>
 			<referrer name="CarregarGZ"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnDialogResponse"/>
-			<referrer name="cmd_dominar"/>
 		</member>
 		<member name="F:PassouRadar">
 			<referrer name="LiberarRadar"/>
@@ -5228,7 +5204,7 @@
 		</member>
 		<member name="F:Patrulha">
 			<tagname value="bool"/>
-			<referrer name="Progress_DesmancharVeh"/>
+			<referrer name="DesmancharVeh"/>
 			<referrer name="AttVeh"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ZerarDados"/>
@@ -5252,8 +5228,8 @@
 		</member>
 		<member name="F:PegouLixo">
 			<tagname value="bool"/>
-			<referrer name="Progress_BotouBau"/>
-			<referrer name="Progress_Cova"/>
+			<referrer name="BotouBau"/>
+			<referrer name="Cova"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="cmd_iniciarcoleta"/>
 		</member>
@@ -5317,7 +5293,7 @@
 			<referrer name="On_VehicleSpawn"/>
 			<referrer name="ac_IsVehicleSeatOccupied"/>
 			<referrer name="AChatAtendimento"/>
-			<referrer name="Progress_DesmancharVeh"/>
+			<referrer name="DesmancharVeh"/>
 			<referrer name="MainTimer"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="AntiAway"/>
@@ -5396,12 +5372,10 @@
 			<referrer name="Iter_OPDCInternal"/>
 		</member>
 		<member name="F:PlayerInfo">
-			<referrer name="Progress_EntregandoCx"/>
-			<referrer name="Progress_DominarLBarragem"/>
-			<referrer name="Progress_DominarLParabolica"/>
+			<referrer name="EntregandoCx"/>
 			<referrer name="descobrirEE"/>
-			<referrer name="Progress_DescarregarCarga"/>
-			<referrer name="Progress_BotouBau"/>
+			<referrer name="DescarregarCarga"/>
+			<referrer name="BotouBau"/>
 			<referrer name="criandorg"/>
 			<referrer name="Attplayer"/>
 			<referrer name="TimerHack"/>
@@ -5565,7 +5539,6 @@
 			<referrer name="cmd_anuncio"/>
 			<referrer name="cmd_trazercofre"/>
 			<referrer name="cmd_desmanchar"/>
-			<referrer name="cmd_dominar"/>
 		</member>
 		<member name="F:PlayerInventario">
 			<referrer name="GanharItem"/>
@@ -5641,16 +5614,16 @@
 		</member>
 		<member name="F:PosRota">
 			<tagname value="Float"/>
-			<referrer name="Progress_EntregandoCx"/>
-			<referrer name="Progress_ColocandoCaixa"/>
+			<referrer name="EntregandoCx"/>
+			<referrer name="ColocandoCaixa"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="cmd_iniciarrotamaconha"/>
 			<referrer name="cmd_iniciarrotacocaina"/>
 		</member>
 		<member name="F:PosV">
 			<tagname value="Float"/>
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="PegandoCaixasP"/>
 		</member>
 		<member name="F:PosVeiculos">
 			<tagname value="Float"/>
@@ -5661,24 +5634,6 @@
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerRequestClass"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
-		</member>
-		<member name="F:Progress_Info">
-			<referrer name="CreateProgress"/>
-			<referrer name="UpdateProgress"/>
-			<referrer name="KillProgress"/>
-		</member>
-		<member name="F:ProgressoBar">
-			<tagname value="PlayerText"/>
-			<referrer name="CreateProgress"/>
-			<referrer name="UpdateProgress"/>
-			<referrer name="KillProgress"/>
-			<referrer name="CreateTDProgress"/>
-		</member>
-		<member name="F:ProgressoBar_pp">
-			<tagname value="PlayerBar"/>
-			<referrer name="UpdateProgress"/>
-			<referrer name="KillProgress"/>
-			<referrer name="CreateTDProgress"/>
 		</member>
 		<member name="F:RG_p">
 			<tagname value="PlayerText"/>
@@ -5718,10 +5673,6 @@
 			<referrer name="todastextdraw"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
-		</member>
-		<member name="F:Reloginho">
-			<referrer name="CreateProgress"/>
-			<referrer name="UpdateProgress"/>
 		</member>
 		<member name="F:RepairCar">
 			<referrer name="AttVeh"/>
@@ -5767,49 +5718,49 @@
 		<member name="F:RouboAmmu">
 			<tagname value="bool"/>
 			<referrer name="SendMSG"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="cmd_roubar"/>
 		</member>
 		<member name="F:RouboBanco">
 			<tagname value="bool"/>
 			<referrer name="SendMSG"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="cmd_roubar"/>
 		</member>
 		<member name="F:RouboLoja1">
 			<tagname value="bool"/>
 			<referrer name="SendMSG"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="cmd_roubar"/>
 		</member>
 		<member name="F:RouboLoja2">
 			<tagname value="bool"/>
 			<referrer name="SendMSG"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="cmd_roubar"/>
 		</member>
 		<member name="F:RouboLoja3">
 			<tagname value="bool"/>
 			<referrer name="SendMSG"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="cmd_roubar"/>
 		</member>
 		<member name="F:RouboLoja4">
 			<tagname value="bool"/>
 			<referrer name="SendMSG"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="cmd_roubar"/>
 		</member>
 		<member name="F:RouboLoja5">
 			<tagname value="bool"/>
 			<referrer name="SendMSG"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="cmd_roubar"/>
 		</member>
 		<member name="F:RouboRestaurante">
 			<tagname value="bool"/>
 			<referrer name="SendMSG"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="cmd_roubar"/>
 		</member>
 		<member name="F:SPECIAL_ACTION">
@@ -5962,7 +5913,7 @@
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:Str">
-			<referrer name="Progress_DesmancharVeh"/>
+			<referrer name="DesmancharVeh"/>
 			<referrer name="loginp"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="DiminuirTempo"/>
@@ -6296,9 +6247,9 @@
 		</member>
 		<member name="F:UsouCMD">
 			<tagname value="bool"/>
-			<referrer name="Progress_Desossar"/>
-			<referrer name="Progress_Minerar"/>
-			<referrer name="Progress_Pesca"/>
+			<referrer name="Desossar"/>
+			<referrer name="Minerar"/>
+			<referrer name="Pesca"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="cmd_desossar"/>
@@ -6495,7 +6446,7 @@
 			<referrer name="cmd_addv"/>
 		</member>
 		<member name="F:VehicleValue">
-			<referrer name="Progress_DesmancharVeh"/>
+			<referrer name="DesmancharVeh"/>
 			<referrer name="ShowDialog"/>
 			<referrer name="LoadVehicles"/>
 			<referrer name="SaveVehicle"/>
@@ -6512,9 +6463,9 @@
 			<referrer name="cmd_addv"/>
 		</member>
 		<member name="F:VeiculoCivil">
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_PegandoCaixasP"/>
-			<referrer name="Progress_ColocandoCaixa"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="PegandoCaixasP"/>
+			<referrer name="ColocandoCaixa"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
@@ -6661,10 +6612,6 @@
 			<remarks>  Stores the current server world time (hours).  </remarks> 
 		</member>
 		<member name="F:__date">
-		</member>
-		<member name="F:__file">
-		</member>
-		<member name="F:__file">
 		</member>
 		<member name="F:__file">
 		</member>
@@ -7018,9 +6965,9 @@
 			<referrer name="ac_OnPlayerClickTextDraw"/>
 		</member>
 		<member name="F:actorcorreios">
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_PegandoCaixaV"/>
-			<referrer name="Progress_EntregandoCx"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="PegandoCaixaV"/>
+			<referrer name="EntregandoCx"/>
 			<referrer name="ZerarDados"/>
 		</member>
 		<member name="F:caixaid">
@@ -7028,8 +6975,8 @@
 		</member>
 		<member name="F:checkcasa">
 			<tagname value="bool"/>
-			<referrer name="Progress_EntregandoCx"/>
-			<referrer name="Progress_ColocandoCaixa"/>
+			<referrer name="EntregandoCx"/>
+			<referrer name="ColocandoCaixa"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 		</member>
@@ -7091,7 +7038,6 @@
 		<member name="F:ltumba">
 			<tagname value="bool"/>
 			<referrer name="ZerarDados"/>
-			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:maintimer">
@@ -7288,8 +7234,8 @@
 		</member>
 		<member name="F:textcorreios">
 			<tagname value="Text3D"/>
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_EntregandoCx"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="EntregandoCx"/>
 		</member>
 		<member name="F:timerloginname">
 			<referrer name="ac_OnPlayerConnect"/>
@@ -7538,7 +7484,7 @@
 			<tagname value="Float"/>
 			<stacksize value="4"/>
 			<referrer name="FIXES_floatfract"/>
-			<referrer name="Progress_BatendoPorta"/>
+			<referrer name="BatendoPorta"/>
 			<referrer name="PlantarMaconhas"/>
 			<referrer name="FomeBar"/>
 			<referrer name="SedeBar"/>
@@ -7558,8 +7504,7 @@
 			<stacksize value="4"/>
 			<referrer name="CreateNotify"/>
 			<referrer name="CreateItemBox"/>
-			<referrer name="UpdateProgress"/>
-			<referrer name="Progress_BatendoPorta"/>
+			<referrer name="BatendoPorta"/>
 			<referrer name="LockpickTimer"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="CriarRadares"/>
@@ -7778,20 +7723,13 @@
 			<referrer name="AntiCheatGetHealth"/>
 			<referrer name="AntiCheatGetArmour"/>
 			<referrer name="NotifyLoadingUpdet"/>
-			<referrer name="CreateProgress"/>
-			<referrer name="KillProgress"/>
-			<referrer name="CreateTDProgress"/>
-			<referrer name="ConvertTime"/>
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_PegandoCaixaV"/>
-			<referrer name="Progress_EntregandoCx"/>
-			<referrer name="Progress_PegandoCaixasP"/>
-			<referrer name="Progress_ColocandoCaixa"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="PegandoCaixaV"/>
+			<referrer name="EntregandoCx"/>
+			<referrer name="PegandoCaixasP"/>
+			<referrer name="ColocandoCaixa"/>
 			<referrer name="CreateLocPick"/>
-			<referrer name="Progress_RotaCova1"/>
-			<referrer name="Progress_RotaCova2"/>
-			<referrer name="Progress_RotaCova3"/>
-			<referrer name="Progress_Cova"/>
+			<referrer name="Cova"/>
 			<referrer name="mortoxx"/>
 			<referrer name="mostrarTelaLogin"/>
 			<referrer name="UpdateVehicleLabel"/>
@@ -7856,7 +7794,6 @@
 		<member name="M:operator==(Float:,_:)" syntax="operator==(Float:,_:)(oper1, oper2)">
 			<tagname value="bool"/>
 			<stacksize value="4"/>
-			<referrer name="Progress_Pesca"/>
 			<referrer name="VelocimetroEx"/>
 			<dependency name="float"/>
 			<dependency name="floatcmp"/>
@@ -7926,7 +7863,6 @@
 			<referrer name="pr_ip_AC_UNOCCUPIED_SYNC"/>
 			<referrer name="pr_ip_AC_TRAILER_SYNC"/>
 			<referrer name="ac_Timer"/>
-			<referrer name="UpdateProgress"/>
 			<referrer name="MainTimer"/>
 			<referrer name="IsPlayerInPlace"/>
 			<referrer name="GetPlayer2DZone2"/>
@@ -7942,26 +7878,7 @@
 		<member name="M:operator&gt;=(Float:,_:)" syntax="operator&gt;=(Float:,_:)(oper1, oper2)">
 			<tagname value="bool"/>
 			<stacksize value="4"/>
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_PegandoCaixaV"/>
-			<referrer name="Progress_EntregandoCx"/>
-			<referrer name="Progress_PegandoCaixasP"/>
-			<referrer name="Progress_ColocandoCaixa"/>
-			<referrer name="Progress_DominarLBarragem"/>
-			<referrer name="Progress_DominarLParabolica"/>
-			<referrer name="Progress_DesmancharVeh"/>
-			<referrer name="Progress_RepararVeh"/>
-			<referrer name="Progress_DescarregarCarga"/>
-			<referrer name="Progress_RotaCova1"/>
-			<referrer name="Progress_RotaCova2"/>
-			<referrer name="Progress_RotaCova3"/>
-			<referrer name="Progress_BotouBau"/>
-			<referrer name="Progress_Cova"/>
-			<referrer name="Progress_Desossar"/>
-			<referrer name="Progress_Minerar"/>
-			<referrer name="Progress_Pesca"/>
 			<referrer name="VelocimetroEx"/>
-			<referrer name="Progress_RoubarLoja"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="darxp"/>
 			<referrer name="GetPlayer2DZone"/>
@@ -9092,7 +9009,7 @@
 		</member>
 		<member name="M:Attach3DTextLabelToPlayer" syntax="Attach3DTextLabelToPlayer(id, playerid, OffsetX, OffsetY, OffsetZ)">
 			<attribute name="native"/>
-			<referrer name="Progress_BatendoPorta"/>
+			<referrer name="BatendoPorta"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<param name="id">
 				<paraminfo>Text3D </paraminfo>
@@ -10005,6 +9922,64 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:BatendoPorta" syntax="BatendoPorta(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="412"/>
+			<dependency name="operator-(Float:,_:)"/>
+			<dependency name="operator+(Float:,_:)"/>
+			<dependency name="Float:operator=(_:)"/>
+			<dependency name="Attach3DTextLabelToPlayer"/>
+			<dependency name="CST_GetPVarFloat"/>
+			<dependency name="CST_SetPVarFloat"/>
+			<dependency name="Casavehcorreios"/>
+			<dependency name="CreateDynamic3DTextLabel"/>
+			<dependency name="ENTER_GetVehicleParamsEx"/>
+			<dependency name="ENTER_SetVehicleParamsEx"/>
+			<dependency name="FIXES_ClearAnimations"/>
+			<dependency name="FIXES_CreateActor"/>
+			<dependency name="FIXES_SetPlayerCheckpoint"/>
+			<dependency name="FIXES_random"/>
+			<dependency name="GetPlayerFacingAngle"/>
+			<dependency name="GetPlayerPos"/>
+			<dependency name="GetVehicleTrunkPosition"/>
+			<dependency name="InfoMsg"/>
+			<dependency name="MsgSdx"/>
+			<dependency name="MsgSdx"/>
+			<dependency name="PosV"/>
+			<dependency name="VeiculoCivil"/>
+			<dependency name="acc_SetPlayerPos"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="actorcorreios"/>
+			<dependency name="format"/>
+			<dependency name="textcorreios"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
+			</param>
+		</member>
+		<member name="M:BotouBau" syntax="BotouBau(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="264"/>
+			<dependency name="ConvertMoney"/>
+			<dependency name="FIXES_ClearAnimations"/>
+			<dependency name="FIXES_SetTimerEx"/>
+			<dependency name="FIXES_random"/>
+			<dependency name="PegouLixo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="RemovePlayerAttachedObject"/>
+			<dependency name="SuccesMsg"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="pDinheiro"/>
+			<dependency name="pVIP"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
+			</param>
+		</member>
 		<member name="M:CANIM" syntax="CANIM(playerid)">
 			<attribute name="public"/>
 			<stacksize value="5"/>
@@ -10091,7 +10066,7 @@
 		<member name="M:CST_GetPVarFloat" syntax="CST_GetPVarFloat(playerid, varname[])">
 			<tagname value="Float"/>
 			<attribute name="native"/>
-			<referrer name="Progress_BatendoPorta"/>
+			<referrer name="BatendoPorta"/>
 			<referrer name="MainTimer"/>
 			<referrer name="PegarMoney"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -10103,7 +10078,7 @@
 		</member>
 		<member name="M:CST_GetPVarInt" syntax="CST_GetPVarInt(playerid, varname[])">
 			<attribute name="native"/>
-			<referrer name="Progress_DesmancharVeh"/>
+			<referrer name="DesmancharVeh"/>
 			<referrer name="ShowDialog"/>
 			<referrer name="GetPlayerVehicleAccess"/>
 			<referrer name="MainTimer"/>
@@ -10185,7 +10160,7 @@
 		</member>
 		<member name="M:CST_SetPVarFloat" syntax="CST_SetPVarFloat(playerid, varname[], float_value)">
 			<attribute name="native"/>
-			<referrer name="Progress_BatendoPorta"/>
+			<referrer name="BatendoPorta"/>
 			<referrer name="MainTimer"/>
 			<referrer name="GranaRoubo"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -10281,7 +10256,6 @@
 			<referrer name="SSCANF_OnPlayerDisconnect"/>
 			<referrer name="ac_OnGameModeInit"/>
 			<referrer name="ac_OnPlayerCommandText"/>
-			<referrer name="UpdateProgress"/>
 			<param name="function">
 				<paraminfo> [] </paraminfo>
 			</param>
@@ -10667,6 +10641,31 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:ColocandoCaixa" syntax="ColocandoCaixa(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="20"/>
+			<dependency name="Float:operator=(_:)"/>
+			<dependency name="CaixasSdx"/>
+			<dependency name="ENTER_GetVehicleParamsEx"/>
+			<dependency name="ENTER_SetVehicleParamsEx"/>
+			<dependency name="EntregaSdx"/>
+			<dependency name="FIXES_ClearAnimations"/>
+			<dependency name="FIXES_SetPlayerCheckpoint"/>
+			<dependency name="FIXES_random"/>
+			<dependency name="PosRota"/>
+			<dependency name="PosRota"/>
+			<dependency name="RemovePlayerAttachedObject"/>
+			<dependency name="SuccesMsg"/>
+			<dependency name="VeiculoCivil"/>
+			<dependency name="acc_SetPlayerSpecialAction"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="checkcasa"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
+			</param>
+		</member>
 		<member name="M:ConectarNaFrequencia" syntax="ConectarNaFrequencia(playerid, freq)">
 			<attribute name="public"/>
 			<stacksize value="4"/>
@@ -10689,8 +10688,8 @@
 		</member>
 		<member name="M:ConvertMoney" syntax="ConvertMoney(number)">
 			<stacksize value="115"/>
-			<referrer name="Progress_DesmancharVeh"/>
-			<referrer name="Progress_BotouBau"/>
+			<referrer name="DesmancharVeh"/>
+			<referrer name="BotouBau"/>
 			<referrer name="ShowDialog"/>
 			<referrer name="UpdateVehicleLabel"/>
 			<referrer name="DroparItem"/>
@@ -10706,17 +10705,6 @@
 			<referrer name="cmd_verdocumentos"/>
 			<referrer name="cmd_criarcasa"/>
 			<dependency name="ConvertMoney"/>
-			<dependency name="format"/>
-			<param name="number">
-			</param>
-		</member>
-		<member name="M:ConvertTime" syntax="ConvertTime(number)">
-			<stacksize value="113"/>
-			<referrer name="UpdateProgress"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="ConvertTime"/>
-			<dependency name="floatround"/>
-			<dependency name="floatround_floor"/>
 			<dependency name="format"/>
 			<param name="number">
 			</param>
@@ -10750,6 +10738,24 @@
 			<dependency name="false"/>
 			<dependency name="true"/>
 			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:Cova" syntax="Cova(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="18"/>
+			<dependency name="Float:operator=(_:)"/>
+			<dependency name="Covaconcerto"/>
+			<dependency name="FIXES_SetPlayerCheckpoint"/>
+			<dependency name="FIXES_random"/>
+			<dependency name="InfoMsg"/>
+			<dependency name="PegouLixo"/>
+			<dependency name="SetPlayerAttachedObject"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="false"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
 			</param>
 		</member>
 		<member name="M:CreateActor__" syntax="CreateActor__(modelid, X, Y, Z, Rotation)">
@@ -10830,7 +10836,7 @@
 		<member name="M:CreateDynamic3DTextLabel" syntax="CreateDynamic3DTextLabel(text[], color, x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority)">
 			<tagname value="Text3D"/>
 			<attribute name="native"/>
-			<referrer name="Progress_BatendoPorta"/>
+			<referrer name="BatendoPorta"/>
 			<referrer name="createEE"/>
 			<referrer name="loadEE"/>
 			<referrer name="descobrirEE"/>
@@ -11335,7 +11341,6 @@
 		<member name="M:CreatePlayerProgressBar" syntax="CreatePlayerProgressBar(playerid, x, y, width, height, colour, max, direction)">
 			<tagname value="PlayerBar"/>
 			<stacksize value="6"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="todastextdraw"/>
 			<dependency name="FIXES_IsPlayerConnected"/>
 			<dependency name="_RenderBar"/>
@@ -11398,72 +11403,6 @@
 			</param>
 			<param name="text">
 				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:CreateProgress" syntax="CreateProgress(playerid, callback[], title[], time)">
-			<stacksize value="136"/>
-			<referrer name="FuncaoItens"/>
-			<referrer name="ac_OnPlayerEnterCheckpoint"/>
-			<referrer name="cmd_descarregar"/>
-			<referrer name="cmd_desossar"/>
-			<referrer name="cmd_pescar"/>
-			<referrer name="cmd_roubar"/>
-			<referrer name="cmd_desmanchar"/>
-			<referrer name="cmd_dominar"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="CreateTDProgress"/>
-			<dependency name="FIXES_PlayerTextDrawSetString"/>
-			<dependency name="FIXES_SetTimerEx"/>
-			<dependency name="PlayerTextDrawShow"/>
-			<dependency name="Progress_Info"/>
-			<dependency name="Progress_Info"/>
-			<dependency name="ProgressoBar"/>
-			<dependency name="ProgressoBar"/>
-			<dependency name="Reloginho"/>
-			<dependency name="format"/>
-			<dependency name="gettime"/>
-			<dependency name="p_callback"/>
-			<dependency name="p_percent"/>
-			<dependency name="p_time"/>
-			<dependency name="p_timer"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-			<param name="callback">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="title">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="time">
-			</param>
-		</member>
-		<member name="M:CreateTDProgress" syntax="CreateTDProgress(playerid)">
-			<stacksize value="11"/>
-			<referrer name="CreateProgress"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="CreatePlayerProgressBar"/>
-			<dependency name="FIXES_CreatePlayerTextDraw"/>
-			<dependency name="PlayerTextDrawAlignment"/>
-			<dependency name="PlayerTextDrawBackgroundColor"/>
-			<dependency name="PlayerTextDrawBoxColor"/>
-			<dependency name="PlayerTextDrawColor"/>
-			<dependency name="PlayerTextDrawFont"/>
-			<dependency name="PlayerTextDrawLetterSize"/>
-			<dependency name="PlayerTextDrawSetOutline"/>
-			<dependency name="PlayerTextDrawSetProportional"/>
-			<dependency name="PlayerTextDrawSetSelectable"/>
-			<dependency name="PlayerTextDrawSetShadow"/>
-			<dependency name="PlayerTextDrawShow"/>
-			<dependency name="PlayerTextDrawTextSize"/>
-			<dependency name="PlayerTextDrawUseBox"/>
-			<dependency name="ProgressoBar"/>
-			<dependency name="ProgressoBar"/>
-			<dependency name="ProgressoBar_pp"/>
-			<dependency name="ProgressoBar_pp"/>
-			<dependency name="SetPlayerProgressBarValue"/>
-			<dependency name="ShowPlayerProgressBar"/>
-			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:CreateTelaLogin" syntax="CreateTelaLogin()">
@@ -12731,6 +12670,69 @@
 				<paraminfo>Text3D </paraminfo>
 			</param>
 		</member>
+		<member name="M:DescarregarCarga" syntax="DescarregarCarga(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="Cargase"/>
+			<dependency name="Carregou"/>
+			<dependency name="FIXES_DisablePlayerCheckpoint"/>
+			<dependency name="GetPlayerVehicleID"/>
+			<dependency name="GetVehicleTrailer"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerToPoint"/>
+			<dependency name="SuccesMsg"/>
+			<dependency name="acc_SetVehicleToRespawn"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="false"/>
+			<dependency name="pDinheiro"/>
+			<dependency name="pVIP"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
+			</param>
+		</member>
+		<member name="M:DesmancharVeh" syntax="DesmancharVeh(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="294"/>
+			<dependency name="CST_GetPVarInt"/>
+			<dependency name="ConvertMoney"/>
+			<dependency name="GanharItem"/>
+			<dependency name="GetPlayer2DZone2"/>
+			<dependency name="GetPlayerVehicleID"/>
+			<dependency name="Patrulha"/>
+			<dependency name="Player@YSII_Ag"/>
+			<dependency name="Str"/>
+			<dependency name="SuccesMsg"/>
+			<dependency name="VehicleValue"/>
+			<dependency name="WarningMsg"/>
+			<dependency name="acc_DestroyVehicle"/>
+			<dependency name="acc_RemovePlayerFromVehicle"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="format"/>
+			<dependency name="randomEx"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
+			</param>
+		</member>
+		<member name="M:Desossar" syntax="Desossar(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="17"/>
+			<dependency name="Desossando"/>
+			<dependency name="FIXES_ApplyAnimation"/>
+			<dependency name="InfoMsg"/>
+			<dependency name="SetPlayerAttachedObject"/>
+			<dependency name="UsouCMD"/>
+			<dependency name="acc_SetPlayerSpecialAction"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="false"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
+			</param>
+		</member>
 		<member name="M:DestroyActor__" syntax="DestroyActor__(actorid)">
 			<attribute name="native"/>
 			<referrer name="FIXES_DestroyActor"/>
@@ -12746,7 +12748,7 @@
 		</member>
 		<member name="M:DestroyDynamic3DTextLabel" syntax="DestroyDynamic3DTextLabel(id)">
 			<attribute name="native"/>
-			<referrer name="Progress_EntregandoCx"/>
+			<referrer name="EntregandoCx"/>
 			<referrer name="loadEE"/>
 			<referrer name="descobrirEE"/>
 			<referrer name="cmd_pegaritem"/>
@@ -12832,7 +12834,7 @@
 		</member>
 		<member name="M:DestroyPlayerObject" syntax="DestroyPlayerObject(playerid, objectid)">
 			<attribute name="native"/>
-			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="PegandoCaixasP"/>
 			<param name="playerid">
 			</param>
 			<param name="objectid">
@@ -12841,7 +12843,6 @@
 		<member name="M:DestroyPlayerProgressBar" syntax="DestroyPlayerProgressBar(playerid, barid)">
 			<stacksize value="5"/>
 			<referrer name="DestroyAllPlayerProgressBars"/>
-			<referrer name="KillProgress"/>
 			<referrer name="mostrarTelaLogin"/>
 			<dependency name="IsValidPlayerProgressBar"/>
 			<dependency name="PlayerTextDrawDestroy"/>
@@ -12981,9 +12982,9 @@
 		</member>
 		<member name="M:ENTER_GetVehicleParamsEx" syntax="ENTER_GetVehicleParamsEx(vehicleid, &amp;engine, &amp;lights, &amp;alarm, &amp;doors, &amp;bonnet, &amp;boot, &amp;objective)">
 			<stacksize value="11"/>
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_PegandoCaixasP"/>
-			<referrer name="Progress_ColocandoCaixa"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="PegandoCaixasP"/>
+			<referrer name="ColocandoCaixa"/>
 			<referrer name="VelocimetroEx"/>
 			<referrer name="UpdateVehicle"/>
 			<referrer name="AttVeh"/>
@@ -13047,9 +13048,9 @@
 		</member>
 		<member name="M:ENTER_SetVehicleParamsEx" syntax="ENTER_SetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet, boot, objective)">
 			<stacksize value="11"/>
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_PegandoCaixasP"/>
-			<referrer name="Progress_ColocandoCaixa"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="PegandoCaixasP"/>
+			<referrer name="ColocandoCaixa"/>
 			<referrer name="LockpickTimer"/>
 			<referrer name="UpdateVehicle"/>
 			<referrer name="AttVeh"/>
@@ -13165,11 +13166,39 @@
 			<attribute name="native"/>
 			<referrer name="ac_EnableVehicleFriendlyFire"/>
 		</member>
+		<member name="M:EntregandoCx" syntax="EntregandoCx(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="137"/>
+			<dependency name="Float:operator=(_:)"/>
+			<dependency name="CaixasSdx"/>
+			<dependency name="DestroyDynamic3DTextLabel"/>
+			<dependency name="FIXES_ClearAnimations"/>
+			<dependency name="FIXES_DestroyActor"/>
+			<dependency name="FIXES_SetPlayerCheckpoint"/>
+			<dependency name="FIXES_random"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PosRota"/>
+			<dependency name="PosRota"/>
+			<dependency name="RemovePlayerAttachedObject"/>
+			<dependency name="SuccesMsg"/>
+			<dependency name="acc_SetPlayerSpecialAction"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="actorcorreios"/>
+			<dependency name="checkcasa"/>
+			<dependency name="format"/>
+			<dependency name="pDinheiro"/>
+			<dependency name="randomEx"/>
+			<dependency name="textcorreios"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
+			</param>
+		</member>
 		<member name="M:ErrorMsg" syntax="ErrorMsg(playerid, pesan[])">
 			<stacksize value="7"/>
-			<referrer name="Progress_DominarLBarragem"/>
-			<referrer name="Progress_DominarLParabolica"/>
-			<referrer name="Progress_Minerar"/>
+			<referrer name="Minerar"/>
 			<referrer name="PegarMoney"/>
 			<referrer name="RoubarCaixa"/>
 			<referrer name="VerificarTeste"/>
@@ -13309,7 +13338,6 @@
 			<referrer name="cmd_trazercofre"/>
 			<referrer name="cmd_roubar"/>
 			<referrer name="cmd_terminar"/>
-			<referrer name="cmd_dominar"/>
 			<dependency name="IsPlayerMobile"/>
 			<dependency name="PlayerPlaySound"/>
 			<dependency name="ShowNotify"/>
@@ -13525,9 +13553,9 @@
 		</member>
 		<member name="M:FIXES_ApplyAnimation" syntax="FIXES_ApplyAnimation(playerid, animlib[], animname[], fDelta, loop, lockx, locky, freeze, time, forcesync)">
 			<stacksize value="14"/>
-			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="PegandoCaixasP"/>
 			<referrer name="CreateLocPick"/>
-			<referrer name="Progress_Desossar"/>
+			<referrer name="Desossar"/>
 			<referrer name="mortoxx"/>
 			<referrer name="OnPlayerActivationKeyPress"/>
 			<referrer name="AnimatioN"/>
@@ -13600,11 +13628,11 @@
 			<stacksize value="13"/>
 			<referrer name="On_PlayerUpdate"/>
 			<referrer name="ENTER_Stop"/>
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_EntregandoCx"/>
-			<referrer name="Progress_ColocandoCaixa"/>
-			<referrer name="Progress_BotouBau"/>
-			<referrer name="Progress_Minerar"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="EntregandoCx"/>
+			<referrer name="ColocandoCaixa"/>
+			<referrer name="BotouBau"/>
+			<referrer name="Minerar"/>
 			<referrer name="CANIM"/>
 			<referrer name="OnPlayerActivationKeyRelease"/>
 			<referrer name="MaconhaColher"/>
@@ -13613,7 +13641,7 @@
 			<referrer name="PlantarMaconhas"/>
 			<referrer name="PegarMoney"/>
 			<referrer name="RoubarCaixa"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="AnimyTogle"/>
 			<referrer name="VaiProHospital"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
@@ -13638,7 +13666,7 @@
 		</member>
 		<member name="M:FIXES_CreateActor" syntax="FIXES_CreateActor(modelid, X, Y, Z, Rotation)">
 			<stacksize value="8"/>
-			<referrer name="Progress_BatendoPorta"/>
+			<referrer name="BatendoPorta"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
@@ -13691,7 +13719,6 @@
 			<referrer name="CreateNotify"/>
 			<referrer name="CreateItemBox"/>
 			<referrer name="_RenderBar"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="darxp"/>
 			<referrer name="todastextdraw"/>
@@ -13748,7 +13775,7 @@
 		</member>
 		<member name="M:FIXES_DestroyActor" syntax="FIXES_DestroyActor(actorid)">
 			<stacksize value="4"/>
-			<referrer name="Progress_EntregandoCx"/>
+			<referrer name="EntregandoCx"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
@@ -13811,7 +13838,7 @@
 		</member>
 		<member name="M:FIXES_DisablePlayerCheckpoint" syntax="FIXES_DisablePlayerCheckpoint(playerid)">
 			<stacksize value="3"/>
-			<referrer name="Progress_DescarregarCarga"/>
+			<referrer name="DescarregarCarga"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_lferidos"/>
@@ -14420,7 +14447,6 @@
 			<referrer name="_FIXES_ApplyActorAnimationDelay"/>
 			<referrer name="FIXES_DestroyActor"/>
 			<referrer name="TIMERFIX_OnPlayerDisconnect"/>
-			<referrer name="KillProgress"/>
 			<referrer name="Fader_PlayerProcess"/>
 			<referrer name="LockpickTimer"/>
 			<referrer name="AttCad"/>
@@ -14479,8 +14505,6 @@
 		</member>
 		<member name="M:FIXES_PlayerTextDrawSetString" syntax="FIXES_PlayerTextDrawSetString(playerid, text, string[])">
 			<stacksize value="5"/>
-			<referrer name="CreateProgress"/>
-			<referrer name="UpdateProgress"/>
 			<referrer name="attloginname"/>
 			<referrer name="mortoxx"/>
 			<referrer name="mostrarTelaLogin"/>
@@ -14673,16 +14697,13 @@
 		</member>
 		<member name="M:FIXES_SetPlayerCheckpoint" syntax="FIXES_SetPlayerCheckpoint(playerid, x, y, z, size)">
 			<stacksize value="12"/>
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_PegandoCaixaV"/>
-			<referrer name="Progress_EntregandoCx"/>
-			<referrer name="Progress_PegandoCaixasP"/>
-			<referrer name="Progress_ColocandoCaixa"/>
-			<referrer name="Progress_RotaCova1"/>
-			<referrer name="Progress_RotaCova2"/>
-			<referrer name="Progress_RotaCova3"/>
-			<referrer name="Progress_Cova"/>
-			<referrer name="Progress_Minerar"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="PegandoCaixaV"/>
+			<referrer name="EntregandoCx"/>
+			<referrer name="PegandoCaixasP"/>
+			<referrer name="ColocandoCaixa"/>
+			<referrer name="Cova"/>
+			<referrer name="Minerar"/>
 			<referrer name="MainTimer"/>
 			<referrer name="LocalizarPlayer"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
@@ -14937,7 +14958,6 @@
 			<stacksize value="7"/>
 			<referrer name="RoubarCaixa"/>
 			<referrer name="mf_OnGameModeInit"/>
-			<referrer name="cmd_dominar"/>
 			<referrer name="cmd_abrircorreios"/>
 			<referrer name="cmd_abrircorreios2"/>
 			<referrer name="cmd_abrirniobio"/>
@@ -14971,12 +14991,11 @@
 			<referrer name="ac_Timer"/>
 			<referrer name="ShowNotify"/>
 			<referrer name="ShowItemBox"/>
-			<referrer name="CreateProgress"/>
 			<referrer name="fadeIn"/>
 			<referrer name="fadeOut"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="LockpickTimer"/>
-			<referrer name="Progress_BotouBau"/>
+			<referrer name="BotouBau"/>
 			<referrer name="mostrarTelaLogin"/>
 			<referrer name="loginp"/>
 			<referrer name="TimerHack"/>
@@ -15019,12 +15038,17 @@
 			<referrer name="cmd_tempban"/>
 			<referrer name="cmd_gmx"/>
 			<referrer name="cmd_lferidos"/>
+			<referrer name="cmd_descarregar"/>
 			<referrer name="cmd_prender"/>
 			<referrer name="cmd_qplantacao"/>
 			<referrer name="cmd_cmaconha"/>
 			<referrer name="cmd_gotodealership"/>
 			<referrer name="cmd_gotofuelstation"/>
 			<referrer name="cmd_freq"/>
+			<referrer name="cmd_desossar"/>
+			<referrer name="cmd_pescar"/>
+			<referrer name="cmd_roubar"/>
+			<referrer name="cmd_desmanchar"/>
 			<dependency name="KillTimer"/>
 			<dependency name="SetTimerEx"/>
 			<param name="funcname">
@@ -15398,11 +15422,11 @@
 			<referrer name="Iter_RandomInternal"/>
 			<referrer name="DOF2_SortEntries"/>
 			<referrer name="MsgSdx"/>
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_EntregandoCx"/>
-			<referrer name="Progress_ColocandoCaixa"/>
-			<referrer name="Progress_BotouBau"/>
-			<referrer name="Progress_Cova"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="EntregandoCx"/>
+			<referrer name="ColocandoCaixa"/>
+			<referrer name="BotouBau"/>
+			<referrer name="Cova"/>
 			<referrer name="SendMSG"/>
 			<referrer name="ExplodirCaixa"/>
 			<referrer name="PayDay"/>
@@ -15656,7 +15680,6 @@
 			<dependency name="ConvertMoney"/>
 			<dependency name="CountPlantacao"/>
 			<dependency name="CreateLocPick"/>
-			<dependency name="CreateProgress"/>
 			<dependency name="DIALOG_CELULAR"/>
 			<dependency name="DIALOG_MECANICA"/>
 			<dependency name="DIALOG_REANIMAR"/>
@@ -15776,30 +15799,6 @@
 				<paraminfo>Float </paraminfo>
 			</param>
 		</member>
-		<member name="M:GangZoneFlashForAll" syntax="GangZoneFlashForAll(zone, flashcolor)">
-			<attribute name="native"/>
-			<referrer name="cmd_dominar"/>
-			<param name="zone">
-			</param>
-			<param name="flashcolor">
-			</param>
-		</member>
-		<member name="M:GangZoneHideForAll" syntax="GangZoneHideForAll(zone)">
-			<attribute name="native"/>
-			<referrer name="Progress_DominarLBarragem"/>
-			<referrer name="Progress_DominarLParabolica"/>
-			<param name="zone">
-			</param>
-		</member>
-		<member name="M:GangZoneShowForAll" syntax="GangZoneShowForAll(zone, color)">
-			<attribute name="native"/>
-			<referrer name="Progress_DominarLBarragem"/>
-			<referrer name="Progress_DominarLParabolica"/>
-			<param name="zone">
-			</param>
-			<param name="color">
-			</param>
-		</member>
 		<member name="M:GangZoneShowForPlayer" syntax="GangZoneShowForPlayer(playerid, zone, color)">
 			<attribute name="native"/>
 			<referrer name="CarregarGZ"/>
@@ -15814,12 +15813,12 @@
 		<member name="M:GanharItem" syntax="GanharItem(playerid, itemid, quantia)">
 			<stacksize value="8"/>
 			<referrer name="descobrirEE"/>
-			<referrer name="Progress_DesmancharVeh"/>
-			<referrer name="Progress_Pesca"/>
+			<referrer name="DesmancharVeh"/>
+			<referrer name="Pesca"/>
 			<referrer name="MaconhaColher"/>
 			<referrer name="PegarMoney"/>
 			<referrer name="RoubarCaixa"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnPlayerEnterRaceCheckpoint"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -15841,7 +15840,7 @@
 		</member>
 		<member name="M:GetActorPos" syntax="GetActorPos(actorid, &amp;X, &amp;Y, &amp;Z)">
 			<attribute name="native"/>
-			<referrer name="Progress_PegandoCaixaV"/>
+			<referrer name="PegandoCaixaV"/>
 			<param name="actorid">
 			</param>
 			<param name="X">
@@ -16019,7 +16018,7 @@
 		</member>
 		<member name="M:GetPlayer2DZone2" syntax="GetPlayer2DZone2(playerid, zone[], len)">
 			<stacksize value="11"/>
-			<referrer name="Progress_DesmancharVeh"/>
+			<referrer name="DesmancharVeh"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<dependency name="operator&gt;=(Float:,Float:)"/>
@@ -16171,7 +16170,7 @@
 		</member>
 		<member name="M:GetPlayerFacingAngle" syntax="GetPlayerFacingAngle(playerid, &amp;ang)">
 			<attribute name="native"/>
-			<referrer name="Progress_BatendoPorta"/>
+			<referrer name="BatendoPorta"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="SalvarDados"/>
 			<referrer name="SalvarDadosSkin"/>
@@ -16402,7 +16401,7 @@
 			<attribute name="native"/>
 			<referrer name="On_PlayerUpdate"/>
 			<referrer name="On_PlayerStateChange"/>
-			<referrer name="Progress_BatendoPorta"/>
+			<referrer name="BatendoPorta"/>
 			<referrer name="AttVeh"/>
 			<referrer name="PlantarMaconhas"/>
 			<referrer name="LocalizarPlayer"/>
@@ -16694,16 +16693,15 @@
 			<referrer name="ac_AntiCheatKickWithDesync"/>
 			<referrer name="On_PlayerUpdate"/>
 			<referrer name="On_PlayerStateChange"/>
-			<referrer name="Progress_DesmancharVeh"/>
-			<referrer name="Progress_RepararVeh"/>
-			<referrer name="Progress_DescarregarCarga"/>
+			<referrer name="DesmancharVeh"/>
+			<referrer name="RepararVeh"/>
+			<referrer name="DescarregarCarga"/>
 			<referrer name="VelocimetroEx"/>
 			<referrer name="MainTimer"/>
 			<referrer name="AttVeh"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnVehicleDamageStatusUpdate"/>
 			<referrer name="ac_OnPlayerStateChange"/>
-			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_cinto"/>
@@ -16802,7 +16800,7 @@
 		<member name="M:GetPlayerWantedLevel" syntax="GetPlayerWantedLevel(playerid)">
 			<attribute name="native"/>
 			<referrer name="RoubarCaixa"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="SalvarDados"/>
 			<referrer name="SalvarDadosSkin"/>
 			<referrer name="cmd_procurados"/>
@@ -17086,7 +17084,6 @@
 			<referrer name="IsABoat"/>
 			<referrer name="IsBicycle"/>
 			<referrer name="ac_OnPlayerStateChange"/>
-			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_carregar"/>
 			<referrer name="cmd_descarregar"/>
@@ -17222,14 +17219,14 @@
 		</member>
 		<member name="M:GetVehicleTrailer" syntax="GetVehicleTrailer(vehicleid)">
 			<attribute name="native"/>
-			<referrer name="Progress_DescarregarCarga"/>
+			<referrer name="DescarregarCarga"/>
 			<param name="vehicleid">
 			</param>
 		</member>
 		<member name="M:GetVehicleTrunkPosition" syntax="GetVehicleTrunkPosition(vehicleid, &amp;x, &amp;y, &amp;z)">
 			<stacksize value="10"/>
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_PegandoCaixasP"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="PegandoCaixasP"/>
 			<dependency name="operator-(Float:)"/>
 			<dependency name="operator-(Float:,Float:)"/>
 			<dependency name="operator/(Float:,Float:)"/>
@@ -17503,15 +17500,12 @@
 		</member>
 		<member name="M:InfoMsg" syntax="InfoMsg(playerid, pesan[])">
 			<stacksize value="7"/>
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_PegandoCaixaV"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="PegandoCaixaV"/>
 			<referrer name="LockpickTimer"/>
-			<referrer name="Progress_RotaCova1"/>
-			<referrer name="Progress_RotaCova2"/>
-			<referrer name="Progress_RotaCova3"/>
-			<referrer name="Progress_Cova"/>
-			<referrer name="Progress_Desossar"/>
-			<referrer name="Progress_Minerar"/>
+			<referrer name="Cova"/>
+			<referrer name="Desossar"/>
+			<referrer name="Minerar"/>
 			<referrer name="SendMSG"/>
 			<referrer name="MainTimer"/>
 			<referrer name="PegarMoney"/>
@@ -17552,6 +17546,7 @@
 			<referrer name="cmd_descongelar"/>
 			<referrer name="cmd_dardinheiro"/>
 			<referrer name="cmd_setadmin"/>
+			<referrer name="cmd_descarregar"/>
 			<referrer name="cmd_demitir"/>
 			<referrer name="cmd_promover"/>
 			<referrer name="cmd_darlider"/>
@@ -17569,10 +17564,13 @@
 			<referrer name="cmd_freq"/>
 			<referrer name="cmd_mudarskin"/>
 			<referrer name="cmd_mudarskin2"/>
+			<referrer name="cmd_desossar"/>
+			<referrer name="cmd_pescar"/>
 			<referrer name="cmd_iniciarrotamaconha"/>
 			<referrer name="cmd_iniciarrotacocaina"/>
 			<referrer name="cmd_cancelarrota"/>
 			<referrer name="cmd_roubar"/>
+			<referrer name="cmd_desmanchar"/>
 			<dependency name="IsPlayerMobile"/>
 			<dependency name="PlayerPlaySound"/>
 			<dependency name="ShowNotify"/>
@@ -17789,9 +17787,6 @@
 		</member>
 		<member name="M:IsPlayerInPlace" syntax="IsPlayerInPlace(playerid, XMin, YMin, XMax, YMax)">
 			<stacksize value="10"/>
-			<referrer name="Progress_DominarLBarragem"/>
-			<referrer name="Progress_DominarLParabolica"/>
-			<referrer name="cmd_dominar"/>
 			<dependency name="operator&gt;=(Float:,Float:)"/>
 			<dependency name="operator&lt;(Float:,Float:)"/>
 			<dependency name="GetPlayerPos"/>
@@ -17820,7 +17815,7 @@
 			<referrer name="ac_NearVendingMachine"/>
 			<referrer name="ac_InCasino"/>
 			<referrer name="checkEE"/>
-			<referrer name="Progress_Pesca"/>
+			<referrer name="Pesca"/>
 			<referrer name="MainTimer"/>
 			<referrer name="AttVeh"/>
 			<referrer name="PegarMoney"/>
@@ -17833,7 +17828,6 @@
 			<referrer name="IsPerto"/>
 			<referrer name="GetPlayerCaixa"/>
 			<referrer name="PertoMaconha"/>
-			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_mostrarrg"/>
@@ -17944,8 +17938,6 @@
 		<member name="M:IsPolicial" syntax="IsPolicial(playerid)">
 			<attribute name="public"/>
 			<stacksize value="4"/>
-			<referrer name="Progress_DominarLBarragem"/>
-			<referrer name="Progress_DominarLParabolica"/>
 			<referrer name="SendRadioMessage"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -17963,7 +17955,6 @@
 			<referrer name="cmd_multar"/>
 			<referrer name="cmd_verdocumentos"/>
 			<referrer name="cmd_qplantacao"/>
-			<referrer name="cmd_dominar"/>
 			<dependency name="FIXES_IsPlayerConnected"/>
 			<dependency name="Org"/>
 			<dependency name="PlayerInfo"/>
@@ -18299,27 +18290,6 @@
 			</param>
 			<summary>Kills all timers a player owns.</summary>   
 		</member>
-		<member name="M:KillProgress" syntax="KillProgress(playerid)">
-			<stacksize value="5"/>
-			<referrer name="UpdateProgress"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="DestroyPlayerProgressBar"/>
-			<dependency name="FIXES_KillTimer"/>
-			<dependency name="PlayerTextDrawDestroy"/>
-			<dependency name="Progress_Info"/>
-			<dependency name="Progress_Info"/>
-			<dependency name="ProgressoBar"/>
-			<dependency name="ProgressoBar"/>
-			<dependency name="ProgressoBar_pp"/>
-			<dependency name="ProgressoBar_pp"/>
-			<dependency name="format"/>
-			<dependency name="p_callback"/>
-			<dependency name="p_percent"/>
-			<dependency name="p_time"/>
-			<dependency name="p_timer"/>
-			<param name="playerid">
-			</param>
-		</member>
 		<member name="M:KillTimer" syntax="KillTimer(timerid)">
 			<attribute name="native"/>
 			<referrer name="FIXES_SetTimerEx"/>
@@ -18652,6 +18622,23 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:Minerar" syntax="Minerar(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="10"/>
+			<dependency name="ErrorMsg"/>
+			<dependency name="EtapasMinerador"/>
+			<dependency name="FIXES_ClearAnimations"/>
+			<dependency name="FIXES_SetPlayerCheckpoint"/>
+			<dependency name="InfoMsg"/>
+			<dependency name="UsouCMD"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="false"/>
+			<dependency name="randomEx"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
+			</param>
+		</member>
 		<member name="M:MoveDynamicObject" syntax="MoveDynamicObject(objectid, x, y, z, speed, rx, ry, rz)">
 			<attribute name="native"/>
 			<referrer name="FecharCorreios"/>
@@ -18704,7 +18691,7 @@
 		</member>
 		<member name="M:MsgSdx" syntax="MsgSdx()">
 			<stacksize value="253"/>
-			<referrer name="Progress_BatendoPorta"/>
+			<referrer name="BatendoPorta"/>
 			<dependency name="FIXES_random"/>
 			<dependency name="MsgSdx"/>
 		</member>
@@ -21569,6 +21556,52 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:PegandoCaixaV" syntax="PegandoCaixaV(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="17"/>
+			<dependency name="Float:operator=(_:)"/>
+			<dependency name="CaixasSdx"/>
+			<dependency name="Casavehcorreios2"/>
+			<dependency name="FIXES_SetPlayerCheckpoint"/>
+			<dependency name="GetActorPos"/>
+			<dependency name="InfoMsg"/>
+			<dependency name="SetPlayerAttachedObject"/>
+			<dependency name="acc_SetPlayerSpecialAction"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="actorcorreios"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
+			</param>
+		</member>
+		<member name="M:PegandoCaixasP" syntax="PegandoCaixasP(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="25"/>
+			<dependency name="Float:operator=(_:)"/>
+			<dependency name="CaixaMao"/>
+			<dependency name="CaixasSdx"/>
+			<dependency name="CaixasSdxObj"/>
+			<dependency name="CaixasSdxObj"/>
+			<dependency name="DestroyPlayerObject"/>
+			<dependency name="ENTER_GetVehicleParamsEx"/>
+			<dependency name="ENTER_SetVehicleParamsEx"/>
+			<dependency name="FIXES_ApplyAnimation"/>
+			<dependency name="FIXES_SetPlayerCheckpoint"/>
+			<dependency name="GetVehicleTrunkPosition"/>
+			<dependency name="PosV"/>
+			<dependency name="SetPlayerAttachedObject"/>
+			<dependency name="SuccesMsg"/>
+			<dependency name="VeiculoCivil"/>
+			<dependency name="acc_SetPlayerSpecialAction"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="false"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
+			</param>
+		</member>
 		<member name="M:PegarMoney" syntax="PegarMoney(playerid, caixa_id)">
 			<attribute name="public"/>
 			<stacksize value="211"/>
@@ -21607,6 +21640,22 @@
 			<dependency name="mY"/>
 			<dependency name="mZ"/>
 			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:Pesca" syntax="Pesca(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="264"/>
+			<dependency name="GanharItem"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="SuccesMsg"/>
+			<dependency name="UsouCMD"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="randomEx"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
 			</param>
 		</member>
 		<member name="M:PlantarMaconhas" syntax="PlantarMaconhas(playerid, slt)">
@@ -21705,7 +21754,6 @@
 			<attribute name="native"/>
 			<referrer name="CreateNotify"/>
 			<referrer name="CreateItemBox"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="darxp"/>
 			<referrer name="todastextdraw"/>
@@ -21733,7 +21781,6 @@
 			<attribute name="native"/>
 			<referrer name="CreateNotify"/>
 			<referrer name="CreateItemBox"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="darxp"/>
 			<referrer name="todastextdraw"/>
@@ -21763,7 +21810,6 @@
 			<referrer name="CreateItemBox"/>
 			<referrer name="_RenderBar"/>
 			<referrer name="SetPlayerProgressBarColour"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="fadeIn"/>
 			<referrer name="fadeOut"/>
 			<referrer name="Fader_PlayerProcess"/>
@@ -21795,7 +21841,6 @@
 			<attribute name="native"/>
 			<referrer name="CreateNotify"/>
 			<referrer name="CreateItemBox"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="LockpickTimer"/>
 			<referrer name="DestroyLockPick"/>
@@ -21832,7 +21877,6 @@
 			<referrer name="ShowItemBox"/>
 			<referrer name="DestroyPlayerProgressBar"/>
 			<referrer name="_RenderBar"/>
-			<referrer name="KillProgress"/>
 			<referrer name="DestroyLockPick"/>
 			<referrer name="mostrarTelaLogin"/>
 			<referrer name="TestAway"/>
@@ -21858,7 +21902,6 @@
 			<attribute name="native"/>
 			<referrer name="CreateNotify"/>
 			<referrer name="CreateItemBox"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="darxp"/>
 			<referrer name="todastextdraw"/>
@@ -21924,7 +21967,6 @@
 			<referrer name="CreateItemBox"/>
 			<referrer name="_RenderBar"/>
 			<referrer name="SetPlayerProgressBarValue"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="darxp"/>
 			<referrer name="todastextdraw"/>
@@ -21960,7 +22002,6 @@
 			<attribute name="native"/>
 			<referrer name="CreateNotify"/>
 			<referrer name="CreateItemBox"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="darxp"/>
 			<referrer name="todastextdraw"/>
 			<param name="playerid">
@@ -22043,7 +22084,6 @@
 			<attribute name="native"/>
 			<referrer name="CreateNotify"/>
 			<referrer name="CreateItemBox"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="darxp"/>
 			<referrer name="todastextdraw"/>
@@ -22071,7 +22111,6 @@
 			<attribute name="native"/>
 			<referrer name="CreateNotify"/>
 			<referrer name="CreateItemBox"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="todastextdraw"/>
 			<param name="playerid">
 			</param>
@@ -22085,7 +22124,6 @@
 			<attribute name="native"/>
 			<referrer name="CreateNotify"/>
 			<referrer name="CreateItemBox"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="darxp"/>
 			<referrer name="todastextdraw"/>
@@ -22128,9 +22166,6 @@
 			<referrer name="CreateNotify"/>
 			<referrer name="CreateItemBox"/>
 			<referrer name="ShowPlayerProgressBar"/>
-			<referrer name="CreateProgress"/>
-			<referrer name="UpdateProgress"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="fadeIn"/>
 			<referrer name="fadeOut"/>
 			<referrer name="Fader_PlayerProcess"/>
@@ -22180,7 +22215,6 @@
 			<referrer name="CreateItemBox"/>
 			<referrer name="_RenderBar"/>
 			<referrer name="SetPlayerProgressBarValue"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="LockpickTimer"/>
 			<referrer name="darxp"/>
@@ -22219,7 +22253,6 @@
 			<referrer name="CreateItemBox"/>
 			<referrer name="_RenderBar"/>
 			<referrer name="SetPlayerProgressBarValue"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="CreateLocPick"/>
 			<referrer name="darxp"/>
 			<referrer name="todastextdraw"/>
@@ -22260,8 +22293,8 @@
 		<member name="M:PlayerToPoint" syntax="PlayerToPoint(radi, playerid, x, y, z)">
 			<attribute name="public"/>
 			<stacksize value="12"/>
-			<referrer name="Progress_DescarregarCarga"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="DescarregarCarga"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -22333,441 +22366,6 @@
 			<dependency name="Profs"/>
 			<dependency name="pProfissao"/>
 			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:Progress_BatendoPorta" syntax="Progress_BatendoPorta(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="412"/>
-			<dependency name="operator-(Float:,_:)"/>
-			<dependency name="operator+(Float:,_:)"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="Attach3DTextLabelToPlayer"/>
-			<dependency name="CST_GetPVarFloat"/>
-			<dependency name="CST_SetPVarFloat"/>
-			<dependency name="Casavehcorreios"/>
-			<dependency name="CreateDynamic3DTextLabel"/>
-			<dependency name="ENTER_GetVehicleParamsEx"/>
-			<dependency name="ENTER_SetVehicleParamsEx"/>
-			<dependency name="FIXES_ClearAnimations"/>
-			<dependency name="FIXES_CreateActor"/>
-			<dependency name="FIXES_SetPlayerCheckpoint"/>
-			<dependency name="FIXES_random"/>
-			<dependency name="GetPlayerFacingAngle"/>
-			<dependency name="GetPlayerPos"/>
-			<dependency name="GetVehicleTrunkPosition"/>
-			<dependency name="InfoMsg"/>
-			<dependency name="MsgSdx"/>
-			<dependency name="MsgSdx"/>
-			<dependency name="PosV"/>
-			<dependency name="VeiculoCivil"/>
-			<dependency name="acc_SetPlayerPos"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="actorcorreios"/>
-			<dependency name="format"/>
-			<dependency name="textcorreios"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_BotouBau" syntax="Progress_BotouBau(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="264"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="ConvertMoney"/>
-			<dependency name="FIXES_ClearAnimations"/>
-			<dependency name="FIXES_SetTimerEx"/>
-			<dependency name="FIXES_random"/>
-			<dependency name="PegouLixo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="RemovePlayerAttachedObject"/>
-			<dependency name="SuccesMsg"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="false"/>
-			<dependency name="format"/>
-			<dependency name="pDinheiro"/>
-			<dependency name="pVIP"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_ColocandoCaixa" syntax="Progress_ColocandoCaixa(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="20"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="CaixasSdx"/>
-			<dependency name="ENTER_GetVehicleParamsEx"/>
-			<dependency name="ENTER_SetVehicleParamsEx"/>
-			<dependency name="EntregaSdx"/>
-			<dependency name="FIXES_ClearAnimations"/>
-			<dependency name="FIXES_SetPlayerCheckpoint"/>
-			<dependency name="FIXES_random"/>
-			<dependency name="PosRota"/>
-			<dependency name="PosRota"/>
-			<dependency name="RemovePlayerAttachedObject"/>
-			<dependency name="SuccesMsg"/>
-			<dependency name="VeiculoCivil"/>
-			<dependency name="acc_SetPlayerSpecialAction"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="checkcasa"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_Cova" syntax="Progress_Cova(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="18"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="Covaconcerto"/>
-			<dependency name="FIXES_SetPlayerCheckpoint"/>
-			<dependency name="FIXES_random"/>
-			<dependency name="InfoMsg"/>
-			<dependency name="PegouLixo"/>
-			<dependency name="SetPlayerAttachedObject"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="false"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_DescarregarCarga" syntax="Progress_DescarregarCarga(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="Cargase"/>
-			<dependency name="Carregou"/>
-			<dependency name="FIXES_DisablePlayerCheckpoint"/>
-			<dependency name="GetPlayerVehicleID"/>
-			<dependency name="GetVehicleTrailer"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerToPoint"/>
-			<dependency name="SuccesMsg"/>
-			<dependency name="acc_SetVehicleToRespawn"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="false"/>
-			<dependency name="pDinheiro"/>
-			<dependency name="pVIP"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_DesmancharVeh" syntax="Progress_DesmancharVeh(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="294"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="CST_GetPVarInt"/>
-			<dependency name="ConvertMoney"/>
-			<dependency name="GanharItem"/>
-			<dependency name="GetPlayer2DZone2"/>
-			<dependency name="GetPlayerVehicleID"/>
-			<dependency name="Patrulha"/>
-			<dependency name="Player@YSII_Ag"/>
-			<dependency name="Str"/>
-			<dependency name="SuccesMsg"/>
-			<dependency name="VehicleValue"/>
-			<dependency name="WarningMsg"/>
-			<dependency name="acc_DestroyVehicle"/>
-			<dependency name="acc_RemovePlayerFromVehicle"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="format"/>
-			<dependency name="randomEx"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_Desossar" syntax="Progress_Desossar(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="17"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="Desossando"/>
-			<dependency name="FIXES_ApplyAnimation"/>
-			<dependency name="InfoMsg"/>
-			<dependency name="SetPlayerAttachedObject"/>
-			<dependency name="UsouCMD"/>
-			<dependency name="acc_SetPlayerSpecialAction"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="false"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_DominarLBarragem" syntax="Progress_DominarLBarragem(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="Barragem"/>
-			<dependency name="ErrorMsg"/>
-			<dependency name="GangZoneHideForAll"/>
-			<dependency name="GangZoneShowForAll"/>
-			<dependency name="GuerraBarragem"/>
-			<dependency name="IsPlayerInPlace"/>
-			<dependency name="IsPolicial"/>
-			<dependency name="Org"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="SalvarGZ"/>
-			<dependency name="SuccesMsg"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_DominarLParabolica" syntax="Progress_DominarLParabolica(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="ErrorMsg"/>
-			<dependency name="GangZoneHideForAll"/>
-			<dependency name="GangZoneShowForAll"/>
-			<dependency name="GuerraParabolica"/>
-			<dependency name="IsPlayerInPlace"/>
-			<dependency name="IsPolicial"/>
-			<dependency name="Org"/>
-			<dependency name="Parabolica"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="SalvarGZ"/>
-			<dependency name="SuccesMsg"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_EntregandoCx" syntax="Progress_EntregandoCx(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="137"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="CaixasSdx"/>
-			<dependency name="DestroyDynamic3DTextLabel"/>
-			<dependency name="FIXES_ClearAnimations"/>
-			<dependency name="FIXES_DestroyActor"/>
-			<dependency name="FIXES_SetPlayerCheckpoint"/>
-			<dependency name="FIXES_random"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PosRota"/>
-			<dependency name="PosRota"/>
-			<dependency name="RemovePlayerAttachedObject"/>
-			<dependency name="SuccesMsg"/>
-			<dependency name="acc_SetPlayerSpecialAction"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="actorcorreios"/>
-			<dependency name="checkcasa"/>
-			<dependency name="format"/>
-			<dependency name="pDinheiro"/>
-			<dependency name="randomEx"/>
-			<dependency name="textcorreios"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_Minerar" syntax="Progress_Minerar(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="10"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="ErrorMsg"/>
-			<dependency name="EtapasMinerador"/>
-			<dependency name="FIXES_ClearAnimations"/>
-			<dependency name="FIXES_SetPlayerCheckpoint"/>
-			<dependency name="InfoMsg"/>
-			<dependency name="UsouCMD"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="false"/>
-			<dependency name="randomEx"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_PegandoCaixaV" syntax="Progress_PegandoCaixaV(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="17"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="CaixasSdx"/>
-			<dependency name="Casavehcorreios2"/>
-			<dependency name="FIXES_SetPlayerCheckpoint"/>
-			<dependency name="GetActorPos"/>
-			<dependency name="InfoMsg"/>
-			<dependency name="SetPlayerAttachedObject"/>
-			<dependency name="acc_SetPlayerSpecialAction"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="actorcorreios"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_PegandoCaixasP" syntax="Progress_PegandoCaixasP(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="25"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="CaixaMao"/>
-			<dependency name="CaixasSdx"/>
-			<dependency name="CaixasSdxObj"/>
-			<dependency name="CaixasSdxObj"/>
-			<dependency name="DestroyPlayerObject"/>
-			<dependency name="ENTER_GetVehicleParamsEx"/>
-			<dependency name="ENTER_SetVehicleParamsEx"/>
-			<dependency name="FIXES_ApplyAnimation"/>
-			<dependency name="FIXES_SetPlayerCheckpoint"/>
-			<dependency name="GetVehicleTrunkPosition"/>
-			<dependency name="PosV"/>
-			<dependency name="SetPlayerAttachedObject"/>
-			<dependency name="SuccesMsg"/>
-			<dependency name="VeiculoCivil"/>
-			<dependency name="acc_SetPlayerSpecialAction"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="false"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_Pesca" syntax="Progress_Pesca(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="264"/>
-			<dependency name="operator==(Float:,_:)"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="GanharItem"/>
-			<dependency name="IsPlayerInRangeOfPoint"/>
-			<dependency name="SuccesMsg"/>
-			<dependency name="UsouCMD"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="false"/>
-			<dependency name="format"/>
-			<dependency name="randomEx"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_RepararVeh" syntax="Progress_RepararVeh(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="6"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="GetPlayerVehicleID"/>
-			<dependency name="SuccesMsg"/>
-			<dependency name="acc_RepairVehicle"/>
-			<dependency name="acc_SetVehicleHealth"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_RotaCova1" syntax="Progress_RotaCova1(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="CargoTumba"/>
-			<dependency name="FIXES_SetPlayerCheckpoint"/>
-			<dependency name="InfoMsg"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_RotaCova2" syntax="Progress_RotaCova2(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="CargoTumba"/>
-			<dependency name="FIXES_SetPlayerCheckpoint"/>
-			<dependency name="InfoMsg"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_RotaCova3" syntax="Progress_RotaCova3(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="CargoTumba"/>
-			<dependency name="FIXES_SetPlayerCheckpoint"/>
-			<dependency name="InfoMsg"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
-			</param>
-		</member>
-		<member name="M:Progress_RoubarLoja" syntax="Progress_RoubarLoja(playerid, progress)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="operator&gt;=(Float:,_:)"/>
-			<dependency name="CofreAmmu"/>
-			<dependency name="CofreBanco"/>
-			<dependency name="CofreLoja1"/>
-			<dependency name="CofreLoja2"/>
-			<dependency name="CofreLoja3"/>
-			<dependency name="CofreLoja4"/>
-			<dependency name="CofreLoja5"/>
-			<dependency name="CofreRestaurante"/>
-			<dependency name="FIXES_ClearAnimations"/>
-			<dependency name="GanharItem"/>
-			<dependency name="GetPlayerWantedLevel"/>
-			<dependency name="PlayerToPoint"/>
-			<dependency name="RouboAmmu"/>
-			<dependency name="RouboBanco"/>
-			<dependency name="RouboLoja1"/>
-			<dependency name="RouboLoja2"/>
-			<dependency name="RouboLoja3"/>
-			<dependency name="RouboLoja4"/>
-			<dependency name="RouboLoja5"/>
-			<dependency name="RouboRestaurante"/>
-			<dependency name="SalvarDinRoubos"/>
-			<dependency name="SetPlayerWantedLevel"/>
-			<dependency name="SuccesMsg"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-			<param name="progress">
-				<paraminfo>Float </paraminfo>
 			</param>
 		</member>
 		<member name="M:ProxDetector" syntax="ProxDetector(radi, playerid, string[], col1, col2, col3, col4, col5)">
@@ -22896,9 +22494,9 @@
 		</member>
 		<member name="M:RemovePlayerAttachedObject" syntax="RemovePlayerAttachedObject(playerid, index)">
 			<attribute name="native"/>
-			<referrer name="Progress_EntregandoCx"/>
-			<referrer name="Progress_ColocandoCaixa"/>
-			<referrer name="Progress_BotouBau"/>
+			<referrer name="EntregandoCx"/>
+			<referrer name="ColocandoCaixa"/>
+			<referrer name="BotouBau"/>
 			<referrer name="OnPlayerActivationKeyRelease"/>
 			<referrer name="RObject"/>
 			<referrer name="FuncaoItens"/>
@@ -22964,6 +22562,19 @@
 			<referrer name="ac_RepairVehicle"/>
 			<referrer name="orig_RepairVehicle"/>
 			<param name="vehicleid">
+			</param>
+		</member>
+		<member name="M:RepararVeh" syntax="RepararVeh(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="6"/>
+			<dependency name="GetPlayerVehicleID"/>
+			<dependency name="SuccesMsg"/>
+			<dependency name="acc_RepairVehicle"/>
+			<dependency name="acc_SetVehicleHealth"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
 			</param>
 		</member>
 		<member name="M:ResetCrashDetectLongCallTime" syntax="ResetCrashDetectLongCallTime()">
@@ -23092,6 +22703,39 @@
 			<param name="playerid">
 			</param>
 			<param name="caixa_id">
+			</param>
+		</member>
+		<member name="M:RoubarLoja" syntax="RoubarLoja(playerid, progress)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="CofreAmmu"/>
+			<dependency name="CofreBanco"/>
+			<dependency name="CofreLoja1"/>
+			<dependency name="CofreLoja2"/>
+			<dependency name="CofreLoja3"/>
+			<dependency name="CofreLoja4"/>
+			<dependency name="CofreLoja5"/>
+			<dependency name="CofreRestaurante"/>
+			<dependency name="FIXES_ClearAnimations"/>
+			<dependency name="GanharItem"/>
+			<dependency name="GetPlayerWantedLevel"/>
+			<dependency name="PlayerToPoint"/>
+			<dependency name="RouboAmmu"/>
+			<dependency name="RouboBanco"/>
+			<dependency name="RouboLoja1"/>
+			<dependency name="RouboLoja2"/>
+			<dependency name="RouboLoja3"/>
+			<dependency name="RouboLoja4"/>
+			<dependency name="RouboLoja5"/>
+			<dependency name="RouboRestaurante"/>
+			<dependency name="SalvarDinRoubos"/>
+			<dependency name="SetPlayerWantedLevel"/>
+			<dependency name="SuccesMsg"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="progress">
 			</param>
 		</member>
 		<member name="M:SCM" syntax="SCM()">
@@ -23535,6 +23179,7 @@
 			<stacksize value="5008"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
+			<referrer name="cmd_gmx"/>
 			<dependency name="DOF2_CreateFile"/>
 			<dependency name="DOF2_SetInt"/>
 			<dependency name="DOF2_WriteFile"/>
@@ -23702,7 +23347,7 @@
 		</member>
 		<member name="M:SalvarDinRoubos" syntax="SalvarDinRoubos()">
 			<stacksize value="8"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -23724,8 +23369,6 @@
 		</member>
 		<member name="M:SalvarGZ" syntax="SalvarGZ()">
 			<stacksize value="8"/>
-			<referrer name="Progress_DominarLBarragem"/>
-			<referrer name="Progress_DominarLParabolica"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<dependency name="DOF2_CreateFile"/>
 			<dependency name="DOF2_SetInt"/>
@@ -23738,6 +23381,7 @@
 			<stacksize value="537"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
+			<referrer name="cmd_gmx"/>
 			<dependency name="DOF2_CreateFile"/>
 			<dependency name="DOF2_SetString"/>
 			<dependency name="DOF2_WriteFile"/>
@@ -23756,6 +23400,7 @@
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
 			<referrer name="ac_OnPlayerSpawn"/>
+			<referrer name="cmd_gmx"/>
 			<dependency name="DOF2_CreateFile"/>
 			<dependency name="DOF2_SetFloat"/>
 			<dependency name="DOF2_SetInt"/>
@@ -23806,6 +23451,7 @@
 			<stacksize value="5008"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
+			<referrer name="cmd_gmx"/>
 			<dependency name="DOF2_CreateFile"/>
 			<dependency name="DOF2_SetInt"/>
 			<dependency name="DOF2_WriteFile"/>
@@ -24164,10 +23810,10 @@
 		</member>
 		<member name="M:SetPlayerAttachedObject" syntax="SetPlayerAttachedObject(playerid, index, modelid, bone, fOffsetX, fOffsetY, fOffsetZ, fRotX, fRotY, fRotZ, fScaleX, fScaleY, fScaleZ, materialcolor1, materialcolor2)">
 			<attribute name="native"/>
-			<referrer name="Progress_PegandoCaixaV"/>
-			<referrer name="Progress_PegandoCaixasP"/>
-			<referrer name="Progress_Cova"/>
-			<referrer name="Progress_Desossar"/>
+			<referrer name="PegandoCaixaV"/>
+			<referrer name="PegandoCaixasP"/>
+			<referrer name="Cova"/>
+			<referrer name="Desossar"/>
 			<referrer name="OnPlayerActivationKeyPress"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
@@ -24452,8 +24098,6 @@
 		<member name="M:SetPlayerProgressBarValue" syntax="SetPlayerProgressBarValue(playerid, barid, value)">
 			<stacksize value="11"/>
 			<referrer name="SetPlayerProgressBarMaxValue"/>
-			<referrer name="UpdateProgress"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="mostrarTelaLogin"/>
 			<referrer name="todastextdraw"/>
 			<dependency name="operator&gt;(Float:,Float:)"/>
@@ -24625,7 +24269,7 @@
 		<member name="M:SetPlayerWantedLevel" syntax="SetPlayerWantedLevel(playerid, level)">
 			<attribute name="native"/>
 			<referrer name="RoubarCaixa"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_prender"/>
 			<referrer name="cmd_su"/>
@@ -25056,7 +24700,6 @@
 			<stacksize value="5"/>
 			<referrer name="_RenderBar"/>
 			<referrer name="SetPlayerProgressBarValue"/>
-			<referrer name="CreateTDProgress"/>
 			<referrer name="ac_OnPlayerRequestClass"/>
 			<dependency name="IsValidPlayerProgressBar"/>
 			<dependency name="PlayerTextDrawShow"/>
@@ -25240,25 +24883,23 @@
 		</member>
 		<member name="M:SuccesMsg" syntax="SuccesMsg(playerid, pesan[])">
 			<stacksize value="7"/>
-			<referrer name="Progress_EntregandoCx"/>
-			<referrer name="Progress_PegandoCaixasP"/>
-			<referrer name="Progress_ColocandoCaixa"/>
-			<referrer name="Progress_DominarLBarragem"/>
-			<referrer name="Progress_DominarLParabolica"/>
+			<referrer name="EntregandoCx"/>
+			<referrer name="PegandoCaixasP"/>
+			<referrer name="ColocandoCaixa"/>
 			<referrer name="descobrirEE"/>
 			<referrer name="LockpickTimer"/>
-			<referrer name="Progress_DesmancharVeh"/>
-			<referrer name="Progress_RepararVeh"/>
-			<referrer name="Progress_DescarregarCarga"/>
-			<referrer name="Progress_BotouBau"/>
-			<referrer name="Progress_Pesca"/>
+			<referrer name="DesmancharVeh"/>
+			<referrer name="RepararVeh"/>
+			<referrer name="DescarregarCarga"/>
+			<referrer name="BotouBau"/>
+			<referrer name="Pesca"/>
 			<referrer name="criandorg"/>
 			<referrer name="MainTimer"/>
 			<referrer name="MaconhaColher"/>
 			<referrer name="MaconhaQueimar"/>
 			<referrer name="PlantarMaconhas"/>
 			<referrer name="RoubarCaixa"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnPlayerExitVehicle"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
@@ -26083,31 +25724,6 @@
 			<param name="removeold">
 			</param>
 		</member>
-		<member name="M:UpdateProgress" syntax="UpdateProgress(playerid)">
-			<attribute name="public"/>
-			<stacksize value="91"/>
-			<dependency name="operator+(Float:,_:)"/>
-			<dependency name="operator&gt;=(Float:,Float:)"/>
-			<dependency name="CallLocalFunction"/>
-			<dependency name="ConvertTime"/>
-			<dependency name="FIXES_PlayerTextDrawSetString"/>
-			<dependency name="KillProgress"/>
-			<dependency name="PlayerTextDrawShow"/>
-			<dependency name="Progress_Info"/>
-			<dependency name="Progress_Info"/>
-			<dependency name="ProgressoBar"/>
-			<dependency name="ProgressoBar"/>
-			<dependency name="ProgressoBar_pp"/>
-			<dependency name="ProgressoBar_pp"/>
-			<dependency name="Reloginho"/>
-			<dependency name="SetPlayerProgressBarValue"/>
-			<dependency name="format"/>
-			<dependency name="gettime"/>
-			<dependency name="p_callback"/>
-			<dependency name="p_percent"/>
-			<param name="playerid">
-			</param>
-		</member>
 		<member name="M:UpdateVehicle" syntax="UpdateVehicle(vehicleid, removeold)">
 			<stacksize value="24"/>
 			<referrer name="mf_OnGameModeInit"/>
@@ -26333,7 +25949,7 @@
 		</member>
 		<member name="M:WarningMsg" syntax="WarningMsg(playerid, pesan[])">
 			<stacksize value="7"/>
-			<referrer name="Progress_DesmancharVeh"/>
+			<referrer name="DesmancharVeh"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="BanirPlayer"/>
 			<referrer name="BanirIP"/>
@@ -29353,11 +28969,9 @@
 			<attribute name="public"/>
 			<stacksize value="514"/>
 			<dependency name="CaixaMao"/>
-			<dependency name="CargoTumba"/>
 			<dependency name="Casavehcorreios"/>
 			<dependency name="Casavehcorreios2"/>
 			<dependency name="Covaconcerto"/>
-			<dependency name="CreateProgress"/>
 			<dependency name="Desossando"/>
 			<dependency name="EntregaSdx"/>
 			<dependency name="ErrorMsg"/>
@@ -29367,11 +28981,8 @@
 			<dependency name="FIXES_DisablePlayerCheckpoint"/>
 			<dependency name="FIXES_SetTimerEx"/>
 			<dependency name="GPS"/>
-			<dependency name="GetPlayerVehicleID"/>
-			<dependency name="GetVehicleModel"/>
 			<dependency name="InfoMsg"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
-			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="PegouLixo"/>
 			<dependency name="PegouMaterial"/>
 			<dependency name="PlayerInfo"/>
@@ -29384,7 +28995,6 @@
 			<dependency name="checkcasa"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
-			<dependency name="ltumba"/>
 			<dependency name="pDinheiro"/>
 			<dependency name="pProfissao"/>
 			<dependency name="pVIP"/>
@@ -31166,7 +30776,7 @@
 		</member>
 		<member name="M:acc_DestroyVehicle" syntax="acc_DestroyVehicle(vehicleid)">
 			<stacksize value="4"/>
-			<referrer name="Progress_DesmancharVeh"/>
+			<referrer name="DesmancharVeh"/>
 			<referrer name="UpdateVehicle"/>
 			<referrer name="VerificarTeste"/>
 			<referrer name="ppb_OnGameModeExit"/>
@@ -31294,7 +30904,7 @@
 		</member>
 		<member name="M:acc_RemovePlayerFromVehicle" syntax="acc_RemovePlayerFromVehicle(playerid)">
 			<stacksize value="4"/>
-			<referrer name="Progress_DesmancharVeh"/>
+			<referrer name="DesmancharVeh"/>
 			<referrer name="AttVeh"/>
 			<referrer name="VerificarTeste"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
@@ -31312,7 +30922,7 @@
 		</member>
 		<member name="M:acc_RepairVehicle" syntax="acc_RepairVehicle(vehicleid)">
 			<stacksize value="4"/>
-			<referrer name="Progress_RepararVeh"/>
+			<referrer name="RepararVeh"/>
 			<referrer name="cmd_repararvip"/>
 			<dependency name="ac_RepairVehicle"/>
 			<param name="vehicleid">
@@ -31408,7 +31018,7 @@
 		</member>
 		<member name="M:acc_SetPlayerPos" syntax="acc_SetPlayerPos(playerid, x, y, z)">
 			<stacksize value="7"/>
-			<referrer name="Progress_BatendoPorta"/>
+			<referrer name="BatendoPorta"/>
 			<referrer name="mortoxx"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="CheckCadeia"/>
@@ -31456,11 +31066,11 @@
 		</member>
 		<member name="M:acc_SetPlayerSpecialAction" syntax="acc_SetPlayerSpecialAction(playerid, actionid)">
 			<stacksize value="5"/>
-			<referrer name="Progress_PegandoCaixaV"/>
-			<referrer name="Progress_EntregandoCx"/>
-			<referrer name="Progress_PegandoCaixasP"/>
-			<referrer name="Progress_ColocandoCaixa"/>
-			<referrer name="Progress_Desossar"/>
+			<referrer name="PegandoCaixaV"/>
+			<referrer name="EntregandoCx"/>
+			<referrer name="PegandoCaixasP"/>
+			<referrer name="ColocandoCaixa"/>
+			<referrer name="Desossar"/>
 			<referrer name="FuncaoItens"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -31545,7 +31155,7 @@
 			<stacksize value="5"/>
 			<referrer name="TIMERFIX_OnPlayerDisconnect"/>
 			<referrer name="On_PlayerUpdate"/>
-			<referrer name="Progress_RepararVeh"/>
+			<referrer name="RepararVeh"/>
 			<referrer name="UpdateVehicle"/>
 			<referrer name="AttVeh"/>
 			<referrer name="ac_OnVehicleDamageStatusUpdate"/>
@@ -31616,7 +31226,7 @@
 		</member>
 		<member name="M:acc_SetVehicleToRespawn" syntax="acc_SetVehicleToRespawn(vehicleid)">
 			<stacksize value="4"/>
-			<referrer name="Progress_DescarregarCarga"/>
+			<referrer name="DescarregarCarga"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_rtc"/>
 			<referrer name="cmd_rac"/>
@@ -31739,25 +31349,22 @@
 		<member name="M:acc_TogglePlayerControllable" syntax="acc_TogglePlayerControllable(playerid, toggle)">
 			<stacksize value="5"/>
 			<referrer name="On_PlayerInteriorChange"/>
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_PegandoCaixaV"/>
-			<referrer name="Progress_EntregandoCx"/>
-			<referrer name="Progress_PegandoCaixasP"/>
-			<referrer name="Progress_ColocandoCaixa"/>
-			<referrer name="Progress_DesmancharVeh"/>
-			<referrer name="Progress_RepararVeh"/>
-			<referrer name="Progress_DescarregarCarga"/>
-			<referrer name="Progress_RotaCova1"/>
-			<referrer name="Progress_RotaCova2"/>
-			<referrer name="Progress_RotaCova3"/>
-			<referrer name="Progress_BotouBau"/>
-			<referrer name="Progress_Cova"/>
-			<referrer name="Progress_Desossar"/>
-			<referrer name="Progress_Minerar"/>
-			<referrer name="Progress_Pesca"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="PegandoCaixaV"/>
+			<referrer name="EntregandoCx"/>
+			<referrer name="PegandoCaixasP"/>
+			<referrer name="ColocandoCaixa"/>
+			<referrer name="DesmancharVeh"/>
+			<referrer name="RepararVeh"/>
+			<referrer name="DescarregarCarga"/>
+			<referrer name="BotouBau"/>
+			<referrer name="Cova"/>
+			<referrer name="Desossar"/>
+			<referrer name="Minerar"/>
+			<referrer name="Pesca"/>
 			<referrer name="carregarobj"/>
 			<referrer name="RoubarCaixa"/>
-			<referrer name="Progress_RoubarLoja"/>
+			<referrer name="RoubarLoja"/>
 			<referrer name="AnimyTogle"/>
 			<referrer name="AnimyTogle2"/>
 			<referrer name="VerificarTeste"/>
@@ -33240,12 +32847,13 @@
 		</member>
 		<member name="M:cmd_descarregar" syntax="cmd_descarregar(playerid)">
 			<attribute name="public"/>
-			<stacksize value="7"/>
+			<stacksize value="8"/>
 			<dependency name="Cargase"/>
-			<dependency name="CreateProgress"/>
 			<dependency name="ErrorMsg"/>
+			<dependency name="FIXES_SetTimerEx"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="GetVehicleModel"/>
+			<dependency name="InfoMsg"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="acc_TogglePlayerControllable"/>
 			<dependency name="false"/>
@@ -33284,11 +32892,13 @@
 		<member name="M:cmd_desmanchar" syntax="cmd_desmanchar(playerid)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
-			<dependency name="CreateProgress"/>
+			<dependency name="FIXES_SetTimerEx"/>
+			<dependency name="InfoMsg"/>
 			<dependency name="Org"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerToPoint"/>
 			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="false"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -33298,10 +32908,11 @@
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="CheckInventario2"/>
-			<dependency name="CreateProgress"/>
 			<dependency name="Desossando"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="FIXES_ApplyAnimation"/>
+			<dependency name="FIXES_SetTimerEx"/>
+			<dependency name="InfoMsg"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PosDesossa"/>
@@ -33309,25 +32920,9 @@
 			<dependency name="RemovePlayerAttachedObject"/>
 			<dependency name="UsouCMD"/>
 			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="false"/>
 			<dependency name="pProfissao"/>
 			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:cmd_dominar" syntax="cmd_dominar(playerid)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="Barragem"/>
-			<dependency name="CreateProgress"/>
-			<dependency name="ErrorMsg"/>
-			<dependency name="FIXES_SetTimer"/>
-			<dependency name="GangZoneFlashForAll"/>
-			<dependency name="IsPlayerInPlace"/>
-			<dependency name="IsPolicial"/>
-			<dependency name="Org"/>
-			<dependency name="Parabolica"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="false"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -33557,7 +33152,11 @@
 			<dependency name="FIXES_SetTimerEx"/>
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
+			<dependency name="SalvarAvaliacao"/>
 			<dependency name="SalvarDados"/>
+			<dependency name="SalvarInventario"/>
+			<dependency name="SalvarMortos"/>
+			<dependency name="SalvarVIP"/>
 			<dependency name="SendClientMessageToAll"/>
 			<dependency name="Str"/>
 			<dependency name="false"/>
@@ -34407,17 +34006,19 @@
 		</member>
 		<member name="M:cmd_pescar" syntax="cmd_pescar(playerid)">
 			<attribute name="public"/>
-			<stacksize value="8"/>
+			<stacksize value="9"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<dependency name="CheckInventario2"/>
-			<dependency name="CreateProgress"/>
 			<dependency name="ErrorMsg"/>
+			<dependency name="FIXES_SetTimerEx"/>
+			<dependency name="InfoMsg"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PosPesca"/>
 			<dependency name="PosPesca"/>
 			<dependency name="UsouCMD"/>
 			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="false"/>
 			<dependency name="pProfissao"/>
 			<dependency name="true"/>
 			<param name="playerid">
@@ -34826,10 +34427,10 @@
 			<attribute name="public"/>
 			<stacksize value="14"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
-			<dependency name="CreateProgress"/>
 			<dependency name="ErrorMsg"/>
 			<dependency name="FIXES_ApplyAnimation"/>
 			<dependency name="FIXES_GetPlayerWeapon"/>
+			<dependency name="FIXES_SetTimerEx"/>
 			<dependency name="InfoMsg"/>
 			<dependency name="Patrulha"/>
 			<dependency name="Player@YSII_Ag"/>
@@ -34845,6 +34446,7 @@
 			<dependency name="Str"/>
 			<dependency name="WarningMsg"/>
 			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="policiaon"/>
 			<dependency name="randomEx"/>
@@ -36042,7 +35644,6 @@
 			<referrer name="On_PlayerUpdate"/>
 			<referrer name="ac_Timer"/>
 			<referrer name="ac_GetSpeed"/>
-			<referrer name="ConvertTime"/>
 			<referrer name="MainTimer"/>
 			<referrer name="ConvertTimeX"/>
 			<referrer name="VelocidadeDoVeiculo"/>
@@ -36140,20 +35741,16 @@
 			<referrer name="ac_OnPlayerCommandText"/>
 			<referrer name="ShowNotify"/>
 			<referrer name="ShowItemBox"/>
-			<referrer name="CreateProgress"/>
-			<referrer name="UpdateProgress"/>
-			<referrer name="KillProgress"/>
-			<referrer name="ConvertTime"/>
-			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="Progress_EntregandoCx"/>
+			<referrer name="BatendoPorta"/>
+			<referrer name="EntregandoCx"/>
 			<referrer name="createEE"/>
 			<referrer name="loadEE"/>
 			<referrer name="saveEE"/>
 			<referrer name="descobrirEE"/>
 			<referrer name="cmd_EVENTO"/>
-			<referrer name="Progress_DesmancharVeh"/>
-			<referrer name="Progress_BotouBau"/>
-			<referrer name="Progress_Pesca"/>
+			<referrer name="DesmancharVeh"/>
+			<referrer name="BotouBau"/>
+			<referrer name="Pesca"/>
 			<referrer name="Attplayer"/>
 			<referrer name="attloginname"/>
 			<referrer name="mortoxx"/>
@@ -36454,8 +36051,6 @@
 		<member name="M:gettime" syntax="gettime(&amp;hour, &amp;minute, &amp;second)">
 			<attribute name="native"/>
 			<referrer name="DOF2_MakeBackup"/>
-			<referrer name="CreateProgress"/>
-			<referrer name="UpdateProgress"/>
 			<referrer name="loginp"/>
 			<referrer name="Colete"/>
 			<referrer name="Relogio"/>
@@ -37689,12 +37284,12 @@
 		</member>
 		<member name="M:randomEx" syntax="randomEx(minnum, maxnum)">
 			<stacksize value="4"/>
-			<referrer name="Progress_EntregandoCx"/>
+			<referrer name="EntregandoCx"/>
 			<referrer name="descobrirEE"/>
 			<referrer name="CreateLocPick"/>
-			<referrer name="Progress_DesmancharVeh"/>
-			<referrer name="Progress_Minerar"/>
-			<referrer name="Progress_Pesca"/>
+			<referrer name="DesmancharVeh"/>
+			<referrer name="Minerar"/>
+			<referrer name="Pesca"/>
 			<referrer name="AttVeh"/>
 			<referrer name="UpdateDrogas"/>
 			<referrer name="FomeBar"/>

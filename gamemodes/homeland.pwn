@@ -38,7 +38,6 @@
 #include 		< 		notify2	 		>
 #include 		< 		enterfix 		> 
 #include		<		progress2		>
-#include		<		processo		> 
 #include		<		Fader			>
 #pragma warning disable 239
 
@@ -1746,8 +1745,7 @@ stock MsgSdx(){
 	return retorno;
 }
 
-Progresso:BatendoPorta(playerid, progress){
-	if(progress >= 100){
+CallBack::BatendoPorta(playerid, progress){
 		new SkinActor = random(311),txt[148];
 		static Float:X, Float:Y, Float:Z,Float:A;
 		new engine, lights, alarm, doors, bonnet, boot, objective,idv = VeiculoCivil[playerid];
@@ -1770,12 +1768,10 @@ Progresso:BatendoPorta(playerid, progress){
 		Attach3DTextLabelToPlayer(textcorreios[playerid], actorcorreios[playerid], 0.0, 0.0, 0.7);
 		SetPlayerPos(playerid, X,Y,Z+2);
 		InfoMsg(playerid, "O morador saiu da casa, pegue a caixa no veiculo");
-	}
 	return 1;
 }
 
-Progresso:PegandoCaixaV(playerid, progress){
-	if(progress >= 100){
+CallBack::PegandoCaixaV(playerid, progress){
 		if(CaixasSdx[playerid] > 0){
 			static Float:aPos[3];
 			TogglePlayerControllable(playerid,1);
@@ -1787,12 +1783,10 @@ Progresso:PegandoCaixaV(playerid, progress){
 			GetActorPos(actorcorreios[playerid],aPos[0],aPos[1],aPos[2]);
 			SetPlayerCheckpoint(playerid, aPos[0],aPos[1],aPos[2],1);
 		}
-	}
 	return 1;
 }
 
-Progresso:EntregandoCx(playerid, progress){
-	if(progress >= 100){
+CallBack::EntregandoCx(playerid, progress){
 		if(CaixasSdx[playerid] == 0){
 			new str[128],malote = randomEx(500,1300);
 			ClearAnimations(playerid);
@@ -1816,12 +1810,10 @@ Progresso:EntregandoCx(playerid, progress){
 			checkcasa[playerid] = true;
 		}
 		TogglePlayerControllable(playerid,1);
-	}
 	return 1;
 }
 
-Progresso:PegandoCaixasP(playerid, progress){
-	if(progress >= 100){
+CallBack::PegandoCaixasP(playerid, progress){
 		if(CaixaMao[playerid] == false){
 			new engine, lights, alarm, doors, bonnet, boot, objective,idv = VeiculoCivil[playerid];
 			GetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, boot, objective);
@@ -1837,12 +1829,10 @@ Progresso:PegandoCaixasP(playerid, progress){
 			CaixasSdx[playerid]++;
 			DestroyPlayerObject(playerid,CaixasSdxObj[playerid][CaixasSdx[playerid]]); 
 		}
-	}
 	return 1;
 }
 
-Progresso:ColocandoCaixa(playerid, progress){
-	if(progress >= 100){
+CallBack::ColocandoCaixa(playerid, progress){
 		if(CaixasSdx[playerid] == 10){
 			SuccesMsg(playerid, "Agora voce deve entrar na van e iniciar as entregas.");
 			RemovePlayerAttachedObject(playerid, 1);
@@ -1905,136 +1895,7 @@ Progresso:ColocandoCaixa(playerid, progress){
 			SetPlayerSpecialAction(playerid, 0);
 			
 		}
-	}
 	return 1;
-}
-
-Progresso:DominarLBarragem(playerid, progress)
-{
-	if(progress >= 100)
-	{
-		if(IsPlayerInPlace(playerid,-1434.2429809570312, 1902.6701049804688, -987.2429809570312, 2672.6701049804688))
-		{
-			if(IsPolicial(playerid))
-	        {
-	        	GangZoneHideForAll(Barragem);
-		        GangZoneShowForAll(Barragem,0x328fc00);
-		        SuccesMsg(playerid, "O local foi pacificado.");
-		        GuerraBarragem = 1;
-	        }
-	        else if(PlayerInfo[playerid][Org] == 5)
-	        {
-	        	GangZoneHideForAll(Barragem);
-	            GangZoneShowForAll(Barragem,0xfcf00300);
-	            SuccesMsg(playerid, "O local foi dominado.");
-	            GuerraBarragem = 5;
-	        }
-	        else if(PlayerInfo[playerid][Org] == 6)
-	        {
-	        	GangZoneHideForAll(Barragem);
-	            GangZoneShowForAll(Barragem,0x0398fc00);
-	            SuccesMsg(playerid, "O local foi dominado.");
-	            GuerraBarragem = 6;
-	        }
-	        else if(PlayerInfo[playerid][Org] == 7)
-	        {
-	        	GangZoneHideForAll(Barragem);
-	            GangZoneShowForAll(Barragem,0xfc030300);
-	            SuccesMsg(playerid, "O local foi dominado.");
-	            GuerraBarragem = 7;
-	        }
-	        else if(PlayerInfo[playerid][Org] == 8)
-	        {
-	        	GangZoneHideForAll(Barragem);
-	            GangZoneShowForAll(Barragem,0x13fc0300);
-	            SuccesMsg(playerid, "O local foi dominado.");
-	            GuerraBarragem = 8;
-	        }
-	        else if(PlayerInfo[playerid][Org] == 12)
-	        {
-	        	GangZoneHideForAll(Barragem);
-	            GangZoneShowForAll(Barragem,0xe3a65600);
-	            SuccesMsg(playerid, "O local foi dominado.");
-	            GuerraBarragem = 12;
-	        }
-	        else if(PlayerInfo[playerid][Org] == 13)
-	        {
-	        	GangZoneHideForAll(Barragem);
-	            GangZoneShowForAll(Barragem,0x59422500);
-	            SuccesMsg(playerid, "O local foi dominado.");
-	            GuerraBarragem = 13;
-	        }
-	        SalvarGZ();
-	    }
-	    else
-	    {
-	    	ErrorMsg(playerid, "Voce saiu da gangzone");
-	    }
-	}
-}
-
-Progresso:DominarLParabolica(playerid, progress)
-{
-	if(progress >= 100)
-	{
-		if(IsPlayerInPlace(playerid,-460.22906494140625, 1281.9999694824219, -140.22906494140625, 1643.9999694824219))
-		{
-			if(IsPolicial(playerid))
-	        {
-	        	GangZoneHideForAll(Parabolica);
-		        GangZoneShowForAll(Parabolica,0x328fc00);
-		        SuccesMsg(playerid, "O local foi pacificado.");
-		        GuerraParabolica = 1;
-	        }
-	        else if(PlayerInfo[playerid][Org] == 5)
-	        {
-	        	GangZoneHideForAll(Parabolica);
-	            GangZoneShowForAll(Parabolica,0xfcf00300);
-	            SuccesMsg(playerid, "O local foi dominado.");
-	            GuerraParabolica = 5;
-	        }
-	        else if(PlayerInfo[playerid][Org] == 6)
-	        {
-	        	GangZoneHideForAll(Parabolica);
-	            GangZoneShowForAll(Parabolica,0x0398fc00);
-	            SuccesMsg(playerid, "O local foi dominado.");
-	            GuerraParabolica = 6;
-	        }
-	        else if(PlayerInfo[playerid][Org] == 7)
-	        {
-	        	GangZoneHideForAll(Parabolica);
-	            GangZoneShowForAll(Parabolica,0xfc030300);
-	            SuccesMsg(playerid, "O local foi dominado.");
-	            GuerraParabolica = 7;
-	        }
-	        else if(PlayerInfo[playerid][Org] == 8)
-	        {
-	        	GangZoneHideForAll(Parabolica);
-	            GangZoneShowForAll(Parabolica,0x13fc0300);
-	            SuccesMsg(playerid, "O local foi dominado.");
-	            GuerraParabolica = 8;
-	        }
-	        else if(PlayerInfo[playerid][Org] == 12)
-	        {
-	        	GangZoneHideForAll(Parabolica);
-	            GangZoneShowForAll(Parabolica,0xe3a65600);
-	            SuccesMsg(playerid, "O local foi dominado.");
-	            GuerraParabolica = 12;
-	        }
-	        else if(PlayerInfo[playerid][Org] == 13)
-	        {
-	        	GangZoneHideForAll(Parabolica);
-	            GangZoneShowForAll(Parabolica,0x59422500);
-	            SuccesMsg(playerid, "O local foi dominado.");
-	            GuerraParabolica = 13;
-	        }
-	        SalvarGZ();
-	    }
-	    else
-	    {
-	    	ErrorMsg(playerid, "Voce saiu da gangzone");
-	    }
-	}
 }
 
 CallBack::AChatAtendimento(COLOR,const string[],level)
@@ -2349,10 +2210,8 @@ XP_::XP_Hide(playerid)
     PlayerPlaySound(playerid, 6402, 0.0, 0.0, 0.0);
 }
 
-Progresso:DesmancharVeh(playerid, progress)
+CallBack::DesmancharVeh(playerid, progress)
 {
-	if(progress >= 100)
-	{
 		new vehicleidd = GetPlayerVehicleID(playerid);
 		new vehicleid = GetPVarInt(playerid, "DialogValue1");	
 		new value = VehicleValue[vehicleid]/3;
@@ -2377,25 +2236,19 @@ Progresso:DesmancharVeh(playerid, progress)
 		RemovePlayerFromVehicle(playerid);
 		DestroyVehicle(vehicleidd);
 		Controle(playerid, 1);
-	}
 }
 
-Progresso:RepararVeh(playerid, progress)
+CallBack::RepararVeh(playerid, progress)
 {
-	if(progress >= 100)
-	{
 		new wVeiculo = GetPlayerVehicleID(playerid);
 		SuccesMsg(playerid, "Veiculo reparado.");
 		RepairVehicle(wVeiculo);
 		SetVehicleHealth(wVeiculo, 1000.0);
 		TogglePlayerControllable(playerid, 1);
-	}
 	return 1;
 }
-Progresso:DescarregarCarga(playerid, progress)
+CallBack::DescarregarCarga(playerid, progress)
 {
-	if(progress >= 100)
-	{
 		if(PlayerToPoint(3.0, playerid, -72.730911, -1176.907714, 2.940625))
 		{
 			Cargase[playerid] = false;
@@ -2551,50 +2404,11 @@ Progresso:DescarregarCarga(playerid, progress)
 			Carregou[playerid] = 0;
 		}
 		TogglePlayerControllable(playerid, 1);
-	}
 	return 1;
 }
 
-Progresso:RotaCova1(playerid, progress)
+CallBack::BotouBau(playerid, progress)
 {
-	if(progress >= 100)
-	{
-		CargoTumba[playerid] = 1;
-		TogglePlayerControllable(playerid, 1);
-		SetPlayerCheckpoint(playerid, 934.1115,-1103.3857,24.3118, 10);
-		InfoMsg(playerid, "Pegou um cadaver volte ao cemiterio.");
-	}
-	return 1;
-}
-
-Progresso:RotaCova2(playerid, progress)
-{
-	if(progress >= 100)
-	{
-		CargoTumba[playerid] = 2;
-		TogglePlayerControllable(playerid, 1);
-		SetPlayerCheckpoint(playerid, 934.1115,-1103.3857,24.3118, 10);
-		InfoMsg(playerid, "Pegou um cadaver volte ao cemiterio.");
-	}
-	return 1;
-}
-
-Progresso:RotaCova3(playerid, progress)
-{
-	if(progress >= 100)
-	{
-		CargoTumba[playerid] = 3;
-		TogglePlayerControllable(playerid, 1);
-		SetPlayerCheckpoint(playerid, 934.1115,-1103.3857,24.3118, 10);
-		InfoMsg(playerid, "Pegou um cadaver volte ao cemiterio.");
-	}
-	return 1;
-}
-
-Progresso:BotouBau(playerid, progress)
-{
-	if(progress >= 100)
-	{
 		new covastr[255];
 		new dincova = random(100);
 		if(PlayerInfo[playerid][pVIP] >= 1)
@@ -2612,13 +2426,10 @@ Progresso:BotouBau(playerid, progress)
 		TogglePlayerControllable(playerid, 1);
 		PegouLixo[playerid] = false;
 		SetTimerEx("ExpireAntComannd",5000,false,"i",playerid);
-	}
 	return 1;
 }
-Progresso:Cova(playerid, progress)
+CallBack::Cova(playerid, progress)
 {
-	if(progress >= 100)
-	{
 		new locallixo = random(10);
 		switch(locallixo){
 			case 0:{
@@ -2670,14 +2481,11 @@ Progresso:Cova(playerid, progress)
 		SetPlayerAttachedObject(playerid, 5, 1265, 5);
 		PegouLixo[playerid] = true;
 		Covaconcerto[playerid] = false;
-	}
 	return 1;
 }
 
-Progresso:Desossar(playerid, progress)
+CallBack::Desossar(playerid, progress)
 {
-	if(progress >= 100)
-	{
 		ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
 		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 		SetPlayerAttachedObject(playerid, 1, 2804, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
@@ -2685,13 +2493,10 @@ Progresso:Desossar(playerid, progress)
 		UsouCMD[playerid] = false;
 		TogglePlayerControllable(playerid, 1);
 		InfoMsg(playerid, "Terminou de desossar a carne, faca o processamento dela.");
-	}
 	return 1;
 }
-Progresso:Minerar(playerid, progress)
+CallBack::Minerar(playerid, progress)
 {
-	if(progress >= 100)
-	{
 		new mineiro = randomEx(0,3);
 		new checkfinal = randomEx(1,2);
 		ClearAnimations(playerid);
@@ -2749,17 +2554,10 @@ Progresso:Minerar(playerid, progress)
 		}
 		UsouCMD[playerid] = false;
 		TogglePlayerControllable(playerid, 1);
-	}
 	return 1;
 }
-Progresso:Pesca(playerid, progress)
+CallBack::Pesca(playerid, progress)
 {
-	if(progress == 1)
-	{ 
-		// EM PROGRESSO
-	}
-	if(progress >= 100)
-	{
 		new peixes = randomEx(1,5);
 		new peixe = randomEx(0,6);
 		new s[255];
@@ -2808,7 +2606,6 @@ Progresso:Pesca(playerid, progress)
 		}
 		TogglePlayerControllable(playerid, 1);
 		UsouCMD[playerid] = false;
-	}
 	return 1;
 }
 
@@ -4863,10 +4660,8 @@ CallBack::RoubarCaixa(playerid, caixa_id)
 	return 0;
 }
 
-Progresso:RoubarLoja(playerid, progress)
+CallBack::RoubarLoja(playerid, progress)
 {
-	if(progress >= 100)
-	{
 		if(PlayerToPoint(5.0, playerid, 800.242553, -1617.385986, 14.032936))
 		{
 			GanharItem(playerid, 1212, CofreRestaurante);
@@ -4948,7 +4743,6 @@ Progresso:RoubarLoja(playerid, progress)
 			RouboLoja5 = true;
 		}
 		SalvarDinRoubos();
-	}
 	return 0;
 }
 
@@ -5973,7 +5767,8 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 
 			cmd_inventario(playerid);
 			TogglePlayerControllable(playerid, 0);
-			CreateProgress(playerid, "RepararVeh","Reparando Veiculo...", 100);
+			InfoMsg(playerid, "Reparando veiculo...");
+			SetTimerEx("RepararVeh", 5000, false, "i", playerid);
 			ocupadodemais[playerid] = 1;
 			PlayerInventario[playerid][modelid][Unidades] --;
 			AtualizarInventario(playerid, modelid);
@@ -6047,8 +5842,9 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 			{
 				cmd_inventario(playerid);
-				CreateProgress(playerid, "Pesca","Pescando...", 110);
 				TogglePlayerControllable(playerid, 0);
+				InfoMsg(playerid, "Pescando...");
+				SetTimerEx("Pesca", 10000, false, "i", playerid);
 				UsouCMD[playerid] = true;	
 			}
 			return 1;		
@@ -6062,8 +5858,9 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			for(new i; i < 8; i++)
 			if(IsPlayerInRangeOfPoint(playerid, 1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2]))
 			{
-				CreateProgress(playerid, "Desossar","Desossando...", 100);
 				TogglePlayerControllable(playerid, 0);
+				InfoMsg(playerid, "Desossando...");
+				SetTimerEx("Desossar", 10000, false, "i", playerid);
 				RemovePlayerAttachedObject(playerid, 1);
 				UsouCMD[playerid] = true;
 			}
@@ -13968,22 +13765,25 @@ public OnPlayerEnterCheckpoint(playerid)
 {
 	if(Casavehcorreios2[playerid] == true)
 	{
-		CreateProgress(playerid, "EntregandoCx","Entregando caixa...", 80);
-		TogglePlayerControllable(playerid,0);
+		TogglePlayerControllable(playerid, 0);
+		InfoMsg(playerid, "Entregando Caixa...");
+		SetTimerEx("EntregandoCx", 10000, false, "i", playerid);
 		DisablePlayerCheckpoint(playerid);
 		Casavehcorreios2[playerid] = false;
 	}
 	if(Casavehcorreios[playerid] == true){
 		Casavehcorreios[playerid] = false;
 		DisablePlayerCheckpoint(playerid);
-		CreateProgress(playerid, "PegandoCaixaV","Pegando caixa...", 50);
-		TogglePlayerControllable(playerid,0);
+		TogglePlayerControllable(playerid, 0);
+		InfoMsg(playerid, "Pegando Caixa...");
+		SetTimerEx("PegandoCaixaV", 10000, false, "i", playerid);
 		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 	}
 	if(checkcasa[playerid] == true)
 	{
 		DisablePlayerCheckpoint(playerid);
-		CreateProgress(playerid, "BatendoPorta","Aguardando morador...", 110);
+		TogglePlayerControllable(playerid, 0);
+		SetTimerEx("BatendoPorta", 10000, false, "i", playerid);
 		SuccesMsg(playerid, "Voce esta batendo na porta aguarde o morador...");
 		TogglePlayerControllable(playerid, 0);
 		checkcasa[playerid] = false;
@@ -14004,7 +13804,8 @@ public OnPlayerEnterCheckpoint(playerid)
 			DisablePlayerCheckpoint(playerid);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-			CreateProgress(playerid,"PegandoCaixasP","Pegando caixa...", 20);
+			InfoMsg(playerid, "Pegando Caixa...");
+			SetTimerEx("PegandoCaixaP", 10000, false, "i", playerid);
 			EntregaSdx[playerid] = false;
 		}
 	}
@@ -14012,113 +13813,25 @@ public OnPlayerEnterCheckpoint(playerid)
 		DisablePlayerCheckpoint(playerid); 
 		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-		CreateProgress(playerid, "ColocandoCaixa","Colocando caixa...", 20);
+		InfoMsg(playerid, "Colocando Caixa...");
+		SetTimerEx("ColocandoCaixa", 10000, false, "i", playerid);
 		CaixaMao[playerid] = false;
 	}
 	if(Covaconcerto[playerid] == true) 
 	{ 
-		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.1, 1, 0, 0, 0, 0, 1);
-		DisablePlayerCheckpoint(playerid); 
-		CreateProgress(playerid, "Cova","Coletando lixo...", 20);
+		DisablePlayerCheckpoint(playerid);
+		TogglePlayerControllable(playerid, 0);
+		InfoMsg(playerid, "Coletando Lixo...");
+		SetTimerEx("Cova", 10000, false, "i", playerid);
 	}
 	if(PegouLixo[playerid] == true) 
 	{ 
 		DisablePlayerCheckpoint(playerid); 
-		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-		CreateProgress(playerid, "BotouBau","Colocando lixo...", 50);
-	}
-	if(ltumba[playerid] == true)
-	{
-		if(IsPlayerInRangeOfPoint(playerid, 10.0, 1173.5168,-1308.6056,13.6994))
-		{
-			if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 442)
-			{
-				DisablePlayerCheckpoint(playerid); 
-				TogglePlayerControllable(playerid, 0);
-				CreateProgress(playerid, "RotaCova1","Colocando cadaver...", 100);
-			}
-		}
-		if(IsPlayerInRangeOfPoint(playerid, 10.0, 1609.8369,1823.2799,10.5249))
-		{
-			if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 442)
-			{
-				DisablePlayerCheckpoint(playerid); 
-				TogglePlayerControllable(playerid, 0);
-				CreateProgress(playerid, "RotaCova2","Colocando cadaver...", 100);
-			}
-		}
-		if(IsPlayerInRangeOfPoint(playerid, 10.0, -2590.4451,643.4471,14.1566))
-		{
-			if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 442)
-			{
-				DisablePlayerCheckpoint(playerid); 
-				TogglePlayerControllable(playerid, 0);
-				CreateProgress(playerid, "RotaCova3","Colocando cadaver...", 100);
-			}
-		}
-	}
-	if(CargoTumba[playerid] == 1)
-	{
-		if(IsPlayerInRangeOfPoint(playerid, 10.0, 934.1115,-1103.3857,24.3118))
-		if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 442)
-		{
-			DisablePlayerCheckpoint(playerid);
-			CargoTumba[playerid] = 0;
-			ltumba[playerid] = false;
-			if(PlayerInfo[playerid][pVIP] == 0)
-			{
-				PlayerInfo[playerid][pDinheiro] += 600;
-				SuccesMsg(playerid, "Terminou o trabalho e ganhou R$600."); 
-			}   
-			if(PlayerInfo[playerid][pVIP] == 2)
-			{
-				PlayerInfo[playerid][pDinheiro] += 600*2;
-				SuccesMsg(playerid, "Terminou o trabalho e ganhou R$1200."); 
-			}
-		}
-	}
-	if(CargoTumba[playerid] == 2)
-	{
-		if(IsPlayerInRangeOfPoint(playerid, 10.0, 934.1115,-1103.3857,24.3118))
-		if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 442)
-		{
-			DisablePlayerCheckpoint(playerid);
-			CargoTumba[playerid] = 0;
-			ltumba[playerid] = false;
-			if(PlayerInfo[playerid][pVIP] == 0)
-			{
-				PlayerInfo[playerid][pDinheiro] += 1200;
-				SuccesMsg(playerid, "Terminou o trabalho e ganhou R$1200."); 
-			}   
-			if(PlayerInfo[playerid][pVIP] == 2)
-			{
-				PlayerInfo[playerid][pDinheiro] += 1200*2;
-				SuccesMsg(playerid, "Terminou o trabalho e ganhou R$2400."); 
-			}
-		}
-
-	}
-	if(CargoTumba[playerid] == 3)
-	{
-		if(IsPlayerInRangeOfPoint(playerid, 10.0, 934.1115,-1103.3857,24.3118))
-		if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 442)
-		{
-			DisablePlayerCheckpoint(playerid);
-			CargoTumba[playerid] = 0;
-			ltumba[playerid] = false;
-			if(PlayerInfo[playerid][pVIP] == 0)
-			{
-				PlayerInfo[playerid][pDinheiro] += 2000;
-				SuccesMsg(playerid, "Terminou o trabalho e ganhou R$2000."); 
-			}   
-			if(PlayerInfo[playerid][pVIP] == 2)
-			{
-				PlayerInfo[playerid][pDinheiro] += 2000*2;
-				SuccesMsg(playerid, "Terminou o trabalho e ganhou R$4000."); 
-			}
-		}
+		TogglePlayerControllable(playerid, 0);
+		InfoMsg(playerid, "Colocando no bau...");
+		SetTimerEx("BotouBau", 10000, false, "i", playerid);
 	}
 	if(PegouMaterial[playerid] == true)
 	{
@@ -14191,9 +13904,10 @@ public OnPlayerEnterCheckpoint(playerid)
 	{
 		if(PlayerInfo[playerid][pProfissao] != 2) 	return ErrorMsg(playerid, "Nao possui permissao.");
 
-		TogglePlayerControllable(playerid, 0);
 		DisablePlayerCheckpoint(playerid);
-		CreateProgress(playerid, "Minerar","Coletando Rocha...", 100);
+		TogglePlayerControllable(playerid, 0);
+		InfoMsg(playerid, "Coletando Rocha...");
+		SetTimerEx("Minerar", 10000, false, "i", playerid);
 	}
 	return 1;
 }
@@ -18311,11 +18025,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							ErrorMsg(playerid, "Voce nao esta proximo a um jogador!");
 						}
 					}
-					else
-					{
-						ErrorMsg(playerid, "Jogador nao conectado.");
-					}
 				}
+				ErrorMsg(playerid, "Jogador nao conectado.");
 			}
 		}
 		case DIALOG_CARGA:
@@ -20553,11 +20264,8 @@ CMD:daritem(playerid, const params[])
 				SuccesMsg(playerid, "Item setado para o jogador.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -20615,12 +20323,8 @@ CMD:report(playerid, params[])
 				SendAdminMessage(-1, Str);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
-	//
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -20746,11 +20450,8 @@ CMD:setskin(playerid, params[])
 				InfoMsg(i, "Algum administrador mudou sua skin.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -20770,11 +20471,8 @@ CMD:setvida(playerid, params[])
 				InfoMsg(i, "Algum administrador alterou sua vida.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -20794,11 +20492,8 @@ CMD:setcolete(playerid, params[])
 				InfoMsg(i, "Algum administrador alterou seu colete.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -20842,11 +20537,8 @@ CMD:kick(playerid, params[])
 				Kick(i);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -20880,11 +20572,8 @@ CMD:cadeia(playerid, params[])
 				SendClientMessageToAll(-1, Str);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -20916,11 +20605,8 @@ CMD:ir(playerid, params[])
 				InfoMsg(i, "Algum administrador foi ate voce.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -20952,11 +20638,8 @@ CMD:trazer(playerid, params[])
 				InfoMsg(i, "Algum administrador trouxe voce.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -21012,11 +20695,8 @@ CMD:tv(playerid, params[])
 					IsAssistindo[playerid] = true;
 				}
 			}
-			else
-			{
-				ErrorMsg(playerid, "Jogador nao conectado.");
-			}
 		}
+		ErrorMsg(playerid, "Jogador nao conectado.");
 	}
 	else
 	{
@@ -21045,10 +20725,6 @@ CMD:setarma(playerid, params[])
 				InfoMsg(i, "Algum administrador deu arma a voce.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
 	return 1;
 }
@@ -21069,11 +20745,8 @@ CMD:desarmar(playerid, params[])
 				InfoMsg(i, "Algum administrador removeu suas armas.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -21094,11 +20767,8 @@ CMD:banir(playerid, params[])
 				BanirPlayer(i, playerid, Motivo);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -21161,11 +20831,8 @@ CMD:tempban(playerid,params[])
 				Kick(i);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -21243,11 +20910,8 @@ CMD:adv(playerid, params[])
 				}
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -21267,11 +20931,8 @@ CMD:banirip(playerid, params[])
 				BanirIP(i, playerid, Motivo);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -21354,11 +21015,8 @@ CMD:congelar(playerid, params[])
 				InfoMsg(i, "Algum administrador congelou voce.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -21379,11 +21037,8 @@ CMD:descongelar(playerid, params[])
 				InfoMsg(i, "Algum administrador congelou voce.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -21454,11 +21109,8 @@ CMD:dardinheiro(playerid, params[])
 				InfoMsg(i, "Algum administrador deu dinheiro a voce.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }   
 
@@ -21479,24 +21131,21 @@ CMD:setadmin(playerid, params[])
 				InfoMsg(i, "Algum administrador setou admin em voce.");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
 CMD:gmx(playerid)
 {
 	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
-	foreach(new i: Player)
-	{
-		if(pLogado[i] == true) SalvarDados(i), Kick(i);
-		
-	}
 	format(Str, sizeof(Str), "{5b6ed9}ANUNCIO{FFFFFF} Se realizara um reinicio no servidor.");
 	SendClientMessageToAll(-1, Str);
+	foreach(new i: Player)
+	{
+		if(pLogado[i] == true) SalvarDados(i), SalvarMortos(playerid),SalvarInventario(playerid),SalvarAvaliacao(playerid),	SalvarVIP(playerid),Kick(i);
+		
+	}
 	SendRconCommand("exit");
 	return 1;
 }
@@ -21651,11 +21300,8 @@ CMD:lferidos(playerid, params[])
 					}
 				}
 			}
-			else
-			{
-				ErrorMsg(playerid, "Jogador nao conectado.");
-			}
 		}
+		ErrorMsg(playerid, "Jogador nao conectado.");
 	}
 	else ErrorMsg(playerid, "Nao possui permissao.");
 	return true;
@@ -21722,7 +21368,8 @@ CMD:descarregar(playerid)
 	if(Cargase[playerid] == true) 
 
 	TogglePlayerControllable(playerid, 0);
-	CreateProgress(playerid, "DescarregarCarga","Descarregando caminhao...", 150);
+	InfoMsg(playerid, "Descarregando caminhao...");
+	SetTimerEx("DescarregarCarga", 10000, false, "i", playerid);
 	return 1;
 }
 
@@ -21760,11 +21407,8 @@ CMD:convidar(playerid,params[])
 				ShowPlayerDialog(i,DIALOG_CONVITE,DIALOG_STYLE_MSGBOX,"Convite",String,"Aceitar","X");
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -21810,11 +21454,8 @@ CMD:demitir(playerid,params[])
 				PlayerInfo[i][Cargo] = 0;
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 CMD:promover(playerid,params[])
@@ -21841,11 +21482,8 @@ CMD:promover(playerid,params[])
 				InfoMsg(i, String);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -21902,11 +21540,8 @@ CMD:darlider(playerid,params[])
 				addlider(i, org);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -22277,11 +21912,8 @@ CMD:algemar(playerid, params[])
 				SetPlayerSpecialAction(i, SPECIAL_ACTION_CUFFED);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 CMD:desalgemar(playerid, params[])
@@ -22304,11 +21936,8 @@ CMD:desalgemar(playerid, params[])
 				SetPlayerSpecialAction(i, SPECIAL_ACTION_NONE);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -22331,11 +21960,8 @@ CMD:pveiculo(playerid, params[])
 					PutPlayerInVehicle(i, carid, 4);
 				}
 			}
-			else
-			{
-				ErrorMsg(playerid, "Jogador nao conectado.");
-			}
 		}
+		ErrorMsg(playerid, "Jogador nao conectado.");
 	}
 	return 1;
 }
@@ -22358,11 +21984,8 @@ CMD:rveiculo(playerid, params[])
 					RemovePlayerFromVehicle(i);
 				}
 			}
-			else
-			{
-				ErrorMsg(playerid, "Jogador nao conectado.");
-			}
 		}
+		ErrorMsg(playerid, "Jogador nao conectado.");
 	}
 	return 1;
 }
@@ -22440,11 +22063,8 @@ CMD:prender(playerid, params[])
 				}
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -22484,11 +22104,8 @@ CMD:su(playerid, params[])
 				SetPlayerWantedLevel(i, Numero);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -22541,11 +22158,8 @@ CMD:revistar(playerid, params[])
 					}
 				}
 			}
-			else
-			{
-				ErrorMsg(playerid, "Jogador nao conectado.");
-			}
 		}
+		ErrorMsg(playerid, "Jogador nao conectado.");
 	}
 	return 1;
 }
@@ -22571,11 +22185,8 @@ CMD:rarmas(playerid, params[])
 				InfoMsg(i, Str);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -22624,11 +22235,8 @@ CMD:multar(playerid, params[])
 				InfoMsg(i, Str);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -22658,11 +22266,8 @@ CMD:verdocumentos(playerid, params[])
 					ShowPlayerDialog(playerid, DIALOG_CMDRG,DIALOG_STYLE_MSGBOX,"Seu Documento",megastrings,"X",#);
 				}
 			}
-			else
-			{
-				ErrorMsg(playerid, "Jogador nao conectado.");
-			}
 		}
+		ErrorMsg(playerid, "Jogador nao conectado.");
 	}
 	return 1;
 }
@@ -23620,11 +23225,8 @@ CMD:ejetar(playerid, params[])
 				InfoMsg(i, msg);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -23725,11 +23327,8 @@ CMD:venderv(playerid, params[])
 				SuccesMsg(playerid, msg);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -23754,11 +23353,8 @@ CMD:darchaves(playerid, params[])
 				InfoMsg(i, msg);
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -24451,11 +24047,8 @@ CMD:pediravaliar(playerid, params[])
 
 			}
 		}
-		else
-		{
-			ErrorMsg(playerid, "Jogador nao conectado.");
-		}
   	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
 }
 
@@ -24533,8 +24126,9 @@ CMD:desossar(playerid)
 	for(new i; i < 8; i++)
 	if(IsPlayerInRangeOfPoint(playerid, 1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2]))
 	{
-		CreateProgress(playerid, "Desossar","Desossando...", 100);
 		TogglePlayerControllable(playerid, 0);
+		InfoMsg(playerid, "Desossando...");
+		SetTimerEx("Desossar", 10000, false, "i", playerid);
 		ApplyAnimation(playerid, "BASEBALL", "Bat_M", 4.1, 1, 0, 0, 0, 0, 1);
 		RemovePlayerAttachedObject(playerid, 1);
 		UsouCMD[playerid] = true;
@@ -24672,8 +24266,9 @@ CMD:pescar(playerid)
 	for(new i; i < 13; i++)
 	if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 	{
-		CreateProgress(playerid, "Pesca","Pescando...", 100);
 		TogglePlayerControllable(playerid, 0);
+		InfoMsg(playerid, "Pescando...");
+		SetTimerEx("Pesca", 10000, false, "i", playerid);
 		UsouCMD[playerid] = true;	
 	}
 	return 1;
@@ -24809,7 +24404,7 @@ CMD:roubar(playerid)
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 				
-			CreateProgress(playerid, "RoubarLoja","Roubando caixa lojinha...", 1000);
+			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
 			
 			if(noti == 1)
 			{
@@ -24833,7 +24428,7 @@ CMD:roubar(playerid)
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 				
-			CreateProgress(playerid, "RoubarLoja","Roubando caixa lojinha...", 1000);
+			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
 			
 			if(noti == 1)
 			{
@@ -24857,7 +24452,7 @@ CMD:roubar(playerid)
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 				
-			CreateProgress(playerid, "RoubarLoja","Roubando caixa lojinha...", 1000);
+			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
 			
 			if(noti == 1)
 			{
@@ -24881,7 +24476,7 @@ CMD:roubar(playerid)
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 				
-			CreateProgress(playerid, "RoubarLoja","Roubando caixa lojinha...", 1000);
+			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
 			
 			if(noti == 1)
 			{
@@ -24905,7 +24500,7 @@ CMD:roubar(playerid)
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 				
-			CreateProgress(playerid, "RoubarLoja","Roubando caixa lojinha...", 1000);
+			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
 			
 			if(noti == 1)
 			{
@@ -24929,7 +24524,7 @@ CMD:roubar(playerid)
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 				
-			CreateProgress(playerid, "RoubarLoja","Roubando caixa HomeLand Food...", 1000);
+			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
 			
 			if(noti == 1)
 			{
@@ -24953,7 +24548,7 @@ CMD:roubar(playerid)
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 				
-			CreateProgress(playerid, "RoubarLoja","Roubando Banco...", 1000);
+			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
 			
 			if(noti == 1)
 			{
@@ -24977,7 +24572,7 @@ CMD:roubar(playerid)
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 				
-			CreateProgress(playerid, "RoubarLoja","Roubando AmmuNation...", 1000);
+			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
 			
 			if(noti == 1)
 			{
@@ -25004,7 +24599,8 @@ CMD:desmanchar(playerid)
 		if(PTP(5.0, playerid, 406.967926, 2435.910644, 17.121870) || PTP(5.0, playerid, 401.748901, 2436.063232, 17.121870) || PTP(5.0, playerid, 395.880065, 2435.940917, 17.121870))
 		{
 			Controle(playerid, 0);
-			CreateProgress(playerid, "DesmancharVeh","Desmanchando Veiculo...", 200);
+			InfoMsg(playerid, "Desmanchando veiculo..");
+			SetTimerEx("DesmancharVeh", 30000, false, "i", playerid);
 		}
 	}
 	return 1;
@@ -25091,95 +24687,6 @@ CMD:terminar(playerid, x_Emprego[])
 		}
 		return 1;
 	}
-
-CMD:dominar(playerid)
-{
-	if(PlayerInfo[playerid][Org] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
-    if(IsPlayerInPlace(playerid,-460.22906494140625, 1281.9999694824219, -140.22906494140625, 1643.9999694824219))
-    {
-        if(IsPolicial(playerid))
-        {
-	        GangZoneFlashForAll(Parabolica,0x328fc00);
-            CreateProgress(playerid, "DominarLParabolica","Dominando...", 600+600+600+600+600);
-        }
-        else if(PlayerInfo[playerid][Org] == 5)
-        {
-            GangZoneFlashForAll(Parabolica,0xfcf00300);
-            CreateProgress(playerid, "DominarLParabolica","Dominando...", 600+600+600+600+600);
-        }
-        else if(PlayerInfo[playerid][Org] == 6)
-        {
-            GangZoneFlashForAll(Parabolica,0x0398fc00);
-            CreateProgress(playerid, "DominarLParabolica","Dominando...", 600+600+600+600+600);
-        }
-        else if(PlayerInfo[playerid][Org] == 7)
-        {
-            GangZoneFlashForAll(Parabolica,0xfc030300);
-            CreateProgress(playerid, "DominarLParabolica","Dominando...", 600+600+600+600+600);
-        }
-        else if(PlayerInfo[playerid][Org] == 8)
-        {
-            GangZoneFlashForAll(Parabolica,0x13fc0300);
-            CreateProgress(playerid, "DominarLParabolica","Dominando...", 600+600+600+600+600);
-        }
-        else if(PlayerInfo[playerid][Org] == 12)
-        {
-            GangZoneFlashForAll(Parabolica,0xe3a65600);
-            CreateProgress(playerid, "DominarLParabolica","Dominando...", 600+600+600+600+600);
-        }
-        else if(PlayerInfo[playerid][Org] == 13)
-        {
-            GangZoneFlashForAll(Parabolica,0x59422500);
-            CreateProgress(playerid, "DominarLParabolica","Dominando...", 600+600+600+600+600);
-        }
-    }
-    else if(IsPlayerInPlace(playerid,-1434.2429809570312, 1902.6701049804688, -987.2429809570312, 2672.6701049804688))
-    {
-	    if(IsPolicial(playerid))
-        {
-	        GangZoneFlashForAll(Barragem,0x328fc00);
-            SetTimer("DominarBarragem",minutos(5),false);
-            CreateProgress(playerid, "DominarLBarragem","Dominando...", 600+600+600+600+600);
-        }
-        else if(PlayerInfo[playerid][Org] == 5)
-        {
-            GangZoneFlashForAll(Barragem,0xfcf00300);
-            SetTimer("DominarBarragem",minutos(5),false);
-            CreateProgress(playerid, "DominarLBarragem","Dominando...", 600+600+600+600+600);
-        }
-        else if(PlayerInfo[playerid][Org] == 6)
-        {
-            GangZoneFlashForAll(Barragem,0x0398fc00);
-            SetTimer("DominarBarragem",minutos(5),false);
-            CreateProgress(playerid, "DominarLBarragem","Dominando...", 600+600+600+600+600);
-        }
-        else if(PlayerInfo[playerid][Org] == 7)
-        {
-            GangZoneFlashForAll(Barragem,0xfc030300);
-            SetTimer("DominarBarragem",minutos(5),false);
-            CreateProgress(playerid, "DominarLBarragem","Dominando...", 600+600+600+600+600);
-        }
-        else if(PlayerInfo[playerid][Org] == 8)
-        {
-            GangZoneFlashForAll(Barragem,0x13fc0300);
-            SetTimer("DominarBarragem",minutos(5),false);
-            CreateProgress(playerid, "DominarLBarragem","Dominando...", 600+600+600+600+600);
-        }
-        else if(PlayerInfo[playerid][Org] == 12)
-        {
-            GangZoneFlashForAll(Barragem,0xe3a65600);
-            SetTimer("DominarBarragem",minutos(5),false);
-            CreateProgress(playerid, "DominarLBarragem","Dominando...", 600+600+600+600+600);
-        }
-        else if(PlayerInfo[playerid][Org] == 13)
-        {
-            GangZoneFlashForAll(Barragem,0x59422500);
-            SetTimer("DominarBarragem",minutos(5),false);
-            CreateProgress(playerid, "DominarLBarragem","Dominando...", 600+600+600+600+600);
-        }
-    }     
-    return 1;
-}
 
 CMD:abrircorreios(playerid)
 {
