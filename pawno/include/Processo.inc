@@ -62,6 +62,7 @@ stock KillProgress(playerid)
 	for(new i = 0; i < 14; i++)
 	{
 		PlayerTextDrawDestroy(playerid, ProgressoBar[playerid][i]);
+		break;
 	}
 	DestroyPlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
 	format(Progress_Info[playerid][p_callback], 32, ""); 
@@ -273,6 +274,7 @@ stock CreateTDProgress(playerid)
 	for(new i = 0; i < 14; i++)
 	{
 		PlayerTextDrawShow(playerid, ProgressoBar[playerid][i]);
+		break;
 	}
 	ShowPlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
 	return 1;

@@ -3654,6 +3654,7 @@ CallBack::VelocimetroEx(playerid)
 			if(mostrandovelo[playerid] == 0){
 				for(new t=0;t<4;t++){
 					TextDrawShowForPlayer(playerid,Velomob[t]);
+					break;
 				}
 				mostrandovelo[playerid] = 1;
 			}
@@ -3726,6 +3727,7 @@ CallBack::VelocimetroEx(playerid)
 			if(mostrandovelo[playerid] == 0){
 				for(new t=0;t<52;t++){
 					TextDrawShowForPlayer(playerid,VeloC_G[t]);
+					break;
 				}
 				mostrandovelo[playerid] = 1;
 			}
@@ -3735,9 +3737,11 @@ CallBack::VelocimetroEx(playerid)
 			if(mostrandovelo[playerid] != 0){
 				for(new t=0;t<3;t++){
 					PlayerTextDrawHide(playerid,Velomob_p[playerid][t]);
+					break;
 				}
 				for(new t=0;t<4;t++){
 					TextDrawHideForPlayer(playerid,Velomob[t]);
+					break;
 				}
 				mostrandovelo[playerid] = 0;
 			}
@@ -3745,9 +3749,11 @@ CallBack::VelocimetroEx(playerid)
 			if(mostrandovelo[playerid] != 0){
 				for(new t=0;t<10;t++){
 					PlayerTextDrawHide(playerid,VeloC[playerid][t]);
+					break;
 				}
 				for(new t=0;t<52;t++){
 					TextDrawHideForPlayer(playerid,VeloC_G[t]);
+					break;
 				}
 				mostrandovelo[playerid] = 0;
 			}
@@ -5456,7 +5462,7 @@ CallBack::LoadInv(playerid)
 
 CallBack::SalvarInventario(playerid)
 {
-	new file[5000], str[5000], string[5000];
+	new file[128], str[200], string[60];
 	format(file, sizeof(file), PASTA_INVENTARIO, Name(playerid));
 	if(!DOF2_FileExists(file)){DOF2_CreateFile(file);}
 	for(new i = 1; i < 31; ++i)
@@ -5465,6 +5471,7 @@ CallBack::SalvarInventario(playerid)
 		format(str, sizeof(str), "%d|%d", PlayerInventario[playerid][i][Slot], PlayerInventario[playerid][i][Unidades]);
 		DOF2_SetString(file, string, str);
 		DOF2_SaveFile();
+		break;
 	}
 	return 1;
 }
