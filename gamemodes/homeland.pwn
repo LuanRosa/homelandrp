@@ -1240,7 +1240,7 @@ new Float:PosVeiculos[10][4] =
 	{1639.677124, -1103.197631, 23.906250},//Hospital
 	{-478.623901, -506.406524, 25.517845},//Camionero
 	{590.086975, 871.486694, -42.734603},//Minerador
-	{-2074.854492, 1428.281982, 7.101562},//Mecanica
+	{2010.767089, -1771.265380, 13.543199},//Mecanica
 	{-1278.216552, 2711.282714, 50.132141},//BAEP
 	{981.7181, 1733.6261, 8.6484}//Correios
 };
@@ -4472,7 +4472,7 @@ CallBack::AttVeh(playerid)
 							if(PassouRadar[playerid] == 0)
 							{
 								PassouRadar[playerid] = 1;
-								SetTimerEx("LiberarRadar", segundos(5), false, "d", playerid);
+								SetTimerEx("LiberarRadar", segundos(2), false, "d", playerid);
 								return 1;
 							}
 						}
@@ -4483,7 +4483,7 @@ CallBack::AttVeh(playerid)
 								if(Patrulha[playerid] == true || PlayerInfo[playerid][pVIP] == 2)
 								{
 									PassouRadar[playerid] = 1;
-									SetTimerEx("LiberarRadar", segundos(5), false, "d", playerid);
+									SetTimerEx("LiberarRadar", segundos(2), false, "d", playerid);
 									return 1;
 								}
 								else
@@ -4491,7 +4491,7 @@ CallBack::AttVeh(playerid)
 									new multaradar = randomEx(0, 5000);
 									PassouRadar[playerid] = 1;
 									GameTextForPlayer(playerid, "~n~ ~r~RADAR", 2000, 1);
-									SetTimerEx("LiberarRadar", segundos(5), false, "d", playerid);
+									SetTimerEx("LiberarRadar", segundos(2), false, "d", playerid);
 									PlayerPlaySound(playerid,1132,0.0,0.0,0.0);
 									PlayerInfo[playerid][pMultas] += multaradar;
 								}
@@ -6943,7 +6943,7 @@ stock CarregarCofre(idorg)
 		CofreInfo[idorg][CofrePosZ] = DOF2_GetInt(Arq, "CofrePosZ");
 		CofreInfo[idorg][CofrePosR] = DOF2_GetInt(Arq, "CofrePosR");
 
-		ObjetoCofre[idorg] = CreateDynamicObject(19772, CofreInfo[idorg][CofrePosX], CofreInfo[idorg][CofrePosY], CofreInfo[idorg][CofrePosZ]-1, 0.0, 0.0, CofreInfo[idorg][CofrePosR]);
+		ObjetoCofre[idorg] = CreateDynamicObject(19772, CofreInfo[idorg][CofrePosX], CofreInfo[idorg][CofrePosY], CofreInfo[idorg][CofrePosZ], 0.0, 0.0, CofreInfo[idorg][CofrePosR]);
 		format(string, sizeof(string), "{BEBEBE}ID Cofre: %d\nAperte {FF2400}H\n{BEBEBE}Para Abrir o Menu do Bau", CofreInfo[idorg][CofreID]);
 		TextoCofreOrg[idorg] = CreateDynamic3DTextLabel(string, -1, CofreInfo[idorg][CofrePosX], CofreInfo[idorg][CofrePosY], CofreInfo[idorg][CofrePosZ], 25.0);
 		return 1;
@@ -10135,15 +10135,15 @@ stock NomeOrg(playerid)
 	}
 	if(org == 5)
 	{
-		orG = "Los Vagos";
+		orG = "Tropa dos Vermelhos";
 	}
 	if(org == 6)
 	{
-		orG = "Los Rifas";
+		orG = "Tropa dos Azuis";
 	}
 	if(org == 7)
 	{
-		orG = "Ballas";
+		orG = "Tropa dos Amarelos";
 	}
 	if(org == 8)
 	{
@@ -10311,7 +10311,7 @@ stock temlicenca(playerid)
 stock VIP(playerid)
 {
 	new LipeStrondaVIP[64];
-	if(PlayerInfo[playerid][pVIP] != 0) { LipeStrondaVIP = "GRATIS"; }
+	if(PlayerInfo[playerid][pVIP] == 0) { LipeStrondaVIP = "GRATIS"; }
 	if(PlayerInfo[playerid][pVIP] == 1) { LipeStrondaVIP = "CLASSIC"; }
 	else if(PlayerInfo[playerid][pVIP] == 2) { LipeStrondaVIP = "ADVANCED"; }
 	else if(PlayerInfo[playerid][pVIP] == 3) { LipeStrondaVIP = "PREMIUM"; }
@@ -10320,7 +10320,6 @@ stock VIP(playerid)
 
 stock ConvertDays(dias) 
 { 
-
 	new 
 		valueday = 86400*dias, 
 		daysconvert, 
@@ -10399,132 +10398,6 @@ stock PreloadAnimLib(playerid, animlib[])
 
 stock randomEx(minnum = cellmin, maxnum = cellmax)
 	return random(maxnum - minnum + 1) + minnum;// by Y_Less
-
-stock NpcText()
-{
-	new Actor[30+1],Text3D:label[30+1];
-
-	Actor[0] = CreateActor(227, 1689.563598, -2326.089599, 13.546875, 154.224639); 
-	label[0] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {5b6ed9}Allison_Gomes!\n{FFFFFF}Use {5b6ed9}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, 1689.563598, -2326.089599, 13.546875, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[0], Actor[0], 0.0, 0.0, 0.7);
-
-	Actor[1] = CreateActor(35, 154.188613, -1945.949584, 4.972961, 352.308258);  
-	label[1] = Create3DTextLabel("{5b6ed9}Pescador\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o trampo.", 0x008080FF, 154.188613, -1945.949584, 4.972961, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[1], Actor[1], 0.0, 0.0, 0.7);
-
-	Actor[2] = CreateActor(188, 1282.407836, -1296.064575, 13.361650, 81.131340);  
-	label[2] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Homeland Construtora\n{00FF00}Vaga:{FFFFFF}Pedreiro\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 1282.407836, -1296.064575, 13.361650, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[2], Actor[2], 0.0, 0.0, 0.7);
-
-	CreateAurea("{5b6ed9}Loja de Pescados\n{FFFFFF}Use o {5b6ed9}Inventario{FFFFFF}' para vender.", 163.968444, -1941.403564, 3.773437);
-
-	Actor[3] = CreateActor(34, 584.859375, 877.046569, -42.497318, 266.847808);  
-	label[3] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Mineradora LathMor\n{00FF00}Vaga:{FFFFFF} Minerador\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 584.859375, 877.046569, -42.497318, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[3], Actor[3], 0.0, 0.0, 0.7);
-
-	Actor[4] = CreateActor(133, 960.607055, 2097.604003, 1011.023010, 358.121734);  
-	label[4] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}FriBoi\n{00FF00}Vaga:{FFFFFF} Acougueiro\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 960.607055, 2097.604003, 1011.023010, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[4], Actor[4], 0.0, 0.0, 0.7);
-
-	Actor[5] = CreateActor(78, -504.495117, -517.457763, 25.523437, 258.582305);  
-	label[5] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}FedeX\n{00FF00}Vaga:{FFFFFF}Caminhoneiro\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -504.495117, -517.457763, 25.523437, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[5], Actor[5], 0.0, 0.0, 0.7);
-
-	Actor[6] = CreateActor(79, -28.763319, 1363.971313, 9.171875, 37.998077);  
-	label[6] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Prefeitura da Homeland\n{00FF00}Vaga:{FFFFFF} Coletor de Lixo\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -28.763319, 1363.971313, 9.171875, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[6], Actor[6], 0.0, 0.0, 0.7);
-
-	Actor[7] = CreateActor(188, 1682.130737, -2326.373291, 13.546875, 211.057678);  
-	label[7] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {5b6ed9}Luan_Rosa!\n{FFFFFF}Aprenda como jogar no servidor \nUse '{5b6ed9}F{FFFFFF}' para se informar", 0x008080FF, 1682.130737, -2326.373291, 13.546875, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[7], Actor[7], 0.0, 0.0, 0.7);
-
-	Actor[8] = CreateActor(71, 939.6504,1733.2004,8.8516,-87.4139);  
-	label[8] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}SedeX\n{00FF00}Vaga:{FFFFFF} Correios\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 939.6504,1733.2004,8.8516, 15.0, 0);
-	Attach3DTextLabelToPlayer(label[8], Actor[8], 0.0, 0.0, 0.7);
-
-	CreateAurea("{5b6ed9}Prefeitura\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -501.146118, 294.354156, 2001.094970);
-	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1443.961181, -1138.289184, 23.958011);
-	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1445.757080, -1136.793090, 23.958011);
-	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1448.275756, -1134.693725, 23.958011);
-	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1456.284912, -1128.022460, 23.958011);
-	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1458.722656, -1125.988525, 23.958011);
-	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1460.913208, -1124.163940, 23.958011);
-	CreateAurea("{5b6ed9}Hospital Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1646.425537, -1126.261474, 24.051115);
-	CreateAurea("{5b6ed9}HomeLand Food\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 797.993225, -1618.977661, 14.032936);
-	CreateAurea("{5b6ed9}Loja de Utilidades 1\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1345.220703, -1763.755737, 13.551799);
-	CreateAurea("{5b6ed9}Loja de Utilidades 2\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1649.424316, -1889.373535, 13.569334);
-	CreateAurea("{5b6ed9}Loja de Utilidades 3\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 2064.488037, -1868.448364, 13.570810);
-	CreateAurea("{5b6ed9}Loja de Utilidades 4\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 382.998931, -1909.859863, 7.844120);
-	CreateAurea("{5b6ed9}Loja de Utilidades 5\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1325.427368, -867.394287, 39.597454);
-	CreateAurea("{5b6ed9}Centro de Licenca\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1083.447998, -1766.307128, 13.928387);
-	CreateAurea("{5b6ed9}Loja Ilegal\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 514.712341, -2333.011474, 508.693756);
-	CreateAurea("{5b6ed9}AmmuNation\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1785.501586, -1916.644165, 14.295277);
-	CreateAurea("{5b6ed9}Joalheria\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 468.658203, -1517.271606, 20.477876);
-	// LOCAIS ROUBO
-	CreateAurea("{5b6ed9}Loja de Utilidades 1\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1359.730712, -1774.143798, 13.551797);
-	CreateAurea("{5b6ed9}Loja de Utilidades 2\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1663.732910, -1899.628295, 13.569333);
-	CreateAurea("{5b6ed9}Loja de Utilidades 3\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 2054.306152, -1882.930908, 13.570812);
-	CreateAurea("{5b6ed9}Loja de Utilidades 4\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 393.256683, -1895.677734, 7.844118);
-	CreateAurea("{5b6ed9}Loja de Utilidades 5\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1311.017944, -856.895690, 39.597454);
-	CreateAurea("{5b6ed9}HomeLand Food\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 800.242553, -1617.385986, 14.032936);
-	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1442.647583, -1120.358276, 23.959011);
-	CreateAurea("{5b6ed9}AmmuNation\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1789.135253, -1921.435058, 14.287462);
-	//----
-	
-	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nprocessar a peca de carne.", 942.577758, 2117.902099, 1011.030273);
-	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \npegar uma embalagem.", 938.006469, 2144.264892, 1011.023437);
-	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncolocar a carne na caixa.",942.416259, 2137.294921, 1011.023437);
-	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nrevisar a caixa.", 942.421325, 2153.745849, 1011.023437);
-	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \npegar a caixa.", 942.288391, 2173.139404, 1011.023437);
-	CreateAurea("Ponto de entrega.", 964.872192, 2159.816406, 1011.030273);
-	
-	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.961181, 1434.810058, 7.101562);
-	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.800048, 1426.759521, 7.101562);
-	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.942382, 1417.446289, 7.101562);
-	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.715820, 1408.081909, 7.101562);
-	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", -2064.961425, 1399.184448, 7.101562);
-
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -520.421813, -504.999450, 24.635631, 25.0); // Carregamento Caminhoneiro
-	CreateDynamicPickup(1220, 23, -520.421813, -504.999450, 24.635631); //Carregamento Caminhoneiro
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -529.748168, -504.937561, 24.640802, 25.0); // Carregamento Caminhoneiro
-	CreateDynamicPickup(1220, 23, -529.748168, -504.937561, 24.640802); //Carregamento Caminhoneiro
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -557.552368, -505.473480, 24.596021, 25.0); // Carregamento Caminhoneiro
-	CreateDynamicPickup(1220, 23, -557.552368, -505.473480, 24.596021); //Carregamento Caminhoneiro
-
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \npegar uma camera.", -1, -5467.627441, -4536.831054, 4046.774902, 25.0); // Camera
-	CreateDynamicPickup(1275, 23, -5467.627441, -4536.831054, 4046.774902);//Camera
-
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}/uniforme{FFFFFF}' para \npegar seu uniforme e bater ponto.", -1, 956.8282,1754.7942,8.6484, 25.0); // Uniforme correios
-	CreateDynamicPickup(1275, 23, 956.8282,1754.7942,8.6484);//Uniforme correios
-
-	CreateDynamicPickup(1247,23,658.691955, -1465.217651, 15.439466,0);
-	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}/prender{FFFFFF}'para \nprender o jogador.",-1,658.691955, -1465.217651, 15.439466,15);
-
-	CreateAurea("{5b6ed9}Rota de Maconha\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -1143.184814, 2227.874511, 97.219261);
-	CreateAurea("{5b6ed9}Rota de Cocaina\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -248.257873, 1506.404418, 75.562500);
-	CreateAurea("{5b6ed9}Lavagem\n{FFFFFF}Utilize '{5b6ed9}Dinheiro Sujo{FFFFFF}' para \nefetuar a lavagem.", 1489.208862, -1719.420043, 8.242919);
-	
-	CreateAurea("{5b6ed9}Material\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar um material.", 1273.534545, -1292.359985, 13.481081);
-	CreateAurea("{5b6ed9}Material\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para deixar o material.", 1257.569458, -1263.111206, 17.821365);
-
-	CreateDynamicPickup(1314, 23, -2017.083740, -998.231933, 37.254680);
-	CreateDynamic3DTextLabel("{5b6ed9}Policia Militar{FFFFFF}\nUse '{5b6ed9}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,-2017.083740, -998.231933, 37.254680,15);
-	
-	CreateDynamicPickup(1314, 23, 1638.864746, -248.854202, 49.000457);
-	CreateDynamic3DTextLabel("{5b6ed9}Policia Rodoviaria{FFFFFF}\nUse '{5b6ed9}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,1638.864746, -248.854202, 49.000457,15);
-	
-	CreateDynamicPickup(1314, 23, -2446.826904, 505.566497, 30.090206);
-	CreateDynamic3DTextLabel("{5b6ed9}Rondas Ostensivas{FFFFFF}\nUse '{5b6ed9}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,-2446.826904, 505.566497, 30.090206,15);
-	
-	CreateDynamicPickup(1314, 23, -1258.899536, 2709.987304, 55.174671);
-	CreateDynamic3DTextLabel("{5b6ed9}Acoes Especiais{FFFFFF}\nUse '{5b6ed9}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,-1258.899536, 2709.987304, 55.174671,15);
-	
-	CreateDynamicPickup(1314, 23, 1634.357543, -1122.493896, 24.051122);
-	CreateDynamic3DTextLabel("{5b6ed9}Medicos{FFFFFF}\nUse '{5b6ed9}F{FFFFFF}'para \nabrir o menu da organizacao.",-1,1634.357543, -1122.493896, 24.051122,15);
-	
-	printf("=> Textos       		: Carregados");
-	return 1;
-}
 
 stock GetPlayerID(Nome[])
 {
@@ -11217,8 +11090,6 @@ public OnGameModeInit()
 	SetGameModeText(VERSAOSERVER);
     SendRconCommand("language Português - Brasil");
 	SendRconCommand("ackslimit 5000");
- 	SendRconCommand("connseedtime 3000");
- 	SendRconCommand("minconnectiontime 1000");
  	SendRconCommand(SERVERFORUM);
  	//SendRconCommand("password 123654");
 	SendRconCommand("rcon 0");
@@ -11230,7 +11101,6 @@ public OnGameModeInit()
 	printf(" ");
 	AntiDeAMX();
 	DisableCrashDetectLongCall();
-	NpcText();
 	ORGCarrega();
 	CarregarMapIcons();
 	CarregarCaixas();
@@ -11301,7 +11171,7 @@ public OnGameModeInit()
     printf("=======================================================================");
 	printf("Servidor Ligado: [%02d/%02d/%d %02d:%02d]", Dia, Mes, Ano, Hora, Minuto);
     printf("=======================================================================");	
-	// CONFI
+	// CONFIGS
 
 	ShowPlayerMarkers(0);
 	DisableInteriorEnterExits();
@@ -11329,6 +11199,150 @@ public OnGameModeInit()
 	Parabolica = GangZoneCreate( -460.22906494140625, 1281.9999694824219, -140.22906494140625, 1643.9999694824219);
     Barragem = GangZoneCreate( -1434.2429809570312, 1902.6701049804688, -987.2429809570312, 2672.6701049804688);
 
+	new Actor[30+1],Text3D:label[30+1];
+
+	Actor[0] = CreateActor(227, 1689.563598, -2326.089599, 13.546875, 154.224639); 
+	label[0] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {5b6ed9}Allison_Gomes!\n{FFFFFF}Use {5b6ed9}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, 1689.563598, -2326.089599, 13.546875, 15.0, 0);
+	Attach3DTextLabelToPlayer(label[0], Actor[0], 0.0, 0.0, 0.7);
+
+	Actor[1] = CreateActor(35, 154.188613, -1945.949584, 4.972961, 352.308258);  
+	label[1] = Create3DTextLabel("{5b6ed9}Pescador\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o trampo.", 0x008080FF, 154.188613, -1945.949584, 4.972961, 15.0, 0);
+	Attach3DTextLabelToPlayer(label[1], Actor[1], 0.0, 0.0, 0.7);
+
+	Actor[2] = CreateActor(188, 1282.407836, -1296.064575, 13.361650, 81.131340);  
+	label[2] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Homeland Construtora\n{00FF00}Vaga:{FFFFFF}Pedreiro\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 1282.407836, -1296.064575, 13.361650, 15.0, 0);
+	Attach3DTextLabelToPlayer(label[2], Actor[2], 0.0, 0.0, 0.7);
+
+	CreateAurea("{5b6ed9}Loja de Pescados\n{FFFFFF}Use o {5b6ed9}Inventario{FFFFFF}' para vender.", 163.968444, -1941.403564, 3.773437);
+
+	Actor[3] = CreateActor(34, 584.859375, 877.046569, -42.497318, 266.847808);  
+	label[3] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Mineradora LathMor\n{00FF00}Vaga:{FFFFFF} Minerador\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 584.859375, 877.046569, -42.497318, 15.0, 0);
+	Attach3DTextLabelToPlayer(label[3], Actor[3], 0.0, 0.0, 0.7);
+
+	Actor[4] = CreateActor(133, 960.607055, 2097.604003, 1011.023010, 358.121734);  
+	label[4] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}FriBoi\n{00FF00}Vaga:{FFFFFF} Acougueiro\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 960.607055, 2097.604003, 1011.023010, 15.0, 0);
+	Attach3DTextLabelToPlayer(label[4], Actor[4], 0.0, 0.0, 0.7);
+
+	Actor[5] = CreateActor(78, -504.495117, -517.457763, 25.523437, 258.582305);  
+	label[5] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}FedeX\n{00FF00}Vaga:{FFFFFF}Caminhoneiro\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -504.495117, -517.457763, 25.523437, 15.0, 0);
+	Attach3DTextLabelToPlayer(label[5], Actor[5], 0.0, 0.0, 0.7);
+
+	Actor[6] = CreateActor(79, -28.763319, 1363.971313, 9.171875, 37.998077);  
+	label[6] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Prefeitura da Homeland\n{00FF00}Vaga:{FFFFFF} Coletor de Lixo\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -28.763319, 1363.971313, 9.171875, 15.0, 0);
+	Attach3DTextLabelToPlayer(label[6], Actor[6], 0.0, 0.0, 0.7);
+
+	Actor[7] = CreateActor(188, 1682.130737, -2326.373291, 13.546875, 211.057678);  
+	label[7] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {5b6ed9}Luan_Rosa!\n{FFFFFF}Aprenda como jogar no servidor \nUse '{5b6ed9}F{FFFFFF}' para se informar", 0x008080FF, 1682.130737, -2326.373291, 13.546875, 15.0, 0);
+	Attach3DTextLabelToPlayer(label[7], Actor[7], 0.0, 0.0, 0.7);
+
+	Actor[8] = CreateActor(71, 939.6504,1733.2004,8.8516,-87.4139);  
+	label[8] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}SedeX\n{00FF00}Vaga:{FFFFFF} Correios\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 939.6504,1733.2004,8.8516, 15.0, 0);
+	Attach3DTextLabelToPlayer(label[8], Actor[8], 0.0, 0.0, 0.7);
+
+	CreateAurea("{5b6ed9}Prefeitura\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -501.146118, 294.354156, 2001.094970);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1443.961181, -1138.289184, 23.958011);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1445.757080, -1136.793090, 23.958011);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1448.275756, -1134.693725, 23.958011);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1456.284912, -1128.022460, 23.958011);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1458.722656, -1125.988525, 23.958011);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1460.913208, -1124.163940, 23.958011);
+	CreateAurea("{5b6ed9}Hospital Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1646.425537, -1126.261474, 24.051115);
+	CreateAurea("{5b6ed9}HomeLand Food\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 797.993225, -1618.977661, 14.032936);
+	CreateAurea("{5b6ed9}Loja de Utilidades 1\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1345.220703, -1763.755737, 13.551799);
+	CreateAurea("{5b6ed9}Loja de Utilidades 2\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1649.424316, -1889.373535, 13.569334);
+	CreateAurea("{5b6ed9}Loja de Utilidades 3\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 2064.488037, -1868.448364, 13.570810);
+	CreateAurea("{5b6ed9}Loja de Utilidades 4\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 382.998931, -1909.859863, 7.844120);
+	CreateAurea("{5b6ed9}Loja de Utilidades 5\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1325.427368, -867.394287, 39.597454);
+	CreateAurea("{5b6ed9}Centro de Licenca\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1083.447998, -1766.307128, 13.928387);
+	CreateAurea("{5b6ed9}Loja Ilegal\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 514.712341, -2333.011474, 508.693756);
+	CreateAurea("{5b6ed9}AmmuNation\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1785.501586, -1916.644165, 14.295277);
+	CreateAurea("{5b6ed9}Joalheria\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 468.658203, -1517.271606, 20.477876);
+	// LOCAIS ROUBO
+	CreateAurea("{5b6ed9}Loja de Utilidades 1\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1359.730712, -1774.143798, 13.551797);
+	CreateAurea("{5b6ed9}Loja de Utilidades 2\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1663.732910, -1899.628295, 13.569333);
+	CreateAurea("{5b6ed9}Loja de Utilidades 3\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 2054.306152, -1882.930908, 13.570812);
+	CreateAurea("{5b6ed9}Loja de Utilidades 4\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 393.256683, -1895.677734, 7.844118);
+	CreateAurea("{5b6ed9}Loja de Utilidades 5\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1311.017944, -856.895690, 39.597454);
+	CreateAurea("{5b6ed9}HomeLand Food\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 800.242553, -1617.385986, 14.032936);
+	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1442.647583, -1120.358276, 23.959011);
+	CreateAurea("{5b6ed9}AmmuNation\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1789.135253, -1921.435058, 14.287462);
+	//----
+	
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nprocessar a peca de carne.", 942.577758, 2117.902099, 1011.030273);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \npegar uma embalagem.", 938.006469, 2144.264892, 1011.023437);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncolocar a carne na caixa.",942.416259, 2137.294921, 1011.023437);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nrevisar a caixa.", 942.421325, 2153.745849, 1011.023437);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \npegar a caixa.", 942.288391, 2173.139404, 1011.023437);
+	CreateAurea("Ponto de entrega.", 964.872192, 2159.816406, 1011.030273);
+	
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", 1982.807739, -1783.678100, 13.543199);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", 1991.699951, -1783.279541, 13.543199);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", 2001.068359, -1783.499389, 13.543199);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", 2010.380981, -1783.100097, 13.543199);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", 2018.434692, -1783.255126, 13.543199);
+
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -520.421813, -504.999450, 24.635631, 25.0); // Carregamento Caminhoneiro
+	CreateDynamicPickup(1220, 23, -520.421813, -504.999450, 24.635631); //Carregamento Caminhoneiro
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -529.748168, -504.937561, 24.640802, 25.0); // Carregamento Caminhoneiro
+	CreateDynamicPickup(1220, 23, -529.748168, -504.937561, 24.640802); //Carregamento Caminhoneiro
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncarregar seu caminhao.", -1, -557.552368, -505.473480, 24.596021, 25.0); // Carregamento Caminhoneiro
+	CreateDynamicPickup(1220, 23, -557.552368, -505.473480, 24.596021); //Carregamento Caminhoneiro
+
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \npegar uma camera.", -1, -5467.627441, -4536.831054, 4046.774902, 25.0); // Camera
+	CreateDynamicPickup(1275, 23, -5467.627441, -4536.831054, 4046.774902);//Camera
+
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}/uniforme{FFFFFF}' para \npegar seu uniforme e bater ponto.", -1, 956.8282,1754.7942,8.6484, 25.0); // Uniforme correios
+	CreateDynamicPickup(1275, 23, 956.8282,1754.7942,8.6484);//Uniforme correios
+
+	CreateDynamicPickup(1247,23,658.691955, -1465.217651, 15.439466,0);
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}/prender{FFFFFF}'para \nprender o jogador.",-1,658.691955, -1465.217651, 15.439466,15);
+
+	CreateAurea("{5b6ed9}Rota de Maconha\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -1143.184814, 2227.874511, 97.219261);
+	CreateAurea("{5b6ed9}Rota de Cocaina\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -248.257873, 1506.404418, 75.562500);
+	CreateAurea("{5b6ed9}Lavagem\n{FFFFFF}Utilize '{5b6ed9}Dinheiro Sujo{FFFFFF}' para \nefetuar a lavagem.", 1489.208862, -1719.420043, 8.242919);
+	
+	CreateAurea("{5b6ed9}Material\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar um material.", 1273.534545, -1292.359985, 13.481081);
+	CreateAurea("{5b6ed9}Material\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para deixar o material.", 1257.569458, -1263.111206, 17.821365);
+
+	CreateDynamicPickup(1314, 23, -2017.083740, -998.231933, 37.254680);
+	CreateDynamic3DTextLabel("{5b6ed9}Policia Militar{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,-2017.083740, -998.231933, 37.254680,15);
+	
+	CreateDynamicPickup(1314, 23, 1638.864746, -248.854202, 49.000457);
+	CreateDynamic3DTextLabel("{5b6ed9}Policia Rodoviaria{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1638.864746, -248.854202, 49.000457,15);
+	
+	CreateDynamicPickup(1314, 23, -2446.826904, 505.566497, 30.090206);
+	CreateDynamic3DTextLabel("{5b6ed9}Rondas Ostensivas{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,-2446.826904, 505.566497, 30.090206,15);
+	
+	CreateDynamicPickup(1314, 23, -1258.899536, 2709.987304, 55.174671);
+	CreateDynamic3DTextLabel("{5b6ed9}Acoes Especiais{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,-1258.899536, 2709.987304, 55.174671,15);
+	
+	CreateDynamicPickup(1314, 23, 2095.946044, -1143.877807, 25.586040);
+	CreateDynamic3DTextLabel("{5b6ed9}Tropa dos Vermelhos{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,2095.946044, -1143.877807, 25.586040,15);
+	
+	CreateDynamicPickup(1314, 23, 2650.068359, -2018.365234, 13.552066);
+	CreateDynamic3DTextLabel("{5b6ed9}Tropa dos Azuis{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,2650.068359, -2018.365234, 13.552066,15);
+	
+	CreateDynamicPickup(1314, 23, 1858.289306, -1590.896484, 13.574988);
+	CreateDynamic3DTextLabel("{5b6ed9}Tropa dos Amarelos{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1858.289306, -1590.896484, 13.574988,15);
+	
+	CreateDynamicPickup(1314, 23, 2275.367187, -1785.524414, 13.546875);
+	CreateDynamic3DTextLabel("{5b6ed9}Tropa dos Verdes{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,2275.367187, -1785.524414, 13.546875,15);
+	
+	CreateDynamicPickup(1314, 23, 1973.031616, -1779.866455, 13.543199);
+	CreateDynamic3DTextLabel("{5b6ed9}Mecanicos{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1973.031616, -1779.866455, 13.543199,15);
+	
+	CreateDynamicPickup(1314, 23, 1634.357543, -1122.493896, 24.051122);
+	CreateDynamic3DTextLabel("{5b6ed9}Medicos{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1634.357543, -1122.493896, 24.051122,15);
+	
+	CreateDynamicPickup(1314, 23, 753.274414, -1358.755981, 13.500000);
+	CreateDynamic3DTextLabel("{5b6ed9}Reportagem{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,753.274414, -1358.755981, 13.500000,15);
+	
+	CreateDynamicPickup(1314, 23, -692.327087, 939.566345, 13.632812);
+	CreateDynamic3DTextLabel("{5b6ed9}Mafia Russa {FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,-692.327087, 939.566345, 13.632812,15);
+	
+	CreateDynamicPickup(1314, 23, 385.094787, 2448.588378, 16.500000);
+	CreateDynamic3DTextLabel("{5b6ed9}Moto Clube{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,385.094787, 2448.588378, 16.500000,15);
+	
 	for(new j; j < MAX_ORGS; j++)
 	{
 	    CarregarCofre(j);
@@ -13642,13 +13656,13 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
 			}
 		}
-		else if(PlayerToPoint(3.0, playerid, -2074.854492, 1428.281982, 7.101562))
+		else if(PlayerToPoint(3.0, playerid, 2010.767089, -1771.265380, 13.543199))
 		{
-			if(PlayerInfo[playerid][Org] != 10)    		return ErrorMsg(playerid, "Nao possui permissao.");
+			if(PlayerInfo[playerid][Org] != 9)    		return ErrorMsg(playerid, "Nao possui permissao.");
 			if(VehAlugado[playerid] == 0)
 			{
 				VehAlugado[playerid] = 1;
-				VeiculoCivil[playerid] = CreateVehicle(525, -2074.854492, 1428.281982, 7.101562, 170.0, -1, -1, false);
+				VeiculoCivil[playerid] = CreateVehicle(525, 2010.767089, -1771.265380, 13.543199, 170.0, -1, -1, false);
 				PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
 				InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
 			}
@@ -13659,7 +13673,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		else if(PlayerToPoint(3.0, playerid, 1639.677124, -1103.197631, 23.906250))
 		{
-			if(PlayerInfo[playerid][Org] != 9)    		return ErrorMsg(playerid, "Nao possui permissao.");
+			if(PlayerInfo[playerid][Org] != 10)    		return ErrorMsg(playerid, "Nao possui permissao.");
 			ShowPlayerDialog(playerid, DIALOG_VEHHP, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}Ambulance\t{FF0000}416\n{FF0000}- {FFFFFF}Wayfarer\t{FF0000}586", "Selecionar", "X");
 		}
 		else if(PlayerToPoint(3.0, playerid, -2033.141479, -988.619567, 32.212158))
@@ -13899,7 +13913,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][Org] != 11) 		return ErrorMsg(playerid, "Nao possui permissao.");
 			GivePlayerWeapon(playerid, 43, 20);
 		}
-		if(PlayerToPoint(3.0, playerid, -2064.961181, 1434.810058, 7.101562) || PlayerToPoint(3.0, playerid, -2064.800048, 1426.759521, 7.101562) || PlayerToPoint(3.0, playerid, -2064.942382, 1417.446289, 7.101562) || PlayerToPoint(3.0, playerid, -2064.715820, 1408.081909, 7.101562) || PlayerToPoint(3.0, playerid, -2064.961425, 1399.184448, 7.101562))
+		if(PlayerToPoint(3.0, playerid, 1982.807739, -1783.678100, 13.543199) || PlayerToPoint(3.0, playerid, 1991.699951, -1783.279541, 13.543199) || PlayerToPoint(3.0, playerid, 2001.068359, -1783.499389, 13.543199) || PlayerToPoint(3.0, playerid, 2010.380981, -1783.100097, 13.543199) || PlayerToPoint(3.0, playerid, 2018.434692, -1783.255126, 13.543199))
 		{
 			if(PlayerInfo[playerid][Org] != 10) 		return ErrorMsg(playerid, "Nao possui permissao.");
 			ShowPlayerDialog(playerid, DIALOG_ARMARIOMEC, DIALOG_STYLE_LIST,"Menu Mecanico", "{5b6ed9}- {FFFFFF}Caixa de Ferramientas\t{32CD32}R$1200\n{5b6ed9}- {FFFFFF}Ferramentas de Tunagem\t{32CD32}R$15000", "Selecionar","X");
@@ -14544,7 +14558,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else
 			{
-				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Mecanico", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
+				GanharItem(playerid, 1010, 1);
 			}
 		}	
 		case DIALOG_MECANICARODAS:
@@ -15024,6 +15038,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(!response)
 			{
+				TogglePlayerControllable(playerid, false);
+				SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 				if(PlayerInfo[playerid][Casa] >= 0)
 				{
 					PlayerInfo[playerid][Entrada] = PlayerInfo[playerid][Casa];
@@ -15058,27 +15074,27 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else if(PlayerInfo[playerid][Org] == 5)
 				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin],  -789.252563, 1622.004394, 27.117187, 90.036911, 0, 0, 0, 0, 0, 0);
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin],  2095.946044, -1143.877807, 25.586040, 90.036911, 0, 0, 0, 0, 0, 0);
 					SpawnPlayer(playerid);
 				}
 				else if(PlayerInfo[playerid][Org] == 6)
 				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2087.006591, -2544.948974, 30.625000, 90.036911, 0, 0, 0, 0, 0, 0);
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 2650.068359, -2018.365234, 13.552066, 90.036911, 0, 0, 0, 0, 0, 0);
 					SpawnPlayer(playerid);
 				}
 				else if(PlayerInfo[playerid][Org] == 7)
 				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 188.515975, -106.426063, 2.023437, 90.036911, 0, 0, 0, 0, 0, 0);
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1858.289306, -1590.896484, 13.574988, 90.036911, 0, 0, 0, 0, 0, 0);
 					SpawnPlayer(playerid);
 				}
 				else if(PlayerInfo[playerid][Org] == 8)
 				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -96.821380, 1041.751953, 19.664335, 90.036911, 0, 0, 0, 0, 0, 0);
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 2275.367187, -1785.524414, 13.546875, 90.036911, 0, 0, 0, 0, 0, 0);
 					SpawnPlayer(playerid);
 				}
 				else if(PlayerInfo[playerid][Org] == 9)
 				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2653.636474, 640.163085, 14.45312, 90.036911, 0, 0, 0, 0, 0, 0);
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1973.031616, -1779.866455, 13.543199, 90.036911, 0, 0, 0, 0, 0, 0);
 					SpawnPlayer(playerid);
 				}
 				else if(PlayerInfo[playerid][Org] == 10)
@@ -15088,30 +15104,28 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else if(PlayerInfo[playerid][Org] == 11)
 				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 649.302062, -1357.399658, 13.567605, 90.036911, 0, 0, 0, 0, 0, 0);
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 753.274414, -1358.755981, 13.500000, 90.036911, 0, 0, 0, 0, 0, 0);
 					SpawnPlayer(playerid);
 				}
 				else if(PlayerInfo[playerid][Org] == 12)
 				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -688.271423, 938.216918, 13.632812, 90.036911, 0, 0, 0, 0, 0, 0);
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -692.327087, 939.566345, 13.632812, 90.036911, 0, 0, 0, 0, 0, 0);
 					SpawnPlayer(playerid);
 				}
 				else if(PlayerInfo[playerid][Org] == 13)
 				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 698.636657, 1964.867065, 5.539062, 90.036911, 0, 0, 0, 0, 0, 0);
+					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 385.094787, 2448.588378, 16.500000, 90.036911, 0, 0, 0, 0, 0, 0);
 					SpawnPlayer(playerid);
 				}
-				TogglePlayerControllable(playerid, false);
-				SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 			}
 			else
 			{
+				TogglePlayerControllable(playerid, false);
+				SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 				SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ], PlayerInfo[playerid][pPosA], 0, 0, 0, 0, 0, 0);
 				SetPlayerCameraPos(playerid, PlayerInfo[playerid][pCamX], PlayerInfo[playerid][pCamY], PlayerInfo[playerid][pCamZ]);
 				SetPlayerInterior(playerid, PlayerInfo[playerid][pInterior]);
-				SpawnPlayer(playerid);
-				TogglePlayerControllable(playerid, false);
-				SetTimerEx("carregarobj", 5000, 0, "i", playerid); 
+				SpawnPlayer(playerid); 
 			}
 		}
 		case DIALOG_BANCO4:
@@ -16045,7 +16059,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					new strsociogo[2500];
 					strcat(strsociogo, "{fef33c}____________________________| BENEFÍCIOS VIPS |____________________________\n\n");
-					strcat(strsociogo, "{2fce3c}Ao ativar (VIP BASICO):\n\n");
+					strcat(strsociogo, "{2fce3c}Ao ativar (VIP CLASSIC):\n\n");
 					strcat(strsociogo, "{fcfcfc}• Receberá Cargo/Cor Destaque No Discord\n");
 					strcat(strsociogo, "{fcfcfc}• Receberá Previlegios no Discord\n");
 					strcat(strsociogo, "{fcfcfc}• Receberá Salario Payday\t{6d6a6d}(Valor: R$1.500)\n");
@@ -16113,7 +16127,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return ErrorMsg(playerid, "Coins insuficiente.");
 					PlayerInfo[playerid][pCoins] -= 5000;
-					PlayerInfo[playerid][pAvisos]++;
+					PlayerInfo[playerid][pAvisos]--;
 					SuccesMsg(playerid, "Comprou uma remocao de avisos.");
 				}
 				if(listitem == 6)
@@ -18081,7 +18095,7 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 		strcat(megastrings, String2);
 		format(String2,sizeof(String2), "{FFFFFF}T.Acumulado:{5b6ed9} %s\n{FFFFFF}Coins:{5b6ed9} %s\n{FFFFFF}Dinheiro:{5b6ed9} %s\n", convertNumber(PlayerInfo[clickedplayerid][pSegundosJogados]), ConvertMoney(PlayerInfo[clickedplayerid][pCoins]), ConvertMoney(PlayerInfo[clickedplayerid][pDinheiro]));
 		strcat(megastrings, String2);
-		format(String2,sizeof(String2), "{FFFFFF}Banco:{5b6ed9} %s\n{FFFFFF}Avisos:{5b6ed9} %d\n{FFFFFF}Emprego:{5b6ed9} %s\n{FFFFFF}Org:{5b6ed9} %s\n", ConvertMoney(PlayerInfo[clickedplayerid][pBanco]), ConvertMoney(PlayerInfo[clickedplayerid][pAvisos]),Profs(clickedplayerid),NomeOrg(clickedplayerid));
+		format(String2,sizeof(String2), "{FFFFFF}Banco:{5b6ed9} %s\n{FFFFFF}Avisos:{5b6ed9} %s\n{FFFFFF}Emprego:{5b6ed9} %s\n{FFFFFF}Org:{5b6ed9} %s\n", ConvertMoney(PlayerInfo[clickedplayerid][pBanco]), ConvertMoney(PlayerInfo[clickedplayerid][pAvisos]),Profs(clickedplayerid),NomeOrg(clickedplayerid));
 		strcat(megastrings, String2);
 		format(String2,sizeof(String2), "{FFFFFF}Multas:{5b6ed9} %s\n{FFFFFF}Casa ID:{5b6ed9} %d\n{FFFFFF}CNH: {5b6ed9}%s", ConvertMoney(PlayerInfo[clickedplayerid][pMultas]), PlayerInfo[clickedplayerid][Casa], temlicenca(clickedplayerid));
 		strcat(megastrings, String2);
@@ -18515,7 +18529,7 @@ CMD:minhaconta(playerid)
 	strcat(megastrings, String2);
 	format(String2,sizeof(String2), "{FFFFFF}T.Acumulado:{5b6ed9} %s\n{FFFFFF}Coins:{5b6ed9} %s\n{FFFFFF}Dinheiro:{5b6ed9} %s\n", convertNumber(PlayerInfo[playerid][pSegundosJogados]), ConvertMoney(PlayerInfo[playerid][pCoins]), ConvertMoney(PlayerInfo[playerid][pDinheiro]));
 	strcat(megastrings, String2);
-	format(String2,sizeof(String2), "{FFFFFF}Banco:{5b6ed9} %s\n{FFFFFF}Avisos:{5b6ed9} %d\n{FFFFFF}Emprego:{5b6ed9} %s\n{FFFFFF}Org:{5b6ed9} %s\n", ConvertMoney(PlayerInfo[playerid][pBanco]), ConvertMoney(PlayerInfo[playerid][pAvisos]),Profs(playerid),NomeOrg(playerid));
+	format(String2,sizeof(String2), "{FFFFFF}Banco:{5b6ed9} %s\n{FFFFFF}Avisos:{5b6ed9} %s\n{FFFFFF}Emprego:{5b6ed9} %s\n{FFFFFF}Org:{5b6ed9} %s\n", ConvertMoney(PlayerInfo[playerid][pBanco]), ConvertMoney(PlayerInfo[playerid][pAvisos]),Profs(playerid),NomeOrg(playerid));
 	strcat(megastrings, String2);
 	format(String2,sizeof(String2), "{FFFFFF}Multas:{5b6ed9} %s\n{FFFFFF}Casa ID:{5b6ed9} %d\n{FFFFFF}CNH: {5b6ed9}%s", ConvertMoney(PlayerInfo[playerid][pMultas]), PlayerInfo[playerid][Casa], temlicenca(playerid));
 	strcat(megastrings, String2);
@@ -20052,7 +20066,7 @@ CMD:orgs(playerid)
 	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}6{FFFFFF} - Tropa dos Azuis: %s\n", DOF2_GetString("InfoOrg/6.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}7{FFFFFF} - Tropa dos Vermelhos: %s\n", DOF2_GetString("InfoOrg/7.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}7{FFFFFF} - Tropa dos Amarelos: %s\n", DOF2_GetString("InfoOrg/7.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}8{FFFFFF} - Tropa dos Verdes %s\n", DOF2_GetString("InfoOrg/8.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
@@ -20839,7 +20853,7 @@ CMD:verdocumentos(playerid, params[])
 					strcat(megastrings, String2);
 					format(String2,sizeof(String2), "{FFFFFF}T.Acumulado:{5b6ed9} %s\n{FFFFFF}Coins:{5b6ed9} %s\n{FFFFFF}Dinheiro:{5b6ed9} %s\n", convertNumber(PlayerInfo[i][pSegundosJogados]), ConvertMoney(PlayerInfo[i][pCoins]), ConvertMoney(PlayerInfo[i][pDinheiro]));
 					strcat(megastrings, String2);
-					format(String2,sizeof(String2), "{FFFFFF}Banco:{5b6ed9} %s\n{FFFFFF}Avisos:{5b6ed9} %d\n{FFFFFF}Emprego:{5b6ed9} %s\n{FFFFFF}Org:{5b6ed9} %s\n", ConvertMoney(PlayerInfo[i][pBanco]), ConvertMoney(PlayerInfo[i][pAvisos]),Profs(i),NomeOrg(i));
+					format(String2,sizeof(String2), "{FFFFFF}Banco:{5b6ed9} %s\n{FFFFFF}Avisos:{5b6ed9} %s\n{FFFFFF}Emprego:{5b6ed9} %s\n{FFFFFF}Org:{5b6ed9} %s\n", ConvertMoney(PlayerInfo[i][pBanco]), ConvertMoney(PlayerInfo[i][pAvisos]),Profs(i),NomeOrg(i));
 					strcat(megastrings, String2);
 					format(String2,sizeof(String2), "{FFFFFF}Multas:{5b6ed9} %s\n{FFFFFF}Casa ID:{5b6ed9} %d\n{FFFFFF}CNH: {5b6ed9}%s", ConvertMoney(PlayerInfo[i][pMultas]), PlayerInfo[i][Casa], temlicenca(i));
 					strcat(megastrings, String2);

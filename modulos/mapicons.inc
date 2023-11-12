@@ -12,7 +12,7 @@ CarregarMapIcons()
 	CreateDynamicMapIcon(374.2604,-1903.8306,7.6719, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//27-7
 	CreateDynamicMapIcon(1351.2615,-1755.5823,13.3519, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//27-7
 	// ORG NEUTRAS
-	CreateDynamicMapIcon(-2064.956787, 1389.049560, 7.101562, 27, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//MECANICA
+	CreateDynamicMapIcon(1973.031616, -1779.866455, 13.543199, 27, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//MECANICA
 	CreateDynamicMapIcon(1638.175415, -1134.294311, 24.051120, 22, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//HOSPITAL
 	CreateDynamicMapIcon(649.302062, -1357.399658, 13.567605, 34, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//SAN NEWS
 	// ORG MILITARES	
@@ -22,12 +22,12 @@ CarregarMapIcons()
 	CreateDynamicMapIcon(1662.559692, -285.732208, 39.607868, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PRF
 	CreateDynamicMapIcon(671.580932, -1501.122802, 17.498348, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PRF
 	// ORG CRIMINOSA
-	/*CreateDynamicMapIcon(188.515975, -106.426063, 2.023437, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Amarelo
-	CreateDynamicMapIcon(-789.252563, 1622.004394, 27.117187, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Azul
-	CreateDynamicMapIcon(-2087.006591, -2544.948974, 30.625000, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Vermelho
-	CreateDynamicMapIcon(-96.821380, 1041.751953, 19.664335, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Verde
-	CreateDynamicMapIcon(-688.271423, 938.216918, 13.632812, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Mafia Russa
-	CreateDynamicMapIcon(698.636657, 1964.867065, 5.539062, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Moto Clube*/
+	CreateDynamicMapIcon(1858.289306, -1590.896484, 13.574988, 60, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Amarelo
+	CreateDynamicMapIcon(2650.068359, -2018.365234, 13.552066, 58, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Azul
+	CreateDynamicMapIcon(2095.946044, -1143.877807, 25.586040, 59, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Vermelho
+	CreateDynamicMapIcon(2275.367187, -1785.524414, 13.546875, 62, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Verde
+	CreateDynamicMapIcon(-692.327087, 939.566345, 13.632812, 44, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Mafia Russa
+	CreateDynamicMapIcon(385.094787, 2448.588378, 16.500000, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Moto Clube
 	// EMPREGOS
 	CreateDynamicMapIcon(154.188613, -1945.949584, 4.972961, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PESCADOR
 	CreateDynamicMapIcon(590.086975, 871.486694, -42.734603, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//MINEIRADOR

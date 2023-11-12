@@ -2049,7 +2049,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="23473">
+		<member name="C:__line" value="23493">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -5420,6 +5420,7 @@
 			<referrer name="darxp"/>
 			<referrer name="GetPlayerIdfixo"/>
 			<referrer name="VaiProHospital"/>
+			<referrer name="SalvarMortos"/>
 			<referrer name="GetPlayerOrg"/>
 			<referrer name="ChecarOrg"/>
 			<referrer name="NomeCargo"/>
@@ -7549,7 +7550,6 @@
 			<referrer name="FomeBar"/>
 			<referrer name="SedeBar"/>
 			<referrer name="DroparItem"/>
-			<referrer name="CarregarCofre"/>
 			<referrer name="ac_OnPlayerWeaponShot"/>
 			<referrer name="cmd_trazercofre"/>
 			<dependency name="float"/>
@@ -7813,7 +7813,6 @@
 			<referrer name="GetClosestVehicle"/>
 			<referrer name="IsPerto"/>
 			<referrer name="ConvertTimeX"/>
-			<referrer name="NpcText"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="CarregarMapas"/>
 			<referrer name="CarregarMapIcons"/>
@@ -9102,7 +9101,7 @@
 		<member name="M:Attach3DTextLabelToPlayer" syntax="Attach3DTextLabelToPlayer(id, playerid, OffsetX, OffsetY, OffsetZ)">
 			<attribute name="native"/>
 			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="NpcText"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<param name="id">
 				<paraminfo>Text3D </paraminfo>
 			</param>
@@ -10058,7 +10057,7 @@
 			<referrer name="PlantarMaconhas"/>
 			<referrer name="CreateAurea"/>
 			<referrer name="CreateCaixa"/>
-			<referrer name="NpcText"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo> [] </paraminfo>
 			</param>
@@ -10389,7 +10388,6 @@
 		<member name="M:CarregarCofre" syntax="CarregarCofre(idorg)">
 			<stacksize value="10467"/>
 			<referrer name="mf_OnGameModeInit"/>
-			<dependency name="operator-(Float:,_:)"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="CofreAmmo"/>
 			<dependency name="CofreAmmo"/>
@@ -10461,7 +10459,7 @@
 			<dependency name="printf"/>
 		</member>
 		<member name="M:CarregarMapas" syntax="CarregarMapas()">
-			<stacksize value="65"/>
+			<stacksize value="67"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="CreateDynamicObject"/>
@@ -10476,15 +10474,15 @@
 			<dependency name="vaultDoor"/>
 		</member>
 		<member name="M:CarregarMortos" syntax="CarregarMortos(playerid)">
-			<stacksize value="47"/>
+			<stacksize value="57"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<dependency name="DOF2_GetFloat"/>
 			<dependency name="DOF2_GetInt"/>
-			<dependency name="PastaNomeX"/>
-			<dependency name="PastaNomeX"/>
+			<dependency name="Name"/>
 			<dependency name="PlayerMorto"/>
 			<dependency name="PlayerMorto"/>
 			<dependency name="fexist"/>
+			<dependency name="format"/>
 			<dependency name="pEstaMorto"/>
 			<dependency name="pInteriorMxxx"/>
 			<dependency name="pMinMorto"/>
@@ -10827,7 +10825,7 @@
 		</member>
 		<member name="M:CreateAurea" syntax="CreateAurea(textaur[], aurx, aury, aurz)">
 			<stacksize value="14"/>
-			<referrer name="NpcText"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<dependency name="operator-(Float:,Float:)"/>
 			<dependency name="CST_Create3DTextLabel"/>
 			<dependency name="acc_CreateDynamicPickup"/>
@@ -10893,7 +10891,6 @@
 			<referrer name="CarregarCofre"/>
 			<referrer name="CriarRadares"/>
 			<referrer name="CriarCasas"/>
-			<referrer name="NpcText"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_criarcasa"/>
@@ -11695,6 +11692,7 @@
 			<referrer name="CarregarGZ"/>
 			<referrer name="SalvarGZ"/>
 			<referrer name="GetIdfixo"/>
+			<referrer name="SalvarMortos"/>
 			<referrer name="SalvarVIP"/>
 			<referrer name="BanirPlayer"/>
 			<referrer name="AgendarBan"/>
@@ -13694,7 +13692,7 @@
 		<member name="M:FIXES_CreateActor" syntax="FIXES_CreateActor(modelid, X, Y, Z, Rotation)">
 			<stacksize value="8"/>
 			<referrer name="Progress_BatendoPorta"/>
-			<referrer name="NpcText"/>
+			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<dependency name="CreateActor__"/>
@@ -18776,7 +18774,8 @@
 			<referrer name="LoadInv"/>
 			<referrer name="SalvarInventario"/>
 			<referrer name="checkPasswordAccount"/>
-			<referrer name="PastaNomeX"/>
+			<referrer name="SalvarMortos"/>
+			<referrer name="CarregarMortos"/>
 			<referrer name="addlider"/>
 			<referrer name="convidarmembro"/>
 			<referrer name="expulsarmembro"/>
@@ -18897,18 +18896,6 @@
 			<dependency name="TextDrawNotifikasiLoding"/>
 			<param name="playerid">
 			</param>
-		</member>
-		<member name="M:NpcText" syntax="NpcText()">
-			<stacksize value="79"/>
-			<referrer name="mf_OnGameModeInit"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="Attach3DTextLabelToPlayer"/>
-			<dependency name="CST_Create3DTextLabel"/>
-			<dependency name="CreateAurea"/>
-			<dependency name="CreateDynamic3DTextLabel"/>
-			<dependency name="FIXES_CreateActor"/>
-			<dependency name="acc_CreateDynamicPickup"/>
-			<dependency name="printf"/>
 		</member>
 		<member name="M:ORGCarrega" syntax="ORGCarrega()">
 			<attribute name="public"/>
@@ -21593,16 +21580,6 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:PastaNomeX" syntax="PastaNomeX(playerid)">
-			<stacksize value="47"/>
-			<referrer name="SalvarMortos"/>
-			<referrer name="CarregarMortos"/>
-			<dependency name="Name"/>
-			<dependency name="PastaNomeX"/>
-			<dependency name="format"/>
-			<param name="playerid">
-			</param>
-		</member>
 		<member name="M:PawnRakNet_OnGameModeInit" syntax="PawnRakNet_OnGameModeInit()">
 			<attribute name="public"/>
 			<stacksize value="7"/>
@@ -23611,6 +23588,7 @@
 		</member>
 		<member name="M:SalvarAvaliacao" syntax="SalvarAvaliacao(playerid)">
 			<stacksize value="58"/>
+			<referrer name="TimerHack"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
 			<dependency name="DOF2_CreateFile"/>
@@ -23816,6 +23794,7 @@
 		<member name="M:SalvarInventario" syntax="SalvarInventario(playerid)">
 			<attribute name="public"/>
 			<stacksize value="329"/>
+			<referrer name="TimerHack"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
 			<dependency name="DOF2_CreateFile"/>
@@ -23832,17 +23811,22 @@
 			</param>
 		</member>
 		<member name="M:SalvarMortos" syntax="SalvarMortos(playerid)">
-			<stacksize value="48"/>
+			<stacksize value="58"/>
+			<referrer name="TimerHack"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
 			<referrer name="ac_OnPlayerSpawn"/>
+			<dependency name="DOF2_CreateFile"/>
 			<dependency name="DOF2_SetFloat"/>
 			<dependency name="DOF2_SetInt"/>
 			<dependency name="DOF2_WriteFile"/>
-			<dependency name="PastaNomeX"/>
-			<dependency name="PastaNomeX"/>
+			<dependency name="Name"/>
+			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerMorto"/>
 			<dependency name="PlayerMorto"/>
+			<dependency name="fexist"/>
+			<dependency name="format"/>
+			<dependency name="pAdmin"/>
 			<dependency name="pEstaMorto"/>
 			<dependency name="pInteriorMxxx"/>
 			<dependency name="pMinMorto"/>
@@ -23880,6 +23864,7 @@
 		</member>
 		<member name="M:SalvarVIP" syntax="SalvarVIP(playerid)">
 			<stacksize value="58"/>
+			<referrer name="TimerHack"/>
 			<referrer name="ppb_OnGameModeExit"/>
 			<referrer name="ppb_OnPlayerDisconnect"/>
 			<dependency name="DOF2_CreateFile"/>
@@ -26007,7 +25992,11 @@
 			<dependency name="FIXES_SetTimerEx"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
+			<dependency name="SalvarAvaliacao"/>
 			<dependency name="SalvarDados"/>
+			<dependency name="SalvarInventario"/>
+			<dependency name="SalvarMortos"/>
+			<dependency name="SalvarVIP"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="acc_GivePlayerMoney"/>
 			<dependency name="acc_ResetPlayerMoney"/>
@@ -31106,7 +31095,6 @@
 			<stacksize value="14"/>
 			<referrer name="CreateAurea"/>
 			<referrer name="CriarCasas"/>
-			<referrer name="NpcText"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_criarcasa"/>
@@ -35946,6 +35934,7 @@
 			<referrer name="SalvarGZ"/>
 			<referrer name="checkPasswordAccount"/>
 			<referrer name="GetIdfixo"/>
+			<referrer name="SalvarMortos"/>
 			<referrer name="CarregarMortos"/>
 			<referrer name="CriarRadares"/>
 			<referrer name="CriarCasas"/>
@@ -36291,7 +36280,8 @@
 			<referrer name="CarregarCofre"/>
 			<referrer name="darxp"/>
 			<referrer name="checkPasswordAccount"/>
-			<referrer name="PastaNomeX"/>
+			<referrer name="SalvarMortos"/>
+			<referrer name="CarregarMortos"/>
 			<referrer name="CriarRadares"/>
 			<referrer name="CriarCasas"/>
 			<referrer name="addlider"/>
@@ -36680,10 +36670,12 @@
 		</member>
 		<member name="M:mf_OnGameModeInit" syntax="mf_OnGameModeInit()">
 			<attribute name="public"/>
-			<stacksize value="23"/>
+			<stacksize value="85"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="AntiDeAMX"/>
+			<dependency name="Attach3DTextLabelToPlayer"/>
 			<dependency name="Barragem"/>
+			<dependency name="CST_Create3DTextLabel"/>
 			<dependency name="CST_SendRconCommand"/>
 			<dependency name="CarregarCaixas"/>
 			<dependency name="CarregarCofre"/>
@@ -36694,6 +36686,7 @@
 			<dependency name="CarregarPlantacao"/>
 			<dependency name="CarregarTxdGlobal"/>
 			<dependency name="CountDynamicObjects"/>
+			<dependency name="CreateAurea"/>
 			<dependency name="CreateDynamic3DTextLabel"/>
 			<dependency name="CreateTelaLogin"/>
 			<dependency name="CriarCasas"/>
@@ -36704,6 +36697,7 @@
 			<dependency name="Entradas"/>
 			<dependency name="Entradas"/>
 			<dependency name="FIXES_AllowInteriorWeapons"/>
+			<dependency name="FIXES_CreateActor"/>
 			<dependency name="FIXES_GangZoneCreate"/>
 			<dependency name="FIXES_SetTimer"/>
 			<dependency name="FIXES_TextDrawCreate"/>
@@ -36714,7 +36708,6 @@
 			<dependency name="MaconhaInfo"/>
 			<dependency name="MaconhaInfo"/>
 			<dependency name="ManualVehicleEngineAndLights"/>
-			<dependency name="NpcText"/>
 			<dependency name="ORGCarrega"/>
 			<dependency name="Parabolica"/>
 			<dependency name="PodeUsar"/>
@@ -37744,7 +37737,6 @@
 			<referrer name="ORGCarrega"/>
 			<referrer name="CriarRadares"/>
 			<referrer name="CriarCasas"/>
-			<referrer name="NpcText"/>
 			<referrer name="DeletarLog"/>
 			<referrer name="CarregarMapas"/>
 			<referrer name="CarregarMapIcons"/>
