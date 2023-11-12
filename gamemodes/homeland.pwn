@@ -523,7 +523,7 @@ enum iInv
 	Slot,
 	Unidades
 };
-new PlayerInventario[MAX_PLAYERS][33][iInv];
+new PlayerInventario[MAX_PLAYERS][31][iInv];
 new DropItemSlot[MAX_OBJECTS][iInv];
 new PlayerText:DrawInv[MAX_PLAYERS][40];
 new InventarioAberto[MAX_PLAYERS] = false;
@@ -20620,7 +20620,7 @@ CMD:report(playerid, params[])
 CMD:duvida(playerid, params[])
 {
 	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Voce nao esta logado.");
-	if(sscanf(params, "s", Motivo))							return ErrorMsg(playerid, "USE: /duvida [TEXTO]");
+	if(sscanf(params, "s[56]", Motivo))							return ErrorMsg(playerid, "USE: /duvida [TEXTO]");
 	//
 	format(Str, sizeof(Str), "{3ce86a}(/duvida){5b6ed9} %04d{FFFFFF} disse {5b6ed9}%s", GetPlayerIdfixo(playerid), Motivo);
 	SendClientMessageToAll(-1, Str);
