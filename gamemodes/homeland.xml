@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet href="file:///C|/Users/Administrador/Desktop/gm/Baixada-Roleplay/pawno/xml/pawndoc.xsl" type="text/xsl"?>
-<doc source="C:\Users\Administrador\Desktop\gm\Baixada-Roleplay\gamemodes\homeland.pwn">
+<?xml-stylesheet href="file:///C|/Users/Administrador/Desktop/Baixada-Roleplay/pawno/xml/pawndoc.xsl" type="text/xsl"?>
+<doc source="C:\Users\Administrador\Desktop\Baixada-Roleplay\gamemodes\homeland.pwn">
 	<assembly>
 		<name>homeland.pwn</name>
 	</assembly>
@@ -1312,9 +1312,6 @@
 		<member name="C:DIALOG_ORGS" value="39">
 			<referrer name="cmd_orgs"/>
 		</member>
-		<member name="C:DIALOG_POS" value="4">
-			<referrer name="ac_OnDialogResponse"/>
-		</member>
 		<member name="C:DIALOG_PREFEITURA" value="91">
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
@@ -1479,7 +1476,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="24874">
+		<member name="C:__line" value="24907">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -1501,6 +1498,7 @@
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_contagem"/>
 			<referrer name="cmd_tv"/>
@@ -1690,6 +1688,7 @@
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
+			<referrer name="cmd_up"/>
 			<referrer name="cmd_rg"/>
 			<referrer name="cmd_mostrarrg"/>
 			<referrer name="cmd_uniforme"/>
@@ -1700,6 +1699,7 @@
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_contagem"/>
 			<referrer name="cmd_tv"/>
@@ -1741,7 +1741,6 @@
 			<referrer name="cmd_pescar"/>
 			<referrer name="cmd_cancelarrota"/>
 			<referrer name="cmd_roubar"/>
-			<referrer name="cmd_desmanchar"/>
 			<referrer name="cmd_abrircorreios"/>
 			<referrer name="cmd_abrircorreios2"/>
 			<referrer name="cmd_abrirniobio"/>
@@ -1909,6 +1908,7 @@
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_contagem"/>
 			<referrer name="cmd_tv"/>
@@ -2893,6 +2893,7 @@
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_contagem"/>
 			<referrer name="cmd_tv"/>
@@ -3401,6 +3402,7 @@
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_tv"/>
 			<referrer name="cmd_setarma"/>
@@ -3503,6 +3505,7 @@
 			<referrer name="ac_OnPlayerClickMap"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
+			<referrer name="cmd_up"/>
 			<referrer name="cmd_minhaconta"/>
 			<referrer name="cmd_rg"/>
 			<referrer name="cmd_mostrarrg"/>
@@ -3522,6 +3525,7 @@
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_contagem"/>
 			<referrer name="cmd_tv"/>
@@ -3614,7 +3618,6 @@
 			<referrer name="cmd_resetanuncios"/>
 			<referrer name="cmd_anuncio"/>
 			<referrer name="cmd_trazercofre"/>
-			<referrer name="cmd_desmanchar"/>
 		</member>
 		<member name="F:PlayerInventario">
 			<referrer name="GanharItem"/>
@@ -3667,6 +3670,7 @@
 			<referrer name="SalvarDadosSkin"/>
 			<referrer name="cmd_cv"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 		</member>
 		<member name="F:PosDesossa">
@@ -4307,6 +4311,10 @@
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerText"/>
 		</member>
+		<member name="F:UltimaPos">
+			<referrer name="ac_OnDialogResponse"/>
+			<referrer name="cmd_up"/>
+		</member>
 		<member name="F:UseUTF8">
 			<tagname value="bool"/>
 			<referrer name="DOF2_SetUTF8"/>
@@ -4692,6 +4700,7 @@
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_contagem"/>
 			<referrer name="cmd_tv"/>
@@ -5054,6 +5063,7 @@
 			<referrer name="cmd_cv"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_contagem"/>
 			<referrer name="cmd_tv"/>
@@ -5099,6 +5109,7 @@
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_tv"/>
 			<referrer name="cmd_setarma"/>
@@ -8980,7 +8991,6 @@
 			<dependency name="DOF2_CreateFile"/>
 			<dependency name="DOF2_SetString"/>
 			<dependency name="DOF2_WriteFile"/>
-			<dependency name="LoadInv"/>
 			<dependency name="PlayerInventario"/>
 			<dependency name="PlayerInventario"/>
 			<dependency name="PlayerName"/>
@@ -10699,6 +10709,7 @@
 			<referrer name="ac_OnPlayerClickPlayer"/>
 			<referrer name="ac_OnPlayerClickPlayerTextDraw"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
+			<referrer name="cmd_up"/>
 			<referrer name="cmd_rg"/>
 			<referrer name="cmd_mostrarrg"/>
 			<referrer name="cmd_uniforme"/>
@@ -10717,6 +10728,7 @@
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_contagem"/>
 			<referrer name="cmd_tv"/>
@@ -10996,6 +11008,7 @@
 			<dependency name="MaconhaInfo"/>
 			<dependency name="MaconhaInfo"/>
 			<dependency name="Objective"/>
+			<dependency name="Org"/>
 			<dependency name="Patrulha"/>
 			<dependency name="PlantandoMaconha"/>
 			<dependency name="Player@YSII_Ag"/>
@@ -12664,6 +12677,7 @@
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_setarma"/>
 			<referrer name="cmd_desarmar"/>
@@ -12698,7 +12712,6 @@
 			<referrer name="cmd_iniciarrotacocaina"/>
 			<referrer name="cmd_cancelarrota"/>
 			<referrer name="cmd_roubar"/>
-			<referrer name="cmd_desmanchar"/>
 			<dependency name="IsPlayerMobile"/>
 			<dependency name="PlayerPlaySound"/>
 			<dependency name="ShowNotify"/>
@@ -13562,7 +13575,7 @@
 		<member name="M:LoadInv" syntax="LoadInv(playerid)">
 			<attribute name="public"/>
 			<stacksize value="461"/>
-			<referrer name="CriarInventario"/>
+			<referrer name="ac_OnDialogResponse"/>
 			<dependency name="DOF2_GetString"/>
 			<dependency name="DOF2_GetString"/>
 			<dependency name="PlayerInventario"/>
@@ -16788,7 +16801,6 @@
 			<referrer name="cmd_prender"/>
 			<referrer name="cmd_ltumba"/>
 			<referrer name="cmd_roubar"/>
-			<referrer name="cmd_desmanchar"/>
 			<dependency name="operator-(Float:)"/>
 			<dependency name="operator-(Float:,Float:)"/>
 			<dependency name="operator&gt;(Float:,Float:)"/>
@@ -17543,6 +17555,7 @@
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_contagem"/>
 			<referrer name="cmd_tv"/>
@@ -18366,6 +18379,7 @@
 			<attribute name="native"/>
 			<referrer name="ac_OnPlayerConnect"/>
 			<referrer name="ac_OnDialogResponse"/>
+			<referrer name="cmd_up"/>
 			<param name="playerid">
 			</param>
 			<param name="x">
@@ -18879,9 +18893,11 @@
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="ac_OnPlayerClickTextDraw"/>
+			<referrer name="cmd_up"/>
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_contagem"/>
 			<referrer name="cmd_tempban"/>
@@ -18897,7 +18913,6 @@
 			<referrer name="cmd_desossar"/>
 			<referrer name="cmd_pescar"/>
 			<referrer name="cmd_roubar"/>
-			<referrer name="cmd_desmanchar"/>
 			<param name="funcname">
 				<paraminfo> [] </paraminfo>
 			</param>
@@ -19466,6 +19481,7 @@
 			<referrer name="cmd_kick"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_setarma"/>
 			<referrer name="cmd_desarmar"/>
@@ -22012,7 +22028,6 @@
 			<dependency name="DIALOG_MECANICAPJ"/>
 			<dependency name="DIALOG_MECANICARODAS"/>
 			<dependency name="DIALOG_MENUANIM"/>
-			<dependency name="DIALOG_POS"/>
 			<dependency name="DIALOG_PREFEITURA"/>
 			<dependency name="DIALOG_REANIMAR"/>
 			<dependency name="DIALOG_REFRECOS"/>
@@ -22116,6 +22131,7 @@
 			<dependency name="ItemOpcao"/>
 			<dependency name="KillTimer"/>
 			<dependency name="LicencaConduzir"/>
+			<dependency name="LoadInv"/>
 			<dependency name="LocalizeMaconha"/>
 			<dependency name="MEGAString"/>
 			<dependency name="MaconhaInfo"/>
@@ -22197,6 +22213,7 @@
 			<dependency name="Timers"/>
 			<dependency name="ToggleBoot"/>
 			<dependency name="TrackCar"/>
+			<dependency name="UltimaPos"/>
 			<dependency name="UpdateVehicle"/>
 			<dependency name="UpdateVehicleLabel"/>
 			<dependency name="VehAlugado"/>
@@ -24658,6 +24675,7 @@
 			<referrer name="ac_OnPlayerInteriorChange"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
+			<referrer name="cmd_up"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
 			<referrer name="cmd_trazer"/>
@@ -24683,6 +24701,7 @@
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_prender"/>
 			<referrer name="cmd_criarradar"/>
@@ -24757,6 +24776,7 @@
 		<member name="M:acc_SetSpawnInfo" syntax="acc_SetSpawnInfo(playerid, team, skin, x, y, z, rotation, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo)">
 			<stacksize value="16"/>
 			<referrer name="ac_OnDialogResponse"/>
+			<referrer name="cmd_up"/>
 			<dependency name="ac_SetSpawnInfo"/>
 			<param name="playerid">
 			</param>
@@ -24969,6 +24989,7 @@
 			<referrer name="ChecarOrg"/>
 			<referrer name="ac_OnPlayerDeath"/>
 			<referrer name="ac_OnDialogResponse"/>
+			<referrer name="cmd_up"/>
 			<dependency name="ac_SpawnPlayer"/>
 			<param name="playerid">
 			</param>
@@ -25030,8 +25051,10 @@
 			<referrer name="ac_OnPlayerEnterRaceCheckpoint"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
+			<referrer name="cmd_up"/>
 			<referrer name="cmd_cadeia"/>
 			<referrer name="cmd_ir"/>
+			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 			<referrer name="cmd_congelar"/>
 			<referrer name="cmd_descongelar"/>
@@ -25046,7 +25069,6 @@
 			<referrer name="cmd_desossar"/>
 			<referrer name="cmd_pescar"/>
 			<referrer name="cmd_roubar"/>
-			<referrer name="cmd_desmanchar"/>
 			<dependency name="ac_TogglePlayerControllable"/>
 			<param name="playerid">
 			</param>
@@ -26528,19 +26550,6 @@
 			</param>
 			<param name="params">
 				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:cmd_desmanchar" syntax="cmd_desmanchar(playerid)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="InfoMsg"/>
-			<dependency name="Org"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerToPoint"/>
-			<dependency name="SetTimerEx"/>
-			<dependency name="acc_TogglePlayerControllable"/>
-			<dependency name="false"/>
-			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:cmd_desossar" syntax="cmd_desossar(playerid)">
@@ -28313,6 +28322,34 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:cmd_spawnar" syntax="cmd_spawnar(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="ErrorMsg"/>
+			<dependency name="ID"/>
+			<dependency name="IDF"/>
+			<dependency name="InfoMsg"/>
+			<dependency name="Player@YSII_Ag"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="Pos"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="SuccesMsg"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="acc_SetPlayerPos"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="false"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pJogando"/>
+			<dependency name="pLogado"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:cmd_su" syntax="cmd_su(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -28565,6 +28602,32 @@
 			<dependency name="pProfissao"/>
 			<dependency name="pSkin"/>
 			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:cmd_up" syntax="cmd_up(playerid)">
+			<attribute name="public"/>
+			<stacksize value="16"/>
+			<dependency name="ErrorMsg"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SetPlayerCameraPos"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="UltimaPos"/>
+			<dependency name="acc_SetPlayerInterior"/>
+			<dependency name="acc_SetSpawnInfo"/>
+			<dependency name="acc_SpawnPlayer"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="false"/>
+			<dependency name="pCamX"/>
+			<dependency name="pCamY"/>
+			<dependency name="pCamZ"/>
+			<dependency name="pInterior"/>
+			<dependency name="pPosA"/>
+			<dependency name="pPosX"/>
+			<dependency name="pPosY"/>
+			<dependency name="pPosZ"/>
+			<dependency name="pSkin"/>
 			<param name="playerid">
 			</param>
 		</member>

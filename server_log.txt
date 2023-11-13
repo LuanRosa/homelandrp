@@ -1,0 +1,720 @@
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[13:49:14] filterscripts = ""  (string)
+[13:49:14] 
+[13:49:14] Server Plugins
+[13:49:14] --------------
+[13:49:14]  Loading plugin: sscanf
+[13:49:14] 
+[13:49:14]  ===============================
+[13:49:14] 
+[13:49:14]       sscanf plugin loaded.     
+[13:49:14] 
+[13:49:14]          Version: 2.13.8
+[13:49:14] 
+[13:49:14]    (c) 2022 Alex "Y_Less" Cole  
+[13:49:14] 
+[13:49:14]  ===============================
+[13:49:14] 
+[13:49:14]   Loaded.
+[13:49:14]  Loading plugin: crashdetect
+[13:49:14]   Failed.
+[13:49:14]  Loading plugin: streamer
+[13:49:14] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[13:49:14]   Loaded.
+[13:49:14]  Loading plugin: timerfix
+[13:49:14]   >> TimerFix v1.5 successfully loaded.
+[13:49:14]   Loaded.
+[13:49:14]  Loading plugin: pawnraknet
+[13:49:14] [Pawn.RakNet] plugin v1.6.0 loading...
+[13:49:14] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[13:49:14]   Loaded.
+[13:49:14]  Loading plugin: sampvoice
+[13:49:14] [sv:dbg:network:init] : module initializing...
+[13:49:14] [dbg:raknet:init] : module initializing...
+[13:49:14] [dbg:raknet:init] : module initialized
+[13:49:14] [sv:dbg:network:init] : module initialized
+[13:49:14] [sv:dbg:main:Load] : creating 2 work threads...
+[13:49:14]  -------------------------------------------    
+[13:49:14]    ___                __   __    _              
+[13:49:14]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[13:49:14]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[13:49:14]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[13:49:14]                   |_|                           
+[13:49:14]  -------------------------------------------    
+[13:49:14]            SampVoice by MOR loaded              
+[13:49:14]  -------------------------------------------    
+[13:49:14]   Loaded.
+[13:49:14]  Loading plugin: profiler
+[13:49:14]   Profiler plugin 2.15.3
+[13:49:15]   Loaded.
+[13:49:15]  Loaded 6 plugins.
+
+[13:49:15] 
+[13:49:15] Filterscripts
+[13:49:15] ---------------
+[13:49:15]   Loaded 0 filterscripts.
+
+[13:49:15] [sv:dbg:main:AmxLoad] : net game pointer (value:00829C50) received
+[13:49:15] [sv:dbg:network:bind] : voice server running on port 55316
+[13:49:15] [profiler] Attached profiler to gamemodes/homeland
+[13:49:15] [profiler] Started profiling gamemodes/homeland
+[13:49:16]  
+[13:49:16] --------------------------------------
+[13:49:16]  Anticheat Nex-AC carregado!
+[13:49:16]  Anticheat versão: 1.9.62
+[13:49:16]  Autor: Nexius (PT-BR by NicK_)
+[13:49:16] --------------------------------------
+
+[13:49:16] MapFix by Nexius v4.3.3 loaded (include version).
+[13:49:16] =======================================================================
+[13:49:16] = Carregando: Homeland Roleplay v1.0
+[13:49:16] =======================================================================
+[13:49:16]  
+[13:49:16] => AntiAMX       		: Carregado
+[13:49:16] => Organizações       		: 14 Carregadas
+[13:49:16] => Veiculos Conce       		: 27 Carregados
+[13:49:16] => Concessionarias       		: 2 Carregados
+[13:49:16] => Postos de Gasolinas       		: 0 Carregados
+[13:49:16] => Objetos       		: Carregados
+[13:49:18] => Casas       		: 274 Carregados
+[13:49:18] => Radares       		: 61 Carregados
+[13:49:18] => Plantações       		: Carregadas
+[13:49:18]  
+[13:49:18] =======================================================================
+[13:49:18] Servidor Ligado: [13/11/2023 13:49]
+[13:49:18] =======================================================================
+[13:49:19] Number of vehicle models: 25
+[13:51:08] [connection] 192.168.1.104:59088 requests connection cookie.
+[13:51:08] [connection] incoming connection: 192.168.1.104:59088 id: 0
+[13:51:09] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.104) ...
+[13:51:09] [sv:dbg:network:connect] : player (0) assigned key (860583c3)
+[13:51:09] [join] Luan_Rosa has joined the server (0:192.168.1.104)
+[13:51:09] [sv:dbg:network:receive] : player (0) identified (port:53810)
+[13:51:56] [sv:dbg:network:connect] : disconnecting player (0) ...
+[13:51:56] [part] Luan_Rosa has left the server (0:1)
+[13:52:15]  -------------------------------------------
+[13:52:15]            SampVoice unloading...           
+[13:52:15]  -------------------------------------------
+[13:52:15] [dbg:raknet:free] : module releasing...
+[13:52:15] [dbg:raknet:free] : module released
+[13:52:15] [sv:dbg:network:free] : module releasing...
+[13:52:15] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[13:53:53] filterscripts = ""  (string)
+[13:53:53] 
+[13:53:53] Server Plugins
+[13:53:53] --------------
+[13:53:53]  Loading plugin: sscanf
+[13:53:53] 
+[13:53:53]  ===============================
+[13:53:53] 
+[13:53:53]       sscanf plugin loaded.     
+[13:53:53] 
+[13:53:53]          Version: 2.13.8
+[13:53:53] 
+[13:53:53]    (c) 2022 Alex "Y_Less" Cole  
+[13:53:53] 
+[13:53:53]  ===============================
+[13:53:53] 
+[13:53:53]   Loaded.
+[13:53:53]  Loading plugin: crashdetect
+[13:53:53]   Failed.
+[13:53:53]  Loading plugin: streamer
+[13:53:53] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[13:53:53]   Loaded.
+[13:53:53]  Loading plugin: timerfix
+[13:53:53]   >> TimerFix v1.5 successfully loaded.
+[13:53:53]   Loaded.
+[13:53:53]  Loading plugin: pawnraknet
+[13:53:53] [Pawn.RakNet] plugin v1.6.0 loading...
+[13:53:53] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[13:53:53]   Loaded.
+[13:53:53]  Loading plugin: sampvoice
+[13:53:53] [sv:dbg:network:init] : module initializing...
+[13:53:53] [dbg:raknet:init] : module initializing...
+[13:53:53] [dbg:raknet:init] : module initialized
+[13:53:53] [sv:dbg:network:init] : module initialized
+[13:53:53] [sv:dbg:main:Load] : creating 2 work threads...
+[13:53:53]  -------------------------------------------    
+[13:53:53]    ___                __   __    _              
+[13:53:53]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[13:53:53]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[13:53:53]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[13:53:53]                   |_|                           
+[13:53:53]  -------------------------------------------    
+[13:53:53]            SampVoice by MOR loaded              
+[13:53:53]  -------------------------------------------    
+[13:53:53]   Loaded.
+[13:53:53]  Loading plugin: profiler
+[13:53:53]   Profiler plugin 2.15.3
+[13:53:54]   Loaded.
+[13:53:54]  Loaded 6 plugins.
+
+[13:53:54] 
+[13:53:54] Filterscripts
+[13:53:54] ---------------
+[13:53:54]   Loaded 0 filterscripts.
+
+[13:53:55] [sv:dbg:main:AmxLoad] : net game pointer (value:02159C50) received
+[13:53:55] [sv:dbg:network:bind] : voice server running on port 61008
+[13:53:55] [profiler] Attached profiler to gamemodes/homeland
+[13:53:55] [profiler] Started profiling gamemodes/homeland
+[13:53:55]  
+[13:53:55] --------------------------------------
+[13:53:55]  Anticheat Nex-AC carregado!
+[13:53:55]  Anticheat versão: 1.9.62
+[13:53:55]  Autor: Nexius (PT-BR by NicK_)
+[13:53:55] --------------------------------------
+
+[13:53:55] MapFix by Nexius v4.3.3 loaded (include version).
+[13:53:55] =======================================================================
+[13:53:55] = Carregando: Homeland Roleplay v1.0
+[13:53:55] =======================================================================
+[13:53:55]  
+[13:53:55] => AntiAMX       		: Carregado
+[13:53:55] => Organizações       		: 14 Carregadas
+[13:53:55] => Veiculos Conce       		: 27 Carregados
+[13:53:55] => Concessionarias       		: 2 Carregados
+[13:53:55] => Postos de Gasolinas       		: 0 Carregados
+[13:53:55] => Objetos       		: Carregados
+[13:53:57] => Casas       		: 274 Carregados
+[13:53:57] => Radares       		: 61 Carregados
+[13:53:57] => Plantações       		: Carregadas
+[13:53:57]  
+[13:53:57] =======================================================================
+[13:53:57] Servidor Ligado: [13/11/2023 13:53]
+[13:53:57] =======================================================================
+[13:53:57] Number of vehicle models: 25
+[13:54:09] [connection] 192.168.1.104:32815 requests connection cookie.
+[13:54:09] [connection] incoming connection: 192.168.1.104:32815 id: 0
+[13:54:10] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.104) ...
+[13:54:10] [sv:dbg:network:connect] : player (0) assigned key (f70a2b52)
+[13:54:10] [join] Luan_Rosa has joined the server (0:192.168.1.104)
+[13:54:10] [sv:dbg:network:receive] : player (0) identified (port:54388)
+[13:55:11] [sv:dbg:network:connect] : disconnecting player (0) ...
+[13:55:11] [part] Luan_Rosa has left the server (0:1)
+[13:56:02]  -------------------------------------------
+[13:56:02]            SampVoice unloading...           
+[13:56:02]  -------------------------------------------
+[13:56:02] [dbg:raknet:free] : module releasing...
+[13:56:02] [dbg:raknet:free] : module released
+[13:56:02] [sv:dbg:network:free] : module releasing...
+[13:56:02] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[13:56:38] filterscripts = ""  (string)
+[13:56:38] 
+[13:56:38] Server Plugins
+[13:56:38] --------------
+[13:56:38]  Loading plugin: sscanf
+[13:56:38] 
+[13:56:38]  ===============================
+[13:56:38] 
+[13:56:38]       sscanf plugin loaded.     
+[13:56:38] 
+[13:56:38]          Version: 2.13.8
+[13:56:38] 
+[13:56:38]    (c) 2022 Alex "Y_Less" Cole  
+[13:56:38] 
+[13:56:38]  ===============================
+[13:56:38] 
+[13:56:38]   Loaded.
+[13:56:38]  Loading plugin: crashdetect
+[13:56:38]   Failed.
+[13:56:38]  Loading plugin: streamer
+[13:56:38] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[13:56:38]   Loaded.
+[13:56:38]  Loading plugin: timerfix
+[13:56:38]   >> TimerFix v1.5 successfully loaded.
+[13:56:38]   Loaded.
+[13:56:38]  Loading plugin: pawnraknet
+[13:56:38] [Pawn.RakNet] plugin v1.6.0 loading...
+[13:56:38] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[13:56:38]   Loaded.
+[13:56:38]  Loading plugin: sampvoice
+[13:56:38] [sv:dbg:network:init] : module initializing...
+[13:56:38] [dbg:raknet:init] : module initializing...
+[13:56:38] [dbg:raknet:init] : module initialized
+[13:56:38] [sv:dbg:network:init] : module initialized
+[13:56:38] [sv:dbg:main:Load] : creating 2 work threads...
+[13:56:38]  -------------------------------------------    
+[13:56:38]    ___                __   __    _              
+[13:56:38]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[13:56:38]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[13:56:38]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[13:56:38]                   |_|                           
+[13:56:38]  -------------------------------------------    
+[13:56:38]            SampVoice by MOR loaded              
+[13:56:38]  -------------------------------------------    
+[13:56:38]   Loaded.
+[13:56:38]  Loading plugin: profiler
+[13:56:38]   Profiler plugin 2.15.3
+[13:56:38]   Loaded.
+[13:56:38]  Loaded 6 plugins.
+
+[13:56:38] 
+[13:56:39] Filterscripts
+[13:56:39] ---------------
+[13:56:39]   Loaded 0 filterscripts.
+
+[13:56:39] [sv:dbg:main:AmxLoad] : net game pointer (value:02159C50) received
+[13:56:39] [sv:dbg:network:bind] : voice server running on port 49828
+[13:56:39] [profiler] Attached profiler to gamemodes/homeland
+[13:56:39] [profiler] Started profiling gamemodes/homeland
+[13:56:39]  
+[13:56:39] --------------------------------------
+[13:56:39]  Anticheat Nex-AC carregado!
+[13:56:39]  Anticheat versão: 1.9.62
+[13:56:39]  Autor: Nexius (PT-BR by NicK_)
+[13:56:39] --------------------------------------
+
+[13:56:39] MapFix by Nexius v4.3.3 loaded (include version).
+[13:56:39] =======================================================================
+[13:56:39] = Carregando: Homeland Roleplay v1.0
+[13:56:39] =======================================================================
+[13:56:39]  
+[13:56:39] => AntiAMX       		: Carregado
+[13:56:39] => Organizações       		: 14 Carregadas
+[13:56:39] => Veiculos Conce       		: 27 Carregados
+[13:56:39] => Concessionarias       		: 2 Carregados
+[13:56:39] => Postos de Gasolinas       		: 0 Carregados
+[13:56:39] => Objetos       		: Carregados
+[13:56:41] => Casas       		: 274 Carregados
+[13:56:41] => Radares       		: 61 Carregados
+[13:56:41] => Plantações       		: Carregadas
+[13:56:41]  
+[13:56:41] =======================================================================
+[13:56:41] Servidor Ligado: [13/11/2023 13:56]
+[13:56:41] =======================================================================
+[13:56:41] Number of vehicle models: 25
+[13:57:37] [connection] 192.168.1.104:44411 requests connection cookie.
+[13:57:37] [connection] incoming connection: 192.168.1.104:44411 id: 0
+[13:57:37] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.104) ...
+[13:57:37] [sv:dbg:network:connect] : player (0) assigned key (90ec33c2)
+[13:57:37] [join] Luan_Rosa has joined the server (0:192.168.1.104)
+[13:57:37] [sv:dbg:network:receive] : player (0) identified (port:49614)
+[13:58:16] [sv:dbg:network:connect] : disconnecting player (0) ...
+[13:58:17] [part] Luan_Rosa has left the server (0:1)
+[13:58:22]  -------------------------------------------
+[13:58:22]            SampVoice unloading...           
+[13:58:23]  -------------------------------------------
+[13:58:23] [dbg:raknet:free] : module releasing...
+[13:58:23] [dbg:raknet:free] : module released
+[13:58:23] [sv:dbg:network:free] : module releasing...
+[13:58:23] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[13:59:24] filterscripts = ""  (string)
+[13:59:24] 
+[13:59:24] Server Plugins
+[13:59:24] --------------
+[13:59:24]  Loading plugin: sscanf
+[13:59:24] 
+[13:59:24]  ===============================
+[13:59:24] 
+[13:59:24]       sscanf plugin loaded.     
+[13:59:24] 
+[13:59:24]          Version: 2.13.8
+[13:59:24] 
+[13:59:24]    (c) 2022 Alex "Y_Less" Cole  
+[13:59:24] 
+[13:59:24]  ===============================
+[13:59:24] 
+[13:59:24]   Loaded.
+[13:59:24]  Loading plugin: crashdetect
+[13:59:24]   Failed.
+[13:59:24]  Loading plugin: streamer
+[13:59:24] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[13:59:24]   Loaded.
+[13:59:24]  Loading plugin: timerfix
+[13:59:24]   >> TimerFix v1.5 successfully loaded.
+[13:59:24]   Loaded.
+[13:59:24]  Loading plugin: pawnraknet
+[13:59:24] [Pawn.RakNet] plugin v1.6.0 loading...
+[13:59:24] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[13:59:24]   Loaded.
+[13:59:24]  Loading plugin: sampvoice
+[13:59:24] [sv:dbg:network:init] : module initializing...
+[13:59:24] [dbg:raknet:init] : module initializing...
+[13:59:24] [dbg:raknet:init] : module initialized
+[13:59:24] [sv:dbg:network:init] : module initialized
+[13:59:24] [sv:dbg:main:Load] : creating 2 work threads...
+[13:59:24]  -------------------------------------------    
+[13:59:24]    ___                __   __    _              
+[13:59:24]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[13:59:24]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[13:59:24]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[13:59:24]                   |_|                           
+[13:59:24]  -------------------------------------------    
+[13:59:24]            SampVoice by MOR loaded              
+[13:59:24]  -------------------------------------------    
+[13:59:24]   Loaded.
+[13:59:24]  Loading plugin: profiler
+[13:59:24]   Profiler plugin 2.15.3
+[13:59:24]   Loaded.
+[13:59:24]  Loaded 6 plugins.
+
+[13:59:25] 
+[13:59:25] Filterscripts
+[13:59:25] ---------------
+[13:59:25]   Loaded 0 filterscripts.
+
+[13:59:25] [sv:dbg:main:AmxLoad] : net game pointer (value:02249C50) received
+[13:59:25] [sv:dbg:network:bind] : voice server running on port 54884
+[13:59:25] [profiler] Attached profiler to gamemodes/homeland
+[13:59:25] [profiler] Started profiling gamemodes/homeland
+[13:59:25]  
+[13:59:25] --------------------------------------
+[13:59:25]  Anticheat Nex-AC carregado!
+[13:59:25]  Anticheat versão: 1.9.62
+[13:59:25]  Autor: Nexius (PT-BR by NicK_)
+[13:59:25] --------------------------------------
+
+[13:59:25] MapFix by Nexius v4.3.3 loaded (include version).
+[13:59:25] =======================================================================
+[13:59:25] = Carregando: Homeland Roleplay v1.0
+[13:59:25] =======================================================================
+[13:59:25]  
+[13:59:25] => AntiAMX       		: Carregado
+[13:59:25] => Organizações       		: 14 Carregadas
+[13:59:25] => Veiculos Conce       		: 27 Carregados
+[13:59:25] => Concessionarias       		: 2 Carregados
+[13:59:25] => Postos de Gasolinas       		: 0 Carregados
+[13:59:26] => Objetos       		: Carregados
+[13:59:27] => Casas       		: 274 Carregados
+[13:59:27] => Radares       		: 61 Carregados
+[13:59:27] => Plantações       		: Carregadas
+[13:59:27]  
+[13:59:27] =======================================================================
+[13:59:27] Servidor Ligado: [13/11/2023 13:59]
+[13:59:27] =======================================================================
+[13:59:28] Number of vehicle models: 25
+[14:00:28] [connection] 192.168.1.104:47424 requests connection cookie.
+[14:00:28] [connection] incoming connection: 192.168.1.104:47424 id: 0
+[14:00:28] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.104) ...
+[14:00:28] [sv:dbg:network:connect] : player (0) assigned key (22374bb4)
+[14:00:28] [join] Luan_Rosa has joined the server (0:192.168.1.104)
+[14:00:28] [sv:dbg:network:receive] : player (0) identified (port:50222)
+[14:01:52] [sv:dbg:network:connect] : disconnecting player (0) ...
+[14:01:52] [part] Luan_Rosa has left the server (0:0)
+[14:10:43]  -------------------------------------------
+[14:10:43]            SampVoice unloading...           
+[14:10:43]  -------------------------------------------
+[14:10:43] [dbg:raknet:free] : module releasing...
+[14:10:43] [dbg:raknet:free] : module released
+[14:10:43] [sv:dbg:network:free] : module releasing...
+[14:10:43] [sv:dbg:network:free] : module released
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[15:02:23] filterscripts = ""  (string)
+[15:02:23] 
+[15:02:23] Server Plugins
+[15:02:23] --------------
+[15:02:23]  Loading plugin: sscanf
+[15:02:23] 
+[15:02:23]  ===============================
+[15:02:23] 
+[15:02:23]       sscanf plugin loaded.     
+[15:02:23] 
+[15:02:23]          Version: 2.13.8
+[15:02:23] 
+[15:02:23]    (c) 2022 Alex "Y_Less" Cole  
+[15:02:23] 
+[15:02:23]  ===============================
+[15:02:23] 
+[15:02:23]   Loaded.
+[15:02:23]  Loading plugin: crashdetect
+[15:02:23]   Failed.
+[15:02:23]  Loading plugin: streamer
+[15:02:23] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[15:02:23]   Loaded.
+[15:02:23]  Loading plugin: timerfix
+[15:02:23]   >> TimerFix v1.5 successfully loaded.
+[15:02:23]   Loaded.
+[15:02:23]  Loading plugin: pawnraknet
+[15:02:23] [Pawn.RakNet] plugin v1.6.0 loading...
+[15:02:23] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[15:02:23]   Loaded.
+[15:02:23]  Loading plugin: sampvoice
+[15:02:23] [sv:dbg:network:init] : module initializing...
+[15:02:23] [dbg:raknet:init] : module initializing...
+[15:02:23] [dbg:raknet:init] : module initialized
+[15:02:23] [sv:dbg:network:init] : module initialized
+[15:02:23] [sv:dbg:main:Load] : creating 2 work threads...
+[15:02:23]  -------------------------------------------    
+[15:02:23]    ___                __   __    _              
+[15:02:23]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[15:02:23]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[15:02:24]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[15:02:24]                   |_|                           
+[15:02:24]  -------------------------------------------    
+[15:02:24]            SampVoice by MOR loaded              
+[15:02:24]  -------------------------------------------    
+[15:02:24]   Loaded.
+[15:02:24]  Loading plugin: profiler
+[15:02:24]   Profiler plugin 2.15.3
+[15:02:24]   Loaded.
+[15:02:24]  Loaded 6 plugins.
+
+[15:02:24] 
+[15:02:24] Filterscripts
+[15:02:24] ---------------
+[15:02:24]   Loaded 0 filterscripts.
+
+[15:02:24] [sv:dbg:main:AmxLoad] : net game pointer (value:00679C50) received
+[15:02:24] [sv:dbg:network:bind] : voice server running on port 55667
+[15:02:24] [profiler] Attached profiler to gamemodes/homeland
+[15:02:24] [profiler] Started profiling gamemodes/homeland
+[15:02:24]  
+[15:02:24] --------------------------------------
+[15:02:24]  Anticheat Nex-AC carregado!
+[15:02:24]  Anticheat versão: 1.9.62
+[15:02:24]  Autor: Nexius (PT-BR by NicK_)
+[15:02:24] --------------------------------------
+
+[15:02:24] MapFix by Nexius v4.3.3 loaded (include version).
+[15:02:24] =======================================================================
+[15:02:24] = Carregando: Homeland Roleplay v1.0
+[15:02:24] =======================================================================
+[15:02:24]  
+[15:02:24] => AntiAMX       		: Carregado
+[15:02:24] => Organizações       		: 14 Carregadas
+[15:02:25] => Veiculos Conce       		: 27 Carregados
+[15:02:25] => Concessionarias       		: 2 Carregados
+[15:02:25] => Postos de Gasolinas       		: 0 Carregados
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[15:02:45] filterscripts = ""  (string)
+[15:02:45] 
+[15:02:45] Server Plugins
+[15:02:45] --------------
+[15:02:45]  Loading plugin: sscanf
+[15:02:45] 
+[15:02:45]  ===============================
+[15:02:45] 
+[15:02:45]       sscanf plugin loaded.     
+[15:02:45] 
+[15:02:45]          Version: 2.13.8
+[15:02:45] 
+[15:02:45]    (c) 2022 Alex "Y_Less" Cole  
+[15:02:45] 
+[15:02:45]  ===============================
+[15:02:45] 
+[15:02:45]   Loaded.
+[15:02:45]  Loading plugin: crashdetect
+[15:02:45]   Failed.
+[15:02:45]  Loading plugin: streamer
+[15:02:45] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[15:02:45]   Loaded.
+[15:02:45]  Loading plugin: timerfix
+[15:02:45]   >> TimerFix v1.5 successfully loaded.
+[15:02:45]   Loaded.
+[15:02:45]  Loading plugin: pawnraknet
+[15:02:45] [Pawn.RakNet] plugin v1.6.0 loading...
+[15:02:45] [Pawn.RakNet] 
+
+    | Pawn.RakNet 1.6.0 | 2016 - 2023
+    |--------------------------------
+    | Author and maintainer: katursis
+
+
+    | Compiled: Feb 12 2023 at 19:36:19
+    |--------------------------------------------------------------
+    | Repository: https://github.com/katursis/Pawn.RakNet
+    |--------------------------------------------------------------
+    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
+
+[15:02:45]   Loaded.
+[15:02:45]  Loading plugin: sampvoice
+[15:02:45] [sv:dbg:network:init] : module initializing...
+[15:02:45] [dbg:raknet:init] : module initializing...
+[15:02:45] [dbg:raknet:init] : module initialized
+[15:02:45] [sv:dbg:network:init] : module initialized
+[15:02:45] [sv:dbg:main:Load] : creating 2 work threads...
+[15:02:45]  -------------------------------------------    
+[15:02:45]    ___                __   __    _              
+[15:02:45]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[15:02:45]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[15:02:45]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[15:02:45]                   |_|                           
+[15:02:45]  -------------------------------------------    
+[15:02:45]            SampVoice by MOR loaded              
+[15:02:45]  -------------------------------------------    
+[15:02:45]   Loaded.
+[15:02:45]  Loading plugin: profiler
+[15:02:45]   Profiler plugin 2.15.3
+[15:02:45]   Loaded.
+[15:02:46]  Loaded 6 plugins.
+
+[15:02:46] 
+[15:02:46] Filterscripts
+[15:02:46] ---------------
+[15:02:46]   Loaded 0 filterscripts.
+
+[15:02:46] [sv:dbg:main:AmxLoad] : net game pointer (value:02469C50) received
+[15:02:46] [sv:dbg:network:bind] : voice server running on port 62923
+[15:02:46] [profiler] Attached profiler to gamemodes/homeland
+[15:02:46] [profiler] Started profiling gamemodes/homeland
+[15:02:46]  
+[15:02:46] --------------------------------------
+[15:02:46]  Anticheat Nex-AC carregado!
+[15:02:46]  Anticheat versão: 1.9.62
+[15:02:46]  Autor: Nexius (PT-BR by NicK_)
+[15:02:46] --------------------------------------
+
+[15:02:46] MapFix by Nexius v4.3.3 loaded (include version).
+[15:02:46] =======================================================================
+[15:02:46] = Carregando: Homeland Roleplay v1.0
+[15:02:46] =======================================================================
+[15:02:46]  
+[15:02:46] => AntiAMX       		: Carregado
+[15:02:46] => Organizações       		: 14 Carregadas
+[15:02:46] => Veiculos Conce       		: 27 Carregados
+[15:02:46] => Concessionarias       		: 2 Carregados
+[15:02:46] => Postos de Gasolinas       		: 0 Carregados
+[15:02:47] => Objetos       		: Carregados
+[15:02:48] => Casas       		: 274 Carregados
+[15:02:48] => Radares       		: 61 Carregados
+[15:02:48] => Plantações       		: Carregadas
+[15:02:48]  
+[15:02:48] =======================================================================
+[15:02:48] Servidor Ligado: [13/11/2023 15:02]
+[15:02:48] =======================================================================
+[15:02:49] Number of vehicle models: 25
+[15:03:22] [connection] 192.168.1.104:57377 requests connection cookie.
+[15:03:22] [connection] incoming connection: 192.168.1.104:57377 id: 0
+[15:03:23] [sv:dbg:network:connect] : connecting player (0) with address (192.168.1.104) ...
+[15:03:23] [sv:dbg:network:connect] : player (0) assigned key (f97a5993)
+[15:03:23] [join] Luan_Rosa has joined the server (0:192.168.1.104)
+[15:03:23] [sv:dbg:network:receive] : player (0) identified (port:57225)
+[15:03:58] [sv:dbg:network:connect] : disconnecting player (0) ...
+[15:03:58] [part] Luan_Rosa has left the server (0:1)
+[15:04:08]  -------------------------------------------
+[15:04:08]            SampVoice unloading...           
+[15:04:08]  -------------------------------------------
+[15:04:08] [dbg:raknet:free] : module releasing...
+[15:04:08] [dbg:raknet:free] : module released
+[15:04:08] [sv:dbg:network:free] : module releasing...
+[15:04:08] [sv:dbg:network:free] : module released

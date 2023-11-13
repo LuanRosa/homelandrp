@@ -17,30 +17,30 @@
 #include        <  	    a_samp  		>
 #if defined MAX_PLAYERS
 	#undef MAX_PLAYERS
-#endif 
+#endif
 // numero de slots do servidor, isso otimiza muito o servidor.
 #define MAX_PLAYERS 500
-#include 		<	    crashdetect 	> 
+#include 		<	    crashdetect 	>
 #include 		<  	    sscanf2 		>
 #include 		<  	    streamer 		>
 #include 		< 		foreach 		>
-#include		<		Pawn.RakNet		> 
+#include		<		Pawn.RakNet		>
 #include 		<		sampvoice 		>
 #include 		<		mobile			>
-#include 		< 		timerfix 		>    
+#include 		< 		timerfix 		>
 #include 		<	  nex-ac_pt_br.lang	>
 #include 		<	    nex-ac		 	>
 #include        <   	DOF2   			>
 #include        <   	ZCMD	   		>
 #include 		<	    mapfix		 	>
 #include 		< 		notify2	 		>
-#include 		< 		enterfix 		> 
+#include 		< 		enterfix 		>
 #include		<		progress2		>
 #include		<		Fader			>
 #pragma warning disable 239
 
 main()
-{} 
+{}
 
 #define MAX_CAIXAS               	50
 #define MAX_ZONE_NAME 				28
@@ -50,14 +50,14 @@ main()
 #define Max_Crescida        		10
 #define MAX_CASAS        			500
 #define MAX_RADAR        			500
-#define MAX_PICKUPS_ROUBO       	50 
+#define MAX_PICKUPS_ROUBO       	50
 #define MAX_DVEHICLES 				500
 #define MAX_DEALERSHIPS 			100
 #define MAX_FUEL_STATIONS 			100
 #define MAX_PLAYER_VEHICLES 		10
 #define MAX_FREQUENCIAS				200
 new	UltimaFala[MAX_PLAYERS];
-#define MAX_SEGUNDOSFALAR  			2  
+#define MAX_SEGUNDOSFALAR  			2
 #define MAX_EASTER_EGGS         	46
 
 #define PASTA_BANIDOS 				"Banidos/Contas/%s.ini"
@@ -74,7 +74,7 @@ new	UltimaFala[MAX_PLAYERS];
 #define PASTA_KEYS 					"Codigos/%d.ini"
 #define PASTA_CASAS       			"Casas/%d.ini"
 #define PASTA_PLANTACAO 			"Plantacoes/PL%d.ini"
-#define PASTA_RADAR		  			"Radares/Radar%d.ini"	
+#define PASTA_RADAR		  			"Radares/Radar%d.ini"
 #define VEHICLE_FILE_PATH 			"Conce/Veiculos/"
 #define DEALERSHIP_FILE_PATH 		"Conce/Locais/"
 #define FUEL_STATION_FILE_PATH 		"Conce/Postos/"
@@ -116,7 +116,7 @@ new	UltimaFala[MAX_PLAYERS];
 #define SpawnPlayerID(%0) 			SetTimerEx("SpawnP", 500, false, "i", %0)
 #define Controle 					TogglePlayerControllable
 #define SERVERFORUM     			"discord.gg/6RsGWdd442"
-#define VERSAOSERVER     			"Homeland v1.0" 
+#define VERSAOSERVER     			"Homeland v1.0"
 #define DCIMG 						""
 #define NA 5
 #define PTP 						PlayerToPoint
@@ -159,7 +159,7 @@ enum
 	DIALOG_BANCO4,
 	DIALOG_BANCO5,
 	DIALOG_SEDEX,
-	DIALOG_SELTRABALHO, 
+	DIALOG_SELTRABALHO,
 	DIALOG_ALIMENTOS,
 	DIALOG_CATLANCHE,
 	DIALOG_REFRECOS,
@@ -179,8 +179,8 @@ enum
 	DIALOG_RG3,
 	DIALOG_RG4,
 	DIALOG_RG5,
-	DIALOG_EMP1, 
-	DIALOG_EMP2, 
+	DIALOG_EMP1,
+	DIALOG_EMP2,
 	DIALOG_EMP3,
 	DIALOG_EMP4,
 	DIALOG_EMP5,
@@ -208,7 +208,7 @@ enum
 	DIALOG_GPS1,
 	DIALOG_GPS2,
 	DIALOG_LTUMBA,
-	DIALOG_CASAS, 
+	DIALOG_CASAS,
 	DIALOG_LOCALIZARCASA,
 	DIALOG_CATVEHINV,
 	DIALOG_PAYDAY,
@@ -224,7 +224,7 @@ enum
 	DIALOG_TRUNK_ACTION,
 	DIALOG_VEHICLE_PLATE,
 	DIALOG_FUEL,
-	DIALOG_EDITVEHICLE, 
+	DIALOG_EDITVEHICLE,
 	DIALOG_SLOTMACHINE,
 	DIALOG_BET,
 	DIALOG_ARMAS2,
@@ -446,28 +446,28 @@ new PlayerText:RG_p[MAX_PLAYERS][6];
 new Text:Velomob[4];
 new PlayerText:Velomob_p[MAX_PLAYERS][3];
 
-new VagasORG[][MAX_VAGAS] = 
+new VagasORG[][MAX_VAGAS] =
 {
-	"Lider", 
-	"Vaga-01", 
-	"Vaga-02", 
-	"Vaga-03", 
-	"Vaga-04", 
-	"Vaga-05", 
-	"Vaga-06", 
-	"Vaga-07", 
-	"Vaga-08", 
-	"Vaga-09", 
-	"Vaga-10", 
-	"Vaga-11", 
-	"Vaga-12", 
-	"Vaga-13", 
-	"Vaga-14", 
-	"Vaga-15", 
-	"Vaga-16", 
-	"Vaga-17", 
-	"Vaga-18", 
-	"Vaga-19", 
+	"Lider",
+	"Vaga-01",
+	"Vaga-02",
+	"Vaga-03",
+	"Vaga-04",
+	"Vaga-05",
+	"Vaga-06",
+	"Vaga-07",
+	"Vaga-08",
+	"Vaga-09",
+	"Vaga-10",
+	"Vaga-11",
+	"Vaga-12",
+	"Vaga-13",
+	"Vaga-14",
+	"Vaga-15",
+	"Vaga-16",
+	"Vaga-17",
+	"Vaga-18",
+	"Vaga-19",
 	"Vaga-20"
 };
 
@@ -545,6 +545,7 @@ new Engine[MAX_PLAYERS], Lights[MAX_PLAYERS], Alarm[MAX_PLAYERS], DoorsLockPick[
 
 new bool:RotaMaconha[MAX_PLAYERS];
 new bool:RotaCocaina[MAX_PLAYERS];
+new UltimaPos[MAX_PLAYERS] = 0;
 new	bool:AntiAFK_Ativado = true,
 	bool:Moved[MAX_PLAYERS] = false,
 	bool:FoiCriado[MAX_VEHICLES] = false,
@@ -558,7 +559,7 @@ new bool:GPS[MAX_PLAYERS] = false;
 new bool:UsouCMD[MAX_PLAYERS] = false;
 new bool:Patrulha[MAX_PLAYERS] = false;
 new policiaon = 0;
-new bool:PegouMaterial[MAX_PLAYERS] = false; 
+new bool:PegouMaterial[MAX_PLAYERS] = false;
 new bool:LavouMao[MAX_PLAYERS] = false;
 new bool:PegouLixo[MAX_PLAYERS] = false;
 new bool:Podecmd[MAX_PLAYERS] = true;
@@ -654,7 +655,7 @@ new ModoTransacao[MAX_PLAYERS];
 new jogadoreson = 0;
 new bool:EntregaSdx[MAX_PLAYERS];
 new RecentlyShot[MAX_PLAYERS];
-new CaixasSdxObj[MAX_PLAYERS][11]; 
+new CaixasSdxObj[MAX_PLAYERS][11];
 new bool:CaixaMao[MAX_PLAYERS] = false;
 new actorcorreios[MAX_PLAYERS];
 new Text3D:textcorreios[MAX_PLAYERS];
@@ -1129,7 +1130,7 @@ new Float:PosRota[303+120][4] =
     {2245.623291, -122.291252, 28.153547},//rota
     {2272.455322, -119.133529, 28.153547},//rota
     {2293.577392, -124.964012, 28.153549},//rota
-    {2313.880371, -124.964256, 28.153551}//rota	
+    {2313.880371, -124.964256, 28.153551}//rota
 };
 
 new Float:Entradas[4][3] =
@@ -1210,8 +1211,8 @@ new Float:PosDesossa[8][4] =
 {
 	{956.002807, 2120.503662, 1011.723022},
 	{958.202270, 2122.305419, 1011.723022},
-	{956.002807, 2124.407470, 1011.723022}, 
-	{958.402221, 2126.409423, 1011.723022}, 
+	{956.002807, 2124.407470, 1011.723022},
+	{958.402221, 2126.409423, 1011.723022},
 	{956.002807, 2128.511474, 1011.723022},
 	{960.201782, 2120.503662, 1011.723022},
 	{960.201782, 2124.007080, 1011.723022},
@@ -1244,7 +1245,7 @@ new Float:PosVeiculos[10][4] =
 new VehAlugado[MAX_PLAYERS];
 new VeiculoCivil[MAX_PLAYERS];
 
-new Float:Covas[42][3] = 
+new Float:Covas[42][3] =
 {
 	{-28.7889300,1379.0467500,8.1596200},
 	{-24.5955100,1380.2988300,8.1596200},
@@ -1681,7 +1682,7 @@ new RandomMSG[][] =
 	"Disfrute o maximo do nosso servidor!",
 	"Garanta seu vip em nosso servidor use /lojavip",
 	"Encontre lugares importantes no /gps",
-	"Para denunciar um jogador use /report",	
+	"Para denunciar um jogador use /report",
 	"Para ver orgs disponiveis use /orgs",
 	"Caso necesita de um atendimento use /atendimento",
 	"Mude a forma de falar do seu voip utilizando /mvoip",
@@ -1760,7 +1761,7 @@ CallBack::BatendoPorta(playerid, progress){
 	    SetPVarFloat(playerid, "FindY", Y);
 	    SetPVarFloat(playerid, "FindZ", Z);
 		SetPVarFloat(playerid, "FindA", A);
-		format(txt,sizeof(txt),"%s",MsgSdx()); 
+		format(txt,sizeof(txt),"%s",MsgSdx());
 		actorcorreios[playerid] = CreateActor(SkinActor, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"),GetPVarFloat(playerid, "FindA")-180);
 		textcorreios[playerid] = CreateDynamic3DTextLabel(txt, -1, GetPVarFloat(playerid, "FindX"),GetPVarFloat(playerid, "FindY"),GetPVarFloat(playerid, "FindZ"), 15.0);
 		Attach3DTextLabelToPlayer(textcorreios[playerid], actorcorreios[playerid], 0.0, 0.0, 0.7);
@@ -1825,7 +1826,7 @@ CallBack::PegandoCaixasP(playerid, progress){
 			SetPlayerCheckpoint(playerid, PosV[0], PosV[1], PosV[2],1);
 			CaixaMao[playerid] = true;
 			CaixasSdx[playerid]++;
-			DestroyPlayerObject(playerid,CaixasSdxObj[playerid][CaixasSdx[playerid]]); 
+			DestroyPlayerObject(playerid,CaixasSdxObj[playerid][CaixasSdx[playerid]]);
 		}
 	return 1;
 }
@@ -1891,7 +1892,7 @@ CallBack::ColocandoCaixa(playerid, progress){
 			TogglePlayerControllable(playerid, 1);
 			ClearAnimations(playerid);
 			SetPlayerSpecialAction(playerid, 0);
-			
+
 		}
 	return 1;
 }
@@ -1973,7 +1974,7 @@ stock createEE(eeid, descricao[], modelid, Float:range, Float:x, Float:y, Float:
 	EEInfo[eeid][eaText] = CreateDynamic3DTextLabel(Str2, 0xFFA500AA, x, y, z, EEInfo[eeid][eaRange]);
 }
 
-loadEE(){
+stock loadEE(){
 
 	static
 	    string[70],
@@ -2049,7 +2050,7 @@ descobrirEE(playerid, eeid){
 	}
 	if(kaka == 8)
 	{
-		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(10); 
+		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(10);
 		PlayerInfo[playerid][pVIP] = 1;
 
 		SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
@@ -2058,7 +2059,7 @@ descobrirEE(playerid, eeid){
 	}
 	if(kaka == 9)
 	{
-		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
+		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30);
 		PlayerInfo[playerid][pVIP] = 1;
 		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou 10d de VIP CLASSIC!", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
 		SendClientMessageToAll(0xFFFF99FF, string);
@@ -2078,7 +2079,7 @@ descobrirEE(playerid, eeid){
 	if(kaka == 1)
 	{
 		new daysvip = randomEx(3,30);
-		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(daysvip); 
+		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(daysvip);
 		PlayerInfo[playerid][pVIP] = 1;
 		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou VIP CLASSIC !", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
 		SendClientMessageToAll(0xFFFF99FF, string);
@@ -2157,7 +2158,7 @@ CreateLocPick(playerid)
 	PlayerTextDrawLetterSize(playerid, LockText[8], 0.5, 1.4), PlayerTextDrawTextSize(playerid, LockText[8], LockLocation[playerid]+LockSize[playerid], 71.0);
 	PlayerTextDrawFont(playerid, LockText[8], 1), PlayerTextDrawSetProportional(playerid, LockText[8], 1);
 	PlayerTextDrawBackgroundColor(playerid, LockText[8], 255), PlayerTextDrawBoxColor(playerid, LockText[8], -1094795521);
-	
+
 	LockText[9] = CreatePlayerTextDraw(playerid, 207.0, 385.0, "_"), PlayerTextDrawUseBox(playerid, LockText[9], 1);
 	PlayerTextDrawLetterSize(playerid, LockText[9], 0.5, 1.4), PlayerTextDrawTextSize(playerid, LockText[9], 207.0, 71.0);
 	PlayerTextDrawFont(playerid, LockText[9], 1), PlayerTextDrawSetProportional(playerid, LockText[9], 1);
@@ -2216,7 +2217,7 @@ XP_::XP_Hide(playerid)
 CallBack::DesmancharVeh(playerid, progress)
 {
 		new vehicleidd = GetPlayerVehicleID(playerid);
-		new vehicleid = GetPVarInt(playerid, "DialogValue1");	
+		new vehicleid = GetPVarInt(playerid, "DialogValue1");
 		new value = VehicleValue[vehicleid]/3;
 		new a[255];
 		new noti = randomEx(0, 2);
@@ -2260,7 +2261,7 @@ CallBack::DescarregarCarga(playerid, progress)
 			{
 				PlayerInfo[playerid][pDinheiro] += 360;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$360.");
-			}   
+			}
 			if(PlayerInfo[playerid][pVIP] == 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 360*2;
@@ -2276,7 +2277,7 @@ CallBack::DescarregarCarga(playerid, progress)
 			{
 				PlayerInfo[playerid][pDinheiro] += 980;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$980.");
-			}   
+			}
 			if(PlayerInfo[playerid][pVIP] == 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 980*2;
@@ -2293,7 +2294,7 @@ CallBack::DescarregarCarga(playerid, progress)
 			{
 				PlayerInfo[playerid][pDinheiro] += 1200;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$1200.");
-			}   
+			}
 			if(PlayerInfo[playerid][pVIP] == 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 1200*2;
@@ -2310,7 +2311,7 @@ CallBack::DescarregarCarga(playerid, progress)
 			{
 				PlayerInfo[playerid][pDinheiro] += 1800;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$1800.");
-			}   
+			}
 			if(PlayerInfo[playerid][pVIP] == 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 1800*2;
@@ -2319,16 +2320,16 @@ CallBack::DescarregarCarga(playerid, progress)
 			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
 			DisablePlayerCheckpoint(playerid);
 			Carregou[playerid] = 0;
-				
+
 		}
 		if(PlayerToPoint(3.0, playerid, 2834.454833, 958.061462, 10.479191))
 		{
 			Cargase[playerid] = false;
 			if(PlayerInfo[playerid][pVIP] == 0)
 			{
-				PlayerInfo[playerid][pDinheiro] += 2500; 
+				PlayerInfo[playerid][pDinheiro] += 2500;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$2500.");
-			}   
+			}
 			if(PlayerInfo[playerid][pVIP] == 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 2500*2;
@@ -2345,14 +2346,14 @@ CallBack::DescarregarCarga(playerid, progress)
 			{
 				PlayerInfo[playerid][pDinheiro] += 3200;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$3200.");
-			}   
+			}
 			if(PlayerInfo[playerid][pVIP] == 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 3200*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$6400.");
 			}
 			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
-			DisablePlayerCheckpoint(playerid);	
+			DisablePlayerCheckpoint(playerid);
 			Carregou[playerid] = 0;
 		}
 		if(PlayerToPoint(3.0, playerid, -1789.979858, 1421.842895, 6.914581))
@@ -2362,14 +2363,14 @@ CallBack::DescarregarCarga(playerid, progress)
 			{
 				PlayerInfo[playerid][pDinheiro] += 3800;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$3800.");
-			}   
+			}
 			if(PlayerInfo[playerid][pVIP] == 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 3800*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$7600.");
 			}
 			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
-			DisablePlayerCheckpoint(playerid);	
+			DisablePlayerCheckpoint(playerid);
 			Carregou[playerid] = 0;
 		}
 		if(PlayerToPoint(3.0, playerid, -1862.919433, -202.232727, 18.125516))
@@ -2379,14 +2380,14 @@ CallBack::DescarregarCarga(playerid, progress)
 			{
 				PlayerInfo[playerid][pDinheiro] += 4500;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$4500.");
-			}   
+			}
 			if(PlayerInfo[playerid][pVIP] == 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 4500*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$9000.");
 			}
 			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
-			DisablePlayerCheckpoint(playerid);	
+			DisablePlayerCheckpoint(playerid);
 			Carregou[playerid] = 0;
 		}
 		if(PlayerToPoint(3.0, playerid, 1039.057983, 2132.961425, 10.547390))
@@ -2396,14 +2397,14 @@ CallBack::DescarregarCarga(playerid, progress)
 			{
 				PlayerInfo[playerid][pDinheiro] += 5000;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$5000.");
-			}   
+			}
 			if(PlayerInfo[playerid][pVIP] == 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 5000*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$10000.");
 			}
 			SetVehicleToRespawn(GetVehicleTrailer(GetPlayerVehicleID(playerid)));
-			DisablePlayerCheckpoint(playerid);	
+			DisablePlayerCheckpoint(playerid);
 			Carregou[playerid] = 0;
 		}
 		TogglePlayerControllable(playerid, 1);
@@ -2521,7 +2522,7 @@ CallBack::Minerar(playerid, progress)
 				EtapasMinerador[playerid] = 2;
 				InfoMsg(playerid, "Encontrou um minerio, entregue no ponto marcado.");
 			}
-			
+
 		}
 		if(mineiro == 2)
 		{
@@ -2537,7 +2538,7 @@ CallBack::Minerar(playerid, progress)
 				EtapasMinerador[playerid] = 2;
 				InfoMsg(playerid, "Encontrou um minerio, entregue no ponto marcado.");
 			}
-			
+
 		}
 		if(mineiro == 3)
 		{
@@ -2553,7 +2554,7 @@ CallBack::Minerar(playerid, progress)
 				EtapasMinerador[playerid] = 2;
 				InfoMsg(playerid, "Encontrou um minerio, entregue no ponto marcado.");
 			}
-			
+
 		}
 		UsouCMD[playerid] = false;
 		TogglePlayerControllable(playerid, 1);
@@ -2579,7 +2580,7 @@ CallBack::Pesca(playerid, progress)
 		}
 		if(peixe == 2)
 		{
-			
+
 			format(s,sizeof(s),"Pescou %i tubarao.",peixes);
 			SuccesMsg(playerid, s);
 		}
@@ -2614,13 +2615,13 @@ CallBack::Pesca(playerid, progress)
 }
 
 CallBack::criandorg(playerid){
-	SuccesMsg(playerid, "Acabou de receber seus documentos, verifique seu inventario.");	
+	SuccesMsg(playerid, "Acabou de receber seus documentos, verifique seu inventario.");
 	PlayerInfo[playerid][pRG] = 1;
 	ShowPlayerDialog(playerid, DIALOG_RG5, DIALOG_STYLE_MSGBOX, "EMITIR RG", "{00FF00}PARABENS!\n{FFFFFF}Seu RG foi emitido com sucesso.\nUse /rg para ver seu rg.", "Ok", "");
 	return 1;
 }
 
-CallBack::AntiSpam(playerid) 
+CallBack::AntiSpam(playerid)
 {
 	RecentlyShot[playerid] = 0;
 	return 1;
@@ -3309,7 +3310,7 @@ CallBack::mortoxx(playerid)
         {
             VaiProHospital(playerid);
             PlayerMorto[playerid][pEstaMorto] = 0;
-            return 1; 
+            return 1;
         }
         PlayerMorto[playerid][pSegMorto]--;
         if(PlayerMorto[playerid][pSegMorto] <= 0)
@@ -3317,7 +3318,7 @@ CallBack::mortoxx(playerid)
             PlayerMorto[playerid][pSegMorto] = 60;
             PlayerMorto[playerid][pMinMorto]-= 1;
         }
-    
+
         new Jtempo[90];
         format(Jtempo, sizeof(Jtempo),"~r~%s:%s", ConvertTimeX(PlayerMorto[playerid][pMinMorto]) ,ConvertTimeX(PlayerMorto[playerid][pSegMorto]));
         PlayerTextDrawSetString(playerid,TDmorte_p[playerid][0],Jtempo);
@@ -3326,11 +3327,11 @@ CallBack::mortoxx(playerid)
         SetPlayerInterior(playerid, PlayerMorto[playerid][pInteriorMxxx]);
         SetPlayerVirtualWorld(playerid, PlayerMorto[playerid][pVirtual]);
         ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
-        return 1; 
+        return 1;
     }else{
         KillTimer(TimerMorto[playerid]);
     }
-    return 1; 
+    return 1;
 }
 
 CallBack::mostrarTelaLogin(playerid)
@@ -3360,7 +3361,7 @@ CallBack::loginp(playerid)
 	new File[255];
 	for(new i = 0; i < 23; ++i)
 	{
-		PlayerTextDrawShow(playerid, Registration_PTD[playerid][i]);	
+		PlayerTextDrawShow(playerid, Registration_PTD[playerid][i]);
 		if(i == 23)break;
 	}
 	SelectTextDraw(playerid, 1);
@@ -3503,7 +3504,7 @@ CallBack::VelocimetroEx(playerid)
 				PlayerTextDrawBoxColor(playerid, VeloC[playerid][3], -16776961);
 			}
 			if(Fuel[GetPlayerVehicleID(playerid)] > 19){
-				PlayerTextDrawBoxColor(playerid, VeloC[playerid][4], 16711935); 
+				PlayerTextDrawBoxColor(playerid, VeloC[playerid][4], 16711935);
 			}else{
 				PlayerTextDrawBoxColor(playerid, VeloC[playerid][4], 1097458119); //amarelo critico
 			}if(Fuel[GetPlayerVehicleID(playerid)] == 0){
@@ -3681,7 +3682,7 @@ public SV_VOID:OnPlayerActivationKeyRelease(SV_UINT:playerid,SV_UINT:keyid)
 		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
 		PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
 	}
-}	
+}
 
 CallBack::SendMSG()
 {
@@ -4108,7 +4109,7 @@ SaveFuelStation(stationid)
 	format(line, sizeof(line), "Created=%d\r\n", FuelStationCreated[stationid]); fwrite(handle, line);
 	format(line, sizeof(line), "Pos=%.3f,%.3f,%.3f\r\n", FuelStationPos[stationid][0],
 		FuelStationPos[stationid][1], FuelStationPos[stationid][2]);
-	fwrite(handle, line); 
+	fwrite(handle, line);
 	fclose(handle);
 }
 
@@ -4134,7 +4135,7 @@ IsValidFuelStation(stationid)
 	return 0;
 }
 
-CallBack::MainTimer()  
+CallBack::MainTimer()
 {
 	new string[128];
 	new Float:x, Float:y, Float:z;
@@ -4474,7 +4475,7 @@ CallBack::SalvarArmas(playerid)
 	Local = PachWeapon(playerid);
 	/*-----------------------------------------*/
 	//
-	if(!DOF2_FileExists(Local)) DOF2_CreateFile(Local); 
+	if(!DOF2_FileExists(Local)) DOF2_CreateFile(Local);
 	//
 	for(new i = 0; i < 13; i++)
 	{
@@ -4627,7 +4628,7 @@ CallBack::PegarMoney(playerid, caixa_id)
 	Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], 0x5b6ed9F4, str);
 
 	CaixaInfo[caixa_id][Caixa_Pickups] --;
-	
+
 	KillTimer(GetPVarInt(playerid, "ROBj"));
 
 	SetPVarInt(playerid, "ROBj", SetTimerEx("RObject", 2*60000, 0, "d", playerid));
@@ -4641,7 +4642,7 @@ CallBack::RObject(playerid)
 }
 
 CallBack::RoubarCaixa(playerid, caixa_id)
-{	
+{
 	new Float:px, Float:py, Float:pz,
 	Float:rx, Float:ry, Float:rz;
 	if(!GetPlayerCaixa(playerid))
@@ -4877,7 +4878,7 @@ CallBack::PayDay(playerid)
 		}
 		PlayerPlaySound(playerid,1139,0.0,0.0,0.0);
 		SalvarDados(playerid);
-		TimerPayDay[playerid] = SetTimerEx("PayDay", minutos(30), false, "i", playerid); 
+		TimerPayDay[playerid] = SetTimerEx("PayDay", minutos(30), false, "i", playerid);
 		InfoMsg(playerid, "Agradecemos por colaborar com a cidade, foi depositado seu pagamento de 30min ativo.");
 	}
 	return true;
@@ -4888,13 +4889,13 @@ CallBack::AnimyTogle(playerid)
 	ClearAnimations(playerid);
 	TogglePlayerControllable(playerid, 1);
 	return 1;
-} 
+}
 
 CallBack::AnimyTogle2(playerid)
 {
 	TogglePlayerControllable(playerid, 1);
 	return 1;
-} 
+}
 
 CallBack::VerificarTeste(playerid)
 {
@@ -5224,7 +5225,7 @@ CallBack::CriarInventario(playerid)
 {
 	new file[64], str[128], string[128];
 	format(file, sizeof(file), PASTA_INVENTARIO, PlayerName(playerid));
-	
+
 	if(!DOF2_FileExists(file))
 	{
 		DOF2_CreateFile(file); printf("Criou arquivo!");
@@ -5238,8 +5239,6 @@ CallBack::CriarInventario(playerid)
 			DOF2_SetString(file, string, str);
 			DOF2_SaveFile();
 		}
-	}else{
-		LoadInv(playerid);
 	}
 	return 1;
 }
@@ -5307,7 +5306,7 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 	if(itemid > 0 && itemid < 312 ) format(name, 50, "Skin %d",itemid); // se for skin
 	if(itemid > 400 && itemid < 611 ) format(name, 50, "Veiculo %d",itemid); // se for skin
 	else
-	switch(itemid) 
+	switch(itemid)
 	{
 		case 19625: name = "Cigarro do K2";
 		case 11746: name = "LockPick";
@@ -5535,6 +5534,7 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 2710: name = "Rolex";
 		case 1316: name = "Anel";
 		case 19882: name = "Carne Assada";
+		case 19627: name = "Ferraamenta Desmanche";
 		default: name = "Desconhecido";
 	}
 	return name;
@@ -5653,6 +5653,20 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 	new fomesede = randomEx(1,20);
 	switch(PlayerInventario[playerid][modelid][Slot])
 	{
+		case 19627:
+		{
+			if(PlayerInfo[playerid][Org] == 13)
+			{
+				if(PTP(5.0, playerid, 719.329528, -442.295532, 16.335937))
+				{
+					Controle(playerid, 0);
+					InfoMsg(playerid, "Desmanchando veiculo..");
+					SetTimerEx("DesmancharVeh", 30000, false, "i", playerid);
+					PlayerInventario[playerid][modelid][Unidades] --;
+					AtualizarInventario(playerid, modelid);
+				}
+			}
+		}
 		case 3016:
 		{
 			new caixar = randomEx(0,3);
@@ -5686,8 +5700,8 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			new string[255];
 			if(caixar == 0)
 			{
-				PlayerInfo[playerid][ExpiraVIP] = ConvertDays(10); 
-				PlayerInfo[playerid][pVIP] = 1; 
+				PlayerInfo[playerid][ExpiraVIP] = ConvertDays(10);
+				PlayerInfo[playerid][pVIP] = 1;
 				SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 				format(string, sizeof string, "{5b6ed9}%04d {FFFFFF}acaba de ganhar um {5b6ed9}VIP BASICO {FFFFFF}por 10dias na Caixa Media!", PlayerInfo[playerid][IDF]);
 				SendClientMessageToAll(-1, string);
@@ -5722,7 +5736,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			new string[255];
 			if(caixar == 0)
 			{
-				PlayerInfo[playerid][ExpiraVIP] = ConvertDays(10); 
+				PlayerInfo[playerid][ExpiraVIP] = ConvertDays(10);
 				PlayerInfo[playerid][pVIP] = 2;
 				SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 				format(string, sizeof string, "{5b6ed9}%04d {FFFFFF}acaba de ganhar um {5b6ed9}VIP PREMIUM {FFFFFF}por 10dias na Caixa Avancada!", PlayerInfo[playerid][IDF]);
@@ -5766,15 +5780,15 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(Count == 0) return ErrorMsg(playerid, "Nao tem nenhum veiculo proximo!");
 			cmd_inventario(playerid);
 			GetVehicleParamsEx(VehicleLockedID[playerid], Engine[playerid], Lights[playerid], Alarm[playerid], DoorsLockPick[playerid], Bonnet[playerid], Boot[playerid], Objective[playerid]), LockUse[playerid] = true, LockCount[playerid] = 0, CreateLocPick(playerid);
-			for(new i; i < 12; i++) 
-			{ 
+			for(new i; i < 12; i++)
+			{
 				PlayerTextDrawShow(playerid, LockText[i]);
-				if(i == 12)break; 
+				if(i == 12)break;
 			}
 		}
 		case 19921:
 		{
-			if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Voce nao esta em um veiculo!"); 
+			if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Voce nao esta em um veiculo!");
 			if(GetPlayerVehicleSeat(playerid) != 0)	return ErrorMsg(playerid, "Nao esta dentro do veiculo.");
 			if(IsPlayerInAnyVehicle(playerid)) return InfoMsg(playerid, "Voce esta em um veiculo.");
 
@@ -5785,10 +5799,10 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			ocupadodemais[playerid] = 1;
 			PlayerInventario[playerid][modelid][Unidades] --;
 			AtualizarInventario(playerid, modelid);
-			
+
 			return true;
 		}
-		
+
 		case 400..611:
 		{
 			//if(PlayerInfo[playerid][pVIP] < 1 || PlayerInfo[playerid][pAdmin] < 1) return ErrorMsg(playerid, "Sem permissao");
@@ -5802,7 +5816,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				VeiculoCivil[playerid] = CreateVehicle(PlayerInventario[playerid][modelid][Slot], X, Y, Z, A, -1, -1, false);
 				PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
 				InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-				
+
 			}
 			else
 			{
@@ -5850,7 +5864,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 		{
 			if(PlayerInfo[playerid][pProfissao] != 1) 	return ErrorMsg(playerid, "Nao possui permissao.");
 			if(PlayerInventario[playerid][modelid][Unidades] < 1) return ErrorMsg(playerid, "Nao tem uma vara de pesca.");
-			if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a pesca atual."); 
+			if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a pesca atual.");
 			for(new i; i < 13; i++)
 			if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 			{
@@ -5858,16 +5872,16 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				TogglePlayerControllable(playerid, 0);
 				InfoMsg(playerid, "Pescando...");
 				SetTimerEx("Pesca", 10000, false, "i", playerid);
-				UsouCMD[playerid] = true;	
+				UsouCMD[playerid] = true;
 			}
-			return 1;		
+			return 1;
 		}
 		case 18644:
 		{
 			if(PlayerInventario[playerid][modelid][Unidades] < 1) return ErrorMsg(playerid, "Nao tem uma chaira.");
 			if(PlayerInfo[playerid][pProfissao] != 3) 	return ErrorMsg(playerid, "Nao possui permissao.");
-			if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a desossamento atual."); 
-			if(Desossando[playerid] == 1 || Desossando[playerid] == 2 || Desossando[playerid] == 3) 	return ErrorMsg(playerid, "Voce ja esta fazendo as etapas."); 
+			if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a desossamento atual.");
+			if(Desossando[playerid] == 1 || Desossando[playerid] == 2 || Desossando[playerid] == 3) 	return ErrorMsg(playerid, "Voce ja esta fazendo as etapas.");
 			for(new i; i < 8; i++)
 			if(IsPlayerInRangeOfPoint(playerid, 1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2]))
 			{
@@ -5889,17 +5903,17 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes;
 					format(Str,sizeof(Str),"Vendeu 5 entrela do mar e ganhou R$%i.", dinpeixes);
-					SuccesMsg(playerid, Str); 
-				}   
+					SuccesMsg(playerid, Str);
+				}
 				if(PlayerInfo[playerid][pVIP] == 2)
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
 					format(Str,sizeof(Str),"Vendeu 5 entrela do mar e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
+					SuccesMsg(playerid, Str);
 				}
 				AtualizarInventario(playerid, modelid);
 			}
-			return 1;		
+			return 1;
 		}
 		case 19630:
 		{
@@ -5912,17 +5926,17 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes;
 					format(Str,sizeof(Str),"Vendeu 5 tilapia e ganhou R$%i.", dinpeixes);
-					SuccesMsg(playerid, Str); 
-				}   
+					SuccesMsg(playerid, Str);
+				}
 				if(PlayerInfo[playerid][pVIP] == 2)
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
 					format(Str,sizeof(Str),"Vendeu 5 tilapia e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
+					SuccesMsg(playerid, Str);
 				}
 				AtualizarInventario(playerid, modelid);
 			}
-			return 1;		
+			return 1;
 		}
 		case 1604:
 		{
@@ -5935,17 +5949,17 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes;
 					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes);
-					SuccesMsg(playerid, Str); 
-				}   
+					SuccesMsg(playerid, Str);
+				}
 				if(PlayerInfo[playerid][pVIP] == 2)
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
 					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
+					SuccesMsg(playerid, Str);
 				}
 				AtualizarInventario(playerid, modelid);
 			}
-			return 1;		
+			return 1;
 		}
 		case 1599:
 		{
@@ -5958,17 +5972,17 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes;
 					format(Str,sizeof(Str),"Vendeu 5 peixe amarelo e ganhou R$%i.", dinpeixes);
-					SuccesMsg(playerid, Str); 
-				}   
+					SuccesMsg(playerid, Str);
+				}
 				if(PlayerInfo[playerid][pVIP] == 2)
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
 					format(Str,sizeof(Str),"Vendeu 5 peixe amarelo e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
+					SuccesMsg(playerid, Str);
 				}
 				AtualizarInventario(playerid, modelid);
 			}
-			return 1;		
+			return 1;
 		}
 		case 1609:
 		{
@@ -5981,17 +5995,17 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes;
 					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes);
-					SuccesMsg(playerid, Str); 
-				}   
+					SuccesMsg(playerid, Str);
+				}
 				if(PlayerInfo[playerid][pVIP] == 2)
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
 					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
+					SuccesMsg(playerid, Str);
 				}
 				AtualizarInventario(playerid, modelid);
 			}
-			return 1;		
+			return 1;
 		}
 		case 1600:
 		{
@@ -6004,17 +6018,17 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes;
 					format(Str,sizeof(Str),"Vendeu 5 peixe azul e ganhou R$%i.", dinpeixes);
-					SuccesMsg(playerid, Str); 
-				}   
+					SuccesMsg(playerid, Str);
+				}
 				if(PlayerInfo[playerid][pVIP] == 2)
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
 					format(Str,sizeof(Str),"Vendeu 5 peixe azul e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
+					SuccesMsg(playerid, Str);
 				}
 				AtualizarInventario(playerid, modelid);
 			}
-			return 1;		
+			return 1;
 		}
 		case 1603:
 		{
@@ -6027,17 +6041,17 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes;
 					format(Str,sizeof(Str),"Vendeu 5 agua viva e ganhou R$%i.", dinpeixes);
-					SuccesMsg(playerid, Str); 
-				}   
+					SuccesMsg(playerid, Str);
+				}
 				if(PlayerInfo[playerid][pVIP] == 2)
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
 					format(Str,sizeof(Str),"Vendeu 5 agua viva e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
+					SuccesMsg(playerid, Str);
 				}
 				AtualizarInventario(playerid, modelid);
 			}
-			return 1;		
+			return 1;
 		}
 		case 1608:
 		{
@@ -6050,17 +6064,17 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes;
 					format(Str,sizeof(Str),"Vendeu 5 tubarao e ganhou R$%i.", dinpeixes);
-					SuccesMsg(playerid, Str); 
-				}   
+					SuccesMsg(playerid, Str);
+				}
 				if(PlayerInfo[playerid][pVIP] == 2)
 				{
 					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
 					format(Str,sizeof(Str),"Vendeu 5 tubarao e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str); 
+					SuccesMsg(playerid, Str);
 				}
 				AtualizarInventario(playerid, modelid);
 			}
-			return 1;		
+			return 1;
 		}
 		case 331..371:
 		{
@@ -6082,7 +6096,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 		{
 			if(IsPlayerInRangeOfPoint(playerid, 10.0, -2067.039306, 1396.001342, 7.334959) || IsPlayerInRangeOfPoint(playerid, 10.0, -2067.137695, 1404.691040, 7.334959) || IsPlayerInRangeOfPoint(playerid, 10.0, -2067.062255, 1414.094726, 7.334959) || IsPlayerInRangeOfPoint(playerid, 10.0, -2067.082519, 1423.175659, 7.334959) || IsPlayerInRangeOfPoint(playerid, 10.0, -2066.899169, 1432.542114, 7.334959))
 			{
-				if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Voce nao esta em um veiculo!"); 
+				if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Voce nao esta em um veiculo!");
 
 				if(GetPlayerVehicleSeat(playerid) != 0)
 					return ErrorMsg(playerid, "Nao esta dentro do veiculo.");
@@ -6240,7 +6254,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(TendoRoubo)return ErrorMsg(playerid, "Ja roubaram a pouco tempo.");
 			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
 			cmd_inventario(playerid);
-			
+
 			new
 			Float:px, Float:py, Float:pz,
 			Float:rx, Float:ry, Float:rz
@@ -6261,7 +6275,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			SetPlayerFacingAngle(playerid, rz);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.0, 1, 0, 0, 0, 0);
-			
+
 			SetTimerEx("RoubarCaixa", 20*1000, 0, "dd", playerid, GetPlayerCaixa(playerid));
 			SetTimerEx(#SetAnimRoubo, 500, 0, "d", playerid);
 			PlayerInventario[playerid][modelid][Unidades]--;
@@ -6292,7 +6306,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			new Float:health;
     		GetPlayerHealth(playerid,health);
 			if(health >= 80) return ErrorMsg(playerid, "Voce nao pode usar bandagem agora.");
-			
+
 			SetPlayerHealth(playerid, health+10);
 			PlayerInventario[playerid][modelid][Unidades]--;
 			AtualizarInventario(playerid, modelid);
@@ -6359,8 +6373,8 @@ IsValidItemInv(itemid) //AQUI VOCÊ DEVE DEFINIR OS ID'S DOS ITENS PARA SER VALI
 	switch(itemid)
 	{
 		case 2218, 2355, 2219, 2220, 1484, 1644, 1546, 1581, 19823, 19820, 11722, 11723, 19570, 19824, 1486, 19822, 1668, 2958, 19625, 11746,
-		1853, 1854, 1855, 19792, 3044, 19039, 19040, 19042, 19044, 19045, 19046, 19047, 11747, 18865, 18866, 18867, 
-		18645, 1856, 18868, 18869, 18870, 18871, 18872, 18873, 18874, 19513, 18875, 19874, 19138, 19139, 
+		1853, 1854, 1855, 19792, 3044, 19039, 19040, 19042, 19044, 19045, 19046, 19047, 11747, 18865, 18866, 18867,
+		18645, 1856, 18868, 18869, 18870, 18871, 18872, 18873, 18874, 19513, 18875, 19874, 19138, 19139,
 		19140, 19022, 19023, 19024, 19025, 19026, 19027, 19028, 19029, 19030, 19031, 19032, 19473, 3027, 3520,
 		19033, 19034, 19035, 2992, 3065, 11712, 18953, 18954, 19554, 18974, 2114, 1279, 3930, 19630, 902, 1603, 1600, 1599, 1604, 1608,
 		18894, 18903, 18898, 18899, 18891, 18909, 18908, 18907, 18906, 18905, 18904, 18901, 1010,
@@ -6369,7 +6383,7 @@ IsValidItemInv(itemid) //AQUI VOCÊ DEVE DEFINIR OS ID'S DOS ITENS PARA SER VALI
 		1314, 19578, 18636, 19942, 18646, 19141, 19558, 19801, 19330, 1210, 19528, 1576, 370, 3016, 3013, 19056,
 		19134, 19904, 19515, 19142, 19315, 19527, 19317, 18688, 18702, 18728, 19605, 19606, 18632, 19847, 2769, 2702, 19882,
 		19607, 19577, 1485, 19574, 19575, 19576, 2703, 2880, 19883, 19896, 19897, 2768, 1212, 2710, 1316,
-		2601, 19835, 2881, 2709, 19579, 19094, 1582, 19580, 19602, 11738, 1575, 854,
+		2601, 19835, 2881, 2709, 19579, 19094, 1582, 19580, 19602, 11738, 1575, 854, 19627,
 		1654, 11736, 1650, 1252, 19893, 19921, 2226, 19054, 19055, 19057,19058: return 1;
 	}
 	return 0;
@@ -6464,7 +6478,7 @@ CallBack::TestAway(playerid, TimeTo)
 	}
 	if(TimeTo == 0)
 	{
-		InfoMsg(playerid, "Foi expulso por esta AFK.");	
+		InfoMsg(playerid, "Foi expulso por esta AFK.");
 		TextDrawHideForPlayer(playerid, Textdraw0);
 		TextDrawHideForPlayer(playerid, Textdraw1);
 		PlayerTextDrawHide(playerid, Textdraw2[playerid]);
@@ -6660,15 +6674,15 @@ stock GetVehicleTrunkPosition(vehicleid, &Float:x, &Float:y, &Float:z)
         Float:vehsize,
         Float:vehangle,
         Float:n;
-    
+
     GetVehiclePos(vehicleid, x, y, z);
     GetVehicleZAngle(vehicleid, vehangle);
-    
+
     GetVehicleModelInfo(GetVehicleModel(vehicleid), VEHICLE_MODEL_INFO_SIZE, n, vehsize, n);
-    
+
     x -= ((vehsize / 1.6) * floatsin(-vehangle, degrees));
     y -= ((vehsize / 1.6) * floatcos(-vehangle, degrees));
-} 
+}
 
 stock GuardarItem2(playerid)
 {
@@ -7233,11 +7247,11 @@ stock darxp(playerid, XP, XP_Prox, Float:XP_Porc = 0.0, masganho = _:0.0)
     PlayerTextDrawFont(playerid, XPTXD[playerid][19], 1);
     PlayerTextDrawSetProportional(playerid, XPTXD[playerid][19], 1);
     PlayerTextDrawSetShadow(playerid, XPTXD[playerid][19], 0);
-    
-    for(new i; i < sizeof XPTXD[]; i++){ 
-    	PlayerTextDrawShow(playerid, XPTXD[playerid][i]); 
+
+    for(new i; i < sizeof XPTXD[]; i++){
+    	PlayerTextDrawShow(playerid, XPTXD[playerid][i]);
 	}
-	
+
 	#if TEXT_SOUND_DEFAULT == true
 		PlayerPlaySound(playerid, 5202, 0.0, 0.0, 0.0);
 	#endif
@@ -7269,7 +7283,7 @@ stock IsABike(vehicleid)
         case 448, 461..463, 468, 521..523, 581, 586, 481, 509, 510:{ return 1; }
     }
     return 0;
-} 
+}
 
 stock IsABoat(vehicleid)
 {
@@ -7277,7 +7291,7 @@ stock IsABoat(vehicleid)
         case 472, 473, 493, 595, 484, 430, 453, 452, 446, 454:{ return 1; }
     }
     return 0;
-} 
+}
 
 stock IsValidInput(const ipstr[])
 {
@@ -7314,9 +7328,9 @@ stock GetIdfixo()
 stock Timers(playerid)
 {
 	TimerFomebar[playerid] = SetTimerEx("FomeBar", minutos(2), true, "d", playerid);
-	TimerSedebar[playerid] = SetTimerEx("SedeBar", minutos(2), true, "d", playerid); 
+	TimerSedebar[playerid] = SetTimerEx("SedeBar", minutos(2), true, "d", playerid);
 	TimerColete[playerid] = SetTimerEx("Colete", 1000, true, "d", playerid);
-	TimerPayDay[playerid] = SetTimerEx("PayDay", minutos(30), false, "d", playerid); 
+	TimerPayDay[playerid] = SetTimerEx("PayDay", minutos(30), false, "d", playerid);
 	TimerAttVeh[playerid] = SetTimerEx("AttVeh", 5000, true, "d", playerid);
 	TimerHacker[playerid] = SetTimerEx("TimerHack", 1000, false, "d", playerid);
 }
@@ -7417,7 +7431,7 @@ stock VaiProHospital(playerid)
 	TogglePlayerControllable(playerid, true);
     ClearAnimations(playerid);
     for(new idx=0; idx<9; idx++){
-    TextDrawHideForPlayer(playerid,TDmorte[idx]); 
+    TextDrawHideForPlayer(playerid,TDmorte[idx]);
 	if(idx == 9)break;}
 	PlayerTextDrawHide(playerid, TDmorte_p[playerid][0]);
 	CancelSelectTextDraw(playerid);
@@ -9952,7 +9966,7 @@ stock NomeCargo(playerid)
 	return CARGO;
 }
 stock NomeOrg(playerid)
-{	
+{
 	new orG[35],org;
 	org = PlayerInfo[playerid][Org];
 	if(org == 0)
@@ -10160,64 +10174,64 @@ stock VIP(playerid)
 	return LipeStrondaVIP;
 }
 
-stock ConvertDays(dias) 
-{ 
-	new 
-		valueday = 86400*dias, 
-		daysconvert, 
-		gtime = gettime() 
-	; 
+stock ConvertDays(dias)
+{
+	new
+		valueday = 86400*dias,
+		daysconvert,
+		gtime = gettime()
+	;
 
-	#emit LOAD.S.PRI gtime 
-	#emit LOAD.S.ALT valueday 
-	#emit ADD 
-	#emit STOR.S.PRI daysconvert 
+	#emit LOAD.S.PRI gtime
+	#emit LOAD.S.ALT valueday
+	#emit ADD
+	#emit STOR.S.PRI daysconvert
 
-	return daysconvert; 
-} 
+	return daysconvert;
+}
 
-stock convertNumber(n) 
-{ 
-	new dia, hr, mn, seg, resto; 
+stock convertNumber(n)
+{
+	new dia, hr, mn, seg, resto;
 
-	resto = n; 
-	seg = resto % 60; 
-	resto /= 60; 
-	mn = resto % 60; 
-	resto /= 60; 
-	hr = resto % 24; 
-	resto /= 24; 
-	dia = resto; 
+	resto = n;
+	seg = resto % 60;
+	resto /= 60;
+	mn = resto % 60;
+	resto /= 60;
+	hr = resto % 24;
+	resto /= 24;
+	dia = resto;
 
-	new str[50]; 
-	format(str, sizeof(str), "%dd, %02dh %02dm %02ds", dia, hr, mn, seg); 
-	return str; 
-} 
+	new str[50];
+	format(str, sizeof(str), "%dd, %02dh %02dm %02ds", dia, hr, mn, seg);
+	return str;
+}
 
-stock CarregarVIP(playerid) 
-{ 
-	new string[80]; 
-	format(string, sizeof(string), PASTA_VIPS, Name(playerid)); 
-	if(DOF2_FileExists(string)) 
-	{ 
-		PlayerInfo[playerid][ExpiraVIP] = DOF2_GetInt(string,"VipExpira"); 
-		PlayerInfo[playerid][pVIP] = DOF2_GetInt(string,"Level"); 
-		if(gettime() > PlayerInfo[playerid][ExpiraVIP]) 
-		{ 
-			DOF2_RemoveFile(string); 
-			PlayerInfo[playerid][ExpiraVIP] = 0; 
+stock CarregarVIP(playerid)
+{
+	new string[80];
+	format(string, sizeof(string), PASTA_VIPS, Name(playerid));
+	if(DOF2_FileExists(string))
+	{
+		PlayerInfo[playerid][ExpiraVIP] = DOF2_GetInt(string,"VipExpira");
+		PlayerInfo[playerid][pVIP] = DOF2_GetInt(string,"Level");
+		if(gettime() > PlayerInfo[playerid][ExpiraVIP])
+		{
+			DOF2_RemoveFile(string);
+			PlayerInfo[playerid][ExpiraVIP] = 0;
 			PlayerInfo[playerid][pVIP] = 0;
 			InfoMsg(playerid, "Seu beneficio expirou.");
-		} 
-		else 
-		{ 
-			format(string, sizeof(string), "Seu beneficio expira em %s.", convertNumber(PlayerInfo[playerid][ExpiraVIP]-gettime())); 
+		}
+		else
+		{
+			format(string, sizeof(string), "Seu beneficio expira em %s.", convertNumber(PlayerInfo[playerid][ExpiraVIP]-gettime()));
 			InfoMsg(playerid, string);
 			SetPlayerColor(playerid, 0xfcba03ff);
-		} 
-	} 
-	return 1; 
-} 
+		}
+	}
+	return 1;
+}
 
 stock SalvarVIP(playerid)
 {
@@ -10273,7 +10287,7 @@ stock BanirPlayer(playerid, administrador, Motivo1[])
 		format(Str, sizeof(Str), "O Administrador %s(%d) baniu o jogador %s(%d). Motivo: %s", Name(playerid),PlayerInfo[playerid][IDF], Name(administrador),PlayerInfo[administrador][IDF], Motivo1);
 		WarningMsg(i, Str);
 	}
-	
+
 	Log("Logs/Banir.ini", Str);
 	Kick(playerid);
 	return 1;
@@ -10420,7 +10434,7 @@ stock BanirIP(playerid, administrador, Motivo1[])
 		format(Str, sizeof(Str), "O Administrador %s(%d) baniu o jogador %s(%d). Motivo: %s", Name(playerid),PlayerInfo[playerid][IDF], Name(administrador),PlayerInfo[administrador][IDF], Motivo1);
 		WarningMsg(i, Str);
 	}
-	
+
 	Log("Logs/BanirIP.ini", Str);
 	Kick(playerid);
 	return 1;
@@ -10513,7 +10527,7 @@ stock ZerarDados(playerid)
 	Moved[playerid] = false;
 	FirstLogin[playerid] = false;
 	pJogando[playerid] = false;
-	
+
 	pLogado[playerid] = false;
 	IsAssistindo[playerid] = false;
 	UsouCMD[playerid] = false;
@@ -10554,9 +10568,9 @@ stock ZerarDados(playerid)
 	RotaHabilitacaoMoto[playerid] = 0;
 	RotaHabilitacaoVeiculo[playerid] = 0;
 	RotaHabilitacaoCaminhao[playerid] = 0;
-	RotaHabilitacaoAerea[playerid] = 0;	
-	CheckpointPontosAerea[playerid] = 0;	
-	AutoEscolaAerea[playerid] = 0;	
+	RotaHabilitacaoAerea[playerid] = 0;
+	CheckpointPontosAerea[playerid] = 0;
+	AutoEscolaAerea[playerid] = 0;
 	VeiculoCivil[playerid] = 0;
 	Covaconcerto[playerid] = false;
 	Podecmd[playerid] = true;
@@ -10813,7 +10827,7 @@ stock SendGangMessage(Cor, Mensagem[])
 stock SetPlayerMoney(ID1, Quantia)
 {
 	ResetPlayerMoney(ID1);
-	PlayerInfo[ID1][pDinheiro] = Quantia; 
+	PlayerInfo[ID1][pDinheiro] = Quantia;
 	return 1;
 }
 
@@ -10923,7 +10937,7 @@ stock GetXYInFrontOfCaixa(objectid, &Float:q, &Float:w, Float:distance)
 	w -= (distance * floatcos(-a, degrees));
 	return 1;
 }
-#include 		"../modulos/mapserver.inc" 
+#include 		"../modulos/mapserver.inc"
 
 public OnGameModeInit()
 {
@@ -10945,14 +10959,14 @@ public OnGameModeInit()
 	LoadVehicles();
 	LoadDealerships();
 	LoadFuelStations();
-	CarregarMapas(); 
+	CarregarMapas();
 	CriarCasas();
 	CriarRadares();
 	CarregarGZ2();
-	CarregarPlantacao();	
+	CarregarPlantacao();
 	CarregarDinRoubos();
 	CreateTelaLogin();
-	
+
 	LogoHM[0] = TextDrawCreate(322.000000, 6.000000, "HOME");
 	TextDrawFont(LogoHM[0], 2);
 	TextDrawLetterSize(LogoHM[0], 0.408333, 2.049998);
@@ -12685,7 +12699,7 @@ public OnGameModeInit()
 	CreateDynamicMapIcon(1973.031616, -1779.866455, 13.543199, 27, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//MECANICA
 	CreateDynamicMapIcon(1638.175415, -1134.294311, 24.051120, 22, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//HOSPITAL
 	CreateDynamicMapIcon(649.302062, -1357.399658, 13.567605, 34, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//SAN NEWS
-	// ORG MILITARES	
+	// ORG MILITARES
 	CreateDynamicMapIcon(-2033.067504, -988.365112, 32.212158, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//POLICIA MILITAR
 	CreateDynamicMapIcon(-2440.856445, 522.686523, 29.914293, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//ROTA
 	CreateDynamicMapIcon(-1278.104248, 2711.379150, 50.132141, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//BAEP
@@ -12697,7 +12711,7 @@ public OnGameModeInit()
 	CreateDynamicMapIcon(2095.946044, -1143.877807, 25.586040, 59, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Vermelho
 	CreateDynamicMapIcon(2275.367187, -1785.524414, 13.546875, 62, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Verde
 	CreateDynamicMapIcon(-692.327087, 939.566345, 13.632812, 44, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Mafia Russa
-	CreateDynamicMapIcon(385.094787, 2448.588378, 16.500000, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Moto Clube
+	CreateDynamicMapIcon(691.841125, -463.600677, 16.536296, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Moto Clube
 	// EMPREGOS
 	CreateDynamicMapIcon(154.188613, -1945.949584, 4.972961, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PESCADOR
 	CreateDynamicMapIcon(590.086975, 871.486694, -42.734603, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//MINEIRADOR
@@ -12706,7 +12720,7 @@ public OnGameModeInit()
 	CreateDynamicMapIcon(-28.763319, 1363.971313, 9.171875, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//COLETOR
 	CreateDynamicMapIcon(939.6504,1733.2004,8.8516, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Correios
 	CreateDynamicMapIcon(1281.080810, -1267.302612, 13.535926, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Pedreiro
-	CreateCaixa(2942, 1097.9000000,-1829.3000000,16.2000000,0.0000000,0.0000000,318.0000000); 
+	CreateCaixa(2942, 1097.9000000,-1829.3000000,16.2000000,0.0000000,0.0000000,318.0000000);
 	CreateCaixa(2942, 1551.242798, -1669.691528, 13.154342, 0.0000, 0.0000, 270.0000);
 	CreateCaixa(2942, 999.2000100,-910.7999900,42.0000000,0.0000000,0.0000000,277.0000000);
 	CreateCaixa(2942, 1928.69604, -1784.04639, 13.15720,   0.00000, 0.00000, 88.44680);
@@ -12785,7 +12799,7 @@ public OnGameModeInit()
 	getdate(Ano, Mes, Dia);
     printf("=======================================================================");
 	printf("Servidor Ligado: [%02d/%02d/%d %02d:%02d]", Dia, Mes, Ano, Hora, Minuto);
-    printf("=======================================================================");	
+    printf("=======================================================================");
 	// CONFIGS
 
 	ShowPlayerMarkers(0);
@@ -12796,7 +12810,7 @@ public OnGameModeInit()
 	SetNameTagDrawDistance(30.0);
 	AllowInteriorWeapons(1);
 	ManualVehicleEngineAndLights();
-	
+
 	gServerTextdraws = TextDrawCreate(576.998962, 16.244453, "16:04");
 	TextDrawLetterSize(gServerTextdraws, 0.363750, 1.496297);
 	TextDrawTextSize(gServerTextdraws, 1280.000000, 1280.000000);
@@ -12816,41 +12830,41 @@ public OnGameModeInit()
 
 	new Actor[30+1],Text3D:label[30+1];
 
-	Actor[0] = CreateActor(227, 1689.563598, -2326.089599, 13.546875, 154.224639); 
+	Actor[0] = CreateActor(227, 1689.563598, -2326.089599, 13.546875, 154.224639);
 	label[0] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {5b6ed9}Allison_Gomes!\n{FFFFFF}Use {5b6ed9}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, 1689.563598, -2326.089599, 13.546875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[0], Actor[0], 0.0, 0.0, 0.7);
 
-	Actor[1] = CreateActor(35, 154.188613, -1945.949584, 4.972961, 352.308258);  
+	Actor[1] = CreateActor(35, 154.188613, -1945.949584, 4.972961, 352.308258);
 	label[1] = Create3DTextLabel("{5b6ed9}Pescador\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o trampo.", 0x008080FF, 154.188613, -1945.949584, 4.972961, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[1], Actor[1], 0.0, 0.0, 0.7);
 
-	Actor[2] = CreateActor(188, 1282.407836, -1296.064575, 13.361650, 81.131340);  
+	Actor[2] = CreateActor(188, 1282.407836, -1296.064575, 13.361650, 81.131340);
 	label[2] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Homeland Construtora\n{00FF00}Vaga:{FFFFFF}Pedreiro\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 1282.407836, -1296.064575, 13.361650, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[2], Actor[2], 0.0, 0.0, 0.7);
 
 	CreateAurea("{5b6ed9}Loja de Pescados\n{FFFFFF}Use o {5b6ed9}Inventario{FFFFFF}' para vender.", 163.968444, -1941.403564, 3.773437);
 
-	Actor[3] = CreateActor(34, 584.859375, 877.046569, -42.497318, 266.847808);  
+	Actor[3] = CreateActor(34, 584.859375, 877.046569, -42.497318, 266.847808);
 	label[3] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Mineradora LathMor\n{00FF00}Vaga:{FFFFFF} Minerador\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 584.859375, 877.046569, -42.497318, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[3], Actor[3], 0.0, 0.0, 0.7);
 
-	Actor[4] = CreateActor(133, 960.607055, 2097.604003, 1011.023010, 358.121734);  
+	Actor[4] = CreateActor(133, 960.607055, 2097.604003, 1011.023010, 358.121734);
 	label[4] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}FriBoi\n{00FF00}Vaga:{FFFFFF} Acougueiro\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 960.607055, 2097.604003, 1011.023010, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[4], Actor[4], 0.0, 0.0, 0.7);
 
-	Actor[5] = CreateActor(78, -504.495117, -517.457763, 25.523437, 258.582305);  
+	Actor[5] = CreateActor(78, -504.495117, -517.457763, 25.523437, 258.582305);
 	label[5] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}FedeX\n{00FF00}Vaga:{FFFFFF}Caminhoneiro\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -504.495117, -517.457763, 25.523437, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[5], Actor[5], 0.0, 0.0, 0.7);
 
-	Actor[6] = CreateActor(79, -28.763319, 1363.971313, 9.171875, 37.998077);  
+	Actor[6] = CreateActor(79, -28.763319, 1363.971313, 9.171875, 37.998077);
 	label[6] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Prefeitura da Homeland\n{00FF00}Vaga:{FFFFFF} Coletor de Lixo\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -28.763319, 1363.971313, 9.171875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[6], Actor[6], 0.0, 0.0, 0.7);
 
-	Actor[7] = CreateActor(188, 1682.130737, -2326.373291, 13.546875, 211.057678);  
+	Actor[7] = CreateActor(188, 1682.130737, -2326.373291, 13.546875, 211.057678);
 	label[7] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {5b6ed9}Luan_Rosa!\n{FFFFFF}Aprenda como jogar no servidor \nUse '{5b6ed9}F{FFFFFF}' para se informar", 0x008080FF, 1682.130737, -2326.373291, 13.546875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[7], Actor[7], 0.0, 0.0, 0.7);
 
-	Actor[8] = CreateActor(71, 939.6504,1733.2004,8.8516,-87.4139);  
+	Actor[8] = CreateActor(71, 939.6504,1733.2004,8.8516,-87.4139);
 	label[8] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}SedeX\n{00FF00}Vaga:{FFFFFF} Correios\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 939.6504,1733.2004,8.8516, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[8], Actor[8], 0.0, 0.0, 0.7);
 
@@ -12882,14 +12896,14 @@ public OnGameModeInit()
 	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1442.647583, -1120.358276, 23.959011);
 	CreateAurea("{5b6ed9}AmmuNation\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1789.135253, -1921.435058, 14.287462);
 	//----
-	
+
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nprocessar a peca de carne.", 942.577758, 2117.902099, 1011.030273);
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \npegar uma embalagem.", 938.006469, 2144.264892, 1011.023437);
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncolocar a carne na caixa.",942.416259, 2137.294921, 1011.023437);
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nrevisar a caixa.", 942.421325, 2153.745849, 1011.023437);
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \npegar a caixa.", 942.288391, 2173.139404, 1011.023437);
 	CreateAurea("Ponto de entrega.", 964.872192, 2159.816406, 1011.030273);
-	
+
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", 1982.807739, -1783.678100, 13.543199);
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", 1991.699951, -1783.279541, 13.543199);
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", 2001.068359, -1783.499389, 13.543199);
@@ -12912,52 +12926,55 @@ public OnGameModeInit()
 	CreateDynamicPickup(1247,23,658.691955, -1465.217651, 15.439466,0);
 	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}/prender{FFFFFF}'para \nprender o jogador.",-1,658.691955, -1465.217651, 15.439466,15);
 
+	CreateDynamicPickup(1316,23,719.329528, -442.295532, 15.335937,0);
+	CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}Ferramenta de Desmanche{FFFFFF}'para \ndesmanchar o veiculo.",-1,719.329528, -442.295532, 15.335937,15);
+
 	CreateAurea("{5b6ed9}Rota de Maconha\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -1143.184814, 2227.874511, 97.219261);
 	CreateAurea("{5b6ed9}Rota de Cocaina\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -248.257873, 1506.404418, 75.562500);
 	CreateAurea("{5b6ed9}Lavagem\n{FFFFFF}Utilize '{5b6ed9}Dinheiro Sujo{FFFFFF}' para \nefetuar a lavagem.", 1489.208862, -1719.420043, 8.242919);
-	
+
 	CreateAurea("{5b6ed9}Material\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar um material.", 1273.534545, -1292.359985, 13.481081);
 	CreateAurea("{5b6ed9}Material\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para deixar o material.", 1257.569458, -1263.111206, 17.821365);
 
 	CreateDynamicPickup(1314, 23, -2017.083740, -998.231933, 37.254680);
 	CreateDynamic3DTextLabel("{5b6ed9}Policia Militar{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,-2017.083740, -998.231933, 37.254680,15);
-	
+
 	CreateDynamicPickup(1314, 23, 1638.864746, -248.854202, 49.000457);
 	CreateDynamic3DTextLabel("{5b6ed9}Policia Rodoviaria{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1638.864746, -248.854202, 49.000457,15);
-	
+
 	CreateDynamicPickup(1314, 23, -2446.826904, 505.566497, 30.090206);
 	CreateDynamic3DTextLabel("{5b6ed9}Rondas Ostensivas{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,-2446.826904, 505.566497, 30.090206,15);
-	
+
 	CreateDynamicPickup(1314, 23, -1258.899536, 2709.987304, 55.174671);
 	CreateDynamic3DTextLabel("{5b6ed9}Acoes Especiais{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,-1258.899536, 2709.987304, 55.174671,15);
-	
+
 	CreateDynamicPickup(1314, 23, 2095.946044, -1143.877807, 25.586040);
 	CreateDynamic3DTextLabel("{5b6ed9}Tropa dos Vermelhos{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,2095.946044, -1143.877807, 25.586040,15);
-	
+
 	CreateDynamicPickup(1314, 23, 2650.068359, -2018.365234, 13.552066);
 	CreateDynamic3DTextLabel("{5b6ed9}Tropa dos Azuis{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,2650.068359, -2018.365234, 13.552066,15);
-	
+
 	CreateDynamicPickup(1314, 23, 1858.289306, -1590.896484, 13.574988);
 	CreateDynamic3DTextLabel("{5b6ed9}Tropa dos Amarelos{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1858.289306, -1590.896484, 13.574988,15);
-	
+
 	CreateDynamicPickup(1314, 23, 2275.367187, -1785.524414, 13.546875);
 	CreateDynamic3DTextLabel("{5b6ed9}Tropa dos Verdes{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,2275.367187, -1785.524414, 13.546875,15);
-	
+
 	CreateDynamicPickup(1314, 23, 1973.031616, -1779.866455, 13.543199);
 	CreateDynamic3DTextLabel("{5b6ed9}Bennys{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1973.031616, -1779.866455, 13.543199,15);
-	
+
 	CreateDynamicPickup(1314, 23, 1634.357543, -1122.493896, 24.051122);
 	CreateDynamic3DTextLabel("{5b6ed9}Medicos{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1634.357543, -1122.493896, 24.051122,15);
-	
+
 	CreateDynamicPickup(1314, 23, 753.274414, -1358.755981, 13.500000);
 	CreateDynamic3DTextLabel("{5b6ed9}Reportagem{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,753.274414, -1358.755981, 13.500000,15);
-	
+
 	CreateDynamicPickup(1314, 23, -692.327087, 939.566345, 13.632812);
 	CreateDynamic3DTextLabel("{5b6ed9}Mafia Russa {FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,-692.327087, 939.566345, 13.632812,15);
-	
-	CreateDynamicPickup(1314, 23, 385.094787, 2448.588378, 16.500000);
-	CreateDynamic3DTextLabel("{5b6ed9}Moto Clube{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,385.094787, 2448.588378, 16.500000,15);
-	
+
+	CreateDynamicPickup(1314, 23, 691.841125, -463.600677, 16.536296);
+	CreateDynamic3DTextLabel("{5b6ed9}Moto Clube{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,691.841125, -463.600677, 16.536296,15);
+
 	for(new j; j < MAX_ORGS; j++)
 	{
 	    CarregarCofre(j);
@@ -13012,7 +13029,7 @@ public OnGameModeInit()
 	{
 		Streamer_SetFloatData(STREAMER_TYPE_OBJECT , i, E_STREAMER_STREAM_DISTANCE, 500.0);
 		Streamer_SetFloatData(STREAMER_TYPE_OBJECT , i, E_STREAMER_DRAW_DISTANCE, 350.0);
-	} 
+	}
 
 	TimerRelogio = SetTimer("Relogio",1000,true);
 	TimerCadeia = SetTimer("CheckCadeia", 2000, true);
@@ -13029,12 +13046,11 @@ public OnGameModeExit()
 {
 	foreach(Player, i)
 	{
-		if(pLogado[i] == true) 
+		if(pLogado[i] == true)
 		{
 			SalvarDados(i);
 			SalvarMortos(i);
 			SalvarInventario(i);
-			SalvarArmas(i);
 			SalvarAvaliacao(i);
 			SalvarVIP(i);
 			if(Patrulha[i] == false)
@@ -13145,7 +13161,7 @@ public OnPlayerRequestClass(playerid, classid)
 
 
 public OnPlayerConnect(playerid)
-{	
+{
 	LockText[0] = CreatePlayerTextDraw(playerid, 320.0, 360.0, "_"), PlayerTextDrawUseBox(playerid, LockText[0], 1);
 	PlayerTextDrawLetterSize(playerid, LockText[0], 0.5, 5.599999), PlayerTextDrawTextSize(playerid, LockText[0], 20.0, 240.0);
 	PlayerTextDrawFont(playerid, LockText[0], 1), PlayerTextDrawSetProportional(playerid, LockText[0], 1), PlayerTextDrawAlignment(playerid, LockText[0], 2);
@@ -13184,7 +13200,7 @@ public OnPlayerConnect(playerid)
 	PlayerTextDrawLetterSize(playerid, LockText[11], 0.5, -0.1), PlayerTextDrawTextSize(playerid, LockText[11], 20.0, 240.0);
 	PlayerTextDrawFont(playerid, LockText[11], 1), PlayerTextDrawSetProportional(playerid, LockText[11], 1), PlayerTextDrawAlignment(playerid, LockText[11], 2);
 	PlayerTextDrawBackgroundColor(playerid, LockText[11], 1097458119), PlayerTextDrawBoxColor(playerid, LockText[11], -5963521);
-	SetPlayerCameraPos(playerid, 1981.038940, 1191.061401, 27.828259); 
+	SetPlayerCameraPos(playerid, 1981.038940, 1191.061401, 27.828259);
 	SetPlayerCameraLookAt(playerid, 1985.139648, 1195.111572, 27.636171);
 	todastextdraw(playerid);
 	if(!SvGetVersion(playerid))
@@ -13228,7 +13244,7 @@ public OnPlayerDisconnect(playerid, reason)
 		KillTimer(TimerPayDay[playerid]);
 		KillTimer(TimerAttVeh[playerid]);
 		KillTimer(TimerHacker[playerid]);
-		if(Patrulha[playerid] == true) 
+		if(Patrulha[playerid] == true)
 		{
 			policiaon --;
 		}
@@ -13348,7 +13364,7 @@ public OnPlayerSpawn(playerid)
 	SetTimerEx("Attplayer",1000,true,"i",playerid);
 	for(new idx=0; idx<9; idx++)
 	{
-    	TextDrawHideForPlayer(playerid,TDmorte[idx]); 
+    	TextDrawHideForPlayer(playerid,TDmorte[idx]);
 		if(idx == 9)break;
 	}
 	PlayerTextDrawHide(playerid, TDmorte_p[playerid][0]);
@@ -13378,19 +13394,19 @@ public OnPlayerSpawn(playerid)
 		DOF2_RemoveFile(File);
 	}
 	if(PlayerInfo[playerid][pCongelado] == true) TogglePlayerControllable(playerid, false);
-	if(PlayerInfo[playerid][ExpiraVIP] > 0) 
-	{ 
-		if(gettime() > PlayerInfo[playerid][ExpiraVIP]) 
-		{ 
-			new string[40]; 
-			format(string, sizeof(string), PASTA_VIPS, Name(playerid)); 
-			DOF2_RemoveFile(string); 
-			PlayerInfo[playerid][ExpiraVIP] = 0;  
+	if(PlayerInfo[playerid][ExpiraVIP] > 0)
+	{
+		if(gettime() > PlayerInfo[playerid][ExpiraVIP])
+		{
+			new string[40];
+			format(string, sizeof(string), PASTA_VIPS, Name(playerid));
+			DOF2_RemoveFile(string);
+			PlayerInfo[playerid][ExpiraVIP] = 0;
 			PlayerInfo[playerid][pVIP] = 0;
 			InfoMsg(playerid, "Seu beneficio expirou.");
-		} 
-	} 
-	if(PlayerInfo[playerid][Org] != 0) 
+		}
+	}
+	if(PlayerInfo[playerid][Org] != 0)
 	{
 		ChecarOrg(playerid);
 	}
@@ -13651,13 +13667,13 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 	{
 		TemCinto[playerid] = false;
 		SuccesMsg(playerid, "Cinto de seguranca removido");
-	
+
 	}
 	else
 	{
 		for(new x=0;x<5;x++)
 		{
-			TextDrawHideForPlayer(playerid, Tdcinto[x]); 
+			TextDrawHideForPlayer(playerid, Tdcinto[x]);
 			if(x == 5)break;
 		}
 	}
@@ -13707,7 +13723,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			}
 
 		}
-		
+
 		TimerVelo[playerid] = SetTimerEx("VelocimetroEx", 250, true, "d", playerid);
     }
 	if(IsPlayerInAnyVehicle(playerid) && !IsBicycle(GetPlayerVehicleID(playerid)))
@@ -13828,12 +13844,12 @@ public OnPlayerEnterCheckpoint(playerid)
 		TogglePlayerControllable(playerid, 0);
 		checkcasa[playerid] = false;
 	}
-	if(RotaMaconha[playerid] == true) 
-	{ 
+	if(RotaMaconha[playerid] == true)
+	{
 		InfoMsg(playerid, "Utilize a maconha no seu inventario para fazer a entrega.");
 	}
-	if(GPS[playerid] == true) 
-	{ 
+	if(GPS[playerid] == true)
+	{
 		DisablePlayerCheckpoint(playerid);
 		GPS[playerid] = false;
 	}
@@ -13850,24 +13866,24 @@ public OnPlayerEnterCheckpoint(playerid)
 		}
 	}
 	if(CaixaMao[playerid] == true){
-		DisablePlayerCheckpoint(playerid); 
+		DisablePlayerCheckpoint(playerid);
 		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 		InfoMsg(playerid, "Colocando Caixa...");
 		SetTimerEx("ColocandoCaixa", 10000, false, "i", playerid);
 		CaixaMao[playerid] = false;
 	}
-	if(Covaconcerto[playerid] == true) 
-	{ 
+	if(Covaconcerto[playerid] == true)
+	{
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.1, 1, 0, 0, 0, 0, 1);
 		DisablePlayerCheckpoint(playerid);
 		TogglePlayerControllable(playerid, 0);
 		InfoMsg(playerid, "Coletando Lixo...");
 		SetTimerEx("Cova", 10000, false, "i", playerid);
 	}
-	if(PegouLixo[playerid] == true) 
-	{ 
-		DisablePlayerCheckpoint(playerid); 
+	if(PegouLixo[playerid] == true)
+	{
+		DisablePlayerCheckpoint(playerid);
 		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 		TogglePlayerControllable(playerid, 0);
 		InfoMsg(playerid, "Colocando no bau...");
@@ -13885,17 +13901,17 @@ public OnPlayerEnterCheckpoint(playerid)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale;
 			format(constrstr,sizeof(constrstr),"Ganhou %i com este material.", dinmateriale);
-			SuccesMsg(playerid, constrstr); 
-		}   
+			SuccesMsg(playerid, constrstr);
+		}
 		if(PlayerInfo[playerid][pVIP] == 2)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
 			format(constrstr,sizeof(constrstr),"Ganhou %i com este material.", dinmateriale*2);
-			SuccesMsg(playerid, constrstr); 
+			SuccesMsg(playerid, constrstr);
 		}
 		DisablePlayerCheckpoint(playerid);
 		PegouMaterial[playerid] = false;
-	} 
+	}
 	if(EtapasMinerador[playerid] == 2)
 	{
 		new constrstr[500];
@@ -13907,20 +13923,20 @@ public OnPlayerEnterCheckpoint(playerid)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale;
 			format(constrstr,sizeof(constrstr),"Ganhou %i com esta rocha.", dinmateriale);
-			SuccesMsg(playerid, constrstr); 
-		}   
+			SuccesMsg(playerid, constrstr);
+		}
 		if(PlayerInfo[playerid][pVIP] == 2)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
 			format(constrstr,sizeof(constrstr),"Ganhou %i com esta rocha.", dinmateriale*2);
-			SuccesMsg(playerid, constrstr); 
+			SuccesMsg(playerid, constrstr);
 		}
 		EtapasMinerador[playerid] = 0;
 		DisablePlayerCheckpoint(playerid);
-	} 
+	}
 	if(Desossando[playerid] == 6)
 	{
-		new dinmateriale = randomEx(50, 200);
+		new dinmateriale = randomEx(0, 500);
 		new constrstr[500];
 		ClearAnimations(playerid);
 		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
@@ -13929,17 +13945,17 @@ public OnPlayerEnterCheckpoint(playerid)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale;
 			format(constrstr,sizeof(constrstr),"Ganhou %i com esta caixa.", dinmateriale);
-			SuccesMsg(playerid, constrstr); 
-		}   
+			SuccesMsg(playerid, constrstr);
+		}
 		if(PlayerInfo[playerid][pVIP] == 2)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
 			format(constrstr,sizeof(constrstr),"Ganhou %i com esta caixa.", dinmateriale*2);
-			SuccesMsg(playerid, constrstr); 
+			SuccesMsg(playerid, constrstr);
 		}
 		DisablePlayerCheckpoint(playerid);
 		Desossando[playerid] = 0;
-	} 
+	}
 	if(EtapasMinerador[playerid] == 1)
 	{
 		if(PlayerInfo[playerid][pProfissao] != 2) 	return ErrorMsg(playerid, "Nao possui permissao.");
@@ -14983,7 +14999,7 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	if(newkeys & KEY_SPRINT && newkeys & KEY_JUMP) 
+	if(newkeys & KEY_SPRINT && newkeys & KEY_JUMP)
 	{
 		if(pulou2vezes[playerid] == true)
 		{
@@ -15025,13 +15041,13 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			}
 		}
 	}
-	if(newkeys & KEY_FIRE && newkeys & KEY_HANDBRAKE) 
+	if(newkeys & KEY_FIRE && newkeys & KEY_HANDBRAKE)
 	{
-	    if(RecentlyShot[playerid] == 0) 
+	    if(RecentlyShot[playerid] == 0)
 	    {
 	        RecentlyShot[playerid] = 1;
 	        SetTimerEx("AntiSpam", 1000, false, "d", playerid);
-			if(GetPlayerWeapon(playerid) == 34) 
+			if(GetPlayerWeapon(playerid) == 34)
 			{
 		        new Float:blahx, Float:blahy, Float:blahz;
 				HeadshotCheck(playerid, blahx, blahy, blahz);
@@ -15091,7 +15107,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				VeiculoCivil[playerid] = CreateVehicle(462, 1683.301391, -2311.982910, 13.546875, 90, -1, -1, false);
 				PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
 				InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-				
+
 			}
 			else
 			{
@@ -15255,7 +15271,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 		{
 			new vehicleid = GetPlayerVehicleID(playerid);
-			if(IsBicycle(vehicleid)) return ErrorMsg(playerid, "Nao esta em um veiculo!"); 
+			if(IsBicycle(vehicleid)) return ErrorMsg(playerid, "Nao esta em um veiculo!");
 			new id = GetVehicleID(vehicleid);
 			if(GetPlayerVehicleAccess(playerid, id) < 1)
 				return ErrorMsg(playerid, "Nao possui a chave do veiculo!");
@@ -15376,7 +15392,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				TogglePlayerControllable(playerid, false);
 				SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 				return 1;
-			} 
+			}
 		}
 	}
 	if(newkeys == KEY_NO)
@@ -15481,7 +15497,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 514.767089, -2334.465820, 508.693756))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_LIST,"Loja Ilegal", "{5b6ed9}- {FFFFFF}Dinamite\t{32CD32}R$25000\n{5b6ed9}- {FFFFFF}Sementes de Maconha\t{32CD32}R$5000\n{5b6ed9}- {FFFFFF}LockPick\t{32CD32}R$15000\n{5b6ed9}- {FFFFFF}Pasta Base\t{32CD32}R$4000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_LIST,"Loja Ilegal", "{5b6ed9}- {FFFFFF}Dinamite\t{32CD32}R$25000\n{5b6ed9}- {FFFFFF}Sementes de Maconha\t{32CD32}R$5000\n{5b6ed9}- {FFFFFF}LockPick\t{32CD32}R$15000\n{5b6ed9}- {FFFFFF}Pasta Base\t{32CD32}R$4000\n{5b6ed9}- {FFFFFF}Ferramenta de Desmanche\t{32CD32}R$50000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 1460.913208, -1124.163940, 23.958011) || PlayerToPoint(3.0, playerid, 1458.722656, -1125.988525, 23.958011) || PlayerToPoint(3.0, playerid,  1456.284912, -1128.022460, 23.958011) || PlayerToPoint(3.0, playerid, 1448.275756, -1134.693725, 23.958011) || PlayerToPoint(3.0, playerid, 1445.757080, -1136.793090, 23.958011))
 		{
@@ -15534,7 +15550,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		for(new i; i < 4; i++)
 		if(PlayerToPoint(3.0, playerid, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]))
 		{
-			if(IsPolicial(playerid))	
+			if(IsPolicial(playerid))
 			{
 				PlayerTextDrawShow(playerid, HudCop[playerid][0]);
 				PlayerTextDrawShow(playerid, HudCop[playerid][1]);
@@ -15561,8 +15577,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 1273.534545, -1292.359985, 13.481081))
 		{
 			if(PlayerInfo[playerid][pProfissao] != 5) 	return ErrorMsg(playerid, "Nao possui permissao.");
-			if(PegouMaterial[playerid] == true) 	return ErrorMsg(playerid, "Ja pegou um material."); 
-			
+			if(PegouMaterial[playerid] == true) 	return ErrorMsg(playerid, "Ja pegou um material.");
+
 			ApplyAnimation(playerid, "CARRY", "CRRY_PRTIAL", 4.1, 0, 0, 0, 1, 1, 1);
 			SetPlayerCheckpoint(playerid, 1257.569458, -1263.111206, 17.821365, 1);
 			SetPlayerAttachedObject(playerid, 6, 3502, 1, 0.2779, 0.4348, 0.0000, -95.3000, 0.0000, 0.0000, 0.1209, 0.0740, 0.1028);
@@ -15591,7 +15607,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 584.859375, 877.046569, -42.497318))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			if(PlayerInfo[playerid][pSegundosJogados] < 10800000) return InfoMsg(playerid, "Voce precisa ter 3hrs de jogo.");
+			if(PlayerInfo[playerid][pSegundosJogados] < 10800) return InfoMsg(playerid, "Voce precisa ter 3hrs de jogo.");
 			if(PlayerInfo[playerid][LicencaConduzir] == 0) return InfoMsg(playerid, "Voce nao possui licenca de conducao.");
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
 			else
@@ -15599,24 +15615,24 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				PlayerInfo[playerid][pProfissao] = 2;
 				SuccesMsg(playerid, "Aceitou em emprego novo.");
 			}
-		} 
+		}
 		if(PlayerToPoint(3.0, playerid, 960.607055, 2097.604003, 1011.023010))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			if(PlayerInfo[playerid][pSegundosJogados] < 7200000) return InfoMsg(playerid, "Voce precisa ter 2hrs de jogo.");
+			if(PlayerInfo[playerid][pSegundosJogados] < 7200) return InfoMsg(playerid, "Voce precisa ter 2hrs de jogo.");
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
 			else
 			{
 				PlayerInfo[playerid][pProfissao] = 3;
 				SuccesMsg(playerid, "Aceitou em emprego novo.");
 			}
-		} 
+		}
 		if(PlayerToPoint(3.0, playerid, -504.495117, -517.457763, 25.523437))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			if(PlayerInfo[playerid][pSegundosJogados] < 14400000 ) return InfoMsg(playerid, "Voce precisa ter 4hrs de jogo.");
+			if(PlayerInfo[playerid][pSegundosJogados] < 14400 ) return InfoMsg(playerid, "Voce precisa ter 4hrs de jogo.");
 			if(PlayerInfo[playerid][LicencaConduzir] == 0) return InfoMsg(playerid, "Voce nao possui licenca de conducao.");
-			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");    		
+			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
 			else
 			{
 				if(PlayerInfo[playerid][LicencaConduzir] == 0) return ErrorMsg(playerid, "Nao possui licenca");
@@ -15624,11 +15640,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				PlayerInfo[playerid][pProfissao] = 4;
 				SuccesMsg(playerid, "Aceitou em emprego novo.");
 			}
-		} 
+		}
 		if(PlayerToPoint(3.0, playerid, 380.100067, -72.050025, 1001.507812))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");    		
+			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
 			else
 			{
 				PlayerInfo[playerid][pProfissao] = 5;
@@ -15644,7 +15660,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				PlayerInfo[playerid][pProfissao] = 6;
 				SuccesMsg(playerid, "Aceitou em emprego novo.");
 			}
-		} 
+		}
 		if(PlayerToPoint(3.0, playerid, 1974.8153, -1779.7526, 13.5432))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
@@ -15655,11 +15671,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				PlayerInfo[playerid][pProfissao] = 7;
 				SuccesMsg(playerid, "Aceitou em emprego novo.");
 			}
-		} 
+		}
 		if(PlayerToPoint(3.0, playerid, 939.6504,1733.2004,8.8516)) //correios
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			if(PlayerInfo[playerid][pSegundosJogados] < 18000000) return InfoMsg(playerid, "Voce precisa ter 5hrs de jogo.");
+			if(PlayerInfo[playerid][pSegundosJogados] < 18000) return InfoMsg(playerid, "Voce precisa ter 5hrs de jogo.");
 			if(PlayerInfo[playerid][LicencaConduzir] == 0) return InfoMsg(playerid, "Voce nao possui licenca de conducao.");
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
 			else
@@ -15710,7 +15726,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	new wVeiculo = GetPlayerVehicleID(playerid);
 	format(Account, sizeof(Account), PASTA_CONTAS, Name(playerid));
 	switch(dialogid)
-	{	
+	{
 		case DIALOG_MECANICA:
 		{
 			if(response)
@@ -16118,57 +16134,57 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				GanharItem(playerid, 1010, 1);
 			}
-		}	
+		}
 		case DIALOG_MECANICARODAS:
 		{
 			if(response)
 			{
-				if(listitem == 0) 
+				if(listitem == 0)
 				{
 					AddVehicleComponent(wVeiculo,1073), OnVehicleMod(playerid, wVeiculo, 1073);         // SHADOW
 					SuccesMsg(playerid, "Roda Alterada");
 				}
-				if(listitem == 1) 
+				if(listitem == 1)
 				{
 					AddVehicleComponent(wVeiculo, 1074), OnVehicleMod(playerid, wVeiculo, 1074);        // MEGA
 					SuccesMsg(playerid, "Roda Alterada");
 				}
-				if(listitem == 2) 
+				if(listitem == 2)
 				{
 					AddVehicleComponent(wVeiculo,1075), OnVehicleMod(playerid, wVeiculo, 1075);         // RINSHIME
 					SuccesMsg(playerid, "Roda Alterada");
 				}
-				if(listitem == 3) 
+				if(listitem == 3)
 				{
 					AddVehicleComponent(wVeiculo,1076), OnVehicleMod(playerid, wVeiculo, 1076);         // WIRES
 					SuccesMsg(playerid, "Roda Alterada");
 				}
-				if(listitem == 4) 
+				if(listitem == 4)
 				{
 					AddVehicleComponent(wVeiculo,1077), OnVehicleMod(playerid, wVeiculo, 1077);         // CLASSIC
 					SuccesMsg(playerid, "Roda Alterada");
 				}
-				if(listitem == 5) 
+				if(listitem == 5)
 				{
 					AddVehicleComponent(wVeiculo,1078), OnVehicleMod(playerid, wVeiculo, 1078);         // TWIST
 					SuccesMsg(playerid, "Roda Alterada");
 				}
-				if(listitem == 6) 
+				if(listitem == 6)
 				{
 					AddVehicleComponent(wVeiculo,1079), OnVehicleMod(playerid, wVeiculo, 1079);         // CUTTER
 					SuccesMsg(playerid, "Roda Alterada");
 				}
-				if(listitem == 7) 
+				if(listitem == 7)
 				{
 					AddVehicleComponent(wVeiculo,1083), OnVehicleMod(playerid, wVeiculo, 1083);         // DOLLAR
 					SuccesMsg(playerid, "Roda Alterada");
 				}
-				if(listitem == 8) 
+				if(listitem == 8)
 				{
 					AddVehicleComponent(wVeiculo,1085), OnVehicleMod(playerid, wVeiculo, 1085);         // ATOMIC
 					SuccesMsg(playerid, "Roda Alterada");
 				}
-				if(listitem == 9) 
+				if(listitem == 9)
 				{
 					AddVehicleComponent(wVeiculo,1097), OnVehicleMod(playerid, wVeiculo, 1097);        // VIRTUAL
 					SuccesMsg(playerid, "Roda Alterada");
@@ -16183,52 +16199,52 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(response)
 			{
-				if(listitem == 0) 
+				if(listitem == 0)
 				{
 					ChangeVehicleColor(wVeiculo, 1, 1), OnVehicleRespray(playerid, wVeiculo, 1, 1);         // BRANCO
 					SuccesMsg(playerid, "Cor Alterada");
 				}
-				if(listitem == 1) 
+				if(listitem == 1)
 				{
 					ChangeVehicleColor(wVeiculo, 79, 79), OnVehicleRespray(playerid, wVeiculo, 79, 79);       // AZUL
 					SuccesMsg(playerid, "Cor Alterada");
 				}
-				if(listitem == 2) 
+				if(listitem == 2)
 				{
 					ChangeVehicleColor(wVeiculo, 194, 194), OnVehicleRespray(playerid, wVeiculo, 194, 194);     // AMARELO
 					SuccesMsg(playerid, "Cor Alterada");
 				}
-				if(listitem == 3) 
+				if(listitem == 3)
 				{
 					ChangeVehicleColor(wVeiculo, 211, 211), OnVehicleRespray(playerid, wVeiculo, 211, 211);     // ROXO
 					SuccesMsg(playerid, "Cor Alterada");
 				}
-				if(listitem == 4) 
+				if(listitem == 4)
 				{
 					ChangeVehicleColor(wVeiculo, 137, 137), OnVehicleRespray(playerid, wVeiculo, 137, 137);     // VERDE
 					SuccesMsg(playerid, "Cor Alterada");
 				}
-				if(listitem == 5) 
+				if(listitem == 5)
 				{
 					ChangeVehicleColor(wVeiculo, 75, 75), OnVehicleRespray(playerid, wVeiculo, 75, 75);       // CINZA
 					SuccesMsg(playerid, "Cor Alterada");
 				}
-				if(listitem == 6) 
+				if(listitem == 6)
 				{
 					ChangeVehicleColor(wVeiculo, 136, 136), OnVehicleRespray(playerid, wVeiculo, 136, 136);     // ROSA
 					SuccesMsg(playerid, "Cor Alterada");
 				}
-				if(listitem == 7) 
+				if(listitem == 7)
 				{
 					ChangeVehicleColor(wVeiculo, 129, 129), OnVehicleRespray(playerid, wVeiculo, 129, 129);     // MARROM
 					SuccesMsg(playerid, "Cor Alterada");
 				}
-				if(listitem == 8) 
+				if(listitem == 8)
 				{
 					ChangeVehicleColor(wVeiculo, 3, 3), OnVehicleRespray(playerid, wVeiculo, 3, 3);        // VERMELHO
 					SuccesMsg(playerid, "Cor Alterada");
 				}
-				if(listitem == 9) 
+				if(listitem == 9)
 				{
 					ChangeVehicleColor(wVeiculo, 158, 158), OnVehicleRespray(playerid, wVeiculo, 158, 158);    // LARANJA
 					SuccesMsg(playerid, "Cor Alterada");
@@ -16271,7 +16287,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new uid = GetIdfixo();
 				if(!DOF2_FileExists(Account))
 				{
-					DOF2_CreateFile(Account); 
+					DOF2_CreateFile(Account);
 					DOF2_SaveFile();
 					DOF2_SetString(Account, "pSenha", SHA256_password);
 					DOF2_SetString(Account, "pEmail", "");
@@ -16323,6 +16339,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][Casa] = -1;
 					DOF2_SaveFile();
 				}
+
+				CriarInventario(playerid);
 				for(new i = 0; i < 23; ++i)
 				{
 					PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
@@ -16340,7 +16358,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(Account2, sizeof(Account2), "IDCONTAS/%04d.ini", GetPlayerIdfixo(playerid));
 				if(!DOF2_FileExists(Account2))
 				{
-					DOF2_CreateFile(Account2); 
+					DOF2_CreateFile(Account2);
 					DOF2_SaveFile();
 				}
 				ShowPlayerDialog(playerid, DIALOG_EMAIL, DIALOG_STYLE_INPUT, "{FFFFFF}Email", "\n{FFFFFF}Digite seu email para seguir para o proximo passo do cadastro\n{FF0000}Voce deve colocar o email corretamente.", "Validar", "");
@@ -16515,37 +16533,115 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					if(FirstLogin[playerid] == false)
 					{
-						ShowPlayerDialog(playerid, DIALOG_POS, DIALOG_STYLE_MSGBOX, "Voce gostaria...", "Voce gostaria de voltar a sua ultima posicao?", "Sim", "Nao");
+						UltimaPos[playerid] = 1;
+						InfoMsg(playerid, "Voce pode voltar a sua ultima posicao usando /up");
+						TogglePlayerControllable(playerid, false);
+						SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+						if(PlayerInfo[playerid][Casa] >= 0)
+						{
+							PlayerInfo[playerid][Entrada] = PlayerInfo[playerid][Casa];
+							SetPlayerPos(playerid, CasaInfo[PlayerInfo[playerid][Casa]][CasaInteriorX], CasaInfo[PlayerInfo[playerid][Casa]][CasaInteriorY], CasaInfo[PlayerInfo[playerid][Casa]][CasaInteriorZ]);
+							SetPlayerInterior(playerid, CasaInfo[PlayerInfo[playerid][Casa]][CasaInterior]);
+							SetPlayerVirtualWorld(playerid, PlayerInfo[playerid][Casa]);
+						}
+						else if(PlayerInfo[playerid][Org] == 0)
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1685.698608, -2334.948730, 13.546875, 0.269069, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
+						else if(PlayerInfo[playerid][Org] == 1)
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2033.067504, -988.365112, 32.212158, 90.036911, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
+						else if(PlayerInfo[playerid][Org] == 2)
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2440.856445, 522.686523, 29.914293, 90.036911, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
+						else if(PlayerInfo[playerid][Org] == 3)
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -1278.104248, 2711.379150, 50.132141, 90.036911, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
+						else if(PlayerInfo[playerid][Org] == 4)
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin],  1662.559692, -285.732208, 39.607868, 90.036911, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
+						else if(PlayerInfo[playerid][Org] == 5)
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin],  2095.946044, -1143.877807, 25.586040, 90.036911, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
+						else if(PlayerInfo[playerid][Org] == 6)
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 2650.068359, -2018.365234, 13.552066, 90.036911, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
+						else if(PlayerInfo[playerid][Org] == 7)
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1858.289306, -1590.896484, 13.574988, 90.036911, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
+						else if(PlayerInfo[playerid][Org] == 8)
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 2275.367187, -1785.524414, 13.546875, 90.036911, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
+						else if(PlayerInfo[playerid][Org] == 9)
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1973.031616, -1779.866455, 13.543199, 90.036911, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
+						else if(PlayerInfo[playerid][Org] == 10)
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2064.956787, 1389.049560, 7.101562, 90.036911, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
+						else if(PlayerInfo[playerid][Org] == 11)
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 753.274414, -1358.755981, 13.500000, 90.036911, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
+						else if(PlayerInfo[playerid][Org] == 12)
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -692.327087, 939.566345, 13.632812, 90.036911, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
+						else if(PlayerInfo[playerid][Org] == 13)
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 691.841125, -463.600677, 16.536296, 90.036911, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
 						format(Str, sizeof(Str), "Bem vindo %04d. Seu ultimo login foi em %s.", GetPlayerIdfixo(playerid), PlayerInfo[playerid][pLastLogin]);
 						InfoMsg(playerid, Str);
 						if(IsPlayerMobile(playerid)){
-							InfoMsg(playerid, "Voce esta conectado pelo Celular");
 							Plataforma[playerid] = 1;
 						}else{
-							InfoMsg(playerid, "Voce esta conectado pelo Computador");
 							Plataforma[playerid] = 0;
 						}
 					}
 					else
-					{ 
+					{
 						SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1685.698608, -2334.948730, 13.546875, 0.269069, 0, 0, 0, 0, 0, 0);
 						SpawnPlayer(playerid);
 						FirstLogin[playerid] = false;
-					}	
+					}
 					TextDrawShowForPlayer(playerid, gServerTextdraws);
 					CancelSelectTextDraw(playerid);
 					Timers(playerid);
 					CarregarAvaliacao(playerid);
 					CarregarVIP(playerid);
 					MapRemocao(playerid);
+					LoadInv(playerid);
 					CarregarAnims(playerid);
-					CriarInventario(playerid);	
 					CarregarArmas(playerid);
 					CarregarMortos(playerid);
 					CarregarGZ(playerid);
 					SetPlayerVirtualWorld(playerid, 0);
 					SetTimerEx("TxdLogin", 2000, false, "d",playerid);
-					pLogado[playerid] = true; 
+					pLogado[playerid] = true;
 					pJogando[playerid] = true;
 					Erro[playerid] = 0;
 					StopAudioStreamForPlayer(playerid);
@@ -16569,7 +16665,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{
 							format(PlayerInfo[playerid][pEmail], 40, inputtext);
 							actorcad[playerid] = CreateActor(0, 1984.0140,1194.2424,26.8835,135.6409);
-							SetPlayerCameraPos(playerid, 1981.038940, 1191.061401, 27.828259); 
+							SetPlayerCameraPos(playerid, 1981.038940, 1191.061401, 27.828259);
 							SetPlayerCameraLookAt(playerid, 1985.139648, 1195.111572, 27.636171);
 							for(new i=0;i<18;i++){
 								TextDrawShowForPlayer(playerid, TDCadastro[i]);
@@ -16595,100 +16691,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 		}
 		case DIALOG_BANIDO: Kick(playerid);
-		case DIALOG_POS:
-		{
-			if(!response)
-			{
-				TogglePlayerControllable(playerid, false);
-				SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-				if(PlayerInfo[playerid][Casa] >= 0)
-				{
-					PlayerInfo[playerid][Entrada] = PlayerInfo[playerid][Casa];
-					SetPlayerPos(playerid, CasaInfo[PlayerInfo[playerid][Casa]][CasaInteriorX], CasaInfo[PlayerInfo[playerid][Casa]][CasaInteriorY], CasaInfo[PlayerInfo[playerid][Casa]][CasaInteriorZ]);
-					SetPlayerInterior(playerid, CasaInfo[PlayerInfo[playerid][Casa]][CasaInterior]);
-					SetPlayerVirtualWorld(playerid, PlayerInfo[playerid][Casa]);
-				}
-				else if(PlayerInfo[playerid][Org] == 0)
-				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1685.698608, -2334.948730, 13.546875, 0.269069, 0, 0, 0, 0, 0, 0);
-					SpawnPlayer(playerid);
-				}
-				else if(PlayerInfo[playerid][Org] == 1)
-				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2033.067504, -988.365112, 32.212158, 90.036911, 0, 0, 0, 0, 0, 0);
-					SpawnPlayer(playerid);
-				}
-				else if(PlayerInfo[playerid][Org] == 2)
-				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2440.856445, 522.686523, 29.914293, 90.036911, 0, 0, 0, 0, 0, 0);
-					SpawnPlayer(playerid);
-				}
-				else if(PlayerInfo[playerid][Org] == 3)
-				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -1278.104248, 2711.379150, 50.132141, 90.036911, 0, 0, 0, 0, 0, 0);
-					SpawnPlayer(playerid);
-				}
-				else if(PlayerInfo[playerid][Org] == 4)
-				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin],  1662.559692, -285.732208, 39.607868, 90.036911, 0, 0, 0, 0, 0, 0);
-					SpawnPlayer(playerid);
-				}
-				else if(PlayerInfo[playerid][Org] == 5)
-				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin],  2095.946044, -1143.877807, 25.586040, 90.036911, 0, 0, 0, 0, 0, 0);
-					SpawnPlayer(playerid);
-				}
-				else if(PlayerInfo[playerid][Org] == 6)
-				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 2650.068359, -2018.365234, 13.552066, 90.036911, 0, 0, 0, 0, 0, 0);
-					SpawnPlayer(playerid);
-				}
-				else if(PlayerInfo[playerid][Org] == 7)
-				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1858.289306, -1590.896484, 13.574988, 90.036911, 0, 0, 0, 0, 0, 0);
-					SpawnPlayer(playerid);
-				}
-				else if(PlayerInfo[playerid][Org] == 8)
-				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 2275.367187, -1785.524414, 13.546875, 90.036911, 0, 0, 0, 0, 0, 0);
-					SpawnPlayer(playerid);
-				}
-				else if(PlayerInfo[playerid][Org] == 9)
-				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1973.031616, -1779.866455, 13.543199, 90.036911, 0, 0, 0, 0, 0, 0);
-					SpawnPlayer(playerid);
-				}
-				else if(PlayerInfo[playerid][Org] == 10)
-				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2064.956787, 1389.049560, 7.101562, 90.036911, 0, 0, 0, 0, 0, 0);
-					SpawnPlayer(playerid);
-				}
-				else if(PlayerInfo[playerid][Org] == 11)
-				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 753.274414, -1358.755981, 13.500000, 90.036911, 0, 0, 0, 0, 0, 0);
-					SpawnPlayer(playerid);
-				}
-				else if(PlayerInfo[playerid][Org] == 12)
-				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -692.327087, 939.566345, 13.632812, 90.036911, 0, 0, 0, 0, 0, 0);
-					SpawnPlayer(playerid);
-				}
-				else if(PlayerInfo[playerid][Org] == 13)
-				{
-					SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 385.094787, 2448.588378, 16.500000, 90.036911, 0, 0, 0, 0, 0, 0);
-					SpawnPlayer(playerid);
-				}
-			}
-			else
-			{
-				TogglePlayerControllable(playerid, false);
-				SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-				SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ], PlayerInfo[playerid][pPosA], 0, 0, 0, 0, 0, 0);
-				SetPlayerCameraPos(playerid, PlayerInfo[playerid][pCamX], PlayerInfo[playerid][pCamY], PlayerInfo[playerid][pCamZ]);
-				SetPlayerInterior(playerid, PlayerInfo[playerid][pInterior]);
-				SpawnPlayer(playerid); 
-			}
-		}
 		case DIALOG_BANCO4:
 		{
 			if(response)
@@ -16823,7 +16825,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SuccesMsg(playerid,"Voce deu o nome da sua mae para a criacao do RG");
 				SuccesMsg(playerid, "Seu RG esta sendo emitido aguarde...");
 				SetTimerEx("criandorg", 7000, false, "i", playerid);
-				
+
 			}else{
 				ShowPlayerDialog(playerid, DIALOG_RG3, DIALOG_STYLE_INPUT, "EMITIR RG", "Diga o nome do seu pai:\nEx: Jose Ribeiro da Silva", "Confirmar", "Voltar");
 			}
@@ -17066,7 +17068,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 4)
 				{
-					if(IsPolicial(playerid)) 
+					if(IsPolicial(playerid))
 					{
 						new stg[1100];
 						strcat(stg, "{5b6ed9}/d{FFFFFF} Central de Policia\n");
@@ -17085,8 +17087,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						strcat(stg, "{5b6ed9}/verdocumentos{FFFFFF} Verificar documento de um jogador.\n");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAORG, DIALOG_STYLE_MSGBOX, "Comandos Organizacao", stg, "Ok", "");
 					}
-					if(IsBandido(playerid)) 
-					{ 
+					if(IsBandido(playerid))
+					{
 						new stg[1100];
 						strcat(stg, "{5b6ed9}/ga{FFFFFF} Radio de gang\n");
 						strcat(stg, "{5b6ed9}/ab{FFFFFF} Anuncio de abordagem.\n");
@@ -17272,7 +17274,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new Float:j = GetPlayerDistanceFromPoint(playerid, 1982.807739, -1783.678100, 13.543199);
 					new Float:k = GetPlayerDistanceFromPoint(playerid, 649.302062, -1357.399658, 13.567605);
 					new Float:l = GetPlayerDistanceFromPoint(playerid, -688.271423, 938.216918, 13.632812);
-					new Float:m = GetPlayerDistanceFromPoint(playerid, 698.636657, 1964.867065, 5.539062);
+					new Float:m = GetPlayerDistanceFromPoint(playerid, 691.841125, -463.600677, 16.536296);
 					MEGAString[0] = EOS;
 					new string[800];
 					strcat(MEGAString, "Local\tDistancia\n");
@@ -17375,7 +17377,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
 					SetPlayerCheckpoint(playerid, -2653.636474, 640.163085, 14.45312, 8.0);
-					
+
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 9)
@@ -17397,14 +17399,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
 					SetPlayerCheckpoint(playerid, -688.271423, 938.216918, 13.632812, 8.0);
-					
+
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 12)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 698.636657, 1964.867065, 5.539062, 8.0);
+					SetPlayerCheckpoint(playerid, 691.841125, -463.600677, 16.536296, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 			}
@@ -17488,7 +17490,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
 					SetPlayerCheckpoint(playerid, -1973.108276, 288.896331, 35.171875, 8.0);
-					
+
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 11)
@@ -17582,7 +17584,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							InfoMsg(playerid, string);
 						}
 						else
-						{	
+						{
 							ErrorMsg(playerid, "Este ID nao existe.");
 							ShowPlayerDialog(playerid, DIALOG_LOCALIZARCASA, DIALOG_STYLE_INPUT, "Localizar Casas", "{5b6ed9}- {FFFFFF}Introduza o ID da casa que queira localizar", "Localizar", "X");
 						}
@@ -17606,15 +17608,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{5b6ed9}- {FFFFFF}VIP CLASSIC{32CD32}\thC$5,000\n{5b6ed9}- {FFFFFF}VIP ADVANCED{32CD32}\thC$15,000\n{5b6ed9}- {FFFFFF}VIP PREMIUM{32CD32}\thC$30,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATVIPS, DIALOG_STYLE_LIST, "CATALOGO VIP's", "{5b6ed9}- {FFFFFF}VIP CLASSIC{32CD32}\thC$5,000\n{5b6ed9}- {FFFFFF}VIP ADVANCED{32CD32}\thC$15,000\n{5b6ed9}- {FFFFFF}VIP PREMIUM{32CD32}\thC$30,000", "Selecionar", "X");
 				}
 				if(listitem == 1)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATVEHINV, DIALOG_STYLE_LIST, "CATALOGO VEH INV", "{5b6ed9}- {FFFFFF}Sultan{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}HotKnife{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}RC Bandit{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}RC Baron{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}RC Raider{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}Hotring{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}RC Goblin{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}Monster{5b6ed9}\tBC$5,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATVEHINV, DIALOG_STYLE_LIST, "CATALOGO VEH INV", "{5b6ed9}- {FFFFFF}Sultan{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}HotKnife{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}RC Bandit{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}RC Baron{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}RC Raider{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}Hotring{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}RC Goblin{5b6ed9}\tBC$2,000\n{5b6ed9}- {FFFFFF}Monster{5b6ed9}\tBC$5,000", "Selecionar", "X");
 				}
 				if(listitem == 2)
 				{
-					ShowPlayerDialog(playerid, DIALOG_CATITENS, DIALOG_STYLE_LIST, "CATALOGO ITEMS", "{5b6ed9}- {FFFFFF}JetPack{5b6ed9}\tBC$15,000\n{5b6ed9}- {FFFFFF}Caixa Basica{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Caixa Media{5b6ed9}\tBC$10,000\n{5b6ed9}- {FFFFFF}Caixa Avan�ada{5b6ed9}\tBC$20,000\n{5b6ed9}- {FFFFFF}+1 Slot Inv{5b6ed9}\tBC$15,000\n{5b6ed9}- {FFFFFF}Remover Advertencia{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Titulo Personalizado{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Troca de Skin{5b6ed9}\tBC$5,000", "Selecionar", "X");	
+					ShowPlayerDialog(playerid, DIALOG_CATITENS, DIALOG_STYLE_LIST, "CATALOGO ITEMS", "{5b6ed9}- {FFFFFF}JetPack{5b6ed9}\tBC$15,000\n{5b6ed9}- {FFFFFF}Caixa Basica{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Caixa Media{5b6ed9}\tBC$10,000\n{5b6ed9}- {FFFFFF}Caixa Avan�ada{5b6ed9}\tBC$20,000\n{5b6ed9}- {FFFFFF}+1 Slot Inv{5b6ed9}\tBC$15,000\n{5b6ed9}- {FFFFFF}Remover Advertencia{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Titulo Personalizado{5b6ed9}\tBC$5,000\n{5b6ed9}- {FFFFFF}Troca de Skin{5b6ed9}\tBC$5,000", "Selecionar", "X");
 				}
 				if(listitem == 3)
 				{
@@ -17781,7 +17783,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					if(PlayerInfo[playerid][pCoins] < 5000) 	return ErrorMsg(playerid, "Coins insuficiente.");
 					PlayerInfo[playerid][pCoins] -= 5000;
-					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
+					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30);
 					PlayerInfo[playerid][pVIP] = 1;
 					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 				}
@@ -17790,7 +17792,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerInfo[playerid][pCoins] < 15000) 	return ErrorMsg(playerid, "Coins insuficiente.");
 					PlayerInfo[playerid][pBanco] += 23000;
 					PlayerInfo[playerid][pCoins] -= 15000;
-					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
+					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30);
 					PlayerInfo[playerid][pVIP] = 2;
 					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 				}
@@ -17799,8 +17801,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerInfo[playerid][pCoins] < 30000) 	return ErrorMsg(playerid, "Coins insuficiente.");
 					PlayerInfo[playerid][pBanco] += 23000;
 					PlayerInfo[playerid][pCoins] -= 30000;
-					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30); 
-					PlayerInfo[playerid][pVIP] = 3; 
+					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30);
+					PlayerInfo[playerid][pVIP] = 3;
 					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 				}
 			}
@@ -18062,7 +18064,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								PlayerMorto[i][pSegMorto] = 0;
 								for(new idx=0; idx<9; idx++)
 								{
-									TextDrawHideForPlayer(i,TDmorte[idx]); 
+									TextDrawHideForPlayer(i,TDmorte[idx]);
 									if(i == 9)break;
 								}
 								PlayerTextDrawHide(i, TDmorte_p[i][0]);
@@ -18338,6 +18340,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pDinheiro] -= 4000;
 					GanharItem(playerid, 854, 1);
 					CofreNiobio += 4000;
+					SalvarDinRoubos();
+				}
+				if(listitem == 4)
+				{
+					if(PlayerInfo[playerid][pDinheiro] < 50000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Compro Pasta Base.");
+					PlayerInfo[playerid][pDinheiro] -= 50000;
+					GanharItem(playerid, 19627, 1);
+					CofreNiobio += 50000;
 					SalvarDinRoubos();
 				}
 			}
@@ -19265,7 +19276,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(response)
 			{
 				cmd_anuncio(playerid, inputtext);
-				
+
 			}
 		}
 		case DIALOG_VALORTRANSACAO:
@@ -19915,8 +19926,8 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 			SetPlayerArmour(playerid, 0);
 			ResetPlayerWeapons(playerid);
 			CarregarArmas(playerid);
-			SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);	
-			SuccesMsg(playerid, "Voce deixou seu servico como policial");   
+			SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
+			SuccesMsg(playerid, "Voce deixou seu servico como policial");
 			SetPlayerColor(playerid, 0xFFFFFFFF);
 			SetPlayerHealth(playerid, 100);
 		}
@@ -20088,6 +20099,18 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 
 //                          COMANDOS
 
+CMD:up(playerid)
+{
+	if(UltimaPos[playerid] == 0) return ErrorMsg(playerid, "Voce nao pode mais voltar a ultima posicao");
+	TogglePlayerControllable(playerid, false);
+	SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+	SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ], PlayerInfo[playerid][pPosA], 0, 0, 0, 0, 0, 0);
+	SetPlayerCameraPos(playerid, PlayerInfo[playerid][pCamX], PlayerInfo[playerid][pCamY], PlayerInfo[playerid][pCamZ]);
+	SetPlayerInterior(playerid, PlayerInfo[playerid][pInterior]);
+	SpawnPlayer(playerid);
+	UltimaPos[playerid] = 0;
+	return 1;
+}
 CMD:minhaconta(playerid)
 {
 	new megastrings[500], String2[500];
@@ -20188,7 +20211,7 @@ CMD:mostrarrg(playerid,params[])
 						{
 							TextDrawShowForPlayer(i, TD_RG[t]);
 							if(i == 24)break;
-						}	
+						}
 						for(new t=0;t<6;t++)
 						{
 							PlayerTextDrawShow(i, RG_p[playerid][t]);
@@ -20208,7 +20231,7 @@ CMD:mostrarrg(playerid,params[])
 				}
 			}
 		}else{
-			ErrorMsg(playerid, "Voce nao pode mostrar seu RG enquanto o ve");	
+			ErrorMsg(playerid, "Voce nao pode mostrar seu RG enquanto o ve");
 		}
 	}
 	else
@@ -20248,8 +20271,8 @@ CMD:mvoip(playerid)
 
 CMD:cinto(playerid)
 {
-	if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Voce nao esta em um veiculo!"); 
-	if(IsABike(GetPlayerVehicleID(playerid)) || IsABoat(GetPlayerVehicleID(playerid))) return ErrorMsg(playerid, "Voce nao esta em um veiculo que possui cinto de seguranca!"); 
+	if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Voce nao esta em um veiculo!");
+	if(IsABike(GetPlayerVehicleID(playerid)) || IsABoat(GetPlayerVehicleID(playerid))) return ErrorMsg(playerid, "Voce nao esta em um veiculo que possui cinto de seguranca!");
 	if(TemCinto[playerid] == false)
 	{
 		TemCinto[playerid] = true;
@@ -20277,7 +20300,7 @@ CMD:gps(playerid)
 {
 	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_LIST, "Onde deseja ir?", "{5b6ed9}GPS {FFFFFF}Locais Importantes\n{5b6ed9}GPS {FFFFFF}Locais Empregos\n{5b6ed9}GPS {FFFFFF}Locais Organiza��o\n{5b6ed9}GPS {FFFFFF}Localizar Casas", "Selecionar", "X");
 
-	
+
 	return 1;
 }
 
@@ -20677,11 +20700,34 @@ CMD:ir(playerid, params[])
 	return 1;
 }
 
+CMD:spawnar(playerid, params[])
+{
+	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
+	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /spawnar [ID]");
+	foreach(Player,i)
+  	{
+		if(pLogado[i] == true)
+		{
+			if(PlayerInfo[i][IDF] == ID)
+			{
+				SetPlayerPos(i, Pos[0], Pos[1], Pos[2]);
+				TogglePlayerControllable(i, false);
+				SetTimerEx("carregarobj", 5000, 0, "i", i);
+				SuccesMsg(playerid, "Voce mandou o jogador para o spawn.");
+				InfoMsg(i, "Algum administrador te botou no spawn.");
+			}
+		}
+  	}
+	ErrorMsg(playerid, "Jogador nao conectado.");
+	return 1;
+}
+
 CMD:trazer(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
-	if(sscanf(params, "u", ID))									return ErrorMsg(playerid,"USE: /trazer [ID]");
+	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /trazer [ID]");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -20699,10 +20745,10 @@ CMD:trazer(playerid, params[])
 				{
 					SetVehiclePos(GetPlayerVehicleID(i), Pos[0], Pos[1], Pos[2]);
 				}
-				SetPlayerVirtualWorld(i, GetPlayerVirtualWorld(playerid));
-				SetPlayerInterior(i, GetPlayerInterior(playerid));
+				SetPlayerVirtualWorld(i, GetPlayerVirtualWorld(i));
+				SetPlayerInterior(i, GetPlayerInterior(i));
 				SuccesMsg(playerid, "Voce trouxe o jogador.");
-				InfoMsg(i, "Algum administrador trouxe voce.");
+				InfoMsg(i, "Algum administrador puxou voce.");
 			}
 		}
   	}
@@ -20952,7 +20998,7 @@ CMD:agendacadeia(playerid, params[])
 	SendClientMessageToAll(-1, Str);
 
 	AgendarCadeia(Nome, ID, playerid, Motivo);
-	if(ID > 0) ErrorMsg(playerid, "DICA: Para cancelar um agendamento de cadeia use valores negativos no Tempo."); 
+	if(ID > 0) ErrorMsg(playerid, "DICA: Para cancelar um agendamento de cadeia use valores negativos no Tempo.");
 	return 1;
 }
 
@@ -21028,30 +21074,30 @@ CMD:atrabalhar(playerid)
 		pJogando[playerid] = true;
 		SetPlayerColor(playerid, -1);
 		SetPlayerHealth(playerid, 100);
-		SetPlayerArmour(playerid, 0);	
+		SetPlayerArmour(playerid, 0);
 		SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
 		SendClientMessageToAll(-1,"");
 		SendClientMessageToAll(-1,"");
 		format(Str, sizeof(Str), "{5b6ed9}AVISO{FFFFFF} O administrador {5b6ed9}%s{FFFFFF} nao esta mais trabalhando.", Name(playerid));
-		SendClientMessageToAll(-1, Str);  
+		SendClientMessageToAll(-1, Str);
 		SendClientMessageToAll(-1,"");
-		SendClientMessageToAll(-1,"");  
+		SendClientMessageToAll(-1,"");
 	}
 	else
 	{
 		pJogando[playerid] = false;
 		SetPlayerColor(playerid, 0xff00ccff);
 		SetPlayerHealth(playerid, 9999);
-		SetPlayerArmour(playerid, 9999);	
+		SetPlayerArmour(playerid, 9999);
 		FomePlayer[playerid] = 100;
 		SedePlayer[playerid] = 100;
 		SetPlayerSkin(playerid, 217);
 		SendClientMessageToAll(-1,"");
 		SendClientMessageToAll(-1,"");
 		format(Str, sizeof(Str), "{5b6ed9}AVISO{FFFFFF} O administrador {5b6ed9}%s{FFFFFF} esta trabalhando.", Name(playerid));
-		SendClientMessageToAll(-1, Str); 
+		SendClientMessageToAll(-1, Str);
 		SendClientMessageToAll(-1,"");
-		SendClientMessageToAll(-1,"");	
+		SendClientMessageToAll(-1,"");
 	}
 	return 1;
 }
@@ -21180,7 +21226,7 @@ CMD:dardinheiro(playerid, params[])
   	}
 	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
-}   
+}
 
 CMD:setadmin(playerid, params[])
 {
@@ -21212,67 +21258,67 @@ CMD:gmx(playerid)
 	foreach(new i: Player)
 	{
 		if(pLogado[i] == true) SalvarDados(i), SalvarMortos(playerid),SalvarInventario(playerid),SalvarAvaliacao(playerid),	SalvarVIP(playerid),Kick(i);
-		
+
 	}
 	SendRconCommand("exit");
 	return 1;
 }
 
-CMD:vips(playerid) 
-{ 
-	new string[85]; 
-	new count; 
-	SendClientMessage(playerid, 0x33AAFFFF, "** Todos os jogadores VIP:"); 
+CMD:vips(playerid)
+{
+	new string[85];
+	new count;
+	SendClientMessage(playerid, 0x33AAFFFF, "** Todos os jogadores VIP:");
 	foreach(new i: Player)
-	{ 
-		if(PlayerInfo[i][ExpiraVIP] > 0) 
-		{ 
-			if(IsPlayerConnected(i)) 
-			   { 
-				format(string, sizeof(string), "%04d [%s]", GetPlayerIdfixo(i), convertNumber(PlayerInfo[i][ExpiraVIP]-gettime())); 
-				SendClientMessage(playerid, 0xE3E3E3FF, string); 
-				count++; 
-			   } 
-		} 
-	} 
-	if(count == 0) 
-		return ErrorMsg(playerid,  "Nao ha jogadores VIP online!"); 
+	{
+		if(PlayerInfo[i][ExpiraVIP] > 0)
+		{
+			if(IsPlayerConnected(i))
+			   {
+				format(string, sizeof(string), "%04d [%s]", GetPlayerIdfixo(i), convertNumber(PlayerInfo[i][ExpiraVIP]-gettime()));
+				SendClientMessage(playerid, 0xE3E3E3FF, string);
+				count++;
+			   }
+		}
+	}
+	if(count == 0)
+		return ErrorMsg(playerid,  "Nao ha jogadores VIP online!");
 
-	return true; 
-} 
+	return true;
+}
 
-/*CMD:setvip(playerid, params[]) 
-{ 
-	new id, days, nivel, string[70]; 
+/*CMD:setvip(playerid, params[])
+{
+	new id, days, nivel, string[70];
 
 	if(PlayerInfo[playerid][pAdmin] < 7)		return ErrorMsg(playerid, "Nao possui permissao.");
-	if(sscanf(params, "udd", id, nivel, days)) 
-		return SendClientMessage(playerid, -1, "USE: /setvip [id] [nivel] [dias]"); 
+	if(sscanf(params, "udd", id, nivel, days))
+		return SendClientMessage(playerid, -1, "USE: /setvip [id] [nivel] [dias]");
 
-	if(days < 0) 
-	{ 
+	if(days < 0)
+	{
 		return ErrorMsg(playerid, "Este jogador nao esta online!");
-	} 
-	else 
-	{ 
-		if(!IsPlayerConnected(id)) 
+	}
+	else
+	{
+		if(!IsPlayerConnected(id))
 			return ErrorMsg(playerid, "Este jogador nao esta online!");
-		else 
-		{ 
-			PlayerInfo[id][ExpiraVIP] = ConvertDays(days); 
+		else
+		{
+			PlayerInfo[id][ExpiraVIP] = ConvertDays(days);
 			PlayerInfo[playerid][pVIP] = nivel;
-			format(string, sizeof(string), "Deu a {5b6ed9}%s{FFFFFF}por {5b6ed9}%d {FFFFFF}dias VIP Nivel {5b6ed9}%d", days, Name(id)); 
-			SendClientMessage(playerid, -1, string); 
-			format(string, sizeof(string), "Recebeu o VIP Nivel {5b6ed9}%d {FFFFFF}durante {5b6ed9}%d {FFFFFF}dias de VIP.", nivel, days); 
-			SendClientMessage(playerid, -1, string); 
+			format(string, sizeof(string), "Deu a {5b6ed9}%s{FFFFFF}por {5b6ed9}%d {FFFFFF}dias VIP Nivel {5b6ed9}%d", days, Name(id));
+			SendClientMessage(playerid, -1, string);
+			format(string, sizeof(string), "Recebeu o VIP Nivel {5b6ed9}%d {FFFFFF}durante {5b6ed9}%d {FFFFFF}dias de VIP.", nivel, days);
+			SendClientMessage(playerid, -1, string);
 
-			format(string, sizeof(string), PASTA_VIPS, Name(id)); 
-			DOF2_CreateFile(string); 
-			DOF2_SetInt(string,"VipExpira", PlayerInfo[id][ExpiraVIP]); 
-			DOF2_SaveFile(); 
-		} 
-	} 
-	return true; 
+			format(string, sizeof(string), PASTA_VIPS, Name(id));
+			DOF2_CreateFile(string);
+			DOF2_SetInt(string,"VipExpira", PlayerInfo[id][ExpiraVIP]);
+			DOF2_SaveFile();
+		}
+	}
+	return true;
 }*/
 
 CMD:lojavip(playerid)
@@ -21289,7 +21335,7 @@ CMD:lojavip(playerid)
 	format(StrCashh, sizeof(StrCashh), "{5b6ed9}LOJA {FFFFFF}Ativa��o de Coins\n");
 	strcat(StrCash,StrCashh);
 	format(String, sizeof(String), "Voce possui{5b6ed9}%i {FFFFFF}coins", PlayerInfo[playerid][pCoins]);
-	ShowPlayerDialog(playerid, DIALOG_CATCOINS, DIALOG_STYLE_LIST, String , StrCash, "Selecionar", "X");	
+	ShowPlayerDialog(playerid, DIALOG_CATCOINS, DIALOG_STYLE_LIST, String , StrCash, "Selecionar", "X");
 	return 1;
 }
 
@@ -21302,25 +21348,25 @@ CMD:dveiculo(playerid)
 		SuccesMsg(playerid, "Veiculo destruido.");
 		for(new o=0;o<10;o++)
 		{
-			DestroyDynamicObject(sdxobj[o]); 
+			DestroyDynamicObject(sdxobj[o]);
 			if(o == 10)break;
 		}
 	}
 	return 1;
 }
 
-CMD:iniciarcoleta(playerid) 
-{ 
+CMD:iniciarcoleta(playerid)
+{
 	if(PlayerInfo[playerid][pProfissao] != 6) 	return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Covaconcerto[playerid] == true || PegouLixo[playerid] == true) return ErrorMsg(playerid, "Termine esta coleta para iniciar outra.");
 	if(Podecmd[playerid] == false) return ErrorMsg(playerid, "Voce podera iniciar outra coleta novamente em 5s..");
-	cova[playerid] = random(sizeof(Covas));    
-	new index = cova[playerid];    
-	SetPlayerCheckpoint(playerid, Covas[index][0], Covas[index][1], Covas[index][2], 2.0);  
+	cova[playerid] = random(sizeof(Covas));
+	new index = cova[playerid];
+	SetPlayerCheckpoint(playerid, Covas[index][0], Covas[index][1], Covas[index][2], 2.0);
 	SuccesMsg(playerid, "Faca a coleta no ponto marcado.");
 	Covaconcerto[playerid] = true;
 	Podecmd[playerid] = false;
-	return 1; 
+	return 1;
 }
 
 CMD:sairemprego(playerid)
@@ -21359,7 +21405,7 @@ CMD:lferidos(playerid, params[])
 						TimerLocalizar[playerid] = SetTimerEx("LocalizarPlayer", 500, true, "ii", playerid, i);
 						return true;
 					}
-					else 
+					else
 					{
 						DisablePlayerCheckpoint(playerid);
 						Localizando[playerid] = 0;
@@ -21383,7 +21429,7 @@ CMD:carregar(playerid)
 		if(Cargase[playerid] == true) 	return ErrorMsg(playerid, "Seu caminhao ja esta carregado.");
 		if(Carregou[playerid] == 1) 	return ErrorMsg(playerid, "Ja tem uma carga.");
 		if(GetVehicleModel(GetPlayerVehicleID(playerid)) != 456)  	return ErrorMsg(playerid, "Nao esta no veiculo de trabalho");
-	
+
 		MEGAString[0] = EOS;
 		strcat(MEGAString, "{5b6ed9}- {FFFFFF}Pecas de Veiculos\t{32CD32}R$360\n");
 		strcat(MEGAString, "{5b6ed9}- {FFFFFF}Produtos Agricolas\t{32CD32}R$980\n");
@@ -21401,16 +21447,16 @@ CMD:carregar(playerid)
 		SetPlayerCheckpoint(playerid, 954.7924,1707.8540,8.6484,1);
 		SuccesMsg(playerid, "Va ate o local marcado.");
 		EntregaSdx[playerid] = true;
-		CaixasSdxObj[playerid][1] = CreatePlayerObject(playerid,1221, 954.870483, 1706.978149, 8.968443, 0.000000, 0.000000, 0.000000, 300.00); 
-		CaixasSdxObj[playerid][2] = CreatePlayerObject(playerid,1221, 954.870483, 1706.978149, 8.078433, 0.000000, 0.000000, 0.000000, 300.00); 
-		CaixasSdxObj[playerid][3] = CreatePlayerObject(playerid,1221, 955.930419, 1706.978149, 8.968428, 0.000000, 0.000000, 0.000000, 300.00); 
-		CaixasSdxObj[playerid][4] = CreatePlayerObject(playerid,1221, 955.930419, 1706.978149, 8.078433, 0.000000, 0.000000, 0.000000, 300.00); 
-		CaixasSdxObj[playerid][5] = CreatePlayerObject(playerid,1221, 956.920593, 1706.978149, 8.988447, 0.000000, 0.000000, 0.000000, 300.00); 
-		CaixasSdxObj[playerid][6] = CreatePlayerObject(playerid,1221, 956.920593, 1706.978149, 8.078433, 0.000000, 0.000000, 0.000000, 300.00); 
-		CaixasSdxObj[playerid][7] = CreatePlayerObject(playerid,1221, 958.100891, 1707.363525, 8.988439, 0.000000, 0.000000, 15.899997, 300.00); 
-		CaixasSdxObj[playerid][8] = CreatePlayerObject(playerid,1221, 958.100891, 1707.363525, 8.078433, 0.000000, 0.000000, 15.899997, 300.00); 
-		CaixasSdxObj[playerid][9] = CreatePlayerObject(playerid,1221, 959.064208, 1708.000976, 8.978438, 0.000000, 0.000000, 41.599994, 300.00); 
-		CaixasSdxObj[playerid][10] = CreatePlayerObject(playerid,1221, 959.064208, 1708.000976, 8.078433, 0.000000, 0.000000, 41.599994, 300.00); 
+		CaixasSdxObj[playerid][1] = CreatePlayerObject(playerid,1221, 954.870483, 1706.978149, 8.968443, 0.000000, 0.000000, 0.000000, 300.00);
+		CaixasSdxObj[playerid][2] = CreatePlayerObject(playerid,1221, 954.870483, 1706.978149, 8.078433, 0.000000, 0.000000, 0.000000, 300.00);
+		CaixasSdxObj[playerid][3] = CreatePlayerObject(playerid,1221, 955.930419, 1706.978149, 8.968428, 0.000000, 0.000000, 0.000000, 300.00);
+		CaixasSdxObj[playerid][4] = CreatePlayerObject(playerid,1221, 955.930419, 1706.978149, 8.078433, 0.000000, 0.000000, 0.000000, 300.00);
+		CaixasSdxObj[playerid][5] = CreatePlayerObject(playerid,1221, 956.920593, 1706.978149, 8.988447, 0.000000, 0.000000, 0.000000, 300.00);
+		CaixasSdxObj[playerid][6] = CreatePlayerObject(playerid,1221, 956.920593, 1706.978149, 8.078433, 0.000000, 0.000000, 0.000000, 300.00);
+		CaixasSdxObj[playerid][7] = CreatePlayerObject(playerid,1221, 958.100891, 1707.363525, 8.988439, 0.000000, 0.000000, 15.899997, 300.00);
+		CaixasSdxObj[playerid][8] = CreatePlayerObject(playerid,1221, 958.100891, 1707.363525, 8.078433, 0.000000, 0.000000, 15.899997, 300.00);
+		CaixasSdxObj[playerid][9] = CreatePlayerObject(playerid,1221, 959.064208, 1708.000976, 8.978438, 0.000000, 0.000000, 41.599994, 300.00);
+		CaixasSdxObj[playerid][10] = CreatePlayerObject(playerid,1221, 959.064208, 1708.000976, 8.078433, 0.000000, 0.000000, 41.599994, 300.00);
 	}
 	return 1;
 }
@@ -21434,7 +21480,7 @@ CMD:descarregar(playerid)
 	if(PlayerInfo[playerid][pProfissao] != 4) 	return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Cargase[playerid] == false) 		return ErrorMsg(playerid, "Seu caminhao nao esta carregar.");
 	if(GetVehicleModel(GetPlayerVehicleID(playerid)) != 456) 	return ErrorMsg(playerid, "No estas en veiculo del empleo.");
-	if(Cargase[playerid] == true) 
+	if(Cargase[playerid] == true)
 
 	TogglePlayerControllable(playerid, 0);
 	InfoMsg(playerid, "Descarregando caminhao...");
@@ -21457,7 +21503,7 @@ CMD:infoorg(playerid)
 }
 
 CMD:convidar(playerid,params[])
-{   
+{
 	new id, String[500];
 	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Nao fez Login.");
 	if(PlayerInfo[playerid][Org] == 0)return ErrorMsg(playerid, "Nao e de nenhuma organizacao.");
@@ -21670,14 +21716,14 @@ CMD:pagar(playerid, params[])
   	}
   	ErrorMsg(playerid, "Jogador nao conectado.");
 	return 1;
-} 
+}
 
 CMD:aa(playerid)
 {
 	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Necessita inicia login.");
 	{
-		new ComandosAdmins[5000];		
+		new ComandosAdmins[5000];
 		if(PlayerInfo[playerid][pAdmin] == 1)
 		{
 			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Estagiario {5b6ed9}- {FFFFFF}\n\n");
@@ -21718,6 +21764,7 @@ CMD:aa(playerid)
 			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Congelar um jogador.\n");
 			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Descongelar um jogador.\n");
 			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Teleporta o jogador para o spawn.\n");
 			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
 		}
 		if(PlayerInfo[playerid][pAdmin] == 3)
@@ -21746,6 +21793,7 @@ CMD:aa(playerid)
 			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Congelar um jogador.\n");
 			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Descongelar um jogador.\n");
 			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Teleporta o jogador para o spawn.\n");
 			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
 		}
 		if(PlayerInfo[playerid][pAdmin] == 4)
@@ -21777,6 +21825,7 @@ CMD:aa(playerid)
 			strcat(ComandosAdmins, "{5b6ed9} /banirip {FFFFFF}- Banir o IP de um jogador.\n");
 			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Desbanir a conta do jogador.\n");
 			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Desbanir o IP do jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Teleporta o jogador para o spawn.\n");
 			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
 		}
 		if(PlayerInfo[playerid][pAdmin] == 5)
@@ -21809,6 +21858,7 @@ CMD:aa(playerid)
 			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Desbanir a conta do jogador.\n");
 			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Desbanir o IP do jogador.\n");
 			strcat(ComandosAdmins, "{5b6ed9} /daritem {FFFFFF}- Dar um item de inventario a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Teleporta o jogador para o spawn.\n");
 			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
 		}
 		if(PlayerInfo[playerid][pAdmin] == 6)
@@ -21868,9 +21918,7 @@ CMD:aa(playerid)
 			strcat(ComandosAdmins, "{5b6ed9} /deletefuelstation {FFFFFF}- Deletar posto de gasolina.\n");
 			strcat(ComandosAdmins, "{5b6ed9} /movefuelstation {FFFFFF}- Mover posto de gasolina.\n");
 			strcat(ComandosAdmins, "{5b6ed9} /gotofuelstation {FFFFFF}- Ir ate o posto de gasolina.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /criarcn {FFFFFF}- Adicionar um caca niquel.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /dcn {FFFFFF}- Deletar um caca niquel.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /editcn {FFFFFF}- Editar um caca niquel.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Teleporta o jogador para o spawn.\n");
 			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
 		}
 		if(PlayerInfo[playerid][pAdmin] == 7)
@@ -21930,9 +21978,7 @@ CMD:aa(playerid)
 			strcat(ComandosAdmins, "{5b6ed9} /deletefuelstation {FFFFFF}- Deletar posto de gasolina.\n");
 			strcat(ComandosAdmins, "{5b6ed9} /movefuelstation {FFFFFF}- Mover posto de gasolina.\n");
 			strcat(ComandosAdmins, "{5b6ed9} /gotofuelstation {FFFFFF}- Ir ate o posto de gasolina.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /criarcn {FFFFFF}- Adicionar um caca niquel.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /dcn {FFFFFF}- Deletar um caca niquel.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /editcn {FFFFFF}- Editar um caca niquel.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Teleporta o jogador para o spawn.\n");
 			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
 		}
 	}
@@ -22181,7 +22227,7 @@ CMD:su(playerid, params[])
 CMD:revistar(playerid, params[])
 {
 	new str[64];
-	if(IsPolicial(playerid) || IsBandido(playerid))	
+	if(IsPolicial(playerid) || IsBandido(playerid))
 	{
 		if(sscanf(params, "d", ID))                        return ErrorMsg(playerid,"USE: /verinv [ID]");
 		foreach(Player,i)
@@ -22262,28 +22308,28 @@ CMD:rarmas(playerid, params[])
 	return 1;
 }
 
-CMD:procurados(playerid) 
-{ 
-	new string[85]; 
-	new count; 
+CMD:procurados(playerid)
+{
+	new string[85];
+	new count;
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	foreach(new i: Player)
-	{ 
-		if(GetPlayerWantedLevel(i)) 
-		{ 
-			if(IsPlayerConnected(i)) 
-			{ 
-				format(string, sizeof(string), "{5b6ed9}%04d{FFFFFF} Nivel:{5b6ed9}%d", PlayerInfo[i][IDF], GetPlayerWantedLevel(i)); 
+	{
+		if(GetPlayerWantedLevel(i))
+		{
+			if(IsPlayerConnected(i))
+			{
+				format(string, sizeof(string), "{5b6ed9}%04d{FFFFFF} Nivel:{5b6ed9}%d", PlayerInfo[i][IDF], GetPlayerWantedLevel(i));
 				ShowPlayerDialog(playerid, DIALOG_PROCURADOS, DIALOG_STYLE_LIST,"Lista de Procuraods", string, "X", #);
-				count++; 
-			} 
-		} 
-	} 
-	if(count == 0) 
-		return ErrorMsg(playerid, "Nao tem jogadores procurados."); 
+				count++;
+			}
+		}
+	}
+	if(count == 0)
+		return ErrorMsg(playerid, "Nao tem jogadores procurados.");
 
-	return true; 
+	return true;
 }
 
 CMD:multar(playerid, params[])
@@ -22460,7 +22506,7 @@ CMD:ativarkey(playerid, params[])
 	if(sscanf(params, "d", Cod)) return ErrorMsg(playerid,  "Use: /ativarkey [Codigo]");
 	{
 		format(File, sizeof(File), PASTA_KEYS, Cod);
-		if(DOF2_FileExists(File)) 
+		if(DOF2_FileExists(File))
 		{
 			Din[playerid] = DOF2_GetInt(File, "Valor");
 			PlayerInfo[playerid][pCoins] += Din[playerid];
@@ -22480,7 +22526,7 @@ CMD:ltumba(playerid)
 {
 	if(PlayerToPoint(3.0, playerid, 934.1115,-1103.3857,24.3118))
 	if(PlayerInfo[playerid][pProfissao] != 5) 	return ErrorMsg(playerid, "Nao possui permissao.");
-	if(Cargase[playerid] == true) 	return ErrorMsg(playerid, "Ja localizou um hospital para pegar a tumba."); 
+	if(Cargase[playerid] == true) 	return ErrorMsg(playerid, "Ja localizou um hospital para pegar a tumba.");
 	if(GetVehicleModel(GetPlayerVehicleID(playerid)) != 442)  	return ErrorMsg(playerid, "Nao esta em veiculo do emprego.");
 	ShowPlayerDialog(playerid, DIALOG_LTUMBA, DIALOG_STYLE_LIST, "Hospital.", "{5b6ed9}- {FFFFFF}Los Santos\t{32CD32}R$600\n{5b6ed9}- {FFFFFF}Las Venturas\t{32CD32}R$1200\n{5b6ed9}- {FFFFFF}San Fierro\t{32CD32}R$2000\n", "Localizar", "");
 	return 1;
@@ -23126,7 +23172,7 @@ CMD:vendercasa(playerid, params[])
 					DOF2_SetInt(File, "CasaPickup", 1273);
 					DOF2_SetInt(File, "CasaMapIcon", 31);
 					DOF2_SaveFile();
-					
+
 					format(CasaInfo[i][CasaDono], 30, DOF2_GetString(File, "CasaDono"));
 					CasaInfo[i][CasaAVenda] = DOF2_GetInt(File, "CasaAVenda");
 					CasaInfo[i][CasaPickup] = DOF2_GetInt(File, "CasaPickup");
@@ -23253,7 +23299,7 @@ CMD:dradar(playerid, params[])
 
 CMD:remolcar(playerid, params[])
 {
-	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "Nao esta em um veiculo!"); 
+	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "Nao esta em um veiculo!");
 	new vehicleid = GetPlayerVehicleID(playerid);
 	if(IsTrailerAttachedToVehicle(vehicleid))
 	{
@@ -23281,7 +23327,7 @@ CMD:remolcar(playerid, params[])
 
 CMD:ejetar(playerid, params[])
 {
-	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "Nao esta em um veiculo!"); 
+	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "Nao esta em um veiculo!");
 	new pid, msg[128];
 	if(sscanf(params, "u", pid)) return ErrorMsg(playerid,  "USAGE: /ejetar [player]");
 	foreach(Player,i)
@@ -23304,7 +23350,7 @@ CMD:ejetar(playerid, params[])
 
 CMD:ejetarll(playerid, params[])
 {
-	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "No estas conduciendo un vehiculo!"); 
+	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "No estas conduciendo un vehiculo!");
 	new vehicleid = GetPlayerVehicleID(playerid);
 	new msg[128];
 	format(msg, sizeof(msg), "O condutor do veiculo %04d (%d) te expulsou do veiculo.", GetPlayerIdfixo(playerid), playerid);
@@ -23322,7 +23368,7 @@ CMD:ejetarll(playerid, params[])
 
 CMD:limparmods(playerid, params[])
 {
-	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "Nao esta em um veiculo!"); 
+	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "Nao esta em um veiculo!");
 	new vehicleid = GetPlayerVehicleID(playerid);
 	new id = GetVehicleID(vehicleid);
 	if(GetPlayerVehicleAccess(playerid, id) < 2)
@@ -23366,9 +23412,9 @@ CMD:localizarv(playerid, params[])
 
 CMD:mv(playerid, params[])
 {
-	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "Nao esta em um veiculo!"); 
+	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "Nao esta em um veiculo!");
 	new vehicleid = GetPlayerVehicleID(playerid);
-	if(IsBicycle(vehicleid)) return ErrorMsg(playerid, "Nao esta em um veiculo!"); 
+	if(IsBicycle(vehicleid)) return ErrorMsg(playerid, "Nao esta em um veiculo!");
 	new id = GetVehicleID(vehicleid);
 	if(GetPlayerVehicleAccess(playerid, id) < 1)
 		return ErrorMsg(playerid, "Nao tem a chave deste veiculo!");
@@ -23537,7 +23583,7 @@ CMD:abastecer(playerid, params[])
 CMD:rtc(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Nao esta em um veiculo!"); 
+	if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Nao esta em um veiculo!");
 	SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 	SuccesMsg(playerid, "Veiculo respawnado");
 	return 1;
@@ -23682,7 +23728,7 @@ CMD:adddealership(playerid, params[])
 }
 
 CMD:deletedealership(playerid, params[])
-{	
+{
 	new dealerid, msg[128];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
 	if(sscanf(params, "d", dealerid)) return ErrorMsg(playerid,  "USAGE: /deletedealership [dealerid]");
@@ -23707,7 +23753,7 @@ CMD:deletedealership(playerid, params[])
 CMD:movedealership(playerid, params[])
 {
 	new dealerid, msg[128];
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");	
+	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
 	if(sscanf(params, "d", dealerid)) return ErrorMsg(playerid,  "USAGE: /movedealership [dealerid]");
 	if(!IsValidDealership(dealerid)) return ErrorMsg(playerid,  "ID invalido");
 	GetPlayerPos(playerid, DealershipPos[dealerid][0], DealershipPos[dealerid][1], DealershipPos[dealerid][2]);
@@ -23722,7 +23768,7 @@ CMD:gotodealership(playerid, params[])
 {
 	new dealerid, msg[128];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	
+
 	if(sscanf(params, "d", dealerid)) return ErrorMsg(playerid, "USAGE: /gotodealership [dealerid]");
 	if(!IsValidDealership(dealerid)) return ErrorMsg(playerid, "ID invalido");
 	SetPlayerPos(playerid, DealershipPos[dealerid][0], DealershipPos[dealerid][1], DealershipPos[dealerid][2]);
@@ -24102,7 +24148,7 @@ CMD:repararvip(playerid)
 {
 	if(PlayerInfo[playerid][pVIP] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Nao esta em um veiculo.");
- 
+
     RepairVehicle(GetPlayerVehicleID(playerid));
 	SetVehicleHealth(GetPlayerVehicleID(playerid), 1000.0);
 	SuccesMsg(playerid, "Reparou este veiculo.");
@@ -24197,8 +24243,8 @@ CMD:desossar(playerid)
 {
 	if(!CheckInventario2(playerid, 18644)) return ErrorMsg(playerid, "Nao tem uma chaira.");
 	if(PlayerInfo[playerid][pProfissao] != 3) 	return ErrorMsg(playerid, "Nao possui permissao.");
-	if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a pesca atual."); 
-	if(Desossando[playerid] == 1 || Desossando[playerid] == 2 || Desossando[playerid] == 3) 	return ErrorMsg(playerid, "Voce ja esta fazendo as etapas."); 
+	if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a pesca atual.");
+	if(Desossando[playerid] == 1 || Desossando[playerid] == 2 || Desossando[playerid] == 3) 	return ErrorMsg(playerid, "Voce ja esta fazendo as etapas.");
 	for(new i; i < 8; i++)
 	if(IsPlayerInRangeOfPoint(playerid, 1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2]))
 	{
@@ -24306,46 +24352,46 @@ CMD:iniciarminerador(playerid)
 	new procha = randomEx(1,4);
 	if(PlayerInfo[playerid][pProfissao] != 2) 	return ErrorMsg(playerid, "Nao possui permissao.");
 	if(GetVehicleModel(GetPlayerVehicleID(playerid)) != 530)  	return ErrorMsg(playerid, "Nao esta no veiculo de trabalho");
-	
+
 	if(procha == 1)
 	{
-		SetPlayerCheckpoint(playerid, 638.114257, 831.205871, -42.960937, 2.0);  
+		SetPlayerCheckpoint(playerid, 638.114257, 831.205871, -42.960937, 2.0);
 		SuccesMsg(playerid, "Pegue uma rocha no local marcado.");
 		EtapasMinerador[playerid] = 1;
 	}
 	if(procha == 2)
 	{
-		SetPlayerCheckpoint(playerid, 638.953063, 851.907104, -42.960937, 2.0);  
+		SetPlayerCheckpoint(playerid, 638.953063, 851.907104, -42.960937, 2.0);
 		SuccesMsg(playerid, "Pegue uma rocha no local marcado.");
 		EtapasMinerador[playerid] = 1;
 	}
-	if(procha == 3)
+	if(procha == 3) 
 	{
-		SetPlayerCheckpoint(playerid, 602.181091, 867.931518, -42.960937, 2.0);  
+		SetPlayerCheckpoint(playerid, 602.181091, 867.931518, -42.960937, 2.0);
 		SuccesMsg(playerid, "Pegue uma rocha no local marcado.");
 		EtapasMinerador[playerid] = 1;
 	}
-	if(procha == 4) 
-	{ 
-		SetPlayerCheckpoint(playerid, 602.180358, 867.173095, -42.960937, 2.0);  
+	if(procha == 4)
+	{
+		SetPlayerCheckpoint(playerid, 602.180358, 867.173095, -42.960937, 2.0);
 		SuccesMsg(playerid, "Pegue uma rocha no local marcado.");
 		EtapasMinerador[playerid] = 1;
 	}
-	return 1; 
-} 
+	return 1;
+}
 
 CMD:pescar(playerid)
 {
 	if(PlayerInfo[playerid][pProfissao] != 1) 	return ErrorMsg(playerid, "Nao possui permissao.");
 	if(!CheckInventario2(playerid, 18632)) return ErrorMsg(playerid, "Nao tem uma vara de pesca.");
-	if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a pesca atual."); 
+	if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a pesca atual.");
 	for(new i; i < 13; i++)
 	if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 	{
 		TogglePlayerControllable(playerid, 0);
 		InfoMsg(playerid, "Pescando...");
 		SetTimerEx("Pesca", 10000, false, "i", playerid);
-		UsouCMD[playerid] = true;	
+		UsouCMD[playerid] = true;
 	}
 	return 1;
 }
@@ -24479,9 +24525,9 @@ CMD:roubar(playerid)
 
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-				
+
 			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-			
+
 			if(noti == 1)
 			{
 				foreach(Player, i)
@@ -24503,9 +24549,9 @@ CMD:roubar(playerid)
 
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-				
+
 			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-			
+
 			if(noti == 1)
 			{
 				foreach(Player, i)
@@ -24527,9 +24573,9 @@ CMD:roubar(playerid)
 
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-				
+
 			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-			
+
 			if(noti == 1)
 			{
 				foreach(Player, i)
@@ -24551,9 +24597,9 @@ CMD:roubar(playerid)
 
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-				
+
 			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-			
+
 			if(noti == 1)
 			{
 				foreach(Player, i)
@@ -24575,9 +24621,9 @@ CMD:roubar(playerid)
 
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-				
+
 			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-			
+
 			if(noti == 1)
 			{
 				foreach(Player, i)
@@ -24599,9 +24645,9 @@ CMD:roubar(playerid)
 
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-				
+
 			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-			
+
 			if(noti == 1)
 			{
 				foreach(Player, i)
@@ -24623,9 +24669,9 @@ CMD:roubar(playerid)
 
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-				
+
 			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-			
+
 			if(noti == 1)
 			{
 				foreach(Player, i)
@@ -24647,9 +24693,9 @@ CMD:roubar(playerid)
 
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-				
+
 			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-			
+
 			if(noti == 1)
 			{
 				foreach(Player, i)
@@ -24665,21 +24711,7 @@ CMD:roubar(playerid)
 			return 1;
 		}
 	}
-		return 1;	
-}
-
-CMD:desmanchar(playerid)
-{
-	if(PlayerInfo[playerid][Org] == 12 || PlayerInfo[playerid][Org] == 13)
-	{
-		if(PTP(5.0, playerid, 406.967926, 2435.910644, 17.121870) || PTP(5.0, playerid, 401.748901, 2436.063232, 17.121870) || PTP(5.0, playerid, 395.880065, 2435.940917, 17.121870))
-		{
-			Controle(playerid, 0);
-			InfoMsg(playerid, "Desmanchando veiculo..");
-			SetTimerEx("DesmancharVeh", 30000, false, "i", playerid);
-		}
-	}
-	return 1;
+		return 1;
 }
 
 CMD:creditos(playerid)
@@ -24694,7 +24726,7 @@ CMD:creditos(playerid)
     strcat(MEGAString, "{FFFFFF}�  Allisson Gomes(Chapei)\n");
     strcat(MEGAString, "{696969}               (Criador/Fundador do servidor | Atual Scripter)\n");
     strcat(MEGAString, "{696969}Fun��o: Cuidar da programa��o\n\n");
-    
+
     strcat(MEGAString, "{FFFFFF}�  Maconha\n");
     strcat(MEGAString, "{696969}               (Criador/Fundador do servidor)\n");
     strcat(MEGAString, "{696969}Fun��o: Respons�vel Geral\n\n");
@@ -24871,3 +24903,4 @@ CMD:habilitarsistemas(playerid)
 	ShowPlayerDialog(playerid, DIALOG_MENUSISTEMA, DIALOG_STYLE_TABLIST_HEADERS, "Permiss�o/Sistema\tStatus\t�ltima altera��o", MEGAString, "Alternar", "Fechar");
 	return 1;
 }*/
+

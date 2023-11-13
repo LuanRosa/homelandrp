@@ -1,6 +1,6 @@
-Item carne assada Desbugado
-Valor da faca na Ammu aumentou > 15k
-Corigido salvamento das armas
-Removido alguns mapeamentos não utilizados
-Dinheiro do Pedreiro foi nerfado
-Dinheiro de venda de peixes nerfado
+Corrigido tentar pegar tal emprego com horas e informar que não possui
+Desbugado /trazer (Admin)
+Adicionado /spawnar (Admin)
+Alterado local do Moto Clube
+Adiconado marker de desmanche do moto Clube
+Adicionado item Ferramneta para Desmanche no Mercado Negro
