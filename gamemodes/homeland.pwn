@@ -1838,7 +1838,7 @@ CallBack::ColocandoCaixa(playerid, progress){
 			ClearAnimations(playerid);
 			SetPlayerSpecialAction(playerid, 0);
 			new Alt = random(303+120);
-			SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 0.5);
+			SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 1);
 			checkcasa[playerid] = true;
 			new engine, lights, alarm, doors, bonnet, boot, objective,idv = VeiculoCivil[playerid];
 			GetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, boot, objective);
@@ -2579,8 +2579,8 @@ CallBack::Pesca(playerid, progress)
 		}
 		if(peixe == 2)
 		{
-			GanharItem(playerid,1599, peixes);
-			format(s,sizeof(s),"Pescou %i peixe amarelo.",peixes);
+			
+			format(s,sizeof(s),"Pescou %i tubarao.",peixes);
 			SuccesMsg(playerid, s);
 		}
 		if(peixe == 4)
@@ -2591,20 +2591,21 @@ CallBack::Pesca(playerid, progress)
 		}
 		if(peixe == 6)
 		{
-			GanharItem(playerid,1603, peixes);
-			format(s,sizeof(s),"Pescou %i agua viva.",peixes);
-			SuccesMsg(playerid, s);
-		}
-		if(peixe == 5)
-		{
 			GanharItem(playerid,1604, peixes);
 			format(s,sizeof(s),"Pescou %i peixe rain.",peixes);
 			SuccesMsg(playerid, s);
 		}
+		if(peixe == 5)
+		{
+			GanharItem(playerid,1603, peixes);
+			format(s,sizeof(s),"Pescou %i agua viva.",peixes);
+			SuccesMsg(playerid, s);
+		}
 		if(peixe == 1)
 		{
+			GanharItem(playerid,1599, peixes);
+			format(s,sizeof(s),"Pescou %i peixe amarelo.",peixes);
 			GanharItem(playerid,1608, peixes);
-			format(s,sizeof(s),"Pescou %i tubarao.",peixes);
 			SuccesMsg(playerid, s);
 		}
 		TogglePlayerControllable(playerid, 1);
@@ -4487,7 +4488,6 @@ CallBack::SalvarArmas(playerid)
 		DOF2_SetInt(Local, Bala1, Bala);
 		/*-----------------------------------*/
 		DOF2_SaveFile();
-		if(i == 13)break;
 		/*-----------------------------------*/
 	}
 	return 1;
@@ -4510,7 +4510,6 @@ CallBack::CarregarArmas(playerid)
 		Bala = DOF2_GetInt(Local, Bala1);
 		/*-----------------------------------*/
 		GivePlayerWeapon(playerid, Slot3, Bala);
-		if(i == 13)break;
 		/*-----------------------------------*/
 	}
 	return 1;
@@ -5238,7 +5237,6 @@ CallBack::CriarInventario(playerid)
 			format(str, sizeof(str), "%d|%d", PlayerInventario[playerid][i][Slot], PlayerInventario[playerid][i][Unidades]);
 			DOF2_SetString(file, string, str);
 			DOF2_SaveFile();
-			if(i == 31)break;
 		}
 	}else{
 		LoadInv(playerid);
@@ -5536,6 +5534,7 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 1279: name = "Embalagem";
 		case 2710: name = "Rolex";
 		case 1316: name = "Anel";
+		case 19882: name = "Carne Assada";
 		default: name = "Desconhecido";
 	}
 	return name;
@@ -5884,7 +5883,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(50, 550);
+				new dinpeixes = randomEx(0, 500);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -5907,7 +5906,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(50, 200);
+				new dinpeixes = randomEx(0, 200);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -5930,7 +5929,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(50, 250);
+				new dinpeixes = randomEx(0, 100);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -5953,7 +5952,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(50, 250);
+				new dinpeixes = randomEx(0, 180);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -5976,7 +5975,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(50, 250);
+				new dinpeixes = randomEx(0, 120);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -5999,7 +5998,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(50, 250);
+				new dinpeixes = randomEx(0, 150);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -6022,7 +6021,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(50, 800);
+				new dinpeixes = randomEx(0, 800);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -6045,7 +6044,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(200, 1000);
+				new dinpeixes = randomEx(0, 2000);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 				if(PlayerInfo[playerid][pVIP] == 0)
 				{
@@ -9732,7 +9731,7 @@ stock CriarCasas()
 				MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 			}
 			new string[5000];
-			format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+			format(string, sizeof(string), "{FFFFFF}Proprietario: {5b6ed9}%s\n{FFFFFF}Numero: {5b6ed9}%d\nValor: {5b6ed9}%s\n{FFFFFF}Pressione '{5b6ed9}Y{FFFFFF}' para entrar.", CasaInfo[i][CasaDono], CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 			TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 		}
 	}
@@ -13876,7 +13875,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	}
 	if(PegouMaterial[playerid] == true)
 	{
-		new dinmateriale = randomEx(0, 150);
+		new dinmateriale = randomEx(0, 80);
 		new constrstr[500];
 		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 1, 1, 0, 1, 0, 1);
@@ -15520,7 +15519,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 1785.501586, -1916.644165, 14.295277))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_AMMU, DIALOG_STYLE_LIST,"AmmuNation\tValor", "{5b6ed9}- {FFFFFF}Vara de Pescar\t{32CD32}R$300\n{5b6ed9}- {FFFFFF}Chaira\t{32CD32}R$150\n{5b6ed9}- {FFFFFF}Faca\t{32CD32}R$5000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_AMMU, DIALOG_STYLE_LIST,"AmmuNation\tValor", "{5b6ed9}- {FFFFFF}Vara de Pescar\t{32CD32}R$2500\n{5b6ed9}- {FFFFFF}Chaira\t{32CD32}R$4200\n{5b6ed9}- {FFFFFF}Faca\t{32CD32}R$15000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 468.658203, -1517.271606, 20.477876))
 		{
@@ -18464,7 +18463,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 									PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 									MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 									new string[5000];
-									format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+									format(string, sizeof(string), "{FFFFFF}Proprietario: {5b6ed9}%s\n{FFFFFF}Numero: {5b6ed9}%d\nValor: {5b6ed9}%s\n{FFFFFF}Pressione '{5b6ed9}Y{FFFFFF}' para entrar.", CasaInfo[i][CasaDono], CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 									TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 									return 1;
 								}
@@ -19353,29 +19352,29 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					if(PlayerInfo[playerid][pDinheiro] < 300) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 2500) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Item comprado.");
-					PlayerInfo[playerid][pDinheiro] -= 300;
+					PlayerInfo[playerid][pDinheiro] -= 2500;
 					GanharItem(playerid, 18632, 1);
-					CofreAmmu += 300;
+					CofreAmmu += 2500;
 					SalvarDinRoubos();
 				}
 				if(listitem == 1)
 				{
-					if(PlayerInfo[playerid][pDinheiro] < 150) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 4200) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Item comprado.");
-					PlayerInfo[playerid][pDinheiro] -= 150;
+					PlayerInfo[playerid][pDinheiro] -= 4200;
 					GanharItem(playerid, 18644, 1);
-					CofreAmmu += 150;
+					CofreAmmu += 4200;
 					SalvarDinRoubos();
 				}
 				if(listitem == 2)
 				{
-					if(PlayerInfo[playerid][pDinheiro] < 5000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 15000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
 					SuccesMsg(playerid, "Item comprado.");
-					PlayerInfo[playerid][pDinheiro] -= 5000;
+					PlayerInfo[playerid][pDinheiro] -= 15000;
 					GanharItem(playerid, 335, 1);
-					CofreAmmu += 5000;
+					CofreAmmu += 15000;
 					SalvarDinRoubos();
 				}
 			}
@@ -22550,7 +22549,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Proprietario: {5b6ed9}%s\n{FFFFFF}Numero: {5b6ed9}%d\nValor: {5b6ed9}%s\n{FFFFFF}Pressione '{5b6ed9}Y{FFFFFF}' para entrar.", CasaInfo[i][CasaDono], CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -22605,7 +22604,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Proprietario: {5b6ed9}%s\n{FFFFFF}Numero: {5b6ed9}%d\nValor: {5b6ed9}%s\n{FFFFFF}Pressione '{5b6ed9}Y{FFFFFF}' para entrar.", CasaInfo[i][CasaDono], CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -22660,7 +22659,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Proprietario: {5b6ed9}%s\n{FFFFFF}Numero: {5b6ed9}%d\nValor: {5b6ed9}%s\n{FFFFFF}Pressione '{5b6ed9}Y{FFFFFF}' para entrar.", CasaInfo[i][CasaDono], CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -22715,7 +22714,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Proprietario: {5b6ed9}%s\n{FFFFFF}Numero: {5b6ed9}%d\nValor: {5b6ed9}%s\n{FFFFFF}Pressione '{5b6ed9}Y{FFFFFF}' para entrar.", CasaInfo[i][CasaDono], CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -22770,7 +22769,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Proprietario: {5b6ed9}%s\n{FFFFFF}Numero: {5b6ed9}%d\nValor: {5b6ed9}%s\n{FFFFFF}Pressione '{5b6ed9}Y{FFFFFF}' para entrar.", CasaInfo[i][CasaDono], CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -22825,7 +22824,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Proprietario: {5b6ed9}%s\n{FFFFFF}Numero: {5b6ed9}%d\nValor: {5b6ed9}%s\n{FFFFFF}Pressione '{5b6ed9}Y{FFFFFF}' para entrar.", CasaInfo[i][CasaDono], CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -22880,7 +22879,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Proprietario: {5b6ed9}%s\n{FFFFFF}Numero: {5b6ed9}%d\nValor: {5b6ed9}%s\n{FFFFFF}Pressione '{5b6ed9}Y{FFFFFF}' para entrar.", CasaInfo[i][CasaDono], CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -22935,7 +22934,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Proprietario: {5b6ed9}%s\n{FFFFFF}Numero: {5b6ed9}%d\nValor: {5b6ed9}%s\n{FFFFFF}Pressione '{5b6ed9}Y{FFFFFF}' para entrar.", CasaInfo[i][CasaDono], CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -22990,7 +22989,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Proprietario: {5b6ed9}%s\n{FFFFFF}Numero: {5b6ed9}%d\nValor: {5b6ed9}%s\n{FFFFFF}Pressione '{5b6ed9}Y{FFFFFF}' para entrar.", CasaInfo[i][CasaDono], CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -23045,7 +23044,7 @@ CMD:criarcasa(playerid, params[])
 					PickupCasa[i] = CreateDynamicPickup(CasaInfo[i][CasaPickup], 23, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ]);
 					MapIconCasa[i] = CreateDynamicMapIcon(CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], CasaInfo[i][CasaMapIcon], 0, -1, -1, -1, 100.0, MAPICON_LOCAL);
 					new string[5000];
-					format(string, sizeof(string), "{FFFFFF}Casa ID: {FFDC33}%d\n{FFFFFF}Valor: {00FF00}R$%s\n{FFFFFF}Use 'Y'", CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
+					format(string, sizeof(string), "{FFFFFF}Proprietario: {5b6ed9}%s\n{FFFFFF}Numero: {5b6ed9}%d\nValor: {5b6ed9}%s\n{FFFFFF}Pressione '{5b6ed9}Y{FFFFFF}' para entrar.", CasaInfo[i][CasaDono], CasaInfo[i][CasaId], ConvertMoney(CasaInfo[i][CasaValor]));
 					TextoCasa[i] = CreateDynamic3DTextLabel(string, -1, CasaInfo[i][CasaX], CasaInfo[i][CasaY], CasaInfo[i][CasaZ], 15.0);
 					return 1;
 				}
@@ -24436,7 +24435,7 @@ CMD:trazercofre(playerid, params[])
 CMD:iniciarrotamaconha(playerid)
 {
 	new Alt = randomEx(0,303+120);
-	SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 0.5);
+	SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 1);
 	InfoMsg(playerid, "Rota iniciada, fa�a a entrega no local marcado. use /cancelarrota.");
 	RotaMaconha[playerid] = true;
 	return 1;
@@ -24445,7 +24444,7 @@ CMD:iniciarrotamaconha(playerid)
 CMD:iniciarrotacocaina(playerid)
 {
 	new Alt = randomEx(0,303+120);
-	SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 0.5);
+	SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 1);
 	InfoMsg(playerid, "Rota iniciada, fa�a a entrega no local marcado. use /cancelarrota.");
 	RotaMaconha[playerid] = true;
 	return 1;

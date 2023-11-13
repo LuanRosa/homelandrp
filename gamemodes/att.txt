@@ -1,7 +1,6 @@
-Desbugado sistema de coins
-Reformulado Sistema Admin (Agora salva em pasta separada)
-Reformulado Sistema VIP (Agora salva em pasta separada)
-Bloqueio uso de armas de veh
-Subway agora é HL FOOD
-Mudança no cardapio da HL FOOD
-Adicionado roubo Niobio
+Item carne assada Desbugado
+Valor da faca na Ammu aumentou > 15k
+Corigido salvamento das armas
+Removido alguns mapeamentos não utilizados
+Dinheiro do Pedreiro foi nerfado
+Dinheiro de venda de peixes nerfado
