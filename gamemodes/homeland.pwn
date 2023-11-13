@@ -699,7 +699,7 @@ new Text:Tdcinto[5];
 //Tela de carregamento
 new CarregandoTelaLogin[MAX_PLAYERS];
 new TimerLogin[MAX_PLAYERS];
-new Text:Loadsc[17];
+new Text:Loadsc[2];
 new PlayerText:Loadsc_p[MAX_PLAYERS][1];
 new PlayerBar:Loadsc_b[MAX_PLAYERS][1];
 
@@ -1918,19 +1918,23 @@ CallBack::TxdLogin(playerid)
 {
 	for(new i = 0; i < 23; ++i)
 	{
-		PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);	
+		PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
+		if(i == 23)break;
 	}
 	for(new i = 0; i < 7; i ++)
 	{
 		PlayerTextDrawShow(playerid, HudServer_p[playerid][i]);
+		if(i == 7)break;
 	}
 	for(new i = 0; i < 17; i ++)
 	{
 		TextDrawShowForPlayer(playerid, HudServer[i]);
+		if(i == 17)break;
 	}
 	for(new i = 0; i < 3; i ++)
 	{
 		TextDrawShowForPlayer(playerid, LogoHM[i]);
+		if(i == 3)break;
 	}
 }
 //------------- Sistema de Easter Eggs ------------------
@@ -2186,7 +2190,7 @@ CallBack:: DestroyLockPick(playerid)
     {
 		PlayerTextDrawColor(playerid, LockText[2], 1768516095), PlayerTextDrawColor(playerid, LockText[3], 1768516095), PlayerTextDrawColor(playerid, LockText[4], 1768516095), PlayerTextDrawColor(playerid, LockText[5], 1768516095), PlayerTextDrawColor(playerid, LockText[6], 1768516095);
 		LockUse[playerid] = false, LockProgress = 207.0, Correct[playerid] = 0, LockCount[playerid] = 0;
-		for(new i; i < 12; i++) { PlayerTextDrawHide(playerid, LockText[i]); }
+		for(new i; i < 12; i++) { PlayerTextDrawHide(playerid, LockText[i]); if(i == 12)break;}
 	}
 	return 0;
 }
@@ -2204,6 +2208,7 @@ XP_::XP_Hide(playerid)
     for(new i; i < 20; i++)
     {
         PlayerTextDrawHide(playerid, XPTXD[playerid][i]);
+		if(i == 20)break;
     }
     PlayerPlaySound(playerid, 6402, 0.0, 0.0, 0.0);
 }
@@ -3231,6 +3236,7 @@ CallBack::AttCad(playerid){
 		}
 		for(new i=0;i<7;i++){
 			PlayerTextDrawShow(playerid, TDCadastro_p[playerid][i]);
+			if(i == 7)break;
 		}
 	}else{
 		KillTimer(TimerCad[playerid]);
@@ -3336,8 +3342,9 @@ CallBack::mostrarTelaLogin(playerid)
 		SetPlayerProgressBarValue(playerid, Loadsc_b[playerid][0], CarregandoTelaLogin[playerid]);
 	    TimerLogin[playerid] = SetTimerEx("mostrarTelaLogin", 100, false, "d", playerid);
 	}else{
-		for(new t=0;t<17;t++){
+		for(new t=0;t<2;t++){
 			TextDrawHideForPlayer(playerid, Loadsc[t]);
+			if(t == 2)break;
 		}
 		DestroyPlayerProgressBar(playerid, Loadsc_b[playerid][0]);
 		PlayerTextDrawDestroy(playerid, Loadsc_p[playerid][0]);
@@ -3353,6 +3360,7 @@ CallBack::loginp(playerid)
 	for(new i = 0; i < 23; ++i)
 	{
 		PlayerTextDrawShow(playerid, Registration_PTD[playerid][i]);	
+		if(i == 23)break;
 	}
 	SelectTextDraw(playerid, 1);
 	format(File, sizeof(File), PASTA_BANIDOS, Name(playerid));
@@ -3449,6 +3457,7 @@ CallBack::VelocimetroEx(playerid)
 			if(mostrandovelo[playerid] == 0){
 				for(new t=0;t<4;t++){
 					TextDrawShowForPlayer(playerid,Velomob[t]);
+					if(t == 4)break;
 				}
 				mostrandovelo[playerid] = 1;
 			}
@@ -3517,10 +3526,12 @@ CallBack::VelocimetroEx(playerid)
 			}
 			for(new t=0;t<10;t++){
 				PlayerTextDrawShow(playerid,VeloC[playerid][t]);
+				if(t == 10)break;
 			}
 			if(mostrandovelo[playerid] == 0){
 				for(new t=0;t<52;t++){
 					TextDrawShowForPlayer(playerid,VeloC_G[t]);
+					if(t == 52)break;
 				}
 				mostrandovelo[playerid] = 1;
 			}
@@ -3530,9 +3541,11 @@ CallBack::VelocimetroEx(playerid)
 			if(mostrandovelo[playerid] != 0){
 				for(new t=0;t<3;t++){
 					PlayerTextDrawHide(playerid,Velomob_p[playerid][t]);
+					if(t == 3)break;
 				}
 				for(new t=0;t<4;t++){
 					TextDrawHideForPlayer(playerid,Velomob[t]);
+					if(t == 4)break;
 				}
 				mostrandovelo[playerid] = 0;
 			}
@@ -3540,9 +3553,11 @@ CallBack::VelocimetroEx(playerid)
 			if(mostrandovelo[playerid] != 0){
 				for(new t=0;t<10;t++){
 					PlayerTextDrawHide(playerid,VeloC[playerid][t]);
+					if(t == 10)break;
 				}
 				for(new t=0;t<52;t++){
 					TextDrawHideForPlayer(playerid,VeloC_G[t]);
+					if(t == 52)break;
 				}
 				mostrandovelo[playerid] = 0;
 			}
@@ -4472,6 +4487,7 @@ CallBack::SalvarArmas(playerid)
 		DOF2_SetInt(Local, Bala1, Bala);
 		/*-----------------------------------*/
 		DOF2_SaveFile();
+		if(i == 13)break;
 		/*-----------------------------------*/
 	}
 	return 1;
@@ -4494,7 +4510,7 @@ CallBack::CarregarArmas(playerid)
 		Bala = DOF2_GetInt(Local, Bala1);
 		/*-----------------------------------*/
 		GivePlayerWeapon(playerid, Slot3, Bala);
-		
+		if(i == 13)break;
 		/*-----------------------------------*/
 	}
 	return 1;
@@ -5144,6 +5160,7 @@ GanharItem(playerid, itemid, quantia)
 			PlayerInventario[playerid][i][Unidades] = quantia;
 			return 1;
 		}
+		if(i == 33)break;
 	}
 	ErrorMsg(playerid, "Inventario cheio.");
 
@@ -5243,6 +5260,7 @@ CallBack::LoadInv(playerid)
 		split(str, string, '|');
 		PlayerInventario[playerid][i][Slot] = strval(string[0]);
 		PlayerInventario[playerid][i][Unidades] = strval(string[1]);
+		if(i == 31)break;
 	}
 	return 1;
 }
@@ -5268,6 +5286,7 @@ CheckInventario(playerid, itemid)
 	for(new i = 1; i < 33; ++i)
 	{
 		if(PlayerInventario[playerid][i][Slot] == itemid || PlayerInventario[playerid][i][Slot] == -1) return 1;
+		if(i == 31)break;
 	}
 	return 0;
 }
@@ -5277,6 +5296,7 @@ CheckInventario2(playerid, itemid)
 	for(new i = 1; i < 33; ++i)
 	{
 		if(PlayerInventario[playerid][i][Slot] == itemid) return 1;
+		if(i == 31)break;
 	}
 	return 0;
 }
@@ -5749,7 +5769,8 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			GetVehicleParamsEx(VehicleLockedID[playerid], Engine[playerid], Lights[playerid], Alarm[playerid], DoorsLockPick[playerid], Bonnet[playerid], Boot[playerid], Objective[playerid]), LockUse[playerid] = true, LockCount[playerid] = 0, CreateLocPick(playerid);
 			for(new i; i < 12; i++) 
 			{ 
-				PlayerTextDrawShow(playerid, LockText[i]); 
+				PlayerTextDrawShow(playerid, LockText[i]);
+				if(i == 12)break; 
 			}
 		}
 		case 19921:
@@ -6674,11 +6695,12 @@ stock GuardarItem2(playerid)
 stock RemoverItem2(playerid, item)
 {
 	new Arma[13][2];
-	for(new i = 1; i < 13; ++i) GetPlayerWeaponData(playerid, i, Arma[i][0], Arma[i][1]);
+	for(new i = 1; i < 13; ++i) GetPlayerWeaponData(playerid, i, Arma[i][0], Arma[i][1]), if(i == 13)break;
 	ResetPlayerWeapons(playerid);
 	for(new i = 1; i < 13; ++i)
 	{
 		if(item != Arma[i][0]) GivePlayerWeapon(playerid, Arma[i][0], Arma[i][1]);
+		if(i == 13)break;
 	}
 }
 
@@ -6718,6 +6740,7 @@ stock SalvarCofre(idorg)
 			DOF2_SetInt(Arq, str, CofreArma[i][idorg]);
 			format(str, sizeof(str), "Ammo inv %d", i);
 			DOF2_SetInt(Arq, str, CofreAmmo[i][idorg]);
+			if(i == 50)break;
 		}
 		DOF2_SetInt(Arq, "CofreID", CofreInfo[idorg][CofreID]);
 		DOF2_SaveFile();
@@ -6731,6 +6754,7 @@ stock SalvarCofre(idorg)
 			DOF2_SetInt(Arq, str, CofreArma[i][idorg]);
 			format(str, sizeof(str), "Ammo inv %d", i);
 			DOF2_SetInt(Arq, str, CofreAmmo[i][idorg]);
+			if(i == 50)break;
 		}
 		DOF2_SetInt(Arq, "CofreID", CofreInfo[idorg][CofreID]);
 		DOF2_SaveFile();
@@ -6750,6 +6774,7 @@ stock CarregarCofre(idorg)
 			CofreArma[i][idorg]=DOF2_GetInt(Arq, str);
 			format(str, sizeof(str), "Ammo inv %d", i);
 			CofreAmmo[i][idorg]=DOF2_GetInt(Arq, str);
+			if(i == 50)break;
 		}
 		CofreInfo[idorg][CofreID] = DOF2_GetInt(Arq, "CofreID");
 
@@ -7346,6 +7371,7 @@ stock HeadshotCheck(playerid, &Float:x, &Float:y, &Float:z)
 				}
 			}
 		}
+		if(i == 50)break;
 	}
 	return 1;
 }
@@ -7392,7 +7418,8 @@ stock VaiProHospital(playerid)
 	TogglePlayerControllable(playerid, true);
     ClearAnimations(playerid);
     for(new idx=0; idx<9; idx++){
-    TextDrawHideForPlayer(playerid,TDmorte[idx]); }
+    TextDrawHideForPlayer(playerid,TDmorte[idx]); 
+	if(idx == 9)break;}
 	PlayerTextDrawHide(playerid, TDmorte_p[playerid][0]);
 	CancelSelectTextDraw(playerid);
 	InfoMsg(playerid, "Morreu e perdeu todo seu dinheiro e alguns itens do seu inventario.");
@@ -8705,6 +8732,7 @@ stock todastextdraw(playerid)
 	for(new i = 1; i < 33; ++i)
 	{
 		PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][i], 0.000000, 0.000000, 0.000000, 999);
+		if(i == 33)break;
 	}
 
 	DrawInv[playerid][34] = CreatePlayerTextDraw(playerid, 172.000000, 53.000000, "INVENTARIO:_MAX_PLAYER_NAME");
@@ -9439,19 +9467,19 @@ stock CreateTelaLogin(){
 	TextDrawSetProportional(Loadsc[0], 1);
 	TextDrawSetSelectable(Loadsc[0], 0);
 
-	Loadsc[13] = TextDrawCreate(230.000000, 248.000000, "BAIXANDO DADOS DO SERVIDOR, AGUARDE...");
-	TextDrawFont(Loadsc[13], 2);
-	TextDrawLetterSize(Loadsc[13], 0.208333, 1.300000);
-	TextDrawTextSize(Loadsc[13], 474.000000, -88.500000);
-	TextDrawSetOutline(Loadsc[13], 0);
-	TextDrawSetShadow(Loadsc[13], 0);
-	TextDrawAlignment(Loadsc[13], 1);
-	TextDrawColor(Loadsc[13], -1);
-	TextDrawBackgroundColor(Loadsc[13], 255);
-	TextDrawBoxColor(Loadsc[13], 50);
-	TextDrawUseBox(Loadsc[13], 0);
-	TextDrawSetProportional(Loadsc[13], 1);
-	TextDrawSetSelectable(Loadsc[13], 0);
+	Loadsc[1] = TextDrawCreate(230.000000, 248.000000, "BAIXANDO DADOS DO SERVIDOR, AGUARDE...");
+	TextDrawFont(Loadsc[1], 2);
+	TextDrawLetterSize(Loadsc[1], 0.208333, 1.300000);
+	TextDrawTextSize(Loadsc[1], 474.000000, -88.500000);
+	TextDrawSetOutline(Loadsc[1], 0);
+	TextDrawSetShadow(Loadsc[1], 0);
+	TextDrawAlignment(Loadsc[1], 1);
+	TextDrawColor(Loadsc[1], -1);
+	TextDrawBackgroundColor(Loadsc[1], 255);
+	TextDrawBoxColor(Loadsc[1], 50);
+	TextDrawUseBox(Loadsc[1], 0);
+	TextDrawSetProportional(Loadsc[1], 1);
+	TextDrawSetSelectable(Loadsc[1], 0);
 }
 
 stock GetPlayerSerial(playerid)
@@ -10543,6 +10571,7 @@ stock ZerarDados(playerid)
     SetPlayerSkillLevel(playerid,WEAPONSKILL_MICRO_UZI,200);
 	for(new i=0;i<6;i++){
 		Preview[playerid][i] = 0;
+		if(i == 6)break;
 	}
 	EntregaSdx[playerid] = false;
 	return 1;
@@ -12956,24 +12985,29 @@ public OnGameModeInit()
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}H{FFFFFF}'para \npegar um veiculo.", -1, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2], 10.0);
 		CreateDynamicPickup(1083, 23, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2]); // Veh Spawn
+		if(i == 10)break;
 	}
 	for(new i; i < 4; i++)
 	{
 		CreateDynamicPickup(1275, 23, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para \npegar os equipamentos.",-1,PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2],15);
+		if(i == 4)break;
 	}
 	for(new i; i < 13; i++)
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para\ncomecar a pescar.", -1, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2], 15.0);
+		if(i == 13)break;
 	}
 	for(new i; i < 8; i++)
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para \niniciar o desossamento.", -1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2], 15.0);
+		if(i == 8)break;
 	}
 	for(new i; i < 4; i++)
 	{
 		CreateDynamicPickup(19606,23,Entradas[i][0],Entradas[i][1],Entradas[i][2],0);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
+		if(i == 4)break;
 	}
 	for(new i; i > CountDynamicObjects(); i++)
 	{
@@ -13075,8 +13109,9 @@ public OnPlayerRequestClass(playerid, classid)
 {
 	ZerarDados(playerid);
 	PlayAudioStreamForPlayer(playerid, "http://k.top4top.io/m_2685nhtv30.mp3");
-	for(new t=0;t<17;t++){
+	for(new t=0;t<2;t++){
 		TextDrawShowForPlayer(playerid, Loadsc[t]);
+		if(t == 2)break;
 	}
 	PlayerTextDrawShow(playerid, Loadsc_p[playerid][0]);
 	ShowPlayerProgressBar(playerid, Loadsc_b[playerid][0]);
@@ -13283,14 +13318,17 @@ public OnPlayerDisconnect(playerid, reason)
 	for(new t; t < 10; t++)
 	{
 	    PlayerTextDrawDestroy(playerid, VeloC[playerid][t]);
+		if(t == 10)break;
 	}
 	for(new i = 0; i < 7; i ++)
 	{
 		PlayerTextDrawDestroy(playerid, HudServer_p[playerid][i]);
+		if(i == 7)break;
 	}
 	for(new i = 0; i < 17; i ++)
 	{
 		TextDrawHideForPlayer(playerid, HudServer[i]);
+		if(i == 17)break;
 	}
 	PlayerTextDrawDestroy(playerid, Textdraw2[playerid]);
 	ZerarDados(playerid);
@@ -13312,6 +13350,7 @@ public OnPlayerSpawn(playerid)
 	for(new idx=0; idx<9; idx++)
 	{
     	TextDrawHideForPlayer(playerid,TDmorte[idx]); 
+		if(idx == 9)break;
 	}
 	PlayerTextDrawHide(playerid, TDmorte_p[playerid][0]);
     if(PlayerMorto[playerid][pEstaMorto] == 1)
@@ -13324,6 +13363,7 @@ public OnPlayerSpawn(playerid)
         for(new idx=0; idx<9; idx++)
         {
        	 	TextDrawShowForPlayer(playerid,TDmorte[idx]);
+			if(idx == 9)break;
     	}
 		PlayerTextDrawShow(playerid, TDmorte_p[playerid][0]);
 		SelectTextDraw(playerid, 0xFF0000FF);
@@ -13430,6 +13470,7 @@ public OnVehicleDamageStatusUpdate(vehicleid, playerid){
 			SetTimerEx("CANIM",15200,false,"i",playerid);
 			for(new x=0;x<5;x++){
 				TextDrawHideForPlayer(playerid, Tdcinto[x]);
+				if(x == 5)break;
 			}
 		}
     }
@@ -13618,6 +13659,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 		for(new x=0;x<5;x++)
 		{
 			TextDrawHideForPlayer(playerid, Tdcinto[x]); 
+			if(x == 5)break;
 		}
 	}
 	return 1;
@@ -13644,9 +13686,11 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			if(mostrandovelo[playerid] == 0){
 				for(new t=0;t<4;t++){
 					TextDrawShowForPlayer(playerid,Velomob[t]);
+					if(t == 4)break;
 				}
 				for(new t=0;t<3;t++){
 					PlayerTextDrawShow(playerid,Velomob_p[playerid][t]);
+					if(t == 3)break;
 				}
 				mostrandovelo[playerid] = 1;
 			}
@@ -13654,9 +13698,11 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			if(mostrandovelo[playerid] == 0){
 				for(new t=0;t<52;t++){
 					TextDrawShowForPlayer(playerid,VeloC_G[t]);
+					if(t == 52)break;
 				}
 				for(new t=0;t<10;t++){
 					PlayerTextDrawShow(playerid,VeloC[playerid][t]);
+					if(t == 10)break;
 				}
 				mostrandovelo[playerid] = 1;
 			}
@@ -13710,6 +13756,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		if(TemCinto[playerid] == false && !IsABike(GetPlayerVehicleID(playerid)) && !IsABoat(GetPlayerVehicleID(playerid))){
 			for(new x=0;x<5;x++){
 				TextDrawShowForPlayer(playerid, Tdcinto[x]);
+				if(x == 5)break;
 			}
 		}
 		foreach(new i: Player)
@@ -13734,6 +13781,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		if(TemCinto[playerid] == false){
 			for(new x=0;x<5;x++){
 				TextDrawHideForPlayer(playerid, Tdcinto[x]);
+				if(x == 5)break;
 			}
 		}else{
 			TemCinto[playerid] = false;
@@ -15024,6 +15072,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					GetWeaponName(CofreArma[ii][orgid], Nick, 20);
 					strcat(Inv, CofreArma[ii][orgid] > 0 ? (CofreArma[ii][orgid] == 18 ? ("{FFDC33}Cocktail Molotov") : (Nick)) : ("{FFDC33}(Vazio)"));
 					strcat(Inv, "\n");
+					if(ii == 50)break;
 				}
 				strcat(Inv, "Guardar Arma");
 				ShowPlayerDialog(playerid, DIALOG_ARMAS2, DIALOG_STYLE_LIST, "Menu da Org {FFDC33}[Bau]", Inv, "Selecionar", "X");
@@ -15343,6 +15392,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			TextDrawHideForPlayer(playerid, TDCadastro[3]);
 			for(new i=0;i<7;i++){
 				PlayerTextDrawHide(playerid, TDCadastro_p[playerid][i]);
+				if(i == 7)break;
 			}
 			MostrandoMenu[playerid] = false;
 			SalvarDadosSkin(playerid);
@@ -15362,10 +15412,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		for(new i; i < 13; i++)
 		if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2])){
 			cmd_pescar(playerid);
+			if(i == 13)break;
 		}
 		for(new i; i < 8; i++)
 		if(IsPlayerInRangeOfPoint(playerid, 1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2])){
 			cmd_desossar(playerid);
+			if(i == 8)break;
 		}
 		if(PlayerToPoint(3.0, playerid, -520.421813, -504.999450, 24.635631) || PlayerToPoint(3.0, playerid, -529.748168, -504.937561, 24.640802) || PlayerToPoint(3.0, playerid, -557.552368, -505.473480, 24.596021))
 		{
@@ -15438,6 +15490,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			for(new i; i < 34; i++)
 			{
 				PlayerTextDrawShow(playerid, BancoTD[playerid][i]);
+				if(i == 34)break;
 			}
 			SelectTextDraw(playerid, 0xFF0000FF);
 		}
@@ -15502,6 +15555,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			for(new i; i < 34; i++)
 			{
 				PlayerTextDrawShow(playerid, BancoTD[playerid][i]);
+				if(i == 34)break;
 			}
 			SelectTextDraw(playerid, 0xFF0000FF);
 		}
@@ -16273,6 +16327,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				for(new i = 0; i < 23; ++i)
 				{
 					PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
+					if(i == 23)break;
 				}
 				new tarquivo[64];
 				format(tarquivo, sizeof(tarquivo), "IDs/%04d.ini",uid);
@@ -16519,9 +16574,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							SetPlayerCameraLookAt(playerid, 1985.139648, 1195.111572, 27.636171);
 							for(new i=0;i<18;i++){
 								TextDrawShowForPlayer(playerid, TDCadastro[i]);
+								if(i == 18)break;
 							}
 							for(new i=0;i<7;i++){
 								PlayerTextDrawShow(playerid, TDCadastro_p[playerid][i]);
+								if(i == 7)break;
 							}
 							MostrandoMenu[playerid] = true;
 							SelectTextDraw(playerid, 0xFF0000FF);
@@ -18007,6 +18064,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								for(new idx=0; idx<9; idx++)
 								{
 									TextDrawHideForPlayer(i,TDmorte[idx]); 
+									if(i == 9)break;
 								}
 								PlayerTextDrawHide(i, TDmorte_p[i][0]);
 								CancelSelectTextDraw(playerid);
@@ -19631,6 +19689,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		for(new i; i < 34; i++)
 		{
 			PlayerTextDrawHide(playerid, BancoTD[playerid][i]);
+			if(i == 34)break;
 		}
 		CancelSelectTextDraw(playerid);
 		new BankV[255];
@@ -19950,9 +20009,11 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 	if(clickedid == TD_RG[23]){
 		for(new r=0;r<24;r++){
 			TextDrawHideForPlayer(playerid, TD_RG[r]);
+			if(r == 24)break;
 		}
 		for(new r=0;r<6;r++){
 			PlayerTextDrawHide(playerid, RG_p[playerid][r]);
+			if(r == 6)break;
 		}
 		MostrandoRG[playerid] = false;
 		CancelSelectTextDraw(playerid);
@@ -19971,6 +20032,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		TimerCad[playerid] = SetTimerEx("AttCad",100,false,"i",playerid);
 		for(new i=0;i<7;i++){
 			PlayerTextDrawShow(playerid, TDCadastro_p[playerid][i]);
+			if(i == 7)break;
 		}
 	}
 	if(clickedid == TDCadastro[3]){
@@ -19983,6 +20045,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		TimerCad[playerid] = SetTimerEx("AttCad",100,false,"i",playerid);
 		for(new i=0;i<7;i++){
 			PlayerTextDrawShow(playerid, TDCadastro_p[playerid][i]);
+			if(i == 7)break;
 		}
 	}
 	if(clickedid == TDCadastro[11]){
@@ -19998,9 +20061,11 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		if(PlayerInfo[playerid][pSkin] == 0) return ErrorMsg(playerid, "Voce precisa escolher uma aparencia.");
 		for(new i=0;i<18;i++){
 			TextDrawHideForPlayer(playerid, TDCadastro[i]);
+			if(i == 18)break;
 		}
 		for(new i=0;i<7;i++){
 			PlayerTextDrawDestroy(playerid, TDCadastro_p[playerid][i]);
+			if(i == 7)break;
 		}
 		DestroyActor(actorcad[playerid]);
 		MostrandoMenu[playerid] = false;
@@ -20014,6 +20079,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		for(new i = 0; i < 40; ++i)
 		{
 			PlayerTextDrawHide(playerid, DrawInv[playerid][i]);
+			if(i == 40)break;
 		}
 		InventarioAberto[playerid] = 0;
 		return 1;
@@ -20074,10 +20140,12 @@ CMD:rg(playerid)
 			for(new t=0;t<24;t++)
 			{
 				TextDrawShowForPlayer(playerid, TD_RG[t]);
+				if(t == 24)break;
 			}
 			for(new t=0;t<6;t++)
 			{
 				PlayerTextDrawShow(playerid, RG_p[playerid][t]);
+				if(t == 6)break;
 			}
 			MostrandoRG[playerid] = true;
 			SelectTextDraw(playerid, 0xFF0000FF);
@@ -20120,10 +20188,12 @@ CMD:mostrarrg(playerid,params[])
 						for(new t=0;t<24;t++)
 						{
 							TextDrawShowForPlayer(i, TD_RG[t]);
+							if(i == 24)break;
 						}	
 						for(new t=0;t<6;t++)
 						{
 							PlayerTextDrawShow(i, RG_p[playerid][t]);
+							if(i == 6)break;
 						}
 						MostrandoRG[i] = true;
 						SelectTextDraw(i, 0xFF0000FF);
@@ -20188,6 +20258,7 @@ CMD:cinto(playerid)
 		for(new x=0;x<5;x++)
 		{
 			TextDrawHideForPlayer(playerid, Tdcinto[x]);
+			if(x == 5)break;
 		}
 	}
 	else
@@ -20197,6 +20268,7 @@ CMD:cinto(playerid)
 		for(new x=0;x<5;x++)
 		{
 			TextDrawShowForPlayer(playerid, Tdcinto[x]);
+			if(x == 5)break;
 		}
 	}
 	return true;
@@ -20270,6 +20342,7 @@ CMD:inventario(playerid)
 		for(new i = 0; i < 40; ++i)
 		{
 			PlayerTextDrawHide(playerid, DrawInv[playerid][i]);
+			if(i == 40)break;
 		}
 		InventarioAberto[playerid] = 0;
 		CancelSelectTextDraw(playerid);
@@ -20291,10 +20364,12 @@ CMD:inventario(playerid)
 			{
 				PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][i], 0.000000, 0.000000, 0.000000, 1);
 			}
+			if(i == 31)break;
 		}
 		for(new i = 0; i < 40; ++i)
 		{
 			PlayerTextDrawShow(playerid, DrawInv[playerid][i]);
+			if(i == 40)break;
 		}
 		SelectTextDraw(playerid, 0xC4C4C4AA);
 		InventarioAberto[playerid] = 1;
@@ -20987,6 +21062,7 @@ CMD:limparchat(playerid)
 	for(new i = 0; i < 50; i++)
 	{
 		SendClientMessage(playerid,-1, "   ");
+		if(i == 50)break;
 	}
 	return 1;
 }
@@ -21228,6 +21304,7 @@ CMD:dveiculo(playerid)
 		for(new o=0;o<10;o++)
 		{
 			DestroyDynamicObject(sdxobj[o]); 
+			if(o == 10)break;
 		}
 	}
 	return 1;
@@ -22120,6 +22197,7 @@ CMD:revistar(playerid, params[])
 						for(new in = 0; in < 40; ++i)
 						{
 							PlayerTextDrawHide(playerid, DrawInv[playerid][in]);
+							if(i == 40)break;
 						}
 						InventarioAberto[playerid] = 0;
 						CancelSelectTextDraw(playerid);
@@ -22130,7 +22208,7 @@ CMD:revistar(playerid, params[])
 						format(str, sizeof(str), "Inventario: %s", Name(i));
 						PlayerTextDrawSetString(playerid, DrawInv[playerid][34], str);
 						PlayerTextDrawSetString(playerid, DrawInv[playerid][38], "");
-						for(new in = 1; in < 31; ++i)
+						for(new in = 1; in < 33; ++i)
 						{
 							PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][in], PlayerInventario[i][in][Slot]);
 							if(PlayerInventario[i][in][Slot] == -1)
@@ -22141,10 +22219,12 @@ CMD:revistar(playerid, params[])
 							{
 								PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][in], 0.000000, 0.000000, 0.000000, 1);
 							}
+							if(i == 31)break;
 						}
 						for(new in = 0; in < 40; ++i)
 						{
 							PlayerTextDrawShow(playerid, DrawInv[playerid][in]);
+							if(i == 40)break;
 						}
 						SelectTextDraw(playerid, 0xC4C4C4AA);
 						InventarioAberto[playerid] = 1;
@@ -23763,6 +23843,7 @@ CMD:mudarskin(playerid, params[])
 		TextDrawShowForPlayer(playerid, TDCadastro[3]);
 		for(new i=0;i<7;i++){
 			PlayerTextDrawShow(playerid, TDCadastro_p[playerid][i]);
+			if(i == 7)break;
 		}
 		MostrandoMenu[playerid] = true;
 		SelectTextDraw(playerid, 0xFF0000FF);
@@ -23774,6 +23855,7 @@ CMD:mudarskin(playerid, params[])
 		TextDrawHideForPlayer(playerid, TDCadastro[3]);
 		for(new i=0;i<7;i++){
 			PlayerTextDrawHide(playerid, TDCadastro_p[playerid][i]);
+			if(i == 7)break;
 		}
 		MostrandoMenu[playerid] = false;
 		SalvarDadosSkin(playerid);
@@ -23791,6 +23873,7 @@ CMD:mudarskin2(playerid)
 		TextDrawShowForPlayer(playerid, TDCadastro[3]);
 		for(new i=0;i<7;i++){
 			PlayerTextDrawShow(playerid, TDCadastro_p[playerid][i]);
+			if(i == 7)break;
 		}
 		MostrandoMenu[playerid] = true;
 		SelectTextDraw(playerid, 0xFF0000FF);
@@ -23802,6 +23885,7 @@ CMD:mudarskin2(playerid)
 		TextDrawHideForPlayer(playerid, TDCadastro[3]);
 		for(new i=0;i<7;i++){
 			PlayerTextDrawHide(playerid, TDCadastro_p[playerid][i]);
+			if(i == 7)break;
 		}
 		MostrandoMenu[playerid] = false;
 		SalvarDadosSkin(playerid);
