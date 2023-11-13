@@ -20,8 +20,6 @@
 #endif 
 // numero de slots do servidor, isso otimiza muito o servidor.
 #define MAX_PLAYERS 500
-#define FIXES_Single 1
-#include        <  	    fixes  		    >
 #include 		<	    crashdetect 	> 
 #include 		<  	    sscanf2 		>
 #include 		<  	    streamer 		>
@@ -1900,7 +1898,7 @@ CallBack::ColocandoCaixa(playerid, progress){
 
 CallBack::AChatAtendimento(COLOR,const string[],level)
 {
-	foreach(new i: Player) 
+	foreach(new i: Player)
 	{
 		if(IsPlayerConnected(i))
 		{
@@ -2223,7 +2221,7 @@ CallBack::DesmancharVeh(playerid, progress)
 		GetPlayer2DZone2(playerid, location, MAX_ZONE_NAME);
 		if(noti == 1)
 		{
-			foreach(new i: Player) 
+			foreach(Player, i)
 			{
 				if(Patrulha[i] == true)
 				{
@@ -4124,7 +4122,7 @@ CallBack::MainTimer()
 {
 	new string[128];
 	new Float:x, Float:y, Float:z;
-	foreach(new i: Player) 
+	foreach(Player, i)
 	{
 		if(IsPlayerConnected(i))
 		{
@@ -5206,7 +5204,7 @@ stock RetirarItem2(playerid, modelid, qtd)
     return 1;
 }
 
-Callback::CriarInventario(playerid)
+CallBack::CriarInventario(playerid)
 {
 	new file[64], str[128], string[128];
 	format(file, sizeof(file), PASTA_INVENTARIO, PlayerName(playerid));
@@ -5223,7 +5221,7 @@ Callback::CriarInventario(playerid)
 			format(str, sizeof(str), "%d|%d", PlayerInventario[playerid][i][Slot], PlayerInventario[playerid][i][Unidades]);
 			DOF2_SetString(file, string, str);
 			DOF2_SaveFile();
-			break;
+			if(i == 31)break;
 		}
 	}else{
 		LoadInv(playerid);
@@ -5231,7 +5229,7 @@ Callback::CriarInventario(playerid)
 	return 1;
 }
 
-Callback::LoadInv(playerid)
+CallBack::LoadInv(playerid)
 {
 	new file[64], key[64], string[2][64], str[64];
 	format(file, sizeof(file), PASTA_INVENTARIO, PlayerName(playerid));
@@ -5245,12 +5243,11 @@ Callback::LoadInv(playerid)
 		split(str, string, '|');
 		PlayerInventario[playerid][i][Slot] = strval(string[0]);
 		PlayerInventario[playerid][i][Unidades] = strval(string[1]);
-		break;
 	}
 	return 1;
 }
 
-Callback::SalvarInventario(playerid)
+CallBack::SalvarInventario(playerid)
 {
 	new file[64], str[128], string[128];
 	format(file, sizeof(file), PASTA_INVENTARIO, PlayerName(playerid));
@@ -5261,14 +5258,14 @@ Callback::SalvarInventario(playerid)
 		format(str, sizeof(str), "%d|%d", PlayerInventario[playerid][i][Slot], PlayerInventario[playerid][i][Unidades]);
 		DOF2_SetString(file, string, str);
 		DOF2_SaveFile();
-		break;
+		if(i == 31)break;
 	}
 	return 1;
 }
 
 CheckInventario(playerid, itemid)
 {
-	for(new i = 1; i < 31; ++i)
+	for(new i = 1; i < 33; ++i)
 	{
 		if(PlayerInventario[playerid][i][Slot] == itemid || PlayerInventario[playerid][i][Slot] == -1) return 1;
 	}
@@ -5277,7 +5274,7 @@ CheckInventario(playerid, itemid)
 
 CheckInventario2(playerid, itemid)
 {
-	for(new i = 1; i < 31; ++i)
+	for(new i = 1; i < 33; ++i)
 	{
 		if(PlayerInventario[playerid][i][Slot] == itemid) return 1;
 	}
@@ -6074,7 +6071,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 					return ErrorMsg(playerid, "Este veiculo nao pode ser tunado.");
 
 				cmd_inventario(playerid);
-				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Mecanico", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
+				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Bennys", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
 				PlayerInventario[playerid][modelid][Unidades]--;
 				AtualizarInventario(playerid, modelid);
 			}
@@ -6115,7 +6112,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 				GetPlayer2DZone2(playerid, location, MAX_ZONE_NAME);
 				if(noti == 1)
 				{
-					foreach(new p: Player) 
+					foreach(new p: Player)
 					{
 						if(Patrulha[p] == true)
 						{
@@ -6257,7 +6254,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES DE CADA I
 			new noti = randomEx(0, 2);
 			if(noti == 1)
 			{
-				foreach(new i: Player) 
+				foreach(Player, i)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -6668,7 +6665,6 @@ stock GuardarItem2(playerid)
 			CofreAmmo[i][orgid]=Ammo;
 			RemoverItem2(playerid, Item);
             SalvarCofre(orgid);
-			break;
 		}
 		i++;
 	}
@@ -7282,7 +7278,7 @@ stock GetIdfixo()
 	if(!DOF2_FileExists(controlFile))
 	{
 		DOF2_CreateFile(controlFile);
-		DOF2_SetInt(controlFile, "Last", 0);
+		DOF2_SetInt(controlFile, "Last", 1000);
 	}
 
 	new currentTag = DOF2_GetInt(controlFile, "Last") + 1;
@@ -8706,7 +8702,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][30], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][30], -10.000000, 0.000000, -20.000000, 1.000000);
 
-	for(new i = 1; i < 31; ++i)
+	for(new i = 1; i < 33; ++i)
 	{
 		PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][i], 0.000000, 0.000000, 0.000000, 999);
 	}
@@ -9970,7 +9966,7 @@ stock NomeOrg(playerid)
 	}
 	if(org == 9)
 	{
-		orG = "Mecanicos";
+		orG = "Bennys";
 	}
 	if(org == 10)
 	{
@@ -10245,7 +10241,7 @@ stock BanirPlayer(playerid, administrador, Motivo1[])
 	DOF2_SetString(File, "Desban", "Nunca");
 	DOF2_SetInt(File, "DDesban", gettime() + 60 * 60 * 24 * 999);
 	DOF2_SaveFile();
-	foreach(new i: Player) 
+	foreach(Player, i)
 	{
 		format(Str, sizeof(Str), "O Administrador %s(%d) baniu o jogador %s(%d). Motivo: %s", Name(playerid),PlayerInfo[playerid][IDF], Name(administrador),PlayerInfo[administrador][IDF], Motivo1);
 		WarningMsg(i, Str);
@@ -10392,7 +10388,7 @@ stock BanirIP(playerid, administrador, Motivo1[])
 	DOF2_SetString(File, "Motivo", Motivo1);
 	DOF2_SetString(File, "Data", Data);
 	DOF2_SaveFile();
-	foreach(new i: Player) 
+	foreach(Player, i)
 	{
 		format(Str, sizeof(Str), "O Administrador %s(%d) baniu o jogador %s(%d). Motivo: %s", Name(playerid),PlayerInfo[playerid][IDF], Name(administrador),PlayerInfo[administrador][IDF], Motivo1);
 		WarningMsg(i, Str);
@@ -12706,7 +12702,7 @@ public OnGameModeInit()
 	CreateCaixa(2942, 1830.88367, -1071.68689, 23.48169,   0.00000, 0.00000, 269.40909);
 	CreateCaixa(2942, 1863.66504, -1270.39185, 13.16138,   0.00000, 0.00000, 182.03978);
 	CreateCaixa(2942, 1673.760620, -2326.699218, 13.16138,   0.00000, 0.00000, 92.392776);
-	CreateCaixa(2942, -1980.607666, 131.965667, 27.16138,   0.00000, 0.00000, 263.507263);
+	CreateCaixa(2942, -1980.607666, 131.965667, 27.16138,   0.00000, 0.00000, 263.507263);/*
 	createEE(0, "WELLCOME EVENT 1", 19057,3.0, -984.33557, 1293.37805, 33.30560,   0.00000, 0.00000, 0.00000);
 	createEE(1, "WELLCOME EVENT 2", 19057,3.0, -2354.78540, 142.00720, 38.22280,  0.00000, 0.00000, 0.00000);
 	createEE(2, "WELLCOME EVENT 3", 19057,3.0, -1077.87439, -1157.65149, 128.21820,   0.00000, 0.00000, 0.00000);
@@ -12754,7 +12750,7 @@ public OnGameModeInit()
 	createEE(44, "WELLCOME EVENT 45", 19057,3.0, 962.519104, 1769.895629, 8.851562,   0.00000, 0.00000, 0.00000);
 	createEE(45, "WELLCOME EVENT 46", 19057,3.0, 2508.293945, -1471.552368, 24.034790,   0.00000, 0.00000, 0.00000);
 	loadEE();
-	saveEE();
+	saveEE();*/
     printf(" ");
 	new Dia, Mes, Ano, Hora, Minuto;
 	gettime(Hora, Minuto);
@@ -12920,7 +12916,7 @@ public OnGameModeInit()
 	CreateDynamic3DTextLabel("{5b6ed9}Tropa dos Verdes{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,2275.367187, -1785.524414, 13.546875,15);
 	
 	CreateDynamicPickup(1314, 23, 1973.031616, -1779.866455, 13.543199);
-	CreateDynamic3DTextLabel("{5b6ed9}Mecanicos{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1973.031616, -1779.866455, 13.543199,15);
+	CreateDynamic3DTextLabel("{5b6ed9}Bennys{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1973.031616, -1779.866455, 13.543199,15);
 	
 	CreateDynamicPickup(1314, 23, 1634.357543, -1122.493896, 24.051122);
 	CreateDynamic3DTextLabel("{5b6ed9}Medicos{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1634.357543, -1122.493896, 24.051122,15);
@@ -12998,7 +12994,7 @@ public OnGameModeInit()
 
 public OnGameModeExit()
 {
-	foreach(new i: Player) 
+	foreach(Player, i)
 	{
 		if(pLogado[i] == true) 
 		{
@@ -13070,6 +13066,7 @@ public OnGameModeExit()
     printf("=======================================================================");
 	printf("Servidor Desligado: [%02d/%02d/%d %02d:%02d]", Dia, Mes, Ano, Hora, Minuto);
     printf("=======================================================================");
+	DOF2_SaveFile();
 	DOF2_Exit();
 	return 1;
 }
@@ -13211,13 +13208,6 @@ public OnPlayerDisconnect(playerid, reason)
 		{
 			DOF2_RemoveFile(arquivofila);
 		}
-		new gstring[255];
-		switch(reason) {
-			case 0: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Conexao ou crash{FFFFFF})", PlayerInfo[playerid][IDF]);
-			case 1: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Quitou - /q{FFFFFF})", PlayerInfo[playerid][IDF]);
-			case 2: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Kickado ou Banido{FFFFFF})", PlayerInfo[playerid][IDF]);
-		}
-		ProxDetector(30.0, playerid, gstring,-1,-1,-1,-1,-1);
 	}
 	if(IniciouTesteHabilitacaoA[playerid] == 1)
 	{
@@ -13304,6 +13294,13 @@ public OnPlayerDisconnect(playerid, reason)
 	}
 	PlayerTextDrawDestroy(playerid, Textdraw2[playerid]);
 	ZerarDados(playerid);
+	new gstring[255];
+	switch(reason) {
+     	case 0: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Conexao ou crash{FFFFFF})", PlayerInfo[playerid][IDF]);
+     	case 1: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Quitou - /q{FFFFFF})", PlayerInfo[playerid][IDF]);
+     	case 2: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Kickado ou Banido{FFFFFF})", PlayerInfo[playerid][IDF]);
+  	}
+  	ProxDetector(30.0, playerid, gstring,-1,-1,-1,-1,-1);
 	return 1;
 }
 
@@ -15424,7 +15421,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 1982.807739, -1783.678100, 13.543199) || PlayerToPoint(3.0, playerid, 1991.699951, -1783.279541, 13.543199) || PlayerToPoint(3.0, playerid, 2001.068359, -1783.499389, 13.543199) || PlayerToPoint(3.0, playerid, 2010.380981, -1783.100097, 13.543199) || PlayerToPoint(3.0, playerid, 2018.434692, -1783.255126, 13.543199))
 		{
 			if(PlayerInfo[playerid][Org] != 9) 		return ErrorMsg(playerid, "Nao possui permissao.");
-			ShowPlayerDialog(playerid, DIALOG_ARMARIOMEC, DIALOG_STYLE_LIST,"Menu Mecanico", "{5b6ed9}- {FFFFFF}Caixa de Ferramientas\t{32CD32}R$1200\n{5b6ed9}- {FFFFFF}Ferramentas de Tunagem\t{32CD32}R$15000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_ARMARIOMEC, DIALOG_STYLE_LIST,"Menu Bennys", "{5b6ed9}- {FFFFFF}Caixa de Ferramientas\t{32CD32}R$1200\n{5b6ed9}- {FFFFFF}Ferramentas de Tunagem\t{32CD32}R$15000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, -501.146118, 294.354156, 2001.094970))
 		{
@@ -15678,7 +15675,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(menustr2, "{5b6ed9}Rodas {FFFFFF}Doller\n");
 					strcat(menustr2, "{5b6ed9}Rodas {FFFFFF}Atomic\n");
 					strcat(menustr2, "{5b6ed9}Rodas {FFFFFF}Virtual\n");
-					ShowPlayerDialog(playerid, DIALOG_MECANICARODAS, DIALOG_STYLE_LIST, "Central do Mecanico", menustr2, "Confirmar", "X");
+					ShowPlayerDialog(playerid, DIALOG_MECANICARODAS, DIALOG_STYLE_LIST, "Central do Bennys", menustr2, "Confirmar", "X");
 				}
 				if(listitem == 1)
 				{
@@ -15693,7 +15690,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(menustr3, "{5b6ed9}Cores {FFFFFF}Marrom\n");
 					strcat(menustr3, "{5b6ed9}Cores {FFFFFF}Vermelho\n");
 					strcat(menustr3, "{5b6ed9}Cores {FFFFFF}Laranja\n");
-					ShowPlayerDialog(playerid, DIALOG_MECANICACORES, DIALOG_STYLE_LIST, "Central do Mecanico", menustr3, "Confirmar", "X");
+					ShowPlayerDialog(playerid, DIALOG_MECANICACORES, DIALOG_STYLE_LIST, "Central do Bennys", menustr3, "Confirmar", "X");
 				}
 				if(listitem == 2)
 				{
@@ -15701,7 +15698,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(menustr4, "{5b6ed9}Paintjobs {FFFFFF}Opcao 1\n");
 					strcat(menustr4, "{5b6ed9}Paintjobs {FFFFFF}Opcao 2\n");
 					strcat(menustr4, "{5b6ed9}Paintjobs {FFFFFF}Opcao 3\n");
-					ShowPlayerDialog(playerid, DIALOG_MECANICAPJ, DIALOG_STYLE_LIST, "Central do Mecanico", menustr4, "Confirmar", "X");
+					ShowPlayerDialog(playerid, DIALOG_MECANICAPJ, DIALOG_STYLE_LIST, "Central do Bennys", menustr4, "Confirmar", "X");
 				}
 				if(listitem == 3)
 				{
@@ -15709,7 +15706,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(menustr5, "{5b6ed9}Nitro {FFFFFF}Bosster x2\n");
 					strcat(menustr5, "{5b6ed9}Nitro {FFFFFF}Booster x5\n");
 					strcat(menustr5, "{5b6ed9}Nitro {FFFFFF}Booster x10\n");
-					ShowPlayerDialog(playerid, DIALOG_MECANICANITRO, DIALOG_STYLE_LIST, "Central do Mecanico", menustr5, "Confirmar", "X");
+					ShowPlayerDialog(playerid, DIALOG_MECANICANITRO, DIALOG_STYLE_LIST, "Central do Bennys", menustr5, "Confirmar", "X");
 				}
 				if(listitem == 4)
 				{
@@ -16126,7 +16123,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else
 			{
-				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Mecanico", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
+				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Bennys", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
 			}
 		}
 		case DIALOG_MECANICACORES:
@@ -16186,7 +16183,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else
 			{
-				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Mecanico", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
+				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Bennys", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
 			}
 		}
 		case DIALOG_REGISTRO:
@@ -16317,7 +16314,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else
 			{
-				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Mecanico", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
+				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Bennys", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
 			}
 		}
 		case DIALOG_MECANICANITRO:
@@ -16342,7 +16339,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else
 			{
-				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Mecanico", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
+				ShowPlayerDialog(playerid, DIALOG_MECANICA, DIALOG_STYLE_LIST, "Central do Bennys", "{5b6ed9}Mecanica {FFFFFF}Rodas\n{5b6ed9}Mecanica {FFFFFF}Cores\n{5b6ed9}Mecanica {FFFFFF}Paintjobs\n{5b6ed9}Mecanica {FFFFFF}Nitro\n{5b6ed9}Mecanica {FFFFFF}Suspencao\n{5b6ed9}Mecanica {FFFFFF}Auto Tunagem\n", "Confirmar", "X");
 			}
 		}
 		case D_VOIP:{
@@ -16646,7 +16643,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 				if(!IsNumeric(inputtext)) return ErrorMsg(playerid, "Somente numeros");
 				if(strlen(inputtext) > 3) return ErrorMsg(playerid, "Valor invalido.");
-				foreach(new i: Player) 
+				foreach(Player,i)
 			  	{
 					if(pLogado[i] == true)
 					{
@@ -17216,7 +17213,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new Float:g = GetPlayerDistanceFromPoint(playerid, 188.515975, -106.426063, 2.023437);
 					new Float:h = GetPlayerDistanceFromPoint(playerid, -96.821380, 1041.751953, 19.664335);
 					new Float:i = GetPlayerDistanceFromPoint(playerid, -2653.636474, 640.163085, 14.45312);
-					new Float:j = GetPlayerDistanceFromPoint(playerid, -2064.956787, 1389.049560, 7.101562);
+					new Float:j = GetPlayerDistanceFromPoint(playerid, 1982.807739, -1783.678100, 13.543199);
 					new Float:k = GetPlayerDistanceFromPoint(playerid, 649.302062, -1357.399658, 13.567605);
 					new Float:l = GetPlayerDistanceFromPoint(playerid, -688.271423, 938.216918, 13.632812);
 					new Float:m = GetPlayerDistanceFromPoint(playerid, 698.636657, 1964.867065, 5.539062);
@@ -17241,7 +17238,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Medicos \t{5b6ed9} %.0f KM\n", i);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Mecanico \t{5b6ed9} %.0f KM\n", j);
+					format(string, 128, "{FFFFFF} Bennys \t{5b6ed9} %.0f KM\n", j);
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Reportagem \t{5b6ed9} %.0f KM\n", k);
 					strcat(MEGAString,string);
@@ -17329,7 +17326,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -2064.956787, 1389.049560, 7.101562, 8.0);
+					SetPlayerCheckpoint(playerid, 1982.807739, -1783.678100, 13.543199, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 10)
@@ -17984,7 +17981,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				id = strval(inputtext);
 				/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 				if(!IsNumeric(inputtext)) return ErrorMsg(playerid, "Valor invalido.");
-				foreach(new i: Player) 
+				foreach(Player,i)
 				{
 					if(pLogado[i] == true)
 					{
@@ -19790,7 +19787,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 			return 0;
 		}
 	}
-	for(new i = 1; i < 31; ++i)
+	for(new i = 1; i < 33; ++i)
 	{
 		if(playertextid == DrawInv[playerid][i])
 		{
@@ -20102,7 +20099,7 @@ CMD:mostrarrg(playerid,params[])
 	{
 		if(MostrandoRG[playerid] == false)
 		{
-			foreach(new i: Player) {
+			foreach(Player,i){
 				if(PlayerInfo[i][IDF] == id){
 					static Float:XYZ[3];
 					GetPlayerPos(i,XYZ[0],XYZ[1],XYZ[2]);
@@ -20248,7 +20245,7 @@ CMD:daritem(playerid, const params[])
 	if(PlayerInfo[playerid][pAdmin] < 5)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "iii", id, item, quantia)) return ErrorMsg(playerid, "Use: /daritem [ID] [ITEM ID] [UNIDADES].");
 	if(quantia < 1) return ErrorMsg(playerid, "Coloque uma quantia.");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20283,7 +20280,7 @@ CMD:inventario(playerid)
 		format(str, sizeof(str), "Inventario: %s(%d)", Name(playerid),PlayerInfo[playerid][IDF]);
 		PlayerTextDrawSetString(playerid, DrawInv[playerid][34], str);
 		PlayerTextDrawSetString(playerid, DrawInv[playerid][38], "");
-		for(new i = 1; i < 31; ++i)
+		for(new i = 1; i < 33; ++i)
 		{
 			PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][i], PlayerInventario[playerid][i][Slot]);
 			if(PlayerInventario[playerid][i][Slot] == -1)
@@ -20308,7 +20305,7 @@ CMD:inventario(playerid)
 CMD:report(playerid, params[])
 {
 	if(sscanf(params, "is[56]", ID, Motivo))					return ErrorMsg(playerid, "USE: /report [ID] [RAZON]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20420,7 +20417,7 @@ CMD:av(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "s[56]", Motivo)) 						return ErrorMsg(playerid, "USE: /av [TEXTO]");
-	foreach(new i: Player) 
+	foreach(Player,i)
 	{
 		format(Str, sizeof(Str), "%s", Motivo);
 		AvMsg(i, Str);
@@ -20433,7 +20430,7 @@ CMD:setskin(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "di", ID, Numero))						return ErrorMsg(playerid, "USE: /setskin [ID] [SKIN ID]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20456,7 +20453,7 @@ CMD:setvida(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "dd", ID, Numero))						return ErrorMsg(playerid,"USE: /setvida [ID] [VIDA]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20477,7 +20474,7 @@ CMD:setcolete(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "dd", ID, Numero))						return ErrorMsg(playerid,"USE: /setcolete [ID] [COLETE]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20520,7 +20517,7 @@ CMD:kick(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "ds[56]", ID, Motivo))					return ErrorMsg(playerid,"USE: /kick [ID] [MOTIVO]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20543,7 +20540,7 @@ CMD:cadeia(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "iis[56]", ID, Numero, Motivo))			return ErrorMsg(playerid,"USE: /cadeia [ID] [TEMPO EM MINUTOS] [MOTIVO]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20578,7 +20575,7 @@ CMD:ir(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /ir [ID]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20611,7 +20608,7 @@ CMD:trazer(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "u", ID))									return ErrorMsg(playerid,"USE: /trazer [ID]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20668,7 +20665,7 @@ CMD:tv(playerid, params[])
 	if(IsAssistindo[playerid] == false)
 	{
 		if(sscanf(params, "i", ID))								return ErrorMsg(playerid,"USE: /tv [ID]");
-		foreach(new i: Player) 
+		foreach(Player,i)
 		{
 			if(pLogado[i] == true)
 			{
@@ -20710,7 +20707,7 @@ CMD:setarma(playerid, params[])
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "iii", ID, Arma, Municao))				return ErrorMsg(playerid,"USE: /setarma [ID] [ARMA] [MUNIÇÃO]");
 	if(Arma<1 || Arma==19 || Arma==20||Arma==21||Arma>46)		return ErrorMsg(playerid, "ID nao valido.");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20730,7 +20727,7 @@ CMD:desarmar(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /desarmar [ID]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20751,7 +20748,7 @@ CMD:banir(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "is[56]", ID, Motivo)) 					return ErrorMsg(playerid,"ERRO: Use /banir [ID] [MOTIVO]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20777,7 +20774,7 @@ CMD:tempban(playerid,params[])
 	if(sscanf(params, "iis[56]", ID, Dias, Motivo)) 			return ErrorMsg(playerid,"ERRO: Use /tempban [ID] [TEMPO] [MOTIVO]");
 	if(Dias == 0)                                               return ErrorMsg(playerid, "Nao pode banir alguem durante 0 dias. USA: /ban para banir permanentes.");
 	if(Dias >= 360)                                             return ErrorMsg(playerid, "Voce so pode banir alguem por no maximo 360 dias.");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20889,7 +20886,7 @@ CMD:adv(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "is[56]", ID, Motivo)) 					return ErrorMsg(playerid,"ERRO: Use /adv [ID] [MOTIVO]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20916,7 +20913,7 @@ CMD:banirip(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 4)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "is[56]", ID, Motivo)) 					return ErrorMsg(playerid,"ERRO: Use /banirip [ID] [MOTIVO]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20999,7 +20996,7 @@ CMD:congelar(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /congelar [ID]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21021,7 +21018,7 @@ CMD:descongelar(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /descongelar [ID]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21094,7 +21091,7 @@ CMD:dardinheiro(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "dd", ID, Numero))		return ErrorMsg(playerid,"USE: /dardinheiro [ID] [QUANTIA]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21116,7 +21113,7 @@ CMD:setadmin(playerid, params[])
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "ii", ID, Numero))		return ErrorMsg(playerid,"USE: /setadmin [ID] [LEVEL]");
 	if(Numero > 9)				return ErrorMsg(playerid, "O numero deve ser entre 0 a 9");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21272,7 +21269,7 @@ CMD:lferidos(playerid, params[])
 	if(PlayerInfo[playerid][pProfissao] != 3)
 	{
 		if(sscanf(params, "u", id)) return ErrorMsg(playerid,  "* Use: /lferidos (id)");
-		foreach(new i: Player) 
+		foreach(Player,i)
 		{
 			if(pLogado[i] == true)
 			{
@@ -21390,7 +21387,7 @@ CMD:convidar(playerid,params[])
 	if(PlayerInfo[playerid][Org] == 0)return ErrorMsg(playerid, "Nao e de nenhuma organizacao.");
 	if(PlayerInfo[playerid][Cargo] < 2)return ErrorMsg(playerid, "Nao superior de nenhuma organizacao.");
 	if(sscanf(params,"i",id))return ErrorMsg(playerid,"Use: /convidar [ID]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21434,7 +21431,7 @@ CMD:demitir(playerid,params[])
 	new xPlayer;
 	if(sscanf(params,"i",xPlayer))
 		return ErrorMsg(playerid , "/demitir [playerid]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21461,7 +21458,7 @@ CMD:promover(playerid,params[])
 	if(PlayerInfo[playerid][Org] == 0)return 1;
 	if(PlayerInfo[playerid][Cargo] < 2)return ErrorMsg(playerid, "Nao e superior de nenhuma organizacao.");
 	if(sscanf(params,"ii",id,cargo))return ErrorMsg(playerid,"/promover [ID] [CARGO]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21521,7 +21518,7 @@ CMD:darlider(playerid,params[])
 	new id,org,String[500];
 	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params,"ii",id,org))return ErrorMsg(playerid,"/darlider [ID] [IDORG]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21578,7 +21575,7 @@ CMD:pagar(playerid, params[])
 {
 	new id, quantia, string[800];
 	if(sscanf(params,"ii",id,quantia)) return ErrorMsg(playerid,  " /pagar [ID] [QUANTIA]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21894,7 +21891,7 @@ CMD:algemar(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /algemar [ID]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21917,7 +21914,7 @@ CMD:desalgemar(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /desalgemar [ID]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21943,7 +21940,7 @@ CMD:pveiculo(playerid, params[])
 	if(IsPolicial(playerid) || IsBandido(playerid))
 	{
 		if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /pveiculo [ID]");
-		foreach(new i: Player) 
+		foreach(Player,i)
 		{
 			if(pLogado[i] == true)
 			{
@@ -21967,7 +21964,7 @@ CMD:rveiculo(playerid, params[])
 	if(IsPolicial(playerid) || IsBandido(playerid))
 	{
 		if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /rveiculo [ID]");
-		foreach(new i: Player) 
+		foreach(Player,i)
 		{
 			if(pLogado[i] == true)
 			{
@@ -21991,7 +21988,7 @@ CMD:prender(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "iis[56]", ID, Numero, Motivo))			return ErrorMsg(playerid,"USE: /prender [ID] [TEMPO EM MINUTOS] [MOTIVO]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -22084,7 +22081,7 @@ CMD:su(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "di", ID, Numero))						return ErrorMsg(playerid,"USE: /su [ID] [LEVEL]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -22111,7 +22108,7 @@ CMD:revistar(playerid, params[])
 	if(IsPolicial(playerid) || IsBandido(playerid))	
 	{
 		if(sscanf(params, "d", ID))                        return ErrorMsg(playerid,"USE: /verinv [ID]");
-		foreach(new i: Player) 
+		foreach(Player,i)
 		{
 			if(pLogado[i] == true)
 			{
@@ -22165,7 +22162,7 @@ CMD:rarmas(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /rarmas [ID]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -22215,7 +22212,7 @@ CMD:multar(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "dd", ID, Numero))		return ErrorMsg(playerid,"USE: /multar [ID] [QUANTIA]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -22242,7 +22239,7 @@ CMD:verdocumentos(playerid, params[])
 	{
 		if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 		if(sscanf(params, "dd", ID))		return ErrorMsg(playerid,"USE: /verdocumentos [ID] ");
-		foreach(new i: Player) 
+		foreach(Player,i)
 		{
 			if(pLogado[i] == true)
 			{
@@ -23208,7 +23205,7 @@ CMD:ejetar(playerid, params[])
 	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "Nao esta em um veiculo!"); 
 	new pid, msg[128];
 	if(sscanf(params, "u", pid)) return ErrorMsg(playerid,  "USAGE: /ejetar [player]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -23232,7 +23229,7 @@ CMD:ejetarll(playerid, params[])
 	new vehicleid = GetPlayerVehicleID(playerid);
 	new msg[128];
 	format(msg, sizeof(msg), "O condutor do veiculo %04d (%d) te expulsou do veiculo.", GetPlayerIdfixo(playerid), playerid);
-	foreach(new i: Player) 
+	foreach(Player, i)
 	{
 		if(IsPlayerConnected(i) && i != playerid && IsPlayerInVehicle(i, vehicleid))
 		{
@@ -23305,7 +23302,7 @@ CMD:venderv(playerid, params[])
 {
 	new pid, id, price, msg[128];
 	if(sscanf(params, "udd", pid, id, price)) return ErrorMsg(playerid,  "USAGE: /venderv [player] [vehicleid] [price]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -23332,7 +23329,7 @@ CMD:darchaves(playerid, params[])
 {
 	new pid, id, msg[128];
 	if(sscanf(params, "ud", pid, id)) return ErrorMsg(playerid,  "USAGE: /darchaves [player] [vehicleid]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -23471,7 +23468,7 @@ CMD:rac(playerid, params[])
 {
 	new bool:vehicleused[MAX_VEHICLES];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	foreach(new i: Player) 
+	foreach(Player, i)
 	{
 		if(IsPlayerConnected(i) && IsPlayerInAnyVehicle(i))
 		{
@@ -23486,7 +23483,7 @@ CMD:rac(playerid, params[])
 		}
 	}
 	new msg[128];
-	foreach(new i: Player) 
+	foreach(Player, i)
 	{
 		format(msg, sizeof(msg), "O Administrador %04d respawnou todos os veiculos sem motorista.", GetPlayerIdfixo(playerid), playerid);
 		InfoMsg(i, msg);
@@ -24033,7 +24030,7 @@ CMD:pediravaliar(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1) return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "d", ID)) return ErrorMsg(playerid,"USE: /pediravaliar [ID]");
-	foreach(new i: Player) 
+	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
 		{
@@ -24404,7 +24401,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(new i: Player) 
+				foreach(Player, i)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24428,7 +24425,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(new i: Player) 
+				foreach(Player, i)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24452,7 +24449,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(new i: Player) 
+				foreach(Player, i)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24476,7 +24473,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(new i: Player) 
+				foreach(Player, i)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24500,7 +24497,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(new i: Player) 
+				foreach(Player, i)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24524,7 +24521,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(new i: Player) 
+				foreach(Player, i)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24548,7 +24545,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(new i: Player) 
+				foreach(Player, i)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24572,7 +24569,7 @@ CMD:roubar(playerid)
 			
 			if(noti == 1)
 			{
-				foreach(new i: Player) 
+				foreach(Player, i)
 				{
 					if(Patrulha[i] == true)
 					{
