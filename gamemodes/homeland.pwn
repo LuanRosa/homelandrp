@@ -45,7 +45,7 @@ main()
 #define MAX_CAIXAS               	50
 #define MAX_ZONE_NAME 				28
 #define MAX_VAGAS          			20+1
-#define MAX_ORGS           			14
+#define MAX_ORGS           			15
 #define MAX_MACONHA         		300
 #define Max_Crescida        		10
 #define MAX_CASAS        			500
@@ -236,6 +236,7 @@ enum
 	DIALOG_VEHCORP2,
 	DIALOG_VEHCORP3,
 	DIALOG_VEHCORP4,
+	DIALOG_VEHCORP5,
 	DIALOG_ANUNCIOOLX,
 	DIALOG_VALORTRANSACAO,
 	DIALOG_GPS3,
@@ -570,7 +571,7 @@ new PlayerText:BancoTD[MAX_PLAYERS][34];
 new Text:gServerTextdraws;
 static PlayerText:XPTXD[MAX_PLAYERS][20];
 new	PlayerText:Textdraw2[MAX_PLAYERS];
-new PlayerText:HudCop[MAX_PLAYERS][4];
+new Text:HudCop[8];
 new PlayerText:CopGuns[MAX_PLAYERS][6];
 new Text:Textdraw0,
 	Text:Textdraw1;
@@ -1133,11 +1134,12 @@ new Float:PosRota[303+120][4] =
     {2313.880371, -124.964256, 28.153551}//rota
 };
 
-new Float:Entradas[4][3] =
+new Float:Entradas[5][3] =
 {
 	{2333.359130, -1883.562255, 15.000000},//Mercado Negro
 	{1481.094482, -1772.313720, 18.795755},//Prefeitura
 	{649.302062, -1357.399658, 13.567605},//San News
+	{1554.6508,-1675.6040,16.1953},//DPCESP GERAL
 	{2501.888916, -1494.696533, 24.000000}//A�OUGUE
 };
 
@@ -1221,15 +1223,16 @@ new Float:PosDesossa[8][4] =
 
 new EtapasMinerador[MAX_PLAYERS];
 
-new Float:PosEquipar[4][4] =
+new Float:PosEquipar[5][4] =
 {
 	{-2010.984252, -999.047912, 37.254680},//Policia Militar
 	{-2454.447998, 503.778869, 30.079460},//ROTA
 	{1628.541625, -251.347473, 49.000457},//PRF
-	{-1253.534545, 2712.009521, 55.174671}//BAEP
+	{-1253.534545, 2712.009521, 55.174671},//BAEP
+	{315.5868,1834.4128,2241.5850}//Policia Civil
 };
 
-new Float:PosVeiculos[10][4] =
+new Float:PosVeiculos[11][4] =
 {
 	{-2033.141479, -988.619567, 32.212158},//Policia Militar
 	{-2441.137939, 522.140869, 29.486917},//ROTA
@@ -1240,7 +1243,8 @@ new Float:PosVeiculos[10][4] =
 	{590.086975, 871.486694, -42.734603},//Minerador
 	{2010.767089, -1771.265380, 13.543199},//Mecanica
 	{-1278.216552, 2711.282714, 50.132141},//BAEP
-	{981.7181, 1733.6261, 8.6484}//Correios
+	{981.7181, 1733.6261, 8.6484},//Correios
+	{1578.4696,-1712.2008,5.8906}//Policia Civil
 };
 new VehAlugado[MAX_PLAYERS];
 new VeiculoCivil[MAX_PLAYERS];
@@ -1690,10 +1694,14 @@ new RandomMSG[][] =
 };
 
 //                          PUBLICS
-new mapsdxzx[2];
+new mapsdxzx[2],cancelagr;
 CallBack::FecharCorreios()
 {
 	MoveDynamicObject(mapsdxzx[0], 998.093994, 1755.689941, 11.265600,2.0);
+}
+CallBack::FecharDpc()
+{
+	MoveDynamicObject(cancelagr, 1544.683227, -1630.695678, 13.072815,0.1, 0.000000, -90.799919, -90.799957);
 }
 
 CallBack::FecharCorreios2()
@@ -4528,7 +4536,7 @@ CallBack::IsPolicial(playerid)
 	if(IsPlayerConnected(playerid))
 	{
 		new member = PlayerInfo[playerid][Org];
-		if(member == 1 || member == 2 || member == 3 || member == 4)
+		if(member == 1 || member == 2 || member == 3 || member == 4 || member == 14)
 		{
 			return 1;
 		}
@@ -4624,7 +4632,7 @@ CallBack::PegarMoney(playerid, caixa_id)
 
 	CaixaInfo[caixa_id][Caixa_Dinheiro] -= (CaixaInfo[caixa_id][Caixa_Dinheiro]/picks);
 
-	format(str, sizeof str, "{FFFFFF}Caixa Registradora\n{5b6ed9}Caixa Destruido\n{FFFFFF}Dinheiro No Caixa: {5b6ed9}R$%i",CaixaInfo[caixa_id][Caixa_Dinheiro]);
+	format(str, sizeof str, "{FFFFFF}Caixa Eletronico\n{5b6ed9}Caixa Destruido\n{FFFFFF}Dinheiro No Caixa: {5b6ed9}R$%i",CaixaInfo[caixa_id][Caixa_Dinheiro]);
 	Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], 0x5b6ed9F4, str);
 
 	CaixaInfo[caixa_id][Caixa_Pickups] --;
@@ -4764,7 +4772,7 @@ CallBack::ExplodirCaixa(caixa_id)
 	new add = random(2000);
 	CaixaInfo[caixa_id][Caixa_Dinheiro] = (MAX_PICKUPS_ROUBO*1600)+add;
 
-	format(str, sizeof str, "{FFFFFF}Caixa Registradora\n{5b6ed9}Caixa Destruido\n{FFFFFF}Dinheiro No Chao: {5b6ed9}R$%i",CaixaInfo[caixa_id][Caixa_Dinheiro]);
+	format(str, sizeof str, "{FFFFFF}Caixa Eletronico\n{5b6ed9}Caixa Destruido\n{FFFFFF}Dinheiro No Chao: {5b6ed9}R$%i",CaixaInfo[caixa_id][Caixa_Dinheiro]);
 	Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], 0x5b6ed9F4, str);
 
 	GetDynamicObjectPos(CaixaInfo[caixa_id][Caixa_Object], px, py, pz);
@@ -4801,7 +4809,7 @@ CallBack::RestoreCaixa(caixa_id)
 
 		CaixaInfo[caixa_id][Caixa_Roubada] = false;
 
-		Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], -1, "{FFFFFF}Caixa Registradora\nAperte '{5b6ed9}F{FFFFFF}' para acessar");
+		Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], -1, "{FFFFFF}Caixa Eletronico\nAperte '{5b6ed9}F{FFFFFF}' para acessar");
 
 		GetDynamicObjectPos(CaixaInfo[caixa_id][Caixa_Object], px, py, pz);
 		GetDynamicObjectRot(CaixaInfo[caixa_id][Caixa_Object], rx, ry, rz);
@@ -7586,7 +7594,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][9], 1);
 	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][9], 0);
 
-	Registration_PTD[playerid][10] = CreatePlayerTextDraw(playerid, 308.2330, 172.3703, "Homeland"); // ïóñòî
+	Registration_PTD[playerid][10] = CreatePlayerTextDraw(playerid, 308.2330, 172.3703, "Home~n~    land"); // ïóñòî
 	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][10], 0.1508, 0.9881);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][10], 1);
 	PlayerTextDrawColor(playerid, Registration_PTD[playerid][10], -1);
@@ -7826,6 +7834,90 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][9], 255);
 	PlayerTextDrawFont(playerid, VeloC[playerid][9], 2);
 	PlayerTextDrawSetProportional(playerid, VeloC[playerid][9], 1);
+
+	CopGuns[playerid][0] = CreatePlayerTextDraw(playerid, 278.000000, 240.000000, "9MM");
+	PlayerTextDrawFont(playerid, CopGuns[playerid][0], 2);
+	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][0], 0.258332, 1.750000);
+	PlayerTextDrawTextSize(playerid, CopGuns[playerid][0], 16.500000, 90.500000);
+	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][0], 1);
+	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][0], 0);
+	PlayerTextDrawAlignment(playerid, CopGuns[playerid][0], 2);
+	PlayerTextDrawColor(playerid, CopGuns[playerid][0], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][0], 255);
+	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][0], -56);
+	PlayerTextDrawUseBox(playerid, CopGuns[playerid][0], 1);
+	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][0], 1);
+	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][0], 1);
+
+	CopGuns[playerid][1] = CreatePlayerTextDraw(playerid, 278.000000, 263.000000, "M4");
+	PlayerTextDrawFont(playerid, CopGuns[playerid][1], 2);
+	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][1], 0.258332, 1.750000);
+	PlayerTextDrawTextSize(playerid, CopGuns[playerid][1], 16.500000, 90.500000);
+	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][1], 1);
+	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][1], 0);
+	PlayerTextDrawAlignment(playerid, CopGuns[playerid][1], 2);
+	PlayerTextDrawColor(playerid, CopGuns[playerid][1], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][1], 255);
+	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][1], -56);
+	PlayerTextDrawUseBox(playerid, CopGuns[playerid][1], 1);
+	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][1], 1);
+	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][1], 1);
+
+	CopGuns[playerid][2] = CreatePlayerTextDraw(playerid, 278.000000, 285.000000, "SHOTGUN");
+	PlayerTextDrawFont(playerid, CopGuns[playerid][2], 2);
+	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][2], 0.258332, 1.750000);
+	PlayerTextDrawTextSize(playerid, CopGuns[playerid][2], 16.500000, 90.500000);
+	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][2], 1);
+	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][2], 0);
+	PlayerTextDrawAlignment(playerid, CopGuns[playerid][2], 2);
+	PlayerTextDrawColor(playerid, CopGuns[playerid][2], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][2], 255);
+	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][2], -56);
+	PlayerTextDrawUseBox(playerid, CopGuns[playerid][2], 1);
+	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][2], 1);
+	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][2], 1);
+
+	CopGuns[playerid][3] = CreatePlayerTextDraw(playerid, 278.000000, 307.000000, "MP5");
+	PlayerTextDrawFont(playerid, CopGuns[playerid][3], 2);
+	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][3], 0.258332, 1.750000);
+	PlayerTextDrawTextSize(playerid, CopGuns[playerid][3], 16.500000, 90.500000);
+	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][3], 1);
+	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][3], 0);
+	PlayerTextDrawAlignment(playerid, CopGuns[playerid][3], 2);
+	PlayerTextDrawColor(playerid, CopGuns[playerid][3], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][3], 255);
+	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][3], -56);
+	PlayerTextDrawUseBox(playerid, CopGuns[playerid][3], 1);
+	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][3], 1);
+	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][3], 1);
+
+	CopGuns[playerid][4] = CreatePlayerTextDraw(playerid, 278.000000, 330.000000, "RIFLE");
+	PlayerTextDrawFont(playerid, CopGuns[playerid][4], 2);
+	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][4], 0.258332, 1.750000);
+	PlayerTextDrawTextSize(playerid, CopGuns[playerid][4], 16.500000, 90.500000);
+	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][4], 1);
+	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][4], 0);
+	PlayerTextDrawAlignment(playerid, CopGuns[playerid][4], 2);
+	PlayerTextDrawColor(playerid, CopGuns[playerid][4], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][4], 255);
+	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][4], -56);
+	PlayerTextDrawUseBox(playerid, CopGuns[playerid][4], 1);
+	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][4], 1);
+	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][4], 1);
+
+	CopGuns[playerid][5] = CreatePlayerTextDraw(playerid, 337.000000, 222.000000, "X");
+	PlayerTextDrawFont(playerid, CopGuns[playerid][5], 2);
+	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][5], 0.258332, 1.200000);
+	PlayerTextDrawTextSize(playerid, CopGuns[playerid][5], 16.500000, 10.000000);
+	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][5], 1);
+	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][5], 0);
+	PlayerTextDrawAlignment(playerid, CopGuns[playerid][5], 2);
+	PlayerTextDrawColor(playerid, CopGuns[playerid][5], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][5], 255);
+	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][5], -56);
+	PlayerTextDrawUseBox(playerid, CopGuns[playerid][5], 1);
+	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][5], 1);
+	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][5], 1);
 
 		//STRINGS VELOMOB
 	Velomob_p[playerid][0] = CreatePlayerTextDraw(playerid, 320.000000, 399.000000, "000");
@@ -8078,146 +8170,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][6], 50);
 	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][6], 1);
 	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][6], 1);
-
-	HudCop[playerid][0] = CreatePlayerTextDraw(playerid, 442.000000, 204.000000, "SERVICO");
-	PlayerTextDrawFont(playerid, HudCop[playerid][0], 2);
-	PlayerTextDrawLetterSize(playerid, HudCop[playerid][0], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, HudCop[playerid][0], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, HudCop[playerid][0], 1);
-	PlayerTextDrawSetShadow(playerid, HudCop[playerid][0], 0);
-	PlayerTextDrawAlignment(playerid, HudCop[playerid][0], 2);
-	PlayerTextDrawColor(playerid, HudCop[playerid][0], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, HudCop[playerid][0], 255);
-	PlayerTextDrawBoxColor(playerid, HudCop[playerid][0], -56);
-	PlayerTextDrawUseBox(playerid, HudCop[playerid][0], 1);
-	PlayerTextDrawSetProportional(playerid, HudCop[playerid][0], 1);
-	PlayerTextDrawSetSelectable(playerid, HudCop[playerid][0], 1);
-
-	HudCop[playerid][1] = CreatePlayerTextDraw(playerid, 442.000000, 227.000000, "ARMAS");
-	PlayerTextDrawFont(playerid, HudCop[playerid][1], 2);
-	PlayerTextDrawLetterSize(playerid, HudCop[playerid][1], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, HudCop[playerid][1], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, HudCop[playerid][1], 1);
-	PlayerTextDrawSetShadow(playerid, HudCop[playerid][1], 0);
-	PlayerTextDrawAlignment(playerid, HudCop[playerid][1], 2);
-	PlayerTextDrawColor(playerid, HudCop[playerid][1], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, HudCop[playerid][1], 255);
-	PlayerTextDrawBoxColor(playerid, HudCop[playerid][1], -56);
-	PlayerTextDrawUseBox(playerid, HudCop[playerid][1], 1);
-	PlayerTextDrawSetProportional(playerid, HudCop[playerid][1], 1);
-	PlayerTextDrawSetSelectable(playerid, HudCop[playerid][1], 1);
-
-	HudCop[playerid][2] = CreatePlayerTextDraw(playerid, 442.000000, 250.000000, "ROUPAS");
-	PlayerTextDrawFont(playerid, HudCop[playerid][2], 2);
-	PlayerTextDrawLetterSize(playerid, HudCop[playerid][2], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, HudCop[playerid][2], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, HudCop[playerid][2], 1);
-	PlayerTextDrawSetShadow(playerid, HudCop[playerid][2], 0);
-	PlayerTextDrawAlignment(playerid, HudCop[playerid][2], 2);
-	PlayerTextDrawColor(playerid, HudCop[playerid][2], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, HudCop[playerid][2], 255);
-	PlayerTextDrawBoxColor(playerid, HudCop[playerid][2], -56);
-	PlayerTextDrawUseBox(playerid, HudCop[playerid][2], 1);
-	PlayerTextDrawSetProportional(playerid, HudCop[playerid][2], 1);
-	PlayerTextDrawSetSelectable(playerid, HudCop[playerid][2], 1);
-
-	HudCop[playerid][3] = CreatePlayerTextDraw(playerid, 501.000000, 186.000000, "X");
-	PlayerTextDrawFont(playerid, HudCop[playerid][3], 2);
-	PlayerTextDrawLetterSize(playerid, HudCop[playerid][3], 0.241665, 1.000000);
-	PlayerTextDrawTextSize(playerid, HudCop[playerid][3], 16.500000, 9.500000);
-	PlayerTextDrawSetOutline(playerid, HudCop[playerid][3], 1);
-	PlayerTextDrawSetShadow(playerid, HudCop[playerid][3], 0);
-	PlayerTextDrawAlignment(playerid, HudCop[playerid][3], 2);
-	PlayerTextDrawColor(playerid, HudCop[playerid][3], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, HudCop[playerid][3], 255);
-	PlayerTextDrawBoxColor(playerid, HudCop[playerid][3], -56);
-	PlayerTextDrawUseBox(playerid, HudCop[playerid][3], 1);
-	PlayerTextDrawSetProportional(playerid, HudCop[playerid][3], 1);
-	PlayerTextDrawSetSelectable(playerid, HudCop[playerid][3], 1);
-	//
-	CopGuns[playerid][0] = CreatePlayerTextDraw(playerid, 278.000000, 240.000000, "9MM");
-	PlayerTextDrawFont(playerid, CopGuns[playerid][0], 2);
-	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][0], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, CopGuns[playerid][0], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][0], 1);
-	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][0], 0);
-	PlayerTextDrawAlignment(playerid, CopGuns[playerid][0], 2);
-	PlayerTextDrawColor(playerid, CopGuns[playerid][0], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][0], 255);
-	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][0], -56);
-	PlayerTextDrawUseBox(playerid, CopGuns[playerid][0], 1);
-	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][0], 1);
-	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][0], 1);
-
-	CopGuns[playerid][1] = CreatePlayerTextDraw(playerid, 278.000000, 263.000000, "M4");
-	PlayerTextDrawFont(playerid, CopGuns[playerid][1], 2);
-	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][1], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, CopGuns[playerid][1], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][1], 1);
-	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][1], 0);
-	PlayerTextDrawAlignment(playerid, CopGuns[playerid][1], 2);
-	PlayerTextDrawColor(playerid, CopGuns[playerid][1], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][1], 255);
-	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][1], -56);
-	PlayerTextDrawUseBox(playerid, CopGuns[playerid][1], 1);
-	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][1], 1);
-	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][1], 1);
-
-	CopGuns[playerid][2] = CreatePlayerTextDraw(playerid, 278.000000, 285.000000, "SHOTGUN");
-	PlayerTextDrawFont(playerid, CopGuns[playerid][2], 2);
-	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][2], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, CopGuns[playerid][2], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][2], 1);
-	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][2], 0);
-	PlayerTextDrawAlignment(playerid, CopGuns[playerid][2], 2);
-	PlayerTextDrawColor(playerid, CopGuns[playerid][2], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][2], 255);
-	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][2], -56);
-	PlayerTextDrawUseBox(playerid, CopGuns[playerid][2], 1);
-	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][2], 1);
-	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][2], 1);
-
-	CopGuns[playerid][3] = CreatePlayerTextDraw(playerid, 278.000000, 307.000000, "MP5");
-	PlayerTextDrawFont(playerid, CopGuns[playerid][3], 2);
-	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][3], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, CopGuns[playerid][3], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][3], 1);
-	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][3], 0);
-	PlayerTextDrawAlignment(playerid, CopGuns[playerid][3], 2);
-	PlayerTextDrawColor(playerid, CopGuns[playerid][3], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][3], 255);
-	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][3], -56);
-	PlayerTextDrawUseBox(playerid, CopGuns[playerid][3], 1);
-	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][3], 1);
-	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][3], 1);
-
-	CopGuns[playerid][4] = CreatePlayerTextDraw(playerid, 278.000000, 330.000000, "RIFLE");
-	PlayerTextDrawFont(playerid, CopGuns[playerid][4], 2);
-	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][4], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, CopGuns[playerid][4], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][4], 1);
-	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][4], 0);
-	PlayerTextDrawAlignment(playerid, CopGuns[playerid][4], 2);
-	PlayerTextDrawColor(playerid, CopGuns[playerid][4], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][4], 255);
-	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][4], -56);
-	PlayerTextDrawUseBox(playerid, CopGuns[playerid][4], 1);
-	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][4], 1);
-	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][4], 1);
-
-	CopGuns[playerid][5] = CreatePlayerTextDraw(playerid, 337.000000, 222.000000, "X");
-	PlayerTextDrawFont(playerid, CopGuns[playerid][5], 2);
-	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][5], 0.258332, 1.200000);
-	PlayerTextDrawTextSize(playerid, CopGuns[playerid][5], 16.500000, 10.000000);
-	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][5], 1);
-	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][5], 0);
-	PlayerTextDrawAlignment(playerid, CopGuns[playerid][5], 2);
-	PlayerTextDrawColor(playerid, CopGuns[playerid][5], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][5], 255);
-	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][5], -56);
-	PlayerTextDrawUseBox(playerid, CopGuns[playerid][5], 1);
-	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][5], 1);
-	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][5], 1);
 
 	DrawInv[playerid][0] = CreatePlayerTextDraw(playerid, 317.000000, 1.000000, "_");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][0], 1);
@@ -9903,7 +9855,7 @@ stock ChecarOrg(playerid)
 	if(strcmp(DOF2_GetString(String,VagasORG[20]),Name(playerid), true) == 0) return 1;
 	PlayerInfo[playerid][Org] = 0;
 	PlayerInfo[playerid][Cargo] = 0;
-	InfoMsg(playerid, "Foi expulsado.");
+	InfoMsg(playerid, "Foi expulso.");
 	SpawnPlayer(playerid);
 	return 0;
 }
@@ -9976,6 +9928,10 @@ stock NomeOrg(playerid)
 	if(org == 1)
 	{
 		orG = "Policia Militar";
+	}
+	if(org == 14)
+	{
+		orG = "Policia Civil";
 	}
 	if(org == 2)
 	{
@@ -10068,7 +10024,7 @@ stock CreateCaixa(objectid, Float:x, Float:y, Float:z, Float:rotx, Float:roty, F
 	GetDynamicObjectPos(CaixaInfo[caixaid][Caixa_Object], pX, pY, pZ);
 	GetXYInFrontOfCaixa(CaixaInfo[caixaid][Caixa_Object], pX, pY, 1.0);
 	CaixaInfo[caixaid][Caixa_Pickup] = CreatePickup(1274 , 1, pX,pY,pZ);
-	CaixaInfo[caixaid][Caixa_Text] = Create3DTextLabel("{FFFFFF}Caixa Registradora\n{FFFFFF}Aperte '{5b6ed9}F{FFFFFF}' para acessar", 0x33FFFF88, pX, pY, pZ, 15.0, 0);
+	CaixaInfo[caixaid][Caixa_Text] = Create3DTextLabel("{FFFFFF}Caixa Eletronico\n{FFFFFF}Aperte '{5b6ed9}F{FFFFFF}' para acessar", 0x33FFFF88, pX, pY, pZ, 15.0, 0);
 
     caixaid ++;
 	return 0;
@@ -11008,6 +10964,120 @@ public OnGameModeInit()
 	TextDrawUseBox(LogoHM[2], 0);
 	TextDrawSetProportional(LogoHM[2], 1);
 	TextDrawSetSelectable(LogoHM[2], 0);
+
+	//ARMARIO COPS
+	HudCop[0] = TextDrawCreate(322.000000, 161.000000, "_");
+	TextDrawFont(HudCop[0], 1);
+	TextDrawLetterSize(HudCop[0], 0.616666, 13.300014);
+	TextDrawTextSize(HudCop[0], 298.500000, 75.000000);
+	TextDrawSetOutline(HudCop[0], 1);
+	TextDrawSetShadow(HudCop[0], 0);
+	TextDrawAlignment(HudCop[0], 2);
+	TextDrawColor(HudCop[0], -1);
+	TextDrawBackgroundColor(HudCop[0], 255);
+	TextDrawBoxColor(HudCop[0], 255);
+	TextDrawUseBox(HudCop[0], 1);
+	TextDrawSetProportional(HudCop[0], 1);
+	TextDrawSetSelectable(HudCop[0], 0);
+
+	HudCop[1] = TextDrawCreate(322.000000, 161.000000, "_");
+	TextDrawFont(HudCop[1], 1);
+	TextDrawLetterSize(HudCop[1], 0.616666, 0.750011);
+	TextDrawTextSize(HudCop[1], 298.500000, 75.000000);
+	TextDrawSetOutline(HudCop[1], 1);
+	TextDrawSetShadow(HudCop[1], 0);
+	TextDrawAlignment(HudCop[1], 2);
+	TextDrawColor(HudCop[1], -1);
+	TextDrawBackgroundColor(HudCop[1], 255);
+	TextDrawBoxColor(HudCop[1], 1296911871);
+	TextDrawUseBox(HudCop[1], 1);
+	TextDrawSetProportional(HudCop[1], 1);
+	TextDrawSetSelectable(HudCop[1], 0);
+
+	HudCop[2] = TextDrawCreate(323.000000, 160.000000, "MENU CORP");
+	TextDrawFont(HudCop[2], 2);
+	TextDrawLetterSize(HudCop[2], 0.254167, 1.000000);
+	TextDrawTextSize(HudCop[2], 316.500000, 107.000000);
+	TextDrawSetOutline(HudCop[2], 0);
+	TextDrawSetShadow(HudCop[2], 0);
+	TextDrawAlignment(HudCop[2], 2);
+	TextDrawColor(HudCop[2], -1);
+	TextDrawBackgroundColor(HudCop[2], 255);
+	TextDrawBoxColor(HudCop[2], 50);
+	TextDrawUseBox(HudCop[2], 0);
+	TextDrawSetProportional(HudCop[2], 1);
+	TextDrawSetSelectable(HudCop[2], 0);
+
+	HudCop[3] = TextDrawCreate(322.000000, 185.000000, "BATER CARTAO");
+	TextDrawFont(HudCop[3], 2);
+	TextDrawLetterSize(HudCop[3], 0.158333, 0.650000);
+	TextDrawTextSize(HudCop[3], 9.500000, 56.500000);
+	TextDrawSetOutline(HudCop[3], 0);
+	TextDrawSetShadow(HudCop[3], 0);
+	TextDrawAlignment(HudCop[3], 2);
+	TextDrawColor(HudCop[3], -1);
+	TextDrawBackgroundColor(HudCop[3], 255);
+	TextDrawBoxColor(HudCop[3], 1296911871);
+	TextDrawUseBox(HudCop[3], 1);
+	TextDrawSetProportional(HudCop[3], 1);
+	TextDrawSetSelectable(HudCop[3], 1);
+
+	HudCop[4] = TextDrawCreate(322.000000, 208.000000, "UNIFORMES");
+	TextDrawFont(HudCop[4], 2);
+	TextDrawLetterSize(HudCop[4], 0.158333, 0.650000);
+	TextDrawTextSize(HudCop[4], 9.500000, 56.500000);
+	TextDrawSetOutline(HudCop[4], 0);
+	TextDrawSetShadow(HudCop[4], 0);
+	TextDrawAlignment(HudCop[4], 2);
+	TextDrawColor(HudCop[4], -1);
+	TextDrawBackgroundColor(HudCop[4], 255);
+	TextDrawBoxColor(HudCop[4], 1296911871);
+	TextDrawUseBox(HudCop[4], 1);
+	TextDrawSetProportional(HudCop[4], 1);
+	TextDrawSetSelectable(HudCop[4], 1);
+
+	HudCop[5] = TextDrawCreate(322.000000, 232.000000, "DIVISAO");
+	TextDrawFont(HudCop[5], 2);
+	TextDrawLetterSize(HudCop[5], 0.158333, 0.650000);
+	TextDrawTextSize(HudCop[5], 9.500000, 56.500000);
+	TextDrawSetOutline(HudCop[5], 0);
+	TextDrawSetShadow(HudCop[5], 0);
+	TextDrawAlignment(HudCop[5], 2);
+	TextDrawColor(HudCop[5], -1);
+	TextDrawBackgroundColor(HudCop[5], 255);
+	TextDrawBoxColor(HudCop[5], 1296911871);
+	TextDrawUseBox(HudCop[5], 1);
+	TextDrawSetProportional(HudCop[5], 1);
+	TextDrawSetSelectable(HudCop[5], 1);
+
+	HudCop[6] = TextDrawCreate(322.000000, 257.000000, "EQUIPAMENTOS");
+	TextDrawFont(HudCop[6], 2);
+	TextDrawLetterSize(HudCop[6], 0.158333, 0.650000);
+	TextDrawTextSize(HudCop[6], 9.500000, 56.500000);
+	TextDrawSetOutline(HudCop[6], 0);
+	TextDrawSetShadow(HudCop[6], 0);
+	TextDrawAlignment(HudCop[6], 2);
+	TextDrawColor(HudCop[6], -1);
+	TextDrawBackgroundColor(HudCop[6], 255);
+	TextDrawBoxColor(HudCop[6], 1296911871);
+	TextDrawUseBox(HudCop[6], 1);
+	TextDrawSetProportional(HudCop[6], 1);
+	TextDrawSetSelectable(HudCop[6], 1);
+
+	HudCop[7] = TextDrawCreate(356.000000, 144.000000, "X");
+	TextDrawFont(HudCop[7], 2);
+	TextDrawLetterSize(HudCop[7], 0.229167, 1.050000);
+	TextDrawTextSize(HudCop[7], 9.500000, 7.500000);
+	TextDrawSetOutline(HudCop[7], 0);
+	TextDrawSetShadow(HudCop[7], 0);
+	TextDrawAlignment(HudCop[7], 2);
+	TextDrawColor(HudCop[7], -1);
+	TextDrawBackgroundColor(HudCop[7], 255);
+	TextDrawBoxColor(HudCop[7], -16776961);
+	TextDrawUseBox(HudCop[7], 1);
+	TextDrawSetProportional(HudCop[7], 1);
+	TextDrawSetSelectable(HudCop[7], 1);
+
 
 	Textdraw0 = TextDrawCreate(320.000000, 180.000000, "ALERTA~n~~n~~n~");
 	TextDrawAlignment(Textdraw0, 2);
@@ -12701,6 +12771,7 @@ public OnGameModeInit()
 	CreateDynamicMapIcon(649.302062, -1357.399658, 13.567605, 34, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//SAN NEWS
 	// ORG MILITARES
 	CreateDynamicMapIcon(-2033.067504, -988.365112, 32.212158, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//POLICIA MILITAR
+	CreateDynamicMapIcon(1554.6508,-1675.6040,16.1953, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//POLICIA CIVIL
 	CreateDynamicMapIcon(-2440.856445, 522.686523, 29.914293, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//ROTA
 	CreateDynamicMapIcon(-1278.104248, 2711.379150, 50.132141, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//BAEP
 	CreateDynamicMapIcon(1662.559692, -285.732208, 39.607868, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PRF
@@ -12935,9 +13006,13 @@ public OnGameModeInit()
 
 	CreateAurea("{5b6ed9}Material\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar um material.", 1273.534545, -1292.359985, 13.481081);
 	CreateAurea("{5b6ed9}Material\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para deixar o material.", 1257.569458, -1263.111206, 17.821365);
-
+	//CreateAurea("{5b6ed9}Detencao\n{ffffff}Aperte '{5b6ed9}Y{ffffff}' para entrar",330.5061,1843.1603,2241.5850);
+	CreateAurea("{5b6ed9}Elevador\n{ffffff}Aperte '{5b6ed9}Y{ffffff}' para entrar",323.1717,1839.0503,2241.5850);
 	CreateDynamicPickup(1314, 23, -2017.083740, -998.231933, 37.254680);
 	CreateDynamic3DTextLabel("{5b6ed9}Policia Militar{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,-2017.083740, -998.231933, 37.254680,15);
+
+	CreateDynamicPickup(1314, 23,304.0539,1825.8835,2241.6008);
+	CreateDynamic3DTextLabel("{5b6ed9}Policia Civil{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,304.0539,1825.8835,2241.6008,15);
 
 	CreateDynamicPickup(1314, 23, 1638.864746, -248.854202, 49.000457);
 	CreateDynamic3DTextLabel("{5b6ed9}Policia Rodoviaria{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1638.864746, -248.854202, 49.000457,15);
@@ -12997,17 +13072,17 @@ public OnGameModeInit()
 		UpdateFuelStation(i, 0);
 	}
 	for(new slot = 0; slot < MAX_MACONHA; slot++)MaconhaInfo[slot][PodeUsar] = true;
-	for(new i; i < 10; i++)
+	for(new i; i < 11; i++)
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}H{FFFFFF}'para \npegar um veiculo.", -1, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2], 10.0);
 		CreateDynamicPickup(1083, 23, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2]); // Veh Spawn
-		if(i == 10)break;
+		if(i == 11)break;
 	}
-	for(new i; i < 4; i++)
+	for(new i; i < 5; i++)
 	{
 		CreateDynamicPickup(1275, 23, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para \npegar os equipamentos.",-1,PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2],15);
-		if(i == 4)break;
+		if(i == 5)break;
 	}
 	for(new i; i < 13; i++)
 	{
@@ -13916,7 +13991,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	{
 		new constrstr[500];
 		TogglePlayerControllable(playerid, 0);
-		SetTimerEx("AnimyTogle", 3000, false, "i", playerid);
+		SetTimerEx("AnimyTogle2", 3000, false, "i", playerid);
 		RemovePlayerAttachedObject(playerid, 1);
 		new dinmateriale = randomEx(50, 200);
 		if(PlayerInfo[playerid][pVIP] == 0)
@@ -15073,6 +15148,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				cmd_abrircorreios2(playerid);
 			}
 		}
+		if(PlayerToPoint(8.0, playerid, 1544.683227, -1630.695678, 13.072815))
+		{
+			cmd_ptcop(playerid);
+		}
 	}
 	if(newkeys == KEY_CTRL_BACK)
 	{
@@ -15265,6 +15344,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][Org] != 4)    		return ErrorMsg(playerid, "Nao possui permissao.");
 			ShowPlayerDialog(playerid, DIALOG_VEHCORP4, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}FBI Rancher\t{FF0000}490", "Selecionar", "X");
 		}
+		else if(PlayerToPoint(3.0, playerid, 1578.4696,-1712.2008,5.8906))
+		{
+			if(PlayerInfo[playerid][Org] != 14)    		return ErrorMsg(playerid, "Nao possui permissao.");
+			ShowPlayerDialog(playerid, DIALOG_VEHCORP5, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}FBI Rancher\t{FF0000}490\n{FF0000}- {FFFFFF}Aguia\t{FF0000}497", "Selecionar", "X");
+		}
 	}
 	if(newkeys == KEY_YES)
 	{
@@ -15309,6 +15393,43 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,-501.1714,286.6785,2001.0950))
 		{
 			SetPlayerPos(playerid, 1481.094482, -1772.313720, 18.795755);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//DPCESP GERAL ELEVADOR SUBIR
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, 323.1717,1839.0503,2241.5850))
+		{
+			SetPlayerPos(playerid,  1565.0919,-1666.5137,28.3956);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//DPCESP GERAL ELEVADOR DESCER
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, 1565.0919,-1666.5137,28.3956))
+		{
+			SetPlayerPos(playerid,  323.1717,1839.0503,2241.5850);
+			SetPlayerInterior(playerid, 1);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//DPCESP GERAL ENTRADA
+		else if(IsPlayerInRangeOfPoint(playerid,2.0, 1554.6508,-1675.6040,16.1953))
+		{
+			SetPlayerPos(playerid,  350.3784,1834.4092,2241.5850);
+			SetPlayerFacingAngle(playerid,83.8808);
+			SetPlayerInterior(playerid, 1);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//DPCESP GERAL SAIDA
+		else if(IsPlayerInRangeOfPoint(playerid,2.0,350.3784,1834.4092,2241.5850))
+		{
+			SetPlayerPos(playerid, 1554.6508,-1675.6040,16.1953);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
@@ -15547,15 +15668,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
 			ShowPlayerDialog(playerid, DIALOG_LOJAHP, DIALOG_STYLE_LIST,"Loja do Hospital\tValor", "{5b6ed9}- {FFFFFF}Bandagem\t{32CD32}R$200", "Selecionar","X");
 		}
-		for(new i; i < 4; i++)
+		for(new i; i < 5; i++)
 		if(PlayerToPoint(3.0, playerid, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]))
 		{
 			if(IsPolicial(playerid))
 			{
-				PlayerTextDrawShow(playerid, HudCop[playerid][0]);
-				PlayerTextDrawShow(playerid, HudCop[playerid][1]);
-				PlayerTextDrawShow(playerid, HudCop[playerid][2]);
-				PlayerTextDrawShow(playerid, HudCop[playerid][3]);
+				for(new x=0;x<8;x++){
+					TextDrawShowForPlayer(playerid, HudCop[x]);
+				}
 				SelectTextDraw(playerid, 0xFF0000FF);
 				return 1;
 			}
@@ -16614,6 +16734,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 691.841125, -463.600677, 16.536296, 90.036911, 0, 0, 0, 0, 0, 0);
 							SpawnPlayer(playerid);
 						}
+						else if(PlayerInfo[playerid][Org] == 14) //Policia civil
+						{
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1579.6786,-1635.2084,13.5613,86.1338, 0, 0, 0, 0, 0, 0);
+							SpawnPlayer(playerid);
+						}
 						format(Str, sizeof(Str), "Bem vindo %04d. Seu ultimo login foi em %s.", GetPlayerIdfixo(playerid), PlayerInfo[playerid][pLastLogin]);
 						InfoMsg(playerid, Str);
 						if(IsPlayerMobile(playerid)){
@@ -17275,6 +17400,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new Float:k = GetPlayerDistanceFromPoint(playerid, 649.302062, -1357.399658, 13.567605);
 					new Float:l = GetPlayerDistanceFromPoint(playerid, -688.271423, 938.216918, 13.632812);
 					new Float:m = GetPlayerDistanceFromPoint(playerid, 691.841125, -463.600677, 16.536296);
+					new Float:n = GetPlayerDistanceFromPoint(playerid, 691.841125, -463.600677, 16.536296);
 					MEGAString[0] = EOS;
 					new string[800];
 					strcat(MEGAString, "Local\tDistancia\n");
@@ -17303,6 +17429,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					format(string, 128, "{FFFFFF} Mafia Russa \t{5b6ed9} %.0f KM\n", l);
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Moto Clube \t{5b6ed9} %.0f KM\n", m);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Policia Civil \t{5b6ed9} %.0f KM\n", n);
 					strcat(MEGAString,string);
 					ShowPlayerDialog(playerid, DIALOG_GPS3, DIALOG_STYLE_TABLIST_HEADERS, "Locais Organiza��es", MEGAString, "Localizar","X");
 				}
@@ -17403,6 +17531,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 12)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, 691.841125, -463.600677, 16.536296, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 13)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
@@ -19271,6 +19406,66 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 			}
 		}
+		case DIALOG_VEHCORP5:
+		{
+			if(response)
+			{
+				if(listitem == 0)
+				{
+					new Float:X,Float:Y,Float:Z,Float:ROT;
+					GetPlayerPos(playerid,X,Y,Z);
+					GetPlayerFacingAngle(playerid,ROT);
+					if(VehAlugado[playerid] == 0)
+					{
+						VehAlugado[playerid] = 1;
+						VeiculoCivil[playerid] = CreateVehicle(597, X, Y, Z, ROT, 34, 34, false);
+						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
+						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
+					}
+					else
+					{
+						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
+					}
+					return 1;
+				}
+				if(listitem == 1)
+				{
+					new Float:X,Float:Y,Float:Z,Float:ROT;
+					GetPlayerPos(playerid,X,Y,Z);
+					GetPlayerFacingAngle(playerid,ROT);
+					if(VehAlugado[playerid] == 0)
+					{
+						VehAlugado[playerid] = 1;
+						VeiculoCivil[playerid] = CreateVehicle(490, X, Y, Z, ROT, 34, 34, false);
+						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
+						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
+					}
+					else
+					{
+						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
+					}
+					return 1;
+				}
+				if(listitem == 2)
+				{
+					new Float:X,Float:Y,Float:Z,Float:ROT;
+					GetPlayerPos(playerid,X,Y,Z);
+					GetPlayerFacingAngle(playerid,ROT);
+					if(VehAlugado[playerid] == 0)
+					{
+						VehAlugado[playerid] = 1;
+						VeiculoCivil[playerid] = CreateVehicle(497,1564.6960,-1653.7539,28.3956, ROT, 34, 34, false);
+						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
+						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
+					}
+					else
+					{
+						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
+					}
+					return 1;
+				}
+			}
+		}
 		case DIALOG_ANUNCIOOLX:
 		{
 			if(response)
@@ -19878,72 +20073,6 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 	if(playertextid == DrawInv[playerid][35]) return cmd_inventario(playerid);
 	if(playertextid == DrawInv[playerid][37]) return DroparItem(playerid, GetPVarInt(playerid, #VarSlotInv));
 	if(playertextid == DrawInv[playerid][39]) return RetirarItem(playerid, GetPVarInt(playerid, #VarSlotInv));
-	if(playertextid == HudCop[playerid][3])
-	{
-		PlayerTextDrawHide(playerid, CopGuns[playerid][0]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][1]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][2]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][3]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][4]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][5]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][0]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][1]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][2]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][3]);
-		CancelSelectTextDraw(playerid);
-	}
-	if(playertextid == CopGuns[playerid][5])
-	{
-		PlayerTextDrawHide(playerid, CopGuns[playerid][0]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][1]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][2]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][3]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][4]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][5]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][0]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][1]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][2]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][3]);
-		CancelSelectTextDraw(playerid);
-	}
-	if(playertextid == HudCop[playerid][0])
-	{
-		if(Patrulha[playerid] == false)
-		{
-			Patrulha[playerid] = true;
-			SuccesMsg(playerid, "Voce comecou seu servico como policial");
-			SalvarArmas(playerid);
-			ResetPlayerWeapons(playerid);
-			policiaon ++;
-			SetPlayerColor(playerid, 0x0012FFFF);
-			SetPlayerHealth(playerid, 100);
-		}
-		else
-		{
-			Patrulha[playerid] = false;
-			policiaon --;
-			SetPlayerHealth(playerid, 100);
-			SetPlayerArmour(playerid, 0);
-			ResetPlayerWeapons(playerid);
-			CarregarArmas(playerid);
-			SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
-			SuccesMsg(playerid, "Voce deixou seu servico como policial");
-			SetPlayerColor(playerid, 0xFFFFFFFF);
-			SetPlayerHealth(playerid, 100);
-		}
-		return 1;
-	}
-	if(playertextid == HudCop[playerid][1])
-	{
-		if(Patrulha[playerid] == false) 		return InfoMsg(playerid, "Nao esta em servico");
-		PlayerTextDrawShow(playerid, CopGuns[playerid][0]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][1]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][2]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][3]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][4]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][5]);
-		SelectTextDraw(playerid, 0xFF0000FF);
-	}
 	if(playertextid == CopGuns[playerid][0])
 	{
 		SetPlayerArmour(playerid, 100);
@@ -19986,8 +20115,57 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		RemovePlayerWeapon(playerid, 34);
 		GivePlayerWeapon(playerid, 34, 10);
 	}
-	if(playertextid == HudCop[playerid][2])
+	if(playertextid == CopGuns[playerid][5])
 	{
+		PlayerTextDrawHide(playerid, CopGuns[playerid][0]);
+		PlayerTextDrawHide(playerid, CopGuns[playerid][1]);
+		PlayerTextDrawHide(playerid, CopGuns[playerid][2]);
+		PlayerTextDrawHide(playerid, CopGuns[playerid][3]);
+		PlayerTextDrawHide(playerid, CopGuns[playerid][4]);
+		PlayerTextDrawHide(playerid, CopGuns[playerid][5]);
+		//CancelSelectTextDraw(playerid);
+	}
+	return 1;
+}
+
+public OnPlayerClickTextDraw(playerid, Text:clickedid)
+{
+	if(clickedid == TD_RG[23]){
+		for(new r=0;r<24;r++){
+			TextDrawHideForPlayer(playerid, TD_RG[r]);
+			if(r == 24)break;
+		}
+		for(new r=0;r<6;r++){
+			PlayerTextDrawHide(playerid, RG_p[playerid][r]);
+			if(r == 6)break;
+		}
+		MostrandoRG[playerid] = false;
+		CancelSelectTextDraw(playerid);
+	}
+	if(clickedid == HudCop[3]){ //batercartao
+		if(Patrulha[playerid] == false)
+		{
+			Patrulha[playerid] = true;
+			SuccesMsg(playerid, "Voce bateu cartao e iniciou expediente");
+			SalvarArmas(playerid);
+			ResetPlayerWeapons(playerid);
+			policiaon ++;
+			SetPlayerColor(playerid, 0x0012FFFF);
+			SetPlayerHealth(playerid, 100);
+		}
+		else
+		{
+			Patrulha[playerid] = false;
+			policiaon --;
+			SetPlayerArmour(playerid, 0);
+			ResetPlayerWeapons(playerid);
+			CarregarArmas(playerid);
+			SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
+			SuccesMsg(playerid, "Voce bateu cartao e finalizou expediente");
+			SetPlayerColor(playerid, 0xFFFFFFFF);
+		}
+	}
+	if(clickedid == HudCop[4]){ //uniformes
 		new Ropa[800];
 		if(Patrulha[playerid] == false) 		return InfoMsg(playerid, "Nao esta em servico");
 		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Militar 1\n");
@@ -20011,21 +20189,23 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		strcat(Ropa, "{FFFFFF}- {5b6ed9}Retirar Uniforme\n");
 		ShowPlayerDialog(playerid, DIALOG_ROPACOP, DIALOG_STYLE_LIST, "Fardamentos", Ropa, "Selecionar", "X");
 	}
-	return 1;
-}
-
-public OnPlayerClickTextDraw(playerid, Text:clickedid)
-{
-	if(clickedid == TD_RG[23]){
-		for(new r=0;r<24;r++){
-			TextDrawHideForPlayer(playerid, TD_RG[r]);
-			if(r == 24)break;
+	if(clickedid == HudCop[5]){ //divisao
+		ErrorMsg(playerid, "Sistema em desenvolvimento");
+	}
+	if(clickedid == HudCop[6]){ //equipamentos
+		if(Patrulha[playerid] == false) 		return InfoMsg(playerid, "Nao esta em servico");
+		PlayerTextDrawShow(playerid, CopGuns[playerid][0]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][1]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][2]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][3]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][4]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][5]);
+		SelectTextDraw(playerid, 0xFFFF00FF);
+	}
+	if(clickedid == HudCop[7]){ //fechar menu
+		for(new x=0;x<8;x++){
+			TextDrawHideForPlayer(playerid, HudCop[x]);
 		}
-		for(new r=0;r<6;r++){
-			PlayerTextDrawHide(playerid, RG_p[playerid][r]);
-			if(r == 6)break;
-		}
-		MostrandoRG[playerid] = false;
 		CancelSelectTextDraw(playerid);
 	}
 	if(clickedid == TDmorte[1]){
@@ -21607,6 +21787,8 @@ CMD:orgs(playerid)
 	new StringsG[10000],StringsG1[11000];
 	format(StringsG,sizeof(StringsG),"{4CBB17}1{FFFFFF} - Policia Militar: %s\n", DOF2_GetString("InfoOrg/1.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
+	format(StringsG,sizeof(StringsG),"{4CBB17}14{FFFFFF} - Policia Civil: %s\n", DOF2_GetString("InfoOrg/14.ini",VagasORG[0]));
+	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}2{FFFFFF} - Policia Rodoviaria: %s\n", DOF2_GetString("InfoOrg/2.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}3{FFFFFF} - ROTA: %s\n", DOF2_GetString("InfoOrg/3.ini",VagasORG[0]));
@@ -21640,6 +21822,7 @@ CMD:darlider(playerid,params[])
 	new id,org,String[500];
 	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params,"ii",id,org))return ErrorMsg(playerid,"/darlider [ID] [IDORG]");
+	if(org < 1 || org > 14)return ErrorMsg(playerid,"Apenas Organizacoes de id 1 ao 14");
 	foreach(Player,i)
   	{
 		if(pLogado[i] == true)
@@ -22229,7 +22412,7 @@ CMD:revistar(playerid, params[])
 	new str[64];
 	if(IsPolicial(playerid) || IsBandido(playerid))
 	{
-		if(sscanf(params, "d", ID))                        return ErrorMsg(playerid,"USE: /verinv [ID]");
+		if(sscanf(params, "d", ID))                        return ErrorMsg(playerid,"USE: /revistar [ID]");
 		foreach(Player,i)
 		{
 			if(pLogado[i] == true)
@@ -24795,6 +24978,22 @@ CMD:terminar(playerid, x_Emprego[])
 		}
 		return 1;
 	}
+
+CMD:ptcop(playerid){
+	if(IsPlayerInAnyVehicle(playerid)){
+		if(IsPolicial(playerid)){
+			if(PlayerInfo[playerid][Org] == 14){
+				if(IsPlayerInRangeOfPoint(playerid, 8.0, 1544.683227, -1630.695678, 13.072815)){
+					if(IsValidDynamicObject(cancelagr) && !IsDynamicObjectMoving(cancelagr)){
+						MoveDynamicObject(cancelagr, 1544.683227, -1630.695678, 13.072815-0.2,0.1, 0.000000, -90.799919+85.0, -90.799957);
+						SetTimer("FecharDpc",6000,false);
+					}
+				}	
+			}
+		}
+	}
+	return true;
+}
 
 CMD:abrircorreios(playerid)
 {
