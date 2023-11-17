@@ -19,12 +19,12 @@ new Progress_Info[MAX_PLAYERS][ProgressInfo], PlayerText:ProgressoBar[MAX_PLAYER
 
 #define CallProg::%0(%1) forward %0(%1); public %0(%1)
 
-#define DEFAULT_TIMER (100) // Melhor
+#define DEFAULT_TIMER (50) // Melhor
 
 #define Progresso:%0(%1,%2) \
 	forward Progress_%0(%1,Float:%2); public Progress_%0(%1,Float:%2)
 
-stock CreateProgress(playerid, callback[],title[], time = 100){
+stock CreateProgress(playerid, callback[],title[], time = 1000){
 	new string[128];
 	Progress_Info[playerid][p_percent] = 0;
 	Reloginho[playerid] = 0;
@@ -42,11 +42,12 @@ stock CreateProgress(playerid, callback[],title[], time = 100){
 
 CallProg:: UpdateProgress(playerid)
 {
-	if(Progress_Info[playerid][p_percent] >= 100.0){
-		KillProgress(playerid);
+	if(Progress_Info[playerid][p_percent] >= 100.0)
+	{
+		return KillProgress(playerid);
 	}
 	new string[80];
-	Progress_Info[playerid][p_percent]++; //(100 / Progress_Info[playerid][p_percent]); //
+	Progress_Info[playerid][p_percent] += 1; //(100 / Progress_Info[playerid][p_percent]); //
 	SetPlayerProgressBarValue(playerid, ProgressoBar_pp[playerid][0], Progress_Info[playerid][p_percent]); 
 	format(string, sizeof(string), "%.0f%", Progress_Info[playerid][p_percent]);
 	PlayerTextDrawSetString(playerid, ProgressoBar[playerid][7], string);
@@ -63,8 +64,7 @@ stock KillProgress(playerid)
 {
 	for(new i = 0; i < 14; i++)
 	{
-		PlayerTextDrawHide(playerid, ProgressoBar[playerid][i]);
-		if(i == 14) break;
+		PlayerTextDrawDestroy(playerid, ProgressoBar[playerid][i]);
 	}
 	DestroyPlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
 	format(Progress_Info[playerid][p_callback], 32, ""); 
@@ -276,7 +276,6 @@ stock CreateTDProgress(playerid)
 	for(new i = 0; i < 14; i++)
 	{
 		PlayerTextDrawShow(playerid, ProgressoBar[playerid][i]);
-		if(i == 14) break;
 	}
 	ShowPlayerProgressBar(playerid, ProgressoBar_pp[playerid][0]);
 	return 1;

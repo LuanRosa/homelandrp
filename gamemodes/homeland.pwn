@@ -23,6 +23,7 @@
 #include 		<	    crashdetect 	>
 #include 		<  	    sscanf2 		>
 #include 		<  	    streamer 		>
+#include 		<   textdraw-streamer	>
 #include 		< 		foreach 		>
 #include		<		Pawn.RakNet		>
 #include 		<		sampvoice 		>
@@ -33,7 +34,6 @@
 #include        <   	DOF2   			>
 #include        <   	ZCMD	   		>
 #include 		<	    mapfix		 	>
-#include 		< 		notify2	 		>
 #include 		< 		enterfix 		>
 #include		<		progress2		>
 #include		<		Fader			>
@@ -55,7 +55,7 @@ main()
 #define MAX_DEALERSHIPS 			100
 #define MAX_FUEL_STATIONS 			100
 #define MAX_PLAYER_VEHICLES 		10
-#define MAX_FREQUENCIAS				200
+#define MAX_FREQUENCIAS				9999
 new	UltimaFala[MAX_PLAYERS];
 #define MAX_SEGUNDOSFALAR  			2
 #define MAX_EASTER_EGGS         	46
@@ -149,7 +149,7 @@ new bool:Falou[MAX_PLAYERS] = false;
 
 enum
 {
-	DIALOG_LOGIN,
+ 	DIALOG_LOGIN,
 	DIALOG_REGISTRO,
 	DIALOG_EMAIL,
 	//DIALOG_SELIDADE,
@@ -178,10 +178,12 @@ enum
 	DIALOG_RG2,
 	DIALOG_RG3,
 	DIALOG_RG4,
+	DIALOG_QTDINV,
 	DIALOG_RG5,
 	DIALOG_EMP1,
 	DIALOG_EMP2,
 	DIALOG_EMP3,
+	DIALOG_ROPAMED,
 	DIALOG_EMP4,
 	DIALOG_EMP5,
 	DIALOG_CMDRG,
@@ -295,6 +297,32 @@ new GuerraBarragem = 0,
 	GuerraParabolica = 0;
 new Plataforma[MAX_PLAYERS];
 
+enum eItemBox
+{
+	ItemBoxIcon,
+	ItemBoxMessage[320],
+	ItemBoxJumlahMessage[200],
+	ItemBoxLoading,
+	ItemBoxSize
+}
+new InfoItemBox[MAX_PLAYERS][7][eItemBox];
+new MaxPlayerItemBox[MAX_PLAYERS];
+new PlayerText:TextDrawItemBox[MAX_PLAYERS][7*10];
+new IndexItemBox[MAX_PLAYERS];
+
+enum eNotify
+{
+	NotifyIcon,
+	NotifyMessage[320],
+	NotifySize
+}
+new InfoNotify[MAX_PLAYERS][7][eNotify];
+new MaxPlayerNotify[MAX_PLAYERS];
+new PlayerText:TextDrawNotifikasi[MAX_PLAYERS][7*10];
+new PlayerText:TextDrawNotifikasiLoding[MAX_PLAYERS][7*10];
+new IndexNotify[MAX_PLAYERS];
+new LoadingNotif[MAX_PLAYERS];
+
 enum pInfo
 {
 	pSenha[24],
@@ -343,7 +371,9 @@ enum pInfo
 	pMae[80],
 	pRG,
 	pCarteiraT,
-	PecasArma
+	PecasArma,
+	Float:pVida,
+	Float:pColete
 }
 new PlayerInfo[MAX_PLAYERS][pInfo];
 new FomePlayer[MAX_PLAYERS], SedePlayer[MAX_PLAYERS];
@@ -544,8 +574,9 @@ new Engine[MAX_PLAYERS], Lights[MAX_PLAYERS], Alarm[MAX_PLAYERS], DoorsLockPick[
 
 //                          BOOLS
 
-new bool:RotaMaconha[MAX_PLAYERS];
-new bool:RotaCocaina[MAX_PLAYERS];
+new bool:RotaMaconha[MAX_PLAYERS] = false;
+new bool:RotaCocaina[MAX_PLAYERS] = false;
+new bool:RotaPecas[MAX_PLAYERS] = false;
 new UltimaPos[MAX_PLAYERS] = 0;
 new	bool:AntiAFK_Ativado = true,
 	bool:Moved[MAX_PLAYERS] = false,
@@ -560,24 +591,28 @@ new bool:GPS[MAX_PLAYERS] = false;
 new bool:UsouCMD[MAX_PLAYERS] = false;
 new bool:Patrulha[MAX_PLAYERS] = false;
 new policiaon = 0;
+new medicoon = 0;
+new bool:deitadomaca[MAX_PLAYERS] = false;
+new bool:paramedico[MAX_PLAYERS] = false;
 new bool:PegouMaterial[MAX_PLAYERS] = false;
 new bool:LavouMao[MAX_PLAYERS] = false;
 new bool:PegouLixo[MAX_PLAYERS] = false;
 new bool:Podecmd[MAX_PLAYERS] = true;
 new bool:MostrandoRG[MAX_PLAYERS] = false;
+
 //                          TEXTDRAWS
 
 new PlayerText:BancoTD[MAX_PLAYERS][34];
 new Text:gServerTextdraws;
 static PlayerText:XPTXD[MAX_PLAYERS][20];
 new	PlayerText:Textdraw2[MAX_PLAYERS];
-new Text:HudCop[8];
+new PlayerText:HudCop[MAX_PLAYERS][4];
 new PlayerText:CopGuns[MAX_PLAYERS][6];
 new Text:Textdraw0,
 	Text:Textdraw1;
 new Text:HudServer[17];
 new PlayerText:HudServer_p[MAX_PLAYERS][7];
-new PlayerText:Registration_PTD[MAX_PLAYERS][23];
+new PlayerText:Registration_PTD[MAX_PLAYERS][27];
 new Text:TDCadastro[18];
 new PlayerText:TDCadastro_p[MAX_PLAYERS][7];
 
@@ -643,13 +678,14 @@ new TimerMensagemAuto;
 
 //                          VARIAVEIS SEM COMENT
 
+new qtdinv[MAX_PLAYERS] = 0;
 new Float:PosV[3];
-new Armazenar[MAX_PLAYERS];
+new Armazenar[MAX_PLAYERS] = 0;
 new chosenpid;
-new ChatAtendimento[MAX_PLAYERS];
-new NumeroChatAtendimento[MAX_PLAYERS];
-new IDAvaliou[MAX_PLAYERS];
-new InviteAtt[MAX_PLAYERS];
+new ChatAtendimento[MAX_PLAYERS] = 0;
+new NumeroChatAtendimento[MAX_PLAYERS] = 0;
+new IDAvaliou[MAX_PLAYERS] = 0;
+new InviteAtt[MAX_PLAYERS] = 0;
 new ArmazenarString[30][MAX_PLAYERS];
 new stringZCMD[180];
 new ModoTransacao[MAX_PLAYERS];
@@ -689,16 +725,20 @@ new Page[MAX_PLAYERS];
 new Preview[MAX_PLAYERS][6];
 new ObjetoAcougue[MAX_PLAYERS][3];
 new actorcad[MAX_PLAYERS];
+
 // velocimetro //
+
 new TimerVelo[MAX_PLAYERS];
 new mostrandovelo[MAX_PLAYERS];
 new Text:VeloC_G[52];
 new PlayerText:VeloC[MAX_PLAYERS][10];
 
 //TdCinto
+
 new Text:Tdcinto[5];
 
 //Tela de carregamento
+
 new CarregandoTelaLogin[MAX_PLAYERS];
 new TimerLogin[MAX_PLAYERS];
 new Text:Loadsc[2];
@@ -1134,13 +1174,25 @@ new Float:PosRota[303+120][4] =
     {2313.880371, -124.964256, 28.153551}//rota
 };
 
-new Float:Entradas[5][3] =
+new Float:Entradas[4][3] =
 {
 	{2333.359130, -1883.562255, 15.000000},//Mercado Negro
 	{1481.094482, -1772.313720, 18.795755},//Prefeitura
 	{649.302062, -1357.399658, 13.567605},//San News
-	{1554.6508,-1675.6040,16.1953},//DPCESP GERAL
 	{2501.888916, -1494.696533, 24.000000}//AÇOUGUE
+};
+
+new Float:Macas[9][4] =
+{
+	{1618.008056, -1139.449096, 23.831556, 3.063754},//maca
+	{1617.883789, -1136.606445, 23.776670, 350.887390},//maca
+	{1617.909301, -1133.753540, 23.776670, 8.838689},//maca
+	{1617.720336, -1128.654663, 23.831556, 357.130371},//maca
+	{1613.008666, -1128.427612, 23.788022, 169.583480},//maca
+	{1612.854248, -1131.240600, 23.788022, 172.451522},//maca
+	{1612.961181, -1133.778076, 23.788022, 172.111297},//maca
+	{1612.930175, -1136.336425, 23.788022, 165.496246},//maca
+	{1612.933471, -1139.002319, 23.788022, 169.587600}//maca
 };
 
 new Float:AutoEscolaPosicao[13][3] =
@@ -1223,13 +1275,14 @@ new Float:PosDesossa[8][4] =
 
 new EtapasMinerador[MAX_PLAYERS];
 
-new Float:PosEquipar[5][4] =
+new Float:PosEquipar[6][4] =
 {
 	{-2010.984252, -999.047912, 37.254680},//Policia Militar
 	{-2454.447998, 503.778869, 30.079460},//ROTA
 	{1628.541625, -251.347473, 49.000457},//PRF
-	{-1253.534545, 2712.009521, 55.174671},//BAEP
-	{315.5868,1834.4128,2241.5850}//Policia Civil
+	{662.440917, -1493.710083, 20.962295},//Policia Civil
+	{1615.845581, -1121.153076, 24.058269},//Hospital
+	{-1253.534545, 2712.009521, 55.174671}//BAEP
 };
 
 new Float:PosVeiculos[11][4] =
@@ -1243,8 +1296,8 @@ new Float:PosVeiculos[11][4] =
 	{590.086975, 871.486694, -42.734603},//Minerador
 	{2010.767089, -1771.265380, 13.543199},//Mecanica
 	{-1278.216552, 2711.282714, 50.132141},//BAEP
-	{981.7181, 1733.6261, 8.6484},//Correios
-	{1578.4696,-1712.2008,5.8906}//Policia Civil
+	{667.180053, -1457.288818, 15.439465},//Policia Civil
+	{981.7181, 1733.6261, 8.6484}//Correios
 };
 new VehAlugado[MAX_PLAYERS];
 new VeiculoCivil[MAX_PLAYERS];
@@ -1694,14 +1747,692 @@ new RandomMSG[][] =
 };
 
 //                          PUBLICS
-new mapsdxzx[2],cancelagr;
+new mapsdxzx[2];
+
+CallBack::HideItemBox(playerid)
+{
+	if(!IndexItemBox[playerid]) return 1;
+	--IndexItemBox[playerid];
+	MaxPlayerItemBox[playerid]--;
+	for(new i=-1;++i<10;) PlayerTextDrawDestroy(playerid, TextDrawItemBox[playerid][(IndexItemBox[playerid]*10)+i]);
+	return 1;
+}
+
+stock ShowItemBox(playerid, string[], total[], model, time)
+{
+	if(MaxPlayerItemBox[playerid] == 5) return 1;
+	MaxPlayerItemBox[playerid]++;
+	new validtime = time*1000;
+	for(new x=-1; ++x <IndexItemBox[playerid];)
+	{
+		for(new i=-1;++i<9;) PlayerTextDrawDestroy(playerid, TextDrawItemBox[playerid][(x*10) + i]);
+		InfoItemBox[playerid][IndexItemBox[playerid]-x] = InfoItemBox[playerid][(IndexItemBox[playerid]-x)-1];
+	}
+    PlayerPlaySound(playerid, 1150, 0.0, 0.0, 0.0);
+	format(InfoItemBox[playerid][0][ItemBoxMessage], 320, "%s", string);
+	format(InfoItemBox[playerid][0][ItemBoxJumlahMessage], 200, "%s", total);
+	InfoItemBox[playerid][0][ItemBoxIcon] = model;
+
+	++IndexItemBox[playerid];
+	new Float:new_x=0.0;
+	for(new x=-1;++x<IndexItemBox[playerid];)
+	{
+		CreateItemBox(playerid, x, x * 10, new_x);
+		new_x += (InfoItemBox[playerid][x][ItemBoxSize]*7.25)+55.0;
+	}
+	SetTimerEx("HideItemBox", validtime, false, "d", playerid);
+	return 1;
+}
+
+stock CreateItemBox(const playerid, index, i, const Float:new_x)
+{
+	new lines = InfoItemBox[playerid][index][ItemBoxSize];
+	new Float:x = (lines * 10) + new_x;
+	new Float:posisibaru = x-14.0;
+
+	TextDrawItemBox[playerid][i] = CreatePlayerTextDraw(playerid, 1000.000000+posisibaru, 108.500000, "");
+	PlayerTextDrawFont(playerid, TextDrawItemBox[playerid][i], 1);
+	PlayerTextDrawLetterSize(playerid, TextDrawItemBox[playerid][i], 0.425000, 1.400000);
+	PlayerTextDrawTextSize(playerid, TextDrawItemBox[playerid][i], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawSetShadow(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawAlignment(playerid, TextDrawItemBox[playerid][i], 1);
+	PlayerTextDrawColor(playerid, TextDrawItemBox[playerid][i], -1);
+	PlayerTextDrawBackgroundColor(playerid, TextDrawItemBox[playerid][i], 255);
+	PlayerTextDrawBoxColor(playerid, TextDrawItemBox[playerid][i], 50);
+	PlayerTextDrawUseBox(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawSetProportional(playerid, TextDrawItemBox[playerid][i], 1);
+	PlayerTextDrawSetSelectable(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawShow(playerid, TextDrawItemBox[playerid][i]);
+
+	TextDrawItemBox[playerid][++i] = CreatePlayerTextDraw(playerid, 339.000+posisibaru, 322.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, TextDrawItemBox[playerid][i], 52.000, 68.000);
+	PlayerTextDrawAlignment(playerid, TextDrawItemBox[playerid][i], 1);
+	PlayerTextDrawColor(playerid, TextDrawItemBox[playerid][i], 859394047);
+	PlayerTextDrawSetShadow(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawSetOutline(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawBackgroundColor(playerid, TextDrawItemBox[playerid][i], 255);
+	PlayerTextDrawFont(playerid, TextDrawItemBox[playerid][i], 4);
+	PlayerTextDrawSetProportional(playerid, TextDrawItemBox[playerid][i], 1);
+	PlayerTextDrawShow(playerid, TextDrawItemBox[playerid][i]);
+
+	TextDrawItemBox[playerid][++i] = CreatePlayerTextDraw(playerid, 343.000+posisibaru, 331.000, "_");
+	PlayerTextDrawTextSize(playerid, TextDrawItemBox[playerid][i], 44.000, 49.000);
+	PlayerTextDrawAlignment(playerid, TextDrawItemBox[playerid][i], 1);
+	PlayerTextDrawColor(playerid, TextDrawItemBox[playerid][i], -1);
+	PlayerTextDrawSetShadow(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawSetOutline(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawBackgroundColor(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawFont(playerid, TextDrawItemBox[playerid][i], 5);
+	PlayerTextDrawSetProportional(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawSetPreviewModel(playerid, TextDrawItemBox[playerid][i], InfoItemBox[playerid][index][ItemBoxIcon]);
+	PlayerTextDrawSetPreviewRot(playerid, TextDrawItemBox[playerid][i], 0.000, 0.000, 0.000, 1.000);
+	PlayerTextDrawSetPreviewVehCol(playerid, TextDrawItemBox[playerid][i], 0, 0);
+	PlayerTextDrawShow(playerid, TextDrawItemBox[playerid][i]);
+
+	TextDrawItemBox[playerid][++i] = CreatePlayerTextDraw(playerid, 340.000+posisibaru, 322.000, InfoItemBox[playerid][index][ItemBoxJumlahMessage]);
+	PlayerTextDrawLetterSize(playerid, TextDrawItemBox[playerid][i], 0.129, 0.999);
+	PlayerTextDrawAlignment(playerid, TextDrawItemBox[playerid][i], 1);
+	PlayerTextDrawColor(playerid, TextDrawItemBox[playerid][i], -1);
+	PlayerTextDrawSetShadow(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawSetOutline(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawBackgroundColor(playerid, TextDrawItemBox[playerid][i], 150);
+	PlayerTextDrawFont(playerid, TextDrawItemBox[playerid][i], 1);
+	PlayerTextDrawSetProportional(playerid, TextDrawItemBox[playerid][i], 1);
+	PlayerTextDrawShow(playerid, TextDrawItemBox[playerid][i]);
+
+	TextDrawItemBox[playerid][++i] = CreatePlayerTextDraw(playerid, 366.000+posisibaru, 374.000, InfoItemBox[playerid][index][ItemBoxMessage]);
+	PlayerTextDrawLetterSize(playerid, TextDrawItemBox[playerid][i], 0.129, 0.999);
+	PlayerTextDrawAlignment(playerid, TextDrawItemBox[playerid][i], 2);
+	PlayerTextDrawColor(playerid, TextDrawItemBox[playerid][i], -1);
+	PlayerTextDrawSetShadow(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawSetOutline(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawBackgroundColor(playerid, TextDrawItemBox[playerid][i], 150);
+	PlayerTextDrawFont(playerid, TextDrawItemBox[playerid][i], 1);
+	PlayerTextDrawSetProportional(playerid, TextDrawItemBox[playerid][i], 1);
+	PlayerTextDrawShow(playerid, TextDrawItemBox[playerid][i]);
+
+	TextDrawItemBox[playerid][++i] = CreatePlayerTextDraw(playerid, 339.000+posisibaru, 388.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, TextDrawItemBox[playerid][i], 52.000, 3.000);
+	PlayerTextDrawAlignment(playerid, TextDrawItemBox[playerid][i], 1);
+	PlayerTextDrawColor(playerid, TextDrawItemBox[playerid][i], 1756666111);
+	PlayerTextDrawSetShadow(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawSetOutline(playerid, TextDrawItemBox[playerid][i], 0);
+	PlayerTextDrawBackgroundColor(playerid, TextDrawItemBox[playerid][i], 255);
+	PlayerTextDrawFont(playerid, TextDrawItemBox[playerid][i], 4);
+	PlayerTextDrawSetProportional(playerid, TextDrawItemBox[playerid][i], 1);
+	PlayerTextDrawShow(playerid, TextDrawItemBox[playerid][i]);
+	return true;
+}
+
+CallBack::HideNotify(playerid)
+{
+	if(!IndexNotify[playerid]) return 1;
+	--IndexNotify[playerid];
+	MaxPlayerNotify[playerid]--;
+	for(new i=-1;++i<10;) PlayerTextDrawDestroy(playerid, TextDrawNotifikasi[playerid][(IndexNotify[playerid]*10)+i]);
+	for(new i=-1;++i<10;) PlayerTextDrawDestroy(playerid, TextDrawNotifikasiLoding[playerid][(IndexNotify[playerid]*10)+i]);
+	return 1;
+}
+CallBack::NotifyLoadingUpdet(playerid)
+{
+	if(!IndexNotify[playerid]) return 1;
+	for(new x=-1; ++x <IndexNotify[playerid];)
+	{
+		new Float:Value = LoadingNotif[playerid] * 109/110;
+		for(new i=-1;++i<9;) PlayerTextDrawTextSize(playerid, TextDrawNotifikasiLoding[playerid][(x*10)+i], Value, -3.0);
+		for(new i=-1;++i<9;) PlayerTextDrawShow(playerid, TextDrawNotifikasiLoding[playerid][(x*10)+i]);
+	}
+	return 1;
+}
+CallBack::NotifyLoading(playerid)
+{
+    for(new x=-1; ++x <IndexNotify[playerid];)
+	{
+	    LoadingNotif[x] -= 10;
+		NotifyLoadingUpdet(x);
+		if(LoadingNotif[x] <= 5)
+		{
+			LoadingNotif[x] = 109;
+		}
+	}
+	return 1;
+}
+stock InfoMsg(playerid, pesan[])
+{
+  	if(IsPlayerMobile(playerid))
+	{
+		PlayerPlaySound(playerid, 1057, 0.0, 0.0, 0.0);
+	}
+	else
+	{
+		PlayerPlaySound(playerid, 5201, 0.0, 0.0, 0.0);
+  	}
+  	ShowNotify(playerid, pesan, 1);
+  	return 1;
+}
+stock ErrorMsg(playerid, pesan[])
+{
+  	if(IsPlayerMobile(playerid))
+	{
+		PlayerPlaySound(playerid, 1085, 0.0, 0.0, 0.0);
+	}
+	else
+	{
+		PlayerPlaySound(playerid, 5206, 0.0, 0.0, 0.0);
+	}
+ 	ShowNotify(playerid, pesan, 2);
+ 	return 1;
+}
+stock SuccesMsg(playerid, pesan[])
+{
+	if(IsPlayerMobile(playerid))
+	{
+		PlayerPlaySound(playerid, 1057, 0.0, 0.0, 0.0);
+	}
+	else
+	{
+		PlayerPlaySound(playerid, 5203, 0.0, 0.0, 0.0);
+	}
+  	ShowNotify(playerid, pesan, 3);
+  	LoadingNotif[playerid] = 109;
+  	return 1;
+}
+stock AvMsg(playerid, pesan[])
+{
+  	if(IsPlayerMobile(playerid))
+	{
+		PlayerPlaySound(playerid, 1057, 0.0, 0.0, 0.0);
+	}
+	else
+	{
+		PlayerPlaySound(playerid, 5202, 0.0, 0.0, 0.0);
+	}
+  	ShowNotify(playerid, pesan, 4);
+  	return 1;
+}
+
+stock WarningMsg(playerid, pesan[])
+{
+  	if(IsPlayerMobile(playerid))
+	{
+		PlayerPlaySound(playerid, 1057, 0.0, 0.0, 0.0);
+	}
+	else
+	{
+		PlayerPlaySound(playerid, 5202, 0.0, 0.0, 0.0);
+	}
+  	ShowNotify(playerid, pesan, 5);
+  	return 1;
+}
+
+stock ShowNotify(const playerid, const string:message[], const icon)
+{
+	if(MaxPlayerNotify[playerid] == 5) return 1;
+	MaxPlayerNotify[playerid]++;
+	for(new x=-1; ++x <IndexNotify[playerid];)
+	{
+		for(new i=-1;++i<9;) PlayerTextDrawDestroy(playerid, TextDrawNotifikasi[playerid][(x*10) + i]);
+		for(new i=-1;++i<9;) PlayerTextDrawDestroy(playerid, TextDrawNotifikasiLoding[playerid][(x*10) + i]);
+		InfoNotify[playerid][IndexNotify[playerid]-x] = InfoNotify[playerid][(IndexNotify[playerid]-x)-1];
+	}
+	format(InfoNotify[playerid][0][NotifyMessage], 320, "%s", message);
+	InfoNotify[playerid][0][NotifyIcon] = icon;
+	InfoNotify[playerid][0][NotifySize] = 3;
+	++IndexNotify[playerid];
+	new Float:new_x=0.0;
+	for(new x=-1;++x<IndexNotify[playerid];)
+	{
+		CreateNotify(playerid, x, x * 10, new_x);
+		new_x += (InfoNotify[playerid][x][NotifySize]*7.25)+15.0;
+	}
+	SetTimerEx("HideNotify", 10000, false, "d", playerid);
+	return 1;
+}
+
+stock CreateNotify(const playerid, index, i, const Float:new_x)
+{
+	new lines = InfoNotify[playerid][index][NotifySize];
+	new Float:x = (lines * 10) + new_x;
+	new Float:posisibaru = x-1.0;
+	if(InfoNotify[playerid][index][NotifyIcon] == 1)
+	{
+		TextDrawNotifikasi[playerid][i] = CreatePlayerTextDraw(playerid, 1000.000000, 108.500000+posisibaru, "");
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.425000, 1.400000);
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 400.000000, 17.000000);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawBoxColor(playerid, TextDrawNotifikasi[playerid][i], 50);
+		PlayerTextDrawUseBox(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetSelectable(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 520.000, 116.000+posisibaru, "LD_SPAC:white");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 109.000, 35.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], 893010175);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 520.000, 116.000+posisibaru, "LD_SPAC:white");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 109.000, -3.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], 1687547391);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 518.000, 116.000+posisibaru, "LD_BEAT:chit");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 16.000, 16.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 525.000, 119.000+posisibaru, "i");
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.220, 1.099);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], 1687547391);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 150);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "INFORMATION");
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.158, 1.098);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 150);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 521.000, 129.000+posisibaru, InfoNotify[playerid][index][NotifyMessage]);
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.150, 0.699);
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 633.500, 494.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+	}
+	if(InfoNotify[playerid][index][NotifyIcon] == 2)
+	{
+		TextDrawNotifikasi[playerid][i] = CreatePlayerTextDraw(playerid, 1000.000000, 108.500000+posisibaru, "");
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.425000, 1.400000);
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 400.000000, 17.000000);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawBoxColor(playerid, TextDrawNotifikasi[playerid][i], 50);
+		PlayerTextDrawUseBox(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetSelectable(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 520.000, 116.000+posisibaru, "LD_SPAC:white");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 109.000, 35.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], 893010175);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 520.000, 116.000+posisibaru, "LD_SPAC:white");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 109.000, -3.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1962934017);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 518.000, 116.000+posisibaru, "LD_BEAT:chit");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 16.000, 16.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 523.400, 119.000+posisibaru, "X");
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.220, 1.099);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1962934017);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 150);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "ERRO");
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.158, 1.098);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 150);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 521.000, 129.000+posisibaru, InfoNotify[playerid][index][NotifyMessage]);
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.150, 0.699);
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 633.500, 494.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+	}
+	if(InfoNotify[playerid][index][NotifyIcon] == 3)
+	{
+		TextDrawNotifikasi[playerid][i] = CreatePlayerTextDraw(playerid, 1000.000000, 108.500000+posisibaru, "");
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.425000, 1.400000);
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 400.000000, 17.000000);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawBoxColor(playerid, TextDrawNotifikasi[playerid][i], 50);
+		PlayerTextDrawUseBox(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetSelectable(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 520.000, 116.000+posisibaru, "LD_SPAC:white");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 109.000, 35.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], 893010175);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasiLoding[playerid][++i] = CreatePlayerTextDraw(playerid, 520.000, 116.000+posisibaru, "LD_SPAC:white");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasiLoding[playerid][i], 109.000, -3.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasiLoding[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasiLoding[playerid][i], 1689621759);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasiLoding[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasiLoding[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasiLoding[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasiLoding[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasiLoding[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasiLoding[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 518.000, 116.000+posisibaru, "LD_BEAT:chit");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 16.000, 16.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 525.000, 120.000+posisibaru, "/");
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.200, 0.799);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], 16711935);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 150);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 526.000, 123.000+posisibaru, "/");
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], -0.136, 0.398);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], 16711935);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 150);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "SUCCESS");
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.158, 1.098);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 150);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 521.000, 129.000+posisibaru, InfoNotify[playerid][index][NotifyMessage]);
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.150, 0.699);
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 633.500, 494.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+	}
+	if(InfoNotify[playerid][index][NotifyIcon] == 4)
+	{
+		TextDrawNotifikasi[playerid][i] = CreatePlayerTextDraw(playerid, 1000.000000, 108.500000+posisibaru, "");
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.425000, 1.400000);
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 400.000000, 17.000000);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawBoxColor(playerid, TextDrawNotifikasi[playerid][i], 50);
+		PlayerTextDrawUseBox(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetSelectable(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 520.000, 116.000+posisibaru, "LD_SPAC:white");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 109.000, 35.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], 893010175);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 520.000, 116.000+posisibaru, "LD_SPAC:white");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 109.000, -3.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], 1687547391);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 518.000, 116.000+posisibaru, "LD_BEAT:chit");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 16.000, 16.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 525.000, 119.000+posisibaru, "i");
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.220, 1.099);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], 1687547391);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 150);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "ANUNCIO");
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.158, 1.098);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 150);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 521.000, 129.000+posisibaru, InfoNotify[playerid][index][NotifyMessage]);
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.150, 0.699);
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 633.500, 494.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+	}
+	if(InfoNotify[playerid][index][NotifyIcon] == 5)
+	{
+		TextDrawNotifikasi[playerid][i] = CreatePlayerTextDraw(playerid, 1000.000000, 108.500000+posisibaru, "");
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.425000, 1.400000);
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 400.000000, 17.000000);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawBoxColor(playerid, TextDrawNotifikasi[playerid][i], 50);
+		PlayerTextDrawUseBox(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetSelectable(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 520.000, 116.000+posisibaru, "LD_SPAC:white");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 109.000, 35.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], 893010175);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 520.000, 116.000+posisibaru, "LD_SPAC:white");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 109.000, -3.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], 1687547391);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 518.000, 116.000+posisibaru, "LD_BEAT:chit");
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 16.000, 16.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 4);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 525.000, 119.000+posisibaru, "i");
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.220, 1.099);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], 1687547391);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 150);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 533.000, 119.000+posisibaru, "COPOM");
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.158, 1.098);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 150);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+
+		TextDrawNotifikasi[playerid][++i] = CreatePlayerTextDraw(playerid, 521.000, 129.000+posisibaru, InfoNotify[playerid][index][NotifyMessage]);
+		PlayerTextDrawLetterSize(playerid, TextDrawNotifikasi[playerid][i], 0.150, 0.699);
+		PlayerTextDrawTextSize(playerid, TextDrawNotifikasi[playerid][i], 633.500, 494.000);
+		PlayerTextDrawAlignment(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawColor(playerid, TextDrawNotifikasi[playerid][i], -1);
+		PlayerTextDrawSetShadow(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawSetOutline(playerid, TextDrawNotifikasi[playerid][i], 0);
+		PlayerTextDrawBackgroundColor(playerid, TextDrawNotifikasi[playerid][i], 255);
+		PlayerTextDrawFont(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawSetProportional(playerid, TextDrawNotifikasi[playerid][i], 1);
+		PlayerTextDrawShow(playerid, TextDrawNotifikasi[playerid][i]);
+	}
+	return true;
+}
+
 CallBack::FecharCorreios()
 {
 	MoveDynamicObject(mapsdxzx[0], 998.093994, 1755.689941, 11.265600,2.0);
-}
-CallBack::FecharDpc()
-{
-	MoveDynamicObject(cancelagr, 1544.683227, -1630.695678, 13.072815,0.1, 0.000000, -90.799919, -90.799957);
 }
 
 CallBack::FecharCorreios2()
@@ -1712,6 +2443,23 @@ CallBack::FecharCorreios2()
 CallBack::FecharNiobio()
 {
 	MoveDynamicObject(PortaNiobio, 276.480712, 1863.992553, 9.157816,2.0);
+}
+
+CallBack::RecuperarHP(playerid)
+{
+	new Float:health;
+    	GetPlayerHealth(playerid,health);
+	if(health > 99)
+	{
+		ClearAnimations(playerid);
+		TogglePlayerControllable(playerid, 1);
+	}
+	else
+	{
+		SetPlayerHealth(playerid, health+10);
+		SetTimerEx("RecuperarHP",5000,false,"i",playerid);
+	}
+	return 1;
 }
 
 CallBack:: EstaSegurandoArmaProibida(playerid)
@@ -1907,7 +2655,7 @@ CallBack::ColocandoCaixa(playerid, progress){
 
 CallBack::AChatAtendimento(COLOR,const string[],level)
 {
-	foreach(new i: Player)
+	foreach(new i : Player)
 	{
 		if(IsPlayerConnected(i))
 		{
@@ -1925,10 +2673,10 @@ CallBack::AChatAtendimento(COLOR,const string[],level)
 
 CallBack::TxdLogin(playerid)
 {
-	for(new i = 0; i < 23; ++i)
+	for(new i = 0; i < 27; ++i)
 	{
 		PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
-		if(i == 23)break;
+		if(i == 27)break;
 	}
 	for(new i = 0; i < 7; i ++)
 	{
@@ -1945,212 +2693,6 @@ CallBack::TxdLogin(playerid)
 		TextDrawShowForPlayer(playerid, LogoHM[i]);
 		if(i == 3)break;
 	}
-}
-//------------- Sistema de Easter Eggs ------------------
-enum eastE{
-
-    eaDescricao [50],
-    bool:		eaDescoberto,
-	Float:		eaX,
-	Float:		eaY,
-	Float:		eaZ,
-	Float:      eaRange,
-	Text3D:     eaText,
-
-	eaNick		[MAX_PLAYER_NAME],
-};
-new EEInfo[MAX_EASTER_EGGS][eastE];
-
-stock createEE(eeid, descricao[], modelid, Float:range, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz){
-
-	static
-		Str2[98]
-	;
-
-    EEInfo[eeid][eaX]                       = x;
-    EEInfo[eeid][eaY]                       = y;
-    EEInfo[eeid][eaZ]                       = z;
-    EEInfo[eeid][eaRange]                   = range;
-
-	EEInfo[eeid][eaDescoberto] 				= false;
-	format(EEInfo[eeid][eaNick], 24, 		"Ninguem");
-	format(EEInfo[eeid][eaDescricao], 50, 	descricao);
-
-	CreateDynamicObject(modelid, x, y, z, rx, ry, rz);
-
-	format(Str2, sizeof Str2, "''%s''{FFFFFF}\nDescoberto por %s", EEInfo[eeid][eaDescricao], EEInfo[eeid][eaNick]);
-	EEInfo[eeid][eaText] = CreateDynamic3DTextLabel(Str2, 0xFFA500AA, x, y, z, EEInfo[eeid][eaRange]);
-}
-
-stock loadEE(){
-
-	static
-	    string[70],
-	    Str2[79]
-	;
-
-	for(new e; e != MAX_EASTER_EGGS; e++){
-
-	    format(string, sizeof string, "%d_descoberto", e);
-        EEInfo[e][eaDescoberto] = DOF2_GetBool(Pasta_Eastereggs, string);
-	    format(string, sizeof string, "%d_nick", e);
-        format(EEInfo[e][eaNick], 24, DOF2_GetString(Pasta_Eastereggs, string));
-
-        if(strlen(EEInfo[e][eaNick]) < 2){
-
-            format(EEInfo[e][eaNick], 24, "Ninguem");
-        }
-
-        if(EEInfo[e][eaDescoberto]){
-
-            DestroyDynamic3DTextLabel(EEInfo[e][eaText]);
-			format(Str2, sizeof Str2, "''%s''{FFFFFF}\nDescoberto por %s", EEInfo[e][eaDescricao], EEInfo[e][eaNick]);
-			EEInfo[e][eaText] = CreateDynamic3DTextLabel(Str2, 0xFFA500AA, EEInfo[e][eaX], EEInfo[e][eaY], EEInfo[e][eaZ], EEInfo[e][eaRange]);
-        }
-	}
-}
-
-saveEE(){
-
-	static
-	        string[70]
-	;
-
-	if(!DOF2_FileExists(Pasta_Eastereggs))DOF2_CreateFile(Pasta_Eastereggs);
-
-	for(new e; e != MAX_EASTER_EGGS; e++){
-
-	    format(string, sizeof string, "%d_descoberto", e);
-     	DOF2_SetBool(Pasta_Eastereggs, string, EEInfo[e][eaDescoberto]);
-	    format(string, sizeof string, "%d_nick", e);
-        DOF2_SetString(Pasta_Eastereggs, string, EEInfo[e][eaNick]);
-	}
-	DOF2_SaveFile();
-}
-
-descobrirEE(playerid, eeid){
-
-	static string[1000];
-	new kaka = randomEx(0,10);
-	if(kaka == 6)
-	{
-		PlayerInfo[playerid][pCoins] += 3000;
-		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou 3mil coins!", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
-		SendClientMessageToAll(0xFFFF99FF, string);
-	}
-	if(kaka == 5)
-	{
-		PlayerInfo[playerid][pCoins] += 6000;
-		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou 6mil coins!", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
-		SendClientMessageToAll(0xFFFF99FF, string);
-	}
-	if(kaka == 4)
-	{
-		PlayerInfo[playerid][pDinheiro] += 3000;
-		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou 3mil reais!", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
-		SendClientMessageToAll(0xFFFF99FF, string);
-	}
-	if(kaka == 3)
-	{
-		PlayerInfo[playerid][pDinheiro] += 6000;
-		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou 6mil reais!", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
-		SendClientMessageToAll(0xFFFF99FF, string);
-	}
-	if(kaka == 8)
-	{
-		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(10);
-		PlayerInfo[playerid][pVIP] = 1;
-
-		SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
-		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou 10d de VIP CLASSIC", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
-		SendClientMessageToAll(0xFFFF99FF, string);
-	}
-	if(kaka == 9)
-	{
-		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30);
-		PlayerInfo[playerid][pVIP] = 1;
-		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou 10d de VIP CLASSIC!", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
-		SendClientMessageToAll(0xFFFF99FF, string);
-	}
-	if(kaka == 0)
-	{
-		GanharItem(playerid, 560, 1);
-		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou um SULTAN de inventario!", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
-		SendClientMessageToAll(0xFFFF99FF, string);
-	}
-	if(kaka == 10)
-	{
-		GanharItem(playerid, 434, 1);
-		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou um HOTKNIFE de inventario!", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
-		SendClientMessageToAll(0xFFFF99FF, string);
-	}
-	if(kaka == 1)
-	{
-		new daysvip = randomEx(3,30);
-		PlayerInfo[playerid][ExpiraVIP] = ConvertDays(daysvip);
-		PlayerInfo[playerid][pVIP] = 1;
-		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou VIP CLASSIC !", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
-		SendClientMessageToAll(0xFFFF99FF, string);
-	}
-	if(kaka == 7)
-	{
-		new qds = randomEx(1000, 50000);
-		GanharItem(playerid, 1212, qds);
-		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou dinheiro sujo!", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
-		SendClientMessageToAll(0xFFFF99FF, string);
-	}
-	if(kaka == 2)
-	{
-		new qds = randomEx(1000, 10000);
-		GanharItem(playerid, 1212, qds);
-		format(string, sizeof string, "%04d acaba de descobrir ''%s'' ganhou dinheiro sujo!", PlayerInfo[playerid][IDF], EEInfo[eeid][eaDescricao]);
-		SendClientMessageToAll(0xFFFF99FF, string);
-	}
-	EEInfo[eeid][eaDescoberto] = true;
-	format(EEInfo[eeid][eaNick], 24, Name(playerid));
-	DestroyDynamic3DTextLabel(EEInfo[eeid][eaText]);
-	format(string, sizeof string, "''%s''{FFFFFF}\nDescoberto por %s", EEInfo[eeid][eaDescricao], EEInfo[eeid][eaNick]);
-	EEInfo[eeid][eaText] = CreateDynamic3DTextLabel(string, 0xFFA500AA, EEInfo[eeid][eaX], EEInfo[eeid][eaY], EEInfo[eeid][eaZ], EEInfo[eeid][eaRange]);
-	saveEE();
-}
-
-checkEE(playerid){
-
-	for(new e; e != MAX_EASTER_EGGS; e++){
-
-	    if(IsPlayerInRangeOfPoint(playerid, EEInfo[e][eaRange], EEInfo[e][eaX], EEInfo[e][eaY], EEInfo[e][eaZ]) && !EEInfo[e][eaDescoberto]){
-
-	        descobrirEE(playerid, e);
-	    }
-	}
-
-	return 0;
-}
-
-CMD:EVENTO(playerid){
-
-	MEGAString[0] = EOS;
-
-	static
-		Str2[128]
-	;
-    strcat(MEGAString, "WELLCOME EVENT\tQuem descobriu\n");
-	for(new e; e != MAX_EASTER_EGGS; e++){
-
-	    if(EEInfo[e][eaDescoberto]){
-
-	    	format(Str2, sizeof Str2, "{888888}%s \t%s\n", EEInfo[e][eaDescricao], EEInfo[e][eaNick]);
-		}
-		else{
-
-		    format(Str2, sizeof Str2, "{888888}%s \tNinguém\n", EEInfo[e][eaDescricao]);
-		}
-
-		strcat(MEGAString, Str2);
-	}
-
-	ShowPlayerDialog(playerid, 8764, DIALOG_STYLE_TABLIST_HEADERS, "Encontrados/Ainda Disp", MEGAString, "Localizar", "Sair");
-	return 1;
 }
 
 new bool:pulou2vezes[MAX_PLAYERS] = false;
@@ -2235,7 +2777,7 @@ CallBack::DesmancharVeh(playerid, progress)
 		GetPlayer2DZone2(playerid, location, MAX_ZONE_NAME);
 		if(noti == 1)
 		{
-			foreach(Player, i)
+			foreach(new i : Player)
 			{
 				if(Patrulha[i] == true)
 				{
@@ -2270,7 +2812,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 360;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$360.");
 			}
-			if(PlayerInfo[playerid][pVIP] == 2)
+			if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 360*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$720.");
@@ -2286,7 +2828,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 980;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$980.");
 			}
-			if(PlayerInfo[playerid][pVIP] == 2)
+			if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 980*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$1960.");
@@ -2303,7 +2845,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 1200;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$1200.");
 			}
-			if(PlayerInfo[playerid][pVIP] == 2)
+			if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 1200*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$2400.");
@@ -2320,7 +2862,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 1800;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$1800.");
 			}
-			if(PlayerInfo[playerid][pVIP] == 2)
+			if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 1800*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$3500.");
@@ -2338,7 +2880,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 2500;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$2500.");
 			}
-			if(PlayerInfo[playerid][pVIP] == 2)
+			if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 2500*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$5000.");
@@ -2355,7 +2897,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 3200;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$3200.");
 			}
-			if(PlayerInfo[playerid][pVIP] == 2)
+			if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 3200*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$6400.");
@@ -2372,7 +2914,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 3800;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$3800.");
 			}
-			if(PlayerInfo[playerid][pVIP] == 2)
+			if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 3800*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$7600.");
@@ -2389,7 +2931,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 4500;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$4500.");
 			}
-			if(PlayerInfo[playerid][pVIP] == 2)
+			if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 4500*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$9000.");
@@ -2406,7 +2948,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 5000;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$5000.");
 			}
-			if(PlayerInfo[playerid][pVIP] == 2)
+			if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 5000*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$10000.");
@@ -2570,51 +3112,32 @@ CallBack::Minerar(playerid, progress)
 }
 CallBack::Pesca(playerid, progress)
 {
-		new peixes = randomEx(1,5);
-		new peixe = randomEx(0,6);
+		new peixes = randomEx(1,3);
+		new peixe = randomEx(0,4);
 		new s[255];
 		if(IsPlayerInRangeOfPoint(playerid, 15.0, 383.2907,-2088.7842,7.8359))
-		if(peixe == 0)
+		if(peixe == 1)
 		{
 			GanharItem(playerid,902, peixes);
 			format(s,sizeof(s),"Pescou %i estrela do mar.",peixes);
 			SuccesMsg(playerid, s);
 		}
-		if(peixe == 3)
+		if(peixe == 2)
 		{
 			GanharItem(playerid,19630, peixes);
 			format(s,sizeof(s),"Pescou %i peixe tilapia.",peixes);
 			SuccesMsg(playerid, s);
 		}
-		if(peixe == 2)
+		if(peixe == 3)
 		{
-
+			GanharItem(playerid,1608, peixes);
 			format(s,sizeof(s),"Pescou %i tubarao.",peixes);
 			SuccesMsg(playerid, s);
 		}
 		if(peixe == 4)
 		{
-			GanharItem(playerid,1600, peixes);
-			format(s,sizeof(s),"Pescou %i peixe azul.",peixes);
-			SuccesMsg(playerid, s);
-		}
-		if(peixe == 6)
-		{
-			GanharItem(playerid,1604, peixes);
-			format(s,sizeof(s),"Pescou %i peixe rain.",peixes);
-			SuccesMsg(playerid, s);
-		}
-		if(peixe == 5)
-		{
 			GanharItem(playerid,1603, peixes);
 			format(s,sizeof(s),"Pescou %i agua viva.",peixes);
-			SuccesMsg(playerid, s);
-		}
-		if(peixe == 1)
-		{
-			GanharItem(playerid,1599, peixes);
-			format(s,sizeof(s),"Pescou %i peixe amarelo.",peixes);
-			GanharItem(playerid,1608, peixes);
 			SuccesMsg(playerid, s);
 		}
 		TogglePlayerControllable(playerid, 1);
@@ -3294,7 +3817,7 @@ CallBack::attloginname(playerid)
 {
 	new stringg[50];
 	format(stringg, sizeof(stringg), "%s", Name(playerid));
-	PlayerTextDrawSetString(playerid, Registration_PTD[playerid][20], stringg);
+	PlayerTextDrawSetString(playerid, Registration_PTD[playerid][23], stringg);
 	PlayerTextDrawSetString(playerid, BancoTD[playerid][12], stringg);
 }
 
@@ -3367,10 +3890,10 @@ CallBack::mostrarTelaLogin(playerid)
 CallBack::loginp(playerid)
 {
 	new File[255];
-	for(new i = 0; i < 23; ++i)
+	for(new i = 0; i < 27; ++i)
 	{
 		PlayerTextDrawShow(playerid, Registration_PTD[playerid][i]);
-		if(i == 23)break;
+		if(i == 27)break;
 	}
 	SelectTextDraw(playerid, 1);
 	format(File, sizeof(File), PASTA_BANIDOS, Name(playerid));
@@ -3628,7 +4151,7 @@ public SV_VOID:OnPlayerActivationKeyPress(SV_UINT:playerid, SV_UINT:keyid)
 	}
 	if(keyid == 0x42 && FrequenciaConectada[playerid] >= 1)
 	{
-		ApplyAnimation(playerid, "ped", "phone_talk", 4.1, 1, 1, 1, 0, 0, 0);
+		if(IsPlayerInAnyVehicle(playerid)) ApplyAnimation(playerid, "ped", "phone_talk", 4.1, 1, 1, 1, 0, 0, 0);
 		if(!IsPlayerAttachedObjectSlotUsed(playerid, 9)) SetPlayerAttachedObject(playerid, 9, 19942, 2, 0.0300, 0.1309, -0.1060, 118.8998, 19.0998, 164.2999);
 		SvAttachSpeakerToStream(Frequencia[FrequenciaConectada[playerid]], playerid);
 		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], 16711935);
@@ -4147,7 +4670,7 @@ CallBack::MainTimer()
 {
 	new string[128];
 	new Float:x, Float:y, Float:z;
-	foreach(Player, i)
+	foreach(new i : Player)
 	{
 		if(IsPlayerConnected(i))
 		{
@@ -4300,7 +4823,7 @@ CallBack::AttVeh(playerid)
 						{
 							if(PassouRadar[playerid] == 0)
 							{
-								if(Patrulha[playerid] == true || PlayerInfo[playerid][pVIP] == 2)
+								if(Patrulha[playerid] == true || PlayerInfo[playerid][pVIP] < 2)
 								{
 									PassouRadar[playerid] = 1;
 									SetTimerEx("LiberarRadar", segundos(2), false, "d", playerid);
@@ -4439,6 +4962,7 @@ CallBack::PlantarMaconhas(playerid, slt)
 	ClearAnimations(playerid);
 	PlantandoMaconha[playerid] = false;
 	SuccesMsg(playerid, "Semente plantada use /maconhas para suas plantacoes.");
+	SalvarPlantacao();
 	return true;
 }
 
@@ -4458,6 +4982,7 @@ CallBack::UpdateDrogas()
 			format(string, sizeof string, "Maconha\nDono: %s\nPlantacao ID: %d\nCrescendo: %d/%d\nGramas: %dg",
 			MaconhaInfo[maconhaid][Dono], maconhaid,MaconhaInfo[maconhaid][Crescida],Max_Crescida, MaconhaInfo[maconhaid][GramasProntas]);
 			Update3DTextLabelText(MaconhaInfo[maconhaid][TT], 0x1FF61F99, string);
+			SalvarPlantacao();
 		}
 	}
 	for(new i = 0; i < GetPlayerPoolSize(); i++)
@@ -4477,6 +5002,7 @@ CallBack::AnimatioN(playerid)
 
 CallBack::SalvarArmas(playerid)
 {
+
 	/*-----------------------------------------*/
 	new Slot3,Bala,Local[200],Slot1[20],Bala1[20];
 	/*-----------------------------------------*/
@@ -4632,7 +5158,7 @@ CallBack::PegarMoney(playerid, caixa_id)
 
 	CaixaInfo[caixa_id][Caixa_Dinheiro] -= (CaixaInfo[caixa_id][Caixa_Dinheiro]/picks);
 
-	format(str, sizeof str, "{FFFFFF}Caixa Eletronico\n{5b6ed9}Caixa Destruido\n{FFFFFF}Dinheiro No Caixa: {5b6ed9}R$%i",CaixaInfo[caixa_id][Caixa_Dinheiro]);
+	format(str, sizeof str, "{FFFFFF}Caixa Registradora\n{5b6ed9}Caixa Destruido\n{FFFFFF}Dinheiro No Caixa: {5b6ed9}R$%i",CaixaInfo[caixa_id][Caixa_Dinheiro]);
 	Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], 0x5b6ed9F4, str);
 
 	CaixaInfo[caixa_id][Caixa_Pickups] --;
@@ -4772,7 +5298,7 @@ CallBack::ExplodirCaixa(caixa_id)
 	new add = random(2000);
 	CaixaInfo[caixa_id][Caixa_Dinheiro] = (MAX_PICKUPS_ROUBO*1600)+add;
 
-	format(str, sizeof str, "{FFFFFF}Caixa Eletronico\n{5b6ed9}Caixa Destruido\n{FFFFFF}Dinheiro No Chao: {5b6ed9}R$%i",CaixaInfo[caixa_id][Caixa_Dinheiro]);
+	format(str, sizeof str, "{FFFFFF}Caixa Registradora\n{5b6ed9}Caixa Destruido\n{FFFFFF}Dinheiro No Chao: {5b6ed9}R$%i",CaixaInfo[caixa_id][Caixa_Dinheiro]);
 	Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], 0x5b6ed9F4, str);
 
 	GetDynamicObjectPos(CaixaInfo[caixa_id][Caixa_Object], px, py, pz);
@@ -4809,7 +5335,7 @@ CallBack::RestoreCaixa(caixa_id)
 
 		CaixaInfo[caixa_id][Caixa_Roubada] = false;
 
-		Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], -1, "{FFFFFF}Caixa Eletronico\nAperte '{5b6ed9}F{FFFFFF}' para acessar");
+		Update3DTextLabelText(CaixaInfo[caixa_id][Caixa_Text], -1, "{FFFFFF}Caixa Registradora\nAperte '{5b6ed9}F{FFFFFF}' para acessar");
 
 		GetDynamicObjectPos(CaixaInfo[caixa_id][Caixa_Object], px, py, pz);
 		GetDynamicObjectRot(CaixaInfo[caixa_id][Caixa_Object], rx, ry, rz);
@@ -4857,17 +5383,12 @@ CallBack::ProxDetectorS(Float:radi, playerid, targetid)
 
 CallBack::PayDay(playerid)
 {
-	if(!IsPlayerConnected(playerid))
-		return true;
-
 	if(pLogado[playerid] == true)
 	{
 		new g; g = random(1000);
 		new gjuros; gjuros = random(1000);
 		new gimposto; gimposto = random(1000);
 		new gi; gi = random(1000);
-		new saldoantigo[MAX_PLAYERS];
-		saldoantigo[playerid] = PlayerInfo[playerid][pBanco];
 		if(PlayerInfo[playerid][pVIP] > 0)
 		{
 			g=g+g;
@@ -4883,6 +5404,10 @@ CallBack::PayDay(playerid)
 		if(PlayerInfo[playerid][pVIP] == 2)
 		{
 			PlayerInfo[playerid][pBanco] += 3000;
+		}
+		if(PlayerInfo[playerid][pVIP] == 3)
+		{
+			PlayerInfo[playerid][pBanco] += 6000;
 		}
 		PlayerPlaySound(playerid,1139,0.0,0.0,0.0);
 		SalvarDados(playerid);
@@ -5316,6 +5841,7 @@ ItemNomeInv(itemid) // AQUI VOCÃŠ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 	else
 	switch(itemid)
 	{
+	    case 19995: name = "Pecas Fabricacao";
 		case 19625: name = "Cigarro do K2";
 		case 11746: name = "LockPick";
 		case 3044: name = "Baseado";
@@ -5601,8 +6127,9 @@ static  NomeArmas(armaid)
 	return name;
 }
 
-DroparItem(playerid, modelid)
+DroparItem(playerid, modelid, quantia)
 {
+	if(quantia == 0) return ErrorMsg(playerid, "Voce precisa selecionar a quantidade.");
 	if(IsPlayerConnected(playerid))
 	{
 		new str[128], Float:x, Float:y, Float:z;
@@ -5615,13 +6142,13 @@ DroparItem(playerid, modelid)
 				if(DropItemSlot[i][DropItem] == 0)
 				{
 					DropItemSlot[i][DropItem] = CreateDynamicObject(18631, x,y,z-1, 0, 0, 0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-					DropItemSlot[i][DropItemUni] = PlayerInventario[playerid][modelid][Unidades];
+					DropItemSlot[i][DropItemUni] = quantia;
 					DropItemSlot[i][DropItemID] = PlayerInventario[playerid][modelid][Slot];
 					DropItemSlot[i][Virtual] = GetPlayerVirtualWorld(playerid);
 					DropItemSlot[i][Interior] = GetPlayerInterior(playerid);
-					format(str, sizeof(str), "{5b6ed9}%s\n{FFFFFF}X%s", ItemNomeInv(PlayerInventario[playerid][modelid][Slot]), ConvertMoney(PlayerInventario[playerid][modelid][Unidades]));
+					format(str, sizeof(str), "{5b6ed9}%s\n{FFFFFF}X%s", ItemNomeInv(PlayerInventario[playerid][modelid][Slot]), ConvertMoney(quantia));
 					DropItemSlot[i][LabelItem] = CreateDynamic3DTextLabel(str, -1, x,y,z-1, 5, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-					PlayerInventario[playerid][modelid][Unidades] = 0;
+					PlayerInventario[playerid][modelid][Unidades] -= quantia;
 					AtualizarInventario(playerid, modelid);
 					ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.1, 0, 0, 0, 0, 0, 1);
 					return 1;
@@ -5656,17 +6183,60 @@ AtualizarInventario(playerid, i)
 	return 1;
 }
 
-FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA ITEM. SEGUE AS FUNÃ‡Ã•ES PRONTAS ABAIXO
+FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA ITEM. SEGUE AS FUNÃ‡Ã•ES PRONTAS ABAIXO
 {
+	if(quantia == 0) return ErrorMsg(playerid, "Voce precisa selecionar a quantidade.");
 	new fomesede = randomEx(1,20);
 	switch(PlayerInventario[playerid][modelid][Slot])
 	{
+	case 19995:
+		{
+			if(IsBandido(playerid))
+			{
+				if(PTP(1.0, playerid, 2139.590087, -2255.079345, 13.303335))
+				{
+					if(PlayerInventario[playerid][modelid][Unidades] < 30) return ErrorMsg(playerid, "Voce precisa ter 30 pecas.");
+					GanharItem(playerid, 346, 40);
+					PlayerInventario[playerid][modelid][Unidades] -= 30;
+					AtualizarInventario(playerid, modelid);
+				}
+				if(PTP(1.0, playerid, 2141.257812, -2256.759521, 13.299867))
+				{
+					if(PlayerInventario[playerid][modelid][Unidades] < 50) return ErrorMsg(playerid, "Voce precisa ter 50 pecas.");
+					GanharItem(playerid, 348, 20);
+					PlayerInventario[playerid][modelid][Unidades] -= 50;
+					AtualizarInventario(playerid, modelid);
+				}
+				if(PTP(1.0, playerid, 2143.288818, -2258.775390, 13.295673))
+				{
+					if(PlayerInventario[playerid][modelid][Unidades] < 100) return ErrorMsg(playerid, "Voce precisa ter 100 pecas.");
+					GanharItem(playerid, 356, 120);
+					PlayerInventario[playerid][modelid][Unidades] -= 100;
+					AtualizarInventario(playerid, modelid);
+				}
+                if(PTP(1.0, playerid, 2148.499511, -2264.335449, 13.298288))
+				{
+					if(PlayerInventario[playerid][modelid][Unidades] < 130) return ErrorMsg(playerid, "Voce precisa ter 130 pecas.");
+					GanharItem(playerid, 355, 150);
+					PlayerInventario[playerid][modelid][Unidades] -= 130;
+					AtualizarInventario(playerid, modelid);
+				}
+                if(PTP(1.0, playerid, 2151.042968, -2266.863525, 13.306745))
+				{
+					if(PlayerInventario[playerid][modelid][Unidades] < 50) return ErrorMsg(playerid, "Voce precisa ter 50 pecas.");
+					GanharItem(playerid, 19515, 1);
+					PlayerInventario[playerid][modelid][Unidades] -= 50;
+					AtualizarInventario(playerid, modelid);
+				}
+			}
+		}
 		case 19627:
 		{
 			if(PlayerInfo[playerid][Org] == 13)
 			{
 				if(PTP(5.0, playerid, 719.329528, -442.295532, 16.335937))
 				{
+					if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 					Controle(playerid, 0);
 					InfoMsg(playerid, "Desmanchando veiculo..");
 					SetTimerEx("DesmancharVeh", 30000, false, "i", playerid);
@@ -5677,6 +6247,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 3016:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			new caixar = randomEx(0,3);
 			new string[255];
 			if(caixar == 0)
@@ -5704,6 +6275,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 3013:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			new caixar = randomEx(0,3);
 			new string[255];
 			if(caixar == 0)
@@ -5740,6 +6312,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 19056:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			new caixar = randomEx(0,3);
 			new string[255];
 			if(caixar == 0)
@@ -5774,6 +6347,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 11746:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			new Float:VehX, Float:VehY, Float:VehZ, Count;
 			if(LockUse[playerid] == true) return ErrorMsg(playerid, "Voce ja esta usando a lockpick");
 			for(new i; i < MAX_VEHICLES; i++)
@@ -5796,6 +6370,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 19921:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Voce nao esta em um veiculo!");
 			if(GetPlayerVehicleSeat(playerid) != 0)	return ErrorMsg(playerid, "Nao esta dentro do veiculo.");
 			if(IsPlayerInAnyVehicle(playerid)) return InfoMsg(playerid, "Voce esta em um veiculo.");
@@ -5810,9 +6385,9 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 
 			return true;
 		}
-
 		case 400..611:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			//if(PlayerInfo[playerid][pVIP] < 1 || PlayerInfo[playerid][pAdmin] < 1) return ErrorMsg(playerid, "Sem permissao");
 			new Float:X,Float:Y,Float:Z,Float:A;
 			GetPlayerPos(playerid, X,Y,Z);
@@ -5834,7 +6409,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 3520:
 		{
-
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			if(GetPlayerInterior(playerid) > 0 || IsPlayerInAnyVehicle(playerid))
 				return ErrorMsg(playerid, "Nao pode plantar uma semente agora!");
 
@@ -5866,10 +6441,12 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 
 			PlayerInventario[playerid][modelid][Unidades] --;
 			AtualizarInventario(playerid, modelid);
+			SalvarPlantacao();
 			return true;
 		}
 		case 18632:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			if(PlayerInfo[playerid][pProfissao] != 1) 	return ErrorMsg(playerid, "Nao possui permissao.");
 			if(PlayerInventario[playerid][modelid][Unidades] < 1) return ErrorMsg(playerid, "Nao tem uma vara de pesca.");
 			if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a pesca atual.");
@@ -5886,6 +6463,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 18644:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			if(PlayerInventario[playerid][modelid][Unidades] < 1) return ErrorMsg(playerid, "Nao tem uma chaira.");
 			if(PlayerInfo[playerid][pProfissao] != 3) 	return ErrorMsg(playerid, "Nao possui permissao.");
 			if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a desossamento atual.");
@@ -5902,190 +6480,75 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 902:
 		{
+			if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade digitada.");
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
-				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 500);
-				PlayerInventario[playerid][modelid][Unidades] -= 5;
-				if(PlayerInfo[playerid][pVIP] == 0)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes;
-					format(Str,sizeof(Str),"Vendeu 5 entrela do mar e ganhou R$%i.", dinpeixes);
+				PlayerInventario[playerid][modelid][Unidades] -= quantia;
+
+					PlayerInfo[playerid][pDinheiro] += 106*quantia;
+					format(Str,sizeof(Str),"Vendeu entrela do mar e ganhou R$%i.", 106*quantia);
 					SuccesMsg(playerid, Str);
-				}
-				if(PlayerInfo[playerid][pVIP] == 2)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 entrela do mar e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str);
-				}
+
 				AtualizarInventario(playerid, modelid);
 			}
 			return 1;
 		}
 		case 19630:
 		{
+			if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade digitada.");
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
-				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 200);
-				PlayerInventario[playerid][modelid][Unidades] -= 5;
-				if(PlayerInfo[playerid][pVIP] == 0)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes;
-					format(Str,sizeof(Str),"Vendeu 5 tilapia e ganhou R$%i.", dinpeixes);
+				PlayerInventario[playerid][modelid][Unidades] -= quantia;
+
+					PlayerInfo[playerid][pDinheiro] += 57*quantia;
+					format(Str,sizeof(Str),"Vendeu tilapia e ganhou R$%i.", 57*quantia);
 					SuccesMsg(playerid, Str);
-				}
-				if(PlayerInfo[playerid][pVIP] == 2)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 tilapia e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str);
-				}
-				AtualizarInventario(playerid, modelid);
-			}
-			return 1;
-		}
-		case 1604:
-		{
-			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
-			{
-				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 100);
-				PlayerInventario[playerid][modelid][Unidades] -= 5;
-				if(PlayerInfo[playerid][pVIP] == 0)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes;
-					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes);
-					SuccesMsg(playerid, Str);
-				}
-				if(PlayerInfo[playerid][pVIP] == 2)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str);
-				}
-				AtualizarInventario(playerid, modelid);
-			}
-			return 1;
-		}
-		case 1599:
-		{
-			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
-			{
-				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 180);
-				PlayerInventario[playerid][modelid][Unidades] -= 5;
-				if(PlayerInfo[playerid][pVIP] == 0)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes;
-					format(Str,sizeof(Str),"Vendeu 5 peixe amarelo e ganhou R$%i.", dinpeixes);
-					SuccesMsg(playerid, Str);
-				}
-				if(PlayerInfo[playerid][pVIP] == 2)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 peixe amarelo e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str);
-				}
-				AtualizarInventario(playerid, modelid);
-			}
-			return 1;
-		}
-		case 1609:
-		{
-			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
-			{
-				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 120);
-				PlayerInventario[playerid][modelid][Unidades] -= 5;
-				if(PlayerInfo[playerid][pVIP] == 0)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes;
-					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes);
-					SuccesMsg(playerid, Str);
-				}
-				if(PlayerInfo[playerid][pVIP] == 2)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 peixe rain e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str);
-				}
-				AtualizarInventario(playerid, modelid);
-			}
-			return 1;
-		}
-		case 1600:
-		{
-			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
-			{
-				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 150);
-				PlayerInventario[playerid][modelid][Unidades] -= 5;
-				if(PlayerInfo[playerid][pVIP] == 0)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes;
-					format(Str,sizeof(Str),"Vendeu 5 peixe azul e ganhou R$%i.", dinpeixes);
-					SuccesMsg(playerid, Str);
-				}
-				if(PlayerInfo[playerid][pVIP] == 2)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 peixe azul e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str);
-				}
+
 				AtualizarInventario(playerid, modelid);
 			}
 			return 1;
 		}
 		case 1603:
 		{
+			if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade digitada.");
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
-				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 800);
-				PlayerInventario[playerid][modelid][Unidades] -= 5;
-				if(PlayerInfo[playerid][pVIP] == 0)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes;
-					format(Str,sizeof(Str),"Vendeu 5 agua viva e ganhou R$%i.", dinpeixes);
+				PlayerInventario[playerid][modelid][Unidades] -= quantia;
+
+					PlayerInfo[playerid][pDinheiro] += 157*quantia;
+					format(Str,sizeof(Str),"Vendeu agua viva e ganhou R$%i.", 157*quantia);
 					SuccesMsg(playerid, Str);
-				}
-				if(PlayerInfo[playerid][pVIP] == 2)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 agua viva e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str);
-				}
 				AtualizarInventario(playerid, modelid);
 			}
 			return 1;
 		}
 		case 1608:
 		{
+			if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade digitada.");
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
-				if(PlayerInventario[playerid][modelid][Unidades] < 5) return ErrorMsg(playerid, "Quantidade insuficiente");
-				new dinpeixes = randomEx(0, 2000);
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
-				if(PlayerInfo[playerid][pVIP] == 0)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes;
-					format(Str,sizeof(Str),"Vendeu 5 tubarao e ganhou R$%i.", dinpeixes);
+
+					PlayerInfo[playerid][pDinheiro] += 200*quantia;
+					format(Str,sizeof(Str),"Vendeu 5 tubarao e ganhou R$%i.", 200*quantia);
 					SuccesMsg(playerid, Str);
-				}
-				if(PlayerInfo[playerid][pVIP] == 2)
-				{
-					PlayerInfo[playerid][pDinheiro] += dinpeixes*2;
-					format(Str,sizeof(Str),"Vendeu 5 tubarao e ganhou R$%i.", dinpeixes*2);
-					SuccesMsg(playerid, Str);
-				}
 				AtualizarInventario(playerid, modelid);
 			}
 			return 1;
 		}
+		case 19515:
+		{
+            if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
+			cmd_inventario(playerid);
+				SetPlayerArmour(playerid, 100);
+				SuccesMsg(playerid, "Equipou um Colete.");
+			PlayerInventario[playerid][modelid][Unidades] --;
+			AtualizarInventario(playerid, modelid);
+			return 1;
+		}
 		case 331..371:
 		{
+			if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade digitada.");
 			cmd_inventario(playerid);
 			if(PlayerInventario[playerid][modelid][Slot] == 370)
 			{
@@ -6094,14 +6557,15 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 			}
 			else
 			{
-				GivePlayerWeapon(playerid, GetArmaInv(PlayerInventario[playerid][modelid][Slot]), PlayerInventario[playerid][modelid][Unidades]);
-				PlayerInventario[playerid][modelid][Unidades] = 0;
+				GivePlayerWeapon(playerid, GetArmaInv(PlayerInventario[playerid][modelid][Slot]), quantia);
+				PlayerInventario[playerid][modelid][Unidades] -= quantia;
 			}
 			AtualizarInventario(playerid, modelid);
 			return 1;
 		}
 		case 1010:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			if(IsPlayerInRangeOfPoint(playerid, 10.0, -2067.039306, 1396.001342, 7.334959) || IsPlayerInRangeOfPoint(playerid, 10.0, -2067.137695, 1404.691040, 7.334959) || IsPlayerInRangeOfPoint(playerid, 10.0, -2067.062255, 1414.094726, 7.334959) || IsPlayerInRangeOfPoint(playerid, 10.0, -2067.082519, 1423.175659, 7.334959) || IsPlayerInRangeOfPoint(playerid, 10.0, -2066.899169, 1432.542114, 7.334959))
 			{
 				if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Voce nao esta em um veiculo!");
@@ -6121,6 +6585,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 1484, 1644, 1546, 2601:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			if(SedePlayer[playerid] >= 80) return ErrorMsg(playerid, "Nao esta com sede.");
 			SedePlayer[playerid] += fomesede;
 			PlayerInventario[playerid][modelid][Unidades]--;
@@ -6130,6 +6595,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 19847, 2769, 2702, 19882:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			if(FomePlayer[playerid] >= 80) return ErrorMsg(playerid, "Nao esta com fome.");
 			FomePlayer[playerid] += fomesede;
 			PlayerInventario[playerid][modelid][Unidades]--;
@@ -6139,12 +6605,14 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 1576:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			for(new i; i < 303+120; i++)
 			if(IsPlayerInRangeOfPoint(playerid,2.0,PosRota[i][0],PosRota[i][1],PosRota[i][2]))
 			{
 				new dinma = randomEx(100, 2000);
 				new qtdka = randomEx(10, 100);
 				new noti = randomEx(0, 2);
+				RotaMaconha[playerid] = false;
 				cmd_iniciarrotamaconha(playerid);
 				SuccesMsg(playerid, "Entrega feita, passe para a proxima rota.");
 				PlayerInventario[playerid][modelid][Unidades] -= qtdka;
@@ -6167,6 +6635,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 1575:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			for(new i; i < 303+120; i++)
 			if(IsPlayerInRangeOfPoint(playerid,2.0,PosRota[i][0],PosRota[i][1],PosRota[i][2]))
 			{
@@ -6174,6 +6643,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 				new dinma = randomEx(100, 2000);
 				new qtdka = randomEx(10, 100);
 				new noti = randomEx(0, 2);
+				RotaCocaina[playerid] = false;
 				cmd_iniciarrotacocaina(playerid);
 				SuccesMsg(playerid, "Entrega feita, passe para a proxima rota.");
 				PlayerInventario[playerid][modelid][Unidades] -= qtdka;
@@ -6196,16 +6666,18 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 1212:
 		{
-			if(IsPlayerInRangeOfPoint(playerid,2.0,1489.208862, -1719.420043, 8.242919))
+			if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade digitada.");
+			if(IsPlayerInRangeOfPoint(playerid,2.0,-691.261047, 942.106384, 13.632812))
 			{
+				if(PlayerInfo[playerid][Org] != 12)    		return ErrorMsg(playerid, "Nao possui permissao.");
 				cmd_inventario(playerid);
 				new noti = randomEx(0, 2);
-				PlayerInfo[playerid][pDinheiro] += PlayerInventario[playerid][modelid][Unidades]/2;
-				format(Str, sizeof(Str), "Lavagem feita, ganhou %s", ConvertMoney(PlayerInventario[playerid][modelid][Unidades]/2));
+				PlayerInfo[playerid][pDinheiro] += quantia/2;
+				format(Str, sizeof(Str), "Lavagem feita, ganhou %s", ConvertMoney(quantia/2));
 				SuccesMsg(playerid, Str);
-				CofreNiobio += PlayerInventario[playerid][modelid][Unidades]/2;
+				CofreNiobio += quantia/2;
 				SalvarDinRoubos();
-				PlayerInventario[playerid][modelid][Unidades] = 0;
+				PlayerInventario[playerid][modelid][Unidades] -= quantia;
 				AtualizarInventario(playerid, modelid);
 				new location[MAX_ZONE_NAME];
 				GetPlayer2DZone2(playerid, location, MAX_ZONE_NAME);
@@ -6224,6 +6696,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 18645:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			cmd_inventario(playerid);
 			if(EquipouCasco[playerid] == 0)
 			{
@@ -6241,6 +6714,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 18870:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			cmd_inventario(playerid);
 			AtualizarInventario(playerid, modelid);
 			ShowPlayerDialog(playerid, DIALOG_CELULAR, DIALOG_STYLE_LIST, "Telefone", "Transferencia PIX\nFazer Anuncio\t{32CD32}R$5000", "Confirmar", "X");
@@ -6248,6 +6722,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 11738:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			cmd_inventario(playerid);
 			format(Str, sizeof(Str),"Introduza o ID do jogador que quer reanimar");
 			ShowPlayerDialog(playerid,DIALOG_REANIMAR,1,"Reanimar jogador", Str, "Confirmar",#);
@@ -6256,6 +6731,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 1654:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			new caixa_id;
 			if(!(caixa_id=GetPlayerCaixa(playerid)))return ErrorMsg(playerid, "Nao esta proximo de um caixa.");
 			if(CaixaInfo[caixa_id][Caixa_Roubada])return ErrorMsg(playerid, "Este caixa ja foi roubado.");
@@ -6296,7 +6772,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 			new noti = randomEx(0, 2);
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i : Player)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -6311,6 +6787,7 @@ FuncaoItens(playerid, modelid)//  AQUI VOCÃŠ PODE DEFINIR AS FUNÃ‡Ã•ES DE CADA I
 		}
 		case 11736:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			new Float:health;
     		GetPlayerHealth(playerid,health);
 			if(health >= 80) return ErrorMsg(playerid, "Voce nao pode usar bandagem agora.");
@@ -6391,7 +6868,7 @@ IsValidItemInv(itemid) //AQUI VOCÃŠ DEVE DEFINIR OS ID'S DOS ITENS PARA SER VALI
 		1314, 19578, 18636, 19942, 18646, 19141, 19558, 19801, 19330, 1210, 19528, 1576, 370, 3016, 3013, 19056,
 		19134, 19904, 19515, 19142, 19315, 19527, 19317, 18688, 18702, 18728, 19605, 19606, 18632, 19847, 2769, 2702, 19882,
 		19607, 19577, 1485, 19574, 19575, 19576, 2703, 2880, 19883, 19896, 19897, 2768, 1212, 2710, 1316,
-		2601, 19835, 2881, 2709, 19579, 19094, 1582, 19580, 19602, 11738, 1575, 854, 19627,
+		2601, 19835, 2881, 2709, 19579, 19094, 1582, 19580, 19602, 11738, 1575, 854, 19627, 19995,
 		1654, 11736, 1650, 1252, 19893, 19921, 2226, 19054, 19055, 19057,19058: return 1;
 	}
 	return 0;
@@ -7481,6 +7958,14 @@ stock SalvarMortos(playerid)
 		DOF2_SetInt(File,"pMinMorto", PlayerMorto[playerid][pMinMorto]);
 		DOF2_SaveFile();
 	}
+	else
+	{
+		format(File, sizeof(File), PASTA_MORTOS, Name(playerid));
+		if(DOF2_FileExists(File))
+		{
+			DOF2_RemoveFile(File);
+		}
+	}
 	return 1;
 }
 
@@ -7504,213 +7989,265 @@ stock CarregarMortos(playerid)
 
 stock todastextdraw(playerid)
 {
-	Registration_PTD[playerid][0] = CreatePlayerTextDraw(playerid, 269.6997, 149.4332, "LD_SPAC:white"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][0], 99.0000, 158.8589);
+
+	Registration_PTD[playerid][0] = CreatePlayerTextDraw(playerid, 229.706039, 146.249984, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][0], 4.000000, 184.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][0], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][0], 640166143);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][0], -1);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][0], 0);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][0], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][0], 4);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][0], 0);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][0], 0);
 
-	Registration_PTD[playerid][1] = CreatePlayerTextDraw(playerid, 262.3834, 146.2775, "LD_BEAT:chit"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][1], 16.0000, 20.0000);
+	Registration_PTD[playerid][1] = CreatePlayerTextDraw(playerid, 410.411773, 145.666641, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][1], 5.000000, 180.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][1], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][1], 640166143);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][1], -1);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][1], 0);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][1], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][1], 4);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][1], 0);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][1], 0);
 
-	Registration_PTD[playerid][2] = CreatePlayerTextDraw(playerid, 360.4683, 146.7776, "LD_BEAT:chit"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][2], 16.0000, 17.0000);
+	Registration_PTD[playerid][2] = CreatePlayerTextDraw(playerid, 234.411880, 138.666641, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][2], 176.000000, 8.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][2], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][2], 640166143);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][2], -1);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][2], 0);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][2], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][2], 4);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][2], 0);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][2], 0);
 
-	Registration_PTD[playerid][3] = CreatePlayerTextDraw(playerid, 261.9351, 288.4777, "LD_BEAT:chit"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][3], 19.0000, 24.0000);
+	Registration_PTD[playerid][3] = CreatePlayerTextDraw(playerid, 234.882446, 325.916748, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][3], 176.000000, 8.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][3], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][3], 640166143);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][3], -1);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][3], 0);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][3], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][3], 4);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][3], 0);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][3], 0);
 
-	Registration_PTD[playerid][4] = CreatePlayerTextDraw(playerid, 358.0848, 288.4038, "LD_BEAT:chit"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][4], 19.0000, 24.0000);
+	Registration_PTD[playerid][4] = CreatePlayerTextDraw(playerid, 227.823623, 136.333343, "LD_BEAT:CHIT");
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][4], 13.000000, 16.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][4], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][4], 640166143);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][4], 512819199);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][4], 0);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][4], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][4], 4);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][4], 0);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][4], 0);
 
-	Registration_PTD[playerid][5] = CreatePlayerTextDraw(playerid, 264.9833, 155.5185, "LD_SPAC:white"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][5], 109.0000, 145.0000);
+	Registration_PTD[playerid][5] = CreatePlayerTextDraw(playerid, 227.823623, 320.666625, "LD_BEAT:CHIT");
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][5], 13.000000, 16.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][5], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][5], 640166143);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][5], -1);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][5], 0);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][5], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][5], 4);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][5], 0);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][5], 0);
 
-	Registration_PTD[playerid][6] = CreatePlayerTextDraw(playerid, 304.5830, 160.7037, "ld_pool:ball"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][6], 26.0000, 31.0000);
+	Registration_PTD[playerid][6] = CreatePlayerTextDraw(playerid, 403.823608, 319.500000, "LD_BEAT:CHIT");
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][6], 14.000000, 17.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][6], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][6], 1097458119);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][6], -1);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][6], 0);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][6], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][6], 4);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][6], 0);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][6], 0);
 
-	Registration_PTD[playerid][7] = CreatePlayerTextDraw(playerid, 312.4002, 167.3332, "ld_pool:ball"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][7], 23.0000, 29.0000);
+	Registration_PTD[playerid][7] = CreatePlayerTextDraw(playerid, 405.235351, 136.333236, "LD_BEAT:CHIT");
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][7], 12.000000, 15.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][7], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][7], 1097458119);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][7], 512819199);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][7], 0);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][7], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][7], 4);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][7], 0);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][7], 0);
 
-	Registration_PTD[playerid][8] = CreatePlayerTextDraw(playerid, 299.7514, 154.6260, "LD_BEAT:chit"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][8], 42.0000, 48.0000);
+	Registration_PTD[playerid][8] = CreatePlayerTextDraw(playerid, 230.647125, 145.666687, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][8], 182.000000, 182.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][8], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][8], 640166143);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][8], -1);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][8], 0);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][8], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][8], 4);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][8], 0);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][8], 0);
 
-	Registration_PTD[playerid][9] = CreatePlayerTextDraw(playerid, 299.1665, 206.5925, "CONECTANDO.."); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][9], 0.1508, 0.9881);
+	Registration_PTD[playerid][9] = CreatePlayerTextDraw(playerid, 233.000000, 138.666687, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][9], 179.000000, 23.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][9], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][9], -1);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][9], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][9], 2);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][9], 1);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][9], 512819199);
 	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][9], 0);
+	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][9], 255);
+	PlayerTextDrawFont(playerid, Registration_PTD[playerid][9], 4);
+	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][9], 0);
 
-	Registration_PTD[playerid][10] = CreatePlayerTextDraw(playerid, 308.2330, 172.3703, "Home~n~    land"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][10], 0.1508, 0.9881);
+	Registration_PTD[playerid][10] = CreatePlayerTextDraw(playerid, 229.705902, 143.916671, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][10], 186.000000, 24.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][10], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][10], -1);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][10], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][10], 2);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][10], 1);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][10], 512819199);
 	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][10], 0);
+	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][10], 255);
+	PlayerTextDrawFont(playerid, Registration_PTD[playerid][10], 4);
+	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][10], 0);
 
-	Registration_PTD[playerid][11] = CreatePlayerTextDraw(playerid, 288.9169, 248.3787, "LD_SPAC:white"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][11], 63.0000, 12.0000);
+	Registration_PTD[playerid][11] = CreatePlayerTextDraw(playerid, 278.235168, 146.833312, "EFETUANDO LOGIN");
+	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][11], 0.332704, 1.185832);
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][11], 776.000000, 0.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][11], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][11], -1128132865);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][11], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][11], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][11], 0);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][11], -1);
 	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][11], 0);
+	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][11], 255);
+	PlayerTextDrawFont(playerid, Registration_PTD[playerid][11], 3);
+	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][11], 1);
 
-	Registration_PTD[playerid][12] = CreatePlayerTextDraw(playerid, 281.5332, 245.5828, "LD_BEAT:chit"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][12], 13.7399, 17.6300);
+	Registration_PTD[playerid][12] = CreatePlayerTextDraw(playerid, 266.411773, 227.333419, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][12], 112.000000, 16.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][12], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][12], -1128132865);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][12], 512819199);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][12], 0);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][12], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][12], 4);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][12], 0);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][12], 0);
 
-	Registration_PTD[playerid][13] = CreatePlayerTextDraw(playerid, 345.4332, 245.5828, "LD_BEAT:chit"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][13], 13.7399, 17.6300);
+	Registration_PTD[playerid][13] = CreatePlayerTextDraw(playerid, 265.941192, 255.916732, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][13], 112.000000, 16.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][13], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][13], -1128132865);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][13], 512819199);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][13], 0);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][13], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][13], 4);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][13], 0);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][13], 0);
+	PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][13], true);
 
-	Registration_PTD[playerid][14] = CreatePlayerTextDraw(playerid, 305.8001, 282.1371, "LD_SPAC:white"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][14], 30.0000, 12.0000);
+	Registration_PTD[playerid][14] = CreatePlayerTextDraw(playerid, 266.470550, 278.666656, "ESQUECEU SUA SENHA?");
+	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][14], 0.109176, 0.771665);
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][14], 579.000000, 0.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][14], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][14], 916987903);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][14], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][14], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][14], 0);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][14], 12582911);
 	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][14], 0);
+	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][14], 255);
+	PlayerTextDrawFont(playerid, Registration_PTD[playerid][14], 2);
+	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][14], 1);
+	PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][14], true);
 
-	Registration_PTD[playerid][15] = CreatePlayerTextDraw(playerid, 298.4165, 279.3412, "LD_BEAT:chit"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][15], 13.7399, 17.6300);
+	Registration_PTD[playerid][15] = CreatePlayerTextDraw(playerid, 266.941162, 218.583374, "USUARIO");
+	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][15], 0.109176, 0.771665);
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][15], 579.000000, 0.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][15], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][15], 916987903);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][15], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][15], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][15], 0);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][15], 512819199);
 	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][15], 0);
+	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][15], 255);
+	PlayerTextDrawFont(playerid, Registration_PTD[playerid][15], 2);
+	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][15], 1);
 
-	Registration_PTD[playerid][16] = CreatePlayerTextDraw(playerid, 329.4663, 279.3412, "LD_BEAT:chit"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][16], 13.7399, 17.6300);
+	Registration_PTD[playerid][16] = CreatePlayerTextDraw(playerid, 266.470581, 248.916687, "SENHA:");
+	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][16], 0.109176, 0.771665);
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][16], 579.000000, 0.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][16], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][16], 916987903);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][16], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][16], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][16], 0);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][16], 512819199);
 	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][16], 0);
+	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][16], 255);
+	PlayerTextDrawFont(playerid, Registration_PTD[playerid][16], 2);
+	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][16], 1);
 
-	Registration_PTD[playerid][17] = CreatePlayerTextDraw(playerid, 288.7169, 227.1774, "LD_SPAC:white"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][17], 63.0000, 12.0000);
+	Registration_PTD[playerid][17] = CreatePlayerTextDraw(playerid, 282.882202, 303.750030, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][17], 78.000000, 27.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][17], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][17], -1128132865);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][17], 512819199);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][17], 0);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][17], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][17], 4);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][17], 0);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][17], 0);
 
-	Registration_PTD[playerid][18] = CreatePlayerTextDraw(playerid, 281.3332, 224.3815, "LD_BEAT:chit"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][18], 13.7399, 17.6300);
+	Registration_PTD[playerid][18] = CreatePlayerTextDraw(playerid, 310.705810, 314.250000, "LOGAR");
+	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][18], 0.178351, 0.783333);
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][18], 579.000000, 0.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][18], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][18], -1128132865);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][18], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][18], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][18], 0);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][18], -1);
 	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][18], 0);
+	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][18], 255);
+	PlayerTextDrawFont(playerid, Registration_PTD[playerid][18], 2);
+	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][18], 1);
+	PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][18], true);
 
-	Registration_PTD[playerid][19] = CreatePlayerTextDraw(playerid, 345.2332, 224.3815, "LD_BEAT:chit"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][19], 13.7399, 17.6300);
+	Registration_PTD[playerid][19] = CreatePlayerTextDraw(playerid, 303.646820, 178.916625, "omeland");
+	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][19], 0.353410, 1.279165);
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][19], 776.000000, 0.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][19], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][19], -1128132865);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][19], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][19], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][19], 0);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][19], 12582911);
 	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][19], 0);
+	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][19], 255);
+	PlayerTextDrawFont(playerid, Registration_PTD[playerid][19], 3);
+	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][19], 1);
 
-	Registration_PTD[playerid][20] = CreatePlayerTextDraw(playerid, 294.1000, 228.8889, "NOME_SOBRENOME"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][20], 0.1500, 0.7859);
+	Registration_PTD[playerid][20] = CreatePlayerTextDraw(playerid, 297.058624, 177.166671, "H");
+	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][20], 0.233881, 1.541666);
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][20], 776.000000, 0.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][20], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][20], -1);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][20], 12582911);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][20], 0);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][20], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][20], 2);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][20], 1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][20], 0);
 
-	Registration_PTD[playerid][21] = CreatePlayerTextDraw(playerid, 296.4002, 250.0902, "DIGITE_SENHA"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][21], 0.1500, 0.7859);
+	Registration_PTD[playerid][21] = CreatePlayerTextDraw(playerid, 305.999877, 189.999938, "R");
+	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][21], 0.180704, 0.748332);
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][21], 776.000000, 0.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][21], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][21], -1);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][21], 12582911);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][21], 0);
 	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][21], 255);
 	PlayerTextDrawFont(playerid, Registration_PTD[playerid][21], 2);
 	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][21], 1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][21], 0);
-	PlayerTextDrawSetSelectable(playerid,Registration_PTD[playerid][21], true);
 
-	Registration_PTD[playerid][22] = CreatePlayerTextDraw(playerid, 311.1177, 283.8107, "LOGAR"); // Ã¯Ã³Ã±Ã²Ã®
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][22], 0.1500, 0.7859);
+	Registration_PTD[playerid][22] = CreatePlayerTextDraw(playerid, 311.176300, 191.166549, "oleplay");
+	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][22], 0.223528, 0.590831);
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][22], 776.000000, 0.000000);
 	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][22], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][22], -1);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][22], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][22], 2);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][22], 1);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][22], 12582911);
 	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][22], 0);
+	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][22], 255);
+	PlayerTextDrawFont(playerid, Registration_PTD[playerid][22], 3);
+	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][22], 1);
+
+	Registration_PTD[playerid][23] = CreatePlayerTextDraw(playerid, 271.647003, 231.999969, "nome_sobrenome");
+	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][23], 0.132235, 0.754166);
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][23], 579.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][23], 1);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][23], -1);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][23], 0);
+	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][23], 255);
+	PlayerTextDrawFont(playerid, Registration_PTD[playerid][23], 2);
+	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][23], 1);
+
+	Registration_PTD[playerid][24] = CreatePlayerTextDraw(playerid, 271.647003, 261.166625, "digite sua senha");
+	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][24], 0.132235, 0.754166);
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][24], 579.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][24], 1);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][24], -1);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][24], 0);
+	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][24], 255);
+	PlayerTextDrawFont(playerid, Registration_PTD[playerid][24], 2);
+	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][24], 1);
+	PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][24], true);
+
+	Registration_PTD[playerid][25] = CreatePlayerTextDraw(playerid, 400.587982, 159.666671, "]]");
+	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][25], 0.146823, 0.794999);
+	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][25], 1);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][25], -1);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][25], 0);
+	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][25], 255);
+	PlayerTextDrawFont(playerid, Registration_PTD[playerid][25], 2);
+	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][25], 1);
+
+	Registration_PTD[playerid][26] = CreatePlayerTextDraw(playerid, 380.823303, 159.666671, "season");
+	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][26], 0.109176, 0.771665);
+	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][26], 579.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][26], 1);
+	PlayerTextDrawColor(playerid, Registration_PTD[playerid][26], -1);
+	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][26], 0);
+	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][26], 255);
+	PlayerTextDrawFont(playerid, Registration_PTD[playerid][26], 2);
+	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][26], 1);
 
 	//Loadscreen strings e progressbar
 	Loadsc_p[playerid][0] = CreatePlayerTextDraw(playerid, 438.000000, 271.000000, "0%");
@@ -7834,90 +8371,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBackgroundColor(playerid, VeloC[playerid][9], 255);
 	PlayerTextDrawFont(playerid, VeloC[playerid][9], 2);
 	PlayerTextDrawSetProportional(playerid, VeloC[playerid][9], 1);
-
-	CopGuns[playerid][0] = CreatePlayerTextDraw(playerid, 278.000000, 240.000000, "9MM");
-	PlayerTextDrawFont(playerid, CopGuns[playerid][0], 2);
-	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][0], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, CopGuns[playerid][0], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][0], 1);
-	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][0], 0);
-	PlayerTextDrawAlignment(playerid, CopGuns[playerid][0], 2);
-	PlayerTextDrawColor(playerid, CopGuns[playerid][0], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][0], 255);
-	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][0], -56);
-	PlayerTextDrawUseBox(playerid, CopGuns[playerid][0], 1);
-	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][0], 1);
-	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][0], 1);
-
-	CopGuns[playerid][1] = CreatePlayerTextDraw(playerid, 278.000000, 263.000000, "M4");
-	PlayerTextDrawFont(playerid, CopGuns[playerid][1], 2);
-	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][1], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, CopGuns[playerid][1], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][1], 1);
-	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][1], 0);
-	PlayerTextDrawAlignment(playerid, CopGuns[playerid][1], 2);
-	PlayerTextDrawColor(playerid, CopGuns[playerid][1], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][1], 255);
-	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][1], -56);
-	PlayerTextDrawUseBox(playerid, CopGuns[playerid][1], 1);
-	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][1], 1);
-	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][1], 1);
-
-	CopGuns[playerid][2] = CreatePlayerTextDraw(playerid, 278.000000, 285.000000, "SHOTGUN");
-	PlayerTextDrawFont(playerid, CopGuns[playerid][2], 2);
-	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][2], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, CopGuns[playerid][2], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][2], 1);
-	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][2], 0);
-	PlayerTextDrawAlignment(playerid, CopGuns[playerid][2], 2);
-	PlayerTextDrawColor(playerid, CopGuns[playerid][2], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][2], 255);
-	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][2], -56);
-	PlayerTextDrawUseBox(playerid, CopGuns[playerid][2], 1);
-	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][2], 1);
-	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][2], 1);
-
-	CopGuns[playerid][3] = CreatePlayerTextDraw(playerid, 278.000000, 307.000000, "MP5");
-	PlayerTextDrawFont(playerid, CopGuns[playerid][3], 2);
-	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][3], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, CopGuns[playerid][3], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][3], 1);
-	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][3], 0);
-	PlayerTextDrawAlignment(playerid, CopGuns[playerid][3], 2);
-	PlayerTextDrawColor(playerid, CopGuns[playerid][3], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][3], 255);
-	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][3], -56);
-	PlayerTextDrawUseBox(playerid, CopGuns[playerid][3], 1);
-	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][3], 1);
-	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][3], 1);
-
-	CopGuns[playerid][4] = CreatePlayerTextDraw(playerid, 278.000000, 330.000000, "RIFLE");
-	PlayerTextDrawFont(playerid, CopGuns[playerid][4], 2);
-	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][4], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, CopGuns[playerid][4], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][4], 1);
-	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][4], 0);
-	PlayerTextDrawAlignment(playerid, CopGuns[playerid][4], 2);
-	PlayerTextDrawColor(playerid, CopGuns[playerid][4], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][4], 255);
-	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][4], -56);
-	PlayerTextDrawUseBox(playerid, CopGuns[playerid][4], 1);
-	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][4], 1);
-	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][4], 1);
-
-	CopGuns[playerid][5] = CreatePlayerTextDraw(playerid, 337.000000, 222.000000, "X");
-	PlayerTextDrawFont(playerid, CopGuns[playerid][5], 2);
-	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][5], 0.258332, 1.200000);
-	PlayerTextDrawTextSize(playerid, CopGuns[playerid][5], 16.500000, 10.000000);
-	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][5], 1);
-	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][5], 0);
-	PlayerTextDrawAlignment(playerid, CopGuns[playerid][5], 2);
-	PlayerTextDrawColor(playerid, CopGuns[playerid][5], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][5], 255);
-	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][5], -56);
-	PlayerTextDrawUseBox(playerid, CopGuns[playerid][5], 1);
-	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][5], 1);
-	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][5], 1);
 
 		//STRINGS VELOMOB
 	Velomob_p[playerid][0] = CreatePlayerTextDraw(playerid, 320.000000, 399.000000, "000");
@@ -8170,6 +8623,146 @@ stock todastextdraw(playerid)
 	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][6], 50);
 	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][6], 1);
 	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][6], 1);
+
+	HudCop[playerid][0] = CreatePlayerTextDraw(playerid, 442.000000, 204.000000, "SERVICO");
+	PlayerTextDrawFont(playerid, HudCop[playerid][0], 2);
+	PlayerTextDrawLetterSize(playerid, HudCop[playerid][0], 0.258332, 1.750000);
+	PlayerTextDrawTextSize(playerid, HudCop[playerid][0], 16.500000, 90.500000);
+	PlayerTextDrawSetOutline(playerid, HudCop[playerid][0], 1);
+	PlayerTextDrawSetShadow(playerid, HudCop[playerid][0], 0);
+	PlayerTextDrawAlignment(playerid, HudCop[playerid][0], 2);
+	PlayerTextDrawColor(playerid, HudCop[playerid][0], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, HudCop[playerid][0], 255);
+	PlayerTextDrawBoxColor(playerid, HudCop[playerid][0], -56);
+	PlayerTextDrawUseBox(playerid, HudCop[playerid][0], 1);
+	PlayerTextDrawSetProportional(playerid, HudCop[playerid][0], 1);
+	PlayerTextDrawSetSelectable(playerid, HudCop[playerid][0], 1);
+
+	HudCop[playerid][1] = CreatePlayerTextDraw(playerid, 442.000000, 227.000000, "ARMAS");
+	PlayerTextDrawFont(playerid, HudCop[playerid][1], 2);
+	PlayerTextDrawLetterSize(playerid, HudCop[playerid][1], 0.258332, 1.750000);
+	PlayerTextDrawTextSize(playerid, HudCop[playerid][1], 16.500000, 90.500000);
+	PlayerTextDrawSetOutline(playerid, HudCop[playerid][1], 1);
+	PlayerTextDrawSetShadow(playerid, HudCop[playerid][1], 0);
+	PlayerTextDrawAlignment(playerid, HudCop[playerid][1], 2);
+	PlayerTextDrawColor(playerid, HudCop[playerid][1], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, HudCop[playerid][1], 255);
+	PlayerTextDrawBoxColor(playerid, HudCop[playerid][1], -56);
+	PlayerTextDrawUseBox(playerid, HudCop[playerid][1], 1);
+	PlayerTextDrawSetProportional(playerid, HudCop[playerid][1], 1);
+	PlayerTextDrawSetSelectable(playerid, HudCop[playerid][1], 1);
+
+	HudCop[playerid][2] = CreatePlayerTextDraw(playerid, 442.000000, 250.000000, "ROUPAS");
+	PlayerTextDrawFont(playerid, HudCop[playerid][2], 2);
+	PlayerTextDrawLetterSize(playerid, HudCop[playerid][2], 0.258332, 1.750000);
+	PlayerTextDrawTextSize(playerid, HudCop[playerid][2], 16.500000, 90.500000);
+	PlayerTextDrawSetOutline(playerid, HudCop[playerid][2], 1);
+	PlayerTextDrawSetShadow(playerid, HudCop[playerid][2], 0);
+	PlayerTextDrawAlignment(playerid, HudCop[playerid][2], 2);
+	PlayerTextDrawColor(playerid, HudCop[playerid][2], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, HudCop[playerid][2], 255);
+	PlayerTextDrawBoxColor(playerid, HudCop[playerid][2], -56);
+	PlayerTextDrawUseBox(playerid, HudCop[playerid][2], 1);
+	PlayerTextDrawSetProportional(playerid, HudCop[playerid][2], 1);
+	PlayerTextDrawSetSelectable(playerid, HudCop[playerid][2], 1);
+
+	HudCop[playerid][3] = CreatePlayerTextDraw(playerid, 501.000000, 186.000000, "X");
+	PlayerTextDrawFont(playerid, HudCop[playerid][3], 2);
+	PlayerTextDrawLetterSize(playerid, HudCop[playerid][3], 0.241665, 1.000000);
+	PlayerTextDrawTextSize(playerid, HudCop[playerid][3], 16.500000, 9.500000);
+	PlayerTextDrawSetOutline(playerid, HudCop[playerid][3], 1);
+	PlayerTextDrawSetShadow(playerid, HudCop[playerid][3], 0);
+	PlayerTextDrawAlignment(playerid, HudCop[playerid][3], 2);
+	PlayerTextDrawColor(playerid, HudCop[playerid][3], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, HudCop[playerid][3], 255);
+	PlayerTextDrawBoxColor(playerid, HudCop[playerid][3], -56);
+	PlayerTextDrawUseBox(playerid, HudCop[playerid][3], 1);
+	PlayerTextDrawSetProportional(playerid, HudCop[playerid][3], 1);
+	PlayerTextDrawSetSelectable(playerid, HudCop[playerid][3], 1);
+	//
+	CopGuns[playerid][0] = CreatePlayerTextDraw(playerid, 278.000000, 240.000000, "9MM");
+	PlayerTextDrawFont(playerid, CopGuns[playerid][0], 2);
+	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][0], 0.258332, 1.750000);
+	PlayerTextDrawTextSize(playerid, CopGuns[playerid][0], 16.500000, 90.500000);
+	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][0], 1);
+	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][0], 0);
+	PlayerTextDrawAlignment(playerid, CopGuns[playerid][0], 2);
+	PlayerTextDrawColor(playerid, CopGuns[playerid][0], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][0], 255);
+	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][0], -56);
+	PlayerTextDrawUseBox(playerid, CopGuns[playerid][0], 1);
+	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][0], 1);
+	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][0], 1);
+
+	CopGuns[playerid][1] = CreatePlayerTextDraw(playerid, 278.000000, 263.000000, "M4");
+	PlayerTextDrawFont(playerid, CopGuns[playerid][1], 2);
+	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][1], 0.258332, 1.750000);
+	PlayerTextDrawTextSize(playerid, CopGuns[playerid][1], 16.500000, 90.500000);
+	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][1], 1);
+	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][1], 0);
+	PlayerTextDrawAlignment(playerid, CopGuns[playerid][1], 2);
+	PlayerTextDrawColor(playerid, CopGuns[playerid][1], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][1], 255);
+	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][1], -56);
+	PlayerTextDrawUseBox(playerid, CopGuns[playerid][1], 1);
+	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][1], 1);
+	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][1], 1);
+
+	CopGuns[playerid][2] = CreatePlayerTextDraw(playerid, 278.000000, 285.000000, "SHOTGUN");
+	PlayerTextDrawFont(playerid, CopGuns[playerid][2], 2);
+	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][2], 0.258332, 1.750000);
+	PlayerTextDrawTextSize(playerid, CopGuns[playerid][2], 16.500000, 90.500000);
+	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][2], 1);
+	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][2], 0);
+	PlayerTextDrawAlignment(playerid, CopGuns[playerid][2], 2);
+	PlayerTextDrawColor(playerid, CopGuns[playerid][2], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][2], 255);
+	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][2], -56);
+	PlayerTextDrawUseBox(playerid, CopGuns[playerid][2], 1);
+	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][2], 1);
+	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][2], 1);
+
+	CopGuns[playerid][3] = CreatePlayerTextDraw(playerid, 278.000000, 307.000000, "MP5");
+	PlayerTextDrawFont(playerid, CopGuns[playerid][3], 2);
+	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][3], 0.258332, 1.750000);
+	PlayerTextDrawTextSize(playerid, CopGuns[playerid][3], 16.500000, 90.500000);
+	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][3], 1);
+	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][3], 0);
+	PlayerTextDrawAlignment(playerid, CopGuns[playerid][3], 2);
+	PlayerTextDrawColor(playerid, CopGuns[playerid][3], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][3], 255);
+	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][3], -56);
+	PlayerTextDrawUseBox(playerid, CopGuns[playerid][3], 1);
+	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][3], 1);
+	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][3], 1);
+
+	CopGuns[playerid][4] = CreatePlayerTextDraw(playerid, 278.000000, 330.000000, "RIFLE");
+	PlayerTextDrawFont(playerid, CopGuns[playerid][4], 2);
+	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][4], 0.258332, 1.750000);
+	PlayerTextDrawTextSize(playerid, CopGuns[playerid][4], 16.500000, 90.500000);
+	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][4], 1);
+	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][4], 0);
+	PlayerTextDrawAlignment(playerid, CopGuns[playerid][4], 2);
+	PlayerTextDrawColor(playerid, CopGuns[playerid][4], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][4], 255);
+	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][4], -56);
+	PlayerTextDrawUseBox(playerid, CopGuns[playerid][4], 1);
+	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][4], 1);
+	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][4], 1);
+
+	CopGuns[playerid][5] = CreatePlayerTextDraw(playerid, 337.000000, 222.000000, "X");
+	PlayerTextDrawFont(playerid, CopGuns[playerid][5], 2);
+	PlayerTextDrawLetterSize(playerid, CopGuns[playerid][5], 0.258332, 1.200000);
+	PlayerTextDrawTextSize(playerid, CopGuns[playerid][5], 16.500000, 10.000000);
+	PlayerTextDrawSetOutline(playerid, CopGuns[playerid][5], 1);
+	PlayerTextDrawSetShadow(playerid, CopGuns[playerid][5], 0);
+	PlayerTextDrawAlignment(playerid, CopGuns[playerid][5], 2);
+	PlayerTextDrawColor(playerid, CopGuns[playerid][5], -16776961);
+	PlayerTextDrawBackgroundColor(playerid, CopGuns[playerid][5], 255);
+	PlayerTextDrawBoxColor(playerid, CopGuns[playerid][5], -56);
+	PlayerTextDrawUseBox(playerid, CopGuns[playerid][5], 1);
+	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][5], 1);
+	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][5], 1);
 
 	DrawInv[playerid][0] = CreatePlayerTextDraw(playerid, 317.000000, 1.000000, "_");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][0], 1);
@@ -8722,7 +9315,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][35], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][35], true);
 
-	DrawInv[playerid][36] = CreatePlayerTextDraw(playerid, 503.000000, 154.000000, "UTILIZAR");
+	DrawInv[playerid][36] = CreatePlayerTextDraw(playerid, 503.000000, 154.000000, "QUANTIDADE");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][36], 2);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][36], 0.258332, 1.750000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][36], 16.500000, 90.500000);
@@ -8736,7 +9329,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][36], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][36], true);
 
-	DrawInv[playerid][37] = CreatePlayerTextDraw(playerid, 503.000000, 197.000000, "DROPAR");
+	DrawInv[playerid][37] = CreatePlayerTextDraw(playerid, 503.000000, 197.000000, "UTILIZAR");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][37], 2);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][37], 0.258332, 1.750000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][37], 16.500000, 90.500000);
@@ -8764,7 +9357,7 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][38], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][38], 0);
 
-	DrawInv[playerid][39] = CreatePlayerTextDraw(playerid, 503.000000, 175.000000, "RETIRAR");
+	DrawInv[playerid][39] = CreatePlayerTextDraw(playerid, 503.000000, 175.000000, "DROPAR");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][39], 2);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][39], 0.258332, 1.750000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][39], 16.500000, 90.500000);
@@ -9855,7 +10448,7 @@ stock ChecarOrg(playerid)
 	if(strcmp(DOF2_GetString(String,VagasORG[20]),Name(playerid), true) == 0) return 1;
 	PlayerInfo[playerid][Org] = 0;
 	PlayerInfo[playerid][Cargo] = 0;
-	InfoMsg(playerid, "Foi expulso.");
+	InfoMsg(playerid, "Foi expulsado.");
 	SpawnPlayer(playerid);
 	return 0;
 }
@@ -9929,10 +10522,6 @@ stock NomeOrg(playerid)
 	{
 		orG = "Policia Militar";
 	}
-	if(org == 14)
-	{
-		orG = "Policia Civil";
-	}
 	if(org == 2)
 	{
 		orG = "Policia Rodoviaria";
@@ -9981,6 +10570,10 @@ stock NomeOrg(playerid)
 	{
 		orG = "Moto Clube";
 	}
+	if(org == 14)
+	{
+		orG = "Policia Civil";
+	}
 	return orG;
 }
 
@@ -10024,7 +10617,7 @@ stock CreateCaixa(objectid, Float:x, Float:y, Float:z, Float:rotx, Float:roty, F
 	GetDynamicObjectPos(CaixaInfo[caixaid][Caixa_Object], pX, pY, pZ);
 	GetXYInFrontOfCaixa(CaixaInfo[caixaid][Caixa_Object], pX, pY, 1.0);
 	CaixaInfo[caixaid][Caixa_Pickup] = CreatePickup(1274 , 1, pX,pY,pZ);
-	CaixaInfo[caixaid][Caixa_Text] = Create3DTextLabel("{FFFFFF}Caixa Eletronico\n{FFFFFF}Aperte '{5b6ed9}F{FFFFFF}' para acessar", 0x33FFFF88, pX, pY, pZ, 15.0, 0);
+	CaixaInfo[caixaid][Caixa_Text] = Create3DTextLabel("{FFFFFF}Caixa Registradora\n{FFFFFF}Aperte '{5b6ed9}F{FFFFFF}' para acessar", 0x33FFFF88, pX, pY, pZ, 15.0, 0);
 
     caixaid ++;
 	return 0;
@@ -10189,6 +10782,7 @@ stock CarregarVIP(playerid)
 	return 1;
 }
 
+
 stock SalvarVIP(playerid)
 {
 	new File[5000];
@@ -10203,6 +10797,7 @@ stock SalvarVIP(playerid)
 	}
 	return 1;
 }
+
 stock PreloadAnimLib(playerid, animlib[])
 {
 	ApplyAnimation(playerid,animlib,"null",0.0,0,0,0,0,0);
@@ -10238,7 +10833,7 @@ stock BanirPlayer(playerid, administrador, Motivo1[])
 	DOF2_SetString(File, "Desban", "Nunca");
 	DOF2_SetInt(File, "DDesban", gettime() + 60 * 60 * 24 * 999);
 	DOF2_SaveFile();
-	foreach(Player, i)
+	foreach(new i : Player)
 	{
 		format(Str, sizeof(Str), "O Administrador %s(%d) baniu o jogador %s(%d). Motivo: %s", Name(playerid),PlayerInfo[playerid][IDF], Name(administrador),PlayerInfo[administrador][IDF], Motivo1);
 		WarningMsg(i, Str);
@@ -10385,7 +10980,7 @@ stock BanirIP(playerid, administrador, Motivo1[])
 	DOF2_SetString(File, "Motivo", Motivo1);
 	DOF2_SetString(File, "Data", Data);
 	DOF2_SaveFile();
-	foreach(Player, i)
+	foreach(new i : Player)
 	{
 		format(Str, sizeof(Str), "O Administrador %s(%d) baniu o jogador %s(%d). Motivo: %s", Name(playerid),PlayerInfo[playerid][IDF], Name(administrador),PlayerInfo[administrador][IDF], Motivo1);
 		WarningMsg(i, Str);
@@ -10403,6 +10998,7 @@ stock ZerarDados(playerid)
 	PlayerInfo[playerid][pSkin] = 0;
 	Din[playerid] = 0;
 	vl[playerid] = 0;
+	ChatAtendimento[playerid] = 0;
 	PlayerInfo[playerid][pDinheiro] = 0;
 	PlayerInfo[playerid][pBanco] = 0;
 	PlayerInfo[playerid][pIdade] = 0;
@@ -10555,6 +11151,10 @@ stock SalvarDados(playerid)
 	getdate(Ano, Mes, Dia);
 	GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
 	GetPlayerFacingAngle(playerid, A);
+	new Float:health;
+    	GetPlayerHealth(playerid,health);
+	new Float:armour;
+    	GetPlayerArmour(playerid,armour);
 	format(Data, 24, "%02d/%02d/%d - %02d:%02d", Dia, Mes, Ano, Hora, Minuto);
 	format(Email, 24, "%s", PlayerInfo[playerid][pEmail]);
 
@@ -10601,6 +11201,8 @@ stock SalvarDados(playerid)
 		DOF2_SetInt(File, "pRG", PlayerInfo[playerid][pRG]);
 		DOF2_SetInt(File, "pCarteiraT", PlayerInfo[playerid][pCarteiraT]);
 		DOF2_SetInt(File, "Pecas", PlayerInfo[playerid][PecasArma]);
+		DOF2_SetFloat(File, "pVida", health);
+		DOF2_SetFloat(File, "pColete", armour);
 		DOF2_SaveFile();
 	}
 	return 1;
@@ -10615,6 +11217,10 @@ stock SalvarDadosSkin(playerid)
 	getdate(Ano, Mes, Dia);
 	GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
 	GetPlayerFacingAngle(playerid, A);
+	new Float:health;
+    	GetPlayerHealth(playerid,health);
+	new Float:armour;
+    	GetPlayerArmour(playerid,armour);
 	format(Data, 24, "%02d/%02d/%d - %02d:%02d", Dia, Mes, Ano, Hora, Minuto);
 	format(Email, 24, "%s", PlayerInfo[playerid][pEmail]);
 
@@ -10662,6 +11268,8 @@ stock SalvarDadosSkin(playerid)
 		DOF2_SetInt(File, "pRG", PlayerInfo[playerid][pRG]);
 		DOF2_SetInt(File, "pCarteiraT", PlayerInfo[playerid][pCarteiraT]);
 		DOF2_SetInt(File, "Pecas", PlayerInfo[playerid][PecasArma]);
+		DOF2_SetFloat(File, "pVida", health);
+		DOF2_SetFloat(File, "pColete", armour);
 		DOF2_SaveFile();
 	}
 	return 1;
@@ -10964,120 +11572,6 @@ public OnGameModeInit()
 	TextDrawUseBox(LogoHM[2], 0);
 	TextDrawSetProportional(LogoHM[2], 1);
 	TextDrawSetSelectable(LogoHM[2], 0);
-
-	//ARMARIO COPS
-	HudCop[0] = TextDrawCreate(322.000000, 161.000000, "_");
-	TextDrawFont(HudCop[0], 1);
-	TextDrawLetterSize(HudCop[0], 0.616666, 13.300014);
-	TextDrawTextSize(HudCop[0], 298.500000, 75.000000);
-	TextDrawSetOutline(HudCop[0], 1);
-	TextDrawSetShadow(HudCop[0], 0);
-	TextDrawAlignment(HudCop[0], 2);
-	TextDrawColor(HudCop[0], -1);
-	TextDrawBackgroundColor(HudCop[0], 255);
-	TextDrawBoxColor(HudCop[0], 255);
-	TextDrawUseBox(HudCop[0], 1);
-	TextDrawSetProportional(HudCop[0], 1);
-	TextDrawSetSelectable(HudCop[0], 0);
-
-	HudCop[1] = TextDrawCreate(322.000000, 161.000000, "_");
-	TextDrawFont(HudCop[1], 1);
-	TextDrawLetterSize(HudCop[1], 0.616666, 0.750011);
-	TextDrawTextSize(HudCop[1], 298.500000, 75.000000);
-	TextDrawSetOutline(HudCop[1], 1);
-	TextDrawSetShadow(HudCop[1], 0);
-	TextDrawAlignment(HudCop[1], 2);
-	TextDrawColor(HudCop[1], -1);
-	TextDrawBackgroundColor(HudCop[1], 255);
-	TextDrawBoxColor(HudCop[1], 1296911871);
-	TextDrawUseBox(HudCop[1], 1);
-	TextDrawSetProportional(HudCop[1], 1);
-	TextDrawSetSelectable(HudCop[1], 0);
-
-	HudCop[2] = TextDrawCreate(323.000000, 160.000000, "MENU CORP");
-	TextDrawFont(HudCop[2], 2);
-	TextDrawLetterSize(HudCop[2], 0.254167, 1.000000);
-	TextDrawTextSize(HudCop[2], 316.500000, 107.000000);
-	TextDrawSetOutline(HudCop[2], 0);
-	TextDrawSetShadow(HudCop[2], 0);
-	TextDrawAlignment(HudCop[2], 2);
-	TextDrawColor(HudCop[2], -1);
-	TextDrawBackgroundColor(HudCop[2], 255);
-	TextDrawBoxColor(HudCop[2], 50);
-	TextDrawUseBox(HudCop[2], 0);
-	TextDrawSetProportional(HudCop[2], 1);
-	TextDrawSetSelectable(HudCop[2], 0);
-
-	HudCop[3] = TextDrawCreate(322.000000, 185.000000, "BATER CARTAO");
-	TextDrawFont(HudCop[3], 2);
-	TextDrawLetterSize(HudCop[3], 0.158333, 0.650000);
-	TextDrawTextSize(HudCop[3], 9.500000, 56.500000);
-	TextDrawSetOutline(HudCop[3], 0);
-	TextDrawSetShadow(HudCop[3], 0);
-	TextDrawAlignment(HudCop[3], 2);
-	TextDrawColor(HudCop[3], -1);
-	TextDrawBackgroundColor(HudCop[3], 255);
-	TextDrawBoxColor(HudCop[3], 1296911871);
-	TextDrawUseBox(HudCop[3], 1);
-	TextDrawSetProportional(HudCop[3], 1);
-	TextDrawSetSelectable(HudCop[3], 1);
-
-	HudCop[4] = TextDrawCreate(322.000000, 208.000000, "UNIFORMES");
-	TextDrawFont(HudCop[4], 2);
-	TextDrawLetterSize(HudCop[4], 0.158333, 0.650000);
-	TextDrawTextSize(HudCop[4], 9.500000, 56.500000);
-	TextDrawSetOutline(HudCop[4], 0);
-	TextDrawSetShadow(HudCop[4], 0);
-	TextDrawAlignment(HudCop[4], 2);
-	TextDrawColor(HudCop[4], -1);
-	TextDrawBackgroundColor(HudCop[4], 255);
-	TextDrawBoxColor(HudCop[4], 1296911871);
-	TextDrawUseBox(HudCop[4], 1);
-	TextDrawSetProportional(HudCop[4], 1);
-	TextDrawSetSelectable(HudCop[4], 1);
-
-	HudCop[5] = TextDrawCreate(322.000000, 232.000000, "DIVISAO");
-	TextDrawFont(HudCop[5], 2);
-	TextDrawLetterSize(HudCop[5], 0.158333, 0.650000);
-	TextDrawTextSize(HudCop[5], 9.500000, 56.500000);
-	TextDrawSetOutline(HudCop[5], 0);
-	TextDrawSetShadow(HudCop[5], 0);
-	TextDrawAlignment(HudCop[5], 2);
-	TextDrawColor(HudCop[5], -1);
-	TextDrawBackgroundColor(HudCop[5], 255);
-	TextDrawBoxColor(HudCop[5], 1296911871);
-	TextDrawUseBox(HudCop[5], 1);
-	TextDrawSetProportional(HudCop[5], 1);
-	TextDrawSetSelectable(HudCop[5], 1);
-
-	HudCop[6] = TextDrawCreate(322.000000, 257.000000, "EQUIPAMENTOS");
-	TextDrawFont(HudCop[6], 2);
-	TextDrawLetterSize(HudCop[6], 0.158333, 0.650000);
-	TextDrawTextSize(HudCop[6], 9.500000, 56.500000);
-	TextDrawSetOutline(HudCop[6], 0);
-	TextDrawSetShadow(HudCop[6], 0);
-	TextDrawAlignment(HudCop[6], 2);
-	TextDrawColor(HudCop[6], -1);
-	TextDrawBackgroundColor(HudCop[6], 255);
-	TextDrawBoxColor(HudCop[6], 1296911871);
-	TextDrawUseBox(HudCop[6], 1);
-	TextDrawSetProportional(HudCop[6], 1);
-	TextDrawSetSelectable(HudCop[6], 1);
-
-	HudCop[7] = TextDrawCreate(356.000000, 144.000000, "X");
-	TextDrawFont(HudCop[7], 2);
-	TextDrawLetterSize(HudCop[7], 0.229167, 1.050000);
-	TextDrawTextSize(HudCop[7], 9.500000, 7.500000);
-	TextDrawSetOutline(HudCop[7], 0);
-	TextDrawSetShadow(HudCop[7], 0);
-	TextDrawAlignment(HudCop[7], 2);
-	TextDrawColor(HudCop[7], -1);
-	TextDrawBackgroundColor(HudCop[7], 255);
-	TextDrawBoxColor(HudCop[7], -16776961);
-	TextDrawUseBox(HudCop[7], 1);
-	TextDrawSetProportional(HudCop[7], 1);
-	TextDrawSetSelectable(HudCop[7], 1);
-
 
 	Textdraw0 = TextDrawCreate(320.000000, 180.000000, "ALERTA~n~~n~~n~");
 	TextDrawAlignment(Textdraw0, 2);
@@ -12754,7 +13248,9 @@ public OnGameModeInit()
 	TextDrawSetProportional(TextDraw[4], 1);
 	TextDrawSetShadow(TextDraw[4], 0);
 
-	CreateDynamicMapIcon(800.242553, -1617.385986, 14.032936, 10, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PIZZARIA
+	CreateDynamicMapIcon(800.242553, -1617.385986, 14.032936, 10, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//HL FOOD
+	CreateDynamicMapIcon(2110.791015, -1804.298217, 13.591037, 10, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PIZZARIA
+	CreateDynamicMapIcon(1193.647460, -914.173156, 43.360343, 10, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//MCDONALDS
 	CreateDynamicMapIcon(1481.094482, -1772.313720, 18.795755, 40, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PREFEITURA
 	CreateDynamicMapIcon(1456.284912, -1128.022460, 23.958011, 52, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//BANCO
 	CreateDynamicMapIcon(1083.447998, -1766.307128, 13.928387, 36, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//AUTO ESCOLA
@@ -12771,7 +13267,6 @@ public OnGameModeInit()
 	CreateDynamicMapIcon(649.302062, -1357.399658, 13.567605, 34, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//SAN NEWS
 	// ORG MILITARES
 	CreateDynamicMapIcon(-2033.067504, -988.365112, 32.212158, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//POLICIA MILITAR
-	CreateDynamicMapIcon(1554.6508,-1675.6040,16.1953, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//POLICIA CIVIL
 	CreateDynamicMapIcon(-2440.856445, 522.686523, 29.914293, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//ROTA
 	CreateDynamicMapIcon(-1278.104248, 2711.379150, 50.132141, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//BAEP
 	CreateDynamicMapIcon(1662.559692, -285.732208, 39.607868, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PRF
@@ -12948,6 +13443,8 @@ public OnGameModeInit()
 	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1460.913208, -1124.163940, 23.958011);
 	CreateAurea("{5b6ed9}Hospital Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1646.425537, -1126.261474, 24.051115);
 	CreateAurea("{5b6ed9}HomeLand Food\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 797.993225, -1618.977661, 14.032936);
+	CreateAurea("{5b6ed9}Burguer King\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 2110.791015, -1804.298217, 13.591037);
+	CreateAurea("{5b6ed9}McDonalds\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1193.647460, -914.173156, 43.360343);
 	CreateAurea("{5b6ed9}Loja de Utilidades 1\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1345.220703, -1763.755737, 13.551799);
 	CreateAurea("{5b6ed9}Loja de Utilidades 2\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1649.424316, -1889.373535, 13.569334);
 	CreateAurea("{5b6ed9}Loja de Utilidades 3\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 2064.488037, -1868.448364, 13.570810);
@@ -12955,6 +13452,11 @@ public OnGameModeInit()
 	CreateAurea("{5b6ed9}Loja de Utilidades 5\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1325.427368, -867.394287, 39.597454);
 	CreateAurea("{5b6ed9}Centro de Licenca\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1083.447998, -1766.307128, 13.928387);
 	CreateAurea("{5b6ed9}Loja Ilegal\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 514.712341, -2333.011474, 508.693756);
+	CreateAurea("{5b6ed9}Fabricar Pistola 9mm\n{FFFFFF}Use '{5b6ed9}Peca de Fabricacao{FFFFFF}' para fabricar.", 2139.590087, -2255.079345, 13.303335);
+    CreateAurea("{5b6ed9}Fabricar Desert\n{FFFFFF}Use '{5b6ed9}Peca de Fabricacao{FFFFFF}' para fabricar.", 2141.257812, -2256.759521, 13.299867);
+    CreateAurea("{5b6ed9}Fabricar M4\n{FFFFFF}Use '{5b6ed9}Peca de Fabricacao{FFFFFF}' para fabricar.", 2143.288818, -2258.775390, 13.295673);
+    CreateAurea("{5b6ed9}Fabricar AK-47\n{FFFFFF}Use '{5b6ed9}Peca de Fabricacao{FFFFFF}' para fabricar.", 2148.499511, -2264.335449, 13.298288);
+    CreateAurea("{5b6ed9}Fabricar Colete\n{FFFFFF}Use '{5b6ed9}Peca de Fabricacao{FFFFFF}' para fabricar.", 2151.042968, -2266.863525, 13.306745);
 	CreateAurea("{5b6ed9}AmmuNation\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1785.501586, -1916.644165, 14.295277);
 	CreateAurea("{5b6ed9}Joalheria\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 468.658203, -1517.271606, 20.477876);
 	// LOCAIS ROUBO
@@ -13002,17 +13504,13 @@ public OnGameModeInit()
 
 	CreateAurea("{5b6ed9}Rota de Maconha\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -1143.184814, 2227.874511, 97.219261);
 	CreateAurea("{5b6ed9}Rota de Cocaina\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -248.257873, 1506.404418, 75.562500);
-	CreateAurea("{5b6ed9}Lavagem\n{FFFFFF}Utilize '{5b6ed9}Dinheiro Sujo{FFFFFF}' para \nefetuar a lavagem.", 1489.208862, -1719.420043, 8.242919);
+	CreateAurea("{5b6ed9}Lavagem\n{FFFFFF}Utilize '{5b6ed9}Dinheiro Sujo{FFFFFF}' para \nefetuar a lavagem.", -691.261047, 942.106384, 13.632812);
 
 	CreateAurea("{5b6ed9}Material\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar um material.", 1273.534545, -1292.359985, 13.481081);
 	CreateAurea("{5b6ed9}Material\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para deixar o material.", 1257.569458, -1263.111206, 17.821365);
-	//CreateAurea("{5b6ed9}Detencao\n{ffffff}Aperte '{5b6ed9}Y{ffffff}' para entrar",330.5061,1843.1603,2241.5850);
-	CreateAurea("{5b6ed9}Elevador\n{ffffff}Aperte '{5b6ed9}Y{ffffff}' para entrar",323.1717,1839.0503,2241.5850);
+
 	CreateDynamicPickup(1314, 23, -2017.083740, -998.231933, 37.254680);
 	CreateDynamic3DTextLabel("{5b6ed9}Policia Militar{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,-2017.083740, -998.231933, 37.254680,15);
-
-	CreateDynamicPickup(1314, 23,304.0539,1825.8835,2241.6008);
-	CreateDynamic3DTextLabel("{5b6ed9}Policia Civil{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,304.0539,1825.8835,2241.6008,15);
 
 	CreateDynamicPickup(1314, 23, 1638.864746, -248.854202, 49.000457);
 	CreateDynamic3DTextLabel("{5b6ed9}Policia Rodoviaria{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1638.864746, -248.854202, 49.000457,15);
@@ -13050,6 +13548,9 @@ public OnGameModeInit()
 	CreateDynamicPickup(1314, 23, 691.841125, -463.600677, 16.536296);
 	CreateDynamic3DTextLabel("{5b6ed9}Moto Clube{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,691.841125, -463.600677, 16.536296,15);
 
+	CreateDynamicPickup(1314, 23, 675.153442, -1497.677246, 20.966297);
+	CreateDynamic3DTextLabel("{5b6ed9}Policia Civil{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,675.153442, -1497.677246, 20.966297,15);
+
 	for(new j; j < MAX_ORGS; j++)
 	{
 	    CarregarCofre(j);
@@ -13078,11 +13579,11 @@ public OnGameModeInit()
 		CreateDynamicPickup(1083, 23, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2]); // Veh Spawn
 		if(i == 11)break;
 	}
-	for(new i; i < 5; i++)
+	for(new i; i < 6; i++)
 	{
 		CreateDynamicPickup(1275, 23, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para \npegar os equipamentos.",-1,PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2],15);
-		if(i == 5)break;
+		if(i == 6)break;
 	}
 	for(new i; i < 13; i++)
 	{
@@ -13100,6 +13601,11 @@ public OnGameModeInit()
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
 		if(i == 4)break;
 	}
+	for(new i; i < 9; i++)
+	{
+		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para \ndeitar na maca.",-1,Macas[i][0],Macas[i][1],Macas[i][2],15);
+		if(i == 9)break;
+	}
 	for(new i; i > CountDynamicObjects(); i++)
 	{
 		Streamer_SetFloatData(STREAMER_TYPE_OBJECT , i, E_STREAMER_STREAM_DISTANCE, 500.0);
@@ -13109,7 +13615,7 @@ public OnGameModeInit()
 	TimerRelogio = SetTimer("Relogio",1000,true);
 	TimerCadeia = SetTimer("CheckCadeia", 2000, true);
 	TimerAfk = SetTimer("AntiAway", minutos(10), true);
-	//TimerMaconha = SetTimer("UpdateDrogas", minutos(15), true);
+	TimerMaconha = SetTimer("UpdateDrogas", minutos(15), true);
 	TimerMensagemAuto = SetTimer("SendMSG", minutos(10), true);
 	maintimer = SetTimer("MainTimer", 1000, true);
 	savetimer = SetTimer("SaveTimer", 2222, true);
@@ -13119,7 +13625,7 @@ public OnGameModeInit()
 
 public OnGameModeExit()
 {
-	foreach(Player, i)
+	foreach(new i : Player)
 	{
 		if(pLogado[i] == true)
 		{
@@ -13327,6 +13833,7 @@ public OnPlayerDisconnect(playerid, reason)
 		{
 			SalvarArmas(playerid);
 		}
+		if(paramedico[playerid] == true) medicoon --;
 		new arquivofila[5000];
 		format(arquivofila, sizeof(arquivofila), Pasta_Relatorios,playerid);
 		if(DOF2_FileExists(arquivofila))
@@ -13923,6 +14430,39 @@ public OnPlayerEnterCheckpoint(playerid)
 	{
 		InfoMsg(playerid, "Utilize a maconha no seu inventario para fazer a entrega.");
 	}
+	if(RotaCocaina[playerid] == true)
+	{
+		InfoMsg(playerid, "Utilize a maconha no seu inventario para fazer a entrega.");
+	}
+	if(RotaPecas[playerid] == true)
+	{
+		for(new i; i < 303+120; i++)
+		if(IsPlayerInRangeOfPoint(playerid,2.0,PosRota[i][0],PosRota[i][1],PosRota[i][2]))
+		{
+			new dinma = randomEx(0, 50);
+			new dinma2 = randomEx(0, 5000);
+			new noti = randomEx(0, 2);
+			if(PlayerInfo[playerid][pDinheiro] < dinma2) return ErrorMsg(playerid, "Dinheiro Insuficiente");
+			RotaPecas[playerid] = false;
+			cmd_iniciarrotapecas(playerid);
+			SuccesMsg(playerid, "Entrega feita, passe para a proxima rota.");
+			GanharItem(playerid,19995, dinma);
+			PlayerInfo[playerid][pDinheiro] -= dinma2;
+			new location[MAX_ZONE_NAME];
+			GetPlayer2DZone2(playerid, location, MAX_ZONE_NAME);
+			if(noti == 1)
+			{
+				foreach(new p: Player)
+				{
+					if(Patrulha[p] == true)
+					{
+						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo coletando pecas de armas em %s", location);
+						WarningMsg(p, Str);
+					}
+				}
+			}
+		}
+	}
 	if(GPS[playerid] == true)
 	{
 		DisablePlayerCheckpoint(playerid);
@@ -13936,7 +14476,7 @@ public OnPlayerEnterCheckpoint(playerid)
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
 			InfoMsg(playerid, "Pegando Caixa...");
-			SetTimerEx("PegandoCaixaP", 10000, false, "i", playerid);
+			SetTimerEx("PegandoCaixasP", 10000, false, "i", playerid);
 			EntregaSdx[playerid] = false;
 		}
 	}
@@ -13978,7 +14518,7 @@ public OnPlayerEnterCheckpoint(playerid)
 			format(constrstr,sizeof(constrstr),"Ganhou %i com este material.", dinmateriale);
 			SuccesMsg(playerid, constrstr);
 		}
-		if(PlayerInfo[playerid][pVIP] == 2)
+		if(PlayerInfo[playerid][pVIP] < 2)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
 			format(constrstr,sizeof(constrstr),"Ganhou %i com este material.", dinmateriale*2);
@@ -13992,7 +14532,6 @@ public OnPlayerEnterCheckpoint(playerid)
 		new constrstr[500];
 		TogglePlayerControllable(playerid, 0);
 		SetTimerEx("AnimyTogle2", 3000, false, "i", playerid);
-		RemovePlayerAttachedObject(playerid, 1);
 		new dinmateriale = randomEx(50, 200);
 		if(PlayerInfo[playerid][pVIP] == 0)
 		{
@@ -14000,7 +14539,7 @@ public OnPlayerEnterCheckpoint(playerid)
 			format(constrstr,sizeof(constrstr),"Ganhou %i com esta rocha.", dinmateriale);
 			SuccesMsg(playerid, constrstr);
 		}
-		if(PlayerInfo[playerid][pVIP] == 2)
+		if(PlayerInfo[playerid][pVIP] < 2)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
 			format(constrstr,sizeof(constrstr),"Ganhou %i com esta rocha.", dinmateriale*2);
@@ -14011,7 +14550,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	}
 	if(Desossando[playerid] == 6)
 	{
-		new dinmateriale = randomEx(0, 500);
+		new dinmateriale = randomEx(100, 500);
 		new constrstr[500];
 		ClearAnimations(playerid);
 		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
@@ -14022,7 +14561,7 @@ public OnPlayerEnterCheckpoint(playerid)
 			format(constrstr,sizeof(constrstr),"Ganhou %i com esta caixa.", dinmateriale);
 			SuccesMsg(playerid, constrstr);
 		}
-		if(PlayerInfo[playerid][pVIP] == 2)
+		if(PlayerInfo[playerid][pVIP] < 2)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
 			format(constrstr,sizeof(constrstr),"Ganhou %i com esta caixa.", dinmateriale*2);
@@ -15074,7 +15613,7 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	if(newkeys & KEY_SPRINT && newkeys & KEY_JUMP)
+	if(newkeys == KEY_JUMP)
 	{
 		if(pulou2vezes[playerid] == true)
 		{
@@ -15147,10 +15686,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{
 				cmd_abrircorreios2(playerid);
 			}
-		}
-		if(PlayerToPoint(8.0, playerid, 1544.683227, -1630.695678, 13.072815))
-		{
-			cmd_ptcop(playerid);
 		}
 	}
 	if(newkeys == KEY_CTRL_BACK)
@@ -15322,6 +15857,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		else if(PlayerToPoint(3.0, playerid, 1639.677124, -1103.197631, 23.906250))
 		{
 			if(PlayerInfo[playerid][Org] != 10)    		return ErrorMsg(playerid, "Nao possui permissao.");
+			if(paramedico[playerid] == false) 		return InfoMsg(playerid, "Nao esta em servico e com uniforme");
 			ShowPlayerDialog(playerid, DIALOG_VEHHP, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}Ambulance\t{FF0000}416\n{FF0000}- {FFFFFF}Wayfarer\t{FF0000}586", "Selecionar", "X");
 		}
 		else if(PlayerToPoint(3.0, playerid, -2033.141479, -988.619567, 32.212158))
@@ -15344,10 +15880,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][Org] != 4)    		return ErrorMsg(playerid, "Nao possui permissao.");
 			ShowPlayerDialog(playerid, DIALOG_VEHCORP4, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}FBI Rancher\t{FF0000}490", "Selecionar", "X");
 		}
-		else if(PlayerToPoint(3.0, playerid, 1578.4696,-1712.2008,5.8906))
+		else if(PlayerToPoint(3.0, playerid, 667.180053, -1457.288818, 15.439465))
 		{
 			if(PlayerInfo[playerid][Org] != 14)    		return ErrorMsg(playerid, "Nao possui permissao.");
-			ShowPlayerDialog(playerid, DIALOG_VEHCORP5, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}FBI Rancher\t{FF0000}490\n{FF0000}- {FFFFFF}Aguia\t{FF0000}497", "Selecionar", "X");
+			ShowPlayerDialog(playerid, DIALOG_VEHCORP5, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}FBI Rancher\t{FF0000}490", "Selecionar", "X");
 		}
 	}
 	if(newkeys == KEY_YES)
@@ -15393,43 +15929,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		else if(IsPlayerInRangeOfPoint(playerid,2.0,-501.1714,286.6785,2001.0950))
 		{
 			SetPlayerPos(playerid, 1481.094482, -1772.313720, 18.795755);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//DPCESP GERAL ELEVADOR SUBIR
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 323.1717,1839.0503,2241.5850))
-		{
-			SetPlayerPos(playerid,  1565.0919,-1666.5137,28.3956);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//DPCESP GERAL ELEVADOR DESCER
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 1565.0919,-1666.5137,28.3956))
-		{
-			SetPlayerPos(playerid,  323.1717,1839.0503,2241.5850);
-			SetPlayerInterior(playerid, 1);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//DPCESP GERAL ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 1554.6508,-1675.6040,16.1953))
-		{
-			SetPlayerPos(playerid,  350.3784,1834.4092,2241.5850);
-			SetPlayerFacingAngle(playerid,83.8808);
-			SetPlayerInterior(playerid, 1);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//DPCESP GERAL SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,350.3784,1834.4092,2241.5850))
-		{
-			SetPlayerPos(playerid, 1554.6508,-1675.6040,16.1953);
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, 0);
 			TogglePlayerControllable(playerid, false);
@@ -15522,6 +16021,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	}
 	if(newkeys == KEY_SECONDARY_ATTACK)
 	{
+		cmd_deitar(playerid);
 		if(MostrandoMenu[playerid] == true)
 		{
 			TextDrawHideForPlayer(playerid, TDCadastro[2]);
@@ -15630,10 +16130,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			}
 			SelectTextDraw(playerid, 0xFF0000FF);
 		}
-		if(PlayerToPoint(3.0, playerid, 797.993225, -1618.977661, 14.032936))
+		if(PlayerToPoint(3.0, playerid, 797.993225, -1618.977661, 14.032936) || PlayerToPoint(3.0, playerid, 1193.647460, -914.173156, 43.360343) || PlayerToPoint(3.0, playerid, 2110.791015, -1804.298217, 13.591037))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_CATLANCHE, DIALOG_STYLE_LIST, "Subway", "{5b6ed9}- {FFFFFF}Alimentos\n{5b6ed9}- {FFFFFF}Refrescos", "Selecionar", "X");
+			ShowPlayerDialog(playerid, DIALOG_CATLANCHE, DIALOG_STYLE_LIST, "Escolha uma opcao", "{5b6ed9}- {FFFFFF}Alimentos\n{5b6ed9}- {FFFFFF}Refrescos", "Selecionar", "X");
 		}
 		if(PlayerToPoint(2.0, playerid, 1083.447998, -1766.307128, 13.928387))
 		{
@@ -15666,22 +16166,29 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 1646.425537, -1126.261474, 24.051115))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_LOJAHP, DIALOG_STYLE_LIST,"Loja do Hospital\tValor", "{5b6ed9}- {FFFFFF}Bandagem\t{32CD32}R$200", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_LOJAHP, DIALOG_STYLE_LIST,"Loja do Hospital\tValor", "{5b6ed9}- {FFFFFF}Bandagem\t{32CD32}R$800\n{5b6ed9}- {FFFFFF}Kit Primeiro Socorros\t{32CD32}APENAS MEDICO", "Selecionar","X");
 		}
-		for(new i; i < 5; i++)
+		for(new i; i < 6; i++)
 		if(PlayerToPoint(3.0, playerid, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]))
 		{
 			if(IsPolicial(playerid))
 			{
-				for(new x=0;x<8;x++){
-					TextDrawShowForPlayer(playerid, HudCop[x]);
-				}
+				PlayerTextDrawShow(playerid, HudCop[playerid][0]);
+				PlayerTextDrawShow(playerid, HudCop[playerid][1]);
+				PlayerTextDrawShow(playerid, HudCop[playerid][2]);
+				PlayerTextDrawShow(playerid, HudCop[playerid][3]);
 				SelectTextDraw(playerid, 0xFF0000FF);
 				return 1;
 			}
-			else
+			if(PlayerInfo[playerid][Org] == 10)
 			{
-				ErrorMsg(playerid, "Nao possui permissao.");
+				new Ropa[255];
+				strcat(Ropa, "{5b6ed9}- {FFFFFF}Paramedico Fem 1\n");
+				strcat(Ropa, "{5b6ed9}- {FFFFFF}Paramedico Mac 1\n");
+				strcat(Ropa, "{5b6ed9}- {FFFFFF}Paramedico Mac 2\n");
+				strcat(Ropa, "{5b6ed9}- {FFFFFF}Paramedico Mac 3\n");
+				strcat(Ropa, "{FFFFFF}- {5b6ed9}Retirar Uniforme\n");
+				ShowPlayerDialog(playerid, DIALOG_ROPAMED, DIALOG_STYLE_LIST, "Fardamentos", Ropa, "Selecionar", "X");
 			}
 		}
 		if(GetPlayerCaixa(playerid))
@@ -15739,7 +16246,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 960.607055, 2097.604003, 1011.023010))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			if(PlayerInfo[playerid][pSegundosJogados] < 7200) return InfoMsg(playerid, "Voce precisa ter 2hrs de jogo.");
+			if(PlayerInfo[playerid][pSegundosJogados] < 10800) return InfoMsg(playerid, "Voce precisa ter 3hrs de jogo.");
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
 			else
 			{
@@ -15750,13 +16257,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, -504.495117, -517.457763, 25.523437))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			if(PlayerInfo[playerid][pSegundosJogados] < 14400 ) return InfoMsg(playerid, "Voce precisa ter 4hrs de jogo.");
+			if(PlayerInfo[playerid][pSegundosJogados] < 21600 ) return InfoMsg(playerid, "Voce precisa ter 6hrs de jogo.");
 			if(PlayerInfo[playerid][LicencaConduzir] == 0) return InfoMsg(playerid, "Voce nao possui licenca de conducao.");
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
 			else
 			{
-				if(PlayerInfo[playerid][LicencaConduzir] == 0) return ErrorMsg(playerid, "Nao possui licenca");
-				if(!CheckInventario2(playerid, 19792)) 	return ErrorMsg(playerid, "Nao possui carteira de trabalho.");
 				PlayerInfo[playerid][pProfissao] = 4;
 				SuccesMsg(playerid, "Aceitou em emprego novo.");
 			}
@@ -15795,13 +16300,13 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 939.6504,1733.2004,8.8516)) //correios
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			if(PlayerInfo[playerid][pSegundosJogados] < 18000) return InfoMsg(playerid, "Voce precisa ter 5hrs de jogo.");
+			if(PlayerInfo[playerid][pSegundosJogados] < 32400) return InfoMsg(playerid, "Voce precisa ter 9hrs de jogo.");
 			if(PlayerInfo[playerid][LicencaConduzir] == 0) return InfoMsg(playerid, "Voce nao possui licenca de conducao.");
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
 			else
 			{
 				PlayerInfo[playerid][pProfissao] = 8;
-				SuccesMsg(playerid, "Voce foi contratado pela SedeX como Correios.");
+				SuccesMsg(playerid, "Aceitou em emprego novo.");
 			}
 		}
 	}
@@ -15815,7 +16320,6 @@ public OnRconLoginAttempt(ip[], password[], success)
 
 public OnPlayerUpdate(playerid)
 {
-	checkEE(playerid);
 	return 1;
 }
 
@@ -16455,16 +16959,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SetInt(Account, "pRG", 0);
 					DOF2_SetInt(Account, "pCarteiraT", 0);
 					DOF2_SetInt(Account, "Pecas", 0);
-
+					DOF2_SetFloat(Account, "pVida", 100);
+					DOF2_SetFloat(Account, "pColete", 100);
 					PlayerInfo[playerid][Casa] = -1;
 					DOF2_SaveFile();
 				}
 
 				CriarInventario(playerid);
-				for(new i = 0; i < 23; ++i)
+				for(new i = 0; i < 27; ++i)
 				{
 					PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
-					if(i == 23)break;
+					if(i == 27)break;
 				}
 				new tarquivo[64];
 				format(tarquivo, sizeof(tarquivo), "IDs/%04d.ini",uid);
@@ -16734,9 +17239,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 691.841125, -463.600677, 16.536296, 90.036911, 0, 0, 0, 0, 0, 0);
 							SpawnPlayer(playerid);
 						}
-						else if(PlayerInfo[playerid][Org] == 14) //Policia civil
+						else if(PlayerInfo[playerid][Org] == 14)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1579.6786,-1635.2084,13.5613,86.1338, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 675.153442, -1497.677246, 20.966297, 90.036911, 0, 0, 0, 0, 0, 0);
 							SpawnPlayer(playerid);
 						}
 						format(Str, sizeof(Str), "Bem vindo %04d. Seu ultimo login foi em %s.", GetPlayerIdfixo(playerid), PlayerInfo[playerid][pLastLogin]);
@@ -16826,7 +17331,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 				if(!IsNumeric(inputtext)) return ErrorMsg(playerid, "Somente numeros");
 				if(strlen(inputtext) > 3) return ErrorMsg(playerid, "Valor invalido.");
-				foreach(Player,i)
+				foreach(new i : Player)
 			  	{
 					if(pLogado[i] == true)
 					{
@@ -16839,7 +17344,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 					}
 			  	}
-			  	ErrorMsg(playerid, "Jogador nao conectado.");
+
 			}
 		}
 		case DIALOG_BANCO5:
@@ -17221,6 +17726,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						strcat(stg, "{5b6ed9}/rveiculo{FFFFFF} Remova um jogador no veiculo.\n");
 						strcat(stg, "{5b6ed9}/revistar{FFFFFF} Verificar inventario de um jogador.\n");
 						strcat(stg, "{5b6ed9}/verdocumentos{FFFFFF} Verificar documento de um jogador.\n");
+						strcat(stg, "{5b6ed9}/iniciarrotapecas{FFFFFF} Verificar documento de um jogador.\n");
+						ShowPlayerDialog(playerid, DIALOG_AJUDAORG, DIALOG_STYLE_MSGBOX, "Comandos Organizacao", stg, "Ok", "");
+					}
+					if(PlayerInfo[playerid][Org] != 10)
+					{
+						new stg[1100];
+						strcat(stg, "{5b6ed9}/tratamento{FFFFFF} Enviar solicitacao de tratamento ao player\n");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAORG, DIALOG_STYLE_MSGBOX, "Comandos Organizacao", stg, "Ok", "");
 					}
 				}
@@ -17326,6 +17838,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new Float:n = GetPlayerDistanceFromPoint(playerid, 1325.4236,-867.3035,39.6159);
 					new Float:o = GetPlayerDistanceFromPoint(playerid, 1345.2196,-1763.8044,13.5702);
 					new Float:p = GetPlayerDistanceFromPoint(playerid, 468.658203, -1517.271606, 20.477876);
+                    new Float:q = GetPlayerDistanceFromPoint(playerid, 2110.791015, -1804.298217, 13.591037);
+					new Float:u = GetPlayerDistanceFromPoint(playerid, 1193.647460, -914.173156, 43.360343);
 					MEGAString[0] = EOS;
 					new string[800];
 					strcat(MEGAString, "Local\tDistancia\n");
@@ -17355,6 +17869,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Joalheria \t{5b6ed9} %.0f KM\n", p);
 					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Burguer King \t{5b6ed9} %.0f KM\n", q);
+					strcat(MEGAString,string);
+					format(string, 128, "{FFFFFF} Mc Donalds \t{5b6ed9} %.0f KM\n", u);
+					strcat(MEGAString,string);
 					ShowPlayerDialog(playerid, DIALOG_GPS1, DIALOG_STYLE_TABLIST_HEADERS, "Locais Importantes", MEGAString, "Localizar","X");
 				}
 				if(listitem == 1)
@@ -17371,15 +17889,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(MEGAString, "Local\tDistancia\tRequesitos\n");
 					format(string, 128, "{FFFFFF} Pescador \t{5b6ed9} %.0f KM\t{FFFF00}0H.Jogadas\n", a);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Acogueiro \t{5b6ed9} %.0f KM\t{FFFF00}2H.Jogadas\n", b);
+					format(string, 128, "{FFFFFF} Acogueiro \t{5b6ed9} %.0f KM\t{FFFF00}3H.Jogadas\n", b);
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Coletor \t{5b6ed9} %.0f KM\t{FFFF00}0H.Jogadas\n", c);
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Minerador \t{5b6ed9} %.0f KM\t{FFFF00}3H.Jogadas\n", d);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Caminhoneiro \t{5b6ed9} %.0f KM\t{FFFF00}4H.Jogadas\n", e);
+					format(string, 128, "{FFFFFF} Caminhoneiro \t{5b6ed9} %.0f KM\t{FFFF00}6H.Jogadas\n", e);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Correios \t{5b6ed9} %.0f KM\t{FFFF00}5H.Jogadas\n", f);
+					format(string, 128, "{FFFFFF} Correios \t{5b6ed9} %.0f KM\t{FFFF00}9H.Jogadas\n", f);
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Pedreiro \t{5b6ed9} %.0f KM\t{FFFF00}0H.Jogadas\n", g);
 					strcat(MEGAString,string);
@@ -17391,16 +17909,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new Float:b = GetPlayerDistanceFromPoint(playerid, -2440.856445, 522.686523, 29.914293);
 					new Float:c = GetPlayerDistanceFromPoint(playerid, -1278.104248, 2711.379150, 50.132141);
 					new Float:d = GetPlayerDistanceFromPoint(playerid, 1662.559692, -285.732208, 39.607868);
-					new Float:e = GetPlayerDistanceFromPoint(playerid, -789.252563, 1622.004394, 27.117187);
-					new Float:f = GetPlayerDistanceFromPoint(playerid, -2087.006591, -2544.948974, 30.625000);
-					new Float:g = GetPlayerDistanceFromPoint(playerid, 188.515975, -106.426063, 2.023437);
-					new Float:h = GetPlayerDistanceFromPoint(playerid, -96.821380, 1041.751953, 19.664335);
-					new Float:i = GetPlayerDistanceFromPoint(playerid, -2653.636474, 640.163085, 14.45312);
-					new Float:j = GetPlayerDistanceFromPoint(playerid, 1982.807739, -1783.678100, 13.543199);
-					new Float:k = GetPlayerDistanceFromPoint(playerid, 649.302062, -1357.399658, 13.567605);
-					new Float:l = GetPlayerDistanceFromPoint(playerid, -688.271423, 938.216918, 13.632812);
-					new Float:m = GetPlayerDistanceFromPoint(playerid, 691.841125, -463.600677, 16.536296);
-					new Float:n = GetPlayerDistanceFromPoint(playerid, 691.841125, -463.600677, 16.536296);
+					new Float:e = GetPlayerDistanceFromPoint(playerid, 661.693481, -1502.128417, 17.488348);
 					MEGAString[0] = EOS;
 					new string[800];
 					strcat(MEGAString, "Local\tDistancia\n");
@@ -17412,25 +17921,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} PRF \t{5b6ed9} %.0f KM\n", d);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Tropa dos Azul \t{5b6ed9} %.0f KM\n", e);
-					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Ballas \t{5b6ed9} %.0f KM\n", f);
-					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Los Vagos \t{5b6ed9} %.0f KM\n", g);
-					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Groove Street \t{5b6ed9} %.0f KM\n", h);
-					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Medicos \t{5b6ed9} %.0f KM\n", i);
-					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Bennys \t{5b6ed9} %.0f KM\n", j);
-					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Reportagem \t{5b6ed9} %.0f KM\n", k);
-					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Mafia Russa \t{5b6ed9} %.0f KM\n", l);
-					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Moto Clube \t{5b6ed9} %.0f KM\n", m);
-					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Policia Civil \t{5b6ed9} %.0f KM\n", n);
+					format(string, 128, "{FFFFFF} Policia Civil \t{5b6ed9} %.0f KM\n", e);
 					strcat(MEGAString,string);
 					ShowPlayerDialog(playerid, DIALOG_GPS3, DIALOG_STYLE_TABLIST_HEADERS, "Locais Organizações", MEGAString, "Localizar","X");
 				}
@@ -17476,72 +17967,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -789.252563, 1622.004394, 27.117187, 8.0);
-					InfoMsg(playerid, "Ponto marcado no mapa.");
-				}
-				if(listitem == 5)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -2087.006591, -2544.948974, 30.625000, 8.0);
-					InfoMsg(playerid, "Ponto marcado no mapa.");
-				}
-				if(listitem == 6)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 188.515975, -106.426063, 2.023437, 8.0);
-					InfoMsg(playerid, "Ponto marcado no mapa.");
-				}
-				if(listitem == 7)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -96.821380, 1041.751953, 19.664335, 8.0);
-					InfoMsg(playerid, "Ponto marcado no mapa.");
-				}
-				if(listitem == 8)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -2653.636474, 640.163085, 14.45312, 8.0);
-
-					InfoMsg(playerid, "Ponto marcado no mapa.");
-				}
-				if(listitem == 9)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1982.807739, -1783.678100, 13.543199, 8.0);
-					InfoMsg(playerid, "Ponto marcado no mapa.");
-				}
-				if(listitem == 10)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 649.302062, -1357.399658, 13.567605, 8.0);
-					InfoMsg(playerid, "Ponto marcado no mapa.");
-				}
-				if(listitem == 11)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -688.271423, 938.216918, 13.632812, 8.0);
-
-					InfoMsg(playerid, "Ponto marcado no mapa.");
-				}
-				if(listitem == 12)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 691.841125, -463.600677, 16.536296, 8.0);
-					InfoMsg(playerid, "Ponto marcado no mapa.");
-				}
-				if(listitem == 13)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 691.841125, -463.600677, 16.536296, 8.0);
+					SetPlayerCheckpoint(playerid, 661.693481, -1502.128417, 17.488348, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 			}
@@ -17640,6 +18066,20 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
 					SetPlayerCheckpoint(playerid, 468.658203, -1517.271606, 20.477876, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 13)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, 2110.791015, -1804.298217, 13.591037, 8.0);
+					InfoMsg(playerid, "Ponto marcado no mapa.");
+				}
+				if(listitem == 14)
+				{
+					GPS[playerid] = true;
+					DisablePlayerCheckpoint(playerid);
+					SetPlayerCheckpoint(playerid, 1193.647460, -914.173156, 43.360343, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 			}
@@ -17761,13 +18201,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(strsociogo, "{fcfcfc}• Receberá Cargo/Cor Destaque No Discord\n");
 					strcat(strsociogo, "{fcfcfc}• Receberá Previlegios no Discord\n");
 					strcat(strsociogo, "{fcfcfc}• Receberá Salario Payday\t{6d6a6d}(Valor: R$1.500)\n");
-					strcat(strsociogo, "{fcfcfc}• Receberá Veiculo de Inventario\t{6d6a6d}(Solicitar no Ticket Dsicord)\n");
 
-					strcat(strsociogo, "\n{2fce3c}Ao ativar (VIP PREMIUM):\n\n");
+					strcat(strsociogo, "\n{2fce3c}Ao ativar (VIP ADVANCED):\n\n");
 					strcat(strsociogo, "{fcfcfc}• Receberá Cargo/Cor Destaque No Discord\n");
 					strcat(strsociogo, "{fcfcfc}• Receberá Previlegios no Discord\n");
 					strcat(strsociogo, "{fcfcfc}• Receberá Salario Payday\t{6d6a6d}(Valor: R$3000)\n");
-					strcat(strsociogo, "{fcfcfc}• Receberá Veiculo de Inventario\t{6d6a6d}(Solicitar no Ticket Dsicord)\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Ao Ativar\t{6d6a6d}(Valor: R$10000)\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá +3H de jogo\n");
+					strcat(strsociogo, "{fcfcfc}• Desconto nos impostos do PayDay\n");
 					strcat(strsociogo, "{fcfcfc}• Receberá Dobro de Dinheiro Nos Empregos\n");
 					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /acessorios\n");
 					strcat(strsociogo, "{fcfcfc}• Ficará Impune a Multas Nos Radares\n");
@@ -17775,6 +18216,26 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /tunagemvip\n");
 					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /repararvip\n");
 					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /vip\n");
+					strcat(strsociogo, "{fcfcfc}• Ao Morrer Não Perderar Seus Itens Valiosos\n");
+
+					strcat(strsociogo, "\n{2fce3c}Ao ativar (VIP PREMIUM):\n\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Cargo/Cor Destaque No Discord\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Previlegios no Discord\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Salario Payday\t{6d6a6d}(Valor: R$6000)\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Ao Ativar\t{6d6a6d}(Valor: R$20000)\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá +6H de jogo\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá +1 pagina do inventario\n");
+					strcat(strsociogo, "{fcfcfc}• Desconto nos impostos do PayDay\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Dobro de Dinheiro Nos Empregos\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /acessorios\n");
+					strcat(strsociogo, "{fcfcfc}• Ficará Impune a Multas Nos Radares\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /mudarskin\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /tunagemvip\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /repararvip\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /vip\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Acesso ao /en (encher necessidades)\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá NRG 500\n");
+					strcat(strsociogo, "{fcfcfc}• Receberá Suktan\n");
 					strcat(strsociogo, "{fcfcfc}• Ao Morrer Não Perderar Seus Itens Valiosos\n");
 					strcat(strsociogo, "{fef33c}____________________________________________________________________________");
 					ShowPlayerDialog(playerid, DIALOG_BENEVIP, DIALOG_STYLE_MSGBOX, "Beneficios VIP/Sócio", strsociogo, "Voltar", "");
@@ -17920,24 +18381,38 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 5000;
 					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30);
 					PlayerInfo[playerid][pVIP] = 1;
+					PlayerInfo[playerid][pBanco] += 2500;
 					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 				}
 				if(listitem == 1)
 				{
 					if(PlayerInfo[playerid][pCoins] < 15000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					PlayerInfo[playerid][pBanco] += 23000;
+					PlayerInfo[playerid][pBanco] += 10000;
 					PlayerInfo[playerid][pCoins] -= 15000;
 					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30);
 					PlayerInfo[playerid][pVIP] = 2;
+					PlayerInfo[playerid][pSegundosJogados] += 7200;
 					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 				}
 				if(listitem == 2)
 				{
 					if(PlayerInfo[playerid][pCoins] < 30000) 	return ErrorMsg(playerid, "Coins insuficiente.");
-					PlayerInfo[playerid][pBanco] += 23000;
+					PlayerInfo[playerid][pBanco] += 20000;
 					PlayerInfo[playerid][pCoins] -= 30000;
 					PlayerInfo[playerid][ExpiraVIP] = ConvertDays(30);
 					PlayerInfo[playerid][pVIP] = 3;
+					PlayerInfo[playerid][pSegundosJogados] += 7200+7200;
+					new alevehinv = randomEx(0,1);
+					if(alevehinv == 0)
+					{
+						GanharItem(playerid, 522, 1);
+						InfoMsg(playerid, "Recebeu uma NRG 500 do seu beneficio.");
+					}
+					if(alevehinv == 1)
+					{
+						GanharItem(playerid, 560, 1);
+						InfoMsg(playerid, "Recebeu uma Sultan do seu beneficio.");
+					}
 					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
 				}
 			}
@@ -18174,7 +18649,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				id = strval(inputtext);
 				/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 				if(!IsNumeric(inputtext)) return ErrorMsg(playerid, "Valor invalido.");
-				foreach(Player,i)
+				foreach(new i : Player)
 				{
 					if(pLogado[i] == true)
 					{
@@ -18213,7 +18688,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 					}
 				}
-				ErrorMsg(playerid, "Jogador nao conectado.");
+
 			}
 		}
 		case DIALOG_CARGA:
@@ -18352,6 +18827,42 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					format(string,sizeof(string),"Conta: %s nao encontrada!", inputtext);
 					InfoMsg(playerid, string);
+				}
+			}
+		}
+		case DIALOG_ROPAMED:
+		{
+			if(response)
+			{
+				if(listitem == 0)
+				{
+					SetPlayerSkin(playerid, 308);
+					medicoon ++;
+					paramedico[playerid] = true;
+				}
+				if(listitem == 1)
+				{
+					SetPlayerSkin(playerid, 274);
+					medicoon ++;
+					paramedico[playerid] = true;
+				}
+				if(listitem == 2)
+				{
+					SetPlayerSkin(playerid, 275);
+					medicoon ++;
+					paramedico[playerid] = true;
+				}
+				if(listitem == 3)
+				{
+					SetPlayerSkin(playerid, 276);
+					medicoon ++;
+					paramedico[playerid] = true;
+				}
+				if(listitem == 5)
+				{
+					SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
+					medicoon --;
+					paramedico[playerid] = false;
 				}
 			}
 		}
@@ -19418,7 +19929,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(VehAlugado[playerid] == 0)
 					{
 						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(597, X, Y, Z, ROT, 34, 34, false);
+						VeiculoCivil[playerid] = CreateVehicle(597, X, Y, Z, ROT, 1, 1, false);
 						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
 						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
 					}
@@ -19436,25 +19947,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(VehAlugado[playerid] == 0)
 					{
 						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(490, X, Y, Z, ROT, 34, 34, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-				if(listitem == 2)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(497,1564.6960,-1653.7539,28.3956, ROT, 34, 34, false);
+						VeiculoCivil[playerid] = CreateVehicle(490, X, Y, Z, ROT, 1, 1, false);
 						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
 						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
 					}
@@ -19483,6 +19976,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SetPVarInt(playerid, "QtdTransacao", strval(inputtext));
 				format(BankV, sizeof(BankV), "%i", GetPVarInt(playerid, "QtdTransacao"));
 				PlayerTextDrawSetString(playerid, BancoTD[playerid][28], BankV);
+			}
+		}
+		case DIALOG_QTDINV:
+		{
+			if(response)
+			{
+				new BankV[255];
+				if(!IsNumeric(inputtext)) return ErrorMsg(playerid, "Somente numeros");
+				qtdinv[playerid] = strval(inputtext);
+				format(BankV, sizeof(BankV), "%s", ConvertMoney(qtdinv[playerid]));
+				PlayerTextDrawSetString(playerid, DrawInv[playerid][36], BankV);
 			}
 		}
 		case DIALOG_ARMAS12:
@@ -19681,11 +20185,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					if(PlayerInfo[playerid][pDinheiro] < 200) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(PlayerInfo[playerid][pDinheiro] < 800) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					if(medicoon < 1) 			return ErrorMsg(playerid, "Ha medicos online peca um tratamento");
 					SuccesMsg(playerid, "Item comprado.");
-					PlayerInfo[playerid][pDinheiro] -= 200;
+					PlayerInfo[playerid][pDinheiro] -= 800;
 					GanharItem(playerid, 11736, 1);
-					CofreGoverno += 200;
+					CofreGoverno += 800;
+				}
+				if(listitem == 1)
+				{
+					if(PlayerInfo[playerid][Org] != 10) 			return ErrorMsg(playerid, "Nao possui permissao.");
+					SuccesMsg(playerid, "Item recebido.");
+					GanharItem(playerid, 11738, 1);
 				}
 			}
 		}
@@ -19881,15 +20392,15 @@ public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 	return 1;
 }
 
-public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
+public OnClickDynamicPlayerTextDraw(playerid, PlayerText:textid)
 {
 	new str[64], File[255];
-	if(playertextid == BancoTD[playerid][8])
+	if(textid == BancoTD[playerid][8])
 	{
 		format(Str, sizeof(Str),"Introduza o IDF para transferir o dinheiro",PlayerInfo[playerid][pBanco]);
 		ShowPlayerDialog(playerid,DIALOG_BANCO4,1,"Transferir", Str, "Selecionar","X");
 	}
-	if(playertextid == BancoTD[playerid][25])
+	if(textid == BancoTD[playerid][25])
 	{
 		for(new i; i < 34; i++)
 		{
@@ -19903,17 +20414,17 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		format(BankV, sizeof(BankV), "DIGITE A QUANTIA");
 		PlayerTextDrawSetString(playerid, BancoTD[playerid][28], BankV);
 	}
-	if(playertextid == BancoTD[playerid][6])
+	if(textid == BancoTD[playerid][6])
 	{
 		ModoTransacao[playerid] = 1;
 		InfoMsg(playerid, "Voce selecionou a opcao de saque.");
 	}
-	if(playertextid == BancoTD[playerid][7])
+	if(textid == BancoTD[playerid][7])
 	{
 		ModoTransacao[playerid] = 2;
 		InfoMsg(playerid, "Voce selecionou a opcao de deposito.");
 	}
-	if(playertextid == BancoTD[playerid][21])
+	if(textid == BancoTD[playerid][21])
 	{
 		if(ModoTransacao[playerid] == 0) 			return ErrorMsg(playerid, "Voce precisa selecionar a operacao.");
 		if(ModoTransacao[playerid] == 1)
@@ -19936,7 +20447,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 			SalvarDinRoubos();
 		}
 	}
-	if(playertextid == BancoTD[playerid][31])
+	if(textid == BancoTD[playerid][31])
 	{
 		if(CofreBanco < 50000) 			return ErrorMsg(playerid, "O Banco nao consegue liberar o valor requerido.");
 		if(PlayerInfo[playerid][pBanco] < 50000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
@@ -19946,7 +20457,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		SuccesMsg(playerid, "Saque realizada.");
 		SalvarDinRoubos();
 	}
-	if(playertextid == BancoTD[playerid][32])
+	if(textid == BancoTD[playerid][32])
 	{
 		if(CofreBanco < 100000) 			return ErrorMsg(playerid, "O Banco nao consegue liberar o valor requerido.");
 		if(PlayerInfo[playerid][pBanco] < 100000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
@@ -19956,7 +20467,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		SuccesMsg(playerid, "Saque realizada.");
 		SalvarDinRoubos();
 	}
-	if(playertextid == BancoTD[playerid][33])
+	if(textid == BancoTD[playerid][33])
 	{
 		if(CofreBanco < 5000) 			return ErrorMsg(playerid, "O Banco nao consegue liberar o valor requerido.");
 		if(PlayerInfo[playerid][pBanco] < 5000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
@@ -19966,12 +20477,12 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		SuccesMsg(playerid, "Saque realizada.");
 		SalvarDinRoubos();
 	}
-	if(playertextid == BancoTD[playerid][28])
+	if(textid == BancoTD[playerid][28])
 	{
 		if(ModoTransacao[playerid] == 0) 			return ErrorMsg(playerid, "Voce precisa selecionar a operacao.");
 		ShowPlayerDialog(playerid, DIALOG_VALORTRANSACAO, DIALOG_STYLE_INPUT, "Digite a quantia", "Digite o valor para fazer a operacao selecionada.", "Confirmar", "X");
 	}
-	if(playertextid == BancoTD[playerid][22])
+	if(textid == BancoTD[playerid][22])
 	{
 		new BankV[255];
 		SetPVarInt(playerid, "QtdTransacao", 0);
@@ -19979,7 +20490,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		format(BankV, sizeof(BankV), "DIGITE A QUANTIA");
 		PlayerTextDrawSetString(playerid, BancoTD[playerid][28], BankV);
 	}
-	if(playertextid == TDCadastro_p[playerid][0]){
+	if(textid == TDCadastro_p[playerid][0]){
 		PlayerInfo[playerid][pSkin] = Preview[playerid][0];
 		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
 		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][0]);
@@ -19988,7 +20499,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		actorcad[playerid] = CreateActor(Preview[playerid][0], 1984.0140,1194.2424,26.8835,135.6409);
 		SetActorInvulnerable(actorcad[playerid], true);
 	}
-	if(playertextid == TDCadastro_p[playerid][1]){
+	if(textid == TDCadastro_p[playerid][1]){
 		PlayerInfo[playerid][pSkin] = Preview[playerid][1];
 		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
 		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][1]);
@@ -19997,7 +20508,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		actorcad[playerid] = CreateActor(Preview[playerid][1], 1984.0140,1194.2424,26.8835,135.6409);
 		SetActorInvulnerable(actorcad[playerid], true);
 	}
-	if(playertextid == TDCadastro_p[playerid][2]){
+	if(textid == TDCadastro_p[playerid][2]){
 		PlayerInfo[playerid][pSkin] = Preview[playerid][2];
 		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
 		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][2]);
@@ -20006,7 +20517,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		actorcad[playerid] = CreateActor(Preview[playerid][2], 1984.0140,1194.2424,26.8835,135.6409);
 		SetActorInvulnerable(actorcad[playerid], true);
 	}
-	if(playertextid == TDCadastro_p[playerid][3]){
+	if(textid == TDCadastro_p[playerid][3]){
 		PlayerInfo[playerid][pSkin] = Preview[playerid][3];
 		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
 		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][3]);
@@ -20015,7 +20526,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		actorcad[playerid] = CreateActor(Preview[playerid][3], 1984.0140,1194.2424,26.8835,135.6409);
 		SetActorInvulnerable(actorcad[playerid], true);
 	}
-	if(playertextid == TDCadastro_p[playerid][4]){
+	if(textid == TDCadastro_p[playerid][4]){
 		PlayerInfo[playerid][pSkin] = Preview[playerid][4];
 		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
 		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][4]);
@@ -20024,7 +20535,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		actorcad[playerid] = CreateActor(Preview[playerid][4], 1984.0140,1194.2424,26.8835,135.6409);
 		SetActorInvulnerable(actorcad[playerid], true);
 	}
-	if(playertextid == TDCadastro_p[playerid][5]){
+	if(textid == TDCadastro_p[playerid][5]){
 		PlayerInfo[playerid][pSkin] = Preview[playerid][5];
 		SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
 		format(str,sizeof(str),"Voce escolheu a aparencia de id %d.",Preview[playerid][5]);
@@ -20033,7 +20544,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		actorcad[playerid] = CreateActor(Preview[playerid][5], 1984.0140,1194.2424,26.8835,135.6409);
 		SetActorInvulnerable(actorcad[playerid], true);
 	}
-	if(playertextid == Registration_PTD[playerid][21])
+	if(textid == Registration_PTD[playerid][13])
 	{
 		format(File, sizeof(File), PASTA_CONTAS, Name(playerid));
 		if(DOF2_FileExists(File))
@@ -20053,7 +20564,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 	}
 	for(new i = 1; i < 33; ++i)
 	{
-		if(playertextid == DrawInv[playerid][i])
+		if(textid == DrawInv[playerid][i])
 		{
 			if(PlayerInventario[playerid][i][Slot] == -1)
 			{
@@ -20069,53 +20580,11 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 			return 1;
 		}
 	}
-	if(playertextid == DrawInv[playerid][36]) return FuncaoItens(playerid, GetPVarInt(playerid, #VarSlotInv));
-	if(playertextid == DrawInv[playerid][35]) return cmd_inventario(playerid);
-	if(playertextid == DrawInv[playerid][37]) return DroparItem(playerid, GetPVarInt(playerid, #VarSlotInv));
-	if(playertextid == DrawInv[playerid][39]) return RetirarItem(playerid, GetPVarInt(playerid, #VarSlotInv));
-	if(playertextid == CopGuns[playerid][0])
-	{
-		SetPlayerArmour(playerid, 100);
-		RemovePlayerWeapon(playerid, 34);
-		GivePlayerWeapon(playerid, 22, 32);
-	}
-	if(playertextid == CopGuns[playerid][1])
-	{
-		SetPlayerArmour(playerid, 100);
-		RemovePlayerWeapon(playerid, 34);
-		RemovePlayerWeapon(playerid, 25);
-		RemovePlayerWeapon(playerid, 29);
-		RemovePlayerWeapon(playerid, 31);
-		GivePlayerWeapon(playerid, 31, 150);
-	}
-	if(playertextid == CopGuns[playerid][2])
-	{
-		SetPlayerArmour(playerid, 100);
-		RemovePlayerWeapon(playerid, 34);
-		RemovePlayerWeapon(playerid, 29);
-		RemovePlayerWeapon(playerid, 31);
-		RemovePlayerWeapon(playerid, 25);
-		GivePlayerWeapon(playerid, 25, 10);
-	}
-	if(playertextid == CopGuns[playerid][3])
-	{
-		SetPlayerArmour(playerid, 100);
-		RemovePlayerWeapon(playerid, 34);
-		RemovePlayerWeapon(playerid, 25);
-		RemovePlayerWeapon(playerid, 31);
-		RemovePlayerWeapon(playerid, 29);
-		GivePlayerWeapon(playerid, 29, 100);
-	}
-	if(playertextid == CopGuns[playerid][4])
-	{
-		SetPlayerArmour(playerid, 100);
-		RemovePlayerWeapon(playerid, 29);
-		RemovePlayerWeapon(playerid, 25);
-		RemovePlayerWeapon(playerid, 31);
-		RemovePlayerWeapon(playerid, 34);
-		GivePlayerWeapon(playerid, 34, 10);
-	}
-	if(playertextid == CopGuns[playerid][5])
+	if(textid == DrawInv[playerid][36]) return ShowPlayerDialog(playerid, DIALOG_QTDINV, DIALOG_STYLE_INPUT, "Digite a quantidade", "Digite a quantia para utilizar/dropar o item do inventario.", "Confirmar", "X");
+	if(textid == DrawInv[playerid][35]) return cmd_inventario(playerid);
+	if(textid == DrawInv[playerid][37]) return FuncaoItens(playerid, GetPVarInt(playerid, #VarSlotInv),qtdinv[playerid]);
+	if(textid == DrawInv[playerid][39]) return DroparItem(playerid, GetPVarInt(playerid, #VarSlotInv),qtdinv[playerid]);
+	if(textid == HudCop[playerid][3])
 	{
 		PlayerTextDrawHide(playerid, CopGuns[playerid][0]);
 		PlayerTextDrawHide(playerid, CopGuns[playerid][1]);
@@ -20123,30 +20592,32 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText: playertextid)
 		PlayerTextDrawHide(playerid, CopGuns[playerid][3]);
 		PlayerTextDrawHide(playerid, CopGuns[playerid][4]);
 		PlayerTextDrawHide(playerid, CopGuns[playerid][5]);
-		//CancelSelectTextDraw(playerid);
-	}
-	return 1;
-}
-
-public OnPlayerClickTextDraw(playerid, Text:clickedid)
-{
-	if(clickedid == TD_RG[23]){
-		for(new r=0;r<24;r++){
-			TextDrawHideForPlayer(playerid, TD_RG[r]);
-			if(r == 24)break;
-		}
-		for(new r=0;r<6;r++){
-			PlayerTextDrawHide(playerid, RG_p[playerid][r]);
-			if(r == 6)break;
-		}
-		MostrandoRG[playerid] = false;
+		PlayerTextDrawHide(playerid, HudCop[playerid][0]);
+		PlayerTextDrawHide(playerid, HudCop[playerid][1]);
+		PlayerTextDrawHide(playerid, HudCop[playerid][2]);
+		PlayerTextDrawHide(playerid, HudCop[playerid][3]);
 		CancelSelectTextDraw(playerid);
 	}
-	if(clickedid == HudCop[3]){ //batercartao
+	if(textid == CopGuns[playerid][5])
+	{
+		PlayerTextDrawHide(playerid, CopGuns[playerid][0]);
+		PlayerTextDrawHide(playerid, CopGuns[playerid][1]);
+		PlayerTextDrawHide(playerid, CopGuns[playerid][2]);
+		PlayerTextDrawHide(playerid, CopGuns[playerid][3]);
+		PlayerTextDrawHide(playerid, CopGuns[playerid][4]);
+		PlayerTextDrawHide(playerid, CopGuns[playerid][5]);
+		PlayerTextDrawHide(playerid, HudCop[playerid][0]);
+		PlayerTextDrawHide(playerid, HudCop[playerid][1]);
+		PlayerTextDrawHide(playerid, HudCop[playerid][2]);
+		PlayerTextDrawHide(playerid, HudCop[playerid][3]);
+		CancelSelectTextDraw(playerid);
+	}
+	if(textid == HudCop[playerid][0])
+	{
 		if(Patrulha[playerid] == false)
 		{
 			Patrulha[playerid] = true;
-			SuccesMsg(playerid, "Voce bateu cartao e iniciou expediente");
+			SuccesMsg(playerid, "Voce comecou seu servico como policial");
 			SalvarArmas(playerid);
 			ResetPlayerWeapons(playerid);
 			policiaon ++;
@@ -20157,15 +20628,72 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		{
 			Patrulha[playerid] = false;
 			policiaon --;
+			SetPlayerHealth(playerid, 100);
 			SetPlayerArmour(playerid, 0);
 			ResetPlayerWeapons(playerid);
 			CarregarArmas(playerid);
 			SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
-			SuccesMsg(playerid, "Voce bateu cartao e finalizou expediente");
+			SuccesMsg(playerid, "Voce deixou seu servico como policial");
 			SetPlayerColor(playerid, 0xFFFFFFFF);
+			SetPlayerHealth(playerid, 100);
 		}
+		return 1;
 	}
-	if(clickedid == HudCop[4]){ //uniformes
+	if(textid == HudCop[playerid][1])
+	{
+		if(Patrulha[playerid] == false) 		return InfoMsg(playerid, "Nao esta em servico");
+		PlayerTextDrawShow(playerid, CopGuns[playerid][0]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][1]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][2]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][3]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][4]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][5]);
+		SelectTextDraw(playerid, 0xFF0000FF);
+	}
+	if(textid == CopGuns[playerid][0])
+	{
+		SetPlayerArmour(playerid, 100);
+		RemovePlayerWeapon(playerid, 34);
+		GivePlayerWeapon(playerid, 22, 32);
+	}
+	if(textid == CopGuns[playerid][1])
+	{
+		SetPlayerArmour(playerid, 100);
+		RemovePlayerWeapon(playerid, 34);
+		RemovePlayerWeapon(playerid, 25);
+		RemovePlayerWeapon(playerid, 29);
+		RemovePlayerWeapon(playerid, 31);
+		GivePlayerWeapon(playerid, 31, 150);
+	}
+	if(textid == CopGuns[playerid][2])
+	{
+		SetPlayerArmour(playerid, 100);
+		RemovePlayerWeapon(playerid, 34);
+		RemovePlayerWeapon(playerid, 29);
+		RemovePlayerWeapon(playerid, 31);
+		RemovePlayerWeapon(playerid, 25);
+		GivePlayerWeapon(playerid, 25, 10);
+	}
+	if(textid == CopGuns[playerid][3])
+	{
+		SetPlayerArmour(playerid, 100);
+		RemovePlayerWeapon(playerid, 34);
+		RemovePlayerWeapon(playerid, 25);
+		RemovePlayerWeapon(playerid, 31);
+		RemovePlayerWeapon(playerid, 29);
+		GivePlayerWeapon(playerid, 29, 100);
+	}
+	if(textid == CopGuns[playerid][4])
+	{
+		SetPlayerArmour(playerid, 100);
+		RemovePlayerWeapon(playerid, 29);
+		RemovePlayerWeapon(playerid, 25);
+		RemovePlayerWeapon(playerid, 31);
+		RemovePlayerWeapon(playerid, 34);
+		GivePlayerWeapon(playerid, 34, 10);
+	}
+	if(textid == HudCop[playerid][2])
+	{
 		new Ropa[800];
 		if(Patrulha[playerid] == false) 		return InfoMsg(playerid, "Nao esta em servico");
 		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Militar 1\n");
@@ -20189,30 +20717,28 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		strcat(Ropa, "{FFFFFF}- {5b6ed9}Retirar Uniforme\n");
 		ShowPlayerDialog(playerid, DIALOG_ROPACOP, DIALOG_STYLE_LIST, "Fardamentos", Ropa, "Selecionar", "X");
 	}
-	if(clickedid == HudCop[5]){ //divisao
-		ErrorMsg(playerid, "Sistema em desenvolvimento");
-	}
-	if(clickedid == HudCop[6]){ //equipamentos
-		if(Patrulha[playerid] == false) 		return InfoMsg(playerid, "Nao esta em servico");
-		PlayerTextDrawShow(playerid, CopGuns[playerid][0]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][1]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][2]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][3]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][4]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][5]);
-		SelectTextDraw(playerid, 0xFFFF00FF);
-	}
-	if(clickedid == HudCop[7]){ //fechar menu
-		for(new x=0;x<8;x++){
-			TextDrawHideForPlayer(playerid, HudCop[x]);
+	return 1;
+}
+
+public OnClickDynamicTextDraw(playerid, Text:textid)
+{
+	if(textid == TD_RG[23]){
+		for(new r=0;r<24;r++){
+			TextDrawHideForPlayer(playerid, TD_RG[r]);
+			if(r == 24)break;
 		}
+		for(new r=0;r<6;r++){
+			PlayerTextDrawHide(playerid, RG_p[playerid][r]);
+			if(r == 6)break;
+		}
+		MostrandoRG[playerid] = false;
 		CancelSelectTextDraw(playerid);
 	}
-	if(clickedid == TDmorte[1]){
+	if(textid == TDmorte[1]){
 		VaiProHospital(playerid);
         PlayerMorto[playerid][pEstaMorto] = 0;
 	}
-	if(clickedid == TDCadastro[2]){
+	if(textid == TDCadastro[2]){
 		new str[10];
 		if(Page[playerid] < 46){
 			Page[playerid]++;
@@ -20225,7 +20751,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 			if(i == 7)break;
 		}
 	}
-	if(clickedid == TDCadastro[3]){
+	if(textid == TDCadastro[3]){
 		new str[10];
 		if(Page[playerid] > 1){
 			Page[playerid]--;
@@ -20238,15 +20764,15 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 			if(i == 7)break;
 		}
 	}
-	if(clickedid == TDCadastro[11]){
+	if(textid == TDCadastro[11]){
 		PlayerInfo[playerid][pSexo] = 1;
 		InfoMsg(playerid, "Voce selecionou o Genero Masculino.");
 	}
-	if(clickedid == TDCadastro[12]){
+	if(textid == TDCadastro[12]){
 		PlayerInfo[playerid][pSexo] = 2;
 		InfoMsg(playerid, "Voce selecionou o Genero Feminino.");
 	}
-	if(clickedid == TDCadastro[14]){
+	if(textid == TDCadastro[14]){
 		if(PlayerInfo[playerid][pSexo] == 0) return ErrorMsg(playerid, "Voce precisa escolher um Genero.");
 		if(PlayerInfo[playerid][pSkin] == 0) return ErrorMsg(playerid, "Voce precisa escolher uma aparencia.");
 		for(new i=0;i<18;i++){
@@ -20264,7 +20790,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		format(Str, sizeof(Str), "Desejo boas vindas, %s.\nPara Entrar no servidor Digite sua senha abaixo.", Name(playerid));
 		ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Seja bem vindo ao servidor...", Str, "Logar", "Cancelar");
 	}
-	if(clickedid == Text:INVALID_TEXT_DRAW)
+	if(textid == Text:INVALID_TEXT_DRAW)
 	{
 		for(new i = 0; i < 40; ++i)
 		{
@@ -20369,7 +20895,7 @@ CMD:mostrarrg(playerid,params[])
 	{
 		if(MostrandoRG[playerid] == false)
 		{
-			foreach(Player,i){
+			foreach(new i : Player){
 				if(PlayerInfo[i][IDF] == id){
 					static Float:XYZ[3];
 					GetPlayerPos(i,XYZ[0],XYZ[1],XYZ[2]);
@@ -20519,7 +21045,7 @@ CMD:daritem(playerid, const params[])
 	if(PlayerInfo[playerid][pAdmin] < 5)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "iii", id, item, quantia)) return ErrorMsg(playerid, "Use: /daritem [ID] [ITEM ID] [UNIDADES].");
 	if(quantia < 1) return ErrorMsg(playerid, "Coloque uma quantia.");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20532,7 +21058,7 @@ CMD:daritem(playerid, const params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -20582,7 +21108,7 @@ CMD:inventario(playerid)
 CMD:report(playerid, params[])
 {
 	if(sscanf(params, "is[56]", ID, Motivo))					return ErrorMsg(playerid, "USE: /report [ID] [RAZON]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20594,7 +21120,7 @@ CMD:report(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -20694,7 +21220,7 @@ CMD:av(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "s[56]", Motivo)) 						return ErrorMsg(playerid, "USE: /av [TEXTO]");
-	foreach(Player,i)
+	foreach(new i : Player)
 	{
 		format(Str, sizeof(Str), "%s", Motivo);
 		AvMsg(i, Str);
@@ -20707,7 +21233,7 @@ CMD:setskin(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "di", ID, Numero))						return ErrorMsg(playerid, "USE: /setskin [ID] [SKIN ID]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20721,7 +21247,7 @@ CMD:setskin(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -20730,7 +21256,7 @@ CMD:setvida(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "dd", ID, Numero))						return ErrorMsg(playerid,"USE: /setvida [ID] [VIDA]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20742,7 +21268,7 @@ CMD:setvida(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -20751,7 +21277,7 @@ CMD:setcolete(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "dd", ID, Numero))						return ErrorMsg(playerid,"USE: /setcolete [ID] [COLETE]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20763,7 +21289,7 @@ CMD:setcolete(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -20794,7 +21320,7 @@ CMD:kick(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "ds[56]", ID, Motivo))					return ErrorMsg(playerid,"USE: /kick [ID] [MOTIVO]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20808,7 +21334,7 @@ CMD:kick(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -20817,7 +21343,7 @@ CMD:cadeia(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "iis[56]", ID, Numero, Motivo))			return ErrorMsg(playerid,"USE: /cadeia [ID] [TEMPO EM MINUTOS] [MOTIVO]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20843,7 +21369,7 @@ CMD:cadeia(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -20852,7 +21378,7 @@ CMD:ir(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /ir [ID]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20876,7 +21402,7 @@ CMD:ir(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -20885,7 +21411,7 @@ CMD:spawnar(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /spawnar [ID]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20899,7 +21425,7 @@ CMD:spawnar(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -20908,7 +21434,7 @@ CMD:trazer(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /trazer [ID]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -20932,7 +21458,7 @@ CMD:trazer(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -20965,7 +21491,7 @@ CMD:tv(playerid, params[])
 	if(IsAssistindo[playerid] == false)
 	{
 		if(sscanf(params, "i", ID))								return ErrorMsg(playerid,"USE: /tv [ID]");
-		foreach(Player,i)
+		foreach(new i : Player)
 		{
 			if(pLogado[i] == true)
 			{
@@ -20989,7 +21515,7 @@ CMD:tv(playerid, params[])
 				}
 			}
 		}
-		ErrorMsg(playerid, "Jogador nao conectado.");
+
 	}
 	else
 	{
@@ -21007,7 +21533,7 @@ CMD:setarma(playerid, params[])
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "iii", ID, Arma, Municao))				return ErrorMsg(playerid,"USE: /setarma [ID] [ARMA] [MUNIÃ‡ÃƒO]");
 	if(Arma<1 || Arma==19 || Arma==20||Arma==21||Arma>46)		return ErrorMsg(playerid, "ID nao valido.");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21027,7 +21553,7 @@ CMD:desarmar(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /desarmar [ID]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21039,7 +21565,7 @@ CMD:desarmar(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -21048,7 +21574,7 @@ CMD:banir(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "is[56]", ID, Motivo)) 					return ErrorMsg(playerid,"ERRO: Use /banir [ID] [MOTIVO]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21061,7 +21587,7 @@ CMD:banir(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -21074,7 +21600,7 @@ CMD:tempban(playerid,params[])
 	if(sscanf(params, "iis[56]", ID, Dias, Motivo)) 			return ErrorMsg(playerid,"ERRO: Use /tempban [ID] [TEMPO] [MOTIVO]");
 	if(Dias == 0)                                               return ErrorMsg(playerid, "Nao pode banir alguem durante 0 dias. USA: /ban para banir permanentes.");
 	if(Dias >= 360)                                             return ErrorMsg(playerid, "Voce so pode banir alguem por no maximo 360 dias.");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21125,7 +21651,7 @@ CMD:tempban(playerid,params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -21186,7 +21712,7 @@ CMD:adv(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "is[56]", ID, Motivo)) 					return ErrorMsg(playerid,"ERRO: Use /adv [ID] [MOTIVO]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21204,7 +21730,7 @@ CMD:adv(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -21213,7 +21739,7 @@ CMD:banirip(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 4)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "is[56]", ID, Motivo)) 					return ErrorMsg(playerid,"ERRO: Use /banirip [ID] [MOTIVO]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21225,7 +21751,7 @@ CMD:banirip(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -21297,7 +21823,7 @@ CMD:congelar(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /congelar [ID]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21310,7 +21836,7 @@ CMD:congelar(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -21319,7 +21845,7 @@ CMD:descongelar(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /descongelar [ID]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21332,7 +21858,7 @@ CMD:descongelar(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -21392,7 +21918,7 @@ CMD:dardinheiro(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "dd", ID, Numero))		return ErrorMsg(playerid,"USE: /dardinheiro [ID] [QUANTIA]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21404,7 +21930,7 @@ CMD:dardinheiro(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -21414,7 +21940,7 @@ CMD:setadmin(playerid, params[])
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "ii", ID, Numero))		return ErrorMsg(playerid,"USE: /setadmin [ID] [LEVEL]");
 	if(Numero > 9)				return ErrorMsg(playerid, "O numero deve ser entre 0 a 9");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21426,7 +21952,7 @@ CMD:setadmin(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -21571,7 +22097,7 @@ CMD:lferidos(playerid, params[])
 	if(PlayerInfo[playerid][pProfissao] != 3)
 	{
 		if(sscanf(params, "u", id)) return ErrorMsg(playerid,  "* Use: /lferidos (id)");
-		foreach(Player,i)
+		foreach(new i : Player)
 		{
 			if(pLogado[i] == true)
 			{
@@ -21596,7 +22122,7 @@ CMD:lferidos(playerid, params[])
 				}
 			}
 		}
-		ErrorMsg(playerid, "Jogador nao conectado.");
+
 	}
 	else ErrorMsg(playerid, "Nao possui permissao.");
 	return true;
@@ -21689,7 +22215,7 @@ CMD:convidar(playerid,params[])
 	if(PlayerInfo[playerid][Org] == 0)return ErrorMsg(playerid, "Nao e de nenhuma organizacao.");
 	if(PlayerInfo[playerid][Cargo] < 2)return ErrorMsg(playerid, "Nao superior de nenhuma organizacao.");
 	if(sscanf(params,"i",id))return ErrorMsg(playerid,"Use: /convidar [ID]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21703,7 +22229,7 @@ CMD:convidar(playerid,params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -21733,7 +22259,7 @@ CMD:demitir(playerid,params[])
 	new xPlayer;
 	if(sscanf(params,"i",xPlayer))
 		return ErrorMsg(playerid , "/demitir [playerid]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21750,7 +22276,7 @@ CMD:demitir(playerid,params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 CMD:promover(playerid,params[])
@@ -21760,7 +22286,7 @@ CMD:promover(playerid,params[])
 	if(PlayerInfo[playerid][Org] == 0)return 1;
 	if(PlayerInfo[playerid][Cargo] < 2)return ErrorMsg(playerid, "Nao e superior de nenhuma organizacao.");
 	if(sscanf(params,"ii",id,cargo))return ErrorMsg(playerid,"/promover [ID] [CARGO]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21778,7 +22304,7 @@ CMD:promover(playerid,params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -21786,8 +22312,6 @@ CMD:orgs(playerid)
 {
 	new StringsG[10000],StringsG1[11000];
 	format(StringsG,sizeof(StringsG),"{4CBB17}1{FFFFFF} - Policia Militar: %s\n", DOF2_GetString("InfoOrg/1.ini",VagasORG[0]));
-	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}14{FFFFFF} - Policia Civil: %s\n", DOF2_GetString("InfoOrg/14.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}2{FFFFFF} - Policia Rodoviaria: %s\n", DOF2_GetString("InfoOrg/2.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
@@ -21813,6 +22337,8 @@ CMD:orgs(playerid)
 	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}13{FFFFFF} - Moto Clube: %s\n", DOF2_GetString("InfoOrg/13.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
+	format(StringsG,sizeof(StringsG),"{4CBB17}14{FFFFFF} - Policia Civil: %s\n", DOF2_GetString("InfoOrg/14.ini",VagasORG[0]));
+	strcat(StringsG1, StringsG);
 	ShowPlayerDialog(playerid,DIALOG_ORGS,DIALOG_STYLE_LIST,"Organizacoes do Servidor",StringsG1,"X",#);
 	return 1;
 }
@@ -21822,8 +22348,7 @@ CMD:darlider(playerid,params[])
 	new id,org,String[500];
 	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params,"ii",id,org))return ErrorMsg(playerid,"/darlider [ID] [IDORG]");
-	if(org < 1 || org > 14)return ErrorMsg(playerid,"Apenas Organizacoes de id 1 ao 14");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21839,7 +22364,7 @@ CMD:darlider(playerid,params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -21880,7 +22405,7 @@ CMD:pagar(playerid, params[])
 {
 	new id, quantia, string[800];
 	if(sscanf(params,"ii",id,quantia)) return ErrorMsg(playerid,  " /pagar [ID] [QUANTIA]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -21897,7 +22422,7 @@ CMD:pagar(playerid, params[])
 			}
 		}
   	}
-  	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -22196,7 +22721,7 @@ CMD:algemar(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /algemar [ID]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -22211,7 +22736,7 @@ CMD:algemar(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 CMD:desalgemar(playerid, params[])
@@ -22219,7 +22744,7 @@ CMD:desalgemar(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /desalgemar [ID]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -22235,7 +22760,7 @@ CMD:desalgemar(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -22245,7 +22770,7 @@ CMD:pveiculo(playerid, params[])
 	if(IsPolicial(playerid) || IsBandido(playerid))
 	{
 		if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /pveiculo [ID]");
-		foreach(Player,i)
+		foreach(new i : Player)
 		{
 			if(pLogado[i] == true)
 			{
@@ -22259,7 +22784,7 @@ CMD:pveiculo(playerid, params[])
 				}
 			}
 		}
-		ErrorMsg(playerid, "Jogador nao conectado.");
+
 	}
 	return 1;
 }
@@ -22269,7 +22794,7 @@ CMD:rveiculo(playerid, params[])
 	if(IsPolicial(playerid) || IsBandido(playerid))
 	{
 		if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /rveiculo [ID]");
-		foreach(Player,i)
+		foreach(new i : Player)
 		{
 			if(pLogado[i] == true)
 			{
@@ -22283,7 +22808,7 @@ CMD:rveiculo(playerid, params[])
 				}
 			}
 		}
-		ErrorMsg(playerid, "Jogador nao conectado.");
+
 	}
 	return 1;
 }
@@ -22293,7 +22818,7 @@ CMD:prender(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "iis[56]", ID, Numero, Motivo))			return ErrorMsg(playerid,"USE: /prender [ID] [TEMPO EM MINUTOS] [MOTIVO]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -22362,7 +22887,7 @@ CMD:prender(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -22386,7 +22911,7 @@ CMD:su(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "di", ID, Numero))						return ErrorMsg(playerid,"USE: /su [ID] [LEVEL]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -22403,7 +22928,7 @@ CMD:su(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -22412,8 +22937,8 @@ CMD:revistar(playerid, params[])
 	new str[64];
 	if(IsPolicial(playerid) || IsBandido(playerid))
 	{
-		if(sscanf(params, "d", ID))                        return ErrorMsg(playerid,"USE: /revistar [ID]");
-		foreach(Player,i)
+		if(sscanf(params, "d", ID))                        return ErrorMsg(playerid,"USE: /verinv [ID]");
+		foreach(new i : Player)
 		{
 			if(pLogado[i] == true)
 			{
@@ -22460,7 +22985,7 @@ CMD:revistar(playerid, params[])
 				}
 			}
 		}
-		ErrorMsg(playerid, "Jogador nao conectado.");
+
 	}
 	return 1;
 }
@@ -22470,7 +22995,7 @@ CMD:rarmas(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /rarmas [ID]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -22487,7 +23012,7 @@ CMD:rarmas(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -22497,7 +23022,7 @@ CMD:procurados(playerid)
 	new count;
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
-	foreach(new i: Player)
+	foreach(new i : Player)
 	{
 		if(GetPlayerWantedLevel(i))
 		{
@@ -22520,7 +23045,7 @@ CMD:multar(playerid, params[])
 	if(!IsPolicial(playerid))		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 	if(sscanf(params, "dd", ID, Numero))		return ErrorMsg(playerid,"USE: /multar [ID] [QUANTIA]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -22537,7 +23062,7 @@ CMD:multar(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -22547,7 +23072,7 @@ CMD:verdocumentos(playerid, params[])
 	{
 		if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
 		if(sscanf(params, "dd", ID))		return ErrorMsg(playerid,"USE: /verdocumentos [ID] ");
-		foreach(Player,i)
+		foreach(new i : Player)
 		{
 			if(pLogado[i] == true)
 			{
@@ -22568,7 +23093,7 @@ CMD:verdocumentos(playerid, params[])
 				}
 			}
 		}
-		ErrorMsg(playerid, "Jogador nao conectado.");
+
 	}
 	return 1;
 }
@@ -23513,7 +24038,7 @@ CMD:ejetar(playerid, params[])
 	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "Nao esta em um veiculo!");
 	new pid, msg[128];
 	if(sscanf(params, "u", pid)) return ErrorMsg(playerid,  "USAGE: /ejetar [player]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -23527,7 +24052,7 @@ CMD:ejetar(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -23537,7 +24062,7 @@ CMD:ejetarll(playerid, params[])
 	new vehicleid = GetPlayerVehicleID(playerid);
 	new msg[128];
 	format(msg, sizeof(msg), "O condutor do veiculo %04d (%d) te expulsou do veiculo.", GetPlayerIdfixo(playerid), playerid);
-	foreach(Player, i)
+	foreach(new i : Player)
 	{
 		if(IsPlayerConnected(i) && i != playerid && IsPlayerInVehicle(i, vehicleid))
 		{
@@ -23610,7 +24135,7 @@ CMD:venderv(playerid, params[])
 {
 	new pid, id, price, msg[128];
 	if(sscanf(params, "udd", pid, id, price)) return ErrorMsg(playerid,  "USAGE: /venderv [player] [vehicleid] [price]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -23629,7 +24154,7 @@ CMD:venderv(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -23637,7 +24162,7 @@ CMD:darchaves(playerid, params[])
 {
 	new pid, id, msg[128];
 	if(sscanf(params, "ud", pid, id)) return ErrorMsg(playerid,  "USAGE: /darchaves [player] [vehicleid]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -23655,7 +24180,7 @@ CMD:darchaves(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -23776,7 +24301,7 @@ CMD:rac(playerid, params[])
 {
 	new bool:vehicleused[MAX_VEHICLES];
 	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
-	foreach(Player, i)
+	foreach(new i : Player)
 	{
 		if(IsPlayerConnected(i) && IsPlayerInAnyVehicle(i))
 		{
@@ -23791,7 +24316,7 @@ CMD:rac(playerid, params[])
 		}
 	}
 	new msg[128];
-	foreach(Player, i)
+	foreach(new i : Player)
 	{
 		format(msg, sizeof(msg), "O Administrador %04d respawnou todos os veiculos sem motorista.", GetPlayerIdfixo(playerid), playerid);
 		InfoMsg(i, msg);
@@ -24062,6 +24587,13 @@ CMD:vip(playerid, params[])
 	return 1;
 }
 
+CMD:en(playerid)
+{
+	if(PlayerInfo[playerid][pVIP] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
+	FomePlayer[playerid] = 100;
+	SedePlayer[playerid] = 100;
+	return 1;
+}
 CMD:mudarskin(playerid, params[])
 {
 	if(PlayerInfo[playerid][pVIP] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
@@ -24342,7 +24874,7 @@ CMD:pediravaliar(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1) return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "d", ID)) return ErrorMsg(playerid,"USE: /pediravaliar [ID]");
-	foreach(Player,i)
+	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
@@ -24353,7 +24885,7 @@ CMD:pediravaliar(playerid, params[])
 			}
 		}
   	}
-	ErrorMsg(playerid, "Jogador nao conectado.");
+
 	return 1;
 }
 
@@ -24548,7 +25080,7 @@ CMD:iniciarminerador(playerid)
 		SuccesMsg(playerid, "Pegue uma rocha no local marcado.");
 		EtapasMinerador[playerid] = 1;
 	}
-	if(procha == 3) 
+	if(procha == 3)
 	{
 		SetPlayerCheckpoint(playerid, 602.181091, 867.931518, -42.960937, 2.0);
 		SuccesMsg(playerid, "Pegue uma rocha no local marcado.");
@@ -24661,8 +25193,20 @@ CMD:trazercofre(playerid, params[])
 	return 1;
 }
 
+CMD:iniciarrotapecas(playerid)
+{
+ 	if(!IsBandido(playerid))						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(RotaPecas[playerid] == true)     return ErrorMsg(playerid, "Voce ja iniciou uma rota");
+	new Alt = randomEx(0,303+120);
+	SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 1);
+	InfoMsg(playerid, "Rota iniciada, faça a coleta das peças, cada rota vai remover 5mil da sua conta. use /cancelarrota.");
+	RotaPecas[playerid] = true;
+	return 1;
+}
+
 CMD:iniciarrotamaconha(playerid)
 {
+    if(RotaMaconha[playerid] == true)     return ErrorMsg(playerid, "Voce ja iniciou uma rota");
 	new Alt = randomEx(0,303+120);
 	SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 1);
 	InfoMsg(playerid, "Rota iniciada, faça a entrega no local marcado. use /cancelarrota.");
@@ -24672,10 +25216,11 @@ CMD:iniciarrotamaconha(playerid)
 
 CMD:iniciarrotacocaina(playerid)
 {
+	if(RotaCocaina[playerid] == true)     return ErrorMsg(playerid, "Voce ja iniciou uma rota");
 	new Alt = randomEx(0,303+120);
 	SetPlayerCheckpoint(playerid, PosRota[Alt][0],PosRota[Alt][1],PosRota[Alt][2], 1);
 	InfoMsg(playerid, "Rota iniciada, faça a entrega no local marcado. use /cancelarrota.");
-	RotaMaconha[playerid] = true;
+	RotaCocaina[playerid] = true;
 	return 1;
 }
 
@@ -24690,6 +25235,12 @@ CMD:cancelarrota(playerid)
 	if(RotaCocaina[playerid] == true)
 	{
 		RotaCocaina[playerid] = false;
+		DisablePlayerCheckpoint(playerid);
+		InfoMsg(playerid, "Rota cancelada.");
+	}
+	if(RotaPecas[playerid] == true)
+	{
+		RotaPecas[playerid] = false;
 		DisablePlayerCheckpoint(playerid);
 		InfoMsg(playerid, "Rota cancelada.");
 	}
@@ -24713,7 +25264,7 @@ CMD:roubar(playerid)
 
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i : Player)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24737,7 +25288,7 @@ CMD:roubar(playerid)
 
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i : Player)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24761,7 +25312,7 @@ CMD:roubar(playerid)
 
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i : Player)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24785,7 +25336,7 @@ CMD:roubar(playerid)
 
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i : Player)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24809,7 +25360,7 @@ CMD:roubar(playerid)
 
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i : Player)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24833,7 +25384,7 @@ CMD:roubar(playerid)
 
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i : Player)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24857,7 +25408,7 @@ CMD:roubar(playerid)
 
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i : Player)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24881,7 +25432,7 @@ CMD:roubar(playerid)
 
 			if(noti == 1)
 			{
-				foreach(Player, i)
+				foreach(new i : Player)
 				{
 					if(Patrulha[i] == true)
 					{
@@ -24910,15 +25461,11 @@ CMD:creditos(playerid)
     strcat(MEGAString, "{696969}               (Criador/Fundador do servidor | Atual Scripter)\n");
     strcat(MEGAString, "{696969}Função: Cuidar da programação\n\n");
 
-    strcat(MEGAString, "{FFFFFF}»  Maconha\n");
+    strcat(MEGAString, "{FFFFFF}»  ReissDelax\n");
     strcat(MEGAString, "{696969}               (Criador/Fundador do servidor)\n");
     strcat(MEGAString, "{696969}Função: Responsável Geral\n\n");
 
-	strcat(MEGAString, "{FFFFFF}»  HernandezRL\n");
-    strcat(MEGAString, "{696969}               (Criador/Fundador do servidor)\n");
-    strcat(MEGAString, "{696969}Função: Responsável Geral\n\n");
-
-    strcat(MEGAString, "{FFFFFF}»  Brabox, Mauricio(Aox), Black, Rxth\n");
+    strcat(MEGAString, "{FFFFFF}»  HernanddezRL, Brabox, Mauricio(Aox), Black, Rxth\n");
     strcat(MEGAString, "{696969}               Agradecimentos por colaborarem com o Servidor\n\n");
 
     strcat(MEGAString, "{696969}       Toda a gamemode foi feita totalmente da linha 1 por Luan P Rosa(Rosa Scripter)\n\n");
@@ -24979,22 +25526,6 @@ CMD:terminar(playerid, x_Emprego[])
 		return 1;
 	}
 
-CMD:ptcop(playerid){
-	if(IsPlayerInAnyVehicle(playerid)){
-		if(IsPolicial(playerid)){
-			if(PlayerInfo[playerid][Org] == 14){
-				if(IsPlayerInRangeOfPoint(playerid, 8.0, 1544.683227, -1630.695678, 13.072815)){
-					if(IsValidDynamicObject(cancelagr) && !IsDynamicObjectMoving(cancelagr)){
-						MoveDynamicObject(cancelagr, 1544.683227, -1630.695678, 13.072815-0.2,0.1, 0.000000, -90.799919+85.0, -90.799957);
-						SetTimer("FecharDpc",6000,false);
-					}
-				}	
-			}
-		}
-	}
-	return true;
-}
-
 CMD:abrircorreios(playerid)
 {
 	MoveDynamicObject(mapsdxzx[0], 998.093994, 1755.689941, 8.265600,2.0);
@@ -25033,73 +25564,141 @@ CMD:vault(playerid)
 	return 1;
 }
 
-/*
-CMD:habilitarsistemas(playerid)
+CMD:deitar(playerid)
 {
-
-	MEGAString[0] = EOS;
-	new Status[190];
-	if(CanalNoob == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
-	else if(CanalNoob == 1) format(Status, sizeof(Status), "{289928}Habilitado");
-	format(stringZCMD, sizeof(stringZCMD), "{848686}1341  {ffffff}Canal Duvida\t%s\t{888a8b}%s\n", Status, AlteracaoMS[0]);
-	strcat(MEGAString,stringZCMD);
-
-	if(bonusRP == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
-	else if(bonusRP == 1) format(Status, sizeof(Status), "{289928}Habilitado");
-	format(stringZCMD, sizeof(stringZCMD), "{848686}1341  {ffffff}Bônus Payday\t%s\t{888a8b}%s\n", Status, AlteracaoMS[1]);
-	strcat(MEGAString,stringZCMD);
-
-	if(MusicaLogin == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
-	else if(MusicaLogin == 1) format(Status, sizeof(Status), "{289928}Habilitado");
-	format(stringZCMD, sizeof(stringZCMD), "{848686}1341  {ffffff}Música no Login\t%s\t{888a8b}%s\n", Status, AlteracaoMS[7]);
-	strcat(MEGAString,stringZCMD);
-
-	if(ChatvSis == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
-	else if(ChatvSis == 1) format(Status, sizeof(Status), "{289928}Habilitado");
-	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}Chat VIP\t%s\t{888a8b}%s\n", Status, AlteracaoMS[10]);
-	strcat(MEGAString,stringZCMD);
-
-	if(AnuncioSis == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
-	else if(AnuncioSis == 1) format(Status, sizeof(Status), "{289928}Habilitado");
-	format(stringZCMD, sizeof(stringZCMD), "{848686}1341  {ffffff}Anúncio\t%s\t{888a8b}%s\n", Status, AlteracaoMS[12]);
-	strcat(MEGAString,stringZCMD);
-
-	if(HorarioVerao == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
-	else if(HorarioVerao == 1) format(Status, sizeof(Status), "{289928}Habilitado");
-	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}Horário de Verão\t%s\t{888a8b}%s\n", Status, AlteracaoMS[16]);
-	strcat(MEGAString,stringZCMD);
-
-	if(ChatServidor == 1) format(Status, sizeof(Status), "{fd5858}Desabilitado");
-	else if(ChatServidor == 0) format(Status, sizeof(Status), "{289928}Habilitado");
- 	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}Chat do Servidor\t%s\t{888a8b}%s\n", Status, AlteracaoMS[20]);
-	strcat(MEGAString,stringZCMD);
-
-	if(MissoesSistema == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
-	else if(MissoesSistema == 1) format(Status, sizeof(Status), "{289928}Habilitado");
-	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}Sistema de Missões\t%s\t{888a8b}%s\n", Status, AlteracaoMS[21]);
-	strcat(MEGAString,stringZCMD);
-
-	if(LojaVIPSis == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
-	else if(LojaVIPSis == 1) format(Status, sizeof(Status), "{289928}Habilitado");
-	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}Loja VIP\t%s\t{888a8b}%s\n", Status, AlteracaoMS[22]);
-	strcat(MEGAString,stringZCMD);
-
-	if(CaixinhaSis == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
-	else if(CaixinhaSis == 1) format(Status, sizeof(Status), "{289928}Habilitado");
-	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}/Caixinha\t%s\t{888a8b}%s\n", Status, AlteracaoMS[23]);
-	strcat(MEGAString,stringZCMD);
-
-	if(GmxSis == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
-	else if(GmxSis == 1) format(Status, sizeof(Status), "{289928}Habilitado");
-	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}Reinicialização Automática (06:00H)\t%s\t{888a8b}%s\n", Status, AlteracaoMS[28]);
-	strcat(MEGAString,stringZCMD);
-
-	if(FomeSis == 0) format(Status, sizeof(Status), "{fd5858}Desabilitado");
-	else if(FomeSis == 1) format(Status, sizeof(Status), "{289928}Habilitado");
-	format(stringZCMD, sizeof(stringZCMD), "{848686}1342  {ffffff}Fome e Sede\t%s\t{888a8b}%s\n", Status, AlteracaoMS[28]);
-	strcat(MEGAString,stringZCMD);
-
-	ShowPlayerDialog(playerid, DIALOG_MENUSISTEMA, DIALOG_STYLE_TABLIST_HEADERS, "Permissão/Sistema\tStatus\tÚltima alteração", MEGAString, "Alternar", "Fechar");
+	if(deitadomaca[playerid] == false)
+	{
+		if(PlayerToPoint(1.0, playerid, 1618.008056, -1139.449096, 24.831556))
+		{
+			SetPlayerPos(playerid, 1618.008056, -1139.449096, 24.831556);
+			SetPlayerFacingAngle(playerid, 3.063754);
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			if(medicoon == 0)
+			{
+				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
+			}
+		}
+		if(PlayerToPoint(1.0, playerid, 1617.883789, -1136.606445, 24.776670))
+		{
+			SetPlayerPos(playerid, 1617.883789, -1136.606445, 24.776670);
+			SetPlayerFacingAngle(playerid, 350.887390);
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			if(medicoon == 0)
+			{
+				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
+			}
+		}
+		if(PlayerToPoint(1.0, playerid, 1617.909301, -1133.753540, 24.776670))
+		{
+			SetPlayerPos(playerid, 1617.909301, -1133.753540, 24.776670);
+			SetPlayerFacingAngle(playerid, 8.838689);
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			if(medicoon == 0)
+			{
+				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
+			}
+		}
+		if(PlayerToPoint(1.0, playerid, 1617.720336, -1128.654663, 24.831556))
+		{
+			SetPlayerPos(playerid, 1617.720336, -1128.654663, 24.831556);
+			SetPlayerFacingAngle(playerid, 357.130371);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			TogglePlayerControllable(playerid, 0);
+			if(medicoon == 0)
+			{
+				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
+			}
+		}
+		if(PlayerToPoint(1.0, playerid, 1613.008666, -1128.427612, 24.788022))
+		{
+			SetPlayerPos(playerid, 1613.008666, -1128.427612, 24.788022);
+			SetPlayerFacingAngle(playerid, 169.583480);
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			if(medicoon == 0)
+			{
+				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
+			}
+		}
+		if(PlayerToPoint(1.0, playerid, 1612.854248, -1131.240600, 24.788022))
+		{
+			SetPlayerPos(playerid, 1612.854248, -1131.240600, 24.788022);
+			SetPlayerFacingAngle(playerid, 172.451522);
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			if(medicoon == 0)
+			{
+				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
+			}
+		}
+		if(PlayerToPoint(1.0, playerid, 1612.961181, -1133.778076, 24.788022))
+		{
+			SetPlayerPos(playerid, 1612.961181, -1133.778076, 24.788022);
+			SetPlayerFacingAngle(playerid, 172.111297);
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			if(medicoon == 0)
+			{
+				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
+			}
+		}
+		if(PlayerToPoint(1.0, playerid, 1612.930175, -1136.336425, 24.788022))
+		{
+			SetPlayerPos(playerid, 1612.930175, -1136.336425, 24.788022);
+			SetPlayerFacingAngle(playerid, 165.496246);
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			if(medicoon == 0)
+			{
+				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
+			}
+		}
+		if(PlayerToPoint(1.0, playerid, 1612.933471, -1139.002319, 24.788022))
+		{
+			SetPlayerPos(playerid, 1612.933471, -1139.002319, 24.788022);
+			SetPlayerFacingAngle(playerid, 169.587600);
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			if(medicoon == 0)
+			{
+				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
+			}
+		}
+	}
+	else
+	{
+		ClearAnimations(playerid);
+		TogglePlayerControllable(playerid, 1);
+	}
 	return 1;
-}*/
+}
 
+CMD:tratamento(playerid, params[])
+{
+	new id, quantia, string[800];
+	if(sscanf(params,"ii",id,quantia)) return ErrorMsg(playerid,  " /tratamento [ID] [QUANTIA]");
+	foreach(new i : Player)
+  	{
+		if(pLogado[i] == true)
+		{
+			if(PlayerInfo[i][IDF] == id)
+			{
+				if(!ProxDetectorS(8.0, playerid, i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
+				if(deitadomaca[i] == false)return ErrorMsg(playerid, "O jogador precisa esta na maca.");
+				if(PlayerInfo[i][pDinheiro] < quantia)return ErrorMsg(playerid, "O jogador nao possui o valor cobrado.");
+
+				PlayerInfo[i][pDinheiro] -= quantia;
+				PlayerInfo[playerid][pDinheiro] += quantia;
+				format(string, sizeof(string), "Recebeu R$%d de %04d pelo tratamento", quantia, PlayerInfo[i][IDF]);
+				SuccesMsg(playerid, string);
+				format(string, sizeof(string), "Pagou R$%d para %04d pelo tratamento.", quantia, PlayerInfo[playerid][IDF]);
+				InfoMsg(i, string);
+			}
+		}
+  	}
+
+	return 1;
+}

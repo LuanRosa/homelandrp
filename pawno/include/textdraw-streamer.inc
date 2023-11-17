@@ -33,7 +33,7 @@
  *                      "Y88P"  
  */
 
-public TDS_Enable_Log = true;
+public TDS_Enable_Log = false;
 #pragma unused TDS_Enable_Log
 
 /***

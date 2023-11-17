@@ -12,7 +12,6 @@
 
 ==============================================================================*/
 
-
 #if defined _progress2_included
 	#endinput
 #endif
@@ -23,7 +22,7 @@
 		#error could not locate a_samp.inc file, please check your server includes
 	#endif
 #endif
-
+#include 		<   textdraw-streamer	>
 #if !defined PB_DEBUG
 	#define PB_DEBUG (false)
 #endif

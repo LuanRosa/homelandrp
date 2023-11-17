@@ -1,6 +1,8 @@
-Corrigido tentar pegar tal emprego com horas e informar que não possui
-Desbugado /trazer (Admin)
-Adicionado /spawnar (Admin)
-Alterado local do Moto Clube
-Adiconado marker de desmanche do moto Clube
-Adicionado item Ferramneta para Desmanche no Mercado Negro
+Corrigido bug do radio tirar do veh
+Corrigido mesagem de erro caminhoneiro
+Corrigido Anti Jump
+Corrigido Emprego Correios
+Removido opçao de Retirar item
+Adicionado Seleção de Quantidade
+Removido O Bonus do Emprego Pescador
+Corrigido bug das plantações não crescer
