@@ -2693,6 +2693,14 @@ CallBack::TxdLogin(playerid)
 		TextDrawShowForPlayer(playerid, LogoHM[i]);
 		if(i == 3)break;
 	}
+	CarregarAnims(playerid);
+	CarregarArmas(playerid);
+	CarregarAvaliacao(playerid);
+	CarregarVIP(playerid);
+	MapRemocao(playerid);
+	LoadInv(playerid);
+	CarregarMortos(playerid);
+	CarregarGZ(playerid);
 }
 
 new bool:pulou2vezes[MAX_PLAYERS] = false;
@@ -2812,7 +2820,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 360;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$360.");
 			}
-			if(PlayerInfo[playerid][pVIP] < 2)
+			else if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 360*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$720.");
@@ -2828,7 +2836,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 980;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$980.");
 			}
-			if(PlayerInfo[playerid][pVIP] < 2)
+			else if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 980*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$1960.");
@@ -2845,7 +2853,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 1200;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$1200.");
 			}
-			if(PlayerInfo[playerid][pVIP] < 2)
+			else if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 1200*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$2400.");
@@ -2862,7 +2870,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 1800;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$1800.");
 			}
-			if(PlayerInfo[playerid][pVIP] < 2)
+			else if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 1800*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$3500.");
@@ -2880,7 +2888,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 2500;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$2500.");
 			}
-			if(PlayerInfo[playerid][pVIP] < 2)
+			else if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 2500*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$5000.");
@@ -2897,7 +2905,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 3200;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$3200.");
 			}
-			if(PlayerInfo[playerid][pVIP] < 2)
+			else if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 3200*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$6400.");
@@ -2914,7 +2922,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 3800;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$3800.");
 			}
-			if(PlayerInfo[playerid][pVIP] < 2)
+			else if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 3800*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$7600.");
@@ -2931,7 +2939,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 4500;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$4500.");
 			}
-			if(PlayerInfo[playerid][pVIP] < 2)
+			else if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 4500*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$9000.");
@@ -2948,7 +2956,7 @@ CallBack::DescarregarCarga(playerid, progress)
 				PlayerInfo[playerid][pDinheiro] += 5000;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$5000.");
 			}
-			if(PlayerInfo[playerid][pVIP] < 2)
+			else if(PlayerInfo[playerid][pVIP] < 2)
 			{
 				PlayerInfo[playerid][pDinheiro] += 5000*2;
 				SuccesMsg(playerid, "Entregou a carga e ganhou R$10000.");
@@ -4150,8 +4158,11 @@ public SV_VOID:OnPlayerActivationKeyPress(SV_UINT:playerid, SV_UINT:keyid)
 	}
 	if(keyid == 0x42 && FrequenciaConectada[playerid] >= 1)
 	{
-		if(!IsPlayerInAnyVehicle(playerid)) ApplyAnimation(playerid, "ped", "phone_talk", 4.1, 1, 1, 1, 0, 0, 0);
-		if(!IsPlayerAttachedObjectSlotUsed(playerid, 9)) SetPlayerAttachedObject(playerid, 9, 19942, 2, 0.0300, 0.1309, -0.1060, 118.8998, 19.0998, 164.2999);
+		if(!IsPlayerInAnyVehicle(playerid))
+		{
+			ApplyAnimation(playerid, "ped", "phone_talk", 4.1, 0, 0, 0, 0, 0, 1);
+			if(!IsPlayerAttachedObjectSlotUsed(playerid, 9)) SetPlayerAttachedObject(playerid, 9, 19942, 2, 0.0300, 0.1309, -0.1060, 118.8998, 19.0998, 164.2999);
+		}
 		SvAttachSpeakerToStream(Frequencia[FrequenciaConectada[playerid]], playerid);
 		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], 16711935);
 		PlayerTextDrawColor(playerid, HudServer_p[playerid][5], 16711935);
@@ -4995,39 +5006,44 @@ CallBack::UpdateDrogas()
 
 CallBack::AnimatioN(playerid)
 {
-	ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",2.0,1,0,0,0,0);
+	ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",2.0,1,0,0,0,1);
 	return true;
 }
 
-CallBack::SalvarArmas(playerid)
+stock SalvarArmas(playerid)
 {
-	new arq[50], str[50], wid, wammo;
-    format(arq, sizeof(arq), PASTA_SAVEARMAS, PlayerName(playerid));
-    if(!DOF2_FileExists(arq)) DOF2_CreateFile(arq);
-    for(new i = 0; i < 13; i++)
-    {
-        GetPlayerWeaponData(playerid, i, wid, wammo);
-        format(str,sizeof(str),"Arma%d", i);
-        DOF2_SetInt(arq, str, wid);
-        format(str, sizeof(str),"Municao%d", i);
-        DOF2_SetInt(arq, str, wammo);
-    }
+    	new Arq[5000], str[5000], wid, wammo;
+    	format(Arq, sizeof(Arq), PASTA_SAVEARMAS, PlayerName(playerid));
+    	if(!DOF2_FileExists(Arq))
+    	{
+    	    DOF2_CreateFile(Arq);
+    	}
+    	for(new i = 0; i < 13; i++)
+    	{
+     		GetPlayerWeaponData(playerid, i, wid, wammo);
+    		format(str, sizeof(str), "Arma%d", i);
+    		DOF2_SetInt(Arq, str, wid);
+    		format(str, sizeof(str), "Municao%d", i);
+    		DOF2_SetInt(Arq, str, wammo);
+    	}
+    	DOF2_SaveFile();
 	return 1;
 }
-
-CallBack::CarregarArmas(playerid)
+stock CarregarArmas(playerid)
 {
-	new arq[50], str[50], wid, wammo;
-    ResetPlayerWeapons(playerid);
-    format(arq, sizeof(arq), PASTA_SAVEARMAS, PlayerName(playerid));
-    for(new i = 0; i < 13; i++)
-    {
-    	format(str, sizeof(str), "Arma%d", i);
-        wid = DOF2_GetInt(arq, str);
-        format(str, sizeof(str),"Municao%d", i);
-        wammo = DOF2_GetInt(arq, str);
-        GivePlayerWeapon(playerid, wid, wammo);
-    }
+	new Arq[5000], str[5000], wid, wammo;
+	format(Arq, sizeof(Arq), PASTA_SAVEARMAS, PlayerName(playerid));
+	if(DOF2_FileExists(Arq))
+	{
+		for(new i = 0; i < 13; i++)
+		{
+			format(str, sizeof(str), "Arma%d", i);
+			wid = DOF2_GetInt(Arq, str);
+			format(str, sizeof(str), "Municao%d", i);
+			wammo = DOF2_GetInt(Arq, str);
+			GivePlayerWeapon(playerid, wid, wammo);
+		}
+	}
 	return 1;
 }
 
@@ -5110,7 +5126,7 @@ CallBack::ORGCarrega()
 
 CallBack::AnimatioN2(playerid)
 {
-	ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",2.0,1,0,0,0,0);
+	ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",2.0,1,0,0,0,1);
 	return true;
 }
 
@@ -5632,6 +5648,79 @@ CallBack::Colete(playerid)
 
 	format(str, sizeof(str), "%.0f", colete);
 	PlayerTextDrawSetString(playerid, HudServer_p[playerid][1], str);
+	static armedbody_pTick[MAX_PLAYERS];
+    if(GetTickCount() - armedbody_pTick[playerid] > 113)
+    {
+
+        new weaponid[13],weaponammo[13],pArmedWeapon;
+        pArmedWeapon = GetPlayerWeapon(playerid);
+        GetPlayerWeaponData(playerid,1,weaponid[1],weaponammo[1]);
+        GetPlayerWeaponData(playerid,2,weaponid[2],weaponammo[2]);
+        GetPlayerWeaponData(playerid,4,weaponid[4],weaponammo[4]);
+        GetPlayerWeaponData(playerid,5,weaponid[5],weaponammo[5]);
+        GetPlayerWeaponData(playerid,7,weaponid[7],weaponammo[7]);
+        if(weaponid[1] && weaponammo[1] > 0){
+            if(pArmedWeapon != weaponid[1]){
+                if(!IsPlayerAttachedObjectSlotUsed(playerid,0)){
+                    SetPlayerAttachedObject(playerid,0,GetWeaponModel(weaponid[1]),1, 0.199999, -0.139999, 0.030000, 0.500007, -115.000000, 0.000000, 1.000000, 1.000000, 1.000000);
+                }
+            }
+            else {
+                if(IsPlayerAttachedObjectSlotUsed(playerid,0)){
+                    RemovePlayerAttachedObject(playerid,0);
+                }
+            }
+        }
+        else if(IsPlayerAttachedObjectSlotUsed(playerid,0)){
+            RemovePlayerAttachedObject(playerid,0);
+        }
+        if(weaponid[2] && weaponammo[2] > 0){
+            if(pArmedWeapon != weaponid[2]){
+                if(!IsPlayerAttachedObjectSlotUsed(playerid,1)){
+                    SetPlayerAttachedObject(playerid,1,GetWeaponModel(weaponid[2]),8, -0.079999, -0.039999, 0.109999, -90.100006, 0.000000, 0.000000, 1.000000, 1.000000, 1.000000);
+                }
+            }
+            else {
+                if(IsPlayerAttachedObjectSlotUsed(playerid,1)){
+                    RemovePlayerAttachedObject(playerid,1);
+                }
+            }
+        }
+        else if(IsPlayerAttachedObjectSlotUsed(playerid,1)){
+            RemovePlayerAttachedObject(playerid,1);
+        }
+        if(weaponid[4] && weaponammo[4] > 0){
+            if(pArmedWeapon != weaponid[4]){
+                if(!IsPlayerAttachedObjectSlotUsed(playerid,2)){
+                    SetPlayerAttachedObject(playerid,2,GetWeaponModel(weaponid[4]),7, 0.000000, -0.100000, -0.080000, -95.000000, -10.000000, 0.000000, 1.000000, 1.000000, 1.000000);
+                }
+            }
+            else {
+                if(IsPlayerAttachedObjectSlotUsed(playerid,2)){
+                    RemovePlayerAttachedObject(playerid,2);
+                }
+            }
+        }
+        else if(IsPlayerAttachedObjectSlotUsed(playerid,2)){
+            RemovePlayerAttachedObject(playerid,2);
+        }
+        if(weaponid[5] && weaponammo[5] > 0){
+            if(pArmedWeapon != weaponid[5]){
+                if(!IsPlayerAttachedObjectSlotUsed(playerid,3)){
+                    SetPlayerAttachedObject(playerid,3,GetWeaponModel(weaponid[5]),1, 0.200000, -0.119999, -0.059999, 0.000000, 206.000000, 0.000000, 1.000000, 1.000000, 1.000000);
+                }
+            }
+            else {
+                if(IsPlayerAttachedObjectSlotUsed(playerid,3)){
+                    RemovePlayerAttachedObject(playerid,3);
+                }
+            }
+        }
+        else if(IsPlayerAttachedObjectSlotUsed(playerid,3)){
+            RemovePlayerAttachedObject(playerid,3);
+        }
+        armedbody_pTick[playerid] = GetTickCount();
+    }
 	return 1;
 }
 
@@ -6478,7 +6567,7 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 			{
 				PlayerInventario[playerid][modelid][Unidades] -= quantia;
 
-					PlayerInfo[playerid][pDinheiro] += 57*quantia;
+					PlayerInfo[playerid][pDinheiro] += 20*quantia;
 					format(Str,sizeof(Str),"Vendeu tilapia e ganhou R$%i.", 57*quantia);
 					SuccesMsg(playerid, Str);
 
@@ -6493,7 +6582,7 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 			{
 				PlayerInventario[playerid][modelid][Unidades] -= quantia;
 
-					PlayerInfo[playerid][pDinheiro] += 157*quantia;
+					PlayerInfo[playerid][pDinheiro] += 50*quantia;
 					format(Str,sizeof(Str),"Vendeu agua viva e ganhou R$%i.", 157*quantia);
 					SuccesMsg(playerid, Str);
 				AtualizarInventario(playerid, modelid);
@@ -6507,7 +6596,7 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 			{
 				PlayerInventario[playerid][modelid][Unidades] -= 5;
 
-					PlayerInfo[playerid][pDinheiro] += 200*quantia;
+					PlayerInfo[playerid][pDinheiro] += 80*quantia;
 					format(Str,sizeof(Str),"Vendeu 5 tubarao e ganhou R$%i.", 200*quantia);
 					SuccesMsg(playerid, Str);
 				AtualizarInventario(playerid, modelid);
@@ -6736,7 +6825,7 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 			SetPlayerPos(playerid, px, py, pz);
 			SetPlayerFacingAngle(playerid, rz);
 			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.0, 1, 0, 0, 0, 0);
+			ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.0, 1, 0, 0, 0, 1);
 
 			SetTimerEx("RoubarCaixa", 20*1000, 0, "dd", playerid, GetPlayerCaixa(playerid));
 			SetTimerEx(#SetAnimRoubo, 500, 0, "d", playerid);
@@ -6985,7 +7074,6 @@ CallBack::CheckCadeia()
 			SetPlayerHealth(i, 9999);
 			if(PlayerInfo[i][pCadeia] == 0)
 			{
-				SpawnPlayer(i);
 				SetPlayerInterior(i, 0);
 				SetPlayerVirtualWorld(i, 0);
 				SetPlayerHealth(i, 100);
@@ -7792,7 +7880,7 @@ stock Timers(playerid)
 {
 	TimerFomebar[playerid] = SetTimerEx("FomeBar", minutos(8), true, "d", playerid);
 	TimerSedebar[playerid] = SetTimerEx("SedeBar", minutos(8), true, "d", playerid);
-	TimerColete[playerid] = SetTimerEx("Colete", 1000, true, "d", playerid);
+	TimerColete[playerid] = SetTimerEx("Colete", 500, true, "d", playerid);
 	TimerPayDay[playerid] = SetTimerEx("PayDay", minutos(30), false, "d", playerid);
 	TimerAttVeh[playerid] = SetTimerEx("AttVeh", 5000, true, "d", playerid);
 	TimerHacker[playerid] = SetTimerEx("TimerHack", 1000, false, "d", playerid);
@@ -10204,7 +10292,7 @@ stock CriarRadares()
 		if(DOF2_FileExists(Account))
 		{
 			RadarInfo[i][RadarID] = DOF2_GetInt(Account, "RadarID");
-			RadarInfo[i][RadarVelocidade] = DOF2_GetInt(Account, "RadarVelocidade");
+			RadarInfo[i][RadarVelocidade] = 80;//DOF2_GetInt(Account, "RadarVelocidade");
 
 			RadarInfo[i][RadarPosX] = DOF2_GetFloat(Account, "RadarPosX");
 			RadarInfo[i][RadarPosY] = DOF2_GetFloat(Account, "RadarPosY");
@@ -10427,7 +10515,6 @@ stock ChecarOrg(playerid)
 	PlayerInfo[playerid][Org] = 0;
 	PlayerInfo[playerid][Cargo] = 0;
 	InfoMsg(playerid, "Foi expulsado.");
-	SpawnPlayer(playerid);
 	return 0;
 }
 
@@ -10611,7 +10698,7 @@ stock GranaRoubo(playerid, caixa_id)
 	SetPVarFloat(playerid, "RouboZ", z);
 
 	RoubandoCaixa[playerid] = true;
-	ApplyAnimation(playerid,"ROB_BANK","CAT_Safe_Rob",4.1,1,0,0,0,0);
+	ApplyAnimation(playerid,"ROB_BANK","CAT_Safe_Rob",4.1,1,0,0,0,1);
 
 	SetTimerEx(#ApplyAnim, 500, 0, "i", playerid);
 	SetTimerEx("PegarMoney", 10000, 0, "id", playerid, caixa_id);
@@ -10778,7 +10865,7 @@ stock SalvarVIP(playerid)
 
 stock PreloadAnimLib(playerid, animlib[])
 {
-	ApplyAnimation(playerid,animlib,"null",0.0,0,0,0,0,0);
+	ApplyAnimation(playerid,animlib,"null",0.0,0,0,0,0,1);
 }
 
 stock randomEx(minnum = cellmin, maxnum = cellmax)
@@ -13984,7 +14071,6 @@ public OnPlayerDeath(playerid, killerid, reason)
 	    PlayerMorto[playerid][pPosMt3] = VarPlayerOldPos[playerid][2];
 	    PlayerMorto[playerid][pEstaMorto] = 1;
 	}
-	SpawnPlayer(playerid);
 	return 1;
 }
 
@@ -14038,8 +14124,8 @@ public OnVehicleDamageStatusUpdate(vehicleid, playerid){
 			SetPlayerPos(playerid,PosP[0]+2,PosP[1]+2,PosP[2]+1);
 			SetPlayerFacingAngle(playerid, PosP[3]);
 			RemovePlayerFromVehicle(playerid);
-			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
-			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 1);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 1);
 			GameTextForPlayer(playerid, "~r~DESMAIOU...", 14900, 4);
 			fadeOut(playerid, 15000);
 			SetTimerEx("CANIM",15200,false,"i",playerid);
@@ -14484,7 +14570,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	}
 	if(PegouMaterial[playerid] == true)
 	{
-		new dinmateriale = randomEx(0, 80);
+		new dinmateriale = randomEx(10, 50);
 		new constrstr[500];
 		TogglePlayerControllable(playerid, 0);
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 1, 1, 0, 1, 0, 1);
@@ -14496,7 +14582,7 @@ public OnPlayerEnterCheckpoint(playerid)
 			format(constrstr,sizeof(constrstr),"Ganhou %i com este material.", dinmateriale);
 			SuccesMsg(playerid, constrstr);
 		}
-		if(PlayerInfo[playerid][pVIP] < 2)
+		else if(PlayerInfo[playerid][pVIP] < 2)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
 			format(constrstr,sizeof(constrstr),"Ganhou %i com este material.", dinmateriale*2);
@@ -14517,7 +14603,7 @@ public OnPlayerEnterCheckpoint(playerid)
 			format(constrstr,sizeof(constrstr),"Ganhou %i com esta rocha.", dinmateriale);
 			SuccesMsg(playerid, constrstr);
 		}
-		if(PlayerInfo[playerid][pVIP] < 2)
+		else if(PlayerInfo[playerid][pVIP] < 2)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
 			format(constrstr,sizeof(constrstr),"Ganhou %i com esta rocha.", dinmateriale*2);
@@ -14539,7 +14625,7 @@ public OnPlayerEnterCheckpoint(playerid)
 			format(constrstr,sizeof(constrstr),"Ganhou %i com esta caixa.", dinmateriale);
 			SuccesMsg(playerid, constrstr);
 		}
-		if(PlayerInfo[playerid][pVIP] < 2)
+		else if(PlayerInfo[playerid][pVIP] < 2)
 		{
 			PlayerInfo[playerid][pDinheiro] += dinmateriale*2;
 			format(constrstr,sizeof(constrstr),"Ganhou %i com esta caixa.", dinmateriale*2);
@@ -17149,77 +17235,77 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 						else if(PlayerInfo[playerid][Org] == 0)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1685.698608, -2334.948730, 13.546875, 0.269069, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1685.698608, -2334.948730, 13.546875, 0.269069, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 1)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2033.067504, -988.365112, 32.212158, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2020.446411, -993.555419, 32.202156, 36.279342, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 2)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2440.856445, 522.686523, 29.914293, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1638.208740, -243.148941, 44.298759, 188.874038, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 3)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -1278.104248, 2711.379150, 50.132141, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2442.252441, 500.984619, 30.094064, 71.976226, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 4)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin],  -1253.534545, 2712.009521, 55.174671, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin],  -1263.531005, 2709.656494, 50.164165, 40.955970, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 5)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin],  2095.946044, -1143.877807, 25.586040, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin],  2095.946044, -1143.877807, 25.586040, 90.036911, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 6)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 2650.068359, -2018.365234, 13.552066, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 2650.068359, -2018.365234, 13.552066, 90.036911, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 7)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1858.289306, -1590.896484, 13.574988, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1858.289306, -1590.896484, 13.574988, 90.036911, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 8)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 2275.367187, -1785.524414, 13.546875, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 2275.367187, -1785.524414, 13.546875, 90.036911, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 9)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1973.031616, -1779.866455, 13.543199, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1973.031616, -1779.866455, 13.543199, 90.036911, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 10)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2064.956787, 1389.049560, 7.101562, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2064.956787, 1389.049560, 7.101562, 90.036911, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 11)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 753.274414, -1358.755981, 13.500000, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 753.274414, -1358.755981, 13.500000, 90.036911, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 12)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -692.327087, 939.566345, 13.632812, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -692.327087, 939.566345, 13.632812, 90.036911, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 13)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 691.841125, -463.600677, 16.536296, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 691.841125, -463.600677, 16.536296, 90.036911, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 14)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 675.153442, -1497.677246, 20.966297, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 662.923583, -1501.260498, 17.488349, 268.414794, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						format(Str, sizeof(Str), "Bem vindo %04d. Seu ultimo login foi em %s.", GetPlayerIdfixo(playerid), PlayerInfo[playerid][pLastLogin]);
@@ -17232,21 +17318,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					else
 					{
-						SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1685.698608, -2334.948730, 13.546875, 0.269069, 0, 0, 0, 0, 0, 0);
+						SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1685.698608, -2334.948730, 13.546875, 0.269069, -1, -1, -1, -1, -1, -1);
 						SpawnPlayer(playerid);
 						FirstLogin[playerid] = false;
 					}
 					TextDrawShowForPlayer(playerid, gServerTextdraws);
 					CancelSelectTextDraw(playerid);
 					Timers(playerid);
-					CarregarAvaliacao(playerid);
-					CarregarVIP(playerid);
-					MapRemocao(playerid);
-					LoadInv(playerid);
-					CarregarAnims(playerid);
-					CarregarArmas(playerid);
-					CarregarMortos(playerid);
-					CarregarGZ(playerid);
 					SetPlayerVirtualWorld(playerid, 0);
 					SetTimerEx("TxdLogin", 2000, false, "d",playerid);
 					pLogado[playerid] = true;
@@ -20789,10 +20867,10 @@ CMD:up(playerid)
 	if(UltimaPos[playerid] == 0) return ErrorMsg(playerid, "Voce nao pode mais voltar a ultima posicao");
 	TogglePlayerControllable(playerid, false);
 	SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-	SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ], PlayerInfo[playerid][pPosA], 0, 0, 0, 0, 0, 0);
+	SetPlayerPos(playerid, PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ]);
+	SetPlayerFacingAngle(playerid,PlayerInfo[playerid][pPosA]);
 	SetPlayerCameraPos(playerid, PlayerInfo[playerid][pCamX], PlayerInfo[playerid][pCamY], PlayerInfo[playerid][pCamZ]);
 	SetPlayerInterior(playerid, PlayerInfo[playerid][pInterior]);
-	SpawnPlayer(playerid);
 	UltimaPos[playerid] = 0;
 	return 1;
 }
@@ -23113,7 +23191,7 @@ CMD:cmaconha(playerid)
 			perto = 1;
 			if(strcmp(MaconhaInfo[mac][Dono], Name(playerid), true) == 0)
 			{
-				ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",2.0,1,0,0,0,0);
+				ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",2.0,1,0,0,0,1);
 				SetTimerEx("AnimatioN", 100, false, "i", playerid);
 				SetTimerEx("MaconhaColher", 17000, false, "id", playerid, mac);
 				PlantandoMaconha[playerid] = true;
@@ -24937,7 +25015,7 @@ CMD:desossar(playerid)
 {
 	if(!CheckInventario2(playerid, 18644)) return ErrorMsg(playerid, "Nao tem uma chaira.");
 	if(PlayerInfo[playerid][pProfissao] != 3) 	return ErrorMsg(playerid, "Nao possui permissao.");
-	if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a pesca atual.");
+	if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou o desossamento atual.");
 	if(Desossando[playerid] == 1 || Desossando[playerid] == 2 || Desossando[playerid] == 3) 	return ErrorMsg(playerid, "Voce ja esta fazendo as etapas.");
 	for(new i; i < 8; i++)
 	if(IsPlayerInRangeOfPoint(playerid, 1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2]))
