@@ -17285,7 +17285,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 						else if(PlayerInfo[playerid][Org] == 10)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], -2064.956787, 1389.049560, 7.101562, 90.036911, -1, -1, -1, -1, -1, -1);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1634.357543, -1122.493896, 24.051122, 90.036911, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 11)
@@ -22823,7 +22823,6 @@ CMD:desalgemar(playerid, params[])
 
 CMD:pveiculo(playerid, params[])
 {
-	new carid = GetPlayerVehicleID(playerid);
 	if(IsPolicial(playerid) || IsBandido(playerid))
 	{
 		if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /pveiculo [ID]");
@@ -22833,6 +22832,7 @@ CMD:pveiculo(playerid, params[])
 			{
 				if(PlayerInfo[i][IDF] == ID)
 				{
+					new carid = GetPlayerVehicleID(playerid);
 					if(!IsPlayerInAnyVehicle(playerid))			return ErrorMsg(playerid, "Voce nao esta em um veiculo.");
 					if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) 		return ErrorMsg(playerid, "Voce nao esta.");
 					if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");

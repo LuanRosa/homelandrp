@@ -1,10 +1,1 @@
-Aumentado o fome e sede para 8 minutos
-Corrigido spawn em sf ao registrar
-Agora poderá ingerir alimentos e bebidas até 90% das necessidades
-Agora todos os radares tem o limite de 80 de velocidade
-Nerfado emprego Pescador
-Corrigido salvamento das armas
-Ajustes no emprego de Construtor
-Adicionado Armas no corpo
-Corrigido dobro de dinheiro nos empregos
-Corrigido spawn das corps
+colocar na veh
