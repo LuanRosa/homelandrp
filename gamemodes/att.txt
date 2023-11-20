@@ -1,8 +1,3 @@
-Corrigido bug do radio tirar do veh
-Corrigido mesagem de erro caminhoneiro
-Corrigido Anti Jump
-Corrigido Emprego Correios
-Removido opçao de Retirar item
-Adicionado Seleção de Quantidade
-Removido O Bonus do Emprego Pescador
-Corrigido bug das plantações não crescer
+Aumentado o fome e sede para 8 minutos
+Corrigido spawn em sf ao registrar
+Agora poderá ingerir alimentos e bebidas até 90% das necessidades

@@ -3053,7 +3053,6 @@ CallBack::Minerar(playerid, progress)
 {
 		new mineiro = randomEx(0,3);
 		new checkfinal = randomEx(1,2);
-		ClearAnimations(playerid);
 		if(mineiro == 0)
 		{
 			ErrorMsg(playerid, "Encontrou nenhum minerio.");
@@ -4151,7 +4150,7 @@ public SV_VOID:OnPlayerActivationKeyPress(SV_UINT:playerid, SV_UINT:keyid)
 	}
 	if(keyid == 0x42 && FrequenciaConectada[playerid] >= 1)
 	{
-		if(IsPlayerInAnyVehicle(playerid)) ApplyAnimation(playerid, "ped", "phone_talk", 4.1, 1, 1, 1, 0, 0, 0);
+		if(!IsPlayerInAnyVehicle(playerid)) ApplyAnimation(playerid, "ped", "phone_talk", 4.1, 1, 1, 1, 0, 0, 0);
 		if(!IsPlayerAttachedObjectSlotUsed(playerid, 9)) SetPlayerAttachedObject(playerid, 9, 19942, 2, 0.0300, 0.1309, -0.1060, 118.8998, 19.0998, 164.2999);
 		SvAttachSpeakerToStream(Frequencia[FrequenciaConectada[playerid]], playerid);
 		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], 16711935);
@@ -4438,7 +4437,7 @@ UpdateVehicle(vehicleid, removeold)
 			GetVehicleDamageStatus(VehicleID[vehicleid], panels, doorsd, lightsd, tires);
 			DestroyVehicle(VehicleID[vehicleid]);
 			VehicleID[vehicleid] = CreateVehicle(VehicleModel[vehicleid], VehiclePos[vehicleid][0], VehiclePos[vehicleid][1],
-				VehiclePos[vehicleid][2], VehiclePos[vehicleid][3], VehicleColor[vehicleid][0], VehicleColor[vehicleid][1], 50);
+				VehiclePos[vehicleid][2], VehiclePos[vehicleid][3], VehicleColor[vehicleid][0], VehicleColor[vehicleid][1], 50000);
 			SetVehicleHealth(VehicleID[vehicleid], health);
 			SetVehicleParamsEx(VehicleID[vehicleid], engine, lights, alarm, doors, bonnet, boot, objective);
 			UpdateVehicleDamageStatus(VehicleID[vehicleid], panels, doorsd, lightsd, tires);
@@ -4446,7 +4445,7 @@ UpdateVehicle(vehicleid, removeold)
 		else
 		{
 			VehicleID[vehicleid] = CreateVehicle(VehicleModel[vehicleid], VehiclePos[vehicleid][0], VehiclePos[vehicleid][1],
-				VehiclePos[vehicleid][2], VehiclePos[vehicleid][3], VehicleColor[vehicleid][0], VehicleColor[vehicleid][1], 5000);
+				VehiclePos[vehicleid][2], VehiclePos[vehicleid][3], VehicleColor[vehicleid][0], VehicleColor[vehicleid][1], 50000);
 		}
 		LinkVehicleToInterior(VehicleID[vehicleid], VehicleInterior[vehicleid]);
 		SetVehicleVirtualWorld(VehicleID[vehicleid], VehicleWorld[vehicleid]);
@@ -5002,59 +5001,34 @@ CallBack::AnimatioN(playerid)
 
 CallBack::SalvarArmas(playerid)
 {
-
-	/*-----------------------------------------*/
-	new Slot3,Bala,Local[200],Slot1[20],Bala1[20];
-	/*-----------------------------------------*/
-	Local = PachWeapon(playerid);
-	/*-----------------------------------------*/
-	//
-	if(!DOF2_FileExists(Local)) DOF2_CreateFile(Local);
-	//
-	for(new i = 0; i < 13; i++)
-	{
-		/*-----------------------------------*/
-		GetPlayerWeaponData(playerid,i,Slot3,Bala);
-		/*-----------------------------------*/
-		format(Slot1,sizeof(Slot1),"Slot%d",i);
-		format(Bala1,sizeof(Bala1),"Bala%d",i);
-		/*-----------------------------------*/
-		DOF2_SetInt(Local, Slot1, Slot3);
-		DOF2_SetInt(Local, Bala1, Bala);
-		/*-----------------------------------*/
-		DOF2_SaveFile();
-		/*-----------------------------------*/
-	}
+	new arq[50], str[50], wid, wammo;
+    format(arq, sizeof(arq), PASTA_SAVEARMAS, PlayerName(playerid));
+    if(!DOF2_FileExists(arq)) DOF2_CreateFile(arq);
+    for(new i = 0; i < 13; i++)
+    {
+        GetPlayerWeaponData(playerid, i, wid, wammo);
+        format(str,sizeof(str),"Arma%d", i);
+        DOF2_SetInt(arq, str, wid);
+        format(str, sizeof(str),"Municao%d", i);
+        DOF2_SetInt(arq, str, wammo);
+    }
 	return 1;
 }
 
 CallBack::CarregarArmas(playerid)
 {
-	/*-----------------------------------------*/
-	new Slot3,Bala,Local[200],Slot1[20],Bala1[20];
-	/*-----------------------------------------*/
-	Local = PachWeapon(playerid);
-	/*-----------------------------------------*/
-	for(new i = 0; i < 13; i++)
-	{
-		/*-----------------------------------*/
-		format(Slot1,sizeof(Slot1),"Slot%d",i);
-		format(Bala1,sizeof(Bala1),"Bala%d",i);
-		/*-----------------------------------*/
-		Slot3 = DOF2_GetInt(Local, Slot1);
-		Bala = DOF2_GetInt(Local, Bala1);
-		/*-----------------------------------*/
-		GivePlayerWeapon(playerid, Slot3, Bala);
-		/*-----------------------------------*/
-	}
+	new arq[50], str[50], wid, wammo;
+    ResetPlayerWeapons(playerid);
+    format(arq, sizeof(arq), PASTA_SAVEARMAS, PlayerName(playerid));
+    for(new i = 0; i < 13; i++)
+    {
+    	format(str, sizeof(str), "Arma%d", i);
+        wid = DOF2_GetInt(arq, str);
+        format(str, sizeof(str),"Municao%d", i);
+        wammo = DOF2_GetInt(arq, str);
+        GivePlayerWeapon(playerid, wid, wammo);
+    }
 	return 1;
-}
-
-PachWeapon(playerid)
-{
-	new string[100];
-	format(string, 100, PASTA_SAVEARMAS, Name(playerid));
-	return string;
 }
 
 CallBack::IsPolicial(playerid)
@@ -5408,6 +5382,10 @@ CallBack::PayDay(playerid)
 		if(PlayerInfo[playerid][pVIP] == 3)
 		{
 			PlayerInfo[playerid][pBanco] += 6000;
+		}
+		if(IsPolicial(playerid))
+		{
+            PlayerInfo[playerid][pBanco] += 3000;
 		}
 		PlayerPlaySound(playerid,1139,0.0,0.0,0.0);
 		SalvarDados(playerid);
@@ -6130,6 +6108,7 @@ static  NomeArmas(armaid)
 DroparItem(playerid, modelid, quantia)
 {
 	if(quantia == 0) return ErrorMsg(playerid, "Voce precisa selecionar a quantidade.");
+	if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade informada.");
 	if(IsPlayerConnected(playerid))
 	{
 		new str[128], Float:x, Float:y, Float:z;
@@ -6387,7 +6366,6 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 		}
 		case 400..611:
 		{
-			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			//if(PlayerInfo[playerid][pVIP] < 1 || PlayerInfo[playerid][pAdmin] < 1) return ErrorMsg(playerid, "Sem permissao");
 			new Float:X,Float:Y,Float:Z,Float:A;
 			GetPlayerPos(playerid, X,Y,Z);
@@ -6586,7 +6564,7 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 		case 1484, 1644, 1546, 2601:
 		{
 			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
-			if(SedePlayer[playerid] >= 80) return ErrorMsg(playerid, "Nao esta com sede.");
+			if(SedePlayer[playerid] >= 95) return ErrorMsg(playerid, "Nao esta com sede.");
 			SedePlayer[playerid] += fomesede;
 			PlayerInventario[playerid][modelid][Unidades]--;
 			ApplyAnimation(playerid, "VENDING", "VEND_Drink_P", 4.1, 0, 0, 0, 0, 0, 1);
@@ -6596,7 +6574,7 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 		case 19847, 2769, 2702, 19882:
 		{
 			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
-			if(FomePlayer[playerid] >= 80) return ErrorMsg(playerid, "Nao esta com fome.");
+			if(FomePlayer[playerid] >= 95) return ErrorMsg(playerid, "Nao esta com fome.");
 			FomePlayer[playerid] += fomesede;
 			PlayerInventario[playerid][modelid][Unidades]--;
 			ApplyAnimation(playerid, "FOOD", "EAT_Burger", 4.1, 0, 0, 0, 0, 0, 1);
@@ -6790,7 +6768,7 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			new Float:health;
     		GetPlayerHealth(playerid,health);
-			if(health >= 80) return ErrorMsg(playerid, "Voce nao pode usar bandagem agora.");
+			if(health >= 90) return ErrorMsg(playerid, "Voce nao pode usar bandagem agora.");
 
 			SetPlayerHealth(playerid, health+10);
 			PlayerInventario[playerid][modelid][Unidades]--;
@@ -7812,8 +7790,8 @@ stock GetIdfixo()
 
 stock Timers(playerid)
 {
-	TimerFomebar[playerid] = SetTimerEx("FomeBar", minutos(2), true, "d", playerid);
-	TimerSedebar[playerid] = SetTimerEx("SedeBar", minutos(2), true, "d", playerid);
+	TimerFomebar[playerid] = SetTimerEx("FomeBar", minutos(8), true, "d", playerid);
+	TimerSedebar[playerid] = SetTimerEx("SedeBar", minutos(8), true, "d", playerid);
 	TimerColete[playerid] = SetTimerEx("Colete", 1000, true, "d", playerid);
 	TimerPayDay[playerid] = SetTimerEx("PayDay", minutos(30), false, "d", playerid);
 	TimerAttVeh[playerid] = SetTimerEx("AttVeh", 5000, true, "d", playerid);
@@ -10786,7 +10764,7 @@ stock CarregarVIP(playerid)
 stock SalvarVIP(playerid)
 {
 	new File[5000];
-	if(PlayerInfo[playerid][pVIP] > 1)
+	if(PlayerInfo[playerid][pVIP] >= 1)
 	{
 		format(File, sizeof(File), PASTA_VIPS, Name(playerid));
 		if(!DOF2_FileExists(File)) DOF2_CreateFile(File);
@@ -11278,7 +11256,7 @@ stock SalvarDadosSkin(playerid)
 stock SalvarAvaliacao(playerid)
 {
 	new File[5000];
-	if(PlayerInfo[playerid][pAdmin] > 1)
+	if(PlayerInfo[playerid][pAdmin] >= 1)
 	{
 		format(File, sizeof(File), PASTA_AVALIACAO, Name(playerid));
 		if(!DOF2_FileExists(File)) DOF2_CreateFile(File);
@@ -11388,6 +11366,7 @@ stock SendGangMessage(Cor, Mensagem[])
 	}
 	return 1;
 }
+
 stock SetPlayerMoney(ID1, Quantia)
 {
 	ResetPlayerMoney(ID1);
@@ -11509,7 +11488,6 @@ public OnGameModeInit()
     SendRconCommand("language Portugu�s - Brasil");
 	SendRconCommand("ackslimit 5000");
  	SendRconCommand(SERVERFORUM);
- 	//SendRconCommand("password 123654");
 	SendRconCommand("rcon 0");
 	SendRconCommand("stream_distance 500.0");
 	SendRconCommand("stream_rate 1000");
@@ -16929,10 +16907,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SetInt(Account, "pCadeia", 0);
 					DOF2_SetInt(Account, "pLastLogin", 0);
 					DOF2_SetInt(Account, "pInterior", 0);
-					DOF2_SetFloat(Account, "pPosX", 0);
-					DOF2_SetFloat(Account, "pPosY", 0);
-					DOF2_SetFloat(Account, "pPosZ", 0);
-					DOF2_SetFloat(Account, "pPosA", 0);
+					DOF2_SetFloat(Account, "pPosX", 1685.698608);
+					DOF2_SetFloat(Account, "pPosY", -2334.948730);
+					DOF2_SetFloat(Account, "pPosZ", 13.546875);
+					DOF2_SetFloat(Account, "pPosA", 0.269069);
 					DOF2_SetFloat(Account, "pCamX", 0);
 					DOF2_SetFloat(Account, "pCamY", 0);
 					DOF2_SetFloat(Account, "pCamZ", 0);
@@ -17191,7 +17169,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 						else if(PlayerInfo[playerid][Org] == 4)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin],  1662.559692, -285.732208, 39.607868, 90.036911, 0, 0, 0, 0, 0, 0);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin],  -1253.534545, 2712.009521, 55.174671, 90.036911, 0, 0, 0, 0, 0, 0);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 5)
@@ -17717,7 +17695,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						strcat(stg, "{5b6ed9}/verdocumentos{FFFFFF} Verificar documento de um jogador.\n");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAORG, DIALOG_STYLE_MSGBOX, "Comandos Organizacao", stg, "Ok", "");
 					}
-					if(IsBandido(playerid))
+					else if(IsBandido(playerid))
 					{
 						new stg[1100];
 						strcat(stg, "{5b6ed9}/ga{FFFFFF} Radio de gang\n");
@@ -17729,10 +17707,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						strcat(stg, "{5b6ed9}/iniciarrotapecas{FFFFFF} Verificar documento de um jogador.\n");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAORG, DIALOG_STYLE_MSGBOX, "Comandos Organizacao", stg, "Ok", "");
 					}
-					if(PlayerInfo[playerid][Org] != 10)
+					else if(PlayerInfo[playerid][Org] == 10)
 					{
 						new stg[1100];
 						strcat(stg, "{5b6ed9}/tratamento{FFFFFF} Enviar solicitacao de tratamento ao player\n");
+                        strcat(stg, "{5b6ed9}/lferidos{FFFFFF} Localizar um player ferido.\n");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAORG, DIALOG_STYLE_MSGBOX, "Comandos Organizacao", stg, "Ok", "");
 					}
 				}
@@ -22094,7 +22073,7 @@ CMD:pedircontas(playerid)
 CMD:lferidos(playerid, params[])
 {
 	new id;
-	if(PlayerInfo[playerid][pProfissao] != 3)
+	if(PlayerInfo[playerid][Org] == 10)
 	{
 		if(sscanf(params, "u", id)) return ErrorMsg(playerid,  "* Use: /lferidos (id)");
 		foreach(new i : Player)
@@ -22947,7 +22926,7 @@ CMD:revistar(playerid, params[])
 					if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
 					if(InventarioAberto[playerid])
 					{
-						for(new in = 0; in < 40; ++i)
+						for(new in = 0; in < 40; ++in)
 						{
 							PlayerTextDrawHide(playerid, DrawInv[playerid][in]);
 							if(i == 40)break;
@@ -22961,7 +22940,7 @@ CMD:revistar(playerid, params[])
 						format(str, sizeof(str), "Inventario: %s", Name(i));
 						PlayerTextDrawSetString(playerid, DrawInv[playerid][34], str);
 						PlayerTextDrawSetString(playerid, DrawInv[playerid][38], "");
-						for(new in = 1; in < 33; ++i)
+						for(new in = 1; in < 33; ++in)
 						{
 							PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][in], PlayerInventario[i][in][Slot]);
 							if(PlayerInventario[i][in][Slot] == -1)
@@ -22974,7 +22953,7 @@ CMD:revistar(playerid, params[])
 							}
 							if(i == 31)break;
 						}
-						for(new in = 0; in < 40; ++i)
+						for(new in = 0; in < 40; ++in)
 						{
 							PlayerTextDrawShow(playerid, DrawInv[playerid][in]);
 							if(i == 40)break;
@@ -25111,7 +25090,7 @@ CMD:pescar(playerid)
 	return 1;
 }
 
-CMD:resetanuncios(playerid,params[])
+CMD:resetanuncios(playerid)
 {
 	if(PlayerInfo[playerid][pAdmin] < 1) return ErrorMsg(playerid, "Nao possui permissao.");
 	for(new a; a < NA; a++)
@@ -25574,6 +25553,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 3.063754);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			deitadomaca[playerid] = false;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25585,6 +25565,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 350.887390);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			deitadomaca[playerid] = false;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25596,6 +25577,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 8.838689);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			deitadomaca[playerid] = false;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25606,6 +25588,7 @@ CMD:deitar(playerid)
 			SetPlayerPos(playerid, 1617.720336, -1128.654663, 24.831556);
 			SetPlayerFacingAngle(playerid, 357.130371);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			deitadomaca[playerid] = false;
 			TogglePlayerControllable(playerid, 0);
 			if(medicoon == 0)
 			{
@@ -25618,6 +25601,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 169.583480);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			deitadomaca[playerid] = false;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25629,6 +25613,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 172.451522);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			deitadomaca[playerid] = false;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25640,6 +25625,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 172.111297);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			deitadomaca[playerid] = false;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25651,6 +25637,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 165.496246);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			deitadomaca[playerid] = false;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25662,6 +25649,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 169.587600);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			deitadomaca[playerid] = false;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
