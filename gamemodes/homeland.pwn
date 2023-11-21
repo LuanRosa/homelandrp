@@ -612,7 +612,7 @@ new Text:Textdraw0,
 	Text:Textdraw1;
 new Text:HudServer[17];
 new PlayerText:HudServer_p[MAX_PLAYERS][7];
-new PlayerText:Registration_PTD[MAX_PLAYERS][27];
+new PlayerText:Registration_PTD[MAX_PLAYERS][15];
 new Text:TDCadastro[18];
 new PlayerText:TDCadastro_p[MAX_PLAYERS][7];
 
@@ -1174,11 +1174,12 @@ new Float:PosRota[303+120][4] =
     {2313.880371, -124.964256, 28.153551}//rota
 };
 
-new Float:Entradas[4][3] =
+new Float:Entradas[5][3] =
 {
 	{2333.359130, -1883.562255, 15.000000},//Mercado Negro
 	{1481.094482, -1772.313720, 18.795755},//Prefeitura
 	{649.302062, -1357.399658, 13.567605},//San News
+	{445.8343,-850.0626,29.8050},//MINERADOR
 	{2501.888916, -1494.696533, 24.000000}//A�OUGUE
 };
 
@@ -1285,7 +1286,7 @@ new Float:PosEquipar[6][4] =
 	{-1253.534545, 2712.009521, 55.174671}//BAEP
 };
 
-new Float:PosVeiculos[11][4] =
+new Float:PosVeiculos[10][4] =
 {
 	{-2033.141479, -988.619567, 32.212158},//Policia Militar
 	{-2441.137939, 522.140869, 29.486917},//ROTA
@@ -1293,7 +1294,6 @@ new Float:PosVeiculos[11][4] =
 	{1683.301391, -2311.982910, 13.546875},//Spawn
 	{1639.677124, -1103.197631, 23.906250},//Hospital
 	{-478.623901, -506.406524, 25.517845},//Camionero
-	{590.086975, 871.486694, -42.734603},//Minerador
 	{2010.767089, -1771.265380, 13.543199},//Mecanica
 	{-1278.216552, 2711.282714, 50.132141},//BAEP
 	{667.180053, -1457.288818, 15.439465},//Policia Civil
@@ -2673,10 +2673,10 @@ CallBack::AChatAtendimento(COLOR,const string[],level)
 
 CallBack::TxdLogin(playerid)
 {
-	for(new i = 0; i < 27; ++i)
+	for(new i = 0; i < 15; ++i)
 	{
 		PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
-		if(i == 27)break;
+		if(i == 15)break;
 	}
 	for(new i = 0; i < 7; i ++)
 	{
@@ -3059,61 +3059,40 @@ CallBack::Desossar(playerid, progress)
 }
 CallBack::Minerar(playerid, progress)
 {
-		new mineiro = randomEx(0,3);
+		new mineiro = randomEx(0,4);
 		new checkfinal = randomEx(1,2);
+		new s[50];
 		if(mineiro == 0)
 		{
 			ErrorMsg(playerid, "Encontrou nenhum minerio.");
 		}
 		if(mineiro == 1)
 		{
-			if(checkfinal == 1)
-			{
-				SetPlayerCheckpoint(playerid, 693.332824, 844.813354, -26.768863, 1.0);
-				EtapasMinerador[playerid] = 2;
-				InfoMsg(playerid, "Encontrou um minerio, entregue no ponto marcado.");
-			}
-			if(checkfinal == 2)
-			{
-				SetPlayerCheckpoint(playerid, 681.241149, 823.651245, -26.795570, 1.0);
-				EtapasMinerador[playerid] = 2;
-				InfoMsg(playerid, "Encontrou um minerio, entregue no ponto marcado.");
-			}
-
+			GanharItem(playerid, 19181, checkfinal);
+			format(s,sizeof(s),"Encontrou %i minerio de ouro.",checkfinal);
+			SuccesMsg(playerid, s);
 		}
 		if(mineiro == 2)
 		{
-			if(checkfinal == 1)
-			{
-				SetPlayerCheckpoint(playerid, 693.332824, 844.813354, -26.768863, 1.0);
-				EtapasMinerador[playerid] = 2;
-				InfoMsg(playerid, "Encontrou um minerio, entregue no ponto marcado.");
-			}
-			if(checkfinal == 2)
-			{
-				SetPlayerCheckpoint(playerid, 681.241149, 823.651245, -26.795570, 1.0);
-				EtapasMinerador[playerid] = 2;
-				InfoMsg(playerid, "Encontrou um minerio, entregue no ponto marcado.");
-			}
-
+			GanharItem(playerid, 19180, checkfinal);
+			format(s,sizeof(s),"Encontrou %i minerio de cobre.",checkfinal);
+			SuccesMsg(playerid, s);
 		}
 		if(mineiro == 3)
 		{
-			if(checkfinal == 1)
-			{
-				SetPlayerCheckpoint(playerid, 693.332824, 844.813354, -26.768863, 1.0);
-				EtapasMinerador[playerid] = 2;
-				InfoMsg(playerid, "Encontrou um minerio, entregue no ponto marcado.");
-			}
-			if(checkfinal == 2)
-			{
-				SetPlayerCheckpoint(playerid, 681.241149, 823.651245, -26.795570, 1.0);
-				EtapasMinerador[playerid] = 2;
-				InfoMsg(playerid, "Encontrou um minerio, entregue no ponto marcado.");
-			}
-
+			GanharItem(playerid, 19177, checkfinal);
+			format(s,sizeof(s),"Encontrou %i minerio de quartzo.",checkfinal);
+			SuccesMsg(playerid, s);
+		}
+		if(mineiro == 4)
+		{
+			GanharItem(playerid, 19179, checkfinal);
+			format(s,sizeof(s),"Encontrou %i minerio de ruby.",checkfinal);
+			SuccesMsg(playerid, s);
 		}
 		UsouCMD[playerid] = false;
+		ClearAnimations(playerid);
+		RemovePlayerAttachedObject(playerid, 9);
 		TogglePlayerControllable(playerid, 1);
 	return 1;
 }
@@ -3824,7 +3803,7 @@ CallBack::attloginname(playerid)
 {
 	new stringg[50];
 	format(stringg, sizeof(stringg), "%s", Name(playerid));
-	PlayerTextDrawSetString(playerid, Registration_PTD[playerid][23], stringg);
+	PlayerTextDrawSetString(playerid, Registration_PTD[playerid][11], stringg);
 	PlayerTextDrawSetString(playerid, BancoTD[playerid][12], stringg);
 }
 
@@ -3897,10 +3876,10 @@ CallBack::mostrarTelaLogin(playerid)
 CallBack::loginp(playerid)
 {
 	new File[255];
-	for(new i = 0; i < 27; ++i)
+	for(new i = 0; i < 15; ++i)
 	{
 		PlayerTextDrawShow(playerid, Registration_PTD[playerid][i]);
-		if(i == 27)break;
+		if(i == 15)break;
 	}
 	SelectTextDraw(playerid, 1);
 	format(File, sizeof(File), PASTA_BANIDOS, Name(playerid));
@@ -6136,6 +6115,11 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 1316: name = "Anel";
 		case 19882: name = "Carne Assada";
 		case 19627: name = "Ferraamenta Desmanche";
+		case 19181: name = "Ouro";
+		case 19180: name = "Cobre";
+		case 19177: name = "Quartzo";
+		case 19179: name = "Ruby";
+		case 19626: name = "Pa";
 		default: name = "Desconhecido";
 	}
 	return name;
@@ -6560,6 +6544,94 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 			}
 			return 1;
 		}
+		case 19177:
+		{
+			if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade digitada.");
+			if(PlayerToPoint(3.0, playerid, 469.0226,-1521.7565,20.4308))
+			{
+				PlayerInventario[playerid][modelid][Unidades] -= quantia;
+				if(PlayerInfo[playerid][pVIP] == 0)
+				{
+					PlayerInfo[playerid][pDinheiro] += 97*quantia;
+					format(Str,sizeof(Str),"Vendeu quartzo e ganhou R$%i.", 97*quantia);
+					SuccesMsg(playerid, Str);
+				}
+				else if(PlayerInfo[playerid][pVIP] < 2)
+				{
+					PlayerInfo[playerid][pDinheiro] += 97*quantia*2;
+					format(Str,sizeof(Str),"Vendeu quartzo e ganhou R$%i.", 97*quantia*2);
+					SuccesMsg(playerid, Str);
+				}
+				AtualizarInventario(playerid, modelid);
+			}
+			return 1;
+		}
+		case 19181:
+		{
+			if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade digitada.");
+			if(PlayerToPoint(3.0, playerid, 469.0226,-1521.7565,20.4308))
+			{
+				PlayerInventario[playerid][modelid][Unidades] -= quantia;
+				if(PlayerInfo[playerid][pVIP] == 0)
+				{
+					PlayerInfo[playerid][pDinheiro] += 120*quantia;
+					format(Str,sizeof(Str),"Vendeu ouro e ganhou R$%i.", 120*quantia);
+					SuccesMsg(playerid, Str);
+				}
+				else if(PlayerInfo[playerid][pVIP] < 2)
+				{
+					PlayerInfo[playerid][pDinheiro] += 120*quantia*2;
+					format(Str,sizeof(Str),"Vendeu ouro e ganhou R$%i.", 120*quantia*2);
+					SuccesMsg(playerid, Str);
+				}
+				AtualizarInventario(playerid, modelid);
+			}
+			return 1;
+		}
+		case 19180:
+		{
+			if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade digitada.");
+			if(PlayerToPoint(3.0, playerid, 469.0226,-1521.7565,20.4308))
+			{
+				PlayerInventario[playerid][modelid][Unidades] -= quantia;
+				if(PlayerInfo[playerid][pVIP] == 0)
+				{
+					PlayerInfo[playerid][pDinheiro] += 30*quantia;
+					format(Str,sizeof(Str),"Vendeu cobre e ganhou R$%i.", 30*quantia);
+					SuccesMsg(playerid, Str);
+				}
+				else if(PlayerInfo[playerid][pVIP] < 2)
+				{
+					PlayerInfo[playerid][pDinheiro] += 30*quantia*2;
+					format(Str,sizeof(Str),"Vendeu cobre e ganhou R$%i.", 30*quantia*2);
+					SuccesMsg(playerid, Str);
+				}
+				AtualizarInventario(playerid, modelid);
+			}
+			return 1;
+		}
+		case 19179:
+		{
+			if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade digitada.");
+			if(PlayerToPoint(3.0, playerid, 469.0226,-1521.7565,20.4308))
+			{
+				PlayerInventario[playerid][modelid][Unidades] -= quantia;
+				if(PlayerInfo[playerid][pVIP] == 0)
+				{
+					PlayerInfo[playerid][pDinheiro] += 68*quantia;
+					format(Str,sizeof(Str),"Vendeu ruby e ganhou R$%i.", 68*quantia);
+					SuccesMsg(playerid, Str);
+				}
+				else if(PlayerInfo[playerid][pVIP] < 2)
+				{
+					PlayerInfo[playerid][pDinheiro] += 68*quantia*2;
+					format(Str,sizeof(Str),"Vendeu ruby e ganhou R$%i.", 68*quantia*2);
+					SuccesMsg(playerid, Str);
+				}
+				AtualizarInventario(playerid, modelid);
+			}
+			return 1;
+		}
 		case 19630:
 		{
 			if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade digitada.");
@@ -6929,7 +7001,7 @@ IsValidItemInv(itemid) //AQUI VOCÊ DEVE DEFINIR OS ID'S DOS ITENS PARA SER VALI
 		18645, 1856, 18868, 18869, 18870, 18871, 18872, 18873, 18874, 19513, 18875, 19874, 19138, 19139,
 		19140, 19022, 19023, 19024, 19025, 19026, 19027, 19028, 19029, 19030, 19031, 19032, 19473, 3027, 3520,
 		19033, 19034, 19035, 2992, 3065, 11712, 18953, 18954, 19554, 18974, 2114, 1279, 3930, 19630, 902, 1603, 1600, 1599, 1604, 1608,
-		18894, 18903, 18898, 18899, 18891, 18909, 18908, 18907, 18906, 18905, 18904, 18901, 1010,
+		18894, 18903, 18898, 18899, 18891, 18909, 18908, 18907, 18906, 18905, 18904, 18901, 1010, 19181, 19180, 19177, 19179, 19926,
 		18902, 18892, 18900, 18897, 18896, 18895, 18893, 18810, 18947, 18948, 18949, 18950, 18644,
 		18951, 19488, 18921, 18922, 18923, 18924, 18925, 18939, 18940, 18941, 18942, 18943, 11750,
 		1314, 19578, 18636, 19942, 18646, 19141, 19558, 19801, 19330, 1210, 19528, 1576, 370, 3016, 3013, 19056,
@@ -7950,7 +8022,7 @@ stock VaiProHospital(playerid)
 	PlayerInfo[playerid][pDinheiro] = 0;
 	FomePlayer[playerid] = 100;
 	SedePlayer[playerid] = 100;
-	/*RetirarItem(playerid, 1212);
+	RetirarItem(playerid, 1212);
 	RetirarItem(playerid, 854);
 	RetirarItem(playerid, 1279);
 	RetirarItem(playerid, 902);
@@ -7978,7 +8050,7 @@ stock VaiProHospital(playerid)
 	RetirarItem(playerid, 11736);
 	RetirarItem(playerid, 18632);
 	RetirarItem(playerid, 18645);
-	RetirarItem(playerid, 18644);*/
+	RetirarItem(playerid, 18644);
 	TogglePlayerControllable(playerid, true);
     ClearAnimations(playerid);
     for(new idx=0; idx<9; idx++){
@@ -8055,265 +8127,164 @@ stock CarregarMortos(playerid)
 
 stock todastextdraw(playerid)
 {
+    Registration_PTD[playerid][0] = CreatePlayerTextDraw(playerid, 649.000000, -1.000000, "_");
+    PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][0], 255);
+    PlayerTextDrawFont(playerid, Registration_PTD[playerid][0], 1);
+    PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][0], -4.479998, 53.300003);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][0], -1);
+    PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][0], 0);
+    PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][0], 1);
+    PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][0], 1);
+    PlayerTextDrawUseBox(playerid, Registration_PTD[playerid][0], 1);
+    PlayerTextDrawBoxColor(playerid, Registration_PTD[playerid][0], 137);
+    PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][0], -24.000000, 0.000000);
+    PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][0], 0);
 
-	Registration_PTD[playerid][0] = CreatePlayerTextDraw(playerid, 229.706039, 146.249984, "LD_SPAC:white");
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][0], 4.000000, 184.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][0], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][0], -1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][0], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][0], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][0], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][0], 0);
+    Registration_PTD[playerid][1] = CreatePlayerTextDraw(playerid, 391.000000, 196.000000, "_");
+    PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][1], 255);
+    PlayerTextDrawFont(playerid, Registration_PTD[playerid][1], 1);
+    PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][1], -9.610003, 2.900006);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][1], -1);
+    PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][1], 0);
+    PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][1], 1);
+    PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][1], 1);
+    PlayerTextDrawUseBox(playerid, Registration_PTD[playerid][1], 1);
+    PlayerTextDrawBoxColor(playerid, Registration_PTD[playerid][1], 471604479);
+    PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][1], 245.000000, -296.000000);
+    PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][1], 0);
 
-	Registration_PTD[playerid][1] = CreatePlayerTextDraw(playerid, 410.411773, 145.666641, "LD_SPAC:white");
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][1], 5.000000, 180.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][1], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][1], -1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][1], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][1], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][1], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][1], 0);
+    Registration_PTD[playerid][2] = CreatePlayerTextDraw(playerid, 391.000000, 229.000000, "_");
+    PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][2], 255);
+    PlayerTextDrawFont(playerid, Registration_PTD[playerid][2], 1);
+    PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][2], -9.610003, 2.900006);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][2], -1);
+    PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][2], 0);
+    PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][2], 1);
+    PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][2], 1);
+    PlayerTextDrawUseBox(playerid, Registration_PTD[playerid][2], 1);
+    PlayerTextDrawBoxColor(playerid, Registration_PTD[playerid][2], 471604479);
+    PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][2], 245.000000, -296.000000);
+    PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][2], 0);
 
-	Registration_PTD[playerid][2] = CreatePlayerTextDraw(playerid, 234.411880, 138.666641, "LD_SPAC:white");
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][2], 176.000000, 8.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][2], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][2], -1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][2], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][2], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][2], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][2], 0);
+    Registration_PTD[playerid][4] = CreatePlayerTextDraw(playerid, 250.000000, 209.000000, "LD_BEAT:chit");
+    PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][4], 255);
+    PlayerTextDrawFont(playerid, Registration_PTD[playerid][4], 4);
+    PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][4], -9.690005, 2.100007);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][4], -1);
+    PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][4], 0);
+    PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][4], 1);
+    PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][4], 1);
+    PlayerTextDrawUseBox(playerid, Registration_PTD[playerid][4], 1);
+    PlayerTextDrawBoxColor(playerid, Registration_PTD[playerid][4], 512819199);
+    PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][4], 15.000000, 8.000000);
+    PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][4], 0);
 
-	Registration_PTD[playerid][3] = CreatePlayerTextDraw(playerid, 234.882446, 325.916748, "LD_SPAC:white");
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][3], 176.000000, 8.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][3], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][3], -1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][3], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][3], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][3], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][3], 0);
+    Registration_PTD[playerid][5] = CreatePlayerTextDraw(playerid, 252.000000, 201.000000, "LD_BEAT:chit");
+    PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][5], 255);
+    PlayerTextDrawFont(playerid, Registration_PTD[playerid][5], 4);
+    PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][5], -9.690005, 2.100007);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][5], -1);
+    PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][5], 0);
+    PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][5], 1);
+    PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][5], 1);
+    PlayerTextDrawUseBox(playerid, Registration_PTD[playerid][5], 1);
+    PlayerTextDrawBoxColor(playerid, Registration_PTD[playerid][5], 512819199);
+    PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][5], 11.000000, 10.000000);
+    PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][5], 0);
 
-	Registration_PTD[playerid][4] = CreatePlayerTextDraw(playerid, 227.823623, 136.333343, "LD_BEAT:CHIT");
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][4], 13.000000, 16.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][4], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][4], 512819199);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][4], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][4], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][4], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][4], 0);
+    Registration_PTD[playerid][6] = CreatePlayerTextDraw(playerid, 263.000000, 236.000000, "_");
+    PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][6], 255);
+    PlayerTextDrawFont(playerid, Registration_PTD[playerid][6], 1);
+    PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][6], -9.590003, 1.400007);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][6], -1);
+    PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][6], 0);
+    PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][6], 1);
+    PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][6], 1);
+    PlayerTextDrawUseBox(playerid, Registration_PTD[playerid][6], 1);
+    PlayerTextDrawBoxColor(playerid, Registration_PTD[playerid][6], -1);
+    PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][6], 251.000000, -309.000000);
+    PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][6], 0);
 
-	Registration_PTD[playerid][5] = CreatePlayerTextDraw(playerid, 227.823623, 320.666625, "LD_BEAT:CHIT");
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][5], 13.000000, 16.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][5], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][5], -1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][5], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][5], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][5], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][5], 0);
+    Registration_PTD[playerid][7] = CreatePlayerTextDraw(playerid, 262.000000, 237.000000, "_");
+    PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][7], 255);
+    PlayerTextDrawFont(playerid, Registration_PTD[playerid][7], 1);
+    PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][7], -9.600003, 0.100007);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][7], -1);
+    PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][7], 0);
+    PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][7], 1);
+    PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][7], 1);
+    PlayerTextDrawUseBox(playerid, Registration_PTD[playerid][7], 1);
+    PlayerTextDrawBoxColor(playerid, Registration_PTD[playerid][7], 471604479);
+    PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][7], 252.000000, -311.000000);
+    PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][7], 0);
 
-	Registration_PTD[playerid][6] = CreatePlayerTextDraw(playerid, 403.823608, 319.500000, "LD_BEAT:CHIT");
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][6], 14.000000, 17.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][6], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][6], -1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][6], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][6], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][6], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][6], 0);
+    Registration_PTD[playerid][8] = CreatePlayerTextDraw(playerid, 260.000000, 245.000000, "_");
+    PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][8], 255);
+    PlayerTextDrawFont(playerid, Registration_PTD[playerid][8], 1);
+    PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][8], -9.600003, 0.100007);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][8], -1);
+    PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][8], 0);
+    PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][8], 1);
+    PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][8], 1);
+    PlayerTextDrawUseBox(playerid, Registration_PTD[playerid][8], 1);
+    PlayerTextDrawBoxColor(playerid, Registration_PTD[playerid][8], 471604479);
+    PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][8], 254.000000, -311.000000);
+    PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][8], 0);
 
-	Registration_PTD[playerid][7] = CreatePlayerTextDraw(playerid, 405.235351, 136.333236, "LD_BEAT:CHIT");
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][7], 12.000000, 15.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][7], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][7], 512819199);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][7], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][7], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][7], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][7], 0);
+    Registration_PTD[playerid][9] = CreatePlayerTextDraw(playerid, 307.000000, 197.000000, "Personagem");
+    PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][9], 255);
+    PlayerTextDrawFont(playerid, Registration_PTD[playerid][9], 1);
+    PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][9], 0.140000, 0.799999);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][9], -1111638529);
+    PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][9], 0);
+    PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][9], 1);
+    PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][9], 0);
+    PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][9], 0);
 
-	Registration_PTD[playerid][8] = CreatePlayerTextDraw(playerid, 230.647125, 145.666687, "LD_SPAC:white");
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][8], 182.000000, 182.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][8], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][8], -1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][8], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][8], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][8], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][8], 0);
+    Registration_PTD[playerid][10] = CreatePlayerTextDraw(playerid, 312.000000, 229.000000, "Senha");
+    PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][10], 255);
+    PlayerTextDrawFont(playerid, Registration_PTD[playerid][10], 1);
+    PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][10], 0.140000, 0.799999);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][10], -1111638529);
+    PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][10], 0);
+    PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][10], 1);
+    PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][10], 0);
+    PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][10], 0);
 
-	Registration_PTD[playerid][9] = CreatePlayerTextDraw(playerid, 233.000000, 138.666687, "LD_SPAC:white");
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][9], 179.000000, 23.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][9], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][9], 512819199);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][9], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][9], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][9], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][9], 0);
+    Registration_PTD[playerid][11] = CreatePlayerTextDraw(playerid, 320.000000, 206.000000, "Pedro_System");
+    PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][11], 2);
+    PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][11], 255);
+    PlayerTextDrawFont(playerid, Registration_PTD[playerid][11], 1);
+    PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][11], 0.200000, 1.199999);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][11], -6259969);
+    PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][11], 0);
+    PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][11], 1);
+    PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][11], 0);
+    PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][11], 0);
 
-	Registration_PTD[playerid][10] = CreatePlayerTextDraw(playerid, 229.705902, 143.916671, "LD_SPAC:white");
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][10], 186.000000, 24.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][10], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][10], 512819199);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][10], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][10], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][10], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][10], 0);
+    Registration_PTD[playerid][12] = CreatePlayerTextDraw(playerid, 320.000000, 239.000000, "Digite_sua_senha");
+    PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][12], 2);
+    PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][12], 255);
+    PlayerTextDrawFont(playerid, Registration_PTD[playerid][12], 1);
+    PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][12], 0.200000, 1.199999);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][12], -6259969);
+    PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][12], 0);
+    PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][12], 1);
+    PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][12], 0);
+    PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][12], 20.0, 20.0);
+    PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][12], 1);
 
-	Registration_PTD[playerid][11] = CreatePlayerTextDraw(playerid, 278.235168, 146.833312, "EFETUANDO LOGIN");
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][11], 0.332704, 1.185832);
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][11], 776.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][11], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][11], -1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][11], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][11], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][11], 3);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][11], 1);
-
-	Registration_PTD[playerid][12] = CreatePlayerTextDraw(playerid, 266.411773, 227.333419, "LD_SPAC:white");
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][12], 112.000000, 16.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][12], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][12], 512819199);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][12], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][12], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][12], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][12], 0);
-
-	Registration_PTD[playerid][13] = CreatePlayerTextDraw(playerid, 265.941192, 255.916732, "LD_SPAC:white");
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][13], 112.000000, 16.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][13], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][13], 512819199);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][13], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][13], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][13], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][13], 0);
-	PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][13], true);
-
-	Registration_PTD[playerid][14] = CreatePlayerTextDraw(playerid, 266.470550, 278.666656, "ESQUECEU SUA SENHA?");
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][14], 0.109176, 0.771665);
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][14], 579.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][14], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][14], 12582911);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][14], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][14], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][14], 2);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][14], 1);
-	PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][14], true);
-
-	Registration_PTD[playerid][15] = CreatePlayerTextDraw(playerid, 266.941162, 218.583374, "USUARIO");
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][15], 0.109176, 0.771665);
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][15], 579.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][15], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][15], 512819199);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][15], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][15], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][15], 2);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][15], 1);
-
-	Registration_PTD[playerid][16] = CreatePlayerTextDraw(playerid, 266.470581, 248.916687, "SENHA:");
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][16], 0.109176, 0.771665);
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][16], 579.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][16], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][16], 512819199);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][16], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][16], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][16], 2);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][16], 1);
-
-	Registration_PTD[playerid][17] = CreatePlayerTextDraw(playerid, 282.882202, 303.750030, "LD_SPAC:white");
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][17], 78.000000, 27.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][17], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][17], 512819199);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][17], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][17], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][17], 4);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][17], 0);
-
-	Registration_PTD[playerid][18] = CreatePlayerTextDraw(playerid, 310.705810, 314.250000, "LOGAR");
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][18], 0.178351, 0.783333);
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][18], 579.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][18], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][18], -1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][18], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][18], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][18], 2);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][18], 1);
-	PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][18], true);
-
-	Registration_PTD[playerid][19] = CreatePlayerTextDraw(playerid, 303.646820, 178.916625, "omeland");
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][19], 0.353410, 1.279165);
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][19], 776.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][19], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][19], 12582911);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][19], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][19], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][19], 3);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][19], 1);
-
-	Registration_PTD[playerid][20] = CreatePlayerTextDraw(playerid, 297.058624, 177.166671, "H");
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][20], 0.233881, 1.541666);
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][20], 776.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][20], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][20], 12582911);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][20], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][20], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][20], 2);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][20], 1);
-
-	Registration_PTD[playerid][21] = CreatePlayerTextDraw(playerid, 305.999877, 189.999938, "R");
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][21], 0.180704, 0.748332);
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][21], 776.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][21], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][21], 12582911);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][21], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][21], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][21], 2);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][21], 1);
-
-	Registration_PTD[playerid][22] = CreatePlayerTextDraw(playerid, 311.176300, 191.166549, "oleplay");
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][22], 0.223528, 0.590831);
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][22], 776.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][22], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][22], 12582911);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][22], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][22], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][22], 3);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][22], 1);
-
-	Registration_PTD[playerid][23] = CreatePlayerTextDraw(playerid, 271.647003, 231.999969, "nome_sobrenome");
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][23], 0.132235, 0.754166);
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][23], 579.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][23], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][23], -1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][23], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][23], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][23], 2);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][23], 1);
-
-	Registration_PTD[playerid][24] = CreatePlayerTextDraw(playerid, 271.647003, 261.166625, "digite sua senha");
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][24], 0.132235, 0.754166);
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][24], 579.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][24], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][24], -1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][24], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][24], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][24], 2);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][24], 1);
-	PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][24], true);
-
-	Registration_PTD[playerid][25] = CreatePlayerTextDraw(playerid, 400.587982, 159.666671, "]]");
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][25], 0.146823, 0.794999);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][25], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][25], -1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][25], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][25], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][25], 2);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][25], 1);
-
-	Registration_PTD[playerid][26] = CreatePlayerTextDraw(playerid, 380.823303, 159.666671, "season");
-	PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][26], 0.109176, 0.771665);
-	PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][26], 579.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][26], 1);
-	PlayerTextDrawColor(playerid, Registration_PTD[playerid][26], -1);
-	PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][26], 0);
-	PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][26], 255);
-	PlayerTextDrawFont(playerid, Registration_PTD[playerid][26], 2);
-	PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][26], 1);
+    Registration_PTD[playerid][14] = CreatePlayerTextDraw(playerid, 271.000000, 258.000000, "Esqueceu_sua_senha?");
+    PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][14], 2);
+    PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][14], 255);
+    PlayerTextDrawFont(playerid, Registration_PTD[playerid][14], 1);
+    PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][14], 0.150000, 0.799999);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][14], -1);
+    PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][14], 0);
+    PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][14], 1);
+    PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][14], 0);
+    PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][14], 20.0, 20.0);
+    PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][14], 1);
 
 	//Loadscreen strings e progressbar
 	Loadsc_p[playerid][0] = CreatePlayerTextDraw(playerid, 438.000000, 271.000000, "0%");
@@ -13345,7 +13316,7 @@ public OnGameModeInit()
 	CreateDynamicMapIcon(691.841125, -463.600677, 16.536296, 23, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Moto Clube
 	// EMPREGOS
 	CreateDynamicMapIcon(154.188613, -1945.949584, 4.972961, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PESCADOR
-	CreateDynamicMapIcon(590.086975, 871.486694, -42.734603, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//MINEIRADOR
+	CreateDynamicMapIcon(439.9478,-859.9105,29.696, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//MINEIRADOR
 	CreateDynamicMapIcon(2501.888916, -1494.696533, 24.000000, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//ACOUGUEIRO
 	CreateDynamicMapIcon(-504.495117, -517.457763, 25.523437, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//CAMIONERO
 	CreateDynamicMapIcon(-28.763319, 1363.971313, 9.171875, 42, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//COLETOR
@@ -13473,10 +13444,11 @@ public OnGameModeInit()
 	label[2] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Homeland Construtora\n{00FF00}Vaga:{FFFFFF}Pedreiro\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 1282.407836, -1296.064575, 13.361650, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[2], Actor[2], 0.0, 0.0, 0.7);
 
-	CreateAurea("{5b6ed9}Loja de Pescados\n{FFFFFF}Use o {5b6ed9}Inventario{FFFFFF}' para vender.", 163.968444, -1941.403564, 3.773437);
+	CreateAurea("{5b6ed9}Venda de Pescados\n{FFFFFF}Use o {5b6ed9}Inventario{FFFFFF}' para vender.", 163.968444, -1941.403564, 3.773437);
+	CreateAurea("{5b6ed9}Venda de Minerios\n{FFFFFF}Use o {5b6ed9}Inventario{FFFFFF}' para vender.", 469.0226,-1521.7565,20.4308);
 
-	Actor[3] = CreateActor(34, 584.859375, 877.046569, -42.497318, 266.847808);
-	label[3] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Mineradora LathMor\n{00FF00}Vaga:{FFFFFF} Minerador\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 584.859375, 877.046569, -42.497318, 15.0, 0);
+	Actor[3] = CreateActor(34, 447.6057,-862.2440,29.8050,48.5568);
+	label[3] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Mineradora LathMor\n{00FF00}Vaga:{FFFFFF} Minerador\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 447.6057,-862.2440,29.8050, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[3], Actor[3], 0.0, 0.0, 0.7);
 
 	Actor[4] = CreateActor(133, 960.607055, 2097.604003, 1011.023010, 358.121734);
@@ -13540,6 +13512,7 @@ public OnGameModeInit()
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncolocar a carne na caixa.",942.416259, 2137.294921, 1011.023437);
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nrevisar a caixa.", 942.421325, 2153.745849, 1011.023437);
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \npegar a caixa.", 942.288391, 2173.139404, 1011.023437);
+	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \ncomecar a minerar.", 451.8264,-879.5735,3.1652);
 	CreateAurea("Ponto de entrega.", 964.872192, 2159.816406, 1011.030273);
 
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nabrir menu da mecanica.", 1982.807739, -1783.678100, 13.543199);
@@ -13638,11 +13611,11 @@ public OnGameModeInit()
 		UpdateFuelStation(i, 0);
 	}
 	for(new slot = 0; slot < MAX_MACONHA; slot++)MaconhaInfo[slot][PodeUsar] = true;
-	for(new i; i < 11; i++)
+	for(new i; i < 10; i++)
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}H{FFFFFF}'para \npegar um veiculo.", -1, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2], 10.0);
 		CreateDynamicPickup(1083, 23, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2]); // Veh Spawn
-		if(i == 11)break;
+		if(i == 10)break;
 	}
 	for(new i; i < 6; i++)
 	{
@@ -13660,11 +13633,11 @@ public OnGameModeInit()
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para \niniciar o desossamento.", -1, PosDesossa[i][0], PosDesossa[i][1], PosDesossa[i][2], 15.0);
 		if(i == 8)break;
 	}
-	for(new i; i < 4; i++)
+	for(new i; i < 5; i++)
 	{
 		CreateDynamicPickup(19606,23,Entradas[i][0],Entradas[i][1],Entradas[i][2],0);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
-		if(i == 4)break;
+		if(i == 5)break;
 	}
 	for(new i; i < 9; i++)
 	{
@@ -15858,13 +15831,13 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				InfoMsg(playerid, "Ja possui um veiculo use /dveiculo.");
 			}
 		}
-		else if(PlayerToPoint(3.0, playerid, 590.086975, 871.486694, -42.734603))
+		else if(PlayerToPoint(3.0, playerid, 439.9478,-859.9105,29.696))
 		{
 			if(PlayerInfo[playerid][pProfissao] != 2)    		return ErrorMsg(playerid, "Nao possui permissao.");
 			if(VehAlugado[playerid] == 0)
 			{
 				VehAlugado[playerid] = 1;
-				VeiculoCivil[playerid] = CreateVehicle(530, 590.086975, 871.486694, -42.734603, 180.0, -1, -1, false);
+				VeiculoCivil[playerid] = CreateVehicle(530, 439.9478,-859.9105,29.696, 180.0, -1, -1, false);
 				PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
 				InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
 			}
@@ -15961,6 +15934,23 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				return ErrorMsg(playerid, "Nao possui a chave do veiculo!");
 			SetPVarInt(playerid, "DialogValue1", id);
 			ShowDialog(playerid, DIALOG_VEHICLE);
+		}
+		//MINERADOR ENTRADA
+		else if(IsPlayerInRangeOfPoint(playerid, 2.0, 445.8343,-850.0626,29.8050))
+		{
+			SetPlayerPos(playerid, 439.9709,-856.7955,2.7160);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+		}
+		//MINERADOR SAIDA
+		else if(IsPlayerInRangeOfPoint(playerid,2.0,439.9709,-856.7955,2.7160))
+		{
+			SetPlayerPos(playerid, 445.8343,-850.0626,29.8050);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerVirtualWorld(playerid, 0);
+			TogglePlayerControllable(playerid, false);
+			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
 		//SAN NEWS ENTRADA
 		else if(IsPlayerInRangeOfPoint(playerid, 2.0, 649.302062, -1357.399658, 13.567605))
@@ -16086,6 +16076,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	if(newkeys == KEY_SECONDARY_ATTACK)
 	{
 		cmd_deitar(playerid);
+		if(IsPlayerInRangeOfPoint(playerid, 2.0, 451.3496,-882.3592,3.3336) || IsPlayerInRangeOfPoint(playerid, 2.0, 451.8264,-879.5735,3.1652) || IsPlayerInRangeOfPoint(playerid, 2.0, 450.5726,-876.9039,2.8165))
+		{
+			cmd_minerar(playerid);
+		}
 		if(MostrandoMenu[playerid] == true)
 		{
 			TextDrawHideForPlayer(playerid, TDCadastro[2]);
@@ -16220,7 +16214,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 1785.501586, -1916.644165, 14.295277))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_AMMU, DIALOG_STYLE_LIST,"AmmuNation\tValor", "{5b6ed9}- {FFFFFF}Vara de Pescar\t{32CD32}R$2500\n{5b6ed9}- {FFFFFF}Chaira\t{32CD32}R$4200\n{5b6ed9}- {FFFFFF}Faca\t{32CD32}R$15000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_AMMU, DIALOG_STYLE_LIST,"AmmuNation\tValor", "{5b6ed9}- {FFFFFF}Vara de Pescar\t{32CD32}R$2500\n{5b6ed9}- {FFFFFF}Chaira\t{32CD32}R$4200\n{5b6ed9}- {FFFFFF}Faca\t{32CD32}R$15000\n{5b6ed9}- {FFFFFF}Pa\t{32CD32}R$3200", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 468.658203, -1517.271606, 20.477876))
 		{
@@ -16295,11 +16289,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				SuccesMsg(playerid, "Aceitou em emprego novo.");
 			}
 		}
-		if(PlayerToPoint(3.0, playerid, 584.859375, 877.046569, -42.497318))
+		if(PlayerToPoint(3.0, playerid, 447.6057,-862.2440,29.8050))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
 			if(PlayerInfo[playerid][pSegundosJogados] < 10800) return InfoMsg(playerid, "Voce precisa ter 3hrs de jogo.");
-			if(PlayerInfo[playerid][LicencaConduzir] == 0) return InfoMsg(playerid, "Voce nao possui licenca de conducao.");
 			if(PlayerInfo[playerid][pProfissao] != 0)    		return InfoMsg(playerid, "Ja possui um emprego /sairemprego.");
 			else
 			{
@@ -17030,10 +17023,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				CriarInventario(playerid);
-				for(new i = 0; i < 27; ++i)
+				for(new i = 0; i < 15; ++i)
 				{
 					PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
-					if(i == 27)break;
+					if(i == 15)break;
 				}
 				new tarquivo[64];
 				format(tarquivo, sizeof(tarquivo), "IDs/%04d.ini",uid);
@@ -17937,7 +17930,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new Float:a = GetPlayerDistanceFromPoint(playerid, 154.188613, -1945.949584, 4.972961);
 					new Float:b = GetPlayerDistanceFromPoint(playerid, 2501.888916, -1494.696533, 24.000000);
 					new Float:c = GetPlayerDistanceFromPoint(playerid, -28.763319, 1363.971313, 9.171875);
-					new Float:d = GetPlayerDistanceFromPoint(playerid, 590.086975, 871.486694, -42.734603);
+					new Float:d = GetPlayerDistanceFromPoint(playerid, 439.9478,-859.9105,29.696);
 					new Float:e = GetPlayerDistanceFromPoint(playerid, -504.495117, -517.457763, 25.523437);
 					new Float:f = GetPlayerDistanceFromPoint(playerid, 1004.1582,1755.0336,10.7734);
 					new Float:g = GetPlayerDistanceFromPoint(playerid, 1282.407836, -1296.064575, 13.361650);
@@ -18170,7 +18163,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 590.086975, 871.486694, -42.734603, 8.0);
+					SetPlayerCheckpoint(playerid, 439.9478,-859.9105,29.696, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 4)
@@ -20144,6 +20137,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					CofreAmmu += 15000;
 					SalvarDinRoubos();
 				}
+				if(listitem == 3)
+				{
+					if(PlayerInfo[playerid][pDinheiro] < 3200) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Item comprado.");
+					PlayerInfo[playerid][pDinheiro] -= 3200;
+					GanharItem(playerid, 19626, 1);
+					CofreAmmu += 3200;
+					SalvarDinRoubos();
+				}
 			}
 		}
 		case DIALOG_LOJA247:
@@ -20601,7 +20603,7 @@ public OnClickDynamicPlayerTextDraw(playerid, PlayerText:textid)
 		actorcad[playerid] = CreateActor(Preview[playerid][5], 1984.0140,1194.2424,26.8835,135.6409);
 		SetActorInvulnerable(actorcad[playerid], true);
 	}
-	if(textid == Registration_PTD[playerid][13])
+	if(textid == Registration_PTD[playerid][12])
 	{
 		format(File, sizeof(File), PASTA_CONTAS, Name(playerid));
 		if(DOF2_FileExists(File))
@@ -21459,7 +21461,6 @@ CMD:ir(playerid, params[])
 			}
 		}
   	}
-
 	return 1;
 }
 
@@ -21474,7 +21475,7 @@ CMD:spawnar(playerid, params[])
 		{
 			if(PlayerInfo[i][IDF] == ID)
 			{
-				SetPlayerPos(i, Pos[0], Pos[1], Pos[2]);
+				SetPlayerPos(i, 1685.698608, -2334.948730, 13.546875);
 				TogglePlayerControllable(i, false);
 				SetTimerEx("carregarobj", 5000, 0, "i", i);
 				SuccesMsg(playerid, "Voce mandou o jogador para o spawn.");
@@ -21482,7 +21483,6 @@ CMD:spawnar(playerid, params[])
 			}
 		}
   	}
-
 	return 1;
 }
 
@@ -25152,13 +25152,30 @@ CMD:iniciarminerador(playerid)
 	return 1;
 }
 
+CMD:minerar(playerid)
+{
+	if(PlayerInfo[playerid][pProfissao] != 2) 	return ErrorMsg(playerid, "Nao possui permissao.");
+	if(!CheckInventario2(playerid, 19626)) return ErrorMsg(playerid, "Nao tem uma Pa.");
+	if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a mineracao atual.");
+	if(IsPlayerInRangeOfPoint(playerid, 2.0, 451.3496,-882.3592,3.3336) || IsPlayerInRangeOfPoint(playerid, 2.0, 451.8264,-879.5735,3.1652) || IsPlayerInRangeOfPoint(playerid, 2.0, 450.5726,-876.9039,2.8165))
+	{
+		TogglePlayerControllable(playerid, 0);
+		InfoMsg(playerid, "Minerando...");
+		ApplyAnimation(playerid, "BASEBALL", "BAT_4", 4.1, 1, 0, 0, 0, 0, 1);
+		SetPlayerAttachedObject(playerid, 9, 19626, 1, -0.00400000, 0.48899990,-0.05399995,172.09997558,-91.90001678,-1.59999990, 1.000000, 1.000000, 1.000000 );
+		SetTimerEx("Minerar", 10000, false, "i", playerid);
+		UsouCMD[playerid] = true;
+	}
+	return 1;
+}
+
 CMD:pescar(playerid)
 {
 	if(PlayerInfo[playerid][pProfissao] != 1) 	return ErrorMsg(playerid, "Nao possui permissao.");
 	if(!CheckInventario2(playerid, 18632)) return ErrorMsg(playerid, "Nao tem uma vara de pesca.");
 	if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a pesca atual.");
 	for(new i; i < 13; i++)
-	if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
+	if(IsPlayerInRangeOfPoint(playerid, 1.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 	{
 		TogglePlayerControllable(playerid, 0);
 		InfoMsg(playerid, "Pescando...");
@@ -25631,7 +25648,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 3.063754);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
-			deitadomaca[playerid] = false;
+			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25643,7 +25660,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 350.887390);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
-			deitadomaca[playerid] = false;
+			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25655,7 +25672,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 8.838689);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
-			deitadomaca[playerid] = false;
+			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25666,7 +25683,7 @@ CMD:deitar(playerid)
 			SetPlayerPos(playerid, 1617.720336, -1128.654663, 24.831556);
 			SetPlayerFacingAngle(playerid, 357.130371);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
-			deitadomaca[playerid] = false;
+			deitadomaca[playerid] = true;
 			TogglePlayerControllable(playerid, 0);
 			if(medicoon == 0)
 			{
@@ -25679,7 +25696,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 169.583480);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
-			deitadomaca[playerid] = false;
+			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25691,7 +25708,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 172.451522);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
-			deitadomaca[playerid] = false;
+			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25703,7 +25720,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 172.111297);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
-			deitadomaca[playerid] = false;
+			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25715,7 +25732,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 165.496246);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
-			deitadomaca[playerid] = false;
+			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25727,7 +25744,7 @@ CMD:deitar(playerid)
 			SetPlayerFacingAngle(playerid, 169.587600);
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
-			deitadomaca[playerid] = false;
+			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
 				SetTimerEx("RecuperarHP",5000,false,"i",playerid);
@@ -25762,6 +25779,7 @@ CMD:tratamento(playerid, params[])
 				SuccesMsg(playerid, string);
 				format(string, sizeof(string), "Pagou R$%d para %04d pelo tratamento.", quantia, PlayerInfo[playerid][IDF]);
 				InfoMsg(i, string);
+				SetTimerEx("RecuperarHP",5000,false,"i",i);
 			}
 		}
   	}

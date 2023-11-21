@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet href="file:///C|/Users/Administrador/Desktop/Baixada-Roleplay/pawno/xml/pawndoc.xsl" type="text/xsl"?>
-<doc source="C:\Users\Administrador\Desktop\Baixada-Roleplay\gamemodes\homeland.pwn">
+<?xml-stylesheet href="file:///C|/Users/Administrador/Desktop/Homeland Roleplay/pawno/xml/pawndoc.xsl" type="text/xsl"?>
+<doc source="C:\Users\Administrador\Desktop\Homeland Roleplay\gamemodes\homeland.pwn">
 	<assembly>
 		<name>homeland.pwn</name>
 	</assembly>
@@ -1466,7 +1466,7 @@
 		</member>
 		<member name="C:__PawnBuild" value="10">
 		</member>
-		<member name="C:__line" value="25771">
+		<member name="C:__line" value="25788">
 			<referrer name="ac_IpToInt"/>
 			<referrer name="ac_LoadCfg"/>
 			<referrer name="ac_LoadNOPCfg"/>
@@ -1781,6 +1781,7 @@
 			<referrer name="cmd_mudarskin"/>
 			<referrer name="cmd_mudarskin2"/>
 			<referrer name="cmd_desossar"/>
+			<referrer name="cmd_minerar"/>
 			<referrer name="cmd_pescar"/>
 			<referrer name="cmd_cancelarrota"/>
 			<referrer name="cmd_roubar"/>
@@ -2011,6 +2012,7 @@
 			<referrer name="cmd_pediravaliar"/>
 			<referrer name="cmd_fila"/>
 			<referrer name="cmd_desossar"/>
+			<referrer name="cmd_minerar"/>
 			<referrer name="cmd_pescar"/>
 			<referrer name="cmd_resetanuncios"/>
 			<referrer name="cmd_anuncio"/>
@@ -2022,6 +2024,7 @@
 			<referrer name="cmd_creditos"/>
 			<referrer name="cmd_terminar"/>
 			<referrer name="cmd_vault"/>
+			<referrer name="cmd_deitar"/>
 			<referrer name="cmd_tratamento"/>
 		</member>
 
@@ -2765,7 +2768,6 @@
 			<referrer name="ac_OnDialogResponse"/>
 		</member>
 		<member name="F:EtapasMinerador">
-			<referrer name="Minerar"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="ac_OnPlayerEnterCheckpoint"/>
 			<referrer name="cmd_iniciarminerador"/>
@@ -3661,6 +3663,7 @@
 			<referrer name="cmd_fila"/>
 			<referrer name="cmd_desossar"/>
 			<referrer name="cmd_iniciarminerador"/>
+			<referrer name="cmd_minerar"/>
 			<referrer name="cmd_pescar"/>
 			<referrer name="cmd_resetanuncios"/>
 			<referrer name="cmd_anuncio"/>
@@ -3718,7 +3721,6 @@
 			<referrer name="SalvarDadosSkin"/>
 			<referrer name="cmd_cv"/>
 			<referrer name="cmd_ir"/>
-			<referrer name="cmd_spawnar"/>
 			<referrer name="cmd_trazer"/>
 		</member>
 		<member name="F:PosDesossa">
@@ -4396,6 +4398,7 @@
 			<referrer name="FuncaoItens"/>
 			<referrer name="ZerarDados"/>
 			<referrer name="cmd_desossar"/>
+			<referrer name="cmd_minerar"/>
 			<referrer name="cmd_pescar"/>
 		</member>
 		<member name="F:VERSION_WARNING">
@@ -6795,6 +6798,7 @@
 			<referrer name="cmd_desossar"/>
 			<referrer name="cmd_pegarcaixa"/>
 			<referrer name="cmd_pegarcaixa2"/>
+			<referrer name="cmd_minerar"/>
 			<referrer name="cmd_roubar"/>
 			<referrer name="cmd_deitar"/>
 			<param name="playerid">
@@ -8023,7 +8027,7 @@
 			<dependency name="fexist"/>
 		</member>
 		<member name="M:CarregarMapas" syntax="CarregarMapas()">
-			<stacksize value="67"/>
+			<stacksize value="68"/>
 			<referrer name="mf_OnGameModeInit"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="CreateDynamicObject"/>
@@ -8194,6 +8198,7 @@
 			<referrer name="ac_OnPlayerKeyStateChange"/>
 			<referrer name="ac_OnDialogResponse"/>
 			<referrer name="cmd_desossar"/>
+			<referrer name="cmd_minerar"/>
 			<referrer name="cmd_pescar"/>
 			<dependency name="PlayerInventario"/>
 			<dependency name="Slot"/>
@@ -8220,6 +8225,7 @@
 			<referrer name="EntregandoCx"/>
 			<referrer name="ColocandoCaixa"/>
 			<referrer name="BotouBau"/>
+			<referrer name="Minerar"/>
 			<referrer name="CANIM"/>
 			<referrer name="OnPlayerActivationKeyRelease"/>
 			<referrer name="MaconhaColher"/>
@@ -11812,6 +11818,7 @@
 			<referrer name="cmd_fila"/>
 			<referrer name="cmd_desossar"/>
 			<referrer name="cmd_iniciarminerador"/>
+			<referrer name="cmd_minerar"/>
 			<referrer name="cmd_pescar"/>
 			<referrer name="cmd_resetanuncios"/>
 			<referrer name="cmd_anuncio"/>
@@ -12135,6 +12142,7 @@
 		<member name="M:GanharItem" syntax="GanharItem(playerid, itemid, quantia)">
 			<stacksize value="8"/>
 			<referrer name="DesmancharVeh"/>
+			<referrer name="Minerar"/>
 			<referrer name="Pesca"/>
 			<referrer name="MaconhaColher"/>
 			<referrer name="PegarMoney"/>
@@ -13660,7 +13668,6 @@
 			<referrer name="LockpickTimer"/>
 			<referrer name="Cova"/>
 			<referrer name="Desossar"/>
-			<referrer name="Minerar"/>
 			<referrer name="SendMSG"/>
 			<referrer name="MainTimer"/>
 			<referrer name="PegarMoney"/>
@@ -13721,6 +13728,7 @@
 			<referrer name="cmd_mudarskin"/>
 			<referrer name="cmd_mudarskin2"/>
 			<referrer name="cmd_desossar"/>
+			<referrer name="cmd_minerar"/>
 			<referrer name="cmd_pescar"/>
 			<referrer name="cmd_iniciarrotapecas"/>
 			<referrer name="cmd_iniciarrotamaconha"/>
@@ -14066,6 +14074,7 @@
 			<referrer name="cmd_empacotarcarne"/>
 			<referrer name="cmd_deixarcaixa"/>
 			<referrer name="cmd_pegarcaixa2"/>
+			<referrer name="cmd_minerar"/>
 			<referrer name="cmd_pescar"/>
 			<param name="playerid">
 			</param>
@@ -14843,14 +14852,16 @@
 		</member>
 		<member name="M:Minerar" syntax="Minerar(playerid, progress)">
 			<attribute name="public"/>
-			<stacksize value="9"/>
+			<stacksize value="58"/>
+			<dependency name="ClearAnimations"/>
 			<dependency name="ErrorMsg"/>
-			<dependency name="EtapasMinerador"/>
-			<dependency name="InfoMsg"/>
-			<dependency name="SetPlayerCheckpoint"/>
+			<dependency name="GanharItem"/>
+			<dependency name="RemovePlayerAttachedObject"/>
+			<dependency name="SuccesMsg"/>
 			<dependency name="UsouCMD"/>
 			<dependency name="acc_TogglePlayerControllable"/>
 			<dependency name="false"/>
+			<dependency name="format"/>
 			<dependency name="randomEx"/>
 			<param name="playerid">
 			</param>
@@ -17801,6 +17812,7 @@
 			<referrer name="EntregandoCx"/>
 			<referrer name="ColocandoCaixa"/>
 			<referrer name="BotouBau"/>
+			<referrer name="Minerar"/>
 			<referrer name="OnPlayerActivationKeyRelease"/>
 			<referrer name="RObject"/>
 			<referrer name="Colete"/>
@@ -17925,6 +17937,7 @@
 		</member>
 		<member name="M:RetirarItem" syntax="RetirarItem(playerid, modelid)">
 			<stacksize value="8"/>
+			<referrer name="VaiProHospital"/>
 			<referrer name="cmd_prender"/>
 			<dependency name="AtualizarInventario"/>
 			<dependency name="DropItem"/>
@@ -19154,6 +19167,7 @@
 			<referrer name="cmd_algemar"/>
 			<referrer name="cmd_pegarcaixa"/>
 			<referrer name="cmd_pegarcaixa2"/>
+			<referrer name="cmd_minerar"/>
 			<param name="playerid">
 			</param>
 			<param name="index">
@@ -19253,7 +19267,6 @@
 			<referrer name="PegandoCaixasP"/>
 			<referrer name="ColocandoCaixa"/>
 			<referrer name="Cova"/>
-			<referrer name="Minerar"/>
 			<referrer name="MainTimer"/>
 			<referrer name="LocalizarPlayer"/>
 			<referrer name="ac_OnPlayerKeyStateChange"/>
@@ -19756,9 +19769,11 @@
 			<referrer name="cmd_gotofuelstation"/>
 			<referrer name="cmd_freq"/>
 			<referrer name="cmd_desossar"/>
+			<referrer name="cmd_minerar"/>
 			<referrer name="cmd_pescar"/>
 			<referrer name="cmd_roubar"/>
 			<referrer name="cmd_deitar"/>
+			<referrer name="cmd_tratamento"/>
 			<param name="funcname">
 				<paraminfo> [] </paraminfo>
 			</param>
@@ -20304,6 +20319,7 @@
 			<referrer name="RepararVeh"/>
 			<referrer name="DescarregarCarga"/>
 			<referrer name="BotouBau"/>
+			<referrer name="Minerar"/>
 			<referrer name="Pesca"/>
 			<referrer name="criandorg"/>
 			<referrer name="MainTimer"/>
@@ -20883,6 +20899,7 @@
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerMorto"/>
 			<dependency name="PlayerMorto"/>
+			<dependency name="RetirarItem"/>
 			<dependency name="SedePlayer"/>
 			<dependency name="SetPlayerFacingAngle"/>
 			<dependency name="SetTimerEx"/>
@@ -23481,6 +23498,7 @@
 			<dependency name="cmd_iniciarrotamaconha"/>
 			<dependency name="cmd_inventario"/>
 			<dependency name="cmd_ltumba"/>
+			<dependency name="cmd_minerar"/>
 			<dependency name="cmd_pegarcaixa"/>
 			<dependency name="cmd_pegarcaixa2"/>
 			<dependency name="cmd_pegaritem"/>
@@ -25588,6 +25606,7 @@
 			<referrer name="cmd_gotodealership"/>
 			<referrer name="cmd_gotofuelstation"/>
 			<referrer name="cmd_desossar"/>
+			<referrer name="cmd_minerar"/>
 			<referrer name="cmd_pescar"/>
 			<referrer name="cmd_roubar"/>
 			<referrer name="cmd_deitar"/>
@@ -26802,6 +26821,7 @@
 			<dependency name="deitadomaca"/>
 			<dependency name="false"/>
 			<dependency name="medicoon"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -27833,6 +27853,26 @@
 			<stacksize value="10"/>
 			<dependency name="DIALOG_MENUANIM"/>
 			<dependency name="acc_ShowPlayerDialog"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:cmd_minerar" syntax="cmd_minerar(playerid)">
+			<attribute name="public"/>
+			<stacksize value="17"/>
+			<referrer name="ac_OnPlayerKeyStateChange"/>
+			<dependency name="ApplyAnimation"/>
+			<dependency name="CheckInventario2"/>
+			<dependency name="ErrorMsg"/>
+			<dependency name="InfoMsg"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SetPlayerAttachedObject"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="UsouCMD"/>
+			<dependency name="acc_TogglePlayerControllable"/>
+			<dependency name="false"/>
+			<dependency name="pProfissao"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -28879,7 +28919,6 @@
 			<dependency name="InfoMsg"/>
 			<dependency name="Player@YSII_Ag"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="Pos"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SetTimerEx"/>
 			<dependency name="SuccesMsg"/>
@@ -29028,6 +29067,7 @@
 			<dependency name="PlayerInfo"/>
 			<dependency name="ProxDetectorS"/>
 			<dependency name="SSCANF__"/>
+			<dependency name="SetTimerEx"/>
 			<dependency name="SuccesMsg"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
@@ -29895,6 +29935,7 @@
 			<referrer name="EntregandoCx"/>
 			<referrer name="DesmancharVeh"/>
 			<referrer name="BotouBau"/>
+			<referrer name="Minerar"/>
 			<referrer name="Pesca"/>
 			<referrer name="Attplayer"/>
 			<referrer name="attloginname"/>

@@ -1,1 +1,3 @@
-colocar na veh
+Nova tela de login
+Reformulado Minerador
+Adicionado Venda de Minerios Joalheria
