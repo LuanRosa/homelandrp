@@ -1,3 +1,24 @@
-Nova tela de login
-Reformulado Minerador
-Adicionado Venda de Minerios Joalheria
+Mais comandos para as orgs .
+Sistema de Empresas .
+Sistema de Saquear .
+Sistema de Famila .
+Sistema de Horario Pra roubo
+Terminar Roubo Nióbio
+Sistemas Saquear
+Sistema de máscara
+Comando armas costa ou peito /bandoleira ou /costas (zdrax.cs)
+Novo presídio e Sistema de diminuir pena com caixar (zdrax.cs)
+Governo/Prefeito da cidade (Reunião em Call)
+Revistar para todos (Com opção de aceitar)
+Celular em Textdraw
+Adicionar casas
+Adicionar Hotel igual FiveM
+Fardamento em txd (Policia)
+Emprego de agricultor
+Emprego Carro Forte (Dinamico com o Banco)
+Sistema de copom notificação
+Sistema de peso de itens no inventário
+Compra de IDF no /lojavip
+Adicionar mais variedade de animações
+Entregas dinámicas emprego caminhoneiro
+Adicionar Cassino [Caça Niquel, Jogo do Bixo, Mines, Crash, Double]

@@ -7,14 +7,15 @@
 	*	Version:				2.0.9
 	*
 	*	Base: Gamemode Inside Roleplay Espanhol por Luan Rosa.
-	*
+	* 
 */
 
 //                          INCLUDES
 
 #define SSCANF_NO_NICE_FEATURES
-#define DEBUG
+#define DEBUG 
 #include        <  	    a_samp  		>
+#include 		< 		fixes 			>
 #if defined MAX_PLAYERS
 	#undef MAX_PLAYERS
 #endif
@@ -29,13 +30,14 @@
 #include 		<		sampvoice 		>
 #include 		<		mobile			>
 #include 		< 		timerfix 		>
+#include 		<   discord-connector   > 
+#include 		< 		discord-cmd		>  
 #include 		<	  nex-ac_pt_br.lang	>
 #include 		<	    nex-ac		 	>
 #include        <   	DOF2   			>
 #include        <   	ZCMD	   		>
 #include 		<	    mapfix		 	>
 #include 		< 		enterfix 		>
-#include		<		progress2		>
 #include		<		Fader			>
 #pragma warning disable 239
 
@@ -115,9 +117,8 @@ new	UltimaFala[MAX_PLAYERS];
 #define Kick(%0) 					SetTimerEx("KickPlayer", 500, false, "i", %0)
 #define SpawnPlayerID(%0) 			SetTimerEx("SpawnP", 500, false, "i", %0)
 #define Controle 					TogglePlayerControllable
-#define SERVERFORUM     			"discord.gg/6RsGWdd442"
-#define VERSAOSERVER     			"Homeland v1.0"
-#define DCIMG 						""
+#define SERVERFORUM     			"discord.gg/3daewrJXyE"
+#define VERSAOSERVER     			"Build v2.2.0"
 #define NA 5
 #define PTP 						PlayerToPoint
 
@@ -145,6 +146,18 @@ new bool:Gritou[MAX_PLAYERS] = false;
 new bool:Falando[MAX_PLAYERS] = true;
 new bool:Falou[MAX_PLAYERS] = false;
 
+static DCC_Channel:ChatLocalLog;
+static DCC_Channel:PayDayLog;
+static DCC_Channel:EntradaSaidaLog;
+static DCC_Channel:ChatAdmLog;
+static DCC_Channel:SetagensLog;
+static DCC_Channel:ReportsLog;
+static DCC_Channel:CoinsAtivadosLog;
+static DCC_Channel:CompraFeitasLog;
+static DCC_Channel:NovoUsuarioLog;
+static DCC_Channel:EmailLog;
+static DCC_Channel:PunicoesLog;
+static DCC_Channel:ComandosLog;
 //                          DIALOGS
 
 enum
@@ -154,6 +167,7 @@ enum
 	DIALOG_EMAIL,
 	//DIALOG_SELIDADE,
 	DIALOG_BANIDO,
+	DIALOG_ALGEMARP,
 	DIALOG_POS,
 	DIALOG_PRESOS,
 	DIALOG_BANCO4,
@@ -161,6 +175,7 @@ enum
 	DIALOG_SEDEX,
 	DIALOG_SELTRABALHO,
 	DIALOG_ALIMENTOS,
+	DIALOG_RADIOFREQ,
 	DIALOG_CATLANCHE,
 	DIALOG_REFRECOS,
 	DIALOG_AJUDA,
@@ -193,6 +208,7 @@ enum
 	DIALOG_LTAGS,
 	DIALOG_ORGS,
 	DIALOG_MEMBROSORG,
+	DIALOG_ARRASTARP,
 	DIALOG_AJUDA_ADMIN,
 	DIALOG_ROPACOP,
 	DIALOG_TIENDAILEGAL,
@@ -261,6 +277,9 @@ enum
 
 //                          VARIAVEIS
 
+new ArrastadoID[MAX_PLAYERS] = 0;
+new AttArrastar[MAX_PLAYERS] = 0;
+new Arrastado[MAX_PLAYERS] = 0;
 enum anuncios
 {
 	Texto[75]
@@ -268,7 +287,6 @@ enum anuncios
 new Anuncio[NA][anuncios];
 new TiempoAnuncio[MAX_PLAYERS],Text:TextDraw[5];
 new PortaNiobio;
-new Text:LogoHM[3];
 new Din[MAX_PLAYERS];
 new vl[MAX_PLAYERS];
 
@@ -291,6 +309,7 @@ new bool:RouboLoja1 = false,
 	bool:RouboLoja5 = false,
 	bool:RouboRestaurante = false,
 	bool:RouboAmmu = false,
+	bool:RouboJoia = false,
 	bool:RouboBanco = false;
 
 new GuerraBarragem = 0,
@@ -577,7 +596,6 @@ new Engine[MAX_PLAYERS], Lights[MAX_PLAYERS], Alarm[MAX_PLAYERS], DoorsLockPick[
 new bool:RotaMaconha[MAX_PLAYERS] = false;
 new bool:RotaCocaina[MAX_PLAYERS] = false;
 new bool:RotaPecas[MAX_PLAYERS] = false;
-new UltimaPos[MAX_PLAYERS] = 0;
 new	bool:AntiAFK_Ativado = true,
 	bool:Moved[MAX_PLAYERS] = false,
 	bool:FoiCriado[MAX_VEHICLES] = false,
@@ -592,6 +610,7 @@ new bool:UsouCMD[MAX_PLAYERS] = false;
 new bool:Patrulha[MAX_PLAYERS] = false;
 new policiaon = 0;
 new medicoon = 0;
+new bandidoon = 0;
 new bool:deitadomaca[MAX_PLAYERS] = false;
 new bool:paramedico[MAX_PLAYERS] = false;
 new bool:PegouMaterial[MAX_PLAYERS] = false;
@@ -602,16 +621,17 @@ new bool:MostrandoRG[MAX_PLAYERS] = false;
 
 //                          TEXTDRAWS
 
+new PlayerText:Alertalogin[MAX_PLAYERS][11];
 new PlayerText:BancoTD[MAX_PLAYERS][34];
-new Text:gServerTextdraws;
+new PlayerText:RadioVOIP[MAX_PLAYERS][32];
+new Text:HudNovo[21];
+new PlayerText:hudStyle[MAX_PLAYERS][25];
 static PlayerText:XPTXD[MAX_PLAYERS][20];
 new	PlayerText:Textdraw2[MAX_PLAYERS];
 new PlayerText:HudCop[MAX_PLAYERS][4];
 new PlayerText:CopGuns[MAX_PLAYERS][6];
 new Text:Textdraw0,
 	Text:Textdraw1;
-new Text:HudServer[17];
-new PlayerText:HudServer_p[MAX_PLAYERS][7];
 new PlayerText:Registration_PTD[MAX_PLAYERS][15];
 new Text:TDCadastro[18];
 new PlayerText:TDCadastro_p[MAX_PLAYERS][7];
@@ -678,6 +698,7 @@ new TimerMensagemAuto;
 
 //                          VARIAVEIS SEM COMENT
 
+new UltimaPos[MAX_PLAYERS] = 0;
 new qtdinv[MAX_PLAYERS] = 0;
 new Float:PosV[3];
 new Armazenar[MAX_PLAYERS] = 0;
@@ -741,9 +762,6 @@ new Text:Tdcinto[5];
 
 new CarregandoTelaLogin[MAX_PLAYERS];
 new TimerLogin[MAX_PLAYERS];
-new Text:Loadsc[2];
-new PlayerText:Loadsc_p[MAX_PLAYERS][1];
-new PlayerBar:Loadsc_b[MAX_PLAYERS][1];
 
 //                          FLOATS E LOCAIS DEFINIDOS
 
@@ -1174,10 +1192,8 @@ new Float:PosRota[303+120][4] =
     {2313.880371, -124.964256, 28.153551}//rota
 };
 
-new Float:Entradas[5][3] =
+new Float:Entradas[3][3] =
 {
-	{2333.359130, -1883.562255, 15.000000},//Mercado Negro
-	{1481.094482, -1772.313720, 18.795755},//Prefeitura
 	{649.302062, -1357.399658, 13.567605},//San News
 	{445.8343,-850.0626,29.8050},//MINERADOR
 	{2501.888916, -1494.696533, 24.000000}//A�OUGUE
@@ -1262,6 +1278,22 @@ new Float:PosPesca[13][4] =
 	{148.396408, -1920.851684, 3.791874, 15.281173}//pesca
 };
 
+new Float:PosRouboLoja[5][4] =
+{
+	{1355.6407, -1774.1307, 13.5659},//ROUBO1
+	{1846.2051, -1841.7395, 13.7862},//ROUBO2
+	{1313.4368, -881.3660, 39.5862},//ROUBO3
+	{2348.6606, -1356.9882, 24.0985},//ROUBO4
+	{942.3365, -1632.2704, 13.5993}//ROUBO5
+};
+new Float:PosLojinhas[5][4] =
+{
+	{1353.3607, -1766.7814, 13.5659},//LOJA1
+	{1838.8439, -1843.9094, 13.7862},//LOJA2
+	{1315.6638, -888.7213, 39.5862},//LOJA3
+	{2351.1143, -1364.3696, 24.0985},//LOJA4
+	{934.9703, -1634.4111, 13.5993}//LOJA5
+};
 new Float:PosDesossa[8][4] =
 {
 	{956.002807, 2120.503662, 1011.723022},
@@ -1291,7 +1323,7 @@ new Float:PosVeiculos[10][4] =
 	{-2033.141479, -988.619567, 32.212158},//Policia Militar
 	{-2441.137939, 522.140869, 29.486917},//ROTA
 	{1662.606811, -285.948333, 39.627510},//PRF
-	{1683.301391, -2311.982910, 13.546875},//Spawn
+	{1567.830078, -1880.008178, 13.546875},//Spawn
 	{1639.677124, -1103.197631, 23.906250},//Hospital
 	{-478.623901, -506.406524, 25.517845},//Camionero
 	{2010.767089, -1771.265380, 13.543199},//Mecanica
@@ -1731,7 +1763,7 @@ new const gSAZones[][SAZONE_MAIN] = {
 
 new RandomMSG[][] =
 {
-	"Entre em nosso discord <-> Link: https://discord.gg/6RsGWdd442",
+	"Entre em nosso discord <-> Link: https://discord.gg/3daewrJXyE",
 	"Creditos aos desenvolvedores no /creditos.",
 	"Boas vindas a um dos melhores servidores inovadores!",
 	"Necessita de ajuda? Use /ajuda para verificar os comandos.",
@@ -2575,7 +2607,7 @@ CallBack::PegandoCaixasP(playerid, progress){
 			SetVehicleParamsEx(idv, engine, lights, alarm, doors, bonnet, 1, objective);
 			GetVehicleTrunkPosition(VeiculoCivil[playerid], PosV[0], PosV[1], PosV[2]);
 			TogglePlayerControllable(playerid, 1);
-			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 1, 0, 0, 0, 0);
 			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 			SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
 			SuccesMsg(playerid, "Leve a caixa ate a van.");
@@ -2673,34 +2705,50 @@ CallBack::AChatAtendimento(COLOR,const string[],level)
 
 CallBack::TxdLogin(playerid)
 {
-	for(new i = 0; i < 15; ++i)
+	if(IsPlayerMobile(playerid))
 	{
-		PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
-		if(i == 15)break;
+		Plataforma[playerid] = 1;
 	}
-	for(new i = 0; i < 7; i ++)
+	else
 	{
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][i]);
-		if(i == 7)break;
+		Plataforma[playerid] = 0;
 	}
-	for(new i = 0; i < 17; i ++)
+	if(PlayerInfo[playerid][pSkin] == 0)
 	{
-		TextDrawShowForPlayer(playerid, HudServer[i]);
-		if(i == 17)break;
+		new mskin = randomEx(1,264);
+		SetPlayerSkin(playerid, mskin);
+		PlayerInfo[playerid][pSkin] = mskin;
+		SalvarDadosSkin(playerid);
 	}
-	for(new i = 0; i < 3; i ++)
+	if(IsBandido(playerid))
 	{
-		TextDrawShowForPlayer(playerid, LogoHM[i]);
-		if(i == 3)break;
+		bandidoon ++;
 	}
-	CarregarAnims(playerid);
+	if(PlayerMobileInfo[playerid][isHaveAutoaim] == true)
+	{
+		new Detect[50];
+		format(Detect, sizeof(Detect), "[Anti-Lock-On] {ffffff}%s {ff2400}foi kickado automaticamente!", Name(playerid));
+		SendClientMessage(playerid, -1, Detect);
+		Kick(playerid);
+	}
 	CarregarArmas(playerid);
 	CarregarAvaliacao(playerid);
 	CarregarVIP(playerid);
-	MapRemocao(playerid);
 	LoadInv(playerid);
 	CarregarMortos(playerid);
 	CarregarGZ(playerid);
+	SetPlayerHealth(playerid, PlayerInfo[playerid][pVida]);
+    SetPlayerArmour(playerid, PlayerInfo[playerid][pColete]);
+	for(new i; i < 25; i++)
+	{
+   		PlayerTextDrawShow(playerid, hudStyle[playerid][i]);
+		if(i == 25)break;
+	}
+	for(new i; i < 25; i++)
+	{
+   		TextDrawShowForPlayer(playerid, HudNovo[i]);
+		if(i == 25)break;
+	}
 }
 
 new bool:pulou2vezes[MAX_PLAYERS] = false;
@@ -2711,7 +2759,7 @@ CallBack::ResetarPulo(playerid)
 
 CreateLocPick(playerid)
 {
-	ApplyAnimation(playerid, "INT_HOUSE", "WASH_UP", 4.1, 1, 0, 0, 0, 2000, 1), LockLocation[playerid] = randomEx(243, 423), LockSize[playerid] = randomEx(2, 10), LockTimer[playerid] = SetTimerEx("LockpickTimer", 30, true, "i", playerid);
+	ApplyAnimation(playerid, "INT_HOUSE", "WASH_UP", 4.0, 1, 0, 0, 0, 0), LockLocation[playerid] = randomEx(243, 423), LockSize[playerid] = randomEx(2, 10), LockTimer[playerid] = SetTimerEx("LockpickTimer", 500, true, "i", playerid);
 	LockText[8] = CreatePlayerTextDraw(playerid, LockLocation[playerid], 385.0, "_"), PlayerTextDrawUseBox(playerid, LockText[8], 1);
 	PlayerTextDrawLetterSize(playerid, LockText[8], 0.5, 1.4), PlayerTextDrawTextSize(playerid, LockText[8], LockLocation[playerid]+LockSize[playerid], 71.0);
 	PlayerTextDrawFont(playerid, LockText[8], 1), PlayerTextDrawSetProportional(playerid, LockText[8], 1);
@@ -2731,7 +2779,11 @@ CreateLocPick(playerid)
 CallBack:: LockpickTimer(playerid)
 {
 	LockProgress = LockProgress+4, PlayerTextDrawTextSize(playerid, LockText[9], LockProgress, 71.0);
-	for(new i; i < 12; i++) { PlayerTextDrawShow(playerid, LockText[i]); }
+	for(new i; i < 12; i++) 
+	{ 
+		PlayerTextDrawShow(playerid, LockText[i]);
+		if(i == 12)break; 
+	}
 	if(LockCount[playerid] < 4 && LockProgress > 428.9) return PlayerTextDrawColor(playerid, LockText[LockCount[playerid]+2], 0xFF0000AA), DestroyLockPick(playerid), KillTimer(LockTimer[playerid]), LockCount[playerid]++, LockProgress = 207.0, CreateLocPick(playerid);
 	if(LockCount[playerid] == 4 && LockProgress > 428.9)
 	{
@@ -2749,7 +2801,11 @@ CallBack:: DestroyLockPick(playerid)
     {
 		PlayerTextDrawColor(playerid, LockText[2], 1768516095), PlayerTextDrawColor(playerid, LockText[3], 1768516095), PlayerTextDrawColor(playerid, LockText[4], 1768516095), PlayerTextDrawColor(playerid, LockText[5], 1768516095), PlayerTextDrawColor(playerid, LockText[6], 1768516095);
 		LockUse[playerid] = false, LockProgress = 207.0, Correct[playerid] = 0, LockCount[playerid] = 0;
-		for(new i; i < 12; i++) { PlayerTextDrawHide(playerid, LockText[i]); if(i == 12)break;}
+		for(new i; i < 12; i++) 
+		{ 
+			PlayerTextDrawHide(playerid, LockText[i]); 
+			if(i == 12)break;
+		}
 	}
 	return 0;
 }
@@ -3048,7 +3104,7 @@ CallBack::Cova(playerid, progress)
 
 CallBack::Desossar(playerid, progress)
 {
-		ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+		ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 1, 0, 0, 0, 0);
 		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 		SetPlayerAttachedObject(playerid, 1, 2804, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
 		Desossando[playerid] = 1;
@@ -3099,7 +3155,7 @@ CallBack::Minerar(playerid, progress)
 CallBack::Pesca(playerid, progress)
 {
 		new peixes = randomEx(1,3);
-		new peixe = randomEx(0,4);
+		new peixe = randomEx(1,4);
 		new s[255];
 		if(IsPlayerInRangeOfPoint(playerid, 15.0, 383.2907,-2088.7842,7.8359))
 		if(peixe == 1)
@@ -3110,8 +3166,8 @@ CallBack::Pesca(playerid, progress)
 		}
 		if(peixe == 2)
 		{
-			GanharItem(playerid,19630, peixes);
-			format(s,sizeof(s),"Pescou %i peixe tilapia.",peixes);
+			GanharItem(playerid,1603, peixes);
+			format(s,sizeof(s),"Pescou %i agua viva.",peixes);
 			SuccesMsg(playerid, s);
 		}
 		if(peixe == 3)
@@ -3122,8 +3178,8 @@ CallBack::Pesca(playerid, progress)
 		}
 		if(peixe == 4)
 		{
-			GanharItem(playerid,1603, peixes);
-			format(s,sizeof(s),"Pescou %i agua viva.",peixes);
+			GanharItem(playerid,19630, peixes);
+			format(s,sizeof(s),"Pescou %i peixe tilapia.",peixes);
 			SuccesMsg(playerid, s);
 		}
 		TogglePlayerControllable(playerid, 1);
@@ -3753,7 +3809,8 @@ CallBack::AttCad(playerid){
 			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][4], Preview[playerid][4]);
 			PlayerTextDrawSetPreviewModel(playerid, TDCadastro_p[playerid][5], Preview[playerid][5]);
 		}
-		for(new i=0;i<7;i++){
+		for(new i=0;i<7;i++)
+		{
 			PlayerTextDrawShow(playerid, TDCadastro_p[playerid][i]);
 			if(i == 7)break;
 		}
@@ -3825,7 +3882,54 @@ CallBack::mortoxx(playerid)
     {
         if(PlayerMorto[playerid][pMinMorto] < 0)
         {
-            VaiProHospital(playerid);
+			SetPlayerPos(playerid, 1629.030639, -1123.190185, 24.769485);
+			SetPlayerFacingAngle(playerid, 175.770599);
+            KillTimer(TimerMorto[playerid]);
+			PlayerMorto[playerid][pMinMorto] = 0;
+			PlayerMorto[playerid][pSegMorto] = 0;
+			SetPlayerHealth(playerid, 100);
+			PlayerInfo[playerid][pDinheiro] = 0;
+			FomePlayer[playerid] = 100;
+			SedePlayer[playerid] = 100;
+			RetirarItem(playerid, 1212);
+			RetirarItem(playerid, 854);
+			RetirarItem(playerid, 1279);
+			RetirarItem(playerid, 902);
+			RetirarItem(playerid, 19630);
+			RetirarItem(playerid, 1599);
+			RetirarItem(playerid, 1600);
+			RetirarItem(playerid, 1603);
+			RetirarItem(playerid, 1604);
+			RetirarItem(playerid, 1608);
+			RetirarItem(playerid, 1576);
+			RetirarItem(playerid, 1654);
+			RetirarItem(playerid, 2218);
+			RetirarItem(playerid, 2355);
+			RetirarItem(playerid, 2219);
+			RetirarItem(playerid, 2220);
+			RetirarItem(playerid, 1484);
+			RetirarItem(playerid, 1644);
+			RetirarItem(playerid, 1546);
+			RetirarItem(playerid, 2601);
+			RetirarItem(playerid, 3520);
+			RetirarItem(playerid, 11746);
+			RetirarItem(playerid, 19921);
+			RetirarItem(playerid, 1010);
+			RetirarItem(playerid, 18870);
+			RetirarItem(playerid, 11736);
+			RetirarItem(playerid, 18632);
+			RetirarItem(playerid, 18645);
+			RetirarItem(playerid, 18644);
+			TogglePlayerControllable(playerid, true);
+			ClearAnimations(playerid);
+			for(new i = 0; i < 9; i ++)
+			{
+				TextDrawHideForPlayer(playerid,TDmorte[i]);
+				if(i == 9)break;
+			}
+			PlayerTextDrawHide(playerid, TDmorte_p[playerid][0]);
+			CancelSelectTextDraw(playerid);
+			InfoMsg(playerid, "Morreu e perdeu todo seu dinheiro e alguns itens do seu inventario.");
             PlayerMorto[playerid][pEstaMorto] = 0;
             return 1;
         }
@@ -3843,7 +3947,7 @@ CallBack::mortoxx(playerid)
         SetPlayerPos(playerid, PlayerMorto[playerid][pPosMt1], PlayerMorto[playerid][pPosMt2], PlayerMorto[playerid][pPosMt3]);
         SetPlayerInterior(playerid, PlayerMorto[playerid][pInteriorMxxx]);
         SetPlayerVirtualWorld(playerid, PlayerMorto[playerid][pVirtual]);
-        ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+        ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
         return 1;
     }else{
         KillTimer(TimerMorto[playerid]);
@@ -3853,28 +3957,24 @@ CallBack::mortoxx(playerid)
 
 CallBack::mostrarTelaLogin(playerid)
 {
+	LimparChat(playerid, 10);
 	if(CarregandoTelaLogin[playerid] < 100){
 	    CarregandoTelaLogin[playerid]++;
-	    new newtext[5];
-	    format(newtext, sizeof(newtext), "%d%", CarregandoTelaLogin[playerid]);
-	    PlayerTextDrawSetString(playerid, Loadsc_p[playerid][0], newtext);
-		SetPlayerProgressBarValue(playerid, Loadsc_b[playerid][0], CarregandoTelaLogin[playerid]);
 	    TimerLogin[playerid] = SetTimerEx("mostrarTelaLogin", 100, false, "d", playerid);
 	}else{
-		for(new t=0;t<2;t++){
-			TextDrawHideForPlayer(playerid, Loadsc[t]);
-			if(t == 2)break;
+		for(new t=0;t<11;t++){
+			PlayerTextDrawHide(playerid, Alertalogin[playerid][t]);
+			if(t == 11)break;
 		}
-		DestroyPlayerProgressBar(playerid, Loadsc_b[playerid][0]);
-		PlayerTextDrawDestroy(playerid, Loadsc_p[playerid][0]);
 		KillTimer(TimerLogin[playerid]);
-		SetTimerEx("loginp", 40, false, "i", playerid);
+		SetTimerEx("loginp", 1000, false, "i", playerid);
 	}
 	return 1;
 }
 
 CallBack::loginp(playerid)
 {
+	LimparChat(playerid, 10);
 	new File[255];
 	for(new i = 0; i < 15; ++i)
 	{
@@ -4099,54 +4199,54 @@ public SV_VOID:OnPlayerActivationKeyPress(SV_UINT:playerid, SV_UINT:keyid)
 	{
 		SvAttachSpeakerToStream(lstream[playerid], playerid); //local falando
 		Falou[playerid] = true;
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], 16711935);
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][5], 16711935);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][7], 16711935);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][6], 16711935);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][7]);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][6]);
 	}
 	if(keyid == 0x42 && Susurrando[playerid] == true)
 	{
 		SvAttachSpeakerToStream(Susurrandos[playerid], playerid); //local susurrando
 		Susurrou[playerid] = true;
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], 16711935);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][6], 16711935);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][6]);
 	}
 	if(keyid == 0x42 && Gritando[playerid] == true)
 	{
 		SvAttachSpeakerToStream(Gritandos[playerid], playerid); //local gritando
 		Gritou[playerid] = true;
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], 16711935);
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][5], 16711935);
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][6], 16711935);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][6]);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][7], 16711935);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][6], 16711935);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][8], 16711935);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][7]);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][6]);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][8]);
 	}
 	if(keyid == 0x5A && gstream)
 	{
 	    if(IsPlayerAdmin(playerid))
 	    {
 			SvAttachSpeakerToStream(gstream, playerid); //global
-			PlayerTextDrawColor(playerid, HudServer_p[playerid][4], 16711935);
-			PlayerTextDrawColor(playerid, HudServer_p[playerid][5], 16711935);
-			PlayerTextDrawColor(playerid, HudServer_p[playerid][6], 16711935);
-			PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
-			PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
-			PlayerTextDrawShow(playerid, HudServer_p[playerid][6]);
+			PlayerTextDrawColor(playerid, hudStyle[playerid][7], 16711935);
+			PlayerTextDrawColor(playerid, hudStyle[playerid][6], 16711935);
+			PlayerTextDrawColor(playerid, hudStyle[playerid][8], 16711935);
+			PlayerTextDrawShow(playerid, hudStyle[playerid][7]);
+			PlayerTextDrawShow(playerid, hudStyle[playerid][6]);
+			PlayerTextDrawShow(playerid, hudStyle[playerid][8]);
 		}
 	}
 	if(keyid == 0x42 && FrequenciaConectada[playerid] >= 1)
 	{
 		if(!IsPlayerInAnyVehicle(playerid))
 		{
-			ApplyAnimation(playerid, "ped", "phone_talk", 4.1, 0, 0, 0, 0, 0, 1);
+			ApplyAnimation(playerid, "ped", "phone_talk", 4.0, 1, 0, 0, 0, 0);
 			if(!IsPlayerAttachedObjectSlotUsed(playerid, 9)) SetPlayerAttachedObject(playerid, 9, 19942, 2, 0.0300, 0.1309, -0.1060, 118.8998, 19.0998, 164.2999);
 		}
 		SvAttachSpeakerToStream(Frequencia[FrequenciaConectada[playerid]], playerid);
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], 16711935);
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][5], 16711935);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][7], 16711935);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][6], 16711935);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][7]);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][6]);
 	}
 }
 
@@ -4156,40 +4256,40 @@ public SV_VOID:OnPlayerActivationKeyRelease(SV_UINT:playerid,SV_UINT:keyid)
 	{
 		SvDetachSpeakerFromStream(lstream[playerid], playerid);
 		Falou[playerid] = false;
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], -16776961);
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][5], -16776961);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][7], -16776961);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][6], -16776961);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][7]);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][6]);
 	}
 	if(keyid == 0x42 && Susurrando[playerid] == true)
 	{
 		SvDetachSpeakerFromStream(lstream[playerid], playerid);
 		Susurrou[playerid] = false;
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], -16776961);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][6], -16776961);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][6]);
 	}
 	if(keyid == 0x42 && Gritando[playerid] == true)
 	{
 		SvDetachSpeakerFromStream(lstream[playerid], playerid);
 		Gritou[playerid] = false;
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], -16776961);
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][5], -16776961);
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][6], -16776961);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][6]);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][7], -16776961);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][6], -16776961);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][8], -16776961);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][7]);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][6]);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][8]);
 	}
 	if(keyid == 0x5A && gstream)
 	{
 	    if(IsPlayerAdmin(playerid))
 	    {
 			SvDetachSpeakerFromStream(gstream, playerid);
-			PlayerTextDrawColor(playerid, HudServer_p[playerid][4], -16776961);
-			PlayerTextDrawColor(playerid, HudServer_p[playerid][5], -16776961);
-			PlayerTextDrawColor(playerid, HudServer_p[playerid][6], -16776961);
-			PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
-			PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
-			PlayerTextDrawShow(playerid, HudServer_p[playerid][6]);
+			PlayerTextDrawColor(playerid, hudStyle[playerid][7], -16776961);
+			PlayerTextDrawColor(playerid, hudStyle[playerid][6], -16776961);
+			PlayerTextDrawColor(playerid, hudStyle[playerid][8], -16776961);
+			PlayerTextDrawShow(playerid, hudStyle[playerid][7]);
+			PlayerTextDrawShow(playerid, hudStyle[playerid][6]);
+			PlayerTextDrawShow(playerid, hudStyle[playerid][8]);
 		}
 	}
 	if(keyid == 0x42 && FrequenciaConectada[playerid] >= 1)
@@ -4197,10 +4297,10 @@ public SV_VOID:OnPlayerActivationKeyRelease(SV_UINT:playerid,SV_UINT:keyid)
 		SvDetachSpeakerFromStream(Frequencia[FrequenciaConectada[playerid]], playerid);
 		ClearAnimations(playerid);
 		if(IsPlayerAttachedObjectSlotUsed(playerid, 9)) RemovePlayerAttachedObject(playerid, 9);
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][4], -16776961);
-		PlayerTextDrawColor(playerid, HudServer_p[playerid][5], -16776961);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][4]);
-		PlayerTextDrawShow(playerid, HudServer_p[playerid][5]);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][7], -16776961);
+		PlayerTextDrawColor(playerid, hudStyle[playerid][6], -16776961);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][7]);
+		PlayerTextDrawShow(playerid, hudStyle[playerid][6]);
 	}
 }
 
@@ -4222,6 +4322,7 @@ CallBack::SendMSG()
 	RouboRestaurante = false;
 	RouboBanco = false;
 	RouboAmmu = false;
+	RouboJoia = false;
 	return 1;
 }
 
@@ -4761,7 +4862,6 @@ CallBack::AttVeh(playerid)
 	if(!IsPlayerConnected(playerid))
 		return true;
 
-	GetPlayerPos(playerid, VarPlayerOldPos[playerid][0], VarPlayerOldPos[playerid][1], VarPlayerOldPos[playerid][2]);
 	if(IsPlayerInAnyVehicle(playerid))
 	{
 		new veiculoidb;
@@ -4985,7 +5085,7 @@ CallBack::UpdateDrogas()
 
 CallBack::AnimatioN(playerid)
 {
-	ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",2.0,1,0,0,0,1);
+	ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",4.0, 1, 0, 0, 0, 0);
 	return true;
 }
 
@@ -5105,7 +5205,7 @@ CallBack::ORGCarrega()
 
 CallBack::AnimatioN2(playerid)
 {
-	ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",2.0,1,0,0,0,1);
+	ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",4.0, 1, 0, 0, 0, 0);
 	return true;
 }
 
@@ -5173,6 +5273,16 @@ CallBack::RoubarCaixa(playerid, caixa_id)
 
 CallBack::RoubarLoja(playerid, progress)
 {
+		if(PlayerToPoint(5.0, playerid, 469.871185, -1527.918823, 20.365703))
+		{
+			GanharItem(playerid, 1212, CofreJoalheria);
+			CofreJoalheria = 0;
+			SuccesMsg(playerid, "Roubo efetuado com sucesso.");
+			ClearAnimations(playerid, 1);
+			SetPlayerWantedLevel(playerid, GetPlayerWantedLevel(playerid)+3);
+			TogglePlayerControllable(playerid, 1);
+			RouboJoia = true;
+		}
 		if(PlayerToPoint(5.0, playerid, 800.242553, -1617.385986, 14.032936))
 		{
 			GanharItem(playerid, 1212, CofreRestaurante);
@@ -5183,7 +5293,7 @@ CallBack::RoubarLoja(playerid, progress)
 			TogglePlayerControllable(playerid, 1);
 			RouboRestaurante = true;
 		}
-		if(PlayerToPoint(5.0, playerid, 1789.135253, -1921.435058, 14.287462))
+		if(PlayerToPoint(5.0, playerid, 891.3997,-1348.8807,14.4665))
 		{
 			GanharItem(playerid, 1212, CofreAmmu);
 			CofreAmmu = 0;
@@ -5385,6 +5495,9 @@ CallBack::PayDay(playerid)
 		PlayerPlaySound(playerid,1139,0.0,0.0,0.0);
 		SalvarDados(playerid);
 		TimerPayDay[playerid] = SetTimerEx("PayDay", minutos(30), false, "i", playerid);
+		new string[100];
+		format(string,sizeof(string),"%04d agora tem R$%i na mao e R$%i no banco", PlayerInfo[playerid][IDF],PlayerInfo[playerid][pDinheiro], PlayerInfo[playerid][pBanco]);
+		DCC_SendChannelMessage(PayDayLog, string);
 		InfoMsg(playerid, "Agradecemos por colaborar com a cidade, foi depositado seu pagamento de 30min ativo.");
 	}
 	return true;
@@ -5492,8 +5605,8 @@ CallBack::VerificarTeste(playerid)
 CarregarAnims(playerid) {
   new actorid;
   for(new i = 0; i < sizeof(AnimLibs); i++) {
-	  ApplyAnimation(playerid, AnimLibs[i], "null", 4.0, 0, 0, 0, 0, 0, 1);
-	  ApplyDynamicActorAnimation(actorid, AnimLibs[i], "null", 4.1, 0, 0, 0, 0, 1);
+	  ApplyAnimation(playerid, AnimLibs[i], "null", 4.0, 1, 0, 0, 0, 0);
+	  ApplyDynamicActorAnimation(actorid, AnimLibs[i], "null", 4.0, 1, 0, 0, 0, 0);
   }
   return 1;
 }
@@ -5617,16 +5730,19 @@ CallBack::Colete(playerid)
 	PlayerTextDrawSetString(playerid, BancoTD[playerid][16], BankV);
 
 	format(str, sizeof(str), "%d", SedePlayer[playerid]);
-	PlayerTextDrawSetString(playerid, HudServer_p[playerid][3], str);
+	PlayerTextDrawSetString(playerid, hudStyle[playerid][4], str);
 
 	format(str, sizeof(str), "%d", FomePlayer[playerid]);
-	PlayerTextDrawSetString(playerid, HudServer_p[playerid][2], str);
+	PlayerTextDrawSetString(playerid, hudStyle[playerid][3], str);
 
 	format(str, sizeof(str), "%.0f", vida);
-	PlayerTextDrawSetString(playerid, HudServer_p[playerid][0], str);
+	PlayerTextDrawSetString(playerid, hudStyle[playerid][1], str);
 
 	format(str, sizeof(str), "%.0f", colete);
-	PlayerTextDrawSetString(playerid, HudServer_p[playerid][1], str);
+	PlayerTextDrawSetString(playerid, hudStyle[playerid][2], str);
+
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][31], GetPlayerSkin(playerid));
+	GetPlayerPos(playerid, VarPlayerOldPos[playerid][0], VarPlayerOldPos[playerid][1], VarPlayerOldPos[playerid][2]);
 	static armedbody_pTick[MAX_PLAYERS];
     if(GetTickCount() - armedbody_pTick[playerid] > 113)
     {
@@ -5745,6 +5861,30 @@ GanharItem(playerid, itemid, quantia)
 
 	return 1;
 }
+
+GanharItem2(playerid, itemid, quantia)
+{
+	for(new i = 1; i < 33; ++i)
+	{
+		if(PlayerInventario[playerid][i][Slot] == itemid)
+		{
+			PlayerInventario[playerid][i][Slot] = itemid;
+			PlayerInventario[playerid][i][Unidades]+= quantia;
+			return 1;
+		}
+		else if(PlayerInventario[playerid][i][Slot] == -1)
+		{
+			PlayerInventario[playerid][i][Slot] = itemid;
+			PlayerInventario[playerid][i][Unidades] = quantia;
+			return 1;
+		}
+		if(i == 33)break;
+	}
+	ErrorMsg(playerid, "Inventario cheio.");
+
+	return 1;
+}
+
 
 RetirarItem(playerid, modelid)
 {
@@ -5887,6 +6027,7 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 	else
 	switch(itemid)
 	{
+		case 19469: name = "Corda";
 	    case 19995: name = "Pecas Fabricacao";
 		case 19625: name = "Cigarro do K2";
 		case 11746: name = "LockPick";
@@ -5976,7 +6117,7 @@ ItemNomeInv(itemid) // AQUI VOCÊ PODE ADICIONAR OS ID DOS ITENS E SETAR SEU NOM
 		case 1314: name = "2 Players";
 		case 19578: name = "Banana";
 		case 18636: name = "Bone COP";
-		case 19942: name = "Radio Policial";
+		case 19942: name = "Radinho";
 		case 19141: name = "Capacete S.W.A.T";
 		case 19558: name = "Bone Pizzaiolo";
 		case 19801: name = "Mascara de Assalto";
@@ -6202,7 +6343,7 @@ DroparItem(playerid, modelid, quantia)
 					DropItemSlot[i][LabelItem] = CreateDynamic3DTextLabel(str, -1, x,y,z-1, 5, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
 					PlayerInventario[playerid][modelid][Unidades] -= quantia;
 					AtualizarInventario(playerid, modelid);
-					ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.1, 0, 0, 0, 0, 0, 1);
+					ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 1, 0, 0, 0, 0);
 					return 1;
 				}
 			}
@@ -6241,8 +6382,31 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 	new fomesede = randomEx(1,20);
 	switch(PlayerInventario[playerid][modelid][Slot])
 	{
-	case 19995:
+		case 19469:
 		{
+			ShowPlayerDialog(playerid, DIALOG_ARRASTARP, DIALOG_STYLE_INPUT, "Segurar jogador", "Informe o id do jogador que deseja segurar/largar", "Segurar", "Soltar");
+		}
+		case 11750:
+		{
+			ShowPlayerDialog(playerid, DIALOG_ALGEMARP, DIALOG_STYLE_INPUT, "Algemar jogador", "Informe o id do jogador que deseja algemar/desalgemar", "Algemar", "Soltar");
+		}
+		case 19942:
+		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
+			cmd_inventario(playerid);
+			new stringg[50];
+			format(stringg, sizeof(stringg), "%d", FrequenciaConectada[playerid]);
+			PlayerTextDrawSetString(playerid, RadioVOIP[playerid][29], stringg);
+			for(new i; i < 32; i++)
+			{
+				PlayerTextDrawShow(playerid, RadioVOIP[playerid][i]);
+				if(i == 32)break;
+			}
+			SelectTextDraw(playerid, 0xFF0000FF);
+		}
+		case 19995:
+		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			if(IsBandido(playerid))
 			{
 				if(PTP(1.0, playerid, 2139.590087, -2255.079345, 13.303335))
@@ -6284,11 +6448,11 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 		}
 		case 19627:
 		{
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			if(PlayerInfo[playerid][Org] == 13)
 			{
 				if(PTP(5.0, playerid, 719.329528, -442.295532, 16.335937))
 				{
-					if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 					Controle(playerid, 0);
 					InfoMsg(playerid, "Desmanchando veiculo..");
 					SetTimerEx("DesmancharVeh", 30000, false, "i", playerid);
@@ -6434,12 +6598,11 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 			ocupadodemais[playerid] = 1;
 			PlayerInventario[playerid][modelid][Unidades] --;
 			AtualizarInventario(playerid, modelid);
-
 			return true;
 		}
 		case 400..611:
 		{
-			//if(PlayerInfo[playerid][pVIP] < 1 || PlayerInfo[playerid][pAdmin] < 1) return ErrorMsg(playerid, "Sem permissao");
+			if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			new Float:X,Float:Y,Float:Z,Float:A;
 			GetPlayerPos(playerid, X,Y,Z);
 			GetPlayerFacingAngle(playerid, A);
@@ -6484,7 +6647,7 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 			if(slt == -1)
 				return SuccesMsg(playerid, "Ja plantou muitas sementes..");
 
-			ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",4.1,0,1,1,1,60000,1);
+			ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",4.0, 1, 0, 0, 0, 0);
 			SetTimerEx("AnimatioN", 500, false, "i", playerid);
 			SetTimerEx("PlantarMaconhas", 17000, false, "id", playerid, slt);
 			PlantandoMaconha[playerid] = true;
@@ -6638,11 +6801,9 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				PlayerInventario[playerid][modelid][Unidades] -= quantia;
-
-					PlayerInfo[playerid][pDinheiro] += 20*quantia;
-					format(Str,sizeof(Str),"Vendeu tilapia e ganhou R$%i.", 57*quantia);
-					SuccesMsg(playerid, Str);
-
+				PlayerInfo[playerid][pDinheiro] += 20*quantia;
+				format(Str,sizeof(Str),"Vendeu tilapia e ganhou R$%i.", 57*quantia);
+				SuccesMsg(playerid, Str);
 				AtualizarInventario(playerid, modelid);
 			}
 			return 1;
@@ -6653,10 +6814,9 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
 				PlayerInventario[playerid][modelid][Unidades] -= quantia;
-
-					PlayerInfo[playerid][pDinheiro] += 50*quantia;
-					format(Str,sizeof(Str),"Vendeu agua viva e ganhou R$%i.", 157*quantia);
-					SuccesMsg(playerid, Str);
+				PlayerInfo[playerid][pDinheiro] += 50*quantia;
+				format(Str,sizeof(Str),"Vendeu agua viva e ganhou R$%i.", 157*quantia);
+				SuccesMsg(playerid, Str);
 				AtualizarInventario(playerid, modelid);
 			}
 			return 1;
@@ -6666,11 +6826,10 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 			if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade digitada.");
 			if(PlayerToPoint(3.0, playerid, 163.968444, -1941.403564, 3.773437))
 			{
-				PlayerInventario[playerid][modelid][Unidades] -= 5;
-
-					PlayerInfo[playerid][pDinheiro] += 80*quantia;
-					format(Str,sizeof(Str),"Vendeu 5 tubarao e ganhou R$%i.", 200*quantia);
-					SuccesMsg(playerid, Str);
+				PlayerInventario[playerid][modelid][Unidades] -= quantia;
+				PlayerInfo[playerid][pDinheiro] += 80*quantia;
+				format(Str,sizeof(Str),"Vendeu 5 tubarao e ganhou R$%i.", 200*quantia);
+				SuccesMsg(playerid, Str);
 				AtualizarInventario(playerid, modelid);
 			}
 			return 1;
@@ -6679,23 +6838,24 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 		{
             if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 			cmd_inventario(playerid);
-				SetPlayerArmour(playerid, 100);
-				SuccesMsg(playerid, "Equipou um Colete.");
+			SetPlayerArmour(playerid, 100);
+			SuccesMsg(playerid, "Equipou um Colete.");
 			PlayerInventario[playerid][modelid][Unidades] --;
 			AtualizarInventario(playerid, modelid);
 			return 1;
 		}
 		case 331..371:
 		{
-			if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade digitada.");
 			cmd_inventario(playerid);
 			if(PlayerInventario[playerid][modelid][Slot] == 370)
 			{
+				if(quantia != 1) return ErrorMsg(playerid, "Voce so consegue utilizar 1 quantidade.");
 				SetPlayerSpecialAction(playerid, 2);
 				SuccesMsg(playerid, "Pegou um JetPack.");
 			}
 			else
 			{
+				if(PlayerInventario[playerid][modelid][Unidades] < quantia) return ErrorMsg(playerid, "Voce nao possui a quantidade digitada.");
 				GivePlayerWeapon(playerid, GetArmaInv(PlayerInventario[playerid][modelid][Slot]), quantia);
 				PlayerInventario[playerid][modelid][Unidades] -= quantia;
 			}
@@ -6728,7 +6888,7 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 			if(SedePlayer[playerid] >= 95) return ErrorMsg(playerid, "Nao esta com sede.");
 			SedePlayer[playerid] += fomesede;
 			PlayerInventario[playerid][modelid][Unidades]--;
-			ApplyAnimation(playerid, "VENDING", "VEND_Drink_P", 4.1, 0, 0, 0, 0, 0, 1);
+			ApplyAnimation(playerid, "VENDING", "VEND_Drink_P", 4.0, 1, 0, 0, 0, 0);
 			AtualizarInventario(playerid, modelid);
 			return 1;
 		}
@@ -6738,7 +6898,7 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 			if(FomePlayer[playerid] >= 95) return ErrorMsg(playerid, "Nao esta com fome.");
 			FomePlayer[playerid] += fomesede;
 			PlayerInventario[playerid][modelid][Unidades]--;
-			ApplyAnimation(playerid, "FOOD", "EAT_Burger", 4.1, 0, 0, 0, 0, 0, 1);
+			ApplyAnimation(playerid, "FOOD", "EAT_Burger", 4.0, 1, 0, 0, 0, 0);
 			AtualizarInventario(playerid, modelid);
 			return 1;
 		}
@@ -6897,7 +7057,7 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 			SetPlayerPos(playerid, px, py, pz);
 			SetPlayerFacingAngle(playerid, rz);
 			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.0, 1, 0, 0, 0, 1);
+			ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.0, 1, 0, 0, 0, 0);
 
 			SetTimerEx("RoubarCaixa", 20*1000, 0, "dd", playerid, GetPlayerCaixa(playerid));
 			SetTimerEx(#SetAnimRoubo, 500, 0, "d", playerid);
@@ -6938,6 +7098,57 @@ FuncaoItens(playerid, modelid, quantia)//  AQUI VOCÊ PODE DEFINIR AS FUNÇÕES 
 		}
 	}
 	return 0;
+}
+
+static GetArmaInv2(i)
+{
+	switch(i)
+	{
+		case 1: return 331;
+		case 2: return 333;
+		case 3: return 334;
+		case 4: return 335;
+		case 5: return 336;
+		case 6: return 337;
+		case 7: return 338;
+		case 8: return 339;
+		case 9: return 341;
+		case 10: return 321;
+		case 11: return 322;
+		case 12: return 323;
+		case 13: return 324;
+		case 14: return 325;
+		case 15: return 326;
+		case 16: return 342;
+		case 17: return 343;
+		case 18: return 344;
+		case 22: return 346;
+		case 23: return 347;
+		case 24: return 348;
+		case 25: return 349;
+		case 26: return 350;
+		case 27: return 351;
+		case 28: return 352;
+		case 29: return 353;
+		case 30: return 355;
+		case 31: return 356;
+		case 32: return 372;
+		case 33: return 357;
+		case 34: return 358;
+		case 35: return 359;
+		case 36: return 360;
+		case 37: return 361;
+		case 38: return 362;
+		case 39: return 363;
+		case 40: return 364;
+		case 41: return 365;
+		case 42: return 366;
+		case 43: return 367;
+		case 44: return 368;
+		case 45: return 369;
+		case 46: return 371;
+	}
+	return 1;
 }
 
 static GetArmaInv(i)
@@ -7002,7 +7213,7 @@ IsValidItemInv(itemid) //AQUI VOCÊ DEVE DEFINIR OS ID'S DOS ITENS PARA SER VALI
 		19140, 19022, 19023, 19024, 19025, 19026, 19027, 19028, 19029, 19030, 19031, 19032, 19473, 3027, 3520,
 		19033, 19034, 19035, 2992, 3065, 11712, 18953, 18954, 19554, 18974, 2114, 1279, 3930, 19630, 902, 1603, 1600, 1599, 1604, 1608,
 		18894, 18903, 18898, 18899, 18891, 18909, 18908, 18907, 18906, 18905, 18904, 18901, 1010, 19181, 19180, 19177, 19179, 19926,
-		18902, 18892, 18900, 18897, 18896, 18895, 18893, 18810, 18947, 18948, 18949, 18950, 18644,
+		18902, 18892, 18900, 18897, 18896, 18895, 18893, 18810, 18947, 18948, 18949, 18950, 18644, 19469,
 		18951, 19488, 18921, 18922, 18923, 18924, 18925, 18939, 18940, 18941, 18942, 18943, 11750,
 		1314, 19578, 18636, 19942, 18646, 19141, 19558, 19801, 19330, 1210, 19528, 1576, 370, 3016, 3013, 19056,
 		19134, 19904, 19515, 19142, 19315, 19527, 19317, 18688, 18702, 18728, 19605, 19606, 18632, 19847, 2769, 2702, 19882,
@@ -7146,9 +7357,13 @@ CallBack::CheckCadeia()
 			SetPlayerHealth(i, 9999);
 			if(PlayerInfo[i][pCadeia] == 0)
 			{
+				SetPlayerPos(i, 1685.698608, -2334.948730, 13.546875);
+				TogglePlayerControllable(i, false);
+				SetTimerEx("carregarobj", 5000, 0, "i", i);
 				SetPlayerInterior(i, 0);
 				SetPlayerVirtualWorld(i, 0);
 				SetPlayerHealth(i, 100);
+				SetPlayerArmour(i, 0);
 				InfoMsg(i, "esta livre.");
 			}
 			else
@@ -7238,7 +7453,7 @@ CallBack::ProxDetector(Float:radi, playerid, string[],col1,col2,col3,col4,col5)
 
 CallBack::Relogio()
 {
-	new minuto, hora, segundo, string[155];
+	new minuto, hora, segundo;
 
 	gettime(hora, minuto, segundo);
 
@@ -7271,8 +7486,6 @@ CallBack::Relogio()
 		case 5:
 			{ SetWorldTime(2); }
 	}
-	format(string, sizeof(string), "%02d:%02d", hora, minuto);
-    TextDrawSetString(gServerTextdraws, string);
 	return 1;
 }
 
@@ -8012,66 +8225,6 @@ stock HeadshotCheck(playerid, &Float:x, &Float:y, &Float:z)
 	return 1;
 }
 
-stock VaiProHospital(playerid)
-{
-	new sphp = randomEx(0,1);
-    SetTimerEx("ParaDeBugaPoraaaDk", 100, 1, "i", playerid);
-    PlayerMorto[playerid][pMinMorto] = 0;
-    PlayerMorto[playerid][pSegMorto] = 0;
-    SetPlayerHealth(playerid, 100);
-	PlayerInfo[playerid][pDinheiro] = 0;
-	FomePlayer[playerid] = 100;
-	SedePlayer[playerid] = 100;
-	RetirarItem(playerid, 1212);
-	RetirarItem(playerid, 854);
-	RetirarItem(playerid, 1279);
-	RetirarItem(playerid, 902);
-	RetirarItem(playerid, 19630);
-	RetirarItem(playerid, 1599);
-	RetirarItem(playerid, 1600);
-	RetirarItem(playerid, 1603);
-	RetirarItem(playerid, 1604);
-	RetirarItem(playerid, 1608);
-	RetirarItem(playerid, 1576);
-	RetirarItem(playerid, 1654);
-	RetirarItem(playerid, 2218);
-	RetirarItem(playerid, 2355);
-	RetirarItem(playerid, 2219);
-	RetirarItem(playerid, 2220);
-	RetirarItem(playerid, 1484);
-	RetirarItem(playerid, 1644);
-	RetirarItem(playerid, 1546);
-	RetirarItem(playerid, 2601);
-	RetirarItem(playerid, 3520);
-	RetirarItem(playerid, 11746);
-	RetirarItem(playerid, 19921);
-	RetirarItem(playerid, 1010);
-	RetirarItem(playerid, 18870);
-	RetirarItem(playerid, 11736);
-	RetirarItem(playerid, 18632);
-	RetirarItem(playerid, 18645);
-	RetirarItem(playerid, 18644);
-	TogglePlayerControllable(playerid, true);
-    ClearAnimations(playerid);
-    for(new idx=0; idx<9; idx++){
-    TextDrawHideForPlayer(playerid,TDmorte[idx]);
-	if(idx == 9)break;}
-	PlayerTextDrawHide(playerid, TDmorte_p[playerid][0]);
-	CancelSelectTextDraw(playerid);
-	InfoMsg(playerid, "Morreu e perdeu todo seu dinheiro e alguns itens do seu inventario.");
-	if(sphp == 0)
-	{
-    	SetPlayerPos(playerid, 1629.030639, -1123.190185, 24.769485);
-		SetPlayerFacingAngle(playerid, 175.770599);
-	}
-	else if(sphp == 1)
-	{
-    	SetPlayerPos(playerid, 1628.926025, -1139.238525, 24.769485);
-		SetPlayerFacingAngle(playerid, 353.194946);
-	}
-	return 1;
-}
-
 stock ParaDeBugaPoraaaDk(playerid)
 {
 	KillTimer(TimerMorto[playerid]);
@@ -8127,6 +8280,709 @@ stock CarregarMortos(playerid)
 
 stock todastextdraw(playerid)
 {
+    hudStyle[playerid][1] = CreatePlayerTextDraw(playerid, 554.000000, 419.000000, "100");
+    PlayerTextDrawFont(playerid, hudStyle[playerid][1], 1);
+    PlayerTextDrawLetterSize(playerid, hudStyle[playerid][1], 0.124996, 0.550000);
+    PlayerTextDrawTextSize(playerid, hudStyle[playerid][1], 400.000000, 8.000000);
+    PlayerTextDrawSetOutline(playerid, hudStyle[playerid][1], 0);
+    PlayerTextDrawSetShadow(playerid, hudStyle[playerid][1], 0);
+    PlayerTextDrawAlignment(playerid, hudStyle[playerid][1], 2);
+    PlayerTextDrawColor(playerid, hudStyle[playerid][1], -1);
+    PlayerTextDrawBackgroundColor(playerid, hudStyle[playerid][1], 255);
+    PlayerTextDrawBoxColor(playerid, hudStyle[playerid][1], 50);
+    PlayerTextDrawUseBox(playerid, hudStyle[playerid][1], 0);
+    PlayerTextDrawSetProportional(playerid, hudStyle[playerid][1], 1);
+    PlayerTextDrawSetSelectable(playerid, hudStyle[playerid][1], 0);
+
+    hudStyle[playerid][2] = CreatePlayerTextDraw(playerid, 571.000000, 419.000000, "100");
+    PlayerTextDrawFont(playerid, hudStyle[playerid][2], 1);
+    PlayerTextDrawLetterSize(playerid, hudStyle[playerid][2], 0.124996, 0.550000);
+    PlayerTextDrawTextSize(playerid, hudStyle[playerid][2], 400.000000, 8.000000);
+    PlayerTextDrawSetOutline(playerid, hudStyle[playerid][2], 0);
+    PlayerTextDrawSetShadow(playerid, hudStyle[playerid][2], 0);
+    PlayerTextDrawAlignment(playerid, hudStyle[playerid][2], 2);
+    PlayerTextDrawColor(playerid, hudStyle[playerid][2], -1);
+    PlayerTextDrawBackgroundColor(playerid, hudStyle[playerid][2], 255);
+    PlayerTextDrawBoxColor(playerid, hudStyle[playerid][2], 50);
+    PlayerTextDrawUseBox(playerid, hudStyle[playerid][2], 0);
+    PlayerTextDrawSetProportional(playerid, hudStyle[playerid][2], 1);
+    PlayerTextDrawSetSelectable(playerid, hudStyle[playerid][2], 0);
+
+    hudStyle[playerid][3] = CreatePlayerTextDraw(playerid, 588.000000, 419.000000, "100");
+    PlayerTextDrawFont(playerid, hudStyle[playerid][3], 1);
+    PlayerTextDrawLetterSize(playerid, hudStyle[playerid][3], 0.124996, 0.550000);
+    PlayerTextDrawTextSize(playerid, hudStyle[playerid][3], 400.000000, 8.000000);
+    PlayerTextDrawSetOutline(playerid, hudStyle[playerid][3], 0);
+    PlayerTextDrawSetShadow(playerid, hudStyle[playerid][3], 0);
+    PlayerTextDrawAlignment(playerid, hudStyle[playerid][3], 2);
+    PlayerTextDrawColor(playerid, hudStyle[playerid][3], -1);
+    PlayerTextDrawBackgroundColor(playerid, hudStyle[playerid][3], 255);
+    PlayerTextDrawBoxColor(playerid, hudStyle[playerid][3], 50);
+    PlayerTextDrawUseBox(playerid, hudStyle[playerid][3], 0);
+    PlayerTextDrawSetProportional(playerid, hudStyle[playerid][3], 1);
+    PlayerTextDrawSetSelectable(playerid, hudStyle[playerid][3], 0);
+
+    hudStyle[playerid][4] = CreatePlayerTextDraw(playerid, 605.000000, 419.000000, "100");
+    PlayerTextDrawFont(playerid, hudStyle[playerid][4], 1);
+    PlayerTextDrawLetterSize(playerid, hudStyle[playerid][4], 0.124996, 0.550000);
+    PlayerTextDrawTextSize(playerid, hudStyle[playerid][4], 400.000000, 8.000000);
+    PlayerTextDrawSetOutline(playerid, hudStyle[playerid][4], 0);
+    PlayerTextDrawSetShadow(playerid, hudStyle[playerid][4], 0);
+    PlayerTextDrawAlignment(playerid, hudStyle[playerid][4], 2);
+    PlayerTextDrawColor(playerid, hudStyle[playerid][4], -1);
+    PlayerTextDrawBackgroundColor(playerid, hudStyle[playerid][4], 255);
+    PlayerTextDrawBoxColor(playerid, hudStyle[playerid][4], 50);
+    PlayerTextDrawUseBox(playerid, hudStyle[playerid][4], 0);
+    PlayerTextDrawSetProportional(playerid, hudStyle[playerid][4], 1);
+    PlayerTextDrawSetSelectable(playerid, hudStyle[playerid][4], 0);
+
+    hudStyle[playerid][6] = CreatePlayerTextDraw(playerid, 525.000000, 427.000000, "ld_beat:chit");
+    PlayerTextDrawFont(playerid, hudStyle[playerid][6], 4);
+    PlayerTextDrawLetterSize(playerid, hudStyle[playerid][6], 0.600000, 2.000000);
+    PlayerTextDrawTextSize(playerid, hudStyle[playerid][6], 5.500000, 6.500000);
+    PlayerTextDrawSetOutline(playerid, hudStyle[playerid][6], 1);
+    PlayerTextDrawSetShadow(playerid, hudStyle[playerid][6], 0);
+    PlayerTextDrawAlignment(playerid, hudStyle[playerid][6], 1);
+    PlayerTextDrawColor(playerid, hudStyle[playerid][6], -16776961);
+    PlayerTextDrawBackgroundColor(playerid, hudStyle[playerid][6], 255);
+    PlayerTextDrawBoxColor(playerid, hudStyle[playerid][6], 50);
+    PlayerTextDrawUseBox(playerid, hudStyle[playerid][6], 1);
+    PlayerTextDrawSetProportional(playerid, hudStyle[playerid][6], 1);
+    PlayerTextDrawSetSelectable(playerid, hudStyle[playerid][6], 0);
+
+    hudStyle[playerid][7] = CreatePlayerTextDraw(playerid, 527.000000, 422.000000, "ld_beat:chit");
+    PlayerTextDrawFont(playerid, hudStyle[playerid][7], 4);
+    PlayerTextDrawLetterSize(playerid, hudStyle[playerid][7], 0.600000, 2.000000);
+    PlayerTextDrawTextSize(playerid, hudStyle[playerid][7], 5.500000, 6.500000);
+    PlayerTextDrawSetOutline(playerid, hudStyle[playerid][7], 1);
+    PlayerTextDrawSetShadow(playerid, hudStyle[playerid][7], 0);
+    PlayerTextDrawAlignment(playerid, hudStyle[playerid][7], 1);
+    PlayerTextDrawColor(playerid, hudStyle[playerid][7], -16776961);
+    PlayerTextDrawBackgroundColor(playerid, hudStyle[playerid][7], 255);
+    PlayerTextDrawBoxColor(playerid, hudStyle[playerid][7], 50);
+    PlayerTextDrawUseBox(playerid, hudStyle[playerid][7], 1);
+    PlayerTextDrawSetProportional(playerid, hudStyle[playerid][7], 1);
+    PlayerTextDrawSetSelectable(playerid, hudStyle[playerid][7], 0);
+
+    hudStyle[playerid][8] = CreatePlayerTextDraw(playerid, 531.000000, 419.000000, "ld_beat:chit");
+    PlayerTextDrawFont(playerid, hudStyle[playerid][8], 4);
+    PlayerTextDrawLetterSize(playerid, hudStyle[playerid][8], 0.600000, 2.000000);
+    PlayerTextDrawTextSize(playerid, hudStyle[playerid][8], 5.500000, 6.500000);
+    PlayerTextDrawSetOutline(playerid, hudStyle[playerid][8], 1);
+    PlayerTextDrawSetShadow(playerid, hudStyle[playerid][8], 0);
+    PlayerTextDrawAlignment(playerid, hudStyle[playerid][8], 1);
+    PlayerTextDrawColor(playerid, hudStyle[playerid][8], -16776961);
+    PlayerTextDrawBackgroundColor(playerid, hudStyle[playerid][8], 255);
+    PlayerTextDrawBoxColor(playerid, hudStyle[playerid][8], 50);
+    PlayerTextDrawUseBox(playerid, hudStyle[playerid][8], 1);
+    PlayerTextDrawSetProportional(playerid, hudStyle[playerid][8], 1);
+    PlayerTextDrawSetSelectable(playerid, hudStyle[playerid][8], 0);
+
+	Alertalogin[playerid][0] = CreatePlayerTextDraw(playerid, 311.000000, -3.000000, "_");
+	PlayerTextDrawFont(playerid, Alertalogin[playerid][0], 1);
+	PlayerTextDrawLetterSize(playerid, Alertalogin[playerid][0], 0.600000, 53.749996);
+	PlayerTextDrawTextSize(playerid, Alertalogin[playerid][0], 298.500000, 671.000000);
+	PlayerTextDrawSetOutline(playerid, Alertalogin[playerid][0], 1);
+	PlayerTextDrawSetShadow(playerid, Alertalogin[playerid][0], 0);
+	PlayerTextDrawAlignment(playerid, Alertalogin[playerid][0], 2);
+	PlayerTextDrawColor(playerid, Alertalogin[playerid][0], -1);
+	PlayerTextDrawBackgroundColor(playerid, Alertalogin[playerid][0], 255);
+	PlayerTextDrawBoxColor(playerid, Alertalogin[playerid][0], 255);
+	PlayerTextDrawUseBox(playerid, Alertalogin[playerid][0], 1);
+	PlayerTextDrawSetProportional(playerid, Alertalogin[playerid][0], 1);
+	PlayerTextDrawSetSelectable(playerid, Alertalogin[playerid][0], 0);
+
+	Alertalogin[playerid][1] = CreatePlayerTextDraw(playerid, 262.000000, 161.000000, "HOME");
+	PlayerTextDrawFont(playerid, Alertalogin[playerid][1], 1);
+	PlayerTextDrawLetterSize(playerid, Alertalogin[playerid][1], 1.479169, 5.800004);
+	PlayerTextDrawTextSize(playerid, Alertalogin[playerid][1], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, Alertalogin[playerid][1], 2);
+	PlayerTextDrawSetShadow(playerid, Alertalogin[playerid][1], 0);
+	PlayerTextDrawAlignment(playerid, Alertalogin[playerid][1], 1);
+	PlayerTextDrawColor(playerid, Alertalogin[playerid][1], 65535);
+	PlayerTextDrawBackgroundColor(playerid, Alertalogin[playerid][1], 255);
+	PlayerTextDrawBoxColor(playerid, Alertalogin[playerid][1], 50);
+	PlayerTextDrawUseBox(playerid, Alertalogin[playerid][1], 0);
+	PlayerTextDrawSetProportional(playerid, Alertalogin[playerid][1], 1);
+	PlayerTextDrawSetSelectable(playerid, Alertalogin[playerid][1], 0);
+
+	Alertalogin[playerid][2] = CreatePlayerTextDraw(playerid, 261.000000, 196.000000, "LAND");
+	PlayerTextDrawFont(playerid, Alertalogin[playerid][2], 1);
+	PlayerTextDrawLetterSize(playerid, Alertalogin[playerid][2], 1.629171, 5.800004);
+	PlayerTextDrawTextSize(playerid, Alertalogin[playerid][2], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, Alertalogin[playerid][2], 2);
+	PlayerTextDrawSetShadow(playerid, Alertalogin[playerid][2], 0);
+	PlayerTextDrawAlignment(playerid, Alertalogin[playerid][2], 1);
+	PlayerTextDrawColor(playerid, Alertalogin[playerid][2], 65535);
+	PlayerTextDrawBackgroundColor(playerid, Alertalogin[playerid][2], 255);
+	PlayerTextDrawBoxColor(playerid, Alertalogin[playerid][2], 50);
+	PlayerTextDrawUseBox(playerid, Alertalogin[playerid][2], 0);
+	PlayerTextDrawSetProportional(playerid, Alertalogin[playerid][2], 1);
+	PlayerTextDrawSetSelectable(playerid, Alertalogin[playerid][2], 0);
+
+	Alertalogin[playerid][3] = CreatePlayerTextDraw(playerid, 287.000000, 243.000000, "ROLEPLAY");
+	PlayerTextDrawFont(playerid, Alertalogin[playerid][3], 1);
+	PlayerTextDrawLetterSize(playerid, Alertalogin[playerid][3], 0.487500, 1.100000);
+	PlayerTextDrawTextSize(playerid, Alertalogin[playerid][3], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, Alertalogin[playerid][3], 0);
+	PlayerTextDrawSetShadow(playerid, Alertalogin[playerid][3], 0);
+	PlayerTextDrawAlignment(playerid, Alertalogin[playerid][3], 1);
+	PlayerTextDrawColor(playerid, Alertalogin[playerid][3], -1);
+	PlayerTextDrawBackgroundColor(playerid, Alertalogin[playerid][3], 255);
+	PlayerTextDrawBoxColor(playerid, Alertalogin[playerid][3], 50);
+	PlayerTextDrawUseBox(playerid, Alertalogin[playerid][3], 0);
+	PlayerTextDrawSetProportional(playerid, Alertalogin[playerid][3], 1);
+	PlayerTextDrawSetSelectable(playerid, Alertalogin[playerid][3], 0);
+
+	Alertalogin[playerid][4] = CreatePlayerTextDraw(playerid, 270.000000, 251.000000, "_");
+	PlayerTextDrawFont(playerid, Alertalogin[playerid][4], 1);
+	PlayerTextDrawLetterSize(playerid, Alertalogin[playerid][4], 0.600000, -0.449995);
+	PlayerTextDrawTextSize(playerid, Alertalogin[playerid][4], 298.500000, 21.000000);
+	PlayerTextDrawSetOutline(playerid, Alertalogin[playerid][4], 1);
+	PlayerTextDrawSetShadow(playerid, Alertalogin[playerid][4], 0);
+	PlayerTextDrawAlignment(playerid, Alertalogin[playerid][4], 2);
+	PlayerTextDrawColor(playerid, Alertalogin[playerid][4], -1);
+	PlayerTextDrawBackgroundColor(playerid, Alertalogin[playerid][4], 255);
+	PlayerTextDrawBoxColor(playerid, Alertalogin[playerid][4], -1);
+	PlayerTextDrawUseBox(playerid, Alertalogin[playerid][4], 1);
+	PlayerTextDrawSetProportional(playerid, Alertalogin[playerid][4], 1);
+	PlayerTextDrawSetSelectable(playerid, Alertalogin[playerid][4], 0);
+
+	Alertalogin[playerid][5] = CreatePlayerTextDraw(playerid, 379.000000, 251.000000, "_");
+	PlayerTextDrawFont(playerid, Alertalogin[playerid][5], 1);
+	PlayerTextDrawLetterSize(playerid, Alertalogin[playerid][5], 0.600000, -0.449995);
+	PlayerTextDrawTextSize(playerid, Alertalogin[playerid][5], 298.500000, 21.000000);
+	PlayerTextDrawSetOutline(playerid, Alertalogin[playerid][5], 1);
+	PlayerTextDrawSetShadow(playerid, Alertalogin[playerid][5], 0);
+	PlayerTextDrawAlignment(playerid, Alertalogin[playerid][5], 2);
+	PlayerTextDrawColor(playerid, Alertalogin[playerid][5], -1);
+	PlayerTextDrawBackgroundColor(playerid, Alertalogin[playerid][5], 255);
+	PlayerTextDrawBoxColor(playerid, Alertalogin[playerid][5], -1);
+	PlayerTextDrawUseBox(playerid, Alertalogin[playerid][5], 1);
+	PlayerTextDrawSetProportional(playerid, Alertalogin[playerid][5], 1);
+	PlayerTextDrawSetSelectable(playerid, Alertalogin[playerid][5], 0);
+
+	Alertalogin[playerid][6] = CreatePlayerTextDraw(playerid, 236.000000, 296.000000, "ENTRANDO NA CIDADE....");
+	PlayerTextDrawFont(playerid, Alertalogin[playerid][6], 1);
+	PlayerTextDrawLetterSize(playerid, Alertalogin[playerid][6], 0.487500, 1.100000);
+	PlayerTextDrawTextSize(playerid, Alertalogin[playerid][6], 526.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, Alertalogin[playerid][6], 0);
+	PlayerTextDrawSetShadow(playerid, Alertalogin[playerid][6], 0);
+	PlayerTextDrawAlignment(playerid, Alertalogin[playerid][6], 1);
+	PlayerTextDrawColor(playerid, Alertalogin[playerid][6], -1);
+	PlayerTextDrawBackgroundColor(playerid, Alertalogin[playerid][6], 255);
+	PlayerTextDrawBoxColor(playerid, Alertalogin[playerid][6], 50);
+	PlayerTextDrawUseBox(playerid, Alertalogin[playerid][6], 0);
+	PlayerTextDrawSetProportional(playerid, Alertalogin[playerid][6], 1);
+	PlayerTextDrawSetSelectable(playerid, Alertalogin[playerid][6], 0);
+
+	Alertalogin[playerid][7] = CreatePlayerTextDraw(playerid, 230.000000, 95.000000, "Preview_Model");
+	PlayerTextDrawFont(playerid, Alertalogin[playerid][7], 5);
+	PlayerTextDrawLetterSize(playerid, Alertalogin[playerid][7], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, Alertalogin[playerid][7], 80.500000, 130.500000);
+	PlayerTextDrawSetOutline(playerid, Alertalogin[playerid][7], 0);
+	PlayerTextDrawSetShadow(playerid, Alertalogin[playerid][7], 0);
+	PlayerTextDrawAlignment(playerid, Alertalogin[playerid][7], 1);
+	PlayerTextDrawColor(playerid, Alertalogin[playerid][7], -1);
+	PlayerTextDrawBackgroundColor(playerid, Alertalogin[playerid][7], 0);
+	PlayerTextDrawBoxColor(playerid, Alertalogin[playerid][7], 255);
+	PlayerTextDrawUseBox(playerid, Alertalogin[playerid][7], 0);
+	PlayerTextDrawSetProportional(playerid, Alertalogin[playerid][7], 1);
+	PlayerTextDrawSetSelectable(playerid, Alertalogin[playerid][7], 0);
+	PlayerTextDrawSetPreviewModel(playerid, Alertalogin[playerid][7], 2992);
+	PlayerTextDrawSetPreviewRot(playerid, Alertalogin[playerid][7], 13.000000, 3.000000, 18.000000, 1.000000);
+	PlayerTextDrawSetPreviewVehCol(playerid, Alertalogin[playerid][7], 1, 1);
+
+	Alertalogin[playerid][8] = CreatePlayerTextDraw(playerid, 368.000000, 152.000000, "]");
+	PlayerTextDrawFont(playerid, Alertalogin[playerid][8], 2);
+	PlayerTextDrawLetterSize(playerid, Alertalogin[playerid][8], 0.487500, 1.100000);
+	PlayerTextDrawTextSize(playerid, Alertalogin[playerid][8], 526.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, Alertalogin[playerid][8], 0);
+	PlayerTextDrawSetShadow(playerid, Alertalogin[playerid][8], 0);
+	PlayerTextDrawAlignment(playerid, Alertalogin[playerid][8], 1);
+	PlayerTextDrawColor(playerid, Alertalogin[playerid][8], -1);
+	PlayerTextDrawBackgroundColor(playerid, Alertalogin[playerid][8], 255);
+	PlayerTextDrawBoxColor(playerid, Alertalogin[playerid][8], 50);
+	PlayerTextDrawUseBox(playerid, Alertalogin[playerid][8], 0);
+	PlayerTextDrawSetProportional(playerid, Alertalogin[playerid][8], 1);
+	PlayerTextDrawSetSelectable(playerid, Alertalogin[playerid][8], 0);
+
+	Alertalogin[playerid][9] = CreatePlayerTextDraw(playerid, 400.000000, 163.000000, "]");
+	PlayerTextDrawFont(playerid, Alertalogin[playerid][9], 2);
+	PlayerTextDrawLetterSize(playerid, Alertalogin[playerid][9], 0.487500, 1.100000);
+	PlayerTextDrawTextSize(playerid, Alertalogin[playerid][9], 526.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, Alertalogin[playerid][9], 0);
+	PlayerTextDrawSetShadow(playerid, Alertalogin[playerid][9], 0);
+	PlayerTextDrawAlignment(playerid, Alertalogin[playerid][9], 1);
+	PlayerTextDrawColor(playerid, Alertalogin[playerid][9], -1);
+	PlayerTextDrawBackgroundColor(playerid, Alertalogin[playerid][9], 255);
+	PlayerTextDrawBoxColor(playerid, Alertalogin[playerid][9], 50);
+	PlayerTextDrawUseBox(playerid, Alertalogin[playerid][9], 0);
+	PlayerTextDrawSetProportional(playerid, Alertalogin[playerid][9], 1);
+	PlayerTextDrawSetSelectable(playerid, Alertalogin[playerid][9], 0);
+
+	Alertalogin[playerid][10] = CreatePlayerTextDraw(playerid, 394.000000, 198.000000, "]");
+	PlayerTextDrawFont(playerid, Alertalogin[playerid][10], 2);
+	PlayerTextDrawLetterSize(playerid, Alertalogin[playerid][10], 0.487500, 1.100000);
+	PlayerTextDrawTextSize(playerid, Alertalogin[playerid][10], 526.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, Alertalogin[playerid][10], 0);
+	PlayerTextDrawSetShadow(playerid, Alertalogin[playerid][10], 0);
+	PlayerTextDrawAlignment(playerid, Alertalogin[playerid][10], 1);
+	PlayerTextDrawColor(playerid, Alertalogin[playerid][10], -1);
+	PlayerTextDrawBackgroundColor(playerid, Alertalogin[playerid][10], 255);
+	PlayerTextDrawBoxColor(playerid, Alertalogin[playerid][10], 50);
+	PlayerTextDrawUseBox(playerid, Alertalogin[playerid][10], 0);
+	PlayerTextDrawSetProportional(playerid, Alertalogin[playerid][10], 1);
+	PlayerTextDrawSetSelectable(playerid, Alertalogin[playerid][10], 0);
+
+	RadioVOIP[playerid][0] = CreatePlayerTextDraw(playerid, 480.000000, 403.000000, "ld_pool:ball");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][0], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][0], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][0], 9.500000, 9.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][0], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][0], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][0], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][0], 255);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][0], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][0], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][0], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][0], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][0], 0);
+
+	RadioVOIP[playerid][1] = CreatePlayerTextDraw(playerid, 417.000000, 362.000000, "ld_pool:ball");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][1], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][1], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][1], 9.500000, 9.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][1], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][1], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][1], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][1], 255);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][1], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][1], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][1], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][1], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][1], 0);
+
+	RadioVOIP[playerid][2] = CreatePlayerTextDraw(playerid, 389.000000, 362.000000, "ld_pool:ball");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][2], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][2], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][2], 9.500000, 9.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][2], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][2], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][2], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][2], 255);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][2], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][2], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][2], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][2], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][2], 0);
+
+	RadioVOIP[playerid][3] = CreatePlayerTextDraw(playerid, 379.000000, 367.000000, "ld_card:cd1c");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][3], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][3], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][3], 105.000000, 141.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][3], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][3], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][3], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][3], 255);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][3], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][3], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][3], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][3], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][3], 0);
+
+	RadioVOIP[playerid][4] = CreatePlayerTextDraw(playerid, 386.000000, 415.000000, "ld_pool:ball");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][4], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][4], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][4], 9.000000, 6.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][4], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][4], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][4], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][4], 1296911871);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][4], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][4], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][4], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][4], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][4], 0);
+
+	RadioVOIP[playerid][5] = CreatePlayerTextDraw(playerid, 469.000000, 415.000000, "ld_pool:ball");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][5], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][5], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][5], 9.000000, 6.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][5], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][5], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][5], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][5], 1296911871);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][5], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][5], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][5], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][5], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][5], 0);
+
+	RadioVOIP[playerid][6] = CreatePlayerTextDraw(playerid, 480.000000, 383.000000, "ld_pool:ball");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][6], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][6], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][6], 9.500000, 9.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][6], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][6], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][6], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][6], 255);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][6], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][6], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][6], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][6], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][6], 0);
+
+	RadioVOIP[playerid][7] = CreatePlayerTextDraw(playerid, 388.000000, 374.000000, "ld_pool:ball");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][7], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][7], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][7], 9.500000, 9.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][7], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][7], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][7], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][7], 65535);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][7], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][7], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][7], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][7], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][7], 0);
+
+	RadioVOIP[playerid][8] = CreatePlayerTextDraw(playerid, 386.000000, 435.000000, "ld_pool:ball");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][8], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][8], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][8], 9.000000, 6.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][8], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][8], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][8], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][8], 1296911871);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][8], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][8], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][8], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][8], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][8], 0);
+
+	RadioVOIP[playerid][9] = CreatePlayerTextDraw(playerid, 386.000000, 425.000000, "ld_pool:ball");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][9], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][9], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][9], 9.000000, 6.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][9], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][9], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][9], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][9], 1296911871);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][9], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][9], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][9], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][9], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][9], 0);
+
+	RadioVOIP[playerid][10] = CreatePlayerTextDraw(playerid, 464.000000, 374.000000, "ld_pool:ball");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][10], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][10], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][10], 10.500000, 9.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][10], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][10], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][10], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][10], 65535);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][10], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][10], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][10], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][10], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][10], 0);
+
+	RadioVOIP[playerid][11] = CreatePlayerTextDraw(playerid, 387.000000, 400.000000, "ld_pool:ball");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][11], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][11], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][11], 9.500000, 9.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][11], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][11], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][11], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][11], 65535);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][11], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][11], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][11], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][11], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][11], 0);
+
+	RadioVOIP[playerid][12] = CreatePlayerTextDraw(playerid, 465.000000, 400.000000, "ld_pool:ball");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][12], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][12], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][12], 9.500000, 9.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][12], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][12], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][12], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][12], 65535);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][12], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][12], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][12], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][12], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][12], 0);
+
+	RadioVOIP[playerid][13] = CreatePlayerTextDraw(playerid, 430.000000, 376.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][13], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][13], 0.608331, 3.200000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][13], 298.500000, 68.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][13], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][13], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][13], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][13], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][13], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][13], 65535);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][13], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][13], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][13], 0);
+
+	RadioVOIP[playerid][14] = CreatePlayerTextDraw(playerid, 470.000000, 345.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][14], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][14], 0.600000, 2.299998);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][14], 298.500000, 10.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][14], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][14], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][14], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][14], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][14], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][14], 255);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][14], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][14], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][14], 0);
+
+	RadioVOIP[playerid][15] = CreatePlayerTextDraw(playerid, 470.000000, 323.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][15], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][15], 0.600000, 2.299998);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][15], 297.500000, 4.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][15], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][15], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][15], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][15], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][15], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][15], 255);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][15], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][15], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][15], 0);
+
+	RadioVOIP[playerid][16] = CreatePlayerTextDraw(playerid, 408.000000, 364.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][16], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][16], 0.600000, 0.500000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][16], 298.500000, 26.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][16], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][16], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][16], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][16], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][16], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][16], 255);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][16], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][16], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][16], 0);
+
+	RadioVOIP[playerid][17] = CreatePlayerTextDraw(playerid, 485.000000, 388.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][17], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][17], 0.600000, 2.149996);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][17], 298.000000, 4.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][17], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][17], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][17], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][17], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][17], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][17], 255);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][17], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][17], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][17], 0);
+
+	RadioVOIP[playerid][18] = CreatePlayerTextDraw(playerid, 408.000000, 367.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][18], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][18], 0.600000, -0.150000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][18], 298.500000, 20.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][18], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][18], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][18], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][18], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][18], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][18], 65535);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][18], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][18], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][18], 0);
+
+	RadioVOIP[playerid][19] = CreatePlayerTextDraw(playerid, 469.000000, 425.000000, "ld_pool:ball");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][19], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][19], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][19], 9.000000, 6.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][19], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][19], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][19], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][19], 1296911871);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][19], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][19], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][19], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][19], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][19], 0);
+
+	RadioVOIP[playerid][20] = CreatePlayerTextDraw(playerid, 485.000000, 390.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][20], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][20], 0.600000, 1.649999);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][20], 298.000000, -2.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][20], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][20], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][20], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][20], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][20], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][20], 65535);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][20], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][20], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][20], 0);
+
+	RadioVOIP[playerid][21] = CreatePlayerTextDraw(playerid, 470.000000, 323.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][21], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][21], 0.600000, -0.050000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][21], 298.500000, 2.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][21], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][21], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][21], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][21], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][21], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][21], 65535);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][21], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][21], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][21], 0);
+
+	RadioVOIP[playerid][22] = CreatePlayerTextDraw(playerid, 432.000000, 417.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][22], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][22], 0.608331, 0.200000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][22], 298.500000, 81.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][22], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][22], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][22], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][22], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][22], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][22], 1296911871);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][22], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][22], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][22], 0);
+
+	RadioVOIP[playerid][23] = CreatePlayerTextDraw(playerid, 469.000000, 435.000000, "ld_pool:ball");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][23], 4);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][23], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][23], 9.000000, 6.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][23], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][23], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][23], 1);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][23], 1296911871);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][23], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][23], 50);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][23], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][23], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][23], 0);
+
+	RadioVOIP[playerid][24] = CreatePlayerTextDraw(playerid, 432.000000, 427.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][24], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][24], 0.608331, 0.200000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][24], 298.500000, 81.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][24], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][24], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][24], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][24], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][24], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][24], 1296911871);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][24], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][24], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][24], 0);
+
+	RadioVOIP[playerid][25] = CreatePlayerTextDraw(playerid, 432.000000, 437.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][25], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][25], 0.608331, 0.200000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][25], 298.500000, 81.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][25], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][25], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][25], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][25], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][25], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][25], 1296911871);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][25], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][25], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][25], 0);
+
+	RadioVOIP[playerid][26] = CreatePlayerTextDraw(playerid, 424.000000, 380.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][26], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][26], 0.608331, 2.250000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][26], 298.500000, 68.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][26], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][26], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][26], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][26], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][26], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][26], 65535);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][26], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][26], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][26], 0);
+
+	RadioVOIP[playerid][27] = CreatePlayerTextDraw(playerid, 438.000000, 382.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][27], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][27], 0.608331, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][27], 298.500000, 68.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][27], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][27], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][27], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][27], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][27], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][27], 65535);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][27], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][27], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][27], 0);
+
+	RadioVOIP[playerid][28] = CreatePlayerTextDraw(playerid, 431.000000, 389.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][28], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][28], 0.608331, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][28], 298.500000, 77.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][28], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][28], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][28], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][28], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][28], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][28], 65535);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][28], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][28], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][28], 0);
+
+	RadioVOIP[playerid][29] = CreatePlayerTextDraw(playerid, 431.000000, 381.000000, "1000");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][29], 3);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][29], 0.462498, 1.949998);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][29], 5.500000, 62.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][29], 0);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][29], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][29], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][29], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][29], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][29], 65535);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][29], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][29], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][29], 1);
+
+	RadioVOIP[playerid][30] = CreatePlayerTextDraw(playerid, 432.000000, 401.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][30], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][30], 0.574998, -0.299997);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][30], 298.500000, 32.000000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][30], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][30], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][30], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][30], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][30], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][30], 255);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][30], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][30], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][30], 0);
+
+	RadioVOIP[playerid][31] = CreatePlayerTextDraw(playerid, 432.000000, 404.000000, "_");
+	PlayerTextDrawFont(playerid, RadioVOIP[playerid][31], 1);
+	PlayerTextDrawLetterSize(playerid, RadioVOIP[playerid][31], 0.574998, -0.299997);
+	PlayerTextDrawTextSize(playerid, RadioVOIP[playerid][31], 298.500000, 22.500000);
+	PlayerTextDrawSetOutline(playerid, RadioVOIP[playerid][31], 1);
+	PlayerTextDrawSetShadow(playerid, RadioVOIP[playerid][31], 0);
+	PlayerTextDrawAlignment(playerid, RadioVOIP[playerid][31], 2);
+	PlayerTextDrawColor(playerid, RadioVOIP[playerid][31], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioVOIP[playerid][31], 255);
+	PlayerTextDrawBoxColor(playerid, RadioVOIP[playerid][31], 255);
+	PlayerTextDrawUseBox(playerid, RadioVOIP[playerid][31], 1);
+	PlayerTextDrawSetProportional(playerid, RadioVOIP[playerid][31], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioVOIP[playerid][31], 0);
+
     Registration_PTD[playerid][0] = CreatePlayerTextDraw(playerid, 649.000000, -1.000000, "_");
     PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][0], 255);
     PlayerTextDrawFont(playerid, Registration_PTD[playerid][0], 1);
@@ -8251,12 +9107,12 @@ stock todastextdraw(playerid)
     PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][10], 0);
     PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][10], 0);
 
-    Registration_PTD[playerid][11] = CreatePlayerTextDraw(playerid, 320.000000, 206.000000, "Pedro_System");
+    Registration_PTD[playerid][11] = CreatePlayerTextDraw(playerid, 320.000000, 206.000000, "Luan_Rosa");
     PlayerTextDrawAlignment(playerid, Registration_PTD[playerid][11], 2);
     PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][11], 255);
     PlayerTextDrawFont(playerid, Registration_PTD[playerid][11], 1);
     PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][11], 0.200000, 1.199999);
-    PlayerTextDrawColor(playerid, Registration_PTD[playerid][11], -6259969);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][11], 65535);
     PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][11], 0);
     PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][11], 1);
     PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][11], 0);
@@ -8267,7 +9123,7 @@ stock todastextdraw(playerid)
     PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][12], 255);
     PlayerTextDrawFont(playerid, Registration_PTD[playerid][12], 1);
     PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][12], 0.200000, 1.199999);
-    PlayerTextDrawColor(playerid, Registration_PTD[playerid][12], -6259969);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][12], 65535);
     PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][12], 0);
     PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][12], 1);
     PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][12], 0);
@@ -8279,28 +9135,12 @@ stock todastextdraw(playerid)
     PlayerTextDrawBackgroundColor(playerid, Registration_PTD[playerid][14], 255);
     PlayerTextDrawFont(playerid, Registration_PTD[playerid][14], 1);
     PlayerTextDrawLetterSize(playerid, Registration_PTD[playerid][14], 0.150000, 0.799999);
-    PlayerTextDrawColor(playerid, Registration_PTD[playerid][14], -1);
+    PlayerTextDrawColor(playerid, Registration_PTD[playerid][14], 65535);
     PlayerTextDrawSetOutline(playerid, Registration_PTD[playerid][14], 0);
     PlayerTextDrawSetProportional(playerid, Registration_PTD[playerid][14], 1);
     PlayerTextDrawSetShadow(playerid, Registration_PTD[playerid][14], 0);
     PlayerTextDrawTextSize(playerid, Registration_PTD[playerid][14], 20.0, 20.0);
     PlayerTextDrawSetSelectable(playerid, Registration_PTD[playerid][14], 1);
-
-	//Loadscreen strings e progressbar
-	Loadsc_p[playerid][0] = CreatePlayerTextDraw(playerid, 438.000000, 271.000000, "0%");
-	PlayerTextDrawFont(playerid, Loadsc_p[playerid][0], 2);
-	PlayerTextDrawLetterSize(playerid, Loadsc_p[playerid][0], 0.208333, 1.300000);
-	PlayerTextDrawTextSize(playerid, Loadsc_p[playerid][0], 474.000000, -88.500000);
-	PlayerTextDrawSetOutline(playerid, Loadsc_p[playerid][0], 0);
-	PlayerTextDrawSetShadow(playerid, Loadsc_p[playerid][0], 0);
-	PlayerTextDrawAlignment(playerid, Loadsc_p[playerid][0], 2);
-	PlayerTextDrawColor(playerid, Loadsc_p[playerid][0], -1);
-	PlayerTextDrawBackgroundColor(playerid, Loadsc_p[playerid][0], 255);
-	PlayerTextDrawBoxColor(playerid, Loadsc_p[playerid][0], 50);
-	PlayerTextDrawUseBox(playerid, Loadsc_p[playerid][0], 0);
-	PlayerTextDrawSetProportional(playerid, Loadsc_p[playerid][0], 1);
-	Loadsc_b[playerid][0] = CreatePlayerProgressBar(playerid, 224.000000, 284.000000, 200.000000, -13.000000, 1097458175, 100.000000, 0);
-	SetPlayerProgressBarValue(playerid, Loadsc_b[playerid][0], 0);
 
 	//VELOCIMETRO STRINGS
 	VeloC[playerid][0] = CreatePlayerTextDraw(playerid, 603.909484, 385.416656, "box");
@@ -8569,98 +9409,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, TDCadastro_p[playerid][6], 0);
 	PlayerTextDrawSetProportional(playerid, TDCadastro_p[playerid][6], 1);
 
-		//NEW HUD SERVER STRINGS
-	HudServer_p[playerid][0] = CreatePlayerTextDraw(playerid, 554.000000, 104.000000, "100"); //Batimento cardiaco
-	PlayerTextDrawFont(playerid, HudServer_p[playerid][0], 2);
-	PlayerTextDrawLetterSize(playerid, HudServer_p[playerid][0], 0.162498, 0.750000);
-	PlayerTextDrawTextSize(playerid, HudServer_p[playerid][0], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, HudServer_p[playerid][0], 0);
-	PlayerTextDrawSetShadow(playerid, HudServer_p[playerid][0], 0);
-	PlayerTextDrawAlignment(playerid, HudServer_p[playerid][0], 2);
-	PlayerTextDrawColor(playerid, HudServer_p[playerid][0], -1);
-	PlayerTextDrawBackgroundColor(playerid, HudServer_p[playerid][0], 255);
-	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][0], 50);
-	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][0], 0);
-	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][0], 1);
-
-	HudServer_p[playerid][1] = CreatePlayerTextDraw(playerid, 570.000000, 104.000000, "100"); //Colete
-	PlayerTextDrawFont(playerid, HudServer_p[playerid][1], 2);
-	PlayerTextDrawLetterSize(playerid, HudServer_p[playerid][1], 0.162498, 0.750000);
-	PlayerTextDrawTextSize(playerid, HudServer_p[playerid][1], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, HudServer_p[playerid][1], 0);
-	PlayerTextDrawSetShadow(playerid, HudServer_p[playerid][1], 0);
-	PlayerTextDrawAlignment(playerid, HudServer_p[playerid][1], 2);
-	PlayerTextDrawColor(playerid, HudServer_p[playerid][1], -1);
-	PlayerTextDrawBackgroundColor(playerid, HudServer_p[playerid][1], 255);
-	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][1], 50);
-	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][1], 0);
-	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][1], 1);
-
-	HudServer_p[playerid][2] = CreatePlayerTextDraw(playerid, 586.000000, 104.000000, "100"); //Fome
-	PlayerTextDrawFont(playerid, HudServer_p[playerid][2], 2);
-	PlayerTextDrawLetterSize(playerid, HudServer_p[playerid][2], 0.162498, 0.750000);
-	PlayerTextDrawTextSize(playerid, HudServer_p[playerid][2], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, HudServer_p[playerid][2], 0);
-	PlayerTextDrawSetShadow(playerid, HudServer_p[playerid][2], 0);
-	PlayerTextDrawAlignment(playerid, HudServer_p[playerid][2], 2);
-	PlayerTextDrawColor(playerid, HudServer_p[playerid][2], -1);
-	PlayerTextDrawBackgroundColor(playerid, HudServer_p[playerid][2], 255);
-	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][2], 50);
-	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][2], 0);
-	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][2], 1);
-
-	HudServer_p[playerid][3] = CreatePlayerTextDraw(playerid, 601.000000, 104.000000, "100"); //Sede
-	PlayerTextDrawFont(playerid, HudServer_p[playerid][3], 2);
-	PlayerTextDrawLetterSize(playerid, HudServer_p[playerid][3], 0.162498, 0.750000);
-	PlayerTextDrawTextSize(playerid, HudServer_p[playerid][3], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, HudServer_p[playerid][3], 0);
-	PlayerTextDrawSetShadow(playerid, HudServer_p[playerid][3], 0);
-	PlayerTextDrawAlignment(playerid, HudServer_p[playerid][3], 2);
-	PlayerTextDrawColor(playerid, HudServer_p[playerid][3], -1);
-	PlayerTextDrawBackgroundColor(playerid, HudServer_p[playerid][3], 255);
-	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][3], 50);
-	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][3], 0);
-	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][3], 1);
-
-	HudServer_p[playerid][4] = CreatePlayerTextDraw(playerid, 559.000000, 119.000000, "ld_beat:chit"); //bolinha voip
-	PlayerTextDrawFont(playerid, HudServer_p[playerid][4], 4);
-	PlayerTextDrawLetterSize(playerid, HudServer_p[playerid][4], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, HudServer_p[playerid][4], 10.500000, 12.000000);
-	PlayerTextDrawSetOutline(playerid, HudServer_p[playerid][4], 0);
-	PlayerTextDrawSetShadow(playerid, HudServer_p[playerid][4], 0);
-	PlayerTextDrawAlignment(playerid, HudServer_p[playerid][4], 1);
-	PlayerTextDrawColor(playerid, HudServer_p[playerid][4], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, HudServer_p[playerid][4], 255);
-	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][4], 50);
-	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][4], 1);
-	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][4], 1);
-
-	HudServer_p[playerid][5] = CreatePlayerTextDraw(playerid, 575.000000, 119.000000, "ld_beat:chit"); //bolinha vermelha voip
-	PlayerTextDrawFont(playerid, HudServer_p[playerid][5], 4);
-	PlayerTextDrawLetterSize(playerid, HudServer_p[playerid][5], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, HudServer_p[playerid][5], 10.500000, 12.000000);
-	PlayerTextDrawSetOutline(playerid, HudServer_p[playerid][5], 0);
-	PlayerTextDrawSetShadow(playerid, HudServer_p[playerid][5], 0);
-	PlayerTextDrawAlignment(playerid, HudServer_p[playerid][5], 1);
-	PlayerTextDrawColor(playerid, HudServer_p[playerid][5], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, HudServer_p[playerid][5], 255);
-	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][5], 50);
-	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][5], 1);
-	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][5], 1);
-
-	HudServer_p[playerid][6] = CreatePlayerTextDraw(playerid, 592.000000, 119.000000, "ld_beat:chit"); //bolinha vermelha voip
-	PlayerTextDrawFont(playerid, HudServer_p[playerid][6], 4);
-	PlayerTextDrawLetterSize(playerid, HudServer_p[playerid][6], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, HudServer_p[playerid][6], 10.500000, 12.000000);
-	PlayerTextDrawSetOutline(playerid, HudServer_p[playerid][6], 0);
-	PlayerTextDrawSetShadow(playerid, HudServer_p[playerid][6], 0);
-	PlayerTextDrawAlignment(playerid, HudServer_p[playerid][6], 1);
-	PlayerTextDrawColor(playerid, HudServer_p[playerid][6], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, HudServer_p[playerid][6], 255);
-	PlayerTextDrawBoxColor(playerid, HudServer_p[playerid][6], 50);
-	PlayerTextDrawUseBox(playerid, HudServer_p[playerid][6], 1);
-	PlayerTextDrawSetProportional(playerid, HudServer_p[playerid][6], 1);
-
 	HudCop[playerid][0] = CreatePlayerTextDraw(playerid, 442.000000, 204.000000, "SERVICO");
 	PlayerTextDrawFont(playerid, HudCop[playerid][0], 2);
 	PlayerTextDrawLetterSize(playerid, HudCop[playerid][0], 0.258332, 1.750000);
@@ -8801,29 +9549,29 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetProportional(playerid, CopGuns[playerid][5], 1);
 	PlayerTextDrawSetSelectable(playerid, CopGuns[playerid][5], 1);
 
-	DrawInv[playerid][0] = CreatePlayerTextDraw(playerid, 317.000000, 1.000000, "_");
+	DrawInv[playerid][0] = CreatePlayerTextDraw(playerid, 303.000000, 103.000000, "_");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][0], 1);
-	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][0], 1.208333, 49.799999);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][0], 353.500000, 735.000000);
+	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][0], 0.662499, 22.350040);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][0], 294.500000, 345.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][0], 1);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][0], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][0], 2);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][0], -1);
 	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][0], 255);
-	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][0], 135);
+	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][0], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][0], 1);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][0], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][0], 0);
 
-	DrawInv[playerid][1] = CreatePlayerTextDraw(playerid, 172.000000, 70.000000, "Preview_Model");
+	DrawInv[playerid][1] = CreatePlayerTextDraw(playerid, 132.000000, 107.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][1], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][1], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][1], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][1], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][1], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][1], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][1], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][1], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][1], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][1], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][1], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][1], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][1], 1);
@@ -8832,15 +9580,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][1], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][1], 1, 1);
 
-	DrawInv[playerid][2] = CreatePlayerTextDraw(playerid, 228.000000, 70.000000, "Preview_Model");
+	DrawInv[playerid][2] = CreatePlayerTextDraw(playerid, 180.000000, 107.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][2], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][2], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][2], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][2], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][2], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][2], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][2], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][2], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][2], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][2], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][2], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][2], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][2], 1);
@@ -8849,15 +9597,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][2], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][2], 1, 1);
 
-	DrawInv[playerid][3] = CreatePlayerTextDraw(playerid, 284.000000, 70.000000, "Preview_Model");
+	DrawInv[playerid][3] = CreatePlayerTextDraw(playerid, 227.000000, 107.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][3], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][3], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][3], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][3], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][3], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][3], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][3], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][3], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][3], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][3], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][3], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][3], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][3], 1);
@@ -8866,15 +9614,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][3], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][3], 1, 1);
 
-	DrawInv[playerid][4] = CreatePlayerTextDraw(playerid, 340.000000, 70.000000, "Preview_Model");
+	DrawInv[playerid][4] = CreatePlayerTextDraw(playerid, 275.000000, 107.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][4], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][4], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][4], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][4], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][4], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][4], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][4], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][4], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][4], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][4], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][4], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][4], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][4], 1);
@@ -8883,15 +9631,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][4], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][4], 1, 1);
 
-	DrawInv[playerid][5] = CreatePlayerTextDraw(playerid, 396.000000, 70.000000, "Preview_Model");
+	DrawInv[playerid][5] = CreatePlayerTextDraw(playerid, 322.000000, 107.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][5], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][5], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][5], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][5], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][5], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][5], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][5], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][5], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][5], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][5], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][5], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][5], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][5], 1);
@@ -8900,15 +9648,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][5], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][5], 1, 1);
 
-	DrawInv[playerid][6] = CreatePlayerTextDraw(playerid, 172.000000, 116.000000, "Preview_Model");
+	DrawInv[playerid][6] = CreatePlayerTextDraw(playerid, 132.000000, 138.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][6], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][6], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][6], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][6], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][6], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][6], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][6], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][6], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][6], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][6], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][6], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][6], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][6], 1);
@@ -8917,15 +9665,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][6], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][6], 1, 1);
 
-	DrawInv[playerid][7] = CreatePlayerTextDraw(playerid, 228.000000, 116.000000, "Preview_Model");
+	DrawInv[playerid][7] = CreatePlayerTextDraw(playerid, 180.000000, 138.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][7], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][7], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][7], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][7], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][7], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][7], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][7], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][7], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][7], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][7], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][7], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][7], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][7], 1);
@@ -8934,15 +9682,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][7], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][7], 1, 1);
 
-	DrawInv[playerid][8] = CreatePlayerTextDraw(playerid, 284.000000, 116.000000, "Preview_Model");
+	DrawInv[playerid][8] = CreatePlayerTextDraw(playerid, 227.000000, 138.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][8], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][8], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][8], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][8], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][8], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][8], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][8], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][8], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][8], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][8], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][8], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][8], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][8], 1);
@@ -8951,15 +9699,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][8], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][8], 1, 1);
 
-	DrawInv[playerid][9] = CreatePlayerTextDraw(playerid, 340.000000, 116.000000, "Preview_Model");
+	DrawInv[playerid][9] = CreatePlayerTextDraw(playerid, 275.000000, 138.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][9], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][9], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][9], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][9], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][9], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][9], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][9], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][9], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][9], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][9], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][9], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][9], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][9], 1);
@@ -8968,15 +9716,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][9], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][9], 1, 1);
 
-	DrawInv[playerid][10] = CreatePlayerTextDraw(playerid, 396.000000, 116.000000, "Preview_Model");
+	DrawInv[playerid][10] = CreatePlayerTextDraw(playerid, 322.000000, 138.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][10], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][10], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][10], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][10], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][10], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][10], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][10], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][10], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][10], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][10], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][10], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][10], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][10], 1);
@@ -8985,15 +9733,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][10], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][10], 1, 1);
 
-	DrawInv[playerid][11] = CreatePlayerTextDraw(playerid, 172.000000, 162.000000, "Preview_Model");
+	DrawInv[playerid][11] = CreatePlayerTextDraw(playerid, 132.000000, 169.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][11], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][11], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][11], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][11], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][11], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][11], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][11], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][11], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][11], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][11], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][11], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][11], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][11], 1);
@@ -9002,15 +9750,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][11], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][11], 1, 1);
 
-	DrawInv[playerid][12] = CreatePlayerTextDraw(playerid, 228.000000, 162.000000, "Preview_Model");
+	DrawInv[playerid][12] = CreatePlayerTextDraw(playerid, 180.000000, 169.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][12], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][12], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][12], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][12], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][12], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][12], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][12], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][12], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][12], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][12], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][12], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][12], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][12], 1);
@@ -9019,15 +9767,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][12], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][12], 1, 1);
 
-	DrawInv[playerid][13] = CreatePlayerTextDraw(playerid, 284.000000, 162.000000, "Preview_Model");
+	DrawInv[playerid][13] = CreatePlayerTextDraw(playerid, 227.000000, 169.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][13], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][13], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][13], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][13], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][13], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][13], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][13], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][13], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][13], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][13], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][13], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][13], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][13], 1);
@@ -9036,15 +9784,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][13], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][13], 1, 1);
 
-	DrawInv[playerid][14] = CreatePlayerTextDraw(playerid, 340.000000, 162.000000, "Preview_Model");
+	DrawInv[playerid][14] = CreatePlayerTextDraw(playerid, 275.000000, 169.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][14], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][14], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][14], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][14], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][14], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][14], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][14], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][14], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][14], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][14], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][14], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][14], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][14], 1);
@@ -9053,15 +9801,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][14], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][14], 1, 1);
 
-	DrawInv[playerid][15] = CreatePlayerTextDraw(playerid, 396.000000, 162.000000, "Preview_Model");
+	DrawInv[playerid][15] = CreatePlayerTextDraw(playerid, 322.000000, 169.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][15], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][15], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][15], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][15], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][15], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][15], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][15], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][15], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][15], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][15], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][15], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][15], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][15], 1);
@@ -9070,15 +9818,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][15], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][15], 1, 1);
 
-	DrawInv[playerid][16] = CreatePlayerTextDraw(playerid, 172.000000, 208.000000, "Preview_Model");
+	DrawInv[playerid][16] = CreatePlayerTextDraw(playerid, 132.000000, 200.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][16], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][16], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][16], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][16], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][16], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][16], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][16], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][16], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][16], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][16], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][16], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][16], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][16], 1);
@@ -9087,15 +9835,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][16], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][16], 1, 1);
 
-	DrawInv[playerid][17] = CreatePlayerTextDraw(playerid, 228.000000, 208.000000, "Preview_Model");
+	DrawInv[playerid][17] = CreatePlayerTextDraw(playerid, 180.000000, 200.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][17], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][17], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][17], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][17], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][17], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][17], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][17], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][17], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][17], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][17], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][17], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][17], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][17], 1);
@@ -9104,15 +9852,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][17], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][17], 1, 1);
 
-	DrawInv[playerid][18] = CreatePlayerTextDraw(playerid, 284.000000, 208.000000, "Preview_Model");
+	DrawInv[playerid][18] = CreatePlayerTextDraw(playerid, 227.000000, 200.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][18], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][18], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][18], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][18], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][18], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][18], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][18], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][18], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][18], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][18], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][18], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][18], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][18], 1);
@@ -9121,15 +9869,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][18], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][18], 1, 1);
 
-	DrawInv[playerid][19] = CreatePlayerTextDraw(playerid, 340.000000, 208.000000, "Preview_Model");
+	DrawInv[playerid][19] = CreatePlayerTextDraw(playerid, 275.000000, 200.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][19], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][19], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][19], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][19], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][19], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][19], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][19], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][19], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][19], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][19], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][19], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][19], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][19], 1);
@@ -9138,15 +9886,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][19], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][19], 1, 1);
 
-	DrawInv[playerid][20] = CreatePlayerTextDraw(playerid, 396.000000, 208.000000, "Preview_Model");
+	DrawInv[playerid][20] = CreatePlayerTextDraw(playerid, 322.000000, 200.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][20], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][20], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][20], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][20], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][20], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][20], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][20], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][20], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][20], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][20], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][20], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][20], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][20], 1);
@@ -9155,15 +9903,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][20], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][20], 1, 1);
 
-	DrawInv[playerid][21] = CreatePlayerTextDraw(playerid, 172.000000, 254.000000, "Preview_Model");
+	DrawInv[playerid][21] = CreatePlayerTextDraw(playerid, 132.000000, 231.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][21], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][21], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][21], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][21], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][21], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][21], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][21], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][21], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][21], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][21], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][21], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][21], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][21], 1);
@@ -9172,15 +9920,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][21], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][21], 1, 1);
 
-	DrawInv[playerid][22] = CreatePlayerTextDraw(playerid, 228.000000, 254.000000, "Preview_Model");
+	DrawInv[playerid][22] = CreatePlayerTextDraw(playerid, 180.000000, 231.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][22], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][22], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][22], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][22], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][22], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][22], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][22], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][22], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][22], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][22], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][22], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][22], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][22], 1);
@@ -9189,15 +9937,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][22], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][22], 1, 1);
 
-	DrawInv[playerid][23] = CreatePlayerTextDraw(playerid, 284.000000, 254.000000, "Preview_Model");
+	DrawInv[playerid][23] = CreatePlayerTextDraw(playerid, 227.000000, 231.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][23], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][23], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][23], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][23], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][23], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][23], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][23], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][23], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][23], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][23], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][23], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][23], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][23], 1);
@@ -9206,15 +9954,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][23], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][23], 1, 1);
 
-	DrawInv[playerid][24] = CreatePlayerTextDraw(playerid, 340.000000, 254.000000, "Preview_Model");
+	DrawInv[playerid][24] = CreatePlayerTextDraw(playerid, 275.000000, 231.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][24], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][24], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][24], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][24], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][24], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][24], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][24], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][24], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][24], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][24], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][24], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][24], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][24], 1);
@@ -9223,15 +9971,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][24], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][24], 1, 1);
 
-	DrawInv[playerid][25] = CreatePlayerTextDraw(playerid, 396.000000, 254.000000, "Preview_Model");
+	DrawInv[playerid][25] = CreatePlayerTextDraw(playerid, 322.000000, 231.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][25], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][25], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][25], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][25], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][25], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][25], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][25], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][25], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][25], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][25], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][25], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][25], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][25], 1);
@@ -9240,15 +9988,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][25], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][25], 1, 1);
 
-	DrawInv[playerid][26] = CreatePlayerTextDraw(playerid, 172.000000, 300.000000, "Preview_Model");
+	DrawInv[playerid][26] = CreatePlayerTextDraw(playerid, 132.000000, 262.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][26], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][26], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][26], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][26], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][26], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][26], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][26], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][26], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][26], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][26], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][26], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][26], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][26], 1);
@@ -9257,15 +10005,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][26], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][26], 1, 1);
 
-	DrawInv[playerid][27] = CreatePlayerTextDraw(playerid, 228.000000, 300.000000, "Preview_Model");
+	DrawInv[playerid][27] = CreatePlayerTextDraw(playerid, 180.000000, 262.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][27], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][27], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][27], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][27], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][27], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][27], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][27], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][27], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][27], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][27], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][27], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][27], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][27], 1);
@@ -9274,15 +10022,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][27], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][27], 1, 1);
 
-	DrawInv[playerid][28] = CreatePlayerTextDraw(playerid, 284.000000, 300.000000, "Preview_Model");
+	DrawInv[playerid][28] = CreatePlayerTextDraw(playerid, 227.000000, 262.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][28], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][28], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][28], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][28], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][28], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][28], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][28], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][28], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][28], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][28], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][28], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][28], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][28], 1);
@@ -9291,15 +10039,15 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][28], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][28], 1, 1);
 
-	DrawInv[playerid][29] = CreatePlayerTextDraw(playerid, 340.000000, 300.000000, "Preview_Model");
+	DrawInv[playerid][29] = CreatePlayerTextDraw(playerid, 275.000000, 262.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][29], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][29], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][29], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][29], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][29], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][29], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][29], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][29], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][29], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][29], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][29], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][29], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][29], 1);
@@ -9308,21 +10056,22 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][29], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][29], 1, 1);
 
-	DrawInv[playerid][30] = CreatePlayerTextDraw(playerid, 396.000000, 300.000000, "Preview_Model");
+	DrawInv[playerid][30] = CreatePlayerTextDraw(playerid, 322.000000, 262.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][30], 5);
 	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][30], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][30], 55.000000, 45.500000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][30], 45.000000, 28.500000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][30], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][30], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][30], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][30], -1);
-	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][30], 125);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][30], 65535);
 	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][30], 255);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][30], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][30], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][30], 1);
 	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][30], 15985);
 	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][30], -10.000000, 0.000000, -20.000000, 1.000000);
+	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][30], 1, 1);
 
 	for(new i = 1; i < 33; ++i)
 	{
@@ -9330,60 +10079,112 @@ stock todastextdraw(playerid)
 		if(i == 33)break;
 	}
 
-	DrawInv[playerid][34] = CreatePlayerTextDraw(playerid, 172.000000, 53.000000, "INVENTARIO:_MAX_PLAYER_NAME");
-	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][34], 0.491665, 1.350000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][34], 737.000000, 17.000000);
+	DrawInv[playerid][31] = CreatePlayerTextDraw(playerid, 364.000000, 118.000000, "Preview_Model");
+	PlayerTextDrawFont(playerid, DrawInv[playerid][31], 5);
+	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][31], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][31], 112.500000, 150.000000);
+	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][31], 0);
+	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][31], 0);
+	PlayerTextDrawAlignment(playerid, DrawInv[playerid][31], 1);
+	PlayerTextDrawColor(playerid, DrawInv[playerid][31], -1);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][31], 0);
+	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][31], 255);
+	PlayerTextDrawUseBox(playerid, DrawInv[playerid][31], 0);
+	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][31], 1);
+	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][31], 0);
+	PlayerTextDrawSetPreviewModel(playerid, DrawInv[playerid][31], 230);
+	PlayerTextDrawSetPreviewRot(playerid, DrawInv[playerid][31], -10.000000, 0.000000, -7.000000, 0.819999);
+	PlayerTextDrawSetPreviewVehCol(playerid, DrawInv[playerid][31], 1, 1);
+
+	DrawInv[playerid][32] = CreatePlayerTextDraw(playerid, 410.000000, 116.000000, "1001");
+	PlayerTextDrawFont(playerid, DrawInv[playerid][32], 1);
+	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][32], 0.258332, 1.249997);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][32], 466.000000, 598.000000);
+	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][32], 0);
+	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][32], 0);
+	PlayerTextDrawAlignment(playerid, DrawInv[playerid][32], 1);
+	PlayerTextDrawColor(playerid, DrawInv[playerid][32], -1);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][32], 255);
+	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][32], 50);
+	PlayerTextDrawUseBox(playerid, DrawInv[playerid][32], 0);
+	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][32], 1);
+	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][32], 0);
+
+	DrawInv[playerid][33] = CreatePlayerTextDraw(playerid, 421.000000, 262.000000, "Saquear");
+	PlayerTextDrawFont(playerid, DrawInv[playerid][33], 1);
+	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][33], 0.366665, 1.750000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][33], 16.500000, 90.500000);
+	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][33], 0);
+	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][33], 0);
+	PlayerTextDrawAlignment(playerid, DrawInv[playerid][33], 2);
+	PlayerTextDrawColor(playerid, DrawInv[playerid][33], -1);
+	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][33], 255);
+	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][33], 65535);
+	PlayerTextDrawUseBox(playerid, DrawInv[playerid][33], 1);
+	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][33], 1);
+	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][33], 1);
+
+	DrawInv[playerid][34] = CreatePlayerTextDraw(playerid, 392.000000, 106.000000, "Nome_Sobrenome");
+	PlayerTextDrawFont(playerid, DrawInv[playerid][34], 1);
+	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][34], 0.208332, 1.399997);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][34], 466.000000, 598.000000);
+	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][34], 0);
+	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][34], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][34], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][34], -1);
-	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][34], 0);
-	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][34], 1);
 	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][34], 255);
-	PlayerTextDrawFont(playerid, DrawInv[playerid][34], 1);
+	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][34], 50);
+	PlayerTextDrawUseBox(playerid, DrawInv[playerid][34], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][34], 1);
+	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][34], 0);
 
-	DrawInv[playerid][35] = CreatePlayerTextDraw(playerid, 584.375000, 163.166656, "X");
-	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][35], 0.298748, 0.824165);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][35], 590, 10.000000);
+	DrawInv[playerid][35] = CreatePlayerTextDraw(playerid, 454.000000, 87.000000, "FECHAR");
+	PlayerTextDrawFont(playerid, DrawInv[playerid][35], 1);
+	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][35], 0.208332, 1.399997);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][35], 466.000000, 598.000000);
+	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][35], 0);
+	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][35], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][35], 1);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][35], -16776961);
-	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][35], 0);
 	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][35], 255);
-	PlayerTextDrawFont(playerid, DrawInv[playerid][35], 3);
+	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][35], 50);
+	PlayerTextDrawUseBox(playerid, DrawInv[playerid][35], 0);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][35], 1);
-	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][35], true);
+	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][35], 1);
 
-	DrawInv[playerid][36] = CreatePlayerTextDraw(playerid, 503.000000, 154.000000, "QUANTIDADE");
-	PlayerTextDrawFont(playerid, DrawInv[playerid][36], 2);
-	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][36], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][36], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][36], 4);
+
+	DrawInv[playerid][36] = CreatePlayerTextDraw(playerid, 421.000000, 193.000000, "Quantidade");
+	PlayerTextDrawFont(playerid, DrawInv[playerid][36], 1);
+	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][36], 0.412499, 1.750000);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][36], 16.500000, 91.000000);
+	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][36], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][36], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][36], 2);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][36], -1);
 	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][36], 255);
-	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][36], 200);
+	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][36], 65535);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][36], 1);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][36], 1);
-	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][36], true);
+	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][36], 1);
 
-	DrawInv[playerid][37] = CreatePlayerTextDraw(playerid, 503.000000, 197.000000, "UTILIZAR");
-	PlayerTextDrawFont(playerid, DrawInv[playerid][37], 2);
-	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][37], 0.258332, 1.750000);
+	DrawInv[playerid][37] = CreatePlayerTextDraw(playerid, 421.000000, 216.000000, "Utilizar");
+	PlayerTextDrawFont(playerid, DrawInv[playerid][37], 1);
+	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][37], 0.466666, 1.799998);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][37], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][37], 4);
+	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][37], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][37], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][37], 2);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][37], -1);
 	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][37], 255);
-	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][37], 200);
+	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][37], 65535);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][37], 1);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][37], 1);
-	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][37], true);
+	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][37], 1);
 
-	DrawInv[playerid][38] = CreatePlayerTextDraw(playerid, 294.000000, 347.000000, "Vara de Pesca 100 unidades");
+	DrawInv[playerid][38] = CreatePlayerTextDraw(playerid, 156.000000, 292.000000, "BOMBA MAGNETICA 1000 UNIDADES");
 	PlayerTextDrawFont(playerid, DrawInv[playerid][38], 1);
-	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][38], 0.312500, 1.350000);
-	PlayerTextDrawTextSize(playerid, DrawInv[playerid][38], 576.500000, 17.000000);
+	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][38], 0.212498, 1.149997);
+	PlayerTextDrawTextSize(playerid, DrawInv[playerid][38], 529.500000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][38], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][38], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][38], 1);
@@ -9394,20 +10195,20 @@ stock todastextdraw(playerid)
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][38], 1);
 	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][38], 0);
 
-	DrawInv[playerid][39] = CreatePlayerTextDraw(playerid, 503.000000, 175.000000, "DROPAR");
-	PlayerTextDrawFont(playerid, DrawInv[playerid][39], 2);
-	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][39], 0.258332, 1.750000);
+	DrawInv[playerid][39] = CreatePlayerTextDraw(playerid, 421.000000, 239.000000, "Dropar");
+	PlayerTextDrawFont(playerid, DrawInv[playerid][39], 1);
+	PlayerTextDrawLetterSize(playerid, DrawInv[playerid][39], 0.366665, 1.750000);
 	PlayerTextDrawTextSize(playerid, DrawInv[playerid][39], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][39], 4);
+	PlayerTextDrawSetOutline(playerid, DrawInv[playerid][39], 0);
 	PlayerTextDrawSetShadow(playerid, DrawInv[playerid][39], 0);
 	PlayerTextDrawAlignment(playerid, DrawInv[playerid][39], 2);
 	PlayerTextDrawColor(playerid, DrawInv[playerid][39], -1);
 	PlayerTextDrawBackgroundColor(playerid, DrawInv[playerid][39], 255);
-	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][39], 200);
+	PlayerTextDrawBoxColor(playerid, DrawInv[playerid][39], 65535);
 	PlayerTextDrawUseBox(playerid, DrawInv[playerid][39], 1);
 	PlayerTextDrawSetProportional(playerid, DrawInv[playerid][39], 1);
-	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][39], true);
-
+	PlayerTextDrawSetSelectable(playerid, DrawInv[playerid][39], 1);
+	
 	//TD BANCO
 
     BancoTD[playerid][0] = CreatePlayerTextDraw(playerid, 320.000000, 126.000000, "_");
@@ -10045,37 +10846,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawTextSize(playerid, text, 680.0, 500.0);
 
 }
-stock CreateTelaLogin(){
-
-	//Loadscreen
-	Loadsc[0] = TextDrawCreate(321.000000, -6.000000, "_");
-	TextDrawFont(Loadsc[0], 1);
-	TextDrawLetterSize(Loadsc[0], 0.662499, 52.049987);
-	TextDrawTextSize(Loadsc[0], 298.500000, 751.000000);
-	TextDrawSetOutline(Loadsc[0], 1);
-	TextDrawSetShadow(Loadsc[0], 0);
-	TextDrawAlignment(Loadsc[0], 2);
-	TextDrawColor(Loadsc[0], -1);
-	TextDrawBackgroundColor(Loadsc[0], 255);
-	TextDrawBoxColor(Loadsc[0], 471604479);
-	TextDrawUseBox(Loadsc[0], 1);
-	TextDrawSetProportional(Loadsc[0], 1);
-	TextDrawSetSelectable(Loadsc[0], 0);
-
-	Loadsc[1] = TextDrawCreate(230.000000, 248.000000, "BAIXANDO DADOS DO SERVIDOR, AGUARDE...");
-	TextDrawFont(Loadsc[1], 2);
-	TextDrawLetterSize(Loadsc[1], 0.208333, 1.300000);
-	TextDrawTextSize(Loadsc[1], 474.000000, -88.500000);
-	TextDrawSetOutline(Loadsc[1], 0);
-	TextDrawSetShadow(Loadsc[1], 0);
-	TextDrawAlignment(Loadsc[1], 1);
-	TextDrawColor(Loadsc[1], -1);
-	TextDrawBackgroundColor(Loadsc[1], 255);
-	TextDrawBoxColor(Loadsc[1], 50);
-	TextDrawUseBox(Loadsc[1], 0);
-	TextDrawSetProportional(Loadsc[1], 1);
-	TextDrawSetSelectable(Loadsc[1], 0);
-}
 
 stock GetPlayerSerial(playerid)
 {
@@ -10572,19 +11342,19 @@ stock NomeOrg(playerid)
 	}
 	if(org == 5)
 	{
-		orG = "Tropa dos Vermelhos";
+		orG = "Comando Vermelho";
 	}
 	if(org == 6)
 	{
-		orG = "Tropa dos Azuis";
+		orG = "Amigos dos Amigos";
 	}
 	if(org == 7)
 	{
-		orG = "Tropa dos Amarelos";
+		orG = "Terceiro Comando Puro";
 	}
 	if(org == 8)
 	{
-		orG = "Tropa dos Verde";
+		orG = "Primeiro Comando da Capital";
 	}
 	if(org == 9)
 	{
@@ -10652,7 +11422,7 @@ stock CreateCaixa(objectid, Float:x, Float:y, Float:z, Float:rotx, Float:roty, F
 
 	GetDynamicObjectPos(CaixaInfo[caixaid][Caixa_Object], pX, pY, pZ);
 	GetXYInFrontOfCaixa(CaixaInfo[caixaid][Caixa_Object], pX, pY, 1.0);
-	CaixaInfo[caixaid][Caixa_Pickup] = CreatePickup(1274 , 1, pX,pY,pZ);
+	CaixaInfo[caixaid][Caixa_Pickup] = CreatePickup(2992 , 1, pX,pY,pZ);
 	CaixaInfo[caixaid][Caixa_Text] = Create3DTextLabel("{FFFFFF}Caixa Registradora\n{FFFFFF}Aperte '{5b6ed9}F{FFFFFF}' para acessar", 0x33FFFF88, pX, pY, pZ, 15.0, 0);
 
     caixaid ++;
@@ -10669,7 +11439,7 @@ stock GranaRoubo(playerid, caixa_id)
 	SetPVarFloat(playerid, "RouboZ", z);
 
 	RoubandoCaixa[playerid] = true;
-	ApplyAnimation(playerid,"ROB_BANK","CAT_Safe_Rob",4.1,1,0,0,0,1);
+	ApplyAnimation(playerid,"ROB_BANK","CAT_Safe_Rob",4.0, 1, 0, 0, 0, 0);
 
 	SetTimerEx(#ApplyAnim, 500, 0, "i", playerid);
 	SetTimerEx("PegarMoney", 10000, 0, "id", playerid, caixa_id);
@@ -10707,16 +11477,17 @@ stock ConvertTimeX(number)
 
 stock AdminCargo(playerid)
 {
-	new LipeStrondaAdmin[64];
-	if(PlayerInfo[playerid][pAdmin] == 0) { LipeStrondaAdmin = "  "; }
-	else if(PlayerInfo[playerid][pAdmin] == 1) { LipeStrondaAdmin = "Estagiario"; }
-	else if(PlayerInfo[playerid][pAdmin] == 2) { LipeStrondaAdmin = "Administrador"; }
-	else if(PlayerInfo[playerid][pAdmin] == 3) { LipeStrondaAdmin = "Administrador Geral"; }
-	else if(PlayerInfo[playerid][pAdmin] == 4) { LipeStrondaAdmin = "Supervisor"; }
-	else if(PlayerInfo[playerid][pAdmin] == 5) { LipeStrondaAdmin = "Diretor"; }
-	else if(PlayerInfo[playerid][pAdmin] == 6) { LipeStrondaAdmin = "Fundador"; }
-	else if(PlayerInfo[playerid][pAdmin] == 7) { LipeStrondaAdmin = "Desenvolvedor"; }
-	return LipeStrondaAdmin;
+	new AdmCargo[64];
+	if(PlayerInfo[playerid][pAdmin] == 0) { AdmCargo = "  "; }
+	else if(PlayerInfo[playerid][pAdmin] == 1) { AdmCargo = "Helper"; }
+	else if(PlayerInfo[playerid][pAdmin] == 2) { AdmCargo = "SubAdministrador"; }
+	else if(PlayerInfo[playerid][pAdmin] == 3) { AdmCargo = "Administrador"; }
+	else if(PlayerInfo[playerid][pAdmin] == 4) { AdmCargo = "SubMaster"; }
+	else if(PlayerInfo[playerid][pAdmin] == 5) { AdmCargo = "Master"; }
+	else if(PlayerInfo[playerid][pAdmin] == 6) { AdmCargo = "Gerente"; }
+	else if(PlayerInfo[playerid][pAdmin] == 7) { AdmCargo = "Dono"; }
+	else if(PlayerInfo[playerid][pAdmin] == 8) { AdmCargo = "Fundador"; }
+	return AdmCargo;
 }
 
 stock Dispositivo(playerid)
@@ -10836,7 +11607,7 @@ stock SalvarVIP(playerid)
 
 stock PreloadAnimLib(playerid, animlib[])
 {
-	ApplyAnimation(playerid,animlib,"null",0.0,0,0,0,0,1);
+	ApplyAnimation(playerid,animlib,"null",4.0, 1, 0, 0, 0, 0);
 }
 
 stock randomEx(minnum = cellmin, maxnum = cellmax)
@@ -11103,7 +11874,6 @@ stock ZerarDados(playerid)
 	Susurrando[playerid] = false;
 	Falando[playerid] = false;
 	Gritando[playerid] = false;
-	MostrandoMenu[playerid] = false;
 	Casavehcorreios[playerid] = false;
 	Casavehcorreios2[playerid] = false;
 	checkcasa[playerid] = false;
@@ -11172,7 +11942,6 @@ stock ZerarDados(playerid)
     SetPlayerSkillLevel(playerid,WEAPONSKILL_MICRO_UZI,200);
 	for(new i=0;i<6;i++){
 		Preview[playerid][i] = 0;
-		if(i == 6)break;
 	}
 	EntregaSdx[playerid] = false;
 	return 1;
@@ -11542,6 +12311,18 @@ stock GetXYInFrontOfCaixa(objectid, &Float:q, &Float:w, Float:distance)
 
 public OnGameModeInit()
 {
+	ChatLocalLog = DCC_FindChannelById("1179147127386021909");
+	PayDayLog = DCC_FindChannelById("1179147290108231793");
+	EntradaSaidaLog = DCC_FindChannelById("1181061439054680164");
+	ChatAdmLog = DCC_FindChannelById("1181061611721605220");
+	SetagensLog = DCC_FindChannelById("1179147434476191886");
+	ReportsLog = DCC_FindChannelById("1179147515082326137");
+	CoinsAtivadosLog = DCC_FindChannelById("1179147729738420304");
+	CompraFeitasLog = DCC_FindChannelById("1179147837796274306");
+	NovoUsuarioLog = DCC_FindChannelById("1179148310129418331");
+	EmailLog = DCC_FindChannelById("1179148766297731204");
+	PunicoesLog = DCC_FindChannelById("1179148860669558844");
+	ComandosLog = DCC_FindChannelById("1179144958045851688");
 	SetGameModeText(VERSAOSERVER);
     SendRconCommand("language Portugu�s - Brasil");
 	SendRconCommand("ackslimit 5000");
@@ -11565,49 +12346,222 @@ public OnGameModeInit()
 	CarregarGZ2();
 	CarregarPlantacao();
 	CarregarDinRoubos();
-	CreateTelaLogin();
 
-	LogoHM[0] = TextDrawCreate(322.000000, 6.000000, "HOME");
-	TextDrawFont(LogoHM[0], 2);
-	TextDrawLetterSize(LogoHM[0], 0.408333, 2.049998);
-	TextDrawTextSize(LogoHM[0], 400.000000, 17.000000);
-	TextDrawSetOutline(LogoHM[0], 1);
-	TextDrawSetShadow(LogoHM[0], 0);
-	TextDrawAlignment(LogoHM[0], 2);
-	TextDrawColor(LogoHM[0], -146);
-	TextDrawBackgroundColor(LogoHM[0], 1097458175);
-	TextDrawBoxColor(LogoHM[0], 50);
-	TextDrawUseBox(LogoHM[0], 0);
-	TextDrawSetProportional(LogoHM[0], 1);
-	TextDrawSetSelectable(LogoHM[0], 0);
+    HudNovo[2] = TextDrawCreate(544.000000, 421.000000, "ld_beat:chit");
+    TextDrawFont(HudNovo[2], 4);
+    TextDrawLetterSize(HudNovo[2], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[2], 22.000000, 23.500000);
+    TextDrawSetOutline(HudNovo[2], 1);
+    TextDrawSetShadow(HudNovo[2], 0);
+    TextDrawAlignment(HudNovo[2], 1);
+    TextDrawColor(HudNovo[2], -14145281);
+    TextDrawBackgroundColor(HudNovo[2], 255);
+    TextDrawBoxColor(HudNovo[2], 50);
+    TextDrawUseBox(HudNovo[2], 1);
+    TextDrawSetProportional(HudNovo[2], 1);
+    TextDrawSetSelectable(HudNovo[2], 0);
 
-	LogoHM[1] = TextDrawCreate(322.000000, 19.000000, "LAND");
-	TextDrawFont(LogoHM[1], 2);
-	TextDrawLetterSize(LogoHM[1], 0.408333, 2.049998);
-	TextDrawTextSize(LogoHM[1], 400.000000, 17.000000);
-	TextDrawSetOutline(LogoHM[1], 1);
-	TextDrawSetShadow(LogoHM[1], 0);
-	TextDrawAlignment(LogoHM[1], 2);
-	TextDrawColor(LogoHM[1], -146);
-	TextDrawBackgroundColor(LogoHM[1], 1097458175);
-	TextDrawBoxColor(LogoHM[1], 50);
-	TextDrawUseBox(LogoHM[1], 0);
-	TextDrawSetProportional(LogoHM[1], 1);
-	TextDrawSetSelectable(LogoHM[1], 0);
+    HudNovo[3] = TextDrawCreate(561.000000, 421.000000, "ld_beat:chit");
+    TextDrawFont(HudNovo[3], 4);
+    TextDrawLetterSize(HudNovo[3], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[3], 22.000000, 23.500000);
+    TextDrawSetOutline(HudNovo[3], 1);
+    TextDrawSetShadow(HudNovo[3], 0);
+    TextDrawAlignment(HudNovo[3], 1);
+    TextDrawColor(HudNovo[3], 1296911871);
+    TextDrawBackgroundColor(HudNovo[3], 255);
+    TextDrawBoxColor(HudNovo[3], 50);
+    TextDrawUseBox(HudNovo[3], 1);
+    TextDrawSetProportional(HudNovo[3], 1);
+    TextDrawSetSelectable(HudNovo[3], 0);
 
-	LogoHM[2] = TextDrawCreate(310.000000, 10.000000, "]");
-	TextDrawFont(LogoHM[2], 2);
-	TextDrawLetterSize(LogoHM[2], 0.316666, 1.300000);
-	TextDrawTextSize(LogoHM[2], 400.000000, 17.000000);
-	TextDrawSetOutline(LogoHM[2], 0);
-	TextDrawSetShadow(LogoHM[2], 0);
-	TextDrawAlignment(LogoHM[2], 1);
-	TextDrawColor(LogoHM[2], -65281);
-	TextDrawBackgroundColor(LogoHM[2], 255);
-	TextDrawBoxColor(LogoHM[2], 50);
-	TextDrawUseBox(LogoHM[2], 0);
-	TextDrawSetProportional(LogoHM[2], 1);
-	TextDrawSetSelectable(LogoHM[2], 0);
+    HudNovo[4] = TextDrawCreate(578.000000, 421.000000, "ld_beat:chit");
+    TextDrawFont(HudNovo[4], 4);
+    TextDrawLetterSize(HudNovo[4], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[4], 22.000000, 23.500000);
+    TextDrawSetOutline(HudNovo[4], 1);
+    TextDrawSetShadow(HudNovo[4], 0);
+    TextDrawAlignment(HudNovo[4], 1);
+    TextDrawColor(HudNovo[4], -8899841);
+    TextDrawBackgroundColor(HudNovo[4], 255);
+    TextDrawBoxColor(HudNovo[4], 50);
+    TextDrawUseBox(HudNovo[4], 1);
+    TextDrawSetProportional(HudNovo[4], 1);
+    TextDrawSetSelectable(HudNovo[4], 0);
+
+    HudNovo[5] = TextDrawCreate(595.000000, 421.000000, "ld_beat:chit");
+    TextDrawFont(HudNovo[5], 4);
+    TextDrawLetterSize(HudNovo[5], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[5], 22.000000, 23.500000);
+    TextDrawSetOutline(HudNovo[5], 1);
+    TextDrawSetShadow(HudNovo[5], 0);
+    TextDrawAlignment(HudNovo[5], 1);
+    TextDrawColor(HudNovo[5], 682288895);
+    TextDrawBackgroundColor(HudNovo[5], 255);
+    TextDrawBoxColor(HudNovo[5], 50);
+    TextDrawUseBox(HudNovo[5], 1);
+    TextDrawSetProportional(HudNovo[5], 1);
+    TextDrawSetSelectable(HudNovo[5], 0);
+
+    HudNovo[7] = TextDrawCreate(527.000000, 421.000000, "ld_beat:chit");
+    TextDrawFont(HudNovo[7], 4);
+    TextDrawLetterSize(HudNovo[7], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[7], 22.000000, 23.500000);
+    TextDrawSetOutline(HudNovo[7], 1);
+    TextDrawSetShadow(HudNovo[7], 0);
+    TextDrawAlignment(HudNovo[7], 1);
+    TextDrawColor(HudNovo[7], 512555775);
+    TextDrawBackgroundColor(HudNovo[7], 255);
+    TextDrawBoxColor(HudNovo[7], 50);
+    TextDrawUseBox(HudNovo[7], 1);
+    TextDrawSetProportional(HudNovo[7], 1);
+    TextDrawSetSelectable(HudNovo[7], 0);
+
+    HudNovo[8] = TextDrawCreate(529.000000, 423.000000, "ld_beat:chit");
+    TextDrawFont(HudNovo[8], 4);
+    TextDrawLetterSize(HudNovo[8], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[8], 18.000000, 19.500000);
+    TextDrawSetOutline(HudNovo[8], 1);
+    TextDrawSetShadow(HudNovo[8], 0);
+    TextDrawAlignment(HudNovo[8], 1);
+    TextDrawColor(HudNovo[8], 336860415);
+    TextDrawBackgroundColor(HudNovo[8], 255);
+    TextDrawBoxColor(HudNovo[8], 50);
+    TextDrawUseBox(HudNovo[8], 1);
+    TextDrawSetProportional(HudNovo[8], 1);
+    TextDrawSetSelectable(HudNovo[8], 0);
+
+    HudNovo[9] = TextDrawCreate(546.000000, 423.000000, "ld_beat:chit");
+    TextDrawFont(HudNovo[9], 4);
+    TextDrawLetterSize(HudNovo[9], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[9], 18.000000, 19.500000);
+    TextDrawSetOutline(HudNovo[9], 1);
+    TextDrawSetShadow(HudNovo[9], 0);
+    TextDrawAlignment(HudNovo[9], 1);
+    TextDrawColor(HudNovo[9], 336860415);
+    TextDrawBackgroundColor(HudNovo[9], 255);
+    TextDrawBoxColor(HudNovo[9], 50);
+    TextDrawUseBox(HudNovo[9], 1);
+    TextDrawSetProportional(HudNovo[9], 1);
+    TextDrawSetSelectable(HudNovo[9], 0);
+
+    HudNovo[10] = TextDrawCreate(563.000000, 423.000000, "ld_beat:chit");
+    TextDrawFont(HudNovo[10], 4);
+    TextDrawLetterSize(HudNovo[10], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[10], 18.000000, 19.500000);
+    TextDrawSetOutline(HudNovo[10], 1);
+    TextDrawSetShadow(HudNovo[10], 0);
+    TextDrawAlignment(HudNovo[10], 1);
+    TextDrawColor(HudNovo[10], 336860415);
+    TextDrawBackgroundColor(HudNovo[10], 255);
+    TextDrawBoxColor(HudNovo[10], 50);
+    TextDrawUseBox(HudNovo[10], 1);
+    TextDrawSetProportional(HudNovo[10], 1);
+    TextDrawSetSelectable(HudNovo[10], 0);
+
+    HudNovo[11] = TextDrawCreate(580.000000, 423.000000, "ld_beat:chit");
+    TextDrawFont(HudNovo[11], 4);
+    TextDrawLetterSize(HudNovo[11], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[11], 18.000000, 19.500000);
+    TextDrawSetOutline(HudNovo[11], 1);
+    TextDrawSetShadow(HudNovo[11], 0);
+    TextDrawAlignment(HudNovo[11], 1);
+    TextDrawColor(HudNovo[11], 336860415);
+    TextDrawBackgroundColor(HudNovo[11], 255);
+    TextDrawBoxColor(HudNovo[11], 50);
+    TextDrawUseBox(HudNovo[11], 1);
+    TextDrawSetProportional(HudNovo[11], 1);
+    TextDrawSetSelectable(HudNovo[11], 0);
+
+    HudNovo[12] = TextDrawCreate(597.000000, 423.000000, "ld_beat:chit");
+    TextDrawFont(HudNovo[12], 4);
+    TextDrawLetterSize(HudNovo[12], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[12], 18.000000, 19.500000);
+    TextDrawSetOutline(HudNovo[12], 1);
+    TextDrawSetShadow(HudNovo[12], 0);
+    TextDrawAlignment(HudNovo[12], 1);
+    TextDrawColor(HudNovo[12], 336860415);
+    TextDrawBackgroundColor(HudNovo[12], 255);
+    TextDrawBoxColor(HudNovo[12], 50);
+    TextDrawUseBox(HudNovo[12], 1);
+    TextDrawSetProportional(HudNovo[12], 1);
+    TextDrawSetSelectable(HudNovo[12], 0);
+
+    HudNovo[14] = TextDrawCreate(530.000000, 428.000000, "Preview_Model");
+    TextDrawFont(HudNovo[14], 5);
+    TextDrawLetterSize(HudNovo[14], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[14], 16.000000, 11.000000);
+    TextDrawSetOutline(HudNovo[14], 0);
+    TextDrawSetShadow(HudNovo[14], 0);
+    TextDrawAlignment(HudNovo[14], 1);
+    TextDrawColor(HudNovo[14], -1);
+    TextDrawBackgroundColor(HudNovo[14], 0);
+    TextDrawBoxColor(HudNovo[14], 255);
+    TextDrawUseBox(HudNovo[14], 0);
+    TextDrawSetProportional(HudNovo[14], 1);
+    TextDrawSetSelectable(HudNovo[14], 0);
+    TextDrawSetPreviewModel(HudNovo[14], 19610);
+    TextDrawSetPreviewRot(HudNovo[14], 80.000000, 1.000000, -1.000000, 1.000000);
+    TextDrawSetPreviewVehCol(HudNovo[14], 1, 1);
+
+    HudNovo[15] = TextDrawCreate(551.000000, 429.000000, "HUD:radar_girlfriend");
+    TextDrawFont(HudNovo[15], 4);
+    TextDrawLetterSize(HudNovo[15], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[15], 7.500000, 7.000000);
+    TextDrawSetOutline(HudNovo[15], 1);
+    TextDrawSetShadow(HudNovo[15], 0);
+    TextDrawAlignment(HudNovo[15], 1);
+    TextDrawColor(HudNovo[15], -1);
+    TextDrawBackgroundColor(HudNovo[15], 255);
+    TextDrawBoxColor(HudNovo[15], 50);
+    TextDrawUseBox(HudNovo[15], 1);
+    TextDrawSetProportional(HudNovo[15], 1);
+    TextDrawSetSelectable(HudNovo[15], 0);
+
+    HudNovo[16] = TextDrawCreate(565.000000, 427.000000, "Preview_Model");
+    TextDrawFont(HudNovo[16], 5);
+    TextDrawLetterSize(HudNovo[16], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[16], 14.000000, 11.000000);
+    TextDrawSetOutline(HudNovo[16], 0);
+    TextDrawSetShadow(HudNovo[16], 0);
+    TextDrawAlignment(HudNovo[16], 1);
+    TextDrawColor(HudNovo[16], -1);
+    TextDrawBackgroundColor(HudNovo[16], 0);
+    TextDrawBoxColor(HudNovo[16], 255);
+    TextDrawUseBox(HudNovo[16], 0);
+    TextDrawSetProportional(HudNovo[16], 1);
+    TextDrawSetSelectable(HudNovo[16], 0);
+    TextDrawSetPreviewModel(HudNovo[16], 19142);
+    TextDrawSetPreviewRot(HudNovo[16], 73.000000, -86.000000, 92.000000, 1.000000);
+    TextDrawSetPreviewVehCol(HudNovo[16], 1, 1);
+
+    HudNovo[17] = TextDrawCreate(585.000000, 429.000000, "HUD:radar_pizza");
+    TextDrawFont(HudNovo[17], 4);
+    TextDrawLetterSize(HudNovo[17], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[17], 7.500000, 7.500000);
+    TextDrawSetOutline(HudNovo[17], 1);
+    TextDrawSetShadow(HudNovo[17], 0);
+    TextDrawAlignment(HudNovo[17], 1);
+    TextDrawColor(HudNovo[17], -1);
+    TextDrawBackgroundColor(HudNovo[17], 255);
+    TextDrawBoxColor(HudNovo[17], 50);
+    TextDrawUseBox(HudNovo[17], 1);
+    TextDrawSetProportional(HudNovo[17], 1);
+    TextDrawSetSelectable(HudNovo[17], 0);
+
+    HudNovo[18] = TextDrawCreate(603.000000, 429.000000, "HUD:radar_diner");
+    TextDrawFont(HudNovo[18], 4);
+    TextDrawLetterSize(HudNovo[18], 0.600000, 2.000000);
+    TextDrawTextSize(HudNovo[18], 6.500000, 7.500000);
+    TextDrawSetOutline(HudNovo[18], 1);
+    TextDrawSetShadow(HudNovo[18], 0);
+    TextDrawAlignment(HudNovo[18], 1);
+    TextDrawColor(HudNovo[18], -1);
+    TextDrawBackgroundColor(HudNovo[18], 255);
+    TextDrawBoxColor(HudNovo[18], 50);
+    TextDrawUseBox(HudNovo[18], 1);
+    TextDrawSetProportional(HudNovo[18], 1);
+    TextDrawSetSelectable(HudNovo[18], 0);
 
 	Textdraw0 = TextDrawCreate(320.000000, 180.000000, "ALERTA~n~~n~~n~");
 	TextDrawAlignment(Textdraw0, 2);
@@ -12491,231 +13445,6 @@ public OnGameModeInit()
 	TextDrawUseBox(TDCadastro[17], 0);
 	TextDrawSetProportional(TDCadastro[17], 1);
 
-		//NEW HUD SERVER
-	HudServer[0] = TextDrawCreate(545.000000, 88.000000, "ld_beat:chit");
-	TextDrawFont(HudServer[0], 4);
-	TextDrawLetterSize(HudServer[0], 0.600000, 2.000000);
-	TextDrawTextSize(HudServer[0], 18.500000, 19.500000);
-	TextDrawSetOutline(HudServer[0], 1);
-	TextDrawSetShadow(HudServer[0], 0);
-	TextDrawAlignment(HudServer[0], 1);
-	TextDrawColor(HudServer[0], -65281);
-	TextDrawBackgroundColor(HudServer[0], 255);
-	TextDrawBoxColor(HudServer[0], 50);
-	TextDrawUseBox(HudServer[0], 1);
-	TextDrawSetProportional(HudServer[0], 1);
-
-	HudServer[1] = TextDrawCreate(546.000000, 90.000000, "ld_beat:chit");
-	TextDrawFont(HudServer[1], 4);
-	TextDrawLetterSize(HudServer[1], 0.600000, 2.000000);
-	TextDrawTextSize(HudServer[1], 16.000000, 15.500000);
-	TextDrawSetOutline(HudServer[1], 0);
-	TextDrawSetShadow(HudServer[1], 0);
-	TextDrawAlignment(HudServer[1], 1);
-	TextDrawColor(HudServer[1], 255);
-	TextDrawBackgroundColor(HudServer[1], 255);
-	TextDrawBoxColor(HudServer[1], 50);
-	TextDrawUseBox(HudServer[1], 1);
-	TextDrawSetProportional(HudServer[1], 1);
-
-	HudServer[2] = TextDrawCreate(551.000000, 95.000000, "HUD:radar_girlfriend");
-	TextDrawFont(HudServer[2], 4);
-	TextDrawLetterSize(HudServer[2], 0.600000, 2.000000);
-	TextDrawTextSize(HudServer[2], 6.500000, 6.000000);
-	TextDrawSetOutline(HudServer[2], 0);
-	TextDrawSetShadow(HudServer[2], 0);
-	TextDrawAlignment(HudServer[2], 1);
-	TextDrawColor(HudServer[2], -16776961);
-	TextDrawBackgroundColor(HudServer[2], 255);
-	TextDrawBoxColor(HudServer[2], 50);
-	TextDrawUseBox(HudServer[2], 1);
-	TextDrawSetProportional(HudServer[2], 1);
-
-	HudServer[3] = TextDrawCreate(560.000000, 88.000000, "ld_beat:chit");
-	TextDrawFont(HudServer[3], 4);
-	TextDrawLetterSize(HudServer[3], 0.600000, 2.000000);
-	TextDrawTextSize(HudServer[3], 18.500000, 19.500000);
-	TextDrawSetOutline(HudServer[3], 1);
-	TextDrawSetShadow(HudServer[3], 0);
-	TextDrawAlignment(HudServer[3], 1);
-	TextDrawColor(HudServer[3], -65281);
-	TextDrawBackgroundColor(HudServer[3], 255);
-	TextDrawBoxColor(HudServer[3], 50);
-	TextDrawUseBox(HudServer[3], 1);
-	TextDrawSetProportional(HudServer[3], 1);
-
-	HudServer[4] = TextDrawCreate(562.000000, 90.000000, "ld_beat:chit");
-	TextDrawFont(HudServer[4], 4);
-	TextDrawLetterSize(HudServer[4], 0.600000, 2.000000);
-	TextDrawTextSize(HudServer[4], 15.000000, 15.500000);
-	TextDrawSetOutline(HudServer[4], 0);
-	TextDrawSetShadow(HudServer[4], 0);
-	TextDrawAlignment(HudServer[4], 1);
-	TextDrawColor(HudServer[4], 255);
-	TextDrawBackgroundColor(HudServer[4], 255);
-	TextDrawBoxColor(HudServer[4], 50);
-	TextDrawUseBox(HudServer[4], 1);
-	TextDrawSetProportional(HudServer[4], 1);
-
-	HudServer[5] = TextDrawCreate(564.000000, 94.000000, "Preview_Model");
-	TextDrawFont(HudServer[5], 5);
-	TextDrawLetterSize(HudServer[5], 0.600000, 2.000000);
-	TextDrawTextSize(HudServer[5], 11.000000, 8.500000);
-	TextDrawSetOutline(HudServer[5], 0);
-	TextDrawSetShadow(HudServer[5], 0);
-	TextDrawAlignment(HudServer[5], 1);
-	TextDrawColor(HudServer[5], -1);
-	TextDrawBackgroundColor(HudServer[5], 0);
-	TextDrawBoxColor(HudServer[5], 255);
-	TextDrawUseBox(HudServer[5], 0);
-	TextDrawSetProportional(HudServer[5], 1);
-	TextDrawSetPreviewModel(HudServer[5], 1242);
-	TextDrawSetPreviewRot(HudServer[5], -10.000000, 0.000000, 0.000000, 1.000000);
-	TextDrawSetPreviewVehCol(HudServer[5], 1, 1);
-
-	HudServer[6] = TextDrawCreate(576.000000, 88.000000, "ld_beat:chit");
-	TextDrawFont(HudServer[6], 4);
-	TextDrawLetterSize(HudServer[6], 0.600000, 2.000000);
-	TextDrawTextSize(HudServer[6], 18.500000, 19.500000);
-	TextDrawSetOutline(HudServer[6], 1);
-	TextDrawSetShadow(HudServer[6], 0);
-	TextDrawAlignment(HudServer[6], 1);
-	TextDrawColor(HudServer[6], -65281);
-	TextDrawBackgroundColor(HudServer[6], 255);
-	TextDrawBoxColor(HudServer[6], 50);
-	TextDrawUseBox(HudServer[6], 1);
-	TextDrawSetProportional(HudServer[6], 1);
-
-	HudServer[7] = TextDrawCreate(577.000000, 90.000000, "ld_beat:chit");
-	TextDrawFont(HudServer[7], 4);
-	TextDrawLetterSize(HudServer[7], 0.600000, 2.000000);
-	TextDrawTextSize(HudServer[7], 16.500000, 15.500000);
-	TextDrawSetOutline(HudServer[7], 0);
-	TextDrawSetShadow(HudServer[7], 0);
-	TextDrawAlignment(HudServer[7], 1);
-	TextDrawColor(HudServer[7], 255);
-	TextDrawBackgroundColor(HudServer[7], 255);
-	TextDrawBoxColor(HudServer[7], 50);
-	TextDrawUseBox(HudServer[7], 1);
-	TextDrawSetProportional(HudServer[7], 1);
-
-	HudServer[8] = TextDrawCreate(582.000000, 95.000000, "HUD:radar_burgerShot");
-	TextDrawFont(HudServer[8], 4);
-	TextDrawLetterSize(HudServer[8], 0.600000, 2.000000);
-	TextDrawTextSize(HudServer[8], 6.500000, 6.000000);
-	TextDrawSetOutline(HudServer[8], 0);
-	TextDrawSetShadow(HudServer[8], 0);
-	TextDrawAlignment(HudServer[8], 1);
-	TextDrawColor(HudServer[8], -1);
-	TextDrawBackgroundColor(HudServer[8], 255);
-	TextDrawBoxColor(HudServer[8], 50);
-	TextDrawUseBox(HudServer[8], 1);
-	TextDrawSetProportional(HudServer[8], 1);
-
-	HudServer[9] = TextDrawCreate(591.000000, 88.000000, "ld_beat:chit");
-	TextDrawFont(HudServer[9], 4);
-	TextDrawLetterSize(HudServer[9], 0.600000, 2.000000);
-	TextDrawTextSize(HudServer[9], 18.500000, 19.500000);
-	TextDrawSetOutline(HudServer[9], 1);
-	TextDrawSetShadow(HudServer[9], 0);
-	TextDrawAlignment(HudServer[9], 1);
-	TextDrawColor(HudServer[9], -65281);
-	TextDrawBackgroundColor(HudServer[9], 255);
-	TextDrawBoxColor(HudServer[9], 50);
-	TextDrawUseBox(HudServer[9], 1);
-	TextDrawSetProportional(HudServer[9], 1);
-
-	HudServer[10] = TextDrawCreate(592.000000, 90.000000, "ld_beat:chit");
-	TextDrawFont(HudServer[10], 4);
-	TextDrawLetterSize(HudServer[10], 0.600000, 2.000000);
-	TextDrawTextSize(HudServer[10], 16.500000, 15.500000);
-	TextDrawSetOutline(HudServer[10], 0);
-	TextDrawSetShadow(HudServer[10], 0);
-	TextDrawAlignment(HudServer[10], 1);
-	TextDrawColor(HudServer[10], 255);
-	TextDrawBackgroundColor(HudServer[10], 255);
-	TextDrawBoxColor(HudServer[10], 50);
-	TextDrawUseBox(HudServer[10], 1);
-	TextDrawSetProportional(HudServer[10], 1);
-
-	HudServer[11] = TextDrawCreate(597.000000, 94.000000, "HUD:radar_centre");
-	TextDrawFont(HudServer[11], 4);
-	TextDrawLetterSize(HudServer[11], 0.600000, 2.000000);
-	TextDrawTextSize(HudServer[11], 6.500000, 6.000000);
-	TextDrawSetOutline(HudServer[11], 0);
-	TextDrawSetShadow(HudServer[11], 0);
-	TextDrawAlignment(HudServer[11], 1);
-	TextDrawColor(HudServer[11], 1097458175);
-	TextDrawBackgroundColor(HudServer[11], 255);
-	TextDrawBoxColor(HudServer[11], 50);
-	TextDrawUseBox(HudServer[11], 1);
-	TextDrawSetProportional(HudServer[11], 1);
-
-	HudServer[12] = TextDrawCreate(577.000000, 121.000000, "_");
-	TextDrawFont(HudServer[12], 1);
-	TextDrawLetterSize(HudServer[12], 0.600000, 1.050001);
-	TextDrawTextSize(HudServer[12], 298.500000, 49.500000);
-	TextDrawSetOutline(HudServer[12], 1);
-	TextDrawSetShadow(HudServer[12], 0);
-	TextDrawAlignment(HudServer[12], 2);
-	TextDrawColor(HudServer[12], -1);
-	TextDrawBackgroundColor(HudServer[12], 255);
-	TextDrawBoxColor(HudServer[12], 255);
-	TextDrawUseBox(HudServer[12], 1);
-	TextDrawSetProportional(HudServer[12], 1);
-
-	HudServer[13] = TextDrawCreate(545.000000, 113.000000, "ld_beat:chit");
-	TextDrawFont(HudServer[13], 4);
-	TextDrawLetterSize(HudServer[13], 0.600000, 2.000000);
-	TextDrawTextSize(HudServer[13], 8.500000, 25.500000);
-	TextDrawSetOutline(HudServer[13], 0);
-	TextDrawSetShadow(HudServer[13], 0);
-	TextDrawAlignment(HudServer[13], 1);
-	TextDrawColor(HudServer[13], 255);
-	TextDrawBackgroundColor(HudServer[13], 255);
-	TextDrawBoxColor(HudServer[13], 50);
-	TextDrawUseBox(HudServer[13], 1);
-	TextDrawSetProportional(HudServer[13], 1);
-
-	HudServer[14] = TextDrawCreate(601.000000, 113.000000, "ld_beat:chit");
-	TextDrawFont(HudServer[14], 4);
-	TextDrawLetterSize(HudServer[14], 0.600000, 2.000000);
-	TextDrawTextSize(HudServer[14], 8.500000, 25.500000);
-	TextDrawSetOutline(HudServer[14], 0);
-	TextDrawSetShadow(HudServer[14], 0);
-	TextDrawAlignment(HudServer[14], 1);
-	TextDrawColor(HudServer[14], 255);
-	TextDrawBackgroundColor(HudServer[14], 255);
-	TextDrawBoxColor(HudServer[14], 50);
-	TextDrawUseBox(HudServer[14], 1);
-	TextDrawSetProportional(HudServer[14], 1);
-
-	HudServer[15] = TextDrawCreate(552.000000, 127.000000, "U");
-	TextDrawFont(HudServer[15], 1);
-	TextDrawLetterSize(HudServer[15], 0.204167, -0.799999);
-	TextDrawTextSize(HudServer[15], 400.000000, 17.000000);
-	TextDrawSetOutline(HudServer[15], 0);
-	TextDrawSetShadow(HudServer[15], 0);
-	TextDrawAlignment(HudServer[15], 1);
-	TextDrawColor(HudServer[15], -1094795521);
-	TextDrawBackgroundColor(HudServer[15], 255);
-	TextDrawBoxColor(HudServer[15], 50);
-	TextDrawUseBox(HudServer[15], 0);
-	TextDrawSetProportional(HudServer[15], 1);
-
-	HudServer[16] = TextDrawCreate(552.000000, 124.000000, "T");
-	TextDrawFont(HudServer[16], 1);
-	TextDrawLetterSize(HudServer[16], 0.250000, 1.050000);
-	TextDrawTextSize(HudServer[16], 400.000000, 17.000000);
-	TextDrawSetOutline(HudServer[16], 0);
-	TextDrawSetShadow(HudServer[16], 0);
-	TextDrawAlignment(HudServer[16], 1);
-	TextDrawColor(HudServer[16], -1094795521);
-	TextDrawBackgroundColor(HudServer[16], 255);
-	TextDrawBoxColor(HudServer[16], 50);
-	TextDrawUseBox(HudServer[16], 0);
-	TextDrawSetProportional(HudServer[16], 1);
-
 		//TD MORTE
 	TDmorte[0] = TextDrawCreate(316.000000, -14.000000, "_");
 	TextDrawFont(TDmorte[0], 1);
@@ -12730,7 +13459,7 @@ public OnGameModeInit()
 	TextDrawUseBox(TDmorte[0], 1);
 	TextDrawSetProportional(TDmorte[0], 1);
 
-	TDmorte[1] = TextDrawCreate(323.000000, 337.000000, "REVIVER IMEDIATAMENTE");
+/*	TDmorte[1] = TextDrawCreate(323.000000, 337.000000, "REVIVER IMEDIATAMENTE");
 	TextDrawFont(TDmorte[1], 3);
 	TextDrawLetterSize(TDmorte[1], 0.408331, 1.750000);
 	TextDrawTextSize(TDmorte[1], 16.500000, 190.000000);
@@ -12742,7 +13471,7 @@ public OnGameModeInit()
 	TextDrawBoxColor(TDmorte[1], 200);
 	TextDrawUseBox(TDmorte[1], 1);
 	TextDrawSetProportional(TDmorte[1], 1);
-	TextDrawSetSelectable(TDmorte[1], 1);
+	TextDrawSetSelectable(TDmorte[1], 1);*/
 
 	TDmorte[2] = TextDrawCreate(235.000000, 208.000000, "DESACORDADO");
 	TextDrawFont(TDmorte[2], 3);
@@ -13287,16 +14016,11 @@ public OnGameModeInit()
 	CreateDynamicMapIcon(800.242553, -1617.385986, 14.032936, 10, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//HL FOOD
 	CreateDynamicMapIcon(2110.791015, -1804.298217, 13.591037, 10, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PIZZARIA
 	CreateDynamicMapIcon(1193.647460, -914.173156, 43.360343, 10, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//MCDONALDS
-	CreateDynamicMapIcon(1481.094482, -1772.313720, 18.795755, 40, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PREFEITURA
+	CreateDynamicMapIcon(1709.232299, -1649.383789, 20.175258, 40, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PREFEITURA
 	CreateDynamicMapIcon(1456.284912, -1128.022460, 23.958011, 52, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//BANCO
 	CreateDynamicMapIcon(1083.447998, -1766.307128, 13.928387, 36, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//AUTO ESCOLA
 	CreateDynamicMapIcon(468.658203, -1517.271606, 20.477876, 56, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//JOIALHERIA
-	CreateDynamicMapIcon(1785.501586, -1916.644165, 14.295277, 6, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//AMMUNATION
-	CreateDynamicMapIcon(1319.3506,-876.0737,39.5781, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//27-7
-	CreateDynamicMapIcon(2073.4036,-1874.4497,13.5469, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//27-7
-	CreateDynamicMapIcon(1655.4888,-1880.6477,13.5440, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//27-7
-	CreateDynamicMapIcon(374.2604,-1903.8306,7.6719, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//27-7
-	CreateDynamicMapIcon(1351.2615,-1755.5823,13.3519, 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//27-7
+	CreateDynamicMapIcon(896.1668,-1345.3541,14.4743, 6, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//AMMUNATION
 	// ORG NEUTRAS
 	CreateDynamicMapIcon(1973.031616, -1779.866455, 13.543199, 27, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//MECANICA
 	CreateDynamicMapIcon(1638.175415, -1134.294311, 24.051120, 22, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//HOSPITAL
@@ -13346,55 +14070,7 @@ public OnGameModeInit()
 	CreateCaixa(2942, 1830.88367, -1071.68689, 23.48169,   0.00000, 0.00000, 269.40909);
 	CreateCaixa(2942, 1863.66504, -1270.39185, 13.16138,   0.00000, 0.00000, 182.03978);
 	CreateCaixa(2942, 1673.760620, -2326.699218, 13.16138,   0.00000, 0.00000, 92.392776);
-	CreateCaixa(2942, -1980.607666, 131.965667, 27.16138,   0.00000, 0.00000, 263.507263);/*
-	createEE(0, "WELLCOME EVENT 1", 19057,3.0, -984.33557, 1293.37805, 33.30560,   0.00000, 0.00000, 0.00000);
-	createEE(1, "WELLCOME EVENT 2", 19057,3.0, -2354.78540, 142.00720, 38.22280,  0.00000, 0.00000, 0.00000);
-	createEE(2, "WELLCOME EVENT 3", 19057,3.0, -1077.87439, -1157.65149, 128.21820,   0.00000, 0.00000, 0.00000);
-	createEE(3, "WELLCOME EVENT 4", 19057,3.0, 420.86520, 1166.28906, 18.71620,   0.00000, 0.00000, 0.00000);
-	createEE(4, "WELLCOME EVENT 5", 19057,3.0, 2294.35547, 547.58868, 0.75320,   0.00000, 0.00000, 0.00000);
-	createEE(5, "WELLCOME EVENT 6", 19057,3.0, 2773.04443, 609.84949, 8.07760,   0.00000, 0.00000, 0.00000);
-	createEE(6, "WELLCOME EVENT 7", 19057,3.0, -379.65137, -1043.83838, 58.02332,   0.00000, 0.00000, 0.00000);
-	createEE(7, "WELLCOME EVENT 8", 19057,3.0, -1694.38672, -626.94012, 23.19030,   0.00000, 0.00000, 0.00000);
-	createEE(8, "WELLCOME EVENT 9", 19057,3.0, -473.87051, -171.93179, 77.20510,   0.00000, 0.00000, 0.00000);
-	createEE(9, "WELLCOME EVENT 10", 19057,3.0, 2500.31226, -422.05249, 75.93670,   0.00000, 0.00000, 0.00000);
-	createEE(10, "WELLCOME EVENT 11", 19057,3.0, -2095.61694, -815.23132, 31.29690,   0.00000, 0.00000, 0.00000);
-	createEE(11, "WELLCOME EVENT 12", 19057,3.0, 1378.12842, 982.94397, 9.79970,   0.00000, 0.00000, 0.00000);
-	createEE(12, "WELLCOME EVENT 13", 19057,3.0, 2061.73608, -2208.81519, 15.40100, 0.0, 0.00000, 0.00000);
-	createEE(13, "WELLCOME EVENT 14", 19057,3.0, 2288.71631, -1926.96106, 12.61170,   0.00000, 0.00000, 0.00000);
-	createEE(14, "WELLCOME EVENT 15", 19057,3.0, 2856.96631, -414.79031, 7.52820,   0.00000, 0.00000, 0.00000);
-	createEE(15, "WELLCOME EVENT 16", 19057,3.0, 2884.63208, -131.83350, 0.99060,   0.00000, 0.00000, 0.00000);
-	createEE(16, "WELLCOME EVENT 17", 19057,3.0, 2768.49756, -1368.27319, 39.31690,   0.00000, 0.00000, 0.00000);
-	createEE(17, "WELLCOME EVENT 18", 19057,3.0, 2102.88184, -1647.44495, 13.00600,   8.00000, 0.00000, 0.00000);
-	createEE(18, "WELLCOME EVENT 19", 19057,3.0, 2117.53174, -1941.52344, 12.57650,   0.00000, 0.00000, 0.00000);
-	createEE(19, "WELLCOME EVENT 20", 19057,3.0, 1766.90125, -2022.21533, 13.19720,   0.00000, 0.00000, 0.00000);
-	createEE(20, "WELLCOME EVENT 21", 19057,3.0, -2350.917480, -40.718368, 35.312500,   0.00000, 0.00000, 0.00000);
-	createEE(21, "WELLCOME EVENT 22", 19057,3.0, -2708.878662, 378.932891, 4.968750,   0.00000, 0.00000, 0.00000);
-	createEE(22, "WELLCOME EVENT 23", 19057,3.0, -2037.736816, 1036.313476, 55.660934,   0.00000, 0.00000, 0.00000);
-	createEE(23, "WELLCOME EVENT 24", 19057,3.0, -1966.798339, 113.898818, 27.687500,   0.00000, 0.00000, 0.00000);
-	createEE(24, "WELLCOME EVENT 25", 19057,3.0, -2044.767211, 148.988311, 28.835937,   0.00000, 0.00000, 0.00000);
-	createEE(25, "WELLCOME EVENT 26", 19057,3.0, -1714.471313, 1367.025512, 7.185316,   0.00000, 0.00000, 0.00000);
-	createEE(26, "WELLCOME EVENT 27", 19057,3.0, -2502.430908, 2290.441162, 4.984375,   0.00000, 0.00000, 0.00000);
-	createEE(27, "WELLCOME EVENT 28", 19057,3.0, -2779.038818, 1317.380981, 7.590801,   0.00000, 0.00000, 0.00000);
-	createEE(28, "WELLCOME EVENT 29", 19057,3.0, -476.585144, -541.589050, 25.529611,   0.00000, 0.00000, 0.00000);
-	createEE(29, "WELLCOME EVENT 30", 19057,3.0, -25.881288, 1359.155029, 9.171875,   0.00000, 0.00000, 0.00000);
-	createEE(30, "WELLCOME EVENT 31", 19057,3.0, -1909.961059, 277.745422, 41.046875,   0.00000, 0.00000, 0.00000);
-	createEE(31, "WELLCOME EVENT 32", 19057,3.0, 1697.912231, -2334.953369, 13.546875,   0.00000, 0.00000, 0.00000);
-	createEE(32, "WELLCOME EVENT 33", 19057,3.0, 2108.328369, -1868.876586, 13.546875,   0.00000, 0.00000, 0.00000);
-	createEE(33, "WELLCOME EVENT 34", 19057,3.0, 1772.154052, -1917.959350, 13.553419,   0.00000, 0.00000, 0.00000);
-	createEE(34, "WELLCOME EVENT 35", 19057,3.0, 1641.728881, -1888.853515, 13.555146,   0.00000, 0.00000, 0.00000);
-	createEE(35, "WELLCOME EVENT 36", 19057,3.0, 1363.281616, -1774.186279, 13.468890,   0.00000, 0.00000, 0.00000);
-	createEE(36, "WELLCOME EVENT 37", 19057,3.0, 1089.265625, -1774.148559, 13.344324,   0.00000, 0.00000, 0.00000);
-	createEE(37, "WELLCOME EVENT 38", 19057,3.0, 852.639648, -1626.905761, 13.548416,   0.00000, 0.00000, 0.00000);
-	createEE(38, "WELLCOME EVENT 39", 19057,3.0, 1282.907348, -1306.754394, 13.382896,   0.00000, 0.00000, 0.00000);
-	createEE(39, "WELLCOME EVENT 40", 19057,3.0, 394.193450, -1928.417602, 7.835937,   0.00000, 0.00000, 0.00000);
-	createEE(40, "WELLCOME EVENT 41", 19057,3.0, 164.238647, -1894.142944, -0.056467,   0.00000, 0.00000, 0.00000);
-	createEE(41, "WELLCOME EVENT 42", 19057,3.0, 1470.230468, -1177.453002, 23.914417,   0.00000, 0.00000, 0.00000);
-	createEE(42, "WELLCOME EVENT 43", 19057,3.0, 1305.661132, -901.688171, 39.578125,   0.00000, 0.00000, 0.00000);
-	createEE(43, "WELLCOME EVENT 44", 19057,3.0, 618.936584, 886.505493, -41.102825,   0.00000, 0.00000, 0.00000);
-	createEE(44, "WELLCOME EVENT 45", 19057,3.0, 962.519104, 1769.895629, 8.851562,   0.00000, 0.00000, 0.00000);
-	createEE(45, "WELLCOME EVENT 46", 19057,3.0, 2508.293945, -1471.552368, 24.034790,   0.00000, 0.00000, 0.00000);
-	loadEE();
-	saveEE();*/
+	CreateCaixa(2942, -1980.607666, 131.965667, 27.16138,   0.00000, 0.00000, 263.507263);
     printf(" ");
 	new Dia, Mes, Ano, Hora, Minuto;
 	gettime(Hora, Minuto);
@@ -13413,27 +14089,13 @@ public OnGameModeInit()
 	AllowInteriorWeapons(1);
 	ManualVehicleEngineAndLights();
 
-	gServerTextdraws = TextDrawCreate(576.998962, 16.244453, "16:04");
-	TextDrawLetterSize(gServerTextdraws, 0.363750, 1.496297);
-	TextDrawTextSize(gServerTextdraws, 1280.000000, 1280.000000);
-	TextDrawAlignment(gServerTextdraws, 2);
-	TextDrawColor(gServerTextdraws, 0xFFFFFFFF);
-	TextDrawUseBox(gServerTextdraws, 0);
-	TextDrawBoxColor(gServerTextdraws, 0x80808080);
-	TextDrawSetShadow(gServerTextdraws, 0);
-	TextDrawSetOutline(gServerTextdraws, 1);
-	TextDrawBackgroundColor(gServerTextdraws, 0x00000020);
-	TextDrawFont(gServerTextdraws, 3);
-	TextDrawSetProportional(gServerTextdraws, 1);
-	TextDrawSetSelectable(gServerTextdraws, 0);
-
 	Parabolica = GangZoneCreate( -460.22906494140625, 1281.9999694824219, -140.22906494140625, 1643.9999694824219);
     Barragem = GangZoneCreate( -1434.2429809570312, 1902.6701049804688, -987.2429809570312, 2672.6701049804688);
 
 	new Actor[30+1],Text3D:label[30+1];
 
-	Actor[0] = CreateActor(227, 1689.563598, -2326.089599, 13.546875, 154.224639);
-	label[0] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {5b6ed9}Allison_Gomes!\n{FFFFFF}Use {5b6ed9}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, 1689.563598, -2326.089599, 13.546875, 15.0, 0);
+	Actor[0] = CreateActor(188, 1564.843383, -1884.042602, 13.557476, 208.927658);
+	label[0] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {5b6ed9}Allison_Gomes!\n{FFFFFF}Use {5b6ed9}/ajuda {FFFFFF}para \nconhecer os comandos.", 0x008080FF, 1564.843383, -1884.042602, 13.557476, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[0], Actor[0], 0.0, 0.0, 0.7);
 
 	Actor[1] = CreateActor(35, 154.188613, -1945.949584, 4.972961, 352.308258);
@@ -13463,15 +14125,15 @@ public OnGameModeInit()
 	label[6] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}Prefeitura da Homeland\n{00FF00}Vaga:{FFFFFF} Coletor de Lixo\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, -28.763319, 1363.971313, 9.171875, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[6], Actor[6], 0.0, 0.0, 0.7);
 
-	Actor[7] = CreateActor(188, 1682.130737, -2326.373291, 13.546875, 211.057678);
-	label[7] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {5b6ed9}Luan_Rosa!\n{FFFFFF}Aprenda como jogar no servidor \nUse '{5b6ed9}F{FFFFFF}' para se informar", 0x008080FF, 1682.130737, -2326.373291, 13.546875, 15.0, 0);
+	Actor[7] = CreateActor(188, 1571.193115, -1884.266357, 13.557529, 155.973785);
+	label[7] = Create3DTextLabel("{FFFFFF}Ola, eu sou o {5b6ed9}Luan_Rosa!\n{FFFFFF}Aprenda como jogar no servidor \nUse '{5b6ed9}F{FFFFFF}' para se informar", 0x008080FF, 1571.193115, -1884.266357, 13.557529, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[7], Actor[7], 0.0, 0.0, 0.7);
 
 	Actor[8] = CreateActor(71, 939.6504,1733.2004,8.8516,-87.4139);
 	label[8] = Create3DTextLabel("{5b6ed9}Empresa: {FFFFFF}SedeX\n{00FF00}Vaga:{FFFFFF} Correios\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar o emprego.", 0x008080FF, 939.6504,1733.2004,8.8516, 15.0, 0);
 	Attach3DTextLabelToPlayer(label[8], Actor[8], 0.0, 0.0, 0.7);
 
-	CreateAurea("{5b6ed9}Prefeitura\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", -501.146118, 294.354156, 2001.094970);
+	CreateAurea("{5b6ed9}Prefeitura\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1709.232299, -1649.383789, 20.175258);
 	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1443.961181, -1138.289184, 23.958011);
 	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1445.757080, -1136.793090, 23.958011);
 	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1448.275756, -1134.693725, 23.958011);
@@ -13479,32 +14141,23 @@ public OnGameModeInit()
 	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1458.722656, -1125.988525, 23.958011);
 	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1460.913208, -1124.163940, 23.958011);
 	CreateAurea("{5b6ed9}Hospital Central\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1646.425537, -1126.261474, 24.051115);
-	CreateAurea("{5b6ed9}HomeLand Food\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 797.993225, -1618.977661, 14.032936);
+	CreateAurea("{5b6ed9}Homeland Food\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 797.993225, -1618.977661, 14.032936);
 	CreateAurea("{5b6ed9}Burguer King\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 2110.791015, -1804.298217, 13.591037);
 	CreateAurea("{5b6ed9}McDonalds\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1193.647460, -914.173156, 43.360343);
-	CreateAurea("{5b6ed9}Loja de Utilidades 1\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1345.220703, -1763.755737, 13.551799);
-	CreateAurea("{5b6ed9}Loja de Utilidades 2\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1649.424316, -1889.373535, 13.569334);
-	CreateAurea("{5b6ed9}Loja de Utilidades 3\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 2064.488037, -1868.448364, 13.570810);
-	CreateAurea("{5b6ed9}Loja de Utilidades 4\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 382.998931, -1909.859863, 7.844120);
-	CreateAurea("{5b6ed9}Loja de Utilidades 5\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1325.427368, -867.394287, 39.597454);
 	CreateAurea("{5b6ed9}Centro de Licenca\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1083.447998, -1766.307128, 13.928387);
-	CreateAurea("{5b6ed9}Loja Ilegal\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 514.712341, -2333.011474, 508.693756);
+	CreateAurea("{5b6ed9}Loja Ilegal\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 2667.5273,-2128.6106,13.6791);
 	CreateAurea("{5b6ed9}Fabricar Pistola 9mm\n{FFFFFF}Use '{5b6ed9}Peca de Fabricacao{FFFFFF}' para fabricar.", 2139.590087, -2255.079345, 13.303335);
     CreateAurea("{5b6ed9}Fabricar Desert\n{FFFFFF}Use '{5b6ed9}Peca de Fabricacao{FFFFFF}' para fabricar.", 2141.257812, -2256.759521, 13.299867);
     CreateAurea("{5b6ed9}Fabricar M4\n{FFFFFF}Use '{5b6ed9}Peca de Fabricacao{FFFFFF}' para fabricar.", 2143.288818, -2258.775390, 13.295673);
     CreateAurea("{5b6ed9}Fabricar AK-47\n{FFFFFF}Use '{5b6ed9}Peca de Fabricacao{FFFFFF}' para fabricar.", 2148.499511, -2264.335449, 13.298288);
     CreateAurea("{5b6ed9}Fabricar Colete\n{FFFFFF}Use '{5b6ed9}Peca de Fabricacao{FFFFFF}' para fabricar.", 2151.042968, -2266.863525, 13.306745);
-	CreateAurea("{5b6ed9}AmmuNation\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 1785.501586, -1916.644165, 14.295277);
+	CreateAurea("{5b6ed9}AmmuNation\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 896.1668,-1345.3541,14.4743);
 	CreateAurea("{5b6ed9}Joalheria\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", 468.658203, -1517.271606, 20.477876);
 	// LOCAIS ROUBO
-	CreateAurea("{5b6ed9}Loja de Utilidades 1\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1359.730712, -1774.143798, 13.551797);
-	CreateAurea("{5b6ed9}Loja de Utilidades 2\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1663.732910, -1899.628295, 13.569333);
-	CreateAurea("{5b6ed9}Loja de Utilidades 3\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 2054.306152, -1882.930908, 13.570812);
-	CreateAurea("{5b6ed9}Loja de Utilidades 4\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 393.256683, -1895.677734, 7.844118);
-	CreateAurea("{5b6ed9}Loja de Utilidades 5\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1311.017944, -856.895690, 39.597454);
-	CreateAurea("{5b6ed9}HomeLand Food\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 800.242553, -1617.385986, 14.032936);
+	CreateAurea("{5b6ed9}Homeland Food\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 800.242553, -1617.385986, 14.032936);
 	CreateAurea("{5b6ed9}Banco Central\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1442.647583, -1120.358276, 23.959011);
-	CreateAurea("{5b6ed9}AmmuNation\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 1789.135253, -1921.435058, 14.287462);
+	CreateAurea("{5b6ed9}AmmuNation\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 891.3997,-1348.8807,14.4665);
+	CreateAurea("{5b6ed9}Joialheria\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para para iniciar o roubo.", 469.871185, -1527.918823, 20.365703);
 	//----
 
 	CreateAurea("{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para \nprocessar a peca de carne.", 942.577758, 2117.902099, 1011.030273);
@@ -13560,16 +14213,16 @@ public OnGameModeInit()
 	CreateDynamic3DTextLabel("{5b6ed9}Acoes Especiais{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,-1258.899536, 2709.987304, 55.174671,15);
 
 	CreateDynamicPickup(1314, 23, 2095.946044, -1143.877807, 25.586040);
-	CreateDynamic3DTextLabel("{5b6ed9}Tropa dos Vermelhos{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,2095.946044, -1143.877807, 25.586040,15);
+	CreateDynamic3DTextLabel("{5b6ed9}Comando Vermelho{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,2095.946044, -1143.877807, 25.586040,15);
 
 	CreateDynamicPickup(1314, 23, 2650.068359, -2018.365234, 13.552066);
-	CreateDynamic3DTextLabel("{5b6ed9}Tropa dos Azuis{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,2650.068359, -2018.365234, 13.552066,15);
+	CreateDynamic3DTextLabel("{5b6ed9}Amigos dos Amigos{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,2650.068359, -2018.365234, 13.552066,15);
 
 	CreateDynamicPickup(1314, 23, 1858.289306, -1590.896484, 13.574988);
-	CreateDynamic3DTextLabel("{5b6ed9}Tropa dos Amarelos{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1858.289306, -1590.896484, 13.574988,15);
+	CreateDynamic3DTextLabel("{5b6ed9}Terceiro Comando Puro{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1858.289306, -1590.896484, 13.574988,15);
 
 	CreateDynamicPickup(1314, 23, 2275.367187, -1785.524414, 13.546875);
-	CreateDynamic3DTextLabel("{5b6ed9}Tropa dos Verdes{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,2275.367187, -1785.524414, 13.546875,15);
+	CreateDynamic3DTextLabel("{5b6ed9}Primeiro Comando da Capital{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,2275.367187, -1785.524414, 13.546875,15);
 
 	CreateDynamicPickup(1314, 23, 1973.031616, -1779.866455, 13.543199);
 	CreateDynamic3DTextLabel("{5b6ed9}Bennys{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1973.031616, -1779.866455, 13.543199,15);
@@ -13635,9 +14288,20 @@ public OnGameModeInit()
 	}
 	for(new i; i < 5; i++)
 	{
+		CreateAurea("{5b6ed9}Loja de Utilidades\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para abrir o menu.", PosLojinhas[i][0], PosLojinhas[i][1], PosLojinhas[i][2]);
+		CreateDynamicMapIcon(PosLojinhas[i][0], PosLojinhas[i][1], PosLojinhas[i][2], 17, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//27-7
+		if(i == 5)break;
+	}
+	for(new i; i < 5; i++)
+	{
+		CreateAurea("{5b6ed9}Assaltar Cofre\n{FFFFFF}Use '{5b6ed9}H{FFFFFF}' para roubar.", PosRouboLoja[i][0], PosRouboLoja[i][1], PosRouboLoja[i][2]);
+		if(i == 5)break;
+	}
+	for(new i; i < 3; i++)
+	{
 		CreateDynamicPickup(19606,23,Entradas[i][0],Entradas[i][1],Entradas[i][2],0);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}Y{FFFFFF}'para \nentrar no interior.",-1,Entradas[i][0],Entradas[i][1],Entradas[i][2],15);
-		if(i == 5)break;
+		if(i == 3)break;
 	}
 	for(new i; i < 9; i++)
 	{
@@ -13741,16 +14405,23 @@ public OnGameModeExit()
 
 public OnPlayerRequestClass(playerid, classid)
 {
+	return 0;
+}
+
+public OnPlayerConnect(playerid)
+{
+	MapRemocao(playerid);
+	CarregarAnims(playerid);
+	LimparChat(playerid, 10);
+	todastextdraw(playerid);
 	ZerarDados(playerid);
 	PlayAudioStreamForPlayer(playerid, "http://k.top4top.io/m_2685nhtv30.mp3");
-	for(new t=0;t<2;t++){
-		TextDrawShowForPlayer(playerid, Loadsc[t]);
-		if(t == 2)break;
+	for(new t=0;t<11;t++){
+		PlayerTextDrawShow(playerid, Alertalogin[playerid][t]);
+		if(t == 11)break;
 	}
-	PlayerTextDrawShow(playerid, Loadsc_p[playerid][0]);
-	ShowPlayerProgressBar(playerid, Loadsc_b[playerid][0]);
     TogglePlayerSpectating(playerid, true);
-    TimerLogin[playerid] = SetTimerEx("mostrarTelaLogin", 50, false, "d", playerid);
+    TimerLogin[playerid] = SetTimerEx("mostrarTelaLogin", 500, false, "d", playerid);
  	PlayerPlaySound(playerid, 1098, 0.0, 0.0, 0.0);
 	LimparChat(playerid, 10);
 	Page[playerid] = 1;
@@ -13775,12 +14446,6 @@ public OnPlayerRequestClass(playerid, classid)
 	if(Gritando[playerid] == true){
 		Gritando[playerid] = false;
 	}
-	return 0;
-}
-
-
-public OnPlayerConnect(playerid)
-{
 	LockText[0] = CreatePlayerTextDraw(playerid, 320.0, 360.0, "_"), PlayerTextDrawUseBox(playerid, LockText[0], 1);
 	PlayerTextDrawLetterSize(playerid, LockText[0], 0.5, 5.599999), PlayerTextDrawTextSize(playerid, LockText[0], 20.0, 240.0);
 	PlayerTextDrawFont(playerid, LockText[0], 1), PlayerTextDrawSetProportional(playerid, LockText[0], 1), PlayerTextDrawAlignment(playerid, LockText[0], 2);
@@ -13821,7 +14486,6 @@ public OnPlayerConnect(playerid)
 	PlayerTextDrawBackgroundColor(playerid, LockText[11], 1097458119), PlayerTextDrawBoxColor(playerid, LockText[11], -5963521);
 	SetPlayerCameraPos(playerid, 1981.038940, 1191.061401, 27.828259);
 	SetPlayerCameraLookAt(playerid, 1985.139648, 1195.111572, 27.636171);
-	todastextdraw(playerid);
 	if(!SvGetVersion(playerid))
 	{
 
@@ -13839,7 +14503,8 @@ public OnPlayerConnect(playerid)
 		SvAddKey(playerid, 0x42);//Z
 		SvAddKey(playerid, 0x5A);//B
 	}
-	timerloginname[playerid] = SetTimerEx("attloginname", 40, false, "d", playerid);
+	timerloginname[playerid] = SetTimerEx("attloginname", 500, false, "d", playerid);
+	LimparChat(playerid, 10);
 	return 1;
 }
 
@@ -13847,7 +14512,16 @@ public OnPlayerDisconnect(playerid, reason)
 {
 	if(pLogado[playerid] == true)
 	{
+		new hora, minuto;
+		gettime(hora, minuto);
 		jogadoreson--;
+		new string[255];
+		new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+		format(string,sizeof(string),"O jogador %04d saiu do servidor!\n\nJogadores **%d**/500\nHorario: %02d:%02d", PlayerInfo[playerid][IDF], jogadoreson, hora, minuto);
+		DCC_SetEmbedColor(embed, 0x5b6ed9);
+		DCC_SetEmbedDescription(embed, string);
+		DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.HomelandRP.COM.BR7777_20230919_225304_0000.png");
+		DCC_SendChannelEmbedMessage(EntradaSaidaLog, embed);
 		SalvarDados(playerid);
 		SalvarMortos(playerid);
 		SalvarInventario(playerid);
@@ -13863,6 +14537,10 @@ public OnPlayerDisconnect(playerid, reason)
 		KillTimer(TimerPayDay[playerid]);
 		KillTimer(TimerAttVeh[playerid]);
 		KillTimer(TimerHacker[playerid]);
+		if(IsBandido(playerid))
+		{
+			bandidoon --;
+		}
 		if(Patrulha[playerid] == true)
 		{
 			policiaon --;
@@ -13878,6 +14556,14 @@ public OnPlayerDisconnect(playerid, reason)
 		{
 			DOF2_RemoveFile(arquivofila);
 		}
+		new gstring[255];
+		switch(reason) 
+		{
+			case 0: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Conexao ou crash{FFFFFF})", PlayerInfo[playerid][IDF]);
+			case 1: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Quitou - /q{FFFFFF})", PlayerInfo[playerid][IDF]);
+			case 2: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Kickado ou Banido{FFFFFF})", PlayerInfo[playerid][IDF]);
+		}
+		ProxDetector(30.0, playerid, gstring,-1,-1,-1,-1,-1);
 	}
 	if(IniciouTesteHabilitacaoA[playerid] == 1)
 	{
@@ -13955,30 +14641,16 @@ public OnPlayerDisconnect(playerid, reason)
 	    PlayerTextDrawDestroy(playerid, VeloC[playerid][t]);
 		if(t == 10)break;
 	}
-	for(new i = 0; i < 7; i ++)
-	{
-		PlayerTextDrawDestroy(playerid, HudServer_p[playerid][i]);
-		if(i == 7)break;
-	}
-	for(new i = 0; i < 17; i ++)
-	{
-		TextDrawHideForPlayer(playerid, HudServer[i]);
-		if(i == 17)break;
-	}
 	PlayerTextDrawDestroy(playerid, Textdraw2[playerid]);
 	ZerarDados(playerid);
-	new gstring[255];
-	switch(reason) {
-     	case 0: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Conexao ou crash{FFFFFF})", PlayerInfo[playerid][IDF]);
-     	case 1: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Quitou - /q{FFFFFF})", PlayerInfo[playerid][IDF]);
-     	case 2: format(gstring, sizeof(gstring), "{FF2400}* O ID:[{FFFFFF}%04d{FF2400}] {FFFFFF}desconectou do servidor pelo motivo: ({FF2400}Kickado ou Banido{FFFFFF})", PlayerInfo[playerid][IDF]);
-  	}
-  	ProxDetector(30.0, playerid, gstring,-1,-1,-1,-1,-1);
 	return 1;
 }
 
 public OnPlayerSpawn(playerid)
 {
+	new stringg[50];
+	format(stringg, sizeof(stringg), "%04d", PlayerInfo[playerid][IDF]);
+	PlayerTextDrawSetString(playerid, DrawInv[playerid][32], stringg);
 	TogglePlayerSpectating(playerid, false);
 	TogglePlayerControllable(playerid, true);
 	SetTimerEx("Attplayer",1000,true,"i",playerid);
@@ -14003,7 +14675,7 @@ public OnPlayerSpawn(playerid)
 		PlayerTextDrawShow(playerid, TDmorte_p[playerid][0]);
 		SelectTextDraw(playerid, 0xFF0000FF);
         TimerMorto[playerid] = SetTimerEx("mortoxx", 1000, true, "i", playerid);
-        ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 1, 0, 0, 0, 13000, 1);
+        ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
     }
 	new File[255];
 	format(File, 56, PASTA_AGENDADOS, Name(playerid));
@@ -14035,14 +14707,18 @@ public OnPlayerSpawn(playerid)
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
-	if(PlayerMorto[playerid][pEstaMorto] == 0)
-    {
-        PlayerMorto[playerid][pMinMorto] = 5;
-        PlayerMorto[playerid][pSegMorto] = 60;
-	    PlayerMorto[playerid][pPosMt1] = VarPlayerOldPos[playerid][0];
-	    PlayerMorto[playerid][pPosMt2] = VarPlayerOldPos[playerid][1];
-	    PlayerMorto[playerid][pPosMt3] = VarPlayerOldPos[playerid][2];
-	    PlayerMorto[playerid][pEstaMorto] = 1;
+	if(pLogado[playerid] == true)
+	{
+		if(PlayerMorto[playerid][pEstaMorto] == 0)
+		{
+			PlayerMorto[playerid][pMinMorto] = 6;
+			PlayerMorto[playerid][pSegMorto] = 60;
+			PlayerMorto[playerid][pPosMt1] = VarPlayerOldPos[playerid][0];
+			PlayerMorto[playerid][pPosMt2] = VarPlayerOldPos[playerid][1];
+			PlayerMorto[playerid][pPosMt3] = VarPlayerOldPos[playerid][2];
+			PlayerMorto[playerid][pEstaMorto] = 1;
+		}
+		SpawnPlayer(playerid);
 	}
 	return 1;
 }
@@ -14097,8 +14773,8 @@ public OnVehicleDamageStatusUpdate(vehicleid, playerid){
 			SetPlayerPos(playerid,PosP[0]+2,PosP[1]+2,PosP[2]+1);
 			SetPlayerFacingAngle(playerid, PosP[3]);
 			RemovePlayerFromVehicle(playerid);
-			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 1);
-			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 1);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
 			GameTextForPlayer(playerid, "~r~DESMAIOU...", 14900, 4);
 			fadeOut(playerid, 15000);
 			SetTimerEx("CANIM",15200,false,"i",playerid);
@@ -14125,46 +14801,53 @@ public OnPlayerFadeOut(playerid){
 
 public OnPlayerText(playerid, text[])
 {
-	new string[255];
-	if(gettime() < UltimaFala[playerid] + MAX_SEGUNDOSFALAR)
+	if(pLogado[playerid] == true)
 	{
-		Erro[playerid]++;
-		format(Str, sizeof(Str), "Esta falando muito rapido (AVISO %i/10)", Erro[playerid]);
-		InfoMsg(playerid,Str);
-		if(Erro[playerid] == 10) Kick(playerid);
-		return 0;
+		new string[255];
+		if(gettime() < UltimaFala[playerid] + MAX_SEGUNDOSFALAR)
+		{
+			Erro[playerid]++;
+			format(Str, sizeof(Str), "Esta falando muito rapido (AVISO %i/10)", Erro[playerid]);
+			InfoMsg(playerid,Str);
+			if(Erro[playerid] == 10) Kick(playerid);
+			return 0;
+		}
+		if(ChatAtendimento[playerid] == 1)
+		{
+			format(string, sizeof(string), "{F65FC5}[Atendimento][{FFFFFF}Jogador{F65FC5}]%04d: %s", PlayerInfo[playerid][IDF],text);
+			AChatAtendimento(-1,string,NumeroChatAtendimento[playerid]);
+			return 0;
+		}
+		else if(ChatAtendimento[playerid] == 2)
+		{
+			format(string, sizeof(string), "{F65FC5}[Atendimento][{ff3399}Admin{F65FC5}]%04d: %s", PlayerInfo[playerid][IDF],text);
+			AChatAtendimento(-1,string,NumeroChatAtendimento[playerid]);
+			return 0;
+		}
+		if(ChatLigado == false)
+		{
+			ErrorMsg(playerid, "O chat esta desativado.");
+			return 0;
+		}
+		if(PlayerInfo[playerid][pCalado] == true)
+		{
+			ErrorMsg(playerid, "Esta calado e nao podera falar.");
+			return 0;
+		}
+		Moved[playerid] = true;
+		//
+		UltimaFala[playerid] = gettime();
+		if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Nao esta conectado");
+		{
+			format(string, sizeof string, "{5b6ed9}(%04d) {FFFFFF}disse {d6d0d0}%s", PlayerInfo[playerid][IDF], text);
+			ProxDetector(30.0, playerid, string, -1,-1,-1,-1,-1);
+
+			format(string,sizeof(string),"%04d falou %s", PlayerInfo[playerid][IDF],text);
+			DCC_SendChannelMessage(ChatLocalLog, string);
+			return 0;
+		}
 	}
-	if(ChatAtendimento[playerid] == 1)
-	{
- 		format(string, sizeof(string), "{F65FC5}[Atendimento][{FFFFFF}Jogador{F65FC5}]%04d: %s", PlayerInfo[playerid][IDF],text);
-        AChatAtendimento(-1,string,NumeroChatAtendimento[playerid]);
-		return 0;
-	}
-	else if(ChatAtendimento[playerid] == 2)
-	{
- 		format(string, sizeof(string), "{F65FC5}[Atendimento][{ff3399}Admin{F65FC5}]%04d: %s", PlayerInfo[playerid][IDF],text);
-		AChatAtendimento(-1,string,NumeroChatAtendimento[playerid]);
-		return 0;
-	}
-	if(ChatLigado == false)
-	{
-		ErrorMsg(playerid, "O chat esta desativado.");
-		return 0;
-	}
-	if(PlayerInfo[playerid][pCalado] == true)
-	{
-		ErrorMsg(playerid, "Esta calado e nao podera falar.");
-		return 0;
-	}
-	Moved[playerid] = true;
-	//
-	UltimaFala[playerid] = gettime();
-	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Nao esta conectado");
-	{
-		format(string, sizeof string, "{5b6ed9}(%04d) {FFFFFF}disse {d6d0d0}%s", PlayerInfo[playerid][IDF], text);
-		ProxDetector(30.0, playerid, string, -1,-1,-1,-1,-1);
-		return 0;
-	}
+	return 1;
 }
 
 public OnPlayerCommandText(playerid, cmdtext[])
@@ -14308,6 +14991,10 @@ public OnPlayerCommandReceived(playerid, cmdtext[])
 public OnPlayerCommandPerformed(playerid, cmdtext[], success)
 {
 	if(!success)return ErrorMsg(playerid, "Comando desconhecido");
+
+	new string[255];
+	format(string,sizeof(string),"%04d exectou %s", PlayerInfo[playerid][IDF],cmdtext);
+	DCC_SendChannelMessage(ComandosLog, string);
 	return 0x01;
 }
 
@@ -14343,7 +15030,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 		}
 
-		TimerVelo[playerid] = SetTimerEx("VelocimetroEx", 250, true, "d", playerid);
+		TimerVelo[playerid] = SetTimerEx("VelocimetroEx", 500, true, "d", playerid);
     }
 	if(IsPlayerInAnyVehicle(playerid) && !IsBicycle(GetPlayerVehicleID(playerid)))
 	{
@@ -14452,7 +15139,7 @@ public OnPlayerEnterCheckpoint(playerid)
 		TogglePlayerControllable(playerid, 0);
 		InfoMsg(playerid, "Pegando Caixa...");
 		SetTimerEx("PegandoCaixaV", 10000, false, "i", playerid);
-		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
+		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0);
 	}
 	if(checkcasa[playerid] == true)
 	{
@@ -14511,7 +15198,7 @@ public OnPlayerEnterCheckpoint(playerid)
 		}else{
 			DisablePlayerCheckpoint(playerid);
 			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
+			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0);
 			InfoMsg(playerid, "Pegando Caixa...");
 			SetTimerEx("PegandoCaixasP", 10000, false, "i", playerid);
 			EntregaSdx[playerid] = false;
@@ -14520,14 +15207,14 @@ public OnPlayerEnterCheckpoint(playerid)
 	if(CaixaMao[playerid] == true){
 		DisablePlayerCheckpoint(playerid);
 		TogglePlayerControllable(playerid, 0);
-		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
+		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0);
 		InfoMsg(playerid, "Colocando Caixa...");
 		SetTimerEx("ColocandoCaixa", 10000, false, "i", playerid);
 		CaixaMao[playerid] = false;
 	}
 	if(Covaconcerto[playerid] == true)
 	{
-		ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.1, 1, 0, 0, 0, 0, 1);
+		ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.0, 1, 0, 0, 0, 0);
 		DisablePlayerCheckpoint(playerid);
 		TogglePlayerControllable(playerid, 0);
 		InfoMsg(playerid, "Coletando Lixo...");
@@ -14536,7 +15223,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	if(PegouLixo[playerid] == true)
 	{
 		DisablePlayerCheckpoint(playerid);
-		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
+		ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0);
 		TogglePlayerControllable(playerid, 0);
 		InfoMsg(playerid, "Colocando no bau...");
 		SetTimerEx("BotouBau", 10000, false, "i", playerid);
@@ -14546,7 +15233,7 @@ public OnPlayerEnterCheckpoint(playerid)
 		new dinmateriale = randomEx(10, 50);
 		new constrstr[500];
 		TogglePlayerControllable(playerid, 0);
-		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 1, 1, 0, 1, 0, 1);
+		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 1, 0, 0, 0, 0);
 		SetTimerEx("AnimyTogle", 3000, false, "i", playerid);
 		RemovePlayerAttachedObject(playerid, 6);
 		if(PlayerInfo[playerid][pVIP] == 0)
@@ -15654,7 +16341,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	{
 		if(pulou2vezes[playerid] == true)
 		{
-			ApplyAnimation(playerid, "PED", "GETUP_FRONT", 4.0, 0, 1, 1, 0, 0, 1);
+			if(!IsPlayerInAnyVehicle(playerid)) ApplyAnimation(playerid, "PED", "GETUP_FRONT", 4.0, 1, 0, 0, 0, 0);
 		}
 		else
 		{
@@ -15727,7 +16414,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	}
 	if(newkeys == KEY_CTRL_BACK)
 	{
-		cmd_roubar(playerid);
+		for(new i; i < 5; i++)
+		if(IsPlayerInRangeOfPoint(playerid, 1.0, PosRouboLoja[i][0], PosRouboLoja[i][1], PosRouboLoja[i][2]))
+		{
+			cmd_roubar(playerid);
+		}
 		new Inv[5000], Nick[5000], orgid = GetPlayerOrg(playerid);
 		if(IsPlayerInRangeOfPoint(playerid, 10.0, CofreInfo[orgid][CofrePosX], CofreInfo[orgid][CofrePosY], CofreInfo[orgid][CofrePosZ]))
 		{
@@ -15750,12 +16441,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 return 1;
             }
 		}
-		if(PlayerToPoint(3.0, playerid, 1683.301391, -2311.982910, 13.546875))
+		if(PlayerToPoint(3.0, playerid, 1567.830078, -1880.008178, 13.546875))
 		{
 			if(VehAlugado[playerid] == 0)
 			{
 				VehAlugado[playerid] = 1;
-				VeiculoCivil[playerid] = CreateVehicle(462, 1683.301391, -2311.982910, 13.546875, 90, -1, -1, false);
+				VeiculoCivil[playerid] = CreateVehicle(462, 1567.830078, -1880.008178, 13.546875, 90, -1, -1, false);
 				PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
 				InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
 
@@ -15970,42 +16661,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			TogglePlayerControllable(playerid, false);
 			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 		}
-		//PREFEITURA ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 1481.094482, -1772.313720, 18.795755))
-		{
-			SetPlayerPos(playerid,  -501.1714,286.6785,2001.0950);
-			SetPlayerInterior(playerid, 1);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//PREFEITURA SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,-501.1714,286.6785,2001.0950))
-		{
-			SetPlayerPos(playerid, 1481.094482, -1772.313720, 18.795755);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//MERCADO NEGRO ENTRADA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0, 2333.359130, -1883.562255, 15.000000))
-		{
-			SetPlayerPos(playerid,  504.942962, -2317.662597, 512.790771);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
-		//MERCADO NEGRO SAIDA
-		else if(IsPlayerInRangeOfPoint(playerid,2.0,504.942962, -2317.662597, 512.790771))
-		{
-			SetPlayerPos(playerid, 2333.359130, -1883.562255, 15.000000);
-			SetPlayerInterior(playerid, 0);
-			SetPlayerVirtualWorld(playerid, 0);
-			TogglePlayerControllable(playerid, false);
-			SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-		}
 		//A�OUGUE  ENTRADA
 		if(IsPlayerInRangeOfPoint(playerid,2.0, 2501.888916, -1494.696533, 24.000000))
 		{
@@ -16156,9 +16811,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(IsPlayerInRangeOfPoint(playerid, 1, 942.288391, 2173.139404, 1011.023437)){
 			cmd_pegarcaixa2(playerid);
 		}
-		if(PlayerToPoint(3.0, playerid, 934.1115,-1103.3857,24.3118)){
-			cmd_ltumba(playerid);
-		}
 		if(PlayerToPoint(3.0, playerid, -5467.627441, -4536.831054, 4046.774902))
 		{
 			if(PlayerInfo[playerid][Org] != 11) 		return ErrorMsg(playerid, "Nao possui permissao.");
@@ -16169,11 +16821,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][Org] != 9) 		return ErrorMsg(playerid, "Nao possui permissao.");
 			ShowPlayerDialog(playerid, DIALOG_ARMARIOMEC, DIALOG_STYLE_LIST,"Menu Bennys", "{5b6ed9}- {FFFFFF}Caixa de Ferramientas\t{32CD32}R$1200\n{5b6ed9}- {FFFFFF}Ferramentas de Tunagem\t{32CD32}R$15000", "Selecionar","X");
 		}
-		if(PlayerToPoint(3.0, playerid, -501.146118, 294.354156, 2001.094970))
+		if(PlayerToPoint(3.0, playerid, 1709.232299, -1649.383789, 20.175258))
 		{
 			ShowPlayerDialog(playerid, DIALOG_PREFEITURA, DIALOG_STYLE_LIST,"Prefeitura do Estado", "{5b6ed9}- {FFFFFF}Emitir Documentos\n{5b6ed9}- {FFFFFF}Emitir Cart. Trabalho", "Selecionar","X");
 		}
-		if(PlayerToPoint(3.0, playerid, 514.767089, -2334.465820, 508.693756))
+		if(PlayerToPoint(3.0, playerid, 2667.5273,-2128.6106,13.6791))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
 			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_LIST,"Loja Ilegal", "{5b6ed9}- {FFFFFF}Dinamite\t{32CD32}R$25000\n{5b6ed9}- {FFFFFF}Sementes de Maconha\t{32CD32}R$5000\n{5b6ed9}- {FFFFFF}LockPick\t{32CD32}R$15000\n{5b6ed9}- {FFFFFF}Pasta Base\t{32CD32}R$4000\n{5b6ed9}- {FFFFFF}Ferramenta de Desmanche\t{32CD32}R$50000", "Selecionar","X");
@@ -16206,15 +16858,16 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			strcat(StrHab,  "{5b6ed9}x{FFFFFF} Siga a rota sem bater ou danificar o veiculo.\n");
 			ShowPlayerDialog(playerid, DIALOG_CONFIRMA_ESCOLA2, DIALOG_STYLE_MSGBOX, "Teste de conducao", StrHab, "COMECAR","X");
 		}
-		if(PlayerToPoint(3.0, playerid, 1649.4332,-1889.2966,13.5878) || PlayerToPoint(3.0, playerid, 2064.6821,-1868.5961,13.5892) || PlayerToPoint(3.0, playerid, 382.9478,-1909.8621,7.8625) || PlayerToPoint(3.0, playerid, 1325.4236,-867.3035,39.6159) || PlayerToPoint(3.0, playerid, 1345.2196,-1763.8044,13.5702))
+		for(new i; i < 5; i++)
+		if(IsPlayerInRangeOfPoint(playerid, 1.0, PosLojinhas[i][0], PosLojinhas[i][1], PosLojinhas[i][2]))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_LOJA247, DIALOG_STYLE_LIST,"Loja de Utilidades\tValor", "{5b6ed9}- {FFFFFF}Celular\t{32CD32}R$1500\n{5b6ed9}- {FFFFFF}Capacete\t{32CD32}R$500\n{5b6ed9}- {FFFFFF}Embalagem\t{32CD32}R$1000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_LOJA247, DIALOG_STYLE_LIST,"Loja de Utilidades\tValor", "{5b6ed9}- {FFFFFF}Celular\t{32CD32}R$1500\n{5b6ed9}- {FFFFFF}Capacete\t{32CD32}R$500\n{5b6ed9}- {FFFFFF}Embalagem\t{32CD32}R$1000\n{5b6ed9}- {FFFFFF}Radinho VOIP\t{32CD32}R$5000\n{5b6ed9}- {FFFFFF}Corda\t{32CD32}R$8000\n{5b6ed9}- {FFFFFF}Caixa de Ferramentas\t{32CD32}R$3000", "Selecionar","X");
 		}
-		if(PlayerToPoint(3.0, playerid, 1785.501586, -1916.644165, 14.295277))
+		if(PlayerToPoint(3.0, playerid, 896.1668,-1345.3541,14.4743))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_AMMU, DIALOG_STYLE_LIST,"AmmuNation\tValor", "{5b6ed9}- {FFFFFF}Vara de Pescar\t{32CD32}R$2500\n{5b6ed9}- {FFFFFF}Chaira\t{32CD32}R$4200\n{5b6ed9}- {FFFFFF}Faca\t{32CD32}R$15000\n{5b6ed9}- {FFFFFF}Pa\t{32CD32}R$3200", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_AMMU, DIALOG_STYLE_LIST,"AmmuNation\tValor", "{5b6ed9}- {FFFFFF}Vara de Pescar\t{32CD32}R$2500\n{5b6ed9}- {FFFFFF}Chaira\t{32CD32}R$4200\n{5b6ed9}- {FFFFFF}Faca\t{32CD32}R$15000\n{5b6ed9}- {FFFFFF}Pa\t{32CD32}R$3200\n{5b6ed9}- {FFFFFF}Algemas\t{32CD32}R$5000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 468.658203, -1517.271606, 20.477876))
 		{
@@ -16264,7 +16917,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(PlayerInfo[playerid][pProfissao] != 5) 	return ErrorMsg(playerid, "Nao possui permissao.");
 			if(PegouMaterial[playerid] == true) 	return ErrorMsg(playerid, "Ja pegou um material.");
 
-			ApplyAnimation(playerid, "CARRY", "CRRY_PRTIAL", 4.1, 0, 0, 0, 1, 1, 1);
+			ApplyAnimation(playerid, "CARRY", "CRRY_PRTIAL", 4.0, 1, 0, 0, 0, 0);
 			SetPlayerCheckpoint(playerid, 1257.569458, -1263.111206, 17.821365, 1);
 			SetPlayerAttachedObject(playerid, 6, 3502, 1, 0.2779, 0.4348, 0.0000, -95.3000, 0.0000, 0.0000, 0.1209, 0.0740, 0.1028);
 			PegouMaterial[playerid] = true;
@@ -16408,6 +17061,28 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	format(Account, sizeof(Account), PASTA_CONTAS, Name(playerid));
 	switch(dialogid)
 	{
+		case DIALOG_ARRASTARP:
+		{
+			if(response)
+			{
+				cmd_carregarp(playerid, inputtext);
+			}
+			else
+			{
+				cmd_largarp(playerid, inputtext);
+			}
+		}
+		case DIALOG_ALGEMARP:
+		{
+			if(response)
+			{
+				cmd_algemar2(playerid, inputtext);
+			}
+			else
+			{
+				cmd_desalgemar2(playerid, inputtext);
+			}
+		}
 		case DIALOG_MECANICA:
 		{
 			if(response)
@@ -16977,9 +17652,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SetInt(Account, "pSexo", 0);
 					DOF2_SetInt(Account, "pSkin", 0);
 					DOF2_SetInt(Account, "pDinheiro", 0);
-					PlayerInfo[playerid][pDinheiro] = 500;
 					DOF2_SetInt(Account, "pBanco", 0);
-					PlayerInfo[playerid][pBanco] = 0;
 					DOF2_SetInt(Account, "pIdade", 0);
 					DOF2_SetInt(Account, "pSegundosJogados", 0);
 					DOF2_SetInt(Account, "pAvisos", 0);
@@ -17018,6 +17691,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SetInt(Account, "Pecas", 0);
 					DOF2_SetFloat(Account, "pVida", 100);
 					DOF2_SetFloat(Account, "pColete", 100);
+					PlayerInfo[playerid][pVida] = 100;
 					PlayerInfo[playerid][Casa] = -1;
 					DOF2_SaveFile();
 				}
@@ -17043,6 +17717,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_CreateFile(Account2);
 					DOF2_SaveFile();
 				}
+				new string[255];
+				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+				format(string,sizeof(string),"### NOVO ID GERADO\n\nID: %04d\nPertence: %s", PlayerInfo[playerid][IDF],Name(playerid));
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
+				DCC_SetEmbedDescription(embed, string);
+				DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.HomelandRP.COM.BR7777_20230919_225304_0000.png");
+				DCC_SendChannelEmbedMessage(NovoUsuarioLog, embed);
 				ShowPlayerDialog(playerid, DIALOG_EMAIL, DIALOG_STYLE_INPUT, "{FFFFFF}Email", "\n{FFFFFF}Digite seu email para seguir para o proximo passo do cadastro\n{FF0000}Voce deve colocar o email corretamente.", "Validar", "");
 			}
 		}
@@ -17164,6 +17845,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else
 				{
+					for(new i = 0; i < 15; ++i)
+					{
+						PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
+						if(i == 15)break;
+					}
 					if(DOF2_FileExists(Account))
     	            {
 						format(PlayerInfo[playerid][pLastLogin], 24, DOF2_GetString(Account, "pLastLogin"));
@@ -17200,7 +17886,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						SetPlayerWantedLevel(playerid, DOF2_GetInt(Account, "pProcurado"));
 						PlayerInfo[playerid][pMultas] = DOF2_GetInt(Account, "pMultas");
 						PlayerInfo[playerid][Casa] = DOF2_GetInt(Account, "pCasa");
-						SetPlayerScore(playerid, DOF2_GetInt(Account, "pLevel"));
+						SetPlayerScore(playerid, DOF2_GetInt(Account, "pLevel")); 
 						PlayerInfo[playerid][pXP] = DOF2_GetInt(Account, "pXP");
 						PlayerInfo[playerid][LicencaConduzir] = DOF2_GetInt(Account, "LicencaConduzir");
 						format(PlayerInfo[playerid][pNome],80,DOF2_GetString(Account,"pNome"));
@@ -17210,6 +17896,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						PlayerInfo[playerid][pRG] = DOF2_GetInt(Account, "pRG");
 						PlayerInfo[playerid][pCarteiraT] = DOF2_GetInt(Account, "pCarteiraT");
 						PlayerInfo[playerid][PecasArma] = DOF2_GetInt(Account, "Pecas");
+						PlayerInfo[playerid][pVida] = DOF2_GetFloat(Account, "pVida");
+						PlayerInfo[playerid][pColete] = DOF2_GetFloat(Account, "pColete");
 						DOF2_SaveFile();
 						//
 					}
@@ -17217,8 +17905,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						UltimaPos[playerid] = 1;
 						InfoMsg(playerid, "Voce pode voltar a sua ultima posicao usando /up");
-						TogglePlayerControllable(playerid, false);
-						SetTimerEx("carregarobj", 5000, 0, "i", playerid);
 						if(PlayerInfo[playerid][Casa] >= 0)
 						{
 							PlayerInfo[playerid][Entrada] = PlayerInfo[playerid][Casa];
@@ -17228,7 +17914,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 						else if(PlayerInfo[playerid][Org] == 0)
 						{
-							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1685.698608, -2334.948730, 13.546875, 0.269069, -1, -1, -1, -1, -1, -1);
+							SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1568.130615, -1891.800415, 13.559370, 1.185642, -1, -1, -1, -1, -1, -1);
 							SpawnPlayer(playerid);
 						}
 						else if(PlayerInfo[playerid][Org] == 1)
@@ -17303,23 +17989,20 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 						format(Str, sizeof(Str), "Bem vindo %04d. Seu ultimo login foi em %s.", GetPlayerIdfixo(playerid), PlayerInfo[playerid][pLastLogin]);
 						InfoMsg(playerid, Str);
-						if(IsPlayerMobile(playerid)){
-							Plataforma[playerid] = 1;
-						}else{
-							Plataforma[playerid] = 0;
-						}
+						SetTimerEx("TxdLogin", 5000, false, "d",playerid);
 					}
 					else
 					{
-						SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1685.698608, -2334.948730, 13.546875, 0.269069, -1, -1, -1, -1, -1, -1);
+						SetPlayerHealth(playerid, 100);
+						PlayerInfo[playerid][pVida] = 100;
+						SetSpawnInfo(playerid, 0, PlayerInfo[playerid][pSkin], 1568.130615, -1891.800415, 13.559370, 1.185642, -1, -1, -1, -1, -1, -1);
 						SpawnPlayer(playerid);
 						FirstLogin[playerid] = false;
+						SetTimerEx("TxdLogin", 5000, false, "d",playerid);
 					}
-					TextDrawShowForPlayer(playerid, gServerTextdraws);
 					CancelSelectTextDraw(playerid);
 					Timers(playerid);
 					SetPlayerVirtualWorld(playerid, 0);
-					SetTimerEx("TxdLogin", 2000, false, "d",playerid);
 					pLogado[playerid] = true;
 					pJogando[playerid] = true;
 					Erro[playerid] = 0;
@@ -17329,6 +18012,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new hora, minuto;
 					gettime(hora, minuto);
 					jogadoreson++;
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"O jogador %04d entrou no servidor!\n\nJogadores **%d**/500\nHorario: %02d:%02d", PlayerInfo[playerid][IDF],jogadoreson, hora, minuto);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.HomelandRP.COM.BR7777_20230919_225304_0000.png");
+					DCC_SendChannelEmbedMessage(EntradaSaidaLog, embed);
 				}
 			}
 		}
@@ -17344,7 +18034,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{
 							format(PlayerInfo[playerid][pEmail], 40, inputtext);
 							actorcad[playerid] = CreateActor(0, 1984.0140,1194.2424,26.8835,135.6409);
-							SetPlayerCameraPos(playerid, 1981.038940, 1191.061401, 27.828259);
+							SetPlayerCameraPos(playerid, 1981.038940, 1191.061401, 27.828259); 
 							SetPlayerCameraLookAt(playerid, 1985.139648, 1195.111572, 27.636171);
 							for(new i=0;i<18;i++){
 								TextDrawShowForPlayer(playerid, TDCadastro[i]);
@@ -17356,6 +18046,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							}
 							MostrandoMenu[playerid] = true;
 							SelectTextDraw(playerid, 0xFF0000FF);
+							new string[255];
+							new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+							format(string,sizeof(string),"### NOVO EMAIL CADASTRADO\n\nID: %04d\nPertence: %s\nEmail: %s", PlayerInfo[playerid][IDF],Name(playerid), inputtext);
+							DCC_SetEmbedColor(embed, 0x5b6ed9);
+							DCC_SetEmbedDescription(embed, string);
+							DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.HomelandRP.COM.BR7777_20230919_225304_0000.png");
+							DCC_SendChannelEmbedMessage(EmailLog, embed);
 						}
 					}else{
 						ShowPlayerDialog(playerid, DIALOG_EMAIL, DIALOG_STYLE_INPUT, "{FFFFFF}Email", "\n{FFFFFF}Digite seu email para seguir para o proximo passo do cadastro\n{FF0000}Voce deve colocar o email corretamente.", "Validar", "");
@@ -17370,6 +18067,22 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 		}
 		case DIALOG_BANIDO: Kick(playerid);
+		case DIALOG_RADIOFREQ:
+		{
+			if(response)
+			{
+				cmd_radio(playerid, inputtext);
+			}
+			else
+			{
+				for(new i; i < 32; i++)
+				{
+					PlayerTextDrawHide(playerid, RadioVOIP[playerid][i]);
+					if(i == 32)break;
+				}
+				CancelSelectTextDraw(playerid);
+			}
+		}
 		case DIALOG_BANCO4:
 		{
 			if(response)
@@ -17401,7 +18114,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 			if(!IsNumeric(inputtext)) return ErrorMsg(playerid, "Somente numeros");
 			if(strlen(inputtext) > 3) return ErrorMsg(playerid, "Valor invalido.");
-			if(PlayerInfo[playerid][pBanco] < strval(inputtext)) return ErrorMsg(playerid, "No puede hacer tranferencia mas do que no tienes.");
+			if(PlayerInfo[playerid][pBanco] < strval(inputtext)) return ErrorMsg(playerid, "Dinheiro insuficiemte");
 			/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 			PlayerInfo[playerid][pBanco] -= strval(inputtext);
@@ -17622,25 +18335,23 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 0)
 				{
 					MEGAString[0] = EOS;
-					format(stringZCMD, sizeof(stringZCMD), "1* Come�ou agora e est� perdido e n�o sabe o que fazer?");
+					format(stringZCMD, sizeof(stringZCMD), "{5b6ed9}- {FFFFFF}Ao morrer no jogo, irei perder todos os meus itens?");
 					strcat(MEGAString,stringZCMD);
-					format(stringZCMD, sizeof(stringZCMD), "\n2* Como fa�o para encontrar locais?");
+					format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Caso eu esque�a minha senha como posso recupera-la?");
 					strcat(MEGAString,stringZCMD);
-					format(stringZCMD, sizeof(stringZCMD), "\n3* Como fa�o para conseguir um emprego?");
+					format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Como posso adquirir Homeland Coins (hC$) e acessar a loja?");
 					strcat(MEGAString,stringZCMD);
-					format(stringZCMD, sizeof(stringZCMD), "\n4* Como fa�o para subir de level?");
+					format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Como posso ter suporte/ajuda?");
 					strcat(MEGAString,stringZCMD);
-					format(stringZCMD, sizeof(stringZCMD), "\n5* Como fa�o para obter minhas licencas?");
+					format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Como faco para recuperar meu veiculo que foi desmanchado?");
 					strcat(MEGAString,stringZCMD);
-					format(stringZCMD, sizeof(stringZCMD), "\n6* Como fa�o para ingressar em uma organizacao?");
+					format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Como posso fazer.. denuncia, sugestoes e ler regras?");
 					strcat(MEGAString,stringZCMD);
-					format(stringZCMD, sizeof(stringZCMD), "\n7* Entrei em um emprego, nao sei o que fazer!");
+					format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Como posso me tornar um criador de conteudo?");
 					strcat(MEGAString,stringZCMD);
-					format(stringZCMD, sizeof(stringZCMD), "\n8* Travo com frequencia, o que pode ser?");
+					format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Como posso entrar em uma organizacao?");
 					strcat(MEGAString,stringZCMD);
-					format(stringZCMD, sizeof(stringZCMD), "\n9* Estao me matando sem motivo e eu nao sei o que fazer!");
-					strcat(MEGAString,stringZCMD);
-					format(stringZCMD, sizeof(stringZCMD), "\n10* Fiz uma doacao e estou perdido, o que faco?");
+					format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Como posso fazer parte da staff?");
 					strcat(MEGAString,stringZCMD);
 					ShowPlayerDialog(playerid,DIALOG_FAQ,DIALOG_STYLE_LIST, "FAQ", MEGAString, "Confirmar", "X");
 				}
@@ -17648,24 +18359,32 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					new stg[15000];
 					strcat(stg, "{5b6ed9}/report{FFFFFF} Para denunciar um jogador.\n");
-					strcat(stg, "{5b6ed9}/atendimento{FFFFFF} Para denunciar um jogador.\n");
-					strcat(stg, "{5b6ed9}/duvida{FFFFFF} Para falar no chat de duvida.\n");
-					strcat(stg, "{5b6ed9}/lojavip{FFFFFF} Para verificar menu de coins.\n");
-					strcat(stg, "{5b6ed9}/sairemprego{FFFFFF} deixar seu emprego.\n");
-					strcat(stg, "{5b6ed9}/pedircontas{FFFFFF} Sair de sua org.\n");
-					strcat(stg, "{5b6ed9}/pagar{FFFFFF} Envia dinheiro a um jogador.\n");
-					strcat(stg, "{5b6ed9}/maconhas{FFFFFF} Verificar plantacoes.\n");
-					strcat(stg, "{5b6ed9}/cmaconha{FFFFFF} Colher plantacoes.\n");
-					strcat(stg, "{5b6ed9}/orgs{FFFFFF} Verificar orgs.\n");
-					strcat(stg, "{5b6ed9}/menuanim{FFFFFF} Menu de animacoes.\n");
-					strcat(stg, "{5b6ed9}/missoes{FFFFFF} Menu de missoes.\n");
-					strcat(stg, "{5b6ed9}/minhaconta{FFFFFF} Informacoes da sua conta.\n");
-					strcat(stg, "{5b6ed9}/rg{FFFFFF} Ver seu registro geral.\n");
-					strcat(stg, "{5b6ed9}/mostrarrg{FFFFFF} Mostrar seu rg a outro jogador.\n");
-					strcat(stg, "{5b6ed9}/mvoip{FFFFFF} Configurar seu voip.\n");
-					strcat(stg, "{5b6ed9}/limparchat{FFFFFF} Limpar o seu chat.\n");
-					strcat(stg, "{5b6ed9}/admins{FFFFFF} Verifica admins online.\n");
-					strcat(stg, "{5b6ed9}/presos{FFFFFF} Verificar os presos do servidor.\n\n");
+					strcat(stg, "{5b6ed9}/atendimento{FFFFFF} Para solicitar um atendimento.\n");
+					strcat(stg, "{5b6ed9}/sairemprego{FFFFFF} Para se demitir de um emprego.\n");
+					strcat(stg, "{5b6ed9}/minhaconta{FFFFFF} Para verificar sua conta.\n");
+					strcat(stg, "{5b6ed9}/mvoip{FFFFFF} Para alterar a sua voz.\n");
+					strcat(stg, "{5b6ed9}/gps{FFFFFF} Para verificar todos os locais.\n");
+					strcat(stg, "{5b6ed9}/pedircontas{FFFFFF} Para sair da sua organizacao.\n");
+					strcat(stg, "{5b6ed9}/duvida{FFFFFF} Para enviar uma mensagem de duvida.\n");
+					strcat(stg, "{5b6ed9}/online{FFFFFF} Para verificar as orgs online.\n");
+					strcat(stg, "{5b6ed9}/rg{FFFFFF} Para verificar seus documentos.\n");
+					strcat(stg, "{5b6ed9}/mostrarrg{FFFFFF} Para mostrar seu documento.\n");
+					strcat(stg, "{5b6ed9}/presos{FFFFFF} Para verificar quem esta preso.\n");
+					strcat(stg, "{5b6ed9}/admins{FFFFFF} Para verificar os admins online.\n");
+					strcat(stg, "{5b6ed9}/limparchat{FFFFFF} Para limpar o seu chat.\n");
+					strcat(stg, "{5b6ed9}/vips{FFFFFF} Para verificar os vips online.\n");
+					strcat(stg, "{5b6ed9}/lojavip{FFFFFF} Para verificar nossa loja.\n");
+					strcat(stg, "{5b6ed9}/dveiculo{FFFFFF} Para destruir seu veiculo.\n");
+					strcat(stg, "{5b6ed9}/orgs{FFFFFF} Para verificar as orgs do servidor.\n");
+					strcat(stg, "{5b6ed9}/pagar{FFFFFF} Para enviar dinheiro a um jogador.\n");
+					strcat(stg, "{5b6ed9}/cmaconha{FFFFFF} Para colher uma plantacao.\n");
+					strcat(stg, "{5b6ed9}/maconhas{FFFFFF} Para verificar e localizar suas plantacoes.\n");
+					strcat(stg, "{5b6ed9}/ativarkey{FFFFFF} Para ativar seu codigo.\n");
+					strcat(stg, "{5b6ed9}/menuanim{FFFFFF} Para selecionar uma animacao.\n");
+					strcat(stg, "{5b6ed9}/cancelarrota{FFFFFF} Para cancelar a rotas ilegais.\n");
+					strcat(stg, "{5b6ed9}/creditos{FFFFFF} Para verificar quem esta por dentro do servidor.\n");
+					strcat(stg, "{5b6ed9}/up{FFFFFF} Para voltar a ultima posicao.\n");
+					strcat(stg, "{5b6ed9}/garmas{FFFFFF} Para guardar suas armas no inventario.\n\n");
 					strcat(stg, "{FFFFFF} Para cada 30min de jogo voce recebera um PayDay,\ncada PayDay lhe dara bonus nos empregos e caixa PayDay.");
 					ShowPlayerDialog(playerid, DIALOG_AJUDACOMANDOS, DIALOG_STYLE_MSGBOX, "Comandos Servidor", stg, "Ok", #);
 				}
@@ -17734,6 +18453,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 3)
 				{
+					if(PlayerInfo[playerid][Cargo] == 0)
+					{
+						new stg[1100];
+						strcat(stg, "Voce nao e lider de nenhuma organizacao.");
+						ShowPlayerDialog(playerid, DIALOG_AJUDAJEFORG, DIALOG_STYLE_MSGBOX, "Comandos Chefes Orgs", stg, "Ok", #);
+					}
 					if(PlayerInfo[playerid][Cargo] == 2 || PlayerInfo[playerid][Cargo] == 3)
 					{
 						new stg[1100];
@@ -17747,6 +18472,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 4)
 				{
+					if(PlayerInfo[playerid][Org] == 0 )
+					{
+						new stg[1100];
+						strcat(stg, "Voce nao e membro de nenhuma organizacao.");
+						ShowPlayerDialog(playerid, DIALOG_AJUDAJEFORG, DIALOG_STYLE_MSGBOX, "Comandos Chefes Orgs", stg, "Ok", #);
+					}
 					if(IsPolicial(playerid))
 					{
 						new stg[1100];
@@ -17828,43 +18559,39 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				  {
 					   case 0:
 					   {
-							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"Iniciou agora, você está perdido e não sabe o que fazer?","Entre em contato com nossa equipe via /report [texto] ou /duvida [texto] para falar com outras pessoas\nTeremos o maior prazer em ajudá-lo com qualquer dúvida\nNota : Por favor, verifique primeiro se a sua pergunta não foi respondida abaixo em nossas Perguntas Frequentes.","Voltar","X");
+							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"{5b6ed9}Ajuda {FFFFFF}Duvidas Frequentes","Ao morrer, voce nao perde todos os itens que possui. \nNo entanto, voce perderatodo seu dinheiro que estiver em sua posse \nno momento da morte, alem de alguns itens espec�ficos, como armas,\n comidas e outros.\n\nE importante ressaltar que voce nao perdera nenhum \nitem de evento, seja ele gratuito ou adquirido, e tambem nenhum \nitem que tenha sido comprado com hCoins, como acessorios e outros.","Voltar","X");
 					   }
 					   case 1:
 					   {
-							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"Como faço para encontrar locais?","Digite: /gps, ele criará um ponto vermelho no seu mapa, basta ir até lá.","Voltar","X");
+							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"{5b6ed9}Ajuda {FFFFFF}Duvidas Frequentes","Se voce esqueceu a sua senha, entre em contato com a \nadministracao e informe seu emailque foi informado no momento do \ncadastro e siga os passos que a equipe passar a voce..","Voltar","X");
 					   }
 					   case 2:
 					   {
-							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"Como faço para conseguir um emprego?","Para conseguir um emprego você terá que ir à agência de empregos\nLá você encontrará o 'Menu Emprego'\nVocê terá que escolher um emprego e iniciar sua jornada\nNão sei onde fica a agencia? Use /gps.","Voltar","X");
+							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"{5b6ed9}Ajuda {FFFFFF}Duvidas Frequentes","Para adquirir hCoins voce precisa entrar em contato com \nos meios informado em nosso servidor Discord.\nObs: Com coins voce pode comprar tudo que esta disponivel no /lojavip da cidade.\n\nPasso para fazer a compra:\n\n1- Abra um ticket em nosso servidorr Discord.\n2- Informe que deseja comprar hCoins.\n3- Faca o pagamento na chave informada pela equipe\n4- Envie o comprovante e resgate o codigo enviado pela equipe.\n\nApos isso disfrute de seus coins para oque desejar!","Voltar","X");
 					   }
 					   case 3:
 					   {
-							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"Como faço para subir de nível?","A cada 30 minutos jogados, você ganha XP\nAo atingir o XP necessário para completar o próximo nível\nAparecerá na tela para você comprar o nível\nDigite: /uplvl para ver como quanto XP você precisa.","Voltar","X");
+							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"{5b6ed9}Ajuda {FFFFFF}Duvidas Frequentes","Se voce esta enfrentando problemas como estar preso, \ncom limitacoes ou incapaz de acessar algo, recomenda-se que \nutilize o comando /atendimento e aguarde alguem da equipe lhe \ndar o suporte que merece. ","Voltar","X");
 					   }
 					   case 4:
 					   {
-							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"Como faço para tirar minhas licencas?","Você deve ir ao centro de habilitação (/gps)\nAo chegar lá, vá até o npc\nPressione F e faça o teste\nVá devagar e não bata o veiculo para que você não perca.","Voltar","X");
+							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"{5b6ed9}Ajuda {FFFFFF}Duvidas Frequentes","Para recuperar um veiculo que foi desmanchado, voce \nprecisa seguir os seguintes passos:\n\n1- Aguarde um GMX apos o ve�culo ter sido retido no desmanche. Durante esse periodo, \no veiculo ficara bloqueado e nao estara disponivel para recuperacao imediata.\n\n2- Apos o GMX, o veiculo estara dispon�vel no local do respawn definido.\n\nObs: Lembre-se de deixar sempre seu veiculo no local seguro e sempre trancado!","Voltar","X");
 					   }
 					   case 5:
 					   {
-							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"Como faço para entrar em alguma organização?","Para entrar em qualquer organização é necessário fazer um teste com os líderes\nEntre no nosso discord e veja as organizações que estão fazendo testes.","Voltar","X");
+							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"{5b6ed9}Ajuda {FFFFFF}Duvidas Frequentes","Para encontrar o que voc� procura, basta seguir estes passos:\n\n1- Entre em nosso Discord.\n2- Procure pela categoria que encaixa ao que deseja\n3- E faca o que precisar ser efetuado seguindo as regras de postagens do canal\n\nObs: Caso tenha dificuldade abra um ticket e peca ajuda!","Voltar","X");
 					   }
 					   case 6:
 					   {
-							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"Entrei em um emprego, não sei o que fazer!","Você começou o dia e está perdido? Não sabe o que fazer?\nUse:/ajuda > emprego para ver seus comandos e boa sorte.","Voltar","X");
+							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"{5b6ed9}Ajuda {FFFFFF}Duvidas Frequentes","E um criador de conteudo e tem o interesse em se tornar um parceiro?\n\nNosso cidade nao possui requesitos para voce criador de conteudo.\nBasta postar um video e solicitar a tag e aguardar seu canal ser analisado!\n\nObs: Vale ressaltar que os videos tem que ter um bom conteudo para todos assistirem,\nnos colocamos esse ponto como um pequeno requesito.","Voltar","X");
 					   }
 					   case 7:
 					   {
-							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"Travo com frequência, o que pode ser?","Mods de aparência de veiculos, armas, skins, podem causar crash\nEvite usá-los, alguns mods são proibidos\nDependendo do mod, você pode sofrer punições.","Voltar","X");
+							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"{5b6ed9}Ajuda {FFFFFF}Duvidas Frequentes","Esta enjoado de andar por ai como um Civil?\n\nEm nosso servidor Discord ha diversas organizacoes fazendo recrutamento e voce podera entrar em uma delas,\nBasta fazer o formulario e seguir as etapas fornecidas pelo lider da tal organizacao que queira.\n\nHa varios roleplay que seu personagem pode seguir sendo eles militares, criminosas ou neutras.\n\nObs: Vale ressaltar que as organizacoes possuem funcoes e regras mais severas.","Voltar","X");
 					   }
 					   case 8:
 					   {
-							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"Estão me matando sem motivo e não sei o que fazer!","É considerado DM (Death Match) matar sem motivo\nSe isso acontecer, informe o jogador em nosso discord (discord.gg/ bBT3cT8B4Q)\nO jogador será devidamente punido","Voltar","X");
-					   }
-					   case 9:
-					   {
-							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"Fiz uma doação e estou perdido, o que faço?","Após fazer sua doação, você deve confirmá-la em nosso discord.","Voltar","X");
+							ShowPlayerDialog(playerid,DIALOG_FAQ1,DIALOG_STYLE_MSGBOX,"{5b6ed9}Ajuda {FFFFFF}Duvidas Frequentes","Deseja ajudar a manter tudo organizado?\n\nEm nosso servidor Discord ha oportunidades imensas para voce que deseja fazer parte da nossa equipe.\nBasta ter conhecimento de todas as regras da cidade e conhecer de ponta a ponta o funcionamento de tudo..\n\nCaso saiba os quesitos informados basta fazer o formulario liberado toda Sexta em nosso servidor Discord.","Voltar","X");
 					   }
 				  }
 			 }
@@ -17884,7 +18611,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new Float:g = GetPlayerDistanceFromPoint(playerid, 1083.447998, -1766.307128, 13.928387);
 					new Float:h = GetPlayerDistanceFromPoint(playerid, 797.993225, -1618.977661, 14.032936);
 					new Float:i = GetPlayerDistanceFromPoint(playerid, -1973.108276, 288.896331, 35.171875);
-					new Float:m = GetPlayerDistanceFromPoint(playerid, 1785.501586, -1916.644165, 14.295277);
+					new Float:m = GetPlayerDistanceFromPoint(playerid, 896.1668,-1345.3541,14.4743);
 					new Float:n = GetPlayerDistanceFromPoint(playerid, 1325.4236,-867.3035,39.6159);
 					new Float:o = GetPlayerDistanceFromPoint(playerid, 1345.2196,-1763.8044,13.5702);
 					new Float:p = GetPlayerDistanceFromPoint(playerid, 468.658203, -1517.271606, 20.477876);
@@ -17911,7 +18638,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Centro de Licencas \t{5b6ed9} %.0f KM\n", g);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} HomeLand Food \t{5b6ed9} %.0f KM\n", h);
+					format(string, 128, "{FFFFFF} Homeland Food \t{5b6ed9} %.0f KM\n", h);
 					strcat(MEGAString,string);
 					format(string, 128, "{FFFFFF} Concessionaria \t{5b6ed9} %.0f KM\n", i);
 					strcat(MEGAString,string);
@@ -18108,7 +18835,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1785.501586, -1916.644165, 14.295277, 8.0);
+					SetPlayerCheckpoint(playerid, 896.1668,-1345.3541,14.4743, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 12)
@@ -18306,6 +19033,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 15000;
 					GanharItem(playerid, 370, 1);
 					SuccesMsg(playerid, "Comprou um JetPack de Inventario.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um JetPack\nValor: 15000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://files.prineside.com/gtasa_samp_model_id/white/370_w_s.jpg");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 				if(listitem == 1)
 				{
@@ -18313,6 +19047,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 3016, 1);
 					SuccesMsg(playerid, "Comprou um Caixa Basica.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar uma Caixa Basica\nValor: 5000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://files.prineside.com/gtasa_samp_model_id/white/3016_w_s.jpg");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 				if(listitem == 2)
 				{
@@ -18320,6 +19061,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 10000;
 					GanharItem(playerid, 3013, 1);
 					SuccesMsg(playerid, "Comprou uma Caixa Media.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar uma Caixa Media\nValor: 10000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://files.prineside.com/gtasa_samp_model_id/white/3013_w_s.jpg");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 				if(listitem == 3)
 				{
@@ -18327,6 +19075,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 20000;
 					GanharItem(playerid, 19056, 1);
 					SuccesMsg(playerid, "Comprou uma Caixa Avancada.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar uma Caixa Avancada\nValor: 20000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://files.prineside.com/gtasa_samp_model_id/white/19056_w_s.jpg");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 				if(listitem == 4)
 				{
@@ -18338,6 +19093,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 5000;
 					PlayerInfo[playerid][pAvisos]--;
 					SuccesMsg(playerid, "Comprou uma remocao de avisos.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar uma Remocao de Avisos\nValor: 5000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://files.prineside.com/gtasa_samp_model_id/white/18646_w_s.jpg");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 				if(listitem == 6)
 				{
@@ -18349,6 +19111,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 5000;
 					cmd_mudarskin2(playerid);
 					SuccesMsg(playerid, "Comprou uma mudanca de skin.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar uma Mudanca de Skin\nValor: 5000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://files.prineside.com/gtasa_samp_model_id/white/1314_w_s.jpg");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 			}
 		}
@@ -18369,6 +19138,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 560, 1);
 					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um Sultan\nValor: 5000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_556.jpg");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 				if(listitem == 1)
 				{
@@ -18376,6 +19152,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 434, 1);
 					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um HotKnife\nValor: 5000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_434.jpg");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 				if(listitem == 2)
 				{
@@ -18383,13 +19166,27 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 441, 1);
 					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um RC Bandit\nValor: 2000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_441.jpg");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 				if(listitem == 3)
 				{
 					if(PlayerInfo[playerid][pCoins] < 2000) 	return ErrorMsg(playerid, "Coins insuficiente.");
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 464, 1);
-					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
+					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um RC Baron\nValor: 2000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_464.jpg");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 				if(listitem == 4)
 				{
@@ -18397,6 +19194,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 465, 1);
 					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um RC Raider\nValor: 2000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_465.jpg");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 				if(listitem == 5)
 				{
@@ -18404,6 +19208,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 502, 1);
 					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um Hotring\nValor: 5000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_502.jpg");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 				if(listitem == 6)
 				{
@@ -18411,6 +19222,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 2000;
 					GanharItem(playerid, 501, 1);
 					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um Globin\nValor: 2000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_501.jpg");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 				if(listitem == 7)
 				{
@@ -18418,6 +19236,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pCoins] -= 5000;
 					GanharItem(playerid, 556, 1);
 					SuccesMsg(playerid, "Comprou um veiculo de inventario.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um Monster\nValor: 5000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://assets.open.mp/assets/images/vehiclePictures/Vehicle_556.jpg");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 			}
 		}
@@ -18433,6 +19258,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pVIP] = 1;
 					PlayerInfo[playerid][pBanco] += 2500;
 					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um Classic\nValor: 5000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://storage.hydrus.gg/production/packages/63MMwLFIcCOur6QzlK1UncVYqmeWNJAC9u6J28Wi.png");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 				if(listitem == 1)
 				{
@@ -18443,6 +19275,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[playerid][pVIP] = 2;
 					PlayerInfo[playerid][pSegundosJogados] += 7200;
 					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um Advanced\nValor: 15000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://storage.hydrus.gg/production/packages/l4PSJAbtARQDPXpqOwS3nvuJ8fknUAs3qyWDphSi.png");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 				if(listitem == 2)
 				{
@@ -18464,6 +19303,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						InfoMsg(playerid, "Recebeu uma Sultan do seu beneficio.");
 					}
 					SuccesMsg(playerid, "Comprou um vip e recebeu seus beneficios.");
+					new string[255];
+					new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+					format(string,sizeof(string),"### LOJA VIP\n\nO jogador %04d acaba de comprar um Ultimate\nValor: 30000", PlayerInfo[playerid][IDF]);
+					DCC_SetEmbedColor(embed, 0x5b6ed9);
+					DCC_SetEmbedDescription(embed, string);
+					DCC_SetEmbedThumbnail(embed, "https://storage.hydrus.gg/production/packages/3AtWnHLqveZsbpwOYuQAc8z3sVC100Z9JhanM03a.png");
+					DCC_SendChannelEmbedMessage(CompraFeitasLog, embed);
 				}
 			}
 		}
@@ -18716,15 +19562,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 										return 1;
 									}
 								}
-								SetTimerEx("ParaDeBugaPoraaaDk", 100, 1, "i", i);
 								PlayerMorto[i][pEstaMorto] = 0;
 								KillTimer(TimerMorto[id]);
 								SetPlayerHealth(i, 50);
 								PlayerMorto[i][pMinMorto] = 0;
 								PlayerMorto[i][pSegMorto] = 0;
-								for(new idx=0; idx<9; idx++)
+								for(new ix = 0; ix < 9; ix ++)
 								{
-									TextDrawHideForPlayer(i,TDmorte[idx]);
+									TextDrawHideForPlayer(i,TDmorte[ix]);
 									if(i == 9)break;
 								}
 								PlayerTextDrawHide(i, TDmorte_p[i][0]);
@@ -18738,7 +19583,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 					}
 				}
-
 			}
 		}
 		case DIALOG_CARGA:
@@ -19193,31 +20037,31 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(listitem == 1)
 				{
 					ClearAnimations(playerid);
-					ApplyAnimation(playerid, "SUNBATHE", "ParkSit_M_in", 4.0, 0, 0, 0, 1, 0, 1);
+					ApplyAnimation(playerid, "SUNBATHE", "ParkSit_M_in", 4.0, 1, 0, 0, 0, 0);
 					SuccesMsg(playerid, "Iniciou uma animacao.");
 				}
 				if(listitem == 2)
 				{
 					ClearAnimations(playerid);
-					ApplyAnimation(playerid, "BEACH", "bather", 4.0, 0, 0, 0, 1, 0, 1);
+					ApplyAnimation(playerid, "BEACH", "bather", 4.0, 1, 0, 0, 0, 0);
 					SuccesMsg(playerid, "Iniciou uma animacao.");
 				}
 				if(listitem == 3)
 				{
 					ClearAnimations(playerid);
-					ApplyAnimation(playerid, "ped", "ARRESTgun", 4.0, 0, 0, 0, 1, 0, 1);
+					ApplyAnimation(playerid, "ped", "ARRESTgun", 4.0, 1, 0, 0, 0, 0);
 					SuccesMsg(playerid, "Iniciou uma animacao.");
 				}
 				if(listitem == 4)
 				{
 					ClearAnimations(playerid);
-					ApplyAnimation(playerid, "ped", "cower", 4.0, 0, 0, 0, 1, 0, 1);
+					ApplyAnimation(playerid, "ped", "cower", 4.0, 1, 0, 0, 0, 0);
 					SuccesMsg(playerid, "Iniciou uma animacao.");
 				}
 				if(listitem == 5)
 				{
 					ClearAnimations(playerid);
-					ApplyAnimation(playerid, "COP_AMBIENT", "Coplook_loop", 4.0, 0, 0, 0, 1, 0, 1);
+					ApplyAnimation(playerid, "COP_AMBIENT", "Coplook_loop", 4.0, 1, 0, 0, 0, 0);
 					SuccesMsg(playerid, "Iniciou uma animacao.");
 				}
 				if(listitem == 6)
@@ -20146,6 +20990,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					CofreAmmu += 3200;
 					SalvarDinRoubos();
 				}
+				if(listitem == 4)
+				{
+					if(PlayerInfo[playerid][pDinheiro] < 5000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Item comprado.");
+					PlayerInfo[playerid][pDinheiro] -= 5000;
+					GanharItem(playerid, 11750, 1);
+					CofreAmmu += 5000;
+					SalvarDinRoubos();
+				}
 			}
 		}
 		case DIALOG_LOJA247:
@@ -20233,6 +21086,90 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerToPoint(10.0, playerid, 1325.427368, -867.394287, 39.597454))
 					{
 						CofreLoja5 += 1000;
+					}
+					SalvarDinRoubos();
+				}
+				if(listitem == 3)
+				{
+					if(PlayerInfo[playerid][pDinheiro] < 5000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Item comprado.");
+					PlayerInfo[playerid][pDinheiro] -= 5000;
+					GanharItem(playerid, 19942, 1);
+					if(PlayerToPoint(10.0, playerid, 1345.220703, -1763.755737, 13.551799))
+					{
+						CofreLoja1 += 5000;
+					}
+					if(PlayerToPoint(10.0, playerid, 1649.424316, -1889.373535, 13.569334))
+					{
+						CofreLoja2 += 5000;
+					}
+					if(PlayerToPoint(10.0, playerid, 2064.488037, -1868.448364, 13.570810))
+					{
+						CofreLoja3 += 5000;
+					}
+					if(PlayerToPoint(10.0, playerid, 382.998931, -1909.859863, 7.844120))
+					{
+						CofreLoja4 += 5000;
+					}
+					if(PlayerToPoint(10.0, playerid, 1325.427368, -867.394287, 39.597454))
+					{
+						CofreLoja5 += 5000;
+					}
+					SalvarDinRoubos();
+				}
+				if(listitem == 4)
+				{
+					if(PlayerInfo[playerid][pDinheiro] < 8000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Item comprado.");
+					PlayerInfo[playerid][pDinheiro] -= 8000;
+					GanharItem(playerid, 19469, 1);
+					if(PlayerToPoint(10.0, playerid, 1345.220703, -1763.755737, 13.551799))
+					{
+						CofreLoja1 += 8000;
+					}
+					if(PlayerToPoint(10.0, playerid, 1649.424316, -1889.373535, 13.569334))
+					{
+						CofreLoja2 += 8000;
+					}
+					if(PlayerToPoint(10.0, playerid, 2064.488037, -1868.448364, 13.570810))
+					{
+						CofreLoja3 += 8000;
+					}
+					if(PlayerToPoint(10.0, playerid, 382.998931, -1909.859863, 7.844120))
+					{
+						CofreLoja4 += 8000;
+					}
+					if(PlayerToPoint(10.0, playerid, 1325.427368, -867.394287, 39.597454))
+					{
+						CofreLoja5 += 8000;
+					}
+					SalvarDinRoubos();
+				}
+				if(listitem == 5)
+				{
+					if(PlayerInfo[playerid][pDinheiro] < 3000) 			return ErrorMsg(playerid, "Dinheiro insuficiente.");
+					SuccesMsg(playerid, "Item comprado.");
+					PlayerInfo[playerid][pDinheiro] -= 3000;
+					GanharItem(playerid, 19921, 1);
+					if(PlayerToPoint(10.0, playerid, 1345.220703, -1763.755737, 13.551799))
+					{
+						CofreLoja1 += 3000;
+					}
+					if(PlayerToPoint(10.0, playerid, 1649.424316, -1889.373535, 13.569334))
+					{
+						CofreLoja2 += 3000;
+					}
+					if(PlayerToPoint(10.0, playerid, 2064.488037, -1868.448364, 13.570810))
+					{
+						CofreLoja3 += 3000;
+					}
+					if(PlayerToPoint(10.0, playerid, 382.998931, -1909.859863, 7.844120))
+					{
+						CofreLoja4 += 3000;
+					}
+					if(PlayerToPoint(10.0, playerid, 1325.427368, -867.394287, 39.597454))
+					{
+						CofreLoja5 += 3000;
 					}
 					SalvarDinRoubos();
 				}
@@ -20454,9 +21391,14 @@ public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 public OnClickDynamicPlayerTextDraw(playerid, PlayerText:textid)
 {
 	new str[64], File[255];
+	if(textid == RadioVOIP[playerid][29])
+	{
+		format(Str, sizeof(Str),"Introduza a frequencia que deseja entrar");
+		ShowPlayerDialog(playerid,DIALOG_RADIOFREQ,1,"Inserindo frequencia", Str, "Selecionar","X");
+	}
 	if(textid == BancoTD[playerid][8])
 	{
-		format(Str, sizeof(Str),"Introduza o IDF para transferir o dinheiro",PlayerInfo[playerid][pBanco]);
+		format(Str, sizeof(Str),"Introduza o IDF para transferir o dinheiro");
 		ShowPlayerDialog(playerid,DIALOG_BANCO4,1,"Transferir", Str, "Selecionar","X");
 	}
 	if(textid == BancoTD[playerid][25])
@@ -20638,6 +21580,7 @@ public OnClickDynamicPlayerTextDraw(playerid, PlayerText:textid)
 			SetPVarInt(playerid, #VarSlotInv, i);
 			return 1;
 		}
+		if(i == 31)break;
 	}
 	if(textid == DrawInv[playerid][36]) return ShowPlayerDialog(playerid, DIALOG_QTDINV, DIALOG_STYLE_INPUT, "Digite a quantidade", "Digite a quantia para utilizar/dropar o item do inventario.", "Confirmar", "X");
 	if(textid == DrawInv[playerid][35]) return cmd_inventario(playerid);
@@ -20712,8 +21655,9 @@ public OnClickDynamicPlayerTextDraw(playerid, PlayerText:textid)
 	if(textid == CopGuns[playerid][0])
 	{
 		SetPlayerArmour(playerid, 100);
+		RemovePlayerWeapon(playerid, 24);
 		RemovePlayerWeapon(playerid, 34);
-		GivePlayerWeapon(playerid, 22, 32);
+		GivePlayerWeapon(playerid, 24, 32);
 	}
 	if(textid == CopGuns[playerid][1])
 	{
@@ -20793,12 +21737,61 @@ public OnClickDynamicTextDraw(playerid, Text:textid)
 		MostrandoRG[playerid] = false;
 		CancelSelectTextDraw(playerid);
 	}
-	if(textid == TDmorte[1]){
-		VaiProHospital(playerid);
+	if(textid == TDmorte[1])
+	{
+		SetPlayerPos(playerid, 1629.030639, -1123.190185, 24.769485);
+		SetPlayerFacingAngle(playerid, 175.770599);
+        KillTimer(TimerMorto[playerid]);
+		PlayerMorto[playerid][pMinMorto] = 0;
+		PlayerMorto[playerid][pSegMorto] = 0;
+		SetPlayerHealth(playerid, 100);
+		PlayerInfo[playerid][pDinheiro] = 0;
+		FomePlayer[playerid] = 100;
+		SedePlayer[playerid] = 100;
+		RetirarItem(playerid, 1212);
+		RetirarItem(playerid, 854);
+		RetirarItem(playerid, 1279);
+		RetirarItem(playerid, 902);
+		RetirarItem(playerid, 19630);
+		RetirarItem(playerid, 1599);
+		RetirarItem(playerid, 1600);
+		RetirarItem(playerid, 1603);
+		RetirarItem(playerid, 1604);
+		RetirarItem(playerid, 1608);
+		RetirarItem(playerid, 1576);
+		RetirarItem(playerid, 1654);
+		RetirarItem(playerid, 2218);
+		RetirarItem(playerid, 2355);
+		RetirarItem(playerid, 2219);
+		RetirarItem(playerid, 2220);
+		RetirarItem(playerid, 1484);
+		RetirarItem(playerid, 1644);
+		RetirarItem(playerid, 1546);
+		RetirarItem(playerid, 2601);
+		RetirarItem(playerid, 3520);
+		RetirarItem(playerid, 11746);
+		RetirarItem(playerid, 19921);
+		RetirarItem(playerid, 1010);
+		RetirarItem(playerid, 18870);
+		RetirarItem(playerid, 11736);
+		RetirarItem(playerid, 18632);
+		RetirarItem(playerid, 18645);
+		RetirarItem(playerid, 18644);
+		TogglePlayerControllable(playerid, true);
+		ClearAnimations(playerid);
+		for(new ix = 0; ix < 9; ix ++)
+		{
+			TextDrawHideForPlayer(playerid,TDmorte[ix]);
+			if(ix == 9)break;
+		}
+		PlayerTextDrawHide(playerid, TDmorte_p[playerid][0]);
+		CancelSelectTextDraw(playerid);
+		InfoMsg(playerid, "Morreu e perdeu todo seu dinheiro e alguns itens do seu inventario.");
         PlayerMorto[playerid][pEstaMorto] = 0;
 	}
 	if(textid == TDCadastro[2]){
 		new str[10];
+		MostrandoMenu[playerid] = true;
 		if(Page[playerid] < 46){
 			Page[playerid]++;
 		}
@@ -20812,6 +21805,7 @@ public OnClickDynamicTextDraw(playerid, Text:textid)
 	}
 	if(textid == TDCadastro[3]){
 		new str[10];
+		MostrandoMenu[playerid] = true;
 		if(Page[playerid] > 1){
 			Page[playerid]--;
 		}
@@ -20864,18 +21858,6 @@ public OnClickDynamicTextDraw(playerid, Text:textid)
 
 //                          COMANDOS
 
-CMD:up(playerid)
-{
-	if(UltimaPos[playerid] == 0) return ErrorMsg(playerid, "Voce nao pode mais voltar a ultima posicao");
-	TogglePlayerControllable(playerid, false);
-	SetTimerEx("carregarobj", 5000, 0, "i", playerid);
-	SetPlayerPos(playerid, PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ]);
-	SetPlayerFacingAngle(playerid,PlayerInfo[playerid][pPosA]);
-	SetPlayerCameraPos(playerid, PlayerInfo[playerid][pCamX], PlayerInfo[playerid][pCamY], PlayerInfo[playerid][pCamZ]);
-	SetPlayerInterior(playerid, PlayerInfo[playerid][pInterior]);
-	UltimaPos[playerid] = 0;
-	return 1;
-}
 CMD:minhaconta(playerid)
 {
 	new megastrings[500], String2[500];
@@ -20895,7 +21877,7 @@ CMD:minhaconta(playerid)
 CMD:ajuda(playerid)
 {
 	MEGAString[0] = EOS;
-	strcat(MEGAString, "{5b6ed9}Ajuda {FFFFFF}FAQ\n");
+	strcat(MEGAString, "{5b6ed9}Ajuda {FFFFFF}Duvidas Frequentes\n");
 	strcat(MEGAString, "{5b6ed9}Ajuda {FFFFFF}Comandos\n");
 	strcat(MEGAString, "{5b6ed9}Ajuda {FFFFFF}Empregos\n");
 	strcat(MEGAString, "{5b6ed9}Ajuda {FFFFFF}Comandos Lideres\n");
@@ -21090,7 +22072,7 @@ CMD:pegaritem(playerid)
 				DropItemSlot[i][Interior] = 0;
 				DropItemSlot[i][Virtual] = 0;
 				SuccesMsg(playerid, str);
-				ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.1, 0, 0, 0, 0, 0, 1);
+				ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 1, 0, 0, 0, 0);
 				return 1;
 			}
 		}
@@ -21101,7 +22083,7 @@ CMD:pegaritem(playerid)
 CMD:daritem(playerid, const params[])
 {
 	new id, item, quantia;
-	if(PlayerInfo[playerid][pAdmin] < 5)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "iii", id, item, quantia)) return ErrorMsg(playerid, "Use: /daritem [ID] [ITEM ID] [UNIDADES].");
 	if(quantia < 1) return ErrorMsg(playerid, "Coloque uma quantia.");
 	foreach(new i : Player)
@@ -21114,6 +22096,9 @@ CMD:daritem(playerid, const params[])
 				if(!CheckInventario(i, item)) return ErrorMsg(playerid, "Inventario do jogador esta cheio.");
 				GanharItem(i, item, quantia);
 				SuccesMsg(playerid, "Item setado para o jogador.");
+
+				format(Str, sizeof(Str), "O Administrador %s deu a %04d item %d.", Name(playerid), GetPlayerIdfixo(i), item);
+				DCC_SendChannelMessage(SetagensLog, Str);
 			}
 		}
   	}
@@ -21137,7 +22122,7 @@ CMD:inventario(playerid)
 	}
 	else
 	{
-		format(str, sizeof(str), "Inventario: %s(%d)", Name(playerid),PlayerInfo[playerid][IDF]);
+		format(str, sizeof(str), "%s", Name(playerid));
 		PlayerTextDrawSetString(playerid, DrawInv[playerid][34], str);
 		PlayerTextDrawSetString(playerid, DrawInv[playerid][38], "");
 		for(new i = 1; i < 33; ++i)
@@ -21176,6 +22161,13 @@ CMD:report(playerid, params[])
 				SuccesMsg(playerid, "Os administradores foram notificados. Bom jogo !");
 				format(Str, sizeof(Str), "{FFFFFF}%04d{FFFFFF} report {FFFFFF}%04d{FFFFFF} Motivo: {5b6ed9}%s", PlayerInfo[playerid][IDF], PlayerInfo[i][IDF], Motivo);
 				SendAdminMessage(-1, Str);
+				new string[255];
+				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+				format(string,sizeof(string),"### NOVO REPORT\n\nReporte de %04d \nReportou o %04d\nMotivo: %s", PlayerInfo[playerid][IDF], PlayerInfo[i][IDF], Motivo);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
+				DCC_SetEmbedDescription(embed, string);
+				DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.HomelandRP.COM.BR7777_20230919_225304_0000.png");
+				DCC_SendChannelEmbedMessage(ReportsLog, embed);
 			}
 		}
   	}
@@ -21212,30 +22204,17 @@ CMD:logaradm(playerid)
 	GetPlayerName(playerid, sendername, sizeof(sendername));
 	if(!strcmp(sendername,"Luan_Rosa", false))
 	{
-		PlayerInfo[playerid][pAdmin] = 7;
-		SuccesMsg(playerid, "Conectado como Desenvolvedor");
-		pJogando[playerid] = false;
-	}
-	if(!strcmp(sendername,"Maconho_", false))
-	{
-		PlayerInfo[playerid][pAdmin] = 6;
-		SuccesMsg(playerid, "Conectado como Fundador");
-		pJogando[playerid] = false;
-	}
-	if(!strcmp(sendername,"Allison_Gomes", false))
-	{
-		PlayerInfo[playerid][pAdmin] = 7;
+		PlayerInfo[playerid][pAdmin] = 8;
 		SuccesMsg(playerid, "Conectado como Desenvolvedor");
 		pJogando[playerid] = false;
 	}
 	return 1;
-
 }
 
 CMD:pos(playerid, params[])
 {
 	new msg[500];
-	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 3)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "s[56]", msg))return ErrorMsg(playerid,"Use /pos [nomedolocal].");
 
 	static
@@ -21271,12 +22250,16 @@ CMD:a(playerid, params[])
 	//
 	format(Str, sizeof(Str), "{FFFFFF}[{5b6ed9}%s{FFFFFF}] {5b6ed9}%s{FFFFFF}({5b6ed9}%04d{FFFFFF}) disse {5b6ed9}%s", AdminCargo(playerid), Name(playerid),PlayerInfo[playerid][IDF], Motivo);
 	SendAdminMessage(0xDDA0DDFF, Str);
+
+	new string2[100];
+	format(string2,sizeof(string2),"%s disse %s", Name(playerid), Motivo);
+	DCC_SendChannelMessage(ChatAdmLog, string2);
 	return 1;
 }
 
 CMD:av(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 4)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "s[56]", Motivo)) 						return ErrorMsg(playerid, "USE: /av [TEXTO]");
 	foreach(new i : Player)
@@ -21303,6 +22286,9 @@ CMD:setskin(playerid, params[])
 				SalvarDadosSkin(i);
 				SuccesMsg(playerid, "Mudou a skin do jogador.");
 				InfoMsg(i, "Algum administrador mudou sua skin.");
+				
+				format(Str, sizeof(Str), "O Administrador %s deu a %04d skin %d.", Name(playerid), GetPlayerIdfixo(i), Numero);
+				DCC_SendChannelMessage(SetagensLog, Str);
 			}
 		}
   	}
@@ -21312,7 +22298,7 @@ CMD:setskin(playerid, params[])
 
 CMD:setvida(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 5)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "dd", ID, Numero))						return ErrorMsg(playerid,"USE: /setvida [ID] [VIDA]");
 	foreach(new i : Player)
@@ -21324,6 +22310,9 @@ CMD:setvida(playerid, params[])
 				SetPlayerHealth(i, Numero);
 				SuccesMsg(playerid, "Setou a vida do jogador.");
 				InfoMsg(i, "Algum administrador alterou sua vida.");
+
+				format(Str, sizeof(Str), "O Administrador %s deu a %04d vida %d.", Name(playerid), GetPlayerIdfixo(i), Numero);
+				DCC_SendChannelMessage(SetagensLog, Str);
 			}
 		}
   	}
@@ -21333,7 +22322,7 @@ CMD:setvida(playerid, params[])
 
 CMD:setcolete(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 5)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "dd", ID, Numero))						return ErrorMsg(playerid,"USE: /setcolete [ID] [COLETE]");
 	foreach(new i : Player)
@@ -21345,6 +22334,9 @@ CMD:setcolete(playerid, params[])
 				SetPlayerArmour(i, Numero);
 				SuccesMsg(playerid, "Setou o colete do jogador.");
 				InfoMsg(i, "Algum administrador alterou seu colete.");
+
+				format(Str, sizeof(Str), "O Administrador %s deu a %04d colete %d.", Name(playerid), GetPlayerIdfixo(i), Numero);
+				DCC_SendChannelMessage(SetagensLog, Str);
 			}
 		}
   	}
@@ -21377,7 +22369,7 @@ CMD:cv(playerid, params[])
 
 CMD:kick(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "ds[56]", ID, Motivo))					return ErrorMsg(playerid,"USE: /kick [ID] [MOTIVO]");
 	foreach(new i : Player)
   	{
@@ -21389,6 +22381,14 @@ CMD:kick(playerid, params[])
 				InfoMsg(i, "Algum administrador deu kick em voce.");
 				format(Str, sizeof(Str), "{5b6ed9}AVISO{FFFFFF} O jogador {5b6ed9}%04d {FFFFFF}foi kickado por administrador {5b6ed9}%s{FFFFFF}. Motivo: {5b6ed9}%s", GetPlayerIdfixo(i), Name(playerid), Motivo);
 				SendClientMessageToAll(-1, Str);
+
+				new string[255];
+				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+				format(string,sizeof(string),"### KICK\n\nID: %04d\nPertence: %s\nExpulso por: %s\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Motivo);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
+				DCC_SetEmbedDescription(embed, string);
+				DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.HomelandRP.COM.BR7777_20230919_225304_0000.png");
+				DCC_SendChannelEmbedMessage(PunicoesLog, embed);
 				Kick(i);
 			}
 		}
@@ -21425,6 +22425,14 @@ CMD:cadeia(playerid, params[])
 				InfoMsg(i, "Algum administrador te colocou na cadeia.");
 				format(Str, sizeof(Str), "{5b6ed9}AVISO{FFFFFF} O Administrador {5b6ed9}%s {FFFFFF}prendeu {5b6ed9}%04d {FFFFFF}por {5b6ed9}%i {FFFFFF}minutos. Motivo: {5b6ed9}%s", Name(playerid), GetPlayerIdfixo(i), Numero, Motivo);
 				SendClientMessageToAll(-1, Str);
+
+				new string[255];
+				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+				format(string,sizeof(string),"### CADEIA STAFF\n\nID: %04d\nPertence: %s\nPreso por: %s\nTempo: %i minuto(s)\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Numero, Motivo);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
+				DCC_SetEmbedDescription(embed, string);
+				DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.HomelandRP.COM.BR7777_20230919_225304_0000.png");
+				DCC_SendChannelEmbedMessage(PunicoesLog, embed);
 			}
 		}
   	}
@@ -21475,7 +22483,7 @@ CMD:spawnar(playerid, params[])
 		{
 			if(PlayerInfo[i][IDF] == ID)
 			{
-				SetPlayerPos(i, 1685.698608, -2334.948730, 13.546875);
+				SetPlayerPos(i, 1568.130615, -1891.800415, 13.559370);
 				TogglePlayerControllable(i, false);
 				SetTimerEx("carregarobj", 5000, 0, "i", i);
 				SuccesMsg(playerid, "Voce mandou o jogador para o spawn.");
@@ -21521,7 +22529,7 @@ CMD:trazer(playerid, params[])
 
 CMD:contagem(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 4)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "i", ID)) 								return ErrorMsg(playerid,"ERRO: Use /contagem [VALOR INICIAL]");
 	if(ID < 1 || ID > 20) 										return ErrorMsg(playerid, "20s e o maximo.");
@@ -21599,6 +22607,9 @@ CMD:setarma(playerid, params[])
 				GivePlayerWeapon(i, Arma, Municao);
 				SuccesMsg(playerid, "Voce setou arma ao jogador.");
 				InfoMsg(i, "Algum administrador deu arma a voce.");
+
+				format(Str, sizeof(Str), "O Administrador %s deu a %04d arma %d.", Name(playerid), GetPlayerIdfixo(i), Arma);
+				DCC_SendChannelMessage(SetagensLog, Str);
 			}
 		}
   	}
@@ -21607,7 +22618,7 @@ CMD:setarma(playerid, params[])
 
 CMD:desarmar(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 4)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "d", ID))									return ErrorMsg(playerid,"USE: /desarmar [ID]");
 	foreach(new i : Player)
@@ -21628,7 +22639,7 @@ CMD:desarmar(playerid, params[])
 
 CMD:banir(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 3)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "is[56]", ID, Motivo)) 					return ErrorMsg(playerid,"ERRO: Use /banir [ID] [MOTIVO]");
 	foreach(new i : Player)
@@ -21639,7 +22650,13 @@ CMD:banir(playerid, params[])
 			{
 				SuccesMsg(playerid, "Voce baniu o jogador.");
 				InfoMsg(i, "Algum administrador baniu voce.");
-
+				new string[255];
+				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+				format(string,sizeof(string),"### BANIMENTO\n\nID: %04d\nPertence: %s\nBanido por: %s\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Motivo);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
+				DCC_SetEmbedDescription(embed, string);
+				DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.HomelandRP.COM.BR7777_20230919_225304_0000.png");
+				DCC_SendChannelEmbedMessage(PunicoesLog, embed);
 				BanirPlayer(i, playerid, Motivo);
 			}
 		}
@@ -21651,7 +22668,7 @@ CMD:banir(playerid, params[])
 CMD:tempban(playerid,params[])
 {
 	new File[255];
-	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 3)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	new Dias;
 	if(sscanf(params, "iis[56]", ID, Dias, Motivo)) 			return ErrorMsg(playerid,"ERRO: Use /tempban [ID] [TEMPO] [MOTIVO]");
@@ -21704,6 +22721,13 @@ CMD:tempban(playerid,params[])
 				DOF2_SaveFile();
 				format(Str, sizeof(Str), "{5b6ed9}ADMIN{FFFFFF} O jogador {5b6ed9}%04d {FFFFFF}foi banido por {5b6ed9}%i {FFFFFF}dias pelo administrador {5b6ed9}%s{FFFFFF}. Motivo: {5b6ed9}%s", GetPlayerIdfixo(i), Dias, Name(playerid), Motivo);
 				SendClientMessageToAll(-1, Str);
+				new string[255];
+				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+				format(string,sizeof(string),"### BANIMENTO\n\nID: %04d\nPertence: %s\nBanido por: %s\nTempo: %i Dia(s)\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Dias, Motivo);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
+				DCC_SetEmbedDescription(embed, string);
+				DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.HomelandRP.COM.BR7777_20230919_225304_0000.png");
+				DCC_SendChannelEmbedMessage(PunicoesLog, embed);
 				Kick(i);
 			}
 		}
@@ -21714,7 +22738,7 @@ CMD:tempban(playerid,params[])
 
 CMD:antiafk(playerid)
 {
-	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 3)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(AntiAFK_Ativado)
 	{
 		AntiAFK_Ativado = false;
@@ -21731,7 +22755,7 @@ CMD:antiafk(playerid)
 CMD:agendaban(playerid, params[])
 {
 	new File[255];
-	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 3)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true)								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	new Nome[24], tempo;
 	if(sscanf(params, "s[56]is[56]", Nome, tempo, Motivo))		return ErrorMsg(playerid,"ERRO: Use /agendarban [CONTA] [TEMPO EM DIAS (999 = FOREVER)] [MOTIVO]");
@@ -21742,6 +22766,14 @@ CMD:agendaban(playerid, params[])
 	format(Str, sizeof(Str), "{5b6ed9}ADMIN{FFFFFF}O Administrador {5b6ed9}%s {FFFFFF}programou a {5b6ed9}%s {FFFFFF} um ban. Motivo: {5b6ed9}%s", Name(playerid), Nome, Motivo);
 	SendClientMessageToAll(-1, Str);
 
+	new string[255];
+	new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+	format(string,sizeof(string),"### BANIMENTO\n\nConta: %s\nPreso por: %s\nTempo: %i minuto(s)\nMotivo: %s", Nome, Name(playerid), tempo, Motivo);
+	DCC_SetEmbedColor(embed, 0x5b6ed9);
+	DCC_SetEmbedDescription(embed, string);
+	DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.HomelandRP.COM.BR7777_20230919_225304_0000.png");
+	DCC_SendChannelEmbedMessage(PunicoesLog, embed);
+
 	SuccesMsg(playerid, "Para cancelar um ban, pede a alguem..");
 	return 1;
 }
@@ -21749,7 +22781,7 @@ CMD:agendaban(playerid, params[])
 CMD:agendacadeia(playerid, params[])
 {
 	new File[255];
-	if(PlayerInfo[playerid][pAdmin] < 2)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 3)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true)								return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	new Nome[24];
 	if(sscanf(params, "s[56]is[56]", Nome, ID,  Motivo))		return ErrorMsg(playerid,"ERRO: Use /agendarcadeia [CONTA] [TEMPO EM MINUTOS] [MOTIVO]");
@@ -21760,6 +22792,14 @@ CMD:agendacadeia(playerid, params[])
 	format(Str, sizeof(Str), "AdmCmd: {FFFFFF}O Administrador {5b6ed9}%s{FFFFFF} programou {5b6ed9}%s {FFFFFF}para cumprir {5b6ed9}%i {FFFFFF}minutos de cadeia. Motivo: {5b6ed9}%s", Name(playerid), Nome, ID, Motivo);
 	SendClientMessageToAll(-1, Str);
 
+	new string[255];
+	new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+	format(string,sizeof(string),"### CADEIA STAFF\n\nConta: %s\nPreso por: %s\nTempo: %i minuto(s)\nMotivo: %s", Nome, Name(playerid), ID, Motivo);
+	DCC_SetEmbedColor(embed, 0x5b6ed9);
+	DCC_SetEmbedDescription(embed, string);
+	DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.HomelandRP.COM.BR7777_20230919_225304_0000.png");
+	DCC_SendChannelEmbedMessage(PunicoesLog, embed);
+
 	AgendarCadeia(Nome, ID, playerid, Motivo);
 	if(ID > 0) ErrorMsg(playerid, "DICA: Para cancelar um agendamento de cadeia use valores negativos no Tempo.");
 	return 1;
@@ -21767,7 +22807,7 @@ CMD:agendacadeia(playerid, params[])
 
 CMD:adv(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 3)						return ErrorMsg(playerid, "Nao possui permissao.");
 	if(sscanf(params, "is[56]", ID, Motivo)) 					return ErrorMsg(playerid,"ERRO: Use /adv [ID] [MOTIVO]");
 	foreach(new i : Player)
   	{
@@ -21804,6 +22844,13 @@ CMD:banirip(playerid, params[])
 			{
 				SuccesMsg(playerid, "Voce beniu por ip o jogador.");
 				InfoMsg(i, "Algum administrador baniu por ip voce.");
+				new string[255];
+				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+				format(string,sizeof(string),"### BANIMENTO IP\n\nID: %04d\nPertence: %s\nBanido por: %s\nMotivo: %s", PlayerInfo[i][IDF],Name(i), Name(playerid), Motivo);
+				DCC_SetEmbedColor(embed, 0x5b6ed9);
+				DCC_SetEmbedDescription(embed, string);
+				DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.HomelandRP.COM.BR7777_20230919_225304_0000.png");
+				DCC_SendChannelEmbedMessage(PunicoesLog, embed);
 				BanirIP(i, playerid, Motivo);
 			}
 		}
@@ -21921,7 +22968,7 @@ CMD:descongelar(playerid, params[])
 
 CMD:chat(playerid)
 {
-	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 3)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(ChatLigado == true)
 	{
@@ -21939,7 +22986,7 @@ CMD:chat(playerid)
 CMD:desbanir(playerid, params[])
 {
 	new File[255];
-	if(PlayerInfo[playerid][pAdmin] < 4)		return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 3)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "s[56]", Motivo)) 		return ErrorMsg(playerid,"ERRO: Use /desbanir [Conta - Nome_Sobrenome (COMPLETO)]");
 	format(File, sizeof(File), PASTA_CONTAS, Motivo);
@@ -21993,7 +23040,7 @@ CMD:dardinheiro(playerid, params[])
 
 CMD:setadmin(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 7)		return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
 	if(pJogando[playerid] == true) 				return ErrorMsg(playerid, "Nao iniciou trabalho staff");
 	if(sscanf(params, "ii", ID, Numero))		return ErrorMsg(playerid,"USE: /setadmin [ID] [LEVEL]");
 	if(Numero > 9)				return ErrorMsg(playerid, "O numero deve ser entre 0 a 9");
@@ -22006,6 +23053,9 @@ CMD:setadmin(playerid, params[])
 				PlayerInfo[i][pAdmin] = Numero;
 				SuccesMsg(playerid, "Voce deu administrador para o jogador.");
 				InfoMsg(i, "Algum administrador setou admin em voce.");
+
+				format(Str, sizeof(Str), "O Administrador %s deu a %04d admin %d.", Name(playerid), GetPlayerIdfixo(i), Numero);
+				DCC_SendChannelMessage(SetagensLog, Str);
 			}
 		}
   	}
@@ -22224,20 +23274,6 @@ CMD:carregar(playerid)
 	return 1;
 }
 
-CMD:var(playerid){ //cmd teste
-	new st[40];
-	format(st,sizeof(st),"%i",CaixasSdx[playerid]);
-	SendClientMessage(playerid, -1, st);
-	return true;
-}
-
-CMD:setvar(playerid,params[]){
-	new vvar;
-	if(sscanf(params,"d",vvar)) return SendClientMessage(playerid, -1,"Use /setvar [value]");
-	CaixasSdx[playerid] = vvar;
-	return 1;
-}
-
 CMD:descarregar(playerid)
 {
 	if(PlayerInfo[playerid][pProfissao] != 4) 	return ErrorMsg(playerid, "Nao possui permissao.");
@@ -22253,7 +23289,7 @@ CMD:descarregar(playerid)
 
 CMD:rorgoff(playerid)
 {
-	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 4)		return ErrorMsg(playerid, "Nao possui permissao.");
 	ShowPlayerDialog(playerid,DIALOG_LTAGS,DIALOG_STYLE_INPUT,"Remover un Lider","Digite o nome do membro!\n\nSOMENTE O RESPONSAVEL DA ORGANIZACAO PODE!.","Confirmar","X");
 	return 1;
 }
@@ -22361,7 +23397,6 @@ CMD:promover(playerid,params[])
 			}
 		}
   	}
-
 	return 1;
 }
 
@@ -22376,13 +23411,13 @@ CMD:orgs(playerid)
 	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}4{FFFFFF} - BAEP: %s\n", DOF2_GetString("InfoOrg/4.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}5{FFFFFF} - Tropa dos Vermelhos: %s\n", DOF2_GetString("InfoOrg/5.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}5{FFFFFF} - Comando Vermelho: %s\n", DOF2_GetString("InfoOrg/5.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}6{FFFFFF} - Tropa dos Azuis: %s\n", DOF2_GetString("InfoOrg/6.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}6{FFFFFF} - Amigos dos Amigos: %s\n", DOF2_GetString("InfoOrg/6.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}7{FFFFFF} - Tropa dos Amarelos: %s\n", DOF2_GetString("InfoOrg/7.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}7{FFFFFF} - Terceiro Comando Puro: %s\n", DOF2_GetString("InfoOrg/7.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}8{FFFFFF} - Tropa dos Verdes %s\n", DOF2_GetString("InfoOrg/8.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}8{FFFFFF} - Primeiro Comando da Capital %s\n", DOF2_GetString("InfoOrg/8.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
 	format(StringsG,sizeof(StringsG),"{4CBB17}9{FFFFFF} - Bennys: %s\n", DOF2_GetString("InfoOrg/9.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
@@ -22461,7 +23496,8 @@ CMD:limparlideres(playerid,params[])
 CMD:pagar(playerid, params[])
 {
 	new id, quantia, string[800];
-	if(sscanf(params,"ii",id,quantia)) return ErrorMsg(playerid,  " /pagar [ID] [QUANTIA]");
+	if(sscanf(params,"ii",id,quantia)) return ErrorMsg(playerid,  "/pagar [ID] [QUANTIA]");
+	if(PlayerInfo[playerid][pDinheiro] < quantia || PlayerInfo[playerid][pDinheiro] > 100000) return ErrorMsg(playerid, "Dinheiro Insuficiente");
 	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
@@ -22469,9 +23505,8 @@ CMD:pagar(playerid, params[])
 			if(PlayerInfo[i][IDF] == id)
 			{
 				if(!ProxDetectorS(8.0, playerid, i))return ErrorMsg(playerid, "Nao esta proximo do jogador.");
-
-				PlayerInfo[i][pDinheiro] += quantia;
 				PlayerInfo[playerid][pDinheiro] -= quantia;
+				PlayerInfo[i][pDinheiro] += quantia;
 				format(string, sizeof(string), "Pagou R$%d para %04d", quantia, PlayerInfo[i][IDF]);
 				SuccesMsg(playerid, string);
 				format(string, sizeof(string), "Recebeu R$%d de %04d.", quantia, PlayerInfo[playerid][IDF]);
@@ -22479,274 +23514,6 @@ CMD:pagar(playerid, params[])
 			}
 		}
   	}
-
-	return 1;
-}
-
-CMD:aa(playerid)
-{
-	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
-	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Necessita inicia login.");
-	{
-		new ComandosAdmins[5000];
-		if(PlayerInfo[playerid][pAdmin] == 1)
-		{
-			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Estagiario {5b6ed9}- {FFFFFF}\n\n");
-			strcat(ComandosAdmins, "{5b6ed9} /htrabalhar {FFFFFF}- Comecar turno de ajudante.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Chat admin.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Kick um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /hir {FFFFFF}- Teleportar ate um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /htrazer {FFFFFF}- Teleportar o jogador ate voce.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /hbanir {FFFFFF}- Banir a conta do jogador.\n");
-			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
-		}
-		if(PlayerInfo[playerid][pAdmin] == 2)
-		{
-			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Administrador{5b6ed9}- {FFFFFF}\n\n");
-			strcat(ComandosAdmins, "{5b6ed9} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Chat admin.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Kick um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Pegar posicao atual.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Anuncio admin.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Criar um veiculo.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Teleportar ate um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Iniciar uma contagem.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Espectar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Banir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Congelar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Descongelar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Teleporta o jogador para o spawn.\n");
-			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
-		}
-		if(PlayerInfo[playerid][pAdmin] == 3)
-		{
-			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Administrador Geral{5b6ed9}- {FFFFFF}\n\n");
-			strcat(ComandosAdmins, "{5b6ed9} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Chat admin.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Kick um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Pegar posicao atual.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Anuncio admin.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Criar um veiculo.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Teleportar ate um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Iniciar uma contagem.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Espectar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Banir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Congelar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Descongelar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Teleporta o jogador para o spawn.\n");
-			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
-		}
-		if(PlayerInfo[playerid][pAdmin] == 4)
-		{
-			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Supervisor{5b6ed9}- {FFFFFF}\n\n");
-			strcat(ComandosAdmins, "{5b6ed9} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Chat admin.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Kick um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Pegar posicao atual.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Anuncio admin.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Criar um veiculo.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Teleportar ate um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Iniciar uma contagem.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Espectar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Banir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Congelar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Descongelar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /banirip {FFFFFF}- Banir o IP de um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Desbanir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Desbanir o IP do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Teleporta o jogador para o spawn.\n");
-			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
-		}
-		if(PlayerInfo[playerid][pAdmin] == 5)
-		{
-			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Diretor{5b6ed9}- {FFFFFF}\n\n");
-			strcat(ComandosAdmins, "{5b6ed9} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Chat admin.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Kick um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Pegar posicao atual.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Anuncio admin.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Criar um veiculo.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Teleportar ate um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Iniciar uma contagem.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Espectar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Banir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Congelar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Descongelar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /banirip {FFFFFF}- Banir o IP de um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Desbanir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Desbanir o IP do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /daritem {FFFFFF}- Dar um item de inventario a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Teleporta o jogador para o spawn.\n");
-			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
-		}
-		if(PlayerInfo[playerid][pAdmin] == 6)
-		{
-			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Fundador{5b6ed9}- {FFFFFF}\n\n");
-			strcat(ComandosAdmins, "{5b6ed9} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Chat admin.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Kick um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Pegar posicao atual.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Anuncio admin.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Criar um veiculo.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Teleportar ate um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Iniciar uma contagem.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Espectar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Banir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Congelar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Descongelar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /banirip {FFFFFF}- Banir o IP de um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Desbanir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Desbanir o IP do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /daritem {FFFFFF}- Dar um item de inventario a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /setskin {FFFFFF}- Setar skin a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /setvida {FFFFFF}- Setar vida a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /setcolete {FFFFFF}- Setar colete a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /dardinheiro {FFFFFF}- Dar dinheiro a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /setarma {FFFFFF}- Setar arma a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /antiafk {FFFFFF}- Desativar ou Ativar o AntiAFK do servidor.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /chat {FFFFFF}- Desativar ou Ativar o chat do servidor.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /gmx {FFFFFF}- Reniciar o servidor (nao recomendado com muitos jogadores).\n");
-			strcat(ComandosAdmins, "{5b6ed9} /rorgoff {FFFFFF}- Retirar jogador da org.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /darlider {FFFFFF}- Dar lider a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /limparlider {FFFFFF}- Limpar lider da org.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /limparlideres {FFFFFF}- Limpar lideres da org.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /criarcasa {FFFFFF}- Criar casa.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /dcasa {FFFFFF}- Deletar casa.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /rtc {FFFFFF}- Respawnar veiculo.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /rac {FFFFFF}- Respawnar todos os veiculos.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /setgasolina {FFFFFF}- Setar gasolina em um veiculo.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /addv {FFFFFF}- Adicionar veiculo de concessionaria.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /editv {FFFFFF}- Editar veiculo da concessionaria\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adddealership {FFFFFF}- Adicionar concessionaria.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /deletedealership {FFFFFF}- Deletar concessionaria.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /movedealership {FFFFFF}- Mover concessionaria.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /gotodealership {FFFFFF}- Ir ate a concessionaria.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /addfuelstation {FFFFFF}- Adicionar posto de gasolina.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /deletefuelstation {FFFFFF}- Deletar posto de gasolina.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /movefuelstation {FFFFFF}- Mover posto de gasolina.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /gotofuelstation {FFFFFF}- Ir ate o posto de gasolina.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Teleporta o jogador para o spawn.\n");
-			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
-		}
-		if(PlayerInfo[playerid][pAdmin] == 7)
-		{
-			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Desenvolvedor{5b6ed9}- {FFFFFF}\n\n");
-			strcat(ComandosAdmins, "{5b6ed9} /atrabalhar {FFFFFF}- Comecar turno de administrador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Chat admin.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Kick um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Pedir avaliacao a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Ver pontuacao de atendimento.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Pegar posicao atual.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Anuncio admin.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Criar um veiculo.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Colocar um jogador na cadeia.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Teleportar ate um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Teleportar o jogador ate voce.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Iniciar uma contagem.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Espectar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /desarmar {FFFFFF}- Remover todas as armas do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Banir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Banir o jogador por tempo definido.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Agendar um banimento a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Agenda cadeia a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Adverter um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Congelar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Descongelar um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Reanimar um jogador morto.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /banirip {FFFFFF}- Banir o IP de um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Desbanir a conta do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Desbanir o IP do jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /daritem {FFFFFF}- Dar um item de inventario a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /setskin {FFFFFF}- Setar skin a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /setvida {FFFFFF}- Setar vida a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /setcolete {FFFFFF}- Setar colete a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /dardinheiro {FFFFFF}- Dar dinheiro a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /setarma {FFFFFF}- Setar arma a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /antiafk {FFFFFF}- Desativar ou Ativar o AntiAFK do servidor.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /chat {FFFFFF}- Desativar ou Ativar o chat do servidor.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /gmx {FFFFFF}- Reniciar o servidor (nao recomendado com muitos jogadores).\n");
-			strcat(ComandosAdmins, "{5b6ed9} /rorgoff {FFFFFF}- Retirar jogador da org.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /darlider {FFFFFF}- Dar lider a um jogador.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /limparlider {FFFFFF}- Limpar lider da org.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /limparlideres {FFFFFF}- Limpar lideres da org.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /criarcasa {FFFFFF}- Criar casa.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /dcasa {FFFFFF}- Deletar casa.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /rtc {FFFFFF}- Respawnar veiculo.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /rac {FFFFFF}- Respawnar todos os veiculos.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /setgasolina {FFFFFF}- Setar gasolina em um veiculo.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /addv {FFFFFF}- Adicionar veiculo de concessionaria.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /editv {FFFFFF}- Editar veiculo da concessionaria\n");
-			strcat(ComandosAdmins, "{5b6ed9} /adddealership {FFFFFF}- Adicionar concessionaria.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /deletedealership {FFFFFF}- Deletar concessionaria.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /movedealership {FFFFFF}- Mover concessionaria.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /gotodealership {FFFFFF}- Ir ate a concessionaria.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /addfuelstation {FFFFFF}- Adicionar posto de gasolina.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /deletefuelstation {FFFFFF}- Deletar posto de gasolina.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /movefuelstation {FFFFFF}- Mover posto de gasolina.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /gotofuelstation {FFFFFF}- Ir ate o posto de gasolina.\n");
-			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Teleporta o jogador para o spawn.\n");
-			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
-		}
-	}
 	return 1;
 }
 
@@ -23015,7 +23782,7 @@ CMD:revistar(playerid, params[])
 					}
 					else
 					{
-						format(str, sizeof(str), "Inventario: %s", Name(i));
+						format(str, sizeof(str), "%s", Name(i));
 						PlayerTextDrawSetString(playerid, DrawInv[playerid][34], str);
 						PlayerTextDrawSetString(playerid, DrawInv[playerid][38], "");
 						for(new in = 1; in < 33; ++in)
@@ -23164,7 +23931,7 @@ CMD:qplantacao(playerid)
 			if(MaconhaInfo[mac][PodeUsar] == false && IsPlayerInRangeOfPoint(playerid, 2, MaconhaInfo[mac][mX],MaconhaInfo[mac][mY],MaconhaInfo[mac][mZ]))
 			{
 				perto = 1;
-				ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",2.0,1,0,0,0,60000,1);
+				ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",4.0, 1, 0, 0, 0, 0);
 				SetTimerEx("AnimatioN", 100, false, "i", playerid);
 				SetTimerEx("MaconhaQueimar", 17000, false, "id", playerid, mac);
 				PlantandoMaconha[playerid] = true;
@@ -23191,7 +23958,7 @@ CMD:cmaconha(playerid)
 			perto = 1;
 			if(strcmp(MaconhaInfo[mac][Dono], Name(playerid), true) == 0)
 			{
-				ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",2.0,1,0,0,0,1);
+				ApplyAnimation(playerid,"BOMBER","BOM_Plant_Loop",4.0, 1, 0, 0, 0, 0);
 				SetTimerEx("AnimatioN", 100, false, "i", playerid);
 				SetTimerEx("MaconhaColher", 17000, false, "id", playerid, mac);
 				PlantandoMaconha[playerid] = true;
@@ -23239,7 +24006,7 @@ CMD:maconhas(playerid)
 
 CMD:reanimar(playerid)
 {
-	if(PlayerInfo[playerid][pAdmin] < 2)		return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 4)		return ErrorMsg(playerid, "Nao possui permissao.");
 	format(Str, sizeof(Str),"Introduza o ID do jogador que quer reanimar");
 	ShowPlayerDialog(playerid,DIALOG_REANIMAR,1,"Reanimar jogador", Str, "Confirmar",#);
 	return 1;
@@ -23274,6 +24041,13 @@ CMD:ativarkey(playerid, params[])
 		if(DOF2_FileExists(File))
 		{
 			Din[playerid] = DOF2_GetInt(File, "Valor");
+			new string[255];
+			new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
+			format(string,sizeof(string),"### COINS ATIVADOS\n\nJogador: %04d\nQuantidade Agora: %s\nQuantidade Antes: %s\nCod: %d", PlayerInfo[playerid][IDF],ConvertMoney(PlayerInfo[playerid][pCoins]+Din[playerid]),ConvertMoney(PlayerInfo[playerid][pCoins]), Cod);
+			DCC_SetEmbedColor(embed, 0x5b6ed9);
+			DCC_SetEmbedDescription(embed, string);
+			DCC_SetEmbedImage(embed, "https://cdn.discordapp.com/attachments/1145559314900189256/1153871579642613760/JOGA.HomelandRP.COM.BR7777_20230919_225304_0000.png");
+			DCC_SendChannelEmbedMessage(CoinsAtivadosLog, embed);
 			PlayerInfo[playerid][pCoins] += Din[playerid];
 			Din[playerid] = 0;
 			SuccesMsg(playerid, "Codigo utilizado!");
@@ -23287,20 +24061,10 @@ CMD:ativarkey(playerid, params[])
 	return 1;
 }
 
-CMD:ltumba(playerid)
-{
-	if(PlayerToPoint(3.0, playerid, 934.1115,-1103.3857,24.3118))
-	if(PlayerInfo[playerid][pProfissao] != 5) 	return ErrorMsg(playerid, "Nao possui permissao.");
-	if(Cargase[playerid] == true) 	return ErrorMsg(playerid, "Ja localizou um hospital para pegar a tumba.");
-	if(GetVehicleModel(GetPlayerVehicleID(playerid)) != 442)  	return ErrorMsg(playerid, "Nao esta em veiculo do emprego.");
-	ShowPlayerDialog(playerid, DIALOG_LTUMBA, DIALOG_STYLE_LIST, "Hospital.", "{5b6ed9}- {FFFFFF}Los Santos\t{32CD32}R$600\n{5b6ed9}- {FFFFFF}Las Venturas\t{32CD32}R$1200\n{5b6ed9}- {FFFFFF}San Fierro\t{32CD32}R$2000\n", "Localizar", "");
-	return 1;
-}
-
 CMD:criarcasa(playerid, params[])
 {
 	new File[255];
-	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 5)		return ErrorMsg(playerid, "Nao possui permissao.");
 	{
 		new valor, interior;
 		if(sscanf(params, "ii", valor, interior))
@@ -23867,7 +24631,7 @@ CMD:criarcasa(playerid, params[])
 
 CMD:dcasa(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 5)		return ErrorMsg(playerid, "Nao possui permissao.");
 	{
 		new id, AccountCA[5000], mensagem[128];
 		if(sscanf(params, "i", id)) return ErrorMsg(playerid, "Use: /dcasa [ID da casa].");
@@ -23965,7 +24729,7 @@ CMD:menuanim(playerid)
 CMD:criarradar(playerid, params[])
 {
 	new Account[255];
-	if(PlayerInfo[playerid][pAdmin] >= 6)
+	if(PlayerInfo[playerid][pAdmin] >= 5)
 	{
 		new velocidade, Float:RadarX, Float:RadarY, Float:RadarZ, Float:RadarRZ;
 		if(sscanf(params, "i", velocidade))
@@ -24011,7 +24775,7 @@ CMD:criarradar(playerid, params[])
 
 					new string[5000];
 					format(string, sizeof(string), "{FFFFFF}Radar de Velocidade\nID: [{00FF00}%d{FFFFFF}]\nVelocidade Maxima: [{FF2400}%d KM/H{FFFFFF}]", RadarInfo[i][RadarID], RadarInfo[i][RadarVelocidade]);
-					TextoRadar[i] = CreateDynamic3DTextLabel(string, -1, RadarInfo[i][RadarPosX], RadarInfo[i][RadarPosY], RadarInfo[i][RadarPosZ]+4, 50.0);
+					TextoRadar[i] = CreateDynamic3DTextLabel(string, -1, RadarInfo[i][RadarPosX], RadarInfo[i][RadarPosY], RadarInfo[i][RadarPosZ]+4, 30.0);
 
 					format(string, sizeof(string), "Radar %d com velocidade de %d KM/H criado com exito!", RadarInfo[i][RadarID], RadarInfo[i][RadarVelocidade]);
 					SuccesMsg(playerid, string);
@@ -24029,7 +24793,7 @@ CMD:criarradar(playerid, params[])
 
 CMD:dradar(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] >= 6)
+	if(PlayerInfo[playerid][pAdmin] >= 5)
 	{
 		new id, arq1[50], mensagem[128];
 		if(sscanf(params, "i", id)) return ErrorMsg(playerid,  "Use: /dradar [ID do Radar].");
@@ -24094,7 +24858,7 @@ CMD:ejetar(playerid, params[])
 {
 	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "Nao esta em um veiculo!");
 	new pid, msg[128];
-	if(sscanf(params, "u", pid)) return ErrorMsg(playerid,  "USAGE: /ejetar [player]");
+	if(sscanf(params, "d", pid)) return ErrorMsg(playerid,  "USAGE: /ejetar [player]");
 	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
@@ -24113,7 +24877,7 @@ CMD:ejetar(playerid, params[])
 	return 1;
 }
 
-CMD:ejetarll(playerid, params[])
+CMD:ejetarall(playerid, params[])
 {
 	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ErrorMsg(playerid, "No estas conduciendo un vehiculo!");
 	new vehicleid = GetPlayerVehicleID(playerid);
@@ -24191,7 +24955,7 @@ CMD:mv(playerid, params[])
 CMD:venderv(playerid, params[])
 {
 	new pid, id, price, msg[128];
-	if(sscanf(params, "udd", pid, id, price)) return ErrorMsg(playerid,  "USAGE: /venderv [player] [vehicleid] [price]");
+	if(sscanf(params, "ddd", pid, id, price)) return ErrorMsg(playerid,  "USAGE: /venderv [player] [vehicleid] [price]");
 	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
@@ -24218,7 +24982,7 @@ CMD:venderv(playerid, params[])
 CMD:darchaves(playerid, params[])
 {
 	new pid, id, msg[128];
-	if(sscanf(params, "ud", pid, id)) return ErrorMsg(playerid,  "USAGE: /darchaves [player] [vehicleid]");
+	if(sscanf(params, "dd", pid, id)) return ErrorMsg(playerid,  "USAGE: /darchaves [player] [vehicleid]");
 	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
@@ -24237,7 +25001,6 @@ CMD:darchaves(playerid, params[])
 			}
 		}
   	}
-
 	return 1;
 }
 
@@ -24347,7 +25110,7 @@ CMD:abastecer(playerid, params[])
 
 CMD:rtc(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
+	if(PlayerInfo[playerid][pAdmin] < 3)						return ErrorMsg(playerid, "Sem permissao");
 	if(!IsPlayerInAnyVehicle(playerid)) return ErrorMsg(playerid, "Nao esta em um veiculo!");
 	SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 	SuccesMsg(playerid, "Veiculo respawnado");
@@ -24357,7 +25120,7 @@ CMD:rtc(playerid, params[])
 CMD:rac(playerid, params[])
 {
 	new bool:vehicleused[MAX_VEHICLES];
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
+	if(PlayerInfo[playerid][pAdmin] < 3)						return ErrorMsg(playerid, "Sem permissao");
 	foreach(new i : Player)
 	{
 		if(IsPlayerConnected(i) && IsPlayerInAnyVehicle(i))
@@ -24396,7 +25159,7 @@ CMD:setgasolina(playerid, params[])
 
 CMD:addv(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
+	if(PlayerInfo[playerid][pAdmin] < 8)						return ErrorMsg(playerid, "Sem permissao");
 	if(!IsPlayerSpawned(playerid)) return ErrorMsg(playerid, "You can't use this command now!");
 	new model, dealerid, color1, color2, price;
 	if(sscanf(params, "ddddd", dealerid, model, color1, color2, price))
@@ -24453,7 +25216,7 @@ CMD:addv(playerid, params[])
 
 CMD:editv(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
+	if(PlayerInfo[playerid][pAdmin] < 8)						return ErrorMsg(playerid, "Sem permissao");
 	if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 	{
 		new id = GetVehicleID(GetPlayerVehicleID(playerid));
@@ -24472,7 +25235,7 @@ CMD:editv(playerid, params[])
 
 CMD:adddealership(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
+	if(PlayerInfo[playerid][pAdmin] < 8)						return ErrorMsg(playerid, "Sem permissao");
 	if(!IsPlayerSpawned(playerid)) return ErrorMsg(playerid,  "Voce nao pode usar o comando!");
 	for(new i=1; i < MAX_DEALERSHIPS; i++)
 	{
@@ -24495,7 +25258,7 @@ CMD:adddealership(playerid, params[])
 CMD:deletedealership(playerid, params[])
 {
 	new dealerid, msg[128];
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
+	if(PlayerInfo[playerid][pAdmin] < 8)						return ErrorMsg(playerid, "Sem permissao");
 	if(sscanf(params, "d", dealerid)) return ErrorMsg(playerid,  "USAGE: /deletedealership [dealerid]");
 	if(!IsValidDealership(dealerid)) return ErrorMsg(playerid,  "ID invalido!");
 	for(new i=1; i < MAX_DVEHICLES; i++)
@@ -24518,7 +25281,7 @@ CMD:deletedealership(playerid, params[])
 CMD:movedealership(playerid, params[])
 {
 	new dealerid, msg[128];
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
+	if(PlayerInfo[playerid][pAdmin] < 8)						return ErrorMsg(playerid, "Sem permissao");
 	if(sscanf(params, "d", dealerid)) return ErrorMsg(playerid,  "USAGE: /movedealership [dealerid]");
 	if(!IsValidDealership(dealerid)) return ErrorMsg(playerid,  "ID invalido");
 	GetPlayerPos(playerid, DealershipPos[dealerid][0], DealershipPos[dealerid][1], DealershipPos[dealerid][2]);
@@ -24532,7 +25295,7 @@ CMD:movedealership(playerid, params[])
 CMD:gotodealership(playerid, params[])
 {
 	new dealerid, msg[128];
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
+	if(PlayerInfo[playerid][pAdmin] < 8)						return ErrorMsg(playerid, "Sem permissao");
 
 	if(sscanf(params, "d", dealerid)) return ErrorMsg(playerid, "USAGE: /gotodealership [dealerid]");
 	if(!IsValidDealership(dealerid)) return ErrorMsg(playerid, "ID invalido");
@@ -24546,7 +25309,7 @@ CMD:gotodealership(playerid, params[])
 
 CMD:addfuelstation(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
+	if(PlayerInfo[playerid][pAdmin] < 8)						return ErrorMsg(playerid, "Sem permissao");
 	if(!IsPlayerSpawned(playerid)) return ErrorMsg(playerid, "Voce nao pode usar o comando!");
 	for(new i=1; i < MAX_FUEL_STATIONS; i++)
 	{
@@ -24569,7 +25332,7 @@ CMD:addfuelstation(playerid, params[])
 CMD:deletefuelstation(playerid, params[])
 {
 	new stationid, msg[128];
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
+	if(PlayerInfo[playerid][pAdmin] < 8)						return ErrorMsg(playerid, "Sem permissao");
 	if(sscanf(params, "d", stationid)) return ErrorMsg(playerid, "USAGE: /deletefuelstation [stationid]");
 	if(!IsValidFuelStation(stationid)) return ErrorMsg(playerid, "ID invalido");
 	FuelStationCreated[stationid] = 0;
@@ -24583,7 +25346,7 @@ CMD:deletefuelstation(playerid, params[])
 CMD:movefuelstation(playerid, params[])
 {
 	new stationid, msg[128];
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
+	if(PlayerInfo[playerid][pAdmin] < 8)						return ErrorMsg(playerid, "Sem permissao");
 	if(sscanf(params, "d", stationid)) return ErrorMsg(playerid, "USAGE: /movefuelstation [stationid]");
 	if(!IsValidFuelStation(stationid)) return ErrorMsg(playerid, "ID invalido");
 	GetPlayerPos(playerid, FuelStationPos[stationid][0], FuelStationPos[stationid][1], FuelStationPos[stationid][2]);
@@ -24597,7 +25360,7 @@ CMD:movefuelstation(playerid, params[])
 CMD:gotofuelstation(playerid, params[])
 {
 	new stationid, msg[128];
-	if(PlayerInfo[playerid][pAdmin] < 6)						return ErrorMsg(playerid, "Sem permissao");
+	if(PlayerInfo[playerid][pAdmin] < 8)						return ErrorMsg(playerid, "Sem permissao");
 	if(sscanf(params, "d", stationid)) return ErrorMsg(playerid, "USAGE: /gotofuelstation [stationid]");
 	if(!IsValidFuelStation(stationid)) return ErrorMsg(playerid, "ID invalido");
 	SetPlayerPos(playerid, FuelStationPos[stationid][0], FuelStationPos[stationid][1], FuelStationPos[stationid][2]);
@@ -24608,7 +25371,7 @@ CMD:gotofuelstation(playerid, params[])
 	return 1;
 }
 
-CMD:freq(playerid, params[])
+CMD:radio(playerid, params[])
 {
 	new freq;
 	if(sscanf(params, "d", freq)) return ErrorMsg(playerid, "Uso: /freq [FREQ. 1-1000 (0 Desligar)]");
@@ -24619,7 +25382,29 @@ CMD:freq(playerid, params[])
 		InfoMsg(playerid, "Radio desligado!");
 		SvDetachListenerFromStream(Frequencia[freq], playerid);
 		FrequenciaConectada[playerid] = 0;
-	} else {
+	} 
+	if(freq == 190)
+	{
+		if(IsPolicial(playerid))
+		{
+			new string[128];
+			format(string, 128, "Frequencia conectada: (%d).", freq);
+			SuccesMsg(playerid, string);
+
+			format(string, 128, "%04d saiu da frequencia(%d)", GetPlayerIdfixo(playerid), FrequenciaConectada[playerid]);
+			MsgFrequencia(FrequenciaConectada[playerid], 0xBF0000FF, string);
+			format(string, 128, "%04d entrou na frequencia(%d)", GetPlayerIdfixo(playerid), freq);
+			MsgFrequencia(freq, 0xFF6C00FF, string);
+
+			SetTimerEx("ConectarNaFrequencia", 100, false, "id", playerid, freq);
+		}
+		else
+		{
+			ErrorMsg(playerid, "Sem permissao para usar essa frequencia!");
+		}
+	} 
+	else 
+	{
 		new string[128];
 		format(string, 128, "Frequencia conectada: (%d).", freq);
 		SuccesMsg(playerid, string);
@@ -24631,6 +25416,12 @@ CMD:freq(playerid, params[])
 
 		SetTimerEx("ConectarNaFrequencia", 100, false, "id", playerid, freq);
 	}
+	for(new i; i < 32; i++)
+	{
+		PlayerTextDrawHide(playerid, RadioVOIP[playerid][i]);
+		if(i == 32)break;
+	}
+	CancelSelectTextDraw(playerid);
 	return 1;
 }
 
@@ -25023,7 +25814,7 @@ CMD:desossar(playerid)
 		TogglePlayerControllable(playerid, 0);
 		InfoMsg(playerid, "Desossando...");
 		SetTimerEx("Desossar", 10000, false, "i", playerid);
-		ApplyAnimation(playerid, "BASEBALL", "Bat_M", 4.1, 1, 0, 0, 0, 0, 1);
+		ApplyAnimation(playerid, "BASEBALL", "Bat_M", 4.0, 1, 0, 0, 0, 0);
 		RemovePlayerAttachedObject(playerid, 1);
 		UsouCMD[playerid] = true;
 	}
@@ -25057,7 +25848,7 @@ CMD:pegarcaixa(playerid)
 		if(IsPlayerInRangeOfPoint(playerid, 1, 938.006469, 2144.264892, 1011.023437))
 		{
 			DisablePlayerCheckpoint(playerid);
-			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 1, 0, 0, 0, 0);
 			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 			SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
 			Desossando[playerid] = 3;
@@ -25109,7 +25900,7 @@ CMD:pegarcaixa2(playerid)
 			DisablePlayerCheckpoint(playerid);
 			DestroyDynamicObject(ObjetoAcougue[playerid][1]);
 			SetPlayerCheckpoint(playerid, 964.872192, 2159.816406, 1011.030273, 1.0);
-			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 0, 1, 1, 0, 0, 1);
+			ApplyAnimation(playerid, "BSKTBALL", "BBALL_pickup", 4.0, 1, 0, 0, 0, 0);
 			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 			SetPlayerAttachedObject(playerid, 1, 1220, 5, 0.044377, 0.029049, 0.161334, 265.922912, 9.904896, 21.765972, 0.500000, 0.500000, 0.500000);
 			Desossando[playerid] = 6;
@@ -25161,7 +25952,7 @@ CMD:minerar(playerid)
 	{
 		TogglePlayerControllable(playerid, 0);
 		InfoMsg(playerid, "Minerando...");
-		ApplyAnimation(playerid, "BASEBALL", "BAT_4", 4.1, 1, 0, 0, 0, 0, 1);
+		ApplyAnimation(playerid, "BASEBALL", "BAT_4", 4.0, 1, 0, 0, 0, 0);
 		SetPlayerAttachedObject(playerid, 9, 19626, 1, -0.00400000, 0.48899990,-0.05399995,172.09997558,-91.90001678,-1.59999990, 1.000000, 1.000000, 1.000000 );
 		SetTimerEx("Minerar", 10000, false, "i", playerid);
 		UsouCMD[playerid] = true;
@@ -25175,7 +25966,7 @@ CMD:pescar(playerid)
 	if(!CheckInventario2(playerid, 18632)) return ErrorMsg(playerid, "Nao tem uma vara de pesca.");
 	if(UsouCMD[playerid] == true) 	return ErrorMsg(playerid, "Ainda nao finalizou a pesca atual.");
 	for(new i; i < 13; i++)
-	if(IsPlayerInRangeOfPoint(playerid, 1.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
+	if(IsPlayerInRangeOfPoint(playerid, 2.0, PosPesca[i][0], PosPesca[i][1], PosPesca[i][2]))
 	{
 		TogglePlayerControllable(playerid, 0);
 		InfoMsg(playerid, "Pescando...");
@@ -25187,7 +25978,7 @@ CMD:pescar(playerid)
 
 CMD:resetanuncios(playerid)
 {
-	if(PlayerInfo[playerid][pAdmin] < 1) return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 3) return ErrorMsg(playerid, "Nao possui permissao.");
 	for(new a; a < NA; a++)
 	{
 	    if(strlen(Anuncio[a][Texto]) > 0)
@@ -25232,7 +26023,7 @@ CMD:anuncio(playerid,params[])
 
 CMD:trazercofre(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 1) return ErrorMsg(playerid, "Nao possui permissao.");
+	if(PlayerInfo[playerid][pAdmin] < 5) return ErrorMsg(playerid, "Nao possui permissao.");
 	new id;
 	if(sscanf(params, "i", id))return ErrorMsg(playerid, "Use: /trazercofre [id da org do 0 ao 14]");
 	{
@@ -25323,203 +26114,230 @@ CMD:cancelarrota(playerid)
 
 CMD:roubar(playerid)
 {
-	if(GetPlayerWeapon(playerid) == 22 || GetPlayerWeapon(playerid) == 24)
+	if(IsBandido(playerid))
 	{
-		new noti = randomEx(0, 2);
-		if(PlayerToPoint(5.0, playerid, 1359.730712, -1774.143798, 13.551797))
+		if(GetPlayerWeapon(playerid) == 24)
 		{
-			if(RouboLoja1 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
-			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
-
-			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-
-			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-
-			if(noti == 1)
+			new noti = randomEx(0, 2);
+			if(PlayerToPoint(5.0, playerid, 1359.730712, -1774.143798, 13.551797))
 			{
-				foreach(new i : Player)
+				if(RouboLoja1 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
+				if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+				TogglePlayerControllable(playerid, 0);
+				ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0);
+
+				SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
+
+				if(noti == 1)
 				{
-					if(Patrulha[i] == true)
+					foreach(new i : Player)
 					{
-						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 1");
-						WarningMsg(i, Str);
+						if(Patrulha[i] == true)
+						{
+							format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 1");
+							WarningMsg(i, Str);
+						}
 					}
 				}
+				InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 1.");
+				return 1;
 			}
-			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 1.");
-			return 1;
-		}
-		if(PlayerToPoint(5.0, playerid, 1663.732910, -1899.628295, 13.569333))
-		{
-			if(RouboLoja2 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
-			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
-
-			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-
-			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-
-			if(noti == 1)
+			if(PlayerToPoint(5.0, playerid, 1663.732910, -1899.628295, 13.569333))
 			{
-				foreach(new i : Player)
+				if(RouboLoja2 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
+				if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+				TogglePlayerControllable(playerid, 0);
+				ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0);
+
+				SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
+
+				if(noti == 1)
 				{
-					if(Patrulha[i] == true)
+					foreach(new i : Player)
 					{
-						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 2");
-						WarningMsg(i, Str);
+						if(Patrulha[i] == true)
+						{
+							format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 2");
+							WarningMsg(i, Str);
+						}
 					}
 				}
+				InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 2.");
+				return 1;
 			}
-			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 2.");
-			return 1;
-		}
-		if(PlayerToPoint(5.0, playerid, 2054.306152, -1882.930908, 13.570812))
-		{
-			if(RouboLoja3 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
-			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
-
-			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-
-			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-
-			if(noti == 1)
+			if(PlayerToPoint(5.0, playerid, 2054.306152, -1882.930908, 13.570812))
 			{
-				foreach(new i : Player)
+				if(RouboLoja3 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
+				if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+				TogglePlayerControllable(playerid, 0);
+				ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0);
+
+				SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
+
+				if(noti == 1)
 				{
-					if(Patrulha[i] == true)
+					foreach(new i : Player)
 					{
-						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 3");
-						WarningMsg(i, Str);
+						if(Patrulha[i] == true)
+						{
+							format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 3");
+							WarningMsg(i, Str);
+						}
 					}
 				}
+				InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 3.");
+				return 1;
 			}
-			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 3.");
-			return 1;
-		}
-		if(PlayerToPoint(5.0, playerid, 393.256683, -1895.677734, 7.844118))
-		{
-			if(RouboLoja4 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
-			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
-
-			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-
-			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-
-			if(noti == 1)
+			if(PlayerToPoint(5.0, playerid, 393.256683, -1895.677734, 7.844118))
 			{
-				foreach(new i : Player)
+				if(RouboLoja4 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
+				if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+				TogglePlayerControllable(playerid, 0);
+				ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0);
+
+				SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
+
+				if(noti == 1)
 				{
-					if(Patrulha[i] == true)
+					foreach(new i : Player)
 					{
-						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 4");
-						WarningMsg(i, Str);
+						if(Patrulha[i] == true)
+						{
+							format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 4");
+							WarningMsg(i, Str);
+						}
 					}
 				}
+				InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 4.");
+				return 1;
 			}
-			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 4.");
-			return 1;
-		}
-		if(PlayerToPoint(5.0, playerid, 1311.017944, -856.895690, 39.597454))
-		{
-			if(RouboLoja5 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
-			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
-
-			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-
-			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-
-			if(noti == 1)
+			if(PlayerToPoint(5.0, playerid, 1311.017944, -856.895690, 39.597454))
 			{
-				foreach(new i : Player)
+				if(RouboLoja5 == true)return ErrorMsg(playerid, "Esta loja ja foi roubada.");
+				if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+				TogglePlayerControllable(playerid, 0);
+				ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0);
+
+				SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
+
+				if(noti == 1)
 				{
-					if(Patrulha[i] == true)
+					foreach(new i : Player)
 					{
-						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 5");
-						WarningMsg(i, Str);
+						if(Patrulha[i] == true)
+						{
+							format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Lojinha 5");
+							WarningMsg(i, Str);
+						}
 					}
 				}
+				InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 5.");
+				return 1;
 			}
-			InfoMsg(playerid, "Voce comecou a roubar a Loja de Utilidades 5.");
-			return 1;
-		}
-		if(PlayerToPoint(5.0, playerid, 800.242553, -1617.385986, 14.032936))
-		{
-			if(RouboRestaurante == true)return ErrorMsg(playerid, "Esta HomeLand Food ja roubado.");
-			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
-
-			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-
-			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-
-			if(noti == 1)
+			if(PlayerToPoint(5.0, playerid, 800.242553, -1617.385986, 14.032936))
 			{
-				foreach(new i : Player)
+				if(RouboRestaurante == true)return ErrorMsg(playerid, "Esta Homeland Food ja roubado.");
+				if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+				TogglePlayerControllable(playerid, 0);
+				ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0);
+
+				SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
+
+				if(noti == 1)
 				{
-					if(Patrulha[i] == true)
+					foreach(new i : Player)
 					{
-						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a HomeLand Food");
-						WarningMsg(i, Str);
+						if(Patrulha[i] == true)
+						{
+							format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Homeland Food");
+							WarningMsg(i, Str);
+						}
 					}
 				}
+				InfoMsg(playerid, "Voce comecou a roubar a Homeland Food.");
+				return 1;
 			}
-			InfoMsg(playerid, "Voce comecou a roubar a HomeLand Food.");
-			return 1;
-		}
-		if(PlayerToPoint(5.0, playerid, 1442.647583, -1120.358276, 23.959011))
-		{
-			if(RouboBanco == true)return ErrorMsg(playerid, "O Banco ja foi roubado.");
-			if(policiaon < 6) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
-
-			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-
-			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-
-			if(noti == 1)
+			if(PlayerToPoint(5.0, playerid, 1442.647583, -1120.358276, 23.959011))
 			{
-				foreach(new i : Player)
+				if(RouboBanco == true)return ErrorMsg(playerid, "O Banco ja foi roubado.");
+				if(policiaon < 6) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+				TogglePlayerControllable(playerid, 0);
+				ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0);
+
+				SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
+
+				if(noti == 1)
 				{
-					if(Patrulha[i] == true)
+					foreach(new i : Player)
 					{
-						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar o Banco");
-						WarningMsg(i, Str);
+						if(Patrulha[i] == true)
+						{
+							format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar o Banco");
+							WarningMsg(i, Str);
+						}
 					}
 				}
+				InfoMsg(playerid, "Voce comecou a roubar o Banco.");
+				return 1;
 			}
-			InfoMsg(playerid, "Voce comecou a roubar o Banco.");
-			return 1;
-		}
-		if(PlayerToPoint(5.0, playerid, 1789.135253, -1921.435058, 14.287462))
-		{
-			if(RouboAmmu == true)return ErrorMsg(playerid, "A AmmuNation ja foi roubado.");
-			if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
-
-			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 0, 1);
-
-			SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
-
-			if(noti == 1)
+			if(PlayerToPoint(5.0, playerid, 891.3997,-1348.8807,14.4665))
 			{
-				foreach(new i : Player)
+				if(RouboAmmu == true)return ErrorMsg(playerid, "A AmmuNation ja foi roubado.");
+				if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+				TogglePlayerControllable(playerid, 0);
+				ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0);
+
+				SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
+
+				if(noti == 1)
 				{
-					if(Patrulha[i] == true)
+					foreach(new i : Player)
 					{
-						format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a AmmuNation");
-						WarningMsg(i, Str);
+						if(Patrulha[i] == true)
+						{
+							format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a AmmuNation");
+							WarningMsg(i, Str);
+						}
 					}
 				}
+				InfoMsg(playerid, "Voce comecou a roubar o AmmuNation.");
+				return 1;
 			}
-			InfoMsg(playerid, "Voce comecou a roubar o AmmuNation.");
-			return 1;
+			if(PlayerToPoint(5.0, playerid, 469.871185, -1527.918823, 20.365703))
+			{
+				if(RouboJoia == true)return ErrorMsg(playerid, "A Joalheria ja foi roubado.");
+				if(policiaon < 2) return ErrorMsg(playerid, "Nao ha policiais em patrulha no momento.");
+
+				TogglePlayerControllable(playerid, 0);
+				ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0);
+
+				SetTimerEx("RoubarLoja", 30000, false, "i", playerid);
+
+				if(noti == 1)
+				{
+					foreach(new i : Player)
+					{
+						if(Patrulha[i] == true)
+						{
+							format(Str, sizeof(Str), "Um cidadao acabou de denunciar um individuo tentando roubar a Joalheria");
+							WarningMsg(i, Str);
+						}
+					}
+				}
+				InfoMsg(playerid, "Voce comecou a roubar o Joalheria.");
+				return 1;
+			}
 		}
 	}
-		return 1;
+	return 1;
 }
 
 CMD:creditos(playerid)
@@ -25647,7 +26465,7 @@ CMD:deitar(playerid)
 			SetPlayerPos(playerid, 1618.008056, -1139.449096, 24.831556);
 			SetPlayerFacingAngle(playerid, 3.063754);
 			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
 			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
@@ -25659,7 +26477,7 @@ CMD:deitar(playerid)
 			SetPlayerPos(playerid, 1617.883789, -1136.606445, 24.776670);
 			SetPlayerFacingAngle(playerid, 350.887390);
 			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
 			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
@@ -25671,7 +26489,7 @@ CMD:deitar(playerid)
 			SetPlayerPos(playerid, 1617.909301, -1133.753540, 24.776670);
 			SetPlayerFacingAngle(playerid, 8.838689);
 			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
 			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
@@ -25682,7 +26500,7 @@ CMD:deitar(playerid)
 		{
 			SetPlayerPos(playerid, 1617.720336, -1128.654663, 24.831556);
 			SetPlayerFacingAngle(playerid, 357.130371);
-			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
 			deitadomaca[playerid] = true;
 			TogglePlayerControllable(playerid, 0);
 			if(medicoon == 0)
@@ -25695,7 +26513,7 @@ CMD:deitar(playerid)
 			SetPlayerPos(playerid, 1613.008666, -1128.427612, 24.788022);
 			SetPlayerFacingAngle(playerid, 169.583480);
 			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
 			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
@@ -25707,7 +26525,7 @@ CMD:deitar(playerid)
 			SetPlayerPos(playerid, 1612.854248, -1131.240600, 24.788022);
 			SetPlayerFacingAngle(playerid, 172.451522);
 			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
 			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
@@ -25719,7 +26537,7 @@ CMD:deitar(playerid)
 			SetPlayerPos(playerid, 1612.961181, -1133.778076, 24.788022);
 			SetPlayerFacingAngle(playerid, 172.111297);
 			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
 			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
@@ -25731,7 +26549,7 @@ CMD:deitar(playerid)
 			SetPlayerPos(playerid, 1612.930175, -1136.336425, 24.788022);
 			SetPlayerFacingAngle(playerid, 165.496246);
 			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
 			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
@@ -25743,7 +26561,7 @@ CMD:deitar(playerid)
 			SetPlayerPos(playerid, 1612.933471, -1139.002319, 24.788022);
 			SetPlayerFacingAngle(playerid, 169.587600);
 			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.1, 0, 1, 1, 1, 60000, 1);
+			ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
 			deitadomaca[playerid] = true;
 			if(medicoon == 0)
 			{
@@ -25783,6 +26601,536 @@ CMD:tratamento(playerid, params[])
 			}
 		}
   	}
+	return 1;
+}
+
+CMD:up(playerid)
+{
+	if(UltimaPos[playerid] == 0) return ErrorMsg(playerid, "Voce nao pode mais voltar a ultima posicao");
+	TogglePlayerControllable(playerid, false);
+	SetTimerEx("carregarobj", 5000, 0, "i", playerid);
+	SetPlayerPos(playerid, PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ]);
+	SetPlayerFacingAngle(playerid,PlayerInfo[playerid][pPosA]);
+	SetPlayerCameraPos(playerid, PlayerInfo[playerid][pCamX], PlayerInfo[playerid][pCamY], PlayerInfo[playerid][pCamZ]);
+	SetPlayerInterior(playerid, PlayerInfo[playerid][pInterior]);
+	UltimaPos[playerid] = 0;
+	return 1;
+}
+
+CMD:online(playerid)
+{
+    new StrON[5000];
+	format(StrON, sizeof(StrON),"{0099FF}Policial Trabalhando: %d / {FF0000}Criminoso: %d]", policiaon, bandidoon);
+	SendClientMessage(playerid,0xFFFF00FF,StrON);
+	return 1;
+}
+
+
+CMD:algemar2(playerid, params[])
+{
+	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
+	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /algemar [ID]");
+	foreach(new i : Player)
+  	{
+		if(pLogado[i] == true)
+		{
+			if(PlayerInfo[i][IDF] == ID)
+			{
+				TogglePlayerControllable(i, false);
+				PlayerInfo[i][pCongelado] = true;
+				SuccesMsg(playerid, "Algemou o individuo.");
+				InfoMsg(i, "Foi algemado.");
+				SetPlayerAttachedObject(i, 5, 19418, 6, -0.031999, 0.024000, -0.024000, -7.900000, -32.000011, -72.299987, 1.115998, 1.322000, 1.406000);
+				SetPlayerSpecialAction(i, SPECIAL_ACTION_CUFFED);
+			}
+		}
+  	}
 
 	return 1;
 }
+CMD:desalgemar2(playerid, params[])
+{
+	if(Patrulha[playerid] == false) 				return ErrorMsg(playerid, "Nao esta em servico");
+	if(sscanf(params, "i", ID))					return ErrorMsg(playerid,"USE: /desalgemar [ID]");
+	foreach(new i : Player)
+  	{
+		if(pLogado[i] == true)
+		{
+			if(PlayerInfo[i][IDF] == ID)
+			{
+				TogglePlayerControllable(i, true);
+				PlayerInfo[i][pCongelado] = false;
+				SuccesMsg(playerid, "Desalgemou o individuo.");
+				InfoMsg(i, "Foi desalgemado.");
+				ClearAnimations(i);
+				RemovePlayerAttachedObject(i,5);
+				SetPlayerSpecialAction(i, SPECIAL_ACTION_NONE);
+			}
+		}
+  	}
+
+	return 1;
+}
+
+CMD:carregarp(playerid, params[])
+{
+	new id;
+	if(sscanf(params,"d",id))return printf("");
+    foreach(new i : Player)
+	{
+		if(pLogado[i] == true)
+		{
+			if(PlayerInfo[i][IDF] == id)
+			{
+				if(ArrastadoID[playerid] == 0)
+				{
+				   if(IsPerto(playerid,i))
+					{
+						SuccesMsg(playerid, "Voce esta segurando um jogador.");
+						InfoMsg(i, "Voce esta sendo segurado por alguem");
+				        ApplyAnimation(i, "DEALER", "DEALER_IDLE", 4.0, 1, 0, 0, 0, 0);
+				        ApplyAnimation(i, "DEALER", "DEALER_IDLE", 4.0, 1, 0, 0, 0, 0);
+				        ArrastadoID[playerid] = PlayerInfo[i][IDF];
+				        AttArrastar[playerid] = SetTimerEx("AttArrastar2", 100, true, "i", playerid);
+				        return 1;
+					}
+					else
+					{
+						ErrorMsg(i, "Voce nao esta proximo do jogador");
+					}
+				}
+				else
+				{
+					ErrorMsg(i, "Voce ja esta segurando alguem.");
+				}
+			}
+		}
+	}
+	return 1;
+}
+
+CMD:largarp(playerid, params[])
+{
+	new id;
+	if(sscanf(params,"d",id))return printf("");
+    foreach(new i : Player)
+	{
+		if(pLogado[i] == true)
+		{
+			if(PlayerInfo[i][IDF] == ArrastadoID[playerid])
+			{
+				if(IsPerto(playerid,i))
+				{
+					SuccesMsg(playerid, "Voce largou um jogador.");
+					InfoMsg(i, "Voce foi solto por alguem");
+					KillTimer(AttArrastar[playerid]);
+		    		ClearAnimations(i);
+					Arrastado[i] = 0;
+					ArrastadoID[playerid] = 0;
+				    return 1;
+				}
+				else
+				{
+					InfoMsg(i, "Voce nao esta proximo do jogador");
+				}
+			}
+		}
+	}
+	return 1;
+}
+
+CMD:garmas(playerid)
+{
+	new weapons[13][2];
+	for (new i = 0; i <= 12; i++)
+	{
+		GetPlayerWeaponData(playerid, i, weapons[i][0], weapons[i][1]);
+		GanharItem2(playerid, GetArmaInv2(weapons[i][0]),weapons[i][1]);
+		ResetPlayerWeapons(playerid);
+	}
+	InfoMsg(playerid, "Desequipou as armas.");
+	return 1;
+}
+
+CMD:aa(playerid)
+{
+	if(PlayerInfo[playerid][pAdmin] < 1)						return ErrorMsg(playerid, "Nao possui permissao.");
+	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Necessita inicia login.");
+	{
+		new ComandosAdmins[5000];
+		if(PlayerInfo[playerid][pAdmin] == 1)
+		{
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Helper {5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tra {FFFFFF}- Para comecar turno de ajudante.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Para pedir avaliacao a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Para verificar seus pontos de atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /fila {FFFFFF}- Para verificar os atendimentos disponiveis.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /termianar atendimento {FFFFFF}- Para finalizar um atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Para conversar no chat da administracao.\n");
+			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
+		}
+		if(PlayerInfo[playerid][pAdmin] == 2)
+		{
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}SubAdministrador{5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tra {FFFFFF}- Para comecar turno de ajudante.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Para pedir avaliacao a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Para verificar seus pontos de atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /fila {FFFFFF}- Para verificar os atendimentos disponiveis.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /termianar atendimento {FFFFFF}- Para finalizar um atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Para conversar no chat da administracao.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Para teleportar a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Para teleportar jogador a voce.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Para expulsar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Para dar cadeia a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Para criar um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Para congelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Para descongelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Para espectar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Para teleportar jogador par ao spawn inicial.\n");
+			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
+		}
+		if(PlayerInfo[playerid][pAdmin] == 3)
+		{
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Administrador{5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tra {FFFFFF}- Para comecar turno de ajudante.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Para pedir avaliacao a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Para verificar seus pontos de atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /fila {FFFFFF}- Para verificar os atendimentos disponiveis.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /termianar atendimento {FFFFFF}- Para finalizar um atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Para conversar no chat da administracao.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Para teleportar a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Para teleportar jogador a voce.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Para expulsar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Para dar cadeia a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Para criar um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Para congelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Para descongelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Para espectar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Para teleportar jogador par ao spawn inicial.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Para salvar uma posicao no banco de dados.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Para agendar um banimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Para agendar uma cadeia.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Para banir um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Para desbanir um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Para banir um jogador por tempo definido.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Para colocar uma advertencia a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /chat {FFFFFF}- Para desativar/ativar o chat local.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /antiafk {FFFFFF}- Para desativar/ativar o antiafk.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rtc {FFFFFF}- Para respawnar um veiculo que esta.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rac {FFFFFF}- Para respawnar todos os veiculos.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /resetanuncios {FFFFFF}- Para resetar um anuncio.\n");
+			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
+		}
+		if(PlayerInfo[playerid][pAdmin] == 4)
+		{
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}SubMaster{5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tra {FFFFFF}- Para comecar turno de ajudante.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Para pedir avaliacao a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Para verificar seus pontos de atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /fila {FFFFFF}- Para verificar os atendimentos disponiveis.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /termianar atendimento {FFFFFF}- Para finalizar um atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Para conversar no chat da administracao.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Para teleportar a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Para teleportar jogador a voce.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Para expulsar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Para dar cadeia a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Para criar um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Para congelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Para descongelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Para espectar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Para teleportar jogador par ao spawn inicial.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Para salvar uma posicao no banco de dados.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Para agendar um banimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Para agendar uma cadeia.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Para banir um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Para desbanir um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Para banir um jogador por tempo definido.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Para colocar uma advertencia a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /chat {FFFFFF}- Para desativar/ativar o chat local.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /antiafk {FFFFFF}- Para desativar/ativar o antiafk.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rtc {FFFFFF}- Para respawnar um veiculo que esta.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rac {FFFFFF}- Para respawnar todos os veiculos.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /resetanuncios {FFFFFF}- Para resetar um anuncio.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Para fazer um anuncio.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Para reanimar alguem morto.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banirip {FFFFFF}- Para banir um jogador por ip.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Para desbanir um jogador por ip.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Para iniciar uma contagem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rorgoff {FFFFFF}- Para retirar um lider offline\n");
+			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
+		}
+		if(PlayerInfo[playerid][pAdmin] == 5)
+		{
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Master{5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tra {FFFFFF}- Para comecar turno de ajudante.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Para pedir avaliacao a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Para verificar seus pontos de atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /fila {FFFFFF}- Para verificar os atendimentos disponiveis.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /termianar atendimento {FFFFFF}- Para finalizar um atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Para conversar no chat da administracao.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Para teleportar a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Para teleportar jogador a voce.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Para expulsar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Para dar cadeia a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Para criar um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Para congelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Para descongelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Para espectar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Para teleportar jogador par ao spawn inicial.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Para salvar uma posicao no banco de dados.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Para agendar um banimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Para agendar uma cadeia.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Para banir um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Para desbanir um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Para banir um jogador por tempo definido.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Para colocar uma advertencia a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /chat {FFFFFF}- Para desativar/ativar o chat local.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /antiafk {FFFFFF}- Para desativar/ativar o antiafk.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rtc {FFFFFF}- Para respawnar um veiculo que esta.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rac {FFFFFF}- Para respawnar todos os veiculos.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /resetanuncios {FFFFFF}- Para resetar um anuncio.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Para fazer um anuncio.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Para reanimar alguem morto.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banirip {FFFFFF}- Para banir um jogador por ip.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Para desbanir um jogador por ip.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Para iniciar uma contagem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rorgoff {FFFFFF}- Para retirar um lider offline.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /criarcasa {FFFFFF}- Para criar uma casa.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dcasa {FFFFFF}- Para deletar uma casa.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /criarradar {FFFFFF}- Para criar um radar.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dradar {FFFFFF}- Para deletar um radar.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setvida {FFFFFF}- Para setar vida a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setcolete {FFFFFF}- Para setar colete a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazercofre {FFFFFF}- Para trazer um cofre de org.\n");
+			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
+		}
+		if(PlayerInfo[playerid][pAdmin] == 6)
+		{
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Gerente{5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tra {FFFFFF}- Para comecar turno de ajudante.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Para pedir avaliacao a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Para verificar seus pontos de atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /fila {FFFFFF}- Para verificar os atendimentos disponiveis.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /termianar atendimento {FFFFFF}- Para finalizar um atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Para conversar no chat da administracao.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Para teleportar a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Para teleportar jogador a voce.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Para expulsar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Para dar cadeia a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Para criar um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Para congelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Para descongelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Para espectar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Para teleportar jogador par ao spawn inicial.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Para salvar uma posicao no banco de dados.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Para agendar um banimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Para agendar uma cadeia.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Para banir um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Para desbanir um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Para banir um jogador por tempo definido.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Para colocar uma advertencia a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /chat {FFFFFF}- Para desativar/ativar o chat local.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /antiafk {FFFFFF}- Para desativar/ativar o antiafk.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rtc {FFFFFF}- Para respawnar um veiculo que esta.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rac {FFFFFF}- Para respawnar todos os veiculos.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /resetanuncios {FFFFFF}- Para resetar um anuncio.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Para fazer um anuncio.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Para reanimar alguem morto.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banirip {FFFFFF}- Para banir um jogador por ip.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Para desbanir um jogador por ip.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Para iniciar uma contagem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rorgoff {FFFFFF}- Para retirar um lider offline.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /criarcasa {FFFFFF}- Para criar uma casa.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dcasa {FFFFFF}- Para deletar uma casa.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /criarradar {FFFFFF}- Para criar um radar.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dradar {FFFFFF}- Para deletar um radar.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setvida {FFFFFF}- Para setar vida a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setcolete {FFFFFF}- Para setar colete a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazercofre {FFFFFF}- Para trazer um cofre de org.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /daritem {FFFFFF}- Para setar item a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setarma {FFFFFF}- Para setar arma a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dardinheiro {FFFFFF}- Para dar dinheiro a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setadmin {FFFFFF}- Para setar alguem como admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /gmx {FFFFFF}- Para desligar o servidor.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /darlider {FFFFFF}- Para dar lider a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /limparlider {FFFFFF}- Para limpar lider de uma organizacao.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /limparlideres {FFFFFF}- Para limpar todos lideres das organizacoes.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setgasolina {FFFFFF}- Para setar gasolina em um veiculo.\n");
+			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
+		}
+		if(PlayerInfo[playerid][pAdmin] == 7)
+		{
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Dono{5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tra {FFFFFF}- Para comecar turno de ajudante.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Para pedir avaliacao a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Para verificar seus pontos de atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /fila {FFFFFF}- Para verificar os atendimentos disponiveis.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /termianar atendimento {FFFFFF}- Para finalizar um atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Para conversar no chat da administracao.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Para teleportar a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Para teleportar jogador a voce.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Para expulsar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Para dar cadeia a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Para criar um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Para congelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Para descongelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Para espectar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Para teleportar jogador par ao spawn inicial.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Para salvar uma posicao no banco de dados.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Para agendar um banimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Para agendar uma cadeia.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Para banir um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Para desbanir um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Para banir um jogador por tempo definido.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Para colocar uma advertencia a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /chat {FFFFFF}- Para desativar/ativar o chat local.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /antiafk {FFFFFF}- Para desativar/ativar o antiafk.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rtc {FFFFFF}- Para respawnar um veiculo que esta.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rac {FFFFFF}- Para respawnar todos os veiculos.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /resetanuncios {FFFFFF}- Para resetar um anuncio.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Para fazer um anuncio.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Para reanimar alguem morto.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banirip {FFFFFF}- Para banir um jogador por ip.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Para desbanir um jogador por ip.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Para iniciar uma contagem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rorgoff {FFFFFF}- Para retirar um lider offline.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /criarcasa {FFFFFF}- Para criar uma casa.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dcasa {FFFFFF}- Para deletar uma casa.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /criarradar {FFFFFF}- Para criar um radar.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dradar {FFFFFF}- Para deletar um radar.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setvida {FFFFFF}- Para setar vida a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setcolete {FFFFFF}- Para setar colete a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazercofre {FFFFFF}- Para trazer um cofre de org.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /daritem {FFFFFF}- Para setar item a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setarma {FFFFFF}- Para setar arma a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dardinheiro {FFFFFF}- Para dar dinheiro a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setadmin {FFFFFF}- Para setar alguem como admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /gmx {FFFFFF}- Para desligar o servidor.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /darlider {FFFFFF}- Para dar lider a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /limparlider {FFFFFF}- Para limpar lider de uma organizacao.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /limparlideres {FFFFFF}- Para limpar todos lideres das organizacoes.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setgasolina {FFFFFF}- Para setar gasolina em um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /criarkey {FFFFFF}- Para criar uma key de coins.\n");
+			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
+		}
+		if(PlayerInfo[playerid][pAdmin] == 8)
+		{
+			strcat(ComandosAdmins, "\t{5b6ed9}- {FFFFFF}Fundador{5b6ed9}- {FFFFFF}\n\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tra {FFFFFF}- Para comecar turno de ajudante.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pediravaliar {FFFFFF}- Para pedir avaliacao a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /verpontos {FFFFFF}- Para verificar seus pontos de atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /fila {FFFFFF}- Para verificar os atendimentos disponiveis.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /termianar atendimento {FFFFFF}- Para finalizar um atendedimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /a {FFFFFF}- Para conversar no chat da administracao.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /ir {FFFFFF}- Para teleportar a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazer {FFFFFF}- Para teleportar jogador a voce.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /kick {FFFFFF}- Para expulsar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cadeia {FFFFFF}- Para dar cadeia a alguem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /cv {FFFFFF}- Para criar um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /congelar {FFFFFF}- Para congelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /descongelar {FFFFFF}- Para descongelar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tv {FFFFFF}- Para espectar um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /spawnar {FFFFFF}- Para teleportar jogador par ao spawn inicial.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /pos {FFFFFF}- Para salvar uma posicao no banco de dados.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendaban {FFFFFF}- Para agendar um banimento.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /agendacadeia {FFFFFF}- Para agendar uma cadeia.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banir {FFFFFF}- Para banir um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanir {FFFFFF}- Para desbanir um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /tempban {FFFFFF}- Para banir um jogador por tempo definido.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adv {FFFFFF}- Para colocar uma advertencia a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /chat {FFFFFF}- Para desativar/ativar o chat local.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /antiafk {FFFFFF}- Para desativar/ativar o antiafk.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rtc {FFFFFF}- Para respawnar um veiculo que esta.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rac {FFFFFF}- Para respawnar todos os veiculos.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /resetanuncios {FFFFFF}- Para resetar um anuncio.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /av {FFFFFF}- Para fazer um anuncio.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /reanimar {FFFFFF}- Para reanimar alguem morto.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /banirip {FFFFFF}- Para banir um jogador por ip.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /desbanirip {FFFFFF}- Para desbanir um jogador por ip.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /contagem {FFFFFF}- Para iniciar uma contagem.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /rorgoff {FFFFFF}- Para retirar um lider offline.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /criarcasa {FFFFFF}- Para criar uma casa.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dcasa {FFFFFF}- Para deletar uma casa.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /criarradar {FFFFFF}- Para criar um radar.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dradar {FFFFFF}- Para deletar um radar.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setvida {FFFFFF}- Para setar vida a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setcolete {FFFFFF}- Para setar colete a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /trazercofre {FFFFFF}- Para trazer um cofre de org.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /daritem {FFFFFF}- Para setar item a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setarma {FFFFFF}- Para setar arma a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /dardinheiro {FFFFFF}- Para dar dinheiro a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setadmin {FFFFFF}- Para setar alguem como admin.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /gmx {FFFFFF}- Para desligar o servidor.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /darlider {FFFFFF}- Para dar lider a um jogador.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /limparlider {FFFFFF}- Para limpar lider de uma organizacao.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /limparlideres {FFFFFF}- Para limpar todos lideres das organizacoes.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /setgasolina {FFFFFF}- Para setar gasolina em um veiculo.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /criarkey {FFFFFF}- Para criar uma key de coins.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /addv {FFFFFF}- Para criar um veiculo de concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /editv {FFFFFF}- Para editar um veiculo da concesisonaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /adddealership {FFFFFF}- Para adicionar uma concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /deletedealership {FFFFFF}- Para remover uma concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /movedealership {FFFFFF}- Para mover uma concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /gotodealership {FFFFFF}- Para ir a uma concessionaria.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /addfuelstation {FFFFFF}- Para adicionar um posto de gasolina.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /deletefuelstation {FFFFFF}- Para remover um posto de gasolina.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /movefuelstation {FFFFFF}- Para mover um posto de gasolina.\n");
+			strcat(ComandosAdmins, "{5b6ed9} /gotofuelstation {FFFFFF}- Para ir a um posto de gasolina.\n");
+			ShowPlayerDialog(playerid, DIALOG_AJUDA_ADMIN, DIALOG_STYLE_MSGBOX, "Ajuda Comandos Admin", ComandosAdmins, "X", #);
+		}
+	}
+	return 1;
+}
+
+DCMD:verificar(user, channel, params[])
+{
+    new ds_userid[20 + 1];
+	new Cod,NomeConta[255];
+	new File[255],File2[255];
+	new str[255];
+	new DCC_Role:Role,
+		DCC_Role:Role2,
+        DCC_Guild:Server;
+	new
+        DCC_Message:message;
+    message = DCMD_GetCommandMessageId();
+	new username[33];
+        DCC_GetUserName(user, username, sizeof(username));
+
+	Role = DCC_FindRoleById("1170171519469637664");
+	Role2 = DCC_FindRoleById("1107302402278834316");
+	Server = DCC_FindGuildById("1107068463375187989");
+    DCC_GetUserId(user, ds_userid);
+	if(sscanf(params, "ds[255]", Cod,NomeConta)) return DCC_SendChannelMessage(channel,  "!verificar [IDF]");
+	{
+		format(File, sizeof(File), "IDCONTAS/%04d.ini", Cod);
+		if(DOF2_FileExists(File)) 
+		{
+			format(File2, sizeof(File2), "Contas/%s.ini", NomeConta);
+			if(DOF2_FileExists(File2)) 
+			{
+				format(str, sizeof(str), "**%s** O IDF e Conta informado consta e agora esta verificado!", username);
+				DCC_SendChannelMessage(channel, str);
+				DCC_AddGuildMemberRole(Server, user, Role);
+				DCC_RemoveGuildMemberRole(Server, user, Role2);
+				new str2[255];
+				format(str2, sizeof(str2), "%s#%04d", NomeConta,Cod);
+				DCC_GetGuildMemberNickname(Server, user, username);
+				DCC_SetGuildMemberNickname(Server, user, str2);
+				DOF2_RemoveFile(File);
+			}
+			else
+			{
+				format(str, sizeof(str), "**%s** A conta informado nao consta em nosso banco de dados!", username);
+				DCC_SendChannelMessage(channel, str);
+			}
+		}
+		else
+		{
+			format(str, sizeof(str), "**%s** O IDF informado nao consta em nosso banco de dados!", username);
+			DCC_SendChannelMessage(channel, str);
+		}
+	}
+	//DCC_DeleteMessage(message);
+    return 1;
+} 
