@@ -4,13 +4,14 @@
 	*	Nome Servidor:			Homeland Roleplay
 	*	Desenvolvedores:		Luan Rosa (RosaScripter) | Allison Gomes (chapei)
 	*   Mappers:                Mauricio (Aox-Mauricio).
-	*	Version:				2.0.9
+	*	Version:				3.0.0
 	*
 	*	Base: Gamemode Inside Roleplay Espanhol por Luan Rosa.
 	* 
 */
 
 //                          INCLUDES
+
 
 #define SSCANF_NO_NICE_FEATURES
 #define DEBUG 
@@ -43,11 +44,12 @@
 
 main()
 {}
-
+#define SERVERFORUM     			"discord.gg/3daewrJXyE"
+#define VERSAOSERVER     			"Build v3.0.0"
 #define MAX_CAIXAS               	50
 #define MAX_ZONE_NAME 				28
 #define MAX_VAGAS          			20+1
-#define MAX_ORGS           			15
+#define MAX_ORGS           			11
 #define MAX_MACONHA         		300
 #define Max_Crescida        		10
 #define MAX_CASAS        			500
@@ -117,8 +119,6 @@ new	UltimaFala[MAX_PLAYERS];
 #define Kick(%0) 					SetTimerEx("KickPlayer", 500, false, "i", %0)
 #define SpawnPlayerID(%0) 			SetTimerEx("SpawnP", 500, false, "i", %0)
 #define Controle 					TogglePlayerControllable
-#define SERVERFORUM     			"discord.gg/3daewrJXyE"
-#define VERSAOSERVER     			"Build v2.2.0"
 #define NA 5
 #define PTP 						PlayerToPoint
 
@@ -158,6 +158,7 @@ static DCC_Channel:NovoUsuarioLog;
 static DCC_Channel:EmailLog;
 static DCC_Channel:PunicoesLog;
 static DCC_Channel:ComandosLog;
+static DCC_Channel:AllowList;
 //                          DIALOGS
 
 enum
@@ -11326,59 +11327,43 @@ stock NomeOrg(playerid)
 	}
 	if(org == 1)
 	{
-		orG = "Policia Militar";
+		orG = "Policia Central do Homeland";
 	}
 	if(org == 2)
 	{
-		orG = "Policia Rodoviaria";
+		orG = "Comando Vermelho";
 	}
 	if(org == 3)
 	{
-		orG = "Rota";
+		orG = "Amigos dos Amigos";
 	}
 	if(org == 4)
 	{
-		orG = "Baep";
+		orG = "Terceiro Comando Puro";
 	}
 	if(org == 5)
 	{
-		orG = "Comando Vermelho";
+		orG = "Primeiro Comando da Capital";
 	}
 	if(org == 6)
 	{
-		orG = "Amigos dos Amigos";
+		orG = "Bennys";
 	}
 	if(org == 7)
 	{
-		orG = "Terceiro Comando Puro";
+		orG = "Medicos";
 	}
 	if(org == 8)
 	{
-		orG = "Primeiro Comando da Capital";
+		orG = "Reportagem";
 	}
 	if(org == 9)
 	{
-		orG = "Bennys";
+		orG = "Mafia Russa";
 	}
 	if(org == 10)
 	{
-		orG = "Medicos";
-	}
-	if(org == 11)
-	{
-		orG = "Reportagem";
-	}
-	if(org == 12)
-	{
-		orG = "Mafia Russa";
-	}
-	if(org == 13)
-	{
 		orG = "Moto Clube";
-	}
-	if(org == 14)
-	{
-		orG = "Policia Civil";
 	}
 	return orG;
 }
@@ -12323,6 +12308,7 @@ public OnGameModeInit()
 	EmailLog = DCC_FindChannelById("1179148766297731204");
 	PunicoesLog = DCC_FindChannelById("1179148860669558844");
 	ComandosLog = DCC_FindChannelById("1179144958045851688");
+	AllowList = DCC_FindChannelById("1178775882748399658");
 	SetGameModeText(VERSAOSERVER);
     SendRconCommand("language Português - Brasil");
 	SendRconCommand("ackslimit 5000");
@@ -14415,7 +14401,7 @@ public OnPlayerConnect(playerid)
 	LimparChat(playerid, 10);
 	todastextdraw(playerid);
 	ZerarDados(playerid);
-	PlayAudioStreamForPlayer(playerid, "http://k.top4top.io/m_2685nhtv30.mp3");
+	//PlayAudioStreamForPlayer(playerid, "http://k.top4top.io/m_2685nhtv30.mp3");
 	for(new t=0;t<11;t++){
 		PlayerTextDrawShow(playerid, Alertalogin[playerid][t]);
 		if(t == 11)break;
@@ -18602,18 +18588,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					new Float:a = GetPlayerDistanceFromPoint(playerid, 1481.094482, -1772.313720, 18.795755);
+					new Float:a = GetPlayerDistanceFromPoint(playerid, 1709.232299, -1649.383789, 20.175258);
 					new Float:b = GetPlayerDistanceFromPoint(playerid, 1456.284912, -1128.022460, 23.958011);
 					new Float:c = GetPlayerDistanceFromPoint(playerid, 1638.175415, -1134.294311, 24.051120);
-					new Float:d = GetPlayerDistanceFromPoint(playerid, 1649.4332,-1889.2966,13.5878);
-					new Float:e = GetPlayerDistanceFromPoint(playerid, 2064.6821,-1868.5961,13.5892);
-					new Float:f = GetPlayerDistanceFromPoint(playerid, 382.9478,-1909.8621,7.8625);
+					new Float:d = GetPlayerDistanceFromPoint(playerid, 1353.3607, -1766.7814, 13.5659);
+					new Float:e = GetPlayerDistanceFromPoint(playerid, 1838.8439, -1843.9094, 13.7862);
+					new Float:f = GetPlayerDistanceFromPoint(playerid, 1315.6638, -888.7213, 39.5862);
 					new Float:g = GetPlayerDistanceFromPoint(playerid, 1083.447998, -1766.307128, 13.928387);
 					new Float:h = GetPlayerDistanceFromPoint(playerid, 797.993225, -1618.977661, 14.032936);
 					new Float:i = GetPlayerDistanceFromPoint(playerid, -1973.108276, 288.896331, 35.171875);
 					new Float:m = GetPlayerDistanceFromPoint(playerid, 896.1668,-1345.3541,14.4743);
-					new Float:n = GetPlayerDistanceFromPoint(playerid, 1325.4236,-867.3035,39.6159);
-					new Float:o = GetPlayerDistanceFromPoint(playerid, 1345.2196,-1763.8044,13.5702);
+					new Float:n = GetPlayerDistanceFromPoint(playerid, 2351.1143, -1364.3696, 24.0985);
+					new Float:o = GetPlayerDistanceFromPoint(playerid, 934.9703, -1634.4111, 13.5993);
 					new Float:p = GetPlayerDistanceFromPoint(playerid, 468.658203, -1517.271606, 20.477876);
                     new Float:q = GetPlayerDistanceFromPoint(playerid, 2110.791015, -1804.298217, 13.591037);
 					new Float:u = GetPlayerDistanceFromPoint(playerid, 1193.647460, -914.173156, 43.360343);
@@ -18757,7 +18743,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1481.094482, -1772.313720, 18.795755, 8.0);
+					SetPlayerCheckpoint(playerid, 1709.232299, -1649.383789, 20.175258, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 1)
@@ -18778,35 +18764,35 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1649.4332,-1889.2966,13.5878, 8.0);
+					SetPlayerCheckpoint(playerid, 1353.3607, -1766.7814, 13.5659, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 4)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 2064.6821,-1868.5961,13.5892, 8.0);
+					SetPlayerCheckpoint(playerid, 1838.8439, -1843.9094, 13.7862, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 5)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 382.9478,-1909.8621,7.8625, 8.0);
+					SetPlayerCheckpoint(playerid, 1315.6638, -888.7213, 39.5862, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 6)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1325.4236,-867.3035,39.6159, 8.0);
+					SetPlayerCheckpoint(playerid, 2351.1143, -1364.3696, 24.0985, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 7)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1345.2196,-1763.8044,13.5702, 8.0);
+					SetPlayerCheckpoint(playerid, 934.9703, -1634.4111, 13.5993, 8.0);
 					InfoMsg(playerid, "Ponto marcado no mapa.");
 				}
 				if(listitem == 8)
@@ -23403,33 +23389,25 @@ CMD:promover(playerid,params[])
 CMD:orgs(playerid)
 {
 	new StringsG[10000],StringsG1[11000];
-	format(StringsG,sizeof(StringsG),"{4CBB17}1{FFFFFF} - Policia Militar: %s\n", DOF2_GetString("InfoOrg/1.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}1{FFFFFF} - Policia Central Homeland: %s\n", DOF2_GetString("InfoOrg/1.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}2{FFFFFF} - Policia Rodoviaria: %s\n", DOF2_GetString("InfoOrg/2.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}2{FFFFFF} - Comando Vermelho: %s\n", DOF2_GetString("InfoOrg/2.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}3{FFFFFF} - ROTA: %s\n", DOF2_GetString("InfoOrg/3.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}3{FFFFFF} - Amigos dos Amigos: %s\n", DOF2_GetString("InfoOrg/3.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}4{FFFFFF} - BAEP: %s\n", DOF2_GetString("InfoOrg/4.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}4{FFFFFF} - Terceiro Comando Puro: %s\n", DOF2_GetString("InfoOrg/4.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}5{FFFFFF} - Comando Vermelho: %s\n", DOF2_GetString("InfoOrg/5.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}5{FFFFFF} - Primeiro Comando da Capital %s\n", DOF2_GetString("InfoOrg/5.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}6{FFFFFF} - Amigos dos Amigos: %s\n", DOF2_GetString("InfoOrg/6.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}6{FFFFFF} - Bennys: %s\n", DOF2_GetString("InfoOrg/6.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}7{FFFFFF} - Terceiro Comando Puro: %s\n", DOF2_GetString("InfoOrg/7.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}7{FFFFFF} - Medicos: %s\n", DOF2_GetString("InfoOrg/7.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}8{FFFFFF} - Primeiro Comando da Capital %s\n", DOF2_GetString("InfoOrg/8.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}8{FFFFFF} - Reportagem: %s\n", DOF2_GetString("InfoOrg/8.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}9{FFFFFF} - Bennys: %s\n", DOF2_GetString("InfoOrg/9.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}9{FFFFFF} - Mafia Russa: %s\n", DOF2_GetString("InfoOrg/9.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}10{FFFFFF} - Medicos: %s\n", DOF2_GetString("InfoOrg/10.ini",VagasORG[0]));
-	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}11{FFFFFF} - Reportagem: %s\n", DOF2_GetString("InfoOrg/11.ini",VagasORG[0]));
-	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}12{FFFFFF} - Mafia Russa: %s\n", DOF2_GetString("InfoOrg/12.ini",VagasORG[0]));
-	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}13{FFFFFF} - Moto Clube: %s\n", DOF2_GetString("InfoOrg/13.ini",VagasORG[0]));
-	strcat(StringsG1, StringsG);
-	format(StringsG,sizeof(StringsG),"{4CBB17}14{FFFFFF} - Policia Civil: %s\n", DOF2_GetString("InfoOrg/14.ini",VagasORG[0]));
+	format(StringsG,sizeof(StringsG),"{4CBB17}10{FFFFFF} - Moto Clube: %s\n", DOF2_GetString("InfoOrg/10.ini",VagasORG[0]));
 	strcat(StringsG1, StringsG);
 	ShowPlayerDialog(playerid,DIALOG_ORGS,DIALOG_STYLE_LIST,"Organizacoes do Servidor",StringsG1,"X",#);
 	return 1;
@@ -27084,53 +27062,47 @@ CMD:aa(playerid)
 
 DCMD:verificar(user, channel, params[])
 {
-    new ds_userid[20 + 1];
-	new Cod,NomeConta[255];
-	new File[255],File2[255];
-	new str[255];
-	new DCC_Role:Role,
-		DCC_Role:Role2,
-        DCC_Guild:Server;
-	new
-        DCC_Message:message;
-    message = DCMD_GetCommandMessageId();
-	new username[33];
-        DCC_GetUserName(user, username, sizeof(username));
-
-	Role = DCC_FindRoleById("1170171519469637664");
-	Role2 = DCC_FindRoleById("1107302402278834316");
-	Server = DCC_FindGuildById("1107068463375187989");
-    DCC_GetUserId(user, ds_userid);
-	if(sscanf(params, "ds[255]", Cod,NomeConta)) return DCC_SendChannelMessage(channel,  "!verificar [IDF]");
+	if(channel == AllowList)
 	{
-		format(File, sizeof(File), "IDCONTAS/%04d.ini", Cod);
-		if(DOF2_FileExists(File)) 
-		{
-			format(File2, sizeof(File2), "Contas/%s.ini", NomeConta);
-			if(DOF2_FileExists(File2)) 
-			{
-				format(str, sizeof(str), "**%s** O IDF e Conta informado consta e agora esta verificado!", username);
-				DCC_SendChannelMessage(channel, str);
-				DCC_AddGuildMemberRole(Server, user, Role);
-				DCC_RemoveGuildMemberRole(Server, user, Role2);
-				new str2[255];
-				format(str2, sizeof(str2), "%s#%04d", NomeConta,Cod);
-				DCC_GetGuildMemberNickname(Server, user, username);
-				DCC_SetGuildMemberNickname(Server, user, str2);
-				DOF2_RemoveFile(File);
-			}
-			else
-			{
-				format(str, sizeof(str), "**%s** A conta informado nao consta em nosso banco de dados!", username);
-				DCC_SendChannelMessage(channel, str);
-			}
+		new 
+        DCC_Guild:Server = DCC_FindGuildById("1107068463375187989"),
+        DCC_Message:message = DCMD_GetCommandMessageId();
+
+		new 
+			username[33], 
+			ds_userid[20 + 1], 
+			tempString[255];
+
+		DCC_GetUserName(user, username, sizeof username);
+		DCC_GetUserId(user, ds_userid);
+
+		new tempId, tempAccount[30 + 1];
+		if(sscanf(params, "ds[30]", tempId, tempAccount)) return DCC_SendChannelMessage(channel,  "!verificar [IDF] [Nome da Conta]");
+		
+		new tempFile[255];
+		format(tempFile, sizeof tempFile, "IDCONTAS/%04d.ini", tempId);
+		if(!DOF2_FileExists(tempFile)) {
+			format(tempString, sizeof tempString, "**%s** O IDF informado nao consta em nosso banco de dados!", username);
+			DCC_SendChannelMessage(channel, tempString);
+			return true;
 		}
-		else
-		{
-			format(str, sizeof(str), "**%s** O IDF informado nao consta em nosso banco de dados!", username);
-			DCC_SendChannelMessage(channel, str);
+
+		new tempFile2[255];
+		format(tempFile2, sizeof tempFile2, "Contas/%s.ini", tempAccount);
+		if(!DOF2_FileExists(tempFile2)) {
+			format(tempString, sizeof tempString, "**%s** A conta informado nao consta em nosso banco de dados!", username);
+			DCC_SendChannelMessage(channel, tempString);
+			return true;
 		}
+		
+		format(tempString, sizeof tempString, "**%s** O IDF e Conta informado consta e agora esta verificado!", username);
+		DCC_SendChannelMessage(channel, tempString);
+		DCC_AddGuildMemberRole(Server, user, DCC_FindRoleById("1170171519469637664"));
+		DCC_RemoveGuildMemberRole(Server, user, DCC_FindRoleById("1107302402278834316"));
+
+		format(tempString, sizeof(tempString), "%s#%04d", tempAccount, tempId);
+		DCC_SetGuildMemberNickname(Server, user, tempString);
+		DOF2_RemoveFile(tempFile);
 	}
-	//DCC_DeleteMessage(message);
-    return 1;
-} 
+    return true;
+}
