@@ -16923,25 +16923,23 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		if(IsPlayerInRangeOfPoint(playerid, 1, 1682.130737, -2326.373291, 13.546875)){
 			MEGAString[0] = EOS;
-			format(stringZCMD, sizeof(stringZCMD), "1* Começou agora e está perdido e não sabe o que fazer?");
+			format(stringZCMD, sizeof(stringZCMD), "{5b6ed9}- {FFFFFF}Ao morrer no jogo, irei perder todos os meus itens?");
 			strcat(MEGAString,stringZCMD);
-			format(stringZCMD, sizeof(stringZCMD), "\n2* Como faço para encontrar locais?");
+			format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Caso eu esqueça minha senha como posso recupera-la?");
 			strcat(MEGAString,stringZCMD);
-			format(stringZCMD, sizeof(stringZCMD), "\n3* Como faço para conseguir um emprego?");
+			format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Como posso adquirir Homeland Coins (hC$) e acessar a loja?");
 			strcat(MEGAString,stringZCMD);
-			format(stringZCMD, sizeof(stringZCMD), "\n4* Como faço para subir de level?");
+			format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Como posso ter suporte/ajuda?");
 			strcat(MEGAString,stringZCMD);
-			format(stringZCMD, sizeof(stringZCMD), "\n5* Como faço para obter minhas licencas?");
+			format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Como faco para recuperar meu veiculo que foi desmanchado?");
 			strcat(MEGAString,stringZCMD);
-			format(stringZCMD, sizeof(stringZCMD), "\n6* Como faço para ingressar em uma organizacao?");
+			format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Como posso fazer.. denuncia, sugestoes e ler regras?");
 			strcat(MEGAString,stringZCMD);
-			format(stringZCMD, sizeof(stringZCMD), "\n7* Entrei em um emprego, nao sei o que fazer!");
+			format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Como posso me tornar um criador de conteudo?");
 			strcat(MEGAString,stringZCMD);
-			format(stringZCMD, sizeof(stringZCMD), "\n8* Travo com frequencia, o que pode ser?");
+			format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Como posso entrar em uma organizacao?");
 			strcat(MEGAString,stringZCMD);
-			format(stringZCMD, sizeof(stringZCMD), "\n9* Estao me matando sem motivo e eu nao sei o que fazer!");
-			strcat(MEGAString,stringZCMD);
-			format(stringZCMD, sizeof(stringZCMD), "\n10* Fiz uma doacao e estou perdido, o que faco?");
+			format(stringZCMD, sizeof(stringZCMD), "\n{5b6ed9}- {FFFFFF}Como posso fazer parte da staff?");
 			strcat(MEGAString,stringZCMD);
 			ShowPlayerDialog(playerid,DIALOG_FAQ,DIALOG_STYLE_LIST, "FAQ", MEGAString, "Confirmar", "X");
 		}
@@ -16965,16 +16963,16 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 1982.807739, -1783.678100, 13.543199) || PlayerToPoint(3.0, playerid, 1991.699951, -1783.279541, 13.543199) || PlayerToPoint(3.0, playerid, 2001.068359, -1783.499389, 13.543199) || PlayerToPoint(3.0, playerid, 2010.380981, -1783.100097, 13.543199) || PlayerToPoint(3.0, playerid, 2018.434692, -1783.255126, 13.543199))
 		{
 			if(PlayerInfo[playerid][Org] != 9) 		return ErrorMsg(playerid, "Nao possui permissao.");
-			ShowPlayerDialog(playerid, DIALOG_ARMARIOMEC, DIALOG_STYLE_LIST,"Menu Bennys", "{5b6ed9}- {FFFFFF}Caixa de Ferramientas\t{32CD32}R$1200\n{5b6ed9}- {FFFFFF}Ferramentas de Tunagem\t{32CD32}R$15000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_ARMARIOMEC, DIALOG_STYLE_TABLIST_HEADERS,"Menu Bennys", "{5b6ed9}- {FFFFFF}Caixa de Ferramientas\t{32CD32}R$1200\n{5b6ed9}- {FFFFFF}Ferramentas de Tunagem\t{32CD32}R$15000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 1709.232299, -1649.383789, 20.175258))
 		{
-			ShowPlayerDialog(playerid, DIALOG_PREFEITURA, DIALOG_STYLE_LIST,"Prefeitura do Estado", "{5b6ed9}- {FFFFFF}Emitir Documentos\n{5b6ed9}- {FFFFFF}Emitir Cart. Trabalho", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_PREFEITURA, DIALOG_STYLE_TABLIST_HEADERS,"Prefeitura do Estado", "{5b6ed9}- {FFFFFF}Emitir Documentos\n{5b6ed9}- {FFFFFF}Emitir Cart. Trabalho", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 2667.5273,-2128.6106,13.6791))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_LIST,"Loja Ilegal", "{5b6ed9}- {FFFFFF}Dinamite\t{32CD32}R$25000\n{5b6ed9}- {FFFFFF}Sementes de Maconha\t{32CD32}R$5000\n{5b6ed9}- {FFFFFF}LockPick\t{32CD32}R$15000\n{5b6ed9}- {FFFFFF}Pasta Base\t{32CD32}R$4000\n{5b6ed9}- {FFFFFF}Ferramenta de Desmanche\t{32CD32}R$50000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_TIENDAILEGAL, DIALOG_STYLE_TABLIST_HEADERS,"Loja Ilegal", "{5b6ed9}- {FFFFFF}Dinamite\t{32CD32}R$25000\n{5b6ed9}- {FFFFFF}Sementes de Maconha\t{32CD32}R$5000\n{5b6ed9}- {FFFFFF}LockPick\t{32CD32}R$15000\n{5b6ed9}- {FFFFFF}Pasta Base\t{32CD32}R$4000\n{5b6ed9}- {FFFFFF}Ferramenta de Desmanche\t{32CD32}R$50000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 1460.913208, -1124.163940, 23.958011) || PlayerToPoint(3.0, playerid, 1458.722656, -1125.988525, 23.958011) || PlayerToPoint(3.0, playerid,  1456.284912, -1128.022460, 23.958011) || PlayerToPoint(3.0, playerid, 1448.275756, -1134.693725, 23.958011) || PlayerToPoint(3.0, playerid, 1445.757080, -1136.793090, 23.958011))
 		{
@@ -16989,7 +16987,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(PlayerToPoint(3.0, playerid, 797.993225, -1618.977661, 14.032936) || PlayerToPoint(3.0, playerid, 1193.647460, -914.173156, 43.360343) || PlayerToPoint(3.0, playerid, 2110.791015, -1804.298217, 13.591037))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_CATLANCHE, DIALOG_STYLE_LIST, "Escolha uma opcao", "{5b6ed9}- {FFFFFF}Alimentos\n{5b6ed9}- {FFFFFF}Refrescos", "Selecionar", "X");
+			ShowPlayerDialog(playerid, DIALOG_CATLANCHE, DIALOG_STYLE_TABLIST_HEADERS, "Escolha uma opcao", "{5b6ed9}- {FFFFFF}Alimentos\n{5b6ed9}- {FFFFFF}Refrescos", "Selecionar", "X");
 		}
 		if(PlayerToPoint(2.0, playerid, 1083.447998, -1766.307128, 13.928387))
 		{
@@ -17008,22 +17006,22 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(IsPlayerInRangeOfPoint(playerid, 1.0, PosLojinhas[i][0], PosLojinhas[i][1], PosLojinhas[i][2]))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_LOJA247, DIALOG_STYLE_LIST,"Loja de Utilidades\tValor", "{5b6ed9}- {FFFFFF}Celular\t{32CD32}R$1500\n{5b6ed9}- {FFFFFF}Capacete\t{32CD32}R$500\n{5b6ed9}- {FFFFFF}Embalagem\t{32CD32}R$1000\n{5b6ed9}- {FFFFFF}Radinho VOIP\t{32CD32}R$5000\n{5b6ed9}- {FFFFFF}Corda\t{32CD32}R$8000\n{5b6ed9}- {FFFFFF}Caixa de Ferramentas\t{32CD32}R$3000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_LOJA247, DIALOG_STYLE_TABLIST_HEADERS,"Loja de Utilidades\tValor", "{5b6ed9}- {FFFFFF}Celular\t{32CD32}R$1500\n{5b6ed9}- {FFFFFF}Capacete\t{32CD32}R$500\n{5b6ed9}- {FFFFFF}Embalagem\t{32CD32}R$1000\n{5b6ed9}- {FFFFFF}Radinho VOIP\t{32CD32}R$5000\n{5b6ed9}- {FFFFFF}Corda\t{32CD32}R$8000\n{5b6ed9}- {FFFFFF}Caixa de Ferramentas\t{32CD32}R$3000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 896.1668,-1345.3541,14.4743))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_AMMU, DIALOG_STYLE_LIST,"AmmuNation\tValor", "{5b6ed9}- {FFFFFF}Vara de Pescar\t{32CD32}R$2500\n{5b6ed9}- {FFFFFF}Chaira\t{32CD32}R$4200\n{5b6ed9}- {FFFFFF}Faca\t{32CD32}R$15000\n{5b6ed9}- {FFFFFF}Pa\t{32CD32}R$3200\n{5b6ed9}- {FFFFFF}Algemas\t{32CD32}R$5000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_AMMU, DIALOG_STYLE_TABLIST_HEADERS,"AmmuNation\tValor", "{5b6ed9}- {FFFFFF}Vara de Pescar\t{32CD32}R$2500\n{5b6ed9}- {FFFFFF}Chaira\t{32CD32}R$4200\n{5b6ed9}- {FFFFFF}Faca\t{32CD32}R$15000\n{5b6ed9}- {FFFFFF}Pa\t{32CD32}R$3200\n{5b6ed9}- {FFFFFF}Algemas\t{32CD32}R$5000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 468.658203, -1517.271606, 20.477876))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_JOALHERIA, DIALOG_STYLE_LIST,"Joalheria\tValor", "{5b6ed9}- {FFFFFF}Rolex\t{32CD32}R$15000\n{5b6ed9}- {FFFFFF}Anel\t{32CD32}R$30000", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_JOALHERIA, DIALOG_STYLE_TABLIST_HEADERS,"Joalheria\tValor", "{5b6ed9}- {FFFFFF}Rolex\t{32CD32}R$15000\n{5b6ed9}- {FFFFFF}Anel\t{32CD32}R$30000", "Selecionar","X");
 		}
 		if(PlayerToPoint(3.0, playerid, 1646.425537, -1126.261474, 24.051115))
 		{
 			if(PlayerInfo[playerid][pRG] == 0) 	return InfoMsg(playerid, "Nao possui RG.");
-			ShowPlayerDialog(playerid, DIALOG_LOJAHP, DIALOG_STYLE_LIST,"Loja do Hospital\tValor", "{5b6ed9}- {FFFFFF}Bandagem\t{32CD32}R$800\n{5b6ed9}- {FFFFFF}Kit Primeiro Socorros\t{32CD32}APENAS MEDICO", "Selecionar","X");
+			ShowPlayerDialog(playerid, DIALOG_LOJAHP, DIALOG_STYLE_TABLIST_HEADERS,"Loja do Hospital\tValor", "{5b6ed9}- {FFFFFF}Bandagem\t{32CD32}R$800\n{5b6ed9}- {FFFFFF}Kit Primeiro Socorros\t{32CD32}APENAS MEDICO", "Selecionar","X");
 		}
 		for(new i; i < 6; i++)
 		if(PlayerToPoint(3.0, playerid, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]))
@@ -18375,11 +18373,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(listitem == 0)
 				{
-					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_TABLIST_HEADERS, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
 				}
 				if(listitem == 1)
 				{
-					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_LIST, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_TABLIST_HEADERS, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
 				}
 			}
 		}
@@ -18395,7 +18393,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GanharItem(playerid, 2702, 1);
 					CofreRestaurante += 25;
 					SalvarDinRoubos();
-					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_TABLIST_HEADERS, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
 				}
 				if(listitem == 1)
 				{
@@ -18405,7 +18403,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GanharItem(playerid, 2769, 1);
 					CofreRestaurante += 35;
 					SalvarDinRoubos();
-					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_TABLIST_HEADERS, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
 				}
 				if(listitem == 2)
 				{
@@ -18415,7 +18413,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GanharItem(playerid, 19847, 1);
 					CofreRestaurante += 40;
 					SalvarDinRoubos();
-					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_TABLIST_HEADERS, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
 				}
 				if(listitem == 3)
 				{
@@ -18425,7 +18423,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GanharItem(playerid, 19882, 1);
 					CofreRestaurante += 50;
 					SalvarDinRoubos();
-					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_LIST, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_ALIMENTOS, DIALOG_STYLE_TABLIST_HEADERS, "Alimentos", "{5b6ed9}- {FFFFFF}Pedaco de Pizza\t{32CD32}R$25\n{5b6ed9}- {FFFFFF}Taco\t{32CD32}R$35\n{5b6ed9}- {FFFFFF}Pedaco de Frango\t{32CD32}R$40\n{5b6ed9}- {FFFFFF}Carne Assada\t{32CD32}R$50", "Selecionar", "X");
 				}
 			}
 		}
@@ -18441,7 +18439,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GanharItem(playerid, 1484, 1);
 					CofreRestaurante += 2;
 					SalvarDinRoubos();
-					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_LIST, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_TABLIST_HEADERS, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
 				}
 				if(listitem == 1)
 				{
@@ -18451,7 +18449,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GanharItem(playerid, 1644, 1);
 					CofreRestaurante += 5;
 					SalvarDinRoubos();
-					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_LIST, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_TABLIST_HEADERS, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
 				}
 				if(listitem == 2)
 				{
@@ -18461,7 +18459,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GanharItem(playerid, 1546, 1);
 					CofreRestaurante += 8;
 					SalvarDinRoubos();
-					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_LIST, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_TABLIST_HEADERS, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
 				}
 				if(listitem == 3)
 				{
@@ -18471,7 +18469,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GanharItem(playerid, 2601, 1);
 					CofreRestaurante += 10;
 					SalvarDinRoubos();
-					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_LIST, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
+					ShowPlayerDialog(playerid, DIALOG_REFRECOS, DIALOG_STYLE_TABLIST_HEADERS, "Refrecos", "{5b6ed9}- {FFFFFF}Agua\t{32CD32}R$2\n{5b6ed9}- {FFFFFF}Suco\t{32CD32}R$5\n{5b6ed9}- {FFFFFF}Sprite\t{32CD32}R$8\n{5b6ed9}- {FFFFFF}Sprunk\t{32CD32}R$10", "Selecionar", "X");
 				}
 			}
 		}
@@ -22020,8 +22018,6 @@ CMD:cinto(playerid)
 CMD:gps(playerid)
 {
 	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_LIST, "Onde deseja ir?", "{5b6ed9}GPS {FFFFFF}Locais Importantes\n{5b6ed9}GPS {FFFFFF}Locais Empregos\n{5b6ed9}GPS {FFFFFF}Locais Organização\n{5b6ed9}GPS {FFFFFF}Localizar Casas", "Selecionar", "X");
-
-
 	return 1;
 }
 
@@ -27107,8 +27103,8 @@ DCMD:verificar(user, channel, params[])
 	if(channel == AllowList)
 	{
 		new 
-        DCC_Guild:Server = DCC_FindGuildById("1107068463375187989"),
-        DCC_Message:message = DCMD_GetCommandMessageId();
+        DCC_Guild:Server = DCC_FindGuildById("1107068463375187989");
+        //DCC_Message:message = DCMD_GetCommandMessageId();
 
 		new 
 			username[33], 
