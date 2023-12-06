@@ -4,7 +4,7 @@
 	*	Nome Servidor:			Homeland Roleplay
 	*	Desenvolvedores:		Luan Rosa (RosaScripter) | Allison Gomes (chapei)
 	*   Mappers:                Mauricio (Aox-Mauricio).
-	*	Version:				3.0.0
+	*	Version:				3.0.1
 	*
 	*	Base: Gamemode Inside Roleplay Espanhol por Luan Rosa.
 	* 
@@ -45,11 +45,11 @@
 main()
 {}
 #define SERVERFORUM     			"discord.gg/3daewrJXyE"
-#define VERSAOSERVER     			"Build v3.0.0"
+#define VERSAOSERVER     			"Build v3.0.1"
 #define MAX_CAIXAS               	50
 #define MAX_ZONE_NAME 				28
 #define MAX_VAGAS          			20+1
-#define MAX_ORGS           			11
+#define MAX_ORGS           			7
 #define MAX_MACONHA         		300
 #define Max_Crescida        		10
 #define MAX_CASAS        			500
@@ -188,6 +188,7 @@ enum
 	DIALOG_CONFIRMA_ESCOLA2,
 	DIALOG_CONFIRMA_ESCOLA3,
 	DIALOG_CONFIRMA_ESCOLA4,
+	DIALOG_DIVSCOP,
 	D_VOIP,
 	DIALOG_CELULAR,
 	DIALOG_RG1,
@@ -252,10 +253,6 @@ enum
 	DIALOG_AVALIAR,
 	DIALOG_TELEPORTARMAP,
 	DIALOG_VEHCORP1,
-	DIALOG_VEHCORP2,
-	DIALOG_VEHCORP3,
-	DIALOG_VEHCORP4,
-	DIALOG_VEHCORP5,
 	DIALOG_ANUNCIOOLX,
 	DIALOG_VALORTRANSACAO,
 	DIALOG_GPS3,
@@ -375,6 +372,7 @@ enum pInfo
 	pCoins,
 	pProfissao,
 	Org,
+	OrgDiv,
 	Cargo,
 	convite,
 	pProcurado,
@@ -629,7 +627,7 @@ new Text:HudNovo[21];
 new PlayerText:hudStyle[MAX_PLAYERS][25];
 static PlayerText:XPTXD[MAX_PLAYERS][20];
 new	PlayerText:Textdraw2[MAX_PLAYERS];
-new PlayerText:HudCop[MAX_PLAYERS][4];
+new Text:HudCop[8];
 new PlayerText:CopGuns[MAX_PLAYERS][6];
 new Text:Textdraw0,
 	Text:Textdraw1;
@@ -1309,27 +1307,19 @@ new Float:PosDesossa[8][4] =
 
 new EtapasMinerador[MAX_PLAYERS];
 
-new Float:PosEquipar[6][4] =
+new Float:PosEquipar[2][4] =
 {
-	{-2010.984252, -999.047912, 37.254680},//Policia Militar
-	{-2454.447998, 503.778869, 30.079460},//ROTA
-	{1628.541625, -251.347473, 49.000457},//PRF
-	{662.440917, -1493.710083, 20.962295},//Policia Civil
-	{1615.845581, -1121.153076, 24.058269},//Hospital
-	{-1253.534545, 2712.009521, 55.174671}//BAEP
+	{662.440917, -1493.710083, 20.962295},//Policia HLRP
+	{1615.845581, -1121.153076, 24.058269}//Hospital
 };
 
-new Float:PosVeiculos[10][4] =
+new Float:PosVeiculos[6][4] =
 {
-	{-2033.141479, -988.619567, 32.212158},//Policia Militar
-	{-2441.137939, 522.140869, 29.486917},//ROTA
-	{1662.606811, -285.948333, 39.627510},//PRF
 	{1567.830078, -1880.008178, 13.546875},//Spawn
 	{1639.677124, -1103.197631, 23.906250},//Hospital
 	{-478.623901, -506.406524, 25.517845},//Camionero
 	{2010.767089, -1771.265380, 13.543199},//Mecanica
-	{-1278.216552, 2711.282714, 50.132141},//BAEP
-	{667.180053, -1457.288818, 15.439465},//Policia Civil
+	{667.180053, -1457.288818, 15.439465},//Policia HLRP
 	{981.7181, 1733.6261, 8.6484}//Correios
 };
 new VehAlugado[MAX_PLAYERS];
@@ -5132,7 +5122,7 @@ CallBack::IsPolicial(playerid)
 	if(IsPlayerConnected(playerid))
 	{
 		new member = PlayerInfo[playerid][Org];
-		if(member == 1 || member == 2 || member == 3 || member == 4 || member == 14)
+		if(member == 1)
 		{
 			return 1;
 		}
@@ -9410,61 +9400,6 @@ stock todastextdraw(playerid)
 	PlayerTextDrawUseBox(playerid, TDCadastro_p[playerid][6], 0);
 	PlayerTextDrawSetProportional(playerid, TDCadastro_p[playerid][6], 1);
 
-	HudCop[playerid][0] = CreatePlayerTextDraw(playerid, 442.000000, 204.000000, "SERVICO");
-	PlayerTextDrawFont(playerid, HudCop[playerid][0], 2);
-	PlayerTextDrawLetterSize(playerid, HudCop[playerid][0], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, HudCop[playerid][0], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, HudCop[playerid][0], 1);
-	PlayerTextDrawSetShadow(playerid, HudCop[playerid][0], 0);
-	PlayerTextDrawAlignment(playerid, HudCop[playerid][0], 2);
-	PlayerTextDrawColor(playerid, HudCop[playerid][0], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, HudCop[playerid][0], 255);
-	PlayerTextDrawBoxColor(playerid, HudCop[playerid][0], -56);
-	PlayerTextDrawUseBox(playerid, HudCop[playerid][0], 1);
-	PlayerTextDrawSetProportional(playerid, HudCop[playerid][0], 1);
-	PlayerTextDrawSetSelectable(playerid, HudCop[playerid][0], 1);
-
-	HudCop[playerid][1] = CreatePlayerTextDraw(playerid, 442.000000, 227.000000, "ARMAS");
-	PlayerTextDrawFont(playerid, HudCop[playerid][1], 2);
-	PlayerTextDrawLetterSize(playerid, HudCop[playerid][1], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, HudCop[playerid][1], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, HudCop[playerid][1], 1);
-	PlayerTextDrawSetShadow(playerid, HudCop[playerid][1], 0);
-	PlayerTextDrawAlignment(playerid, HudCop[playerid][1], 2);
-	PlayerTextDrawColor(playerid, HudCop[playerid][1], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, HudCop[playerid][1], 255);
-	PlayerTextDrawBoxColor(playerid, HudCop[playerid][1], -56);
-	PlayerTextDrawUseBox(playerid, HudCop[playerid][1], 1);
-	PlayerTextDrawSetProportional(playerid, HudCop[playerid][1], 1);
-	PlayerTextDrawSetSelectable(playerid, HudCop[playerid][1], 1);
-
-	HudCop[playerid][2] = CreatePlayerTextDraw(playerid, 442.000000, 250.000000, "ROUPAS");
-	PlayerTextDrawFont(playerid, HudCop[playerid][2], 2);
-	PlayerTextDrawLetterSize(playerid, HudCop[playerid][2], 0.258332, 1.750000);
-	PlayerTextDrawTextSize(playerid, HudCop[playerid][2], 16.500000, 90.500000);
-	PlayerTextDrawSetOutline(playerid, HudCop[playerid][2], 1);
-	PlayerTextDrawSetShadow(playerid, HudCop[playerid][2], 0);
-	PlayerTextDrawAlignment(playerid, HudCop[playerid][2], 2);
-	PlayerTextDrawColor(playerid, HudCop[playerid][2], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, HudCop[playerid][2], 255);
-	PlayerTextDrawBoxColor(playerid, HudCop[playerid][2], -56);
-	PlayerTextDrawUseBox(playerid, HudCop[playerid][2], 1);
-	PlayerTextDrawSetProportional(playerid, HudCop[playerid][2], 1);
-	PlayerTextDrawSetSelectable(playerid, HudCop[playerid][2], 1);
-
-	HudCop[playerid][3] = CreatePlayerTextDraw(playerid, 501.000000, 186.000000, "X");
-	PlayerTextDrawFont(playerid, HudCop[playerid][3], 2);
-	PlayerTextDrawLetterSize(playerid, HudCop[playerid][3], 0.241665, 1.000000);
-	PlayerTextDrawTextSize(playerid, HudCop[playerid][3], 16.500000, 9.500000);
-	PlayerTextDrawSetOutline(playerid, HudCop[playerid][3], 1);
-	PlayerTextDrawSetShadow(playerid, HudCop[playerid][3], 0);
-	PlayerTextDrawAlignment(playerid, HudCop[playerid][3], 2);
-	PlayerTextDrawColor(playerid, HudCop[playerid][3], -16776961);
-	PlayerTextDrawBackgroundColor(playerid, HudCop[playerid][3], 255);
-	PlayerTextDrawBoxColor(playerid, HudCop[playerid][3], -56);
-	PlayerTextDrawUseBox(playerid, HudCop[playerid][3], 1);
-	PlayerTextDrawSetProportional(playerid, HudCop[playerid][3], 1);
-	PlayerTextDrawSetSelectable(playerid, HudCop[playerid][3], 1);
 	//
 	CopGuns[playerid][0] = CreatePlayerTextDraw(playerid, 278.000000, 240.000000, "9MM");
 	PlayerTextDrawFont(playerid, CopGuns[playerid][0], 2);
@@ -11273,46 +11208,191 @@ stock membrosorg(playerid, idorg)
 	ShowPlayerDialog(playerid, DIALOG_MEMBROSORG, DIALOG_STYLE_MSGBOX, "Membros ORG", corda,"X", #);
 	return true;
 }
+stock NomeDiv(playerid){
+	new CARGO[40],div = PlayerInfo[playerid][OrgDiv];
+	switch(div){
+		case 0:{
+			CARGO = "Indefinido";
+		}
+		case 1:{
+			CARGO = "GRAR";
+		}
+		case 2:{
+			CARGO = "GRM";
+		}
+		case 3:{
+			CARGO = "GRAEB";
+		}
+		case 4:{
+			CARGO = "NPTRAN";
+		}
+		case 5:{
+			CARGO = "DIB";
+		}
+		case 6:{
+			CARGO = "CORE";
+		}
+	}
+	return CARGO;
+}
 stock NomeCargoOff(Nome[])
 {
-	new CARGO[40],Crogo,strings[150];
+	new CARGO[40],cargo,orgpl,strings[150];
 	format(strings, sizeof(strings), PASTA_CONTAS, Nome);
-	Crogo = DOF2_GetInt(strings, "pCargo");
-	if(Crogo == 1)
+	cargo = DOF2_GetInt(strings, "pCargo");
+	orgpl = DOF2_GetInt(strings, "pOrg");
+	if(orgpl == 1)
 	{
-		CARGO = "Membro";
-	}
-	if(Crogo == 2)
-	{
-		CARGO = "SubLider";
-	}
-	if(Crogo == 3)
-	{
-		CARGO = "Lider";
+		switch(cargo){
+			case 0:{
+				CARGO = "Indefinido";
+			}
+			case 1:{
+				CARGO = "Cadete";
+			}
+			case 2:{
+				CARGO = "Soldado";
+			}
+			case 3:{
+				CARGO = "Cabo";
+			}
+			case 4:{
+				CARGO = "2 Sargento";
+			}
+			case 5:{
+				CARGO = "1 Sargento";
+			}
+			case 6:{
+				CARGO = "Sub Tenente";
+			}
+			case 7:{
+				CARGO = "Aspirante a Oficial";
+			}
+			case 8:{
+				CARGO = "Tenente";
+			}
+			case 9:{
+				CARGO = "Capitao";
+			}
+			case 10:{
+				CARGO = "Major";
+			}
+			case 11:{
+				CARGO = "Tenente Coronel";
+			}
+			case 12:{
+				CARGO = "Coronel";
+			}
+			case 13:{
+				CARGO = "Comandante Geral";
+			}
+		}
+	}else{
+		switch(cargo){
+			case 0:{
+				CARGO = "Indefinido";
+			}
+			case 1:{
+				CARGO = "X9";
+			}
+			case 2:{
+				CARGO = "Fogueteiro";
+			}
+			case 3:{
+				CARGO = "Guerrilheiro";
+			}
+			case 4:{
+				CARGO = "Piloto de Fuga";
+			}
+			case 5:{
+				CARGO = "Gerente";
+			}
+			case 6:{
+				CARGO = "Sub Chefe";
+			}
+			case 7:{
+				CARGO = "Chefe";
+			}
+		}
 	}
 	return CARGO;
 }
 
 stock NomeCargo(playerid)
 {
-	new CARGO[40];
-	if(PlayerInfo[playerid][Org] > 0)
+	new CARGO[40],cargo = PlayerInfo[playerid][Cargo];
+	if(IsPolicial(playerid))
 	{
-		if(PlayerInfo[playerid][Cargo] == 0)
-		{
-			CARGO = "Nenhum";
+		switch(cargo){
+			case 0:{
+				CARGO = "Indefinido";
+			}
+			case 1:{
+				CARGO = "Cadete";
+			}
+			case 2:{
+				CARGO = "Soldado";
+			}
+			case 3:{
+				CARGO = "Cabo";
+			}
+			case 4:{
+				CARGO = "2 Sargento";
+			}
+			case 5:{
+				CARGO = "1 Sargento";
+			}
+			case 6:{
+				CARGO = "Sub Tenente";
+			}
+			case 7:{
+				CARGO = "Aspirante a Oficial";
+			}
+			case 8:{
+				CARGO = "Tenente";
+			}
+			case 9:{
+				CARGO = "Capitao";
+			}
+			case 10:{
+				CARGO = "Major";
+			}
+			case 11:{
+				CARGO = "Tenente Coronel";
+			}
+			case 12:{
+				CARGO = "Coronel";
+			}
+			case 13:{
+				CARGO = "Comandante Geral";
+			}
 		}
-		if(PlayerInfo[playerid][Cargo] == 1)
-		{
-			CARGO = "Membro";
-		}
-		if(PlayerInfo[playerid][Cargo] == 2)
-		{
-			CARGO = "SubLider";
-		}
-		if(PlayerInfo[playerid][Cargo] == 3)
-		{
-			CARGO = "Lider";
+	}else if(IsBandido(playerid)){
+		switch(cargo){
+			case 0:{
+				CARGO = "Indefinido";
+			}
+			case 1:{
+				CARGO = "X9";
+			}
+			case 2:{
+				CARGO = "Fogueteiro";
+			}
+			case 3:{
+				CARGO = "Guerrilheiro";
+			}
+			case 4:{
+				CARGO = "Piloto de Fuga";
+			}
+			case 5:{
+				CARGO = "Gerente";
+			}
+			case 6:{
+				CARGO = "Sub Chefe";
+			}
+			case 7:{
+				CARGO = "Chefe";
+			}
 		}
 	}
 	return CARGO;
@@ -11819,6 +11899,7 @@ stock ZerarDados(playerid)
 	PlayerInfo[playerid][vCoins] = 0;
 	PlayerInfo[playerid][pProfissao] = 0;
 	PlayerInfo[playerid][Org] = 0;
+	PlayerInfo[playerid][OrgDiv] = 0;
 	PlayerInfo[playerid][Cargo] = 0;
 	PlayerInfo[playerid][convite] = 0;
 	PlayerInfo[playerid][pProcurado] = 0;
@@ -11993,6 +12074,7 @@ stock SalvarDados(playerid)
 		DOF2_SetInt(File, "Pecas", PlayerInfo[playerid][PecasArma]);
 		DOF2_SetFloat(File, "pVida", health);
 		DOF2_SetFloat(File, "pColete", armour);
+		DOF2_SetInt(File, "pOrgDiv", PlayerInfo[playerid][OrgDiv]);
 		DOF2_SaveFile();
 	}
 	return 1;
@@ -12060,6 +12142,7 @@ stock SalvarDadosSkin(playerid)
 		DOF2_SetInt(File, "Pecas", PlayerInfo[playerid][PecasArma]);
 		DOF2_SetFloat(File, "pVida", health);
 		DOF2_SetFloat(File, "pColete", armour);
+		DOF2_SetInt(File, "pOrgDiv", PlayerInfo[playerid][OrgDiv]);
 		DOF2_SaveFile();
 	}
 	return 1;
@@ -12569,6 +12652,119 @@ public OnGameModeInit()
 	TextDrawColor(Textdraw1, 1162167807);
 	TextDrawSetOutline(Textdraw1, 1);
 	TextDrawSetProportional(Textdraw1, 1);
+
+	//ARMARIO COPS
+	HudCop[0] = TextDrawCreate(322.000000, 161.000000, "_");
+	TextDrawFont(HudCop[0], 1);
+	TextDrawLetterSize(HudCop[0], 0.616666, 13.300014);
+	TextDrawTextSize(HudCop[0], 298.500000, 75.000000);
+	TextDrawSetOutline(HudCop[0], 1);
+	TextDrawSetShadow(HudCop[0], 0);
+	TextDrawAlignment(HudCop[0], 2);
+	TextDrawColor(HudCop[0], -1);
+	TextDrawBackgroundColor(HudCop[0], 255);
+	TextDrawBoxColor(HudCop[0], 255);
+	TextDrawUseBox(HudCop[0], 1);
+	TextDrawSetProportional(HudCop[0], 1);
+	TextDrawSetSelectable(HudCop[0], 0);
+
+	HudCop[1] = TextDrawCreate(322.000000, 161.000000, "_");
+	TextDrawFont(HudCop[1], 1);
+	TextDrawLetterSize(HudCop[1], 0.616666, 0.750011);
+	TextDrawTextSize(HudCop[1], 298.500000, 75.000000);
+	TextDrawSetOutline(HudCop[1], 1);
+	TextDrawSetShadow(HudCop[1], 0);
+	TextDrawAlignment(HudCop[1], 2);
+	TextDrawColor(HudCop[1], -1);
+	TextDrawBackgroundColor(HudCop[1], 255);
+	TextDrawBoxColor(HudCop[1], 1296911871);
+	TextDrawUseBox(HudCop[1], 1);
+	TextDrawSetProportional(HudCop[1], 1);
+	TextDrawSetSelectable(HudCop[1], 0);
+
+	HudCop[2] = TextDrawCreate(323.000000, 160.000000, "MENU CORP");
+	TextDrawFont(HudCop[2], 2);
+	TextDrawLetterSize(HudCop[2], 0.254167, 1.000000);
+	TextDrawTextSize(HudCop[2], 316.500000, 107.000000);
+	TextDrawSetOutline(HudCop[2], 0);
+	TextDrawSetShadow(HudCop[2], 0);
+	TextDrawAlignment(HudCop[2], 2);
+	TextDrawColor(HudCop[2], -1);
+	TextDrawBackgroundColor(HudCop[2], 255);
+	TextDrawBoxColor(HudCop[2], 50);
+	TextDrawUseBox(HudCop[2], 0);
+	TextDrawSetProportional(HudCop[2], 1);
+	TextDrawSetSelectable(HudCop[2], 0);
+
+	HudCop[3] = TextDrawCreate(322.000000, 185.000000, "BATER CARTAO");
+	TextDrawFont(HudCop[3], 2);
+	TextDrawLetterSize(HudCop[3], 0.158333, 0.650000);
+	TextDrawTextSize(HudCop[3], 9.500000, 56.500000);
+	TextDrawSetOutline(HudCop[3], 0);
+	TextDrawSetShadow(HudCop[3], 0);
+	TextDrawAlignment(HudCop[3], 2);
+	TextDrawColor(HudCop[3], -1);
+	TextDrawBackgroundColor(HudCop[3], 255);
+	TextDrawBoxColor(HudCop[3], 1296911871);
+	TextDrawUseBox(HudCop[3], 1);
+	TextDrawSetProportional(HudCop[3], 1);
+	TextDrawSetSelectable(HudCop[3], 1);
+
+	HudCop[4] = TextDrawCreate(322.000000, 208.000000, "UNIFORMES");
+	TextDrawFont(HudCop[4], 2);
+	TextDrawLetterSize(HudCop[4], 0.158333, 0.650000);
+	TextDrawTextSize(HudCop[4], 9.500000, 56.500000);
+	TextDrawSetOutline(HudCop[4], 0);
+	TextDrawSetShadow(HudCop[4], 0);
+	TextDrawAlignment(HudCop[4], 2);
+	TextDrawColor(HudCop[4], -1);
+	TextDrawBackgroundColor(HudCop[4], 255);
+	TextDrawBoxColor(HudCop[4], 1296911871);
+	TextDrawUseBox(HudCop[4], 1);
+	TextDrawSetProportional(HudCop[4], 1);
+	TextDrawSetSelectable(HudCop[4], 1);
+
+	HudCop[5] = TextDrawCreate(322.000000, 232.000000, "DIVISAO");
+	TextDrawFont(HudCop[5], 2);
+	TextDrawLetterSize(HudCop[5], 0.158333, 0.650000);
+	TextDrawTextSize(HudCop[5], 9.500000, 56.500000);
+	TextDrawSetOutline(HudCop[5], 0);
+	TextDrawSetShadow(HudCop[5], 0);
+	TextDrawAlignment(HudCop[5], 2);
+	TextDrawColor(HudCop[5], -1);
+	TextDrawBackgroundColor(HudCop[5], 255);
+	TextDrawBoxColor(HudCop[5], 1296911871);
+	TextDrawUseBox(HudCop[5], 1);
+	TextDrawSetProportional(HudCop[5], 1);
+	TextDrawSetSelectable(HudCop[5], 1);
+
+	HudCop[6] = TextDrawCreate(322.000000, 257.000000, "EQUIPAMENTOS");
+	TextDrawFont(HudCop[6], 2);
+	TextDrawLetterSize(HudCop[6], 0.158333, 0.650000);
+	TextDrawTextSize(HudCop[6], 9.500000, 56.500000);
+	TextDrawSetOutline(HudCop[6], 0);
+	TextDrawSetShadow(HudCop[6], 0);
+	TextDrawAlignment(HudCop[6], 2);
+	TextDrawColor(HudCop[6], -1);
+	TextDrawBackgroundColor(HudCop[6], 255);
+	TextDrawBoxColor(HudCop[6], 1296911871);
+	TextDrawUseBox(HudCop[6], 1);
+	TextDrawSetProportional(HudCop[6], 1);
+	TextDrawSetSelectable(HudCop[6], 1);
+
+	HudCop[7] = TextDrawCreate(356.000000, 144.000000, "X");
+	TextDrawFont(HudCop[7], 2);
+	TextDrawLetterSize(HudCop[7], 0.229167, 1.050000);
+	TextDrawTextSize(HudCop[7], 9.500000, 7.500000);
+	TextDrawSetOutline(HudCop[7], 0);
+	TextDrawSetShadow(HudCop[7], 0);
+	TextDrawAlignment(HudCop[7], 2);
+	TextDrawColor(HudCop[7], -1);
+	TextDrawBackgroundColor(HudCop[7], 255);
+	TextDrawBoxColor(HudCop[7], -16776961);
+	TextDrawUseBox(HudCop[7], 1);
+	TextDrawSetProportional(HudCop[7], 1);
+	TextDrawSetSelectable(HudCop[7], 1);
 
 	//VELOCIMETRO
 	VeloC_G[0] = TextDrawCreate(595.007385, 364.416839, "box");
@@ -13607,7 +13803,7 @@ public OnGameModeInit()
 	TextDrawSetProportional(TD_RG[3], 1);
 	TextDrawSetSelectable(TD_RG[3], 0);
 
-	TD_RG[4] = TextDrawCreate(297.000000, 168.000000, "ESTADO DE SAO PAULO");
+	TD_RG[4] = TextDrawCreate(297.000000, 168.000000, "ESTADO DE HOMELAND");
 	TextDrawFont(TD_RG[4], 2);
 	TextDrawLetterSize(TD_RG[4], 0.141666, 1.200000);
 	TextDrawTextSize(TD_RG[4], 400.000000, 320.500000);
@@ -13635,7 +13831,7 @@ public OnGameModeInit()
 	TextDrawSetProportional(TD_RG[5], 1);
 	TextDrawSetSelectable(TD_RG[5], 0);
 
-	TD_RG[6] = TextDrawCreate(304.000000, 183.000000, "POLICIA CIVIL DE SAO PAULO");
+	TD_RG[6] = TextDrawCreate(304.000000, 183.000000, "POLICIA CENTRAL DE HOMELAND");
 	TextDrawFont(TD_RG[6], 2);
 	TextDrawLetterSize(TD_RG[6], 0.141666, 1.050000);
 	TextDrawTextSize(TD_RG[6], 400.000000, 320.500000);
@@ -13705,7 +13901,7 @@ public OnGameModeInit()
 	TextDrawSetProportional(TD_RG[10], 1);
 	TextDrawSetSelectable(TD_RG[10], 0);
 
-	TD_RG[11] = TextDrawCreate(332.000000, 243.000000, "Guarulhos - SP");
+	TD_RG[11] = TextDrawCreate(332.000000, 243.000000, "SimCity - HL");
 	TextDrawFont(TD_RG[11], 1);
 	TextDrawLetterSize(TD_RG[11], 0.162500, 0.850000);
 	TextDrawTextSize(TD_RG[11], 400.000000, 320.500000);
@@ -14012,11 +14208,7 @@ public OnGameModeInit()
 	CreateDynamicMapIcon(1638.175415, -1134.294311, 24.051120, 22, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//HOSPITAL
 	CreateDynamicMapIcon(649.302062, -1357.399658, 13.567605, 34, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//SAN NEWS
 	// ORG MILITARES
-	CreateDynamicMapIcon(-2033.067504, -988.365112, 32.212158, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//POLICIA MILITAR
-	CreateDynamicMapIcon(-2440.856445, 522.686523, 29.914293, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//ROTA
-	CreateDynamicMapIcon(-1278.104248, 2711.379150, 50.132141, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//BAEP
-	CreateDynamicMapIcon(1662.559692, -285.732208, 39.607868, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PRF
-	CreateDynamicMapIcon(671.580932, -1501.122802, 17.498348, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//PRF
+	CreateDynamicMapIcon(671.580932, -1501.122802, 17.498348, 30, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//POLICIA CENTRAL
 	// ORG CRIMINOSA
 	CreateDynamicMapIcon(1858.289306, -1590.896484, 13.574988, 60, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Amarelo
 	CreateDynamicMapIcon(2650.068359, -2018.365234, 13.552066, 58, -1 ,-1, -1, -1, -1, MAPICON_LOCAL);//Azul
@@ -14186,18 +14378,6 @@ public OnGameModeInit()
 	CreateAurea("{5b6ed9}Material\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para pegar um material.", 1273.534545, -1292.359985, 13.481081);
 	CreateAurea("{5b6ed9}Material\n{FFFFFF}Use '{5b6ed9}F{FFFFFF}' para deixar o material.", 1257.569458, -1263.111206, 17.821365);
 
-	CreateDynamicPickup(1314, 23, -2017.083740, -998.231933, 37.254680);
-	CreateDynamic3DTextLabel("{5b6ed9}Policia Militar{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,-2017.083740, -998.231933, 37.254680,15);
-
-	CreateDynamicPickup(1314, 23, 1638.864746, -248.854202, 49.000457);
-	CreateDynamic3DTextLabel("{5b6ed9}Policia Rodoviaria{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,1638.864746, -248.854202, 49.000457,15);
-
-	CreateDynamicPickup(1314, 23, -2446.826904, 505.566497, 30.090206);
-	CreateDynamic3DTextLabel("{5b6ed9}Rondas Ostensivas{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,-2446.826904, 505.566497, 30.090206,15);
-
-	CreateDynamicPickup(1314, 23, -1258.899536, 2709.987304, 55.174671);
-	CreateDynamic3DTextLabel("{5b6ed9}Acoes Especiais{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,-1258.899536, 2709.987304, 55.174671,15);
-
 	CreateDynamicPickup(1314, 23, 2095.946044, -1143.877807, 25.586040);
 	CreateDynamic3DTextLabel("{5b6ed9}Comando Vermelho{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,2095.946044, -1143.877807, 25.586040,15);
 
@@ -14226,7 +14406,7 @@ public OnGameModeInit()
 	CreateDynamic3DTextLabel("{5b6ed9}Moto Clube{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,691.841125, -463.600677, 16.536296,15);
 
 	CreateDynamicPickup(1314, 23, 675.153442, -1497.677246, 20.966297);
-	CreateDynamic3DTextLabel("{5b6ed9}Policia Civil{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,675.153442, -1497.677246, 20.966297,15);
+	CreateDynamic3DTextLabel("{5b6ed9}Policia HomeLand{FFFFFF}\nUse '{5b6ed9}/infoorg{FFFFFF}'para \nabrir o menu da organizacao.",-1,675.153442, -1497.677246, 20.966297,15);
 
 	for(new j; j < MAX_ORGS; j++)
 	{
@@ -14250,17 +14430,17 @@ public OnGameModeInit()
 		UpdateFuelStation(i, 0);
 	}
 	for(new slot = 0; slot < MAX_MACONHA; slot++)MaconhaInfo[slot][PodeUsar] = true;
-	for(new i; i < 10; i++)
+	for(new i; i < 6; i++)
 	{
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}H{FFFFFF}'para \npegar um veiculo.", -1, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2], 10.0);
 		CreateDynamicPickup(1083, 23, PosVeiculos[i][0], PosVeiculos[i][1], PosVeiculos[i][2]); // Veh Spawn
-		if(i == 10)break;
+		if(i == 6)break;
 	}
-	for(new i; i < 6; i++)
+	for(new i; i < 2; i++)
 	{
 		CreateDynamicPickup(1275, 23, PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2]);
 		CreateDynamic3DTextLabel("{FFFFFF}Use '{5b6ed9}F{FFFFFF}'para \npegar os equipamentos.",-1,PosEquipar[i][0], PosEquipar[i][1], PosEquipar[i][2],15);
-		if(i == 6)break;
+		if(i == 2)break;
 	}
 	for(new i; i < 13; i++)
 	{
@@ -16574,30 +16754,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(paramedico[playerid] == false) 		return InfoMsg(playerid, "Nao esta em servico e com uniforme");
 			ShowPlayerDialog(playerid, DIALOG_VEHHP, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}Ambulance\t{FF0000}416\n{FF0000}- {FFFFFF}Wayfarer\t{FF0000}586", "Selecionar", "X");
 		}
-		else if(PlayerToPoint(3.0, playerid, -2033.141479, -988.619567, 32.212158))
+		else if(PlayerToPoint(3.0, playerid, 667.180053, -1457.288818, 15.439465))
 		{
 			if(PlayerInfo[playerid][Org] != 1)    		return ErrorMsg(playerid, "Nao possui permissao.");
 			ShowPlayerDialog(playerid, DIALOG_VEHCORP1, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}SwatVan\t{FF0000}601\n{FF0000}- {FFFFFF}CopBike\t{FF0000}523", "Selecionar", "X");
-		}
-		else if(PlayerToPoint(3.0, playerid, 1662.606811, -285.948333, 39.627510))
-		{
-			if(PlayerInfo[playerid][Org] != 2)    		return ErrorMsg(playerid, "Nao possui permissao.");
-			ShowPlayerDialog(playerid, DIALOG_VEHCORP2, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}FBI Rrancher\t{FF0000}490\n{FF0000}- {FFFFFF}CopBike\t{FF0000}523", "Selecionar", "X");
-		}
-		else if(PlayerToPoint(3.0, playerid, -2441.137939, 522.140869, 29.486917))
-		{
-			if(PlayerInfo[playerid][Org] != 3)    		return ErrorMsg(playerid, "Nao possui permissao.");
-			ShowPlayerDialog(playerid, DIALOG_VEHCORP3, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}FBI Rancher\t{FF0000}490", "Selecionar", "X");
-		}
-		else if(PlayerToPoint(3.0, playerid, -1278.216552, 2711.282714, 50.132141))
-		{
-			if(PlayerInfo[playerid][Org] != 4)    		return ErrorMsg(playerid, "Nao possui permissao.");
-			ShowPlayerDialog(playerid, DIALOG_VEHCORP4, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}FBI Rancher\t{FF0000}490", "Selecionar", "X");
-		}
-		else if(PlayerToPoint(3.0, playerid, 667.180053, -1457.288818, 15.439465))
-		{
-			if(PlayerInfo[playerid][Org] != 14)    		return ErrorMsg(playerid, "Nao possui permissao.");
-			ShowPlayerDialog(playerid, DIALOG_VEHCORP5, DIALOG_STYLE_LIST, "Selecionar um veiculo.", "{FF0000}- {FFFFFF}CopCarla\t{FF0000}597\n{FF0000}- {FFFFFF}FBI Rancher\t{FF0000}490", "Selecionar", "X");
 		}
 	}
 	if(newkeys == KEY_YES)
@@ -16870,10 +17030,9 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		{
 			if(IsPolicial(playerid))
 			{
-				PlayerTextDrawShow(playerid, HudCop[playerid][0]);
-				PlayerTextDrawShow(playerid, HudCop[playerid][1]);
-				PlayerTextDrawShow(playerid, HudCop[playerid][2]);
-				PlayerTextDrawShow(playerid, HudCop[playerid][3]);
+				for(new m=0;m<8;m++){
+					TextDrawShowForPlayer(playerid, HudCop[m]);
+				}
 				SelectTextDraw(playerid, 0xFF0000FF);
 				return 1;
 			}
@@ -17677,6 +17836,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DOF2_SetInt(Account, "Pecas", 0);
 					DOF2_SetFloat(Account, "pVida", 100);
 					DOF2_SetFloat(Account, "pColete", 100);
+					DOF2_SetInt(Account, "pOrgDiv", 0);
 					PlayerInfo[playerid][pVida] = 100;
 					PlayerInfo[playerid][Casa] = -1;
 					DOF2_SaveFile();
@@ -17884,6 +18044,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						PlayerInfo[playerid][PecasArma] = DOF2_GetInt(Account, "Pecas");
 						PlayerInfo[playerid][pVida] = DOF2_GetFloat(Account, "pVida");
 						PlayerInfo[playerid][pColete] = DOF2_GetFloat(Account, "pColete");
+						PlayerInfo[playerid][OrgDiv] = DOF2_GetInt(Account, "pOrgDiv");
 						DOF2_SaveFile();
 						//
 					}
@@ -18445,15 +18606,37 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						strcat(stg, "Voce nao e lider de nenhuma organizacao.");
 						ShowPlayerDialog(playerid, DIALOG_AJUDAJEFORG, DIALOG_STYLE_MSGBOX, "Comandos Chefes Orgs", stg, "Ok", #);
 					}
-					if(PlayerInfo[playerid][Cargo] == 2 || PlayerInfo[playerid][Cargo] == 3)
-					{
-						new stg[1100];
-						strcat(stg, "{5b6ed9}/infoorg{FFFFFF} Abrir o menu\n");
-						strcat(stg, "{5b6ed9}/convidar{FFFFFF} Convide um jogador para sua organizacao.\n");
-						strcat(stg, "{5b6ed9}/limparvagas{FFFFFF} Remova todos os membros da sua organizacao.\n");
-						strcat(stg, "{5b6ed9}/demitir{FFFFFF} Demitir um membro da organizacao.\n");
-						strcat(stg, "{5b6ed9}/promover{FFFFFF} Subir cargo de um jogador.\n");
-						ShowPlayerDialog(playerid, DIALOG_AJUDAJEFORG, DIALOG_STYLE_MSGBOX, "Comandos Chefes Orgs", stg, "Ok", #);
+					if(IsPolicial(playerid)){
+						if(PlayerInfo[playerid][Cargo] >= 11)
+						{
+							new stg[1100];
+							strcat(stg, "{5b6ed9}/infoorg{FFFFFF} Abrir o menu\n");
+							strcat(stg, "{5b6ed9}/convidar{FFFFFF} Convide um jogador para sua organizacao.\n");
+							strcat(stg, "{5b6ed9}/limparvagas{FFFFFF} Remova todos os membros da sua organizacao.\n");
+							strcat(stg, "{5b6ed9}/demitir{FFFFFF} Demitir um membro da organizacao.\n");
+							strcat(stg, "{5b6ed9}/promover{FFFFFF} Subir cargo de um jogador.\n");
+							strcat(stg, "{5b6ed9}/setdiv{FFFFFF} Seta um jogador em um nucleo/divisao.\n");
+							ShowPlayerDialog(playerid, DIALOG_AJUDAJEFORG, DIALOG_STYLE_MSGBOX, "Comandos Chefes Orgs", stg, "Ok", #);
+						}else{
+							new stg[1100];
+							strcat(stg, "Voce nao e lider de nenhuma organizacao.");
+							ShowPlayerDialog(playerid, DIALOG_AJUDAJEFORG, DIALOG_STYLE_MSGBOX, "Comandos Chefes Orgs", stg, "Ok", #);
+						}
+					}else if(IsBandido(playerid)){
+						if(PlayerInfo[playerid][Cargo] >= 6)
+						{
+							new stg[1100];
+							strcat(stg, "{5b6ed9}/infoorg{FFFFFF} Abrir o menu\n");
+							strcat(stg, "{5b6ed9}/convidar{FFFFFF} Convide um jogador para sua organizacao.\n");
+							strcat(stg, "{5b6ed9}/limparvagas{FFFFFF} Remova todos os membros da sua organizacao.\n");
+							strcat(stg, "{5b6ed9}/demitir{FFFFFF} Demitir um membro da organizacao.\n");
+							strcat(stg, "{5b6ed9}/promover{FFFFFF} Subir cargo de um jogador.\n");
+							ShowPlayerDialog(playerid, DIALOG_AJUDAJEFORG, DIALOG_STYLE_MSGBOX, "Comandos Chefes Orgs", stg, "Ok", #);
+						}else{
+							new stg[1100];
+							strcat(stg, "Voce nao e lider de nenhuma organizacao.");
+							ShowPlayerDialog(playerid, DIALOG_AJUDAJEFORG, DIALOG_STYLE_MSGBOX, "Comandos Chefes Orgs", stg, "Ok", #);
+						}
 					}
 				}
 				if(listitem == 4)
@@ -18668,25 +18851,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(listitem == 2)
 				{
-					new Float:a = GetPlayerDistanceFromPoint(playerid, -2033.067504, -988.365112, 32.212158);
-					new Float:b = GetPlayerDistanceFromPoint(playerid, -2440.856445, 522.686523, 29.914293);
-					new Float:c = GetPlayerDistanceFromPoint(playerid, -1278.104248, 2711.379150, 50.132141);
-					new Float:d = GetPlayerDistanceFromPoint(playerid, 1662.559692, -285.732208, 39.607868);
 					new Float:e = GetPlayerDistanceFromPoint(playerid, 661.693481, -1502.128417, 17.488348);
 					MEGAString[0] = EOS;
 					new string[800];
 					strcat(MEGAString, "Local\tDistancia\n");
-					format(string, 128, "{FFFFFF} Policia Militar \t{5b6ed9} %.0f KM\n", a);
+					format(string, 128, "{FFFFFF} PCHL \t{5b6ed9} %.0f KM\n", e);
 					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Rota \t{5b6ed9} %.0f KM\n", b);
-					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Baep \t{5b6ed9} %.0f KM\n", c);
-					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} PRF \t{5b6ed9} %.0f KM\n", d);
-					strcat(MEGAString,string);
-					format(string, 128, "{FFFFFF} Policia Civil \t{5b6ed9} %.0f KM\n", e);
-					strcat(MEGAString,string);
-					ShowPlayerDialog(playerid, DIALOG_GPS3, DIALOG_STYLE_TABLIST_HEADERS, "Locais Organizações", MEGAString, "Localizar","X");
+					ShowPlayerDialog(playerid, DIALOG_GPS3, DIALOG_STYLE_TABLIST_HEADERS, "Locais Departamentos", MEGAString, "Localizar","X");
 				}
 				if(listitem == 3)
 				{
@@ -18699,34 +18870,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(response)
 			{
 				if(listitem == 0)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -2033.067504, -988.365112, 32.212158, 8.0);
-					InfoMsg(playerid, "Ponto marcado no mapa.");
-				}
-				if(listitem == 1)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid,-2440.856445, 522.686523, 29.914293, 8.0);
-					InfoMsg(playerid, "Ponto marcado no mapa.");
-				}
-				if(listitem == 2)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, -1278.104248, 2711.379150, 50.132141, 8.0);
-					InfoMsg(playerid, "Ponto marcado no mapa.");
-				}
-				if(listitem == 3)
-				{
-					GPS[playerid] = true;
-					DisablePlayerCheckpoint(playerid);
-					SetPlayerCheckpoint(playerid, 1662.559692, -285.732208, 39.607868, 8.0);
-					InfoMsg(playerid, "Ponto marcado no mapa.");
-				}
-				if(listitem == 4)
 				{
 					GPS[playerid] = true;
 					DisablePlayerCheckpoint(playerid);
@@ -19688,6 +19831,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(String,sizeof(String),"Recusou o convite para sua organizacao (%s)",NomeOrg(playerid));
 				InfoMsg(playerid, String);
 				PlayerInfo[playerid][convite] = 0;
+				PlayerInfo[playerid][OrgDiv] = 0;
 			}
 		}
 		case DIALOG_LTAGS:
@@ -19751,75 +19895,92 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(response)
 			{
 				if(listitem == 0)
-				{
+				{	if(PlayerInfo[playerid][OrgDiv] != 1) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 265);
 				}
 				if(listitem == 1)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 1) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 266);
 				}
 				if(listitem == 2)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 1) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 267);
 				}
 				if(listitem == 3)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 1) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 280);
 				}
 				if(listitem == 4)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 1) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 281);
 				}
 				if(listitem == 5)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 4) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 282);
 				}
 				if(listitem == 6)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 4) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 283);
 				}
 				if(listitem == 7)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 2) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 284);
 				}
 				if(listitem == 8)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 6) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 285);
 				}
 				if(listitem == 9)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 4) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 288);
 				}
 				if(listitem == 10)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 3) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 300);
 				}
 				if(listitem == 11)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 3) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 301);
 				}
 				if(listitem == 12)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 5) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 302);
 				}
 				if(listitem == 13)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 1 || PlayerInfo[playerid][pSexo] == 1) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 306);
 				}
 				if(listitem == 14)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 1 || PlayerInfo[playerid][pSexo] == 1) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 307);
 				}
 				if(listitem == 15)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 1 || PlayerInfo[playerid][pSexo] == 1) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 309);
 				}
 				if(listitem == 16)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 5) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 310);
 				}
 				if(listitem == 17)
 				{
+					if(PlayerInfo[playerid][OrgDiv] != 5) return ErrorMsg(playerid, "Voce nao tem autorizacao para usar esta vestimenta");
 					SetPlayerSkin(playerid, 311);
 				}
 				if(listitem == 18)
@@ -20671,174 +20832,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 			}
 		}
-		case DIALOG_VEHCORP2:
-		{
-			if(response)
-			{
-				if(listitem == 0)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(490, X, Y, Z, ROT, 6, 152, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-				if(listitem == 1)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(523, X, Y, Z, ROT, 6, 152, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-			}
-		}
-		case DIALOG_VEHCORP3:
-		{
-			if(response)
-			{
-				if(listitem == 0)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(597, X, Y, Z, ROT, 0, 0, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-				if(listitem == 1)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(490, X, Y, Z, ROT, 0, 0, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-			}
-		}
-		case DIALOG_VEHCORP4:
-		{
-			if(response)
-			{
-				if(listitem == 0)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(597, X, Y, Z, ROT, 34, 34, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-				if(listitem == 1)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(490, X, Y, Z, ROT, 34, 34, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-			}
-		}
-		case DIALOG_VEHCORP5:
-		{
-			if(response)
-			{
-				if(listitem == 0)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(597, X, Y, Z, ROT, 1, 1, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-				if(listitem == 1)
-				{
-					new Float:X,Float:Y,Float:Z,Float:ROT;
-					GetPlayerPos(playerid,X,Y,Z);
-					GetPlayerFacingAngle(playerid,ROT);
-					if(VehAlugado[playerid] == 0)
-					{
-						VehAlugado[playerid] = 1;
-						VeiculoCivil[playerid] = CreateVehicle(490, X, Y, Z, ROT, 1, 1, false);
-						PutPlayerInVehicle(playerid, VeiculoCivil[playerid], 0);
-						InfoMsg(playerid, "Para devolver seu veiculo use /dveiculo.");
-					}
-					else
-					{
-						ErrorMsg(playerid, "Ja possui um veiculo use /dveiculo.");
-					}
-					return 1;
-				}
-			}
-		}
 		case DIALOG_ANUNCIOOLX:
 		{
 			if(response)
@@ -21572,20 +21565,6 @@ public OnClickDynamicPlayerTextDraw(playerid, PlayerText:textid)
 	if(textid == DrawInv[playerid][35]) return cmd_inventario(playerid);
 	if(textid == DrawInv[playerid][37]) return FuncaoItens(playerid, GetPVarInt(playerid, #VarSlotInv),qtdinv[playerid]);
 	if(textid == DrawInv[playerid][39]) return DroparItem(playerid, GetPVarInt(playerid, #VarSlotInv),qtdinv[playerid]);
-	if(textid == HudCop[playerid][3])
-	{
-		PlayerTextDrawHide(playerid, CopGuns[playerid][0]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][1]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][2]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][3]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][4]);
-		PlayerTextDrawHide(playerid, CopGuns[playerid][5]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][0]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][1]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][2]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][3]);
-		CancelSelectTextDraw(playerid);
-	}
 	if(textid == CopGuns[playerid][5])
 	{
 		PlayerTextDrawHide(playerid, CopGuns[playerid][0]);
@@ -21594,49 +21573,7 @@ public OnClickDynamicPlayerTextDraw(playerid, PlayerText:textid)
 		PlayerTextDrawHide(playerid, CopGuns[playerid][3]);
 		PlayerTextDrawHide(playerid, CopGuns[playerid][4]);
 		PlayerTextDrawHide(playerid, CopGuns[playerid][5]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][0]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][1]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][2]);
-		PlayerTextDrawHide(playerid, HudCop[playerid][3]);
-		CancelSelectTextDraw(playerid);
-	}
-	if(textid == HudCop[playerid][0])
-	{
-		if(Patrulha[playerid] == false)
-		{
-			Patrulha[playerid] = true;
-			SuccesMsg(playerid, "Voce comecou seu servico como policial");
-			SalvarArmas(playerid);
-			ResetPlayerWeapons(playerid);
-			policiaon ++;
-			SetPlayerColor(playerid, 0x0012FFFF);
-			SetPlayerHealth(playerid, 100);
-		}
-		else
-		{
-			Patrulha[playerid] = false;
-			policiaon --;
-			SetPlayerHealth(playerid, 100);
-			SetPlayerArmour(playerid, 0);
-			ResetPlayerWeapons(playerid);
-			CarregarArmas(playerid);
-			SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
-			SuccesMsg(playerid, "Voce deixou seu servico como policial");
-			SetPlayerColor(playerid, 0xFFFFFFFF);
-			SetPlayerHealth(playerid, 100);
-		}
-		return 1;
-	}
-	if(textid == HudCop[playerid][1])
-	{
-		if(Patrulha[playerid] == false) 		return InfoMsg(playerid, "Nao esta em servico");
-		PlayerTextDrawShow(playerid, CopGuns[playerid][0]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][1]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][2]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][3]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][4]);
-		PlayerTextDrawShow(playerid, CopGuns[playerid][5]);
-		SelectTextDraw(playerid, 0xFF0000FF);
+		//CancelSelectTextDraw(playerid);
 	}
 	if(textid == CopGuns[playerid][0])
 	{
@@ -21681,31 +21618,6 @@ public OnClickDynamicPlayerTextDraw(playerid, PlayerText:textid)
 		RemovePlayerWeapon(playerid, 34);
 		GivePlayerWeapon(playerid, 34, 10);
 	}
-	if(textid == HudCop[playerid][2])
-	{
-		new Ropa[800];
-		if(Patrulha[playerid] == false) 		return InfoMsg(playerid, "Nao esta em servico");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Militar 1\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Militar 2\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Militar 3\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Militar 4\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Militar 5\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Rodoviaria 1\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Rodoviaria 2\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}Batedores\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}Operações Especiais 1\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}Policia Rodoviaria 3\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}ROTA 1\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}ROTA 2\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}BAEP 1\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}FEMININA 1\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}FEMININA 2\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}FEMININA 3\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}BAEP 2\n");
-		strcat(Ropa, "{5b6ed9}- {FFFFFF}BAEP 3\n");
-		strcat(Ropa, "{FFFFFF}- {5b6ed9}Retirar Uniforme\n");
-		ShowPlayerDialog(playerid, DIALOG_ROPACOP, DIALOG_STYLE_LIST, "Fardamentos", Ropa, "Selecionar", "X");
-	}
 	return 1;
 }
 
@@ -21722,6 +21634,82 @@ public OnClickDynamicTextDraw(playerid, Text:textid)
 		}
 		MostrandoRG[playerid] = false;
 		CancelSelectTextDraw(playerid);
+	}
+	if(textid == HudCop[3])
+	{
+		if(Patrulha[playerid] == false)
+		{
+			Patrulha[playerid] = true;
+			SuccesMsg(playerid, "Voce bateu cartao e iniciou expediente.");
+			SalvarArmas(playerid);
+			ResetPlayerWeapons(playerid);
+			policiaon ++;
+			SetPlayerColor(playerid, 0x0012FFFF);
+			SetPlayerHealth(playerid, 100);
+		}
+		else
+		{
+			Patrulha[playerid] = false;
+			policiaon --;
+			SetPlayerHealth(playerid, 100);
+			SetPlayerArmour(playerid, 0);
+			ResetPlayerWeapons(playerid);
+			CarregarArmas(playerid);
+			SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
+			SuccesMsg(playerid, "Voce bateu cartao e encerrou expediente");
+			SetPlayerColor(playerid, 0xFFFFFFFF);
+			//SetPlayerHealth(playerid, 100);
+		}
+		return 1;
+	}
+	if(textid == HudCop[6])
+	{
+		if(Patrulha[playerid] == false) 		return InfoMsg(playerid, "Nao esta em servico");
+		PlayerTextDrawShow(playerid, CopGuns[playerid][0]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][1]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][2]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][3]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][4]);
+		PlayerTextDrawShow(playerid, CopGuns[playerid][5]);
+	}
+	if(textid == HudCop[7])
+	{
+		for(new m=0;m<8;m++){
+			TextDrawHideForPlayer(playerid, HudCop[m]);
+		}
+		CancelSelectTextDraw(playerid);
+	}
+	if(textid == HudCop[5])
+	{
+		ShowPlayerDialog(playerid, DIALOG_DIVSCOP, DIALOG_STYLE_MSGBOX, "Divisoes PCHL", "{5b6ed9}1-{FFFFFF} Grupamento de Resposta e Apoio Rapido {5b6ed9}[GRAR]\n\
+		{5b6ed9}2-{FFFFFF} Grupamento de Resposta com Motocicletas {5b6ed9}[GRM]\n{5b6ed9}3-{FFFFFF} Grupo de Resposta Aerea Especializada do Brasil {5b6ed9}[GRAEB]\n\
+		{5b6ed9}4-{FFFFFF} Nucleo Estadual De Transito {5b6ed9}[NPTRAN]\n{5b6ed9}5-{FFFFFF} Departamento Investigativo Brasileiro {5b6ed9}[DIB]\n\
+		{5b6ed9}6-{FFFFFF} Comando de operacoes e resposta especializada {5b6ed9}[CORE]\n", "Fechar", "");
+	}
+	if(textid == HudCop[4])
+	{
+		new Ropa[800];
+		if(Patrulha[playerid] == false) 		return InfoMsg(playerid, "Nao esta em servico");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}GRAR - Uniforme 1\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}GRAR - Uniforme 2\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}GRAR - Uniforme 3\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}GRAR - Uniforme 4\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}GRAR - Uniforme 5\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}NPTRAN - Uniforme 1\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}NPTRAN - Uniforme 2\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}GRM - Uniforme 1\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}CORE - Uniforme 1\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}NPTRAN - Uniforme 3\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}GRAEB - Uniforme 1\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}GRAEB - Uniforme 2\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}DIB - Uniforme 1\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}FEMININA GRAR - Uniforme 1\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}FEMININA GRAR - Uniforme 2\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}FEMININA GRAR - Uniforme 3\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}DIB - Uniforme 2\n");
+		strcat(Ropa, "{5b6ed9}- {FFFFFF}DIB - Uniforme 3\n");
+		strcat(Ropa, "{FFFFFF}- {5b6ed9}Retirar Uniforme\n");
+		ShowPlayerDialog(playerid, DIALOG_ROPACOP, DIALOG_STYLE_LIST, "Uniformes", Ropa, "Selecionar", "X");
 	}
 	if(textid == TDmorte[1])
 	{
@@ -22188,7 +22176,7 @@ CMD:logaradm(playerid)
 {
 	new sendername[MAX_PLAYER_NAME];
 	GetPlayerName(playerid, sendername, sizeof(sendername));
-	if(!strcmp(sendername,"Luan_Rosa", false))
+	if(!strcmp(sendername,"Luan_Rosa", false) || !strcmp(sendername,"Allison_Gomes", false))
 	{
 		PlayerInfo[playerid][pAdmin] = 8;
 		SuccesMsg(playerid, "Conectado como Desenvolvedor");
@@ -23292,8 +23280,12 @@ CMD:convidar(playerid,params[])
 	new id, String[500];
 	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Nao fez Login.");
 	if(PlayerInfo[playerid][Org] == 0)return ErrorMsg(playerid, "Nao e de nenhuma organizacao.");
-	if(PlayerInfo[playerid][Cargo] < 2)return ErrorMsg(playerid, "Nao superior de nenhuma organizacao.");
 	if(sscanf(params,"i",id))return ErrorMsg(playerid,"Use: /convidar [ID]");
+	if(IsPolicial(playerid)){
+		if(PlayerInfo[playerid][Cargo] < 11)return ErrorMsg(playerid, "Nao e superior de nenhuma corporacao.");
+	}else if(IsBandido(playerid)){
+		if(PlayerInfo[playerid][Cargo] < 6)return ErrorMsg(playerid, "Nao e superior de nenhuma organizacao.");
+	}
 	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
@@ -23302,6 +23294,9 @@ CMD:convidar(playerid,params[])
 			{
 				if(!IsPerto(playerid,i))return ErrorMsg(playerid, "Nao esta perto deste jogador.");
 				if(PlayerInfo[i][Org] != 0)return ErrorMsg(playerid, "Este jogador ja e de uma organizacao.");
+				if(IsPolicial(playerid)){
+					PlayerInfo[i][OrgDiv] = 1;
+				}
 				PlayerInfo[i][convite] = PlayerInfo[playerid][Org];
 				format(String,sizeof(String),"Esta sendo convidado por {5b6ed9}%04d{FFFFFF}. (%s)",PlayerInfo[playerid][IDF],NomeOrg(playerid));
 				ShowPlayerDialog(i,DIALOG_CONVITE,DIALOG_STYLE_MSGBOX,"Convite",String,"Aceitar","X");
@@ -23317,7 +23312,11 @@ CMD:limparvagas(playerid,params[])
 	new String[500];
 	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Nao iniciou login");
 	if(PlayerInfo[playerid][Org] == 0)return ErrorMsg(playerid, "Nao e de nenhuma organizacao.");
-	if(PlayerInfo[playerid][Cargo] < 2)return ErrorMsg(playerid, "Nao e superior de nenhuma organizacao.");
+	if(IsPolicial(playerid)){
+		if(PlayerInfo[playerid][Cargo] < 11)return ErrorMsg(playerid, "Nao e superior de nenhuma corporacao.");
+	}else if(IsBandido(playerid)){
+		if(PlayerInfo[playerid][Cargo] < 6)return ErrorMsg(playerid, "Nao e superior de nenhuma organizacao.");
+	}
 	new xPlayer;
 	if(sscanf(params,"i",xPlayer))
 		return ErrorMsg(playerid ,  "/limparvagas [id]");
@@ -23332,12 +23331,17 @@ CMD:limparvagas(playerid,params[])
 CMD:demitir(playerid,params[])
 {
 	new String[500];
-	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Nao iniciou login");
-	if(PlayerInfo[playerid][Org] == 0)return ErrorMsg(playerid, "Nao faz parte de nenhuma organizacao.");
-	if(PlayerInfo[playerid][Cargo] < 2)return ErrorMsg(playerid, "Nao e superior de nenhuma organizacao.");
 	new xPlayer;
+	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Nao iniciou login");
 	if(sscanf(params,"i",xPlayer))
 		return ErrorMsg(playerid , "/demitir [playerid]");
+	if(PlayerInfo[playerid][Org] == 0)return ErrorMsg(playerid, "Nao faz parte de nenhuma organizacao.");
+	if(IsPolicial(playerid)){
+		if(PlayerInfo[playerid][Cargo] < 11)return ErrorMsg(playerid, "Nao e superior de nenhuma corporacao.");
+		if(PlayerInfo[playerid][OrgDiv] != PlayerInfo[xPlayer][OrgDiv] && PlayerInfo[playerid][Cargo] != 13) return ErrorMsg(playerid, "Voce nao pode demitir alguem que nao seja do seu nucleo e nao for o comando geral.");
+	}else if(IsBandido(playerid)){
+		if(PlayerInfo[playerid][Cargo] < 6)return ErrorMsg(playerid, "Nao e superior de nenhuma organizacao.");
+	}
 	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
@@ -23347,11 +23351,12 @@ CMD:demitir(playerid,params[])
 				if(PlayerInfo[i][Org] != PlayerInfo[playerid][Org])return ErrorMsg(playerid, "Este jogador nao e de sua organizacao.");
 				format(String, sizeof(String),"Expulsou %04d de sua organizacao!",PlayerInfo[i][IDF]);
 				SuccesMsg(playerid, String);
-				format(String, sizeof(String),"Foi expulsado de sua organizacao por %04d",PlayerInfo[playerid][IDF]);
+				format(String, sizeof(String),"Foi expulso de sua organizacao por %04d",PlayerInfo[playerid][IDF]);
 				InfoMsg(i, String);
 				expulsarmembro(i, PlayerInfo[i][Org]);
 				PlayerInfo[i][Org] = 0;
 				PlayerInfo[i][Cargo] = 0;
+				PlayerInfo[i][OrgDiv] = 0;
 			}
 		}
   	}
@@ -23363,8 +23368,15 @@ CMD:promover(playerid,params[])
 	new id,cargo,String[500];
 	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Nao iniciou login");
 	if(PlayerInfo[playerid][Org] == 0)return 1;
-	if(PlayerInfo[playerid][Cargo] < 2)return ErrorMsg(playerid, "Nao e superior de nenhuma organizacao.");
 	if(sscanf(params,"ii",id,cargo))return ErrorMsg(playerid,"/promover [ID] [CARGO]");
+	if(IsPolicial(playerid)){
+		if(cargo > 12 || cargo < 1)return ErrorMsg(playerid, "Nao pode dar este cargo.");
+		if(PlayerInfo[playerid][Cargo] < 11)return ErrorMsg(playerid, "Nao e superior de nenhuma corporacao.");
+		if(PlayerInfo[playerid][OrgDiv] != PlayerInfo[id][OrgDiv] && PlayerInfo[playerid][Cargo] != 13) return ErrorMsg(playerid, "Voce nao pode promover alguem que nao seja do seu nucleo e nao for o comando geral.");
+	}else if(IsBandido(playerid)){
+		if(cargo > 6 || cargo < 1)return ErrorMsg(playerid, "Nao pode dar este cargo.");
+		if(PlayerInfo[playerid][Cargo] < 6)return ErrorMsg(playerid, "Nao e superior de nenhuma organizacao.");
+	}
 	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
@@ -23372,20 +23384,43 @@ CMD:promover(playerid,params[])
 			if(PlayerInfo[i][IDF] == id)
 			{
 				if(PlayerInfo[i][Cargo] > PlayerInfo[playerid][Cargo])return ErrorMsg(playerid, "Nao pode dar um cargo a um superior.");
-				if(cargo > 3)return ErrorMsg(playerid, "Nao pode dar este cargo.");
-				if(cargo == 0)return ErrorMsg(playerid, "Nao pode dar este cargo.");
 				if(PlayerInfo[i][Org] != PlayerInfo[playerid][Org])return ErrorMsg(playerid, "Este jogador nao de sua organizacao.");
 				PlayerInfo[i][Cargo] = cargo;
-				format(String,sizeof(String),"Voce deu %s para %04d de organizacao.",NomeCargo(i),PlayerInfo[i][IDF]);
+				format(String,sizeof(String),"Voce promoveu %s(%04d) a %s no(a) %s.",Name(i),PlayerInfo[i][IDF],NomeCargo(i),NomeOrg(playerid));
 				SuccesMsg(playerid, String);
-				format(String,sizeof(String),"%04d colocou voce como %s de organizacao.",PlayerInfo[playerid][IDF],NomeCargo(i));
+				format(String,sizeof(String),"%s(%04d) promoveu voce a %s no(a) %s.",Name(i),PlayerInfo[playerid][IDF],NomeCargo(i),NomeOrg(playerid));
 				InfoMsg(i, String);
 			}
 		}
   	}
 	return 1;
 }
-
+CMD:setdiv(playerid,params[])
+{
+	new id,div,String[500];
+	if(pLogado[playerid] == false)              				return ErrorMsg(playerid, "Nao iniciou login");
+	if(PlayerInfo[playerid][Org] != 1)return 1;
+	if(sscanf(params,"ii",id,div))return ErrorMsg(playerid,"/setdiv [ID] [divisao]");
+	if(div > 6 || div < 1)return ErrorMsg(playerid, "Este nucleo nao existe.");
+	if(PlayerInfo[playerid][Cargo] < 11)return ErrorMsg(playerid, "Nao e superior de nenhuma corporacao.");
+	foreach(new i : Player)
+  	{
+		if(pLogado[i] == true)
+		{
+			if(PlayerInfo[i][IDF] == id)
+			{
+				if(PlayerInfo[i][Cargo] > PlayerInfo[playerid][Cargo])return ErrorMsg(playerid, "Voce nao pode setar um superior em um nucleo.");
+				if(PlayerInfo[i][Org] != PlayerInfo[playerid][Org])return ErrorMsg(playerid, "Este jogador nao de sua corporacao.");
+				PlayerInfo[i][OrgDiv] = div;
+				format(String,sizeof(String),"Voce colocou %s(%04d) na %s da %s.",Name(i),PlayerInfo[i][IDF],NomeDiv(playerid),NomeOrg(playerid));
+				SuccesMsg(playerid, String);
+				format(String,sizeof(String),"%s(%04d) colocou voce na %s da %s.",Name(i),PlayerInfo[playerid][IDF],NomeDiv(playerid),NomeOrg(playerid));
+				InfoMsg(i, String);
+			}
+		}
+  	}
+	return 1;
+}
 CMD:orgs(playerid)
 {
 	new StringsG[10000],StringsG1[11000];
@@ -23417,15 +23452,22 @@ CMD:darlider(playerid,params[])
 {
 	new id,org,String[500];
 	if(PlayerInfo[playerid][pAdmin] < 6)		return ErrorMsg(playerid, "Nao possui permissao.");
-	if(sscanf(params,"ii",id,org))return ErrorMsg(playerid,"/darlider [ID] [IDORG]");
+	if(sscanf(params,"ii",id,org))return ErrorMsg(playerid,"/darlider [IDF] [IDORG]");
 	foreach(new i : Player)
   	{
 		if(pLogado[i] == true)
 		{
 			if(PlayerInfo[i][IDF] == id)
 			{
-				PlayerInfo[i][Org] = org;
-				PlayerInfo[i][Cargo] = 3;
+				if(org == 1){
+					PlayerInfo[i][Org] = org;
+					PlayerInfo[i][Cargo] = 13;
+					PlayerInfo[i][OrgDiv] = 1;
+				}else{
+					PlayerInfo[i][Org] = org;
+					PlayerInfo[i][Cargo] = 7;
+					PlayerInfo[i][OrgDiv] = 0;
+				}
 				format(String,sizeof(String),"O jogador %s te deu lider da organizacao %s",Name(playerid),NomeOrg(i));
 				InfoMsg(i, String);
 				format(String,sizeof(String),"O jogador %s recebeu lider da organizacao %s",Name(i),NomeOrg(i));
