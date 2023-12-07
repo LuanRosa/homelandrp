@@ -7,64 +7,64 @@ SA-MP Dedicated Server
 ----------------------
 v0.3.7-R2, (C)2005-2015 SA-MP Team
 
-[21:52:37] filterscripts = ""  (string)
-[21:52:37] 
-[21:52:37] Server Plugins
-[21:52:37] --------------
-[21:52:37]  Loading plugin: sscanf
-[21:52:37] 
-[21:52:37]  ===============================
-[21:52:37] 
-[21:52:37]       sscanf plugin loaded.     
-[21:52:37] 
-[21:52:37]          Version: 2.13.8
-[21:52:37] 
-[21:52:37]    (c) 2022 Alex "Y_Less" Cole  
-[21:52:37] 
-[21:52:37]  ===============================
-[21:52:37] 
-[21:52:37]   Loaded.
-[21:52:37]  Loading plugin: crashdetect
-[21:52:37]   CrashDetect plugin 4.20
-[21:52:37]   Loaded.
-[21:52:37]  Loading plugin: streamer
-[21:52:37] 
+[20:34:45] filterscripts = ""  (string)
+[20:34:45] 
+[20:34:45] Server Plugins
+[20:34:45] --------------
+[20:34:45]  Loading plugin: sscanf
+[20:34:45] 
+[20:34:45]  ===============================
+[20:34:45] 
+[20:34:45]       sscanf plugin loaded.     
+[20:34:45] 
+[20:34:45]          Version: 2.13.8
+[20:34:45] 
+[20:34:45]    (c) 2022 Alex "Y_Less" Cole  
+[20:34:45] 
+[20:34:45]  ===============================
+[20:34:45] 
+[20:34:45]   Loaded.
+[20:34:45]  Loading plugin: crashdetect
+[20:34:45]   CrashDetect plugin 4.20
+[20:34:45]   Loaded.
+[20:34:45]  Loading plugin: streamer
+[20:34:45] 
 
 *** Streamer Plugin v2.9.5 by Incognito loaded ***
 
-[21:52:37]   Loaded.
-[21:52:37]  Loading plugin: textdraw-streamer
-[21:52:37] 
-[21:52:37]  =================================
-[21:52:37]  |                               |
-[21:52:37]  |    textdraw-streamer v2.0.3   |
-[21:52:37]  |            Loaded             |
-[21:52:37]  |                               |
-[21:52:37]  |  Coding:                      |
-[21:52:37]  |                               |
-[21:52:37]  |  Burak (Nexor)                |
-[21:52:37]  |                               |
-[21:52:37]  |  Compiled:                    |
-[21:52:37]  |                               |
-[21:52:37]  |  29.09.2023, 16:49:07         |
-[21:52:37]  |                               |
-[21:52:37]  |  Github:                      |
-[21:52:37]  |                               |
-[21:52:37]  |  github.com/nexquery          |
-[21:52:37]  |                               |
-[21:52:37]  |  Discord:                     |
-[21:52:37]  |                               |
-[21:52:37]  |  benburakya - Nexor#4730      |
-[21:52:37]  |                               |
-[21:52:37]  =================================
-[21:52:37] 
-[21:52:37]   Loaded.
-[21:52:37]  Loading plugin: timerfix
-[21:52:37]   >> TimerFix v1.5 successfully loaded.
-[21:52:37]   Loaded.
-[21:52:37]  Loading plugin: pawnraknet
-[21:52:37] [Pawn.RakNet] plugin v1.6.0 loading...
-[21:52:37] [Pawn.RakNet] 
+[20:34:45]   Loaded.
+[20:34:45]  Loading plugin: textdraw-streamer
+[20:34:45] 
+[20:34:45]  =================================
+[20:34:45]  |                               |
+[20:34:45]  |    textdraw-streamer v2.0.3   |
+[20:34:45]  |            Loaded             |
+[20:34:45]  |                               |
+[20:34:45]  |  Coding:                      |
+[20:34:45]  |                               |
+[20:34:45]  |  Burak (Nexor)                |
+[20:34:45]  |                               |
+[20:34:45]  |  Compiled:                    |
+[20:34:45]  |                               |
+[20:34:45]  |  29.09.2023, 16:49:07         |
+[20:34:45]  |                               |
+[20:34:45]  |  Github:                      |
+[20:34:45]  |                               |
+[20:34:45]  |  github.com/nexquery          |
+[20:34:45]  |                               |
+[20:34:45]  |  Discord:                     |
+[20:34:45]  |                               |
+[20:34:45]  |  benburakya - Nexor#4730      |
+[20:34:45]  |                               |
+[20:34:45]  =================================
+[20:34:45] 
+[20:34:45]   Loaded.
+[20:34:45]  Loading plugin: timerfix
+[20:34:45]   >> TimerFix v1.5 successfully loaded.
+[20:34:45]   Loaded.
+[20:34:45]  Loading plugin: pawnraknet
+[20:34:45] [Pawn.RakNet] plugin v1.6.0 loading...
+[20:34:45] [Pawn.RakNet] 
 
     | Pawn.RakNet 1.6.0 | 2016 - 2023
     |--------------------------------
@@ -77,517 +77,419 @@ v0.3.7-R2, (C)2005-2015 SA-MP Team
     |--------------------------------------------------------------
     | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
 
-[21:52:37]   Loaded.
-[21:52:37]  Loading plugin: sampvoice
-[21:52:37] [sv:dbg:network:init] : module initializing...
-[21:52:37] [dbg:raknet:init] : module initializing...
-[21:52:37] [dbg:raknet:init] : module initialized
-[21:52:37] [sv:dbg:network:init] : module initialized
-[21:52:37] [sv:dbg:main:Load] : creating 2 work threads...
-[21:52:37]  -------------------------------------------    
-[21:52:37]    ___                __   __    _              
-[21:52:37]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
-[21:52:37]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
-[21:52:37]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
-[21:52:37]                   |_|                           
-[21:52:37]  -------------------------------------------    
-[21:52:37]            SampVoice by MOR loaded              
-[21:52:37]  -------------------------------------------    
-[21:52:37]   Loaded.
-[21:52:37]  Loading plugin: profiler
-[21:52:37]   Profiler plugin 2.15.3
-[21:52:37]   Loaded.
-[21:52:37]  Loading plugin: discord-connector
-[21:52:40]  >> plugin.dc-connector: v0.3.5 successfully loaded.
-[21:52:40]   Loaded.
-[21:52:40]  Loaded 9 plugins.
+[20:34:45]   Loaded.
+[20:34:45]  Loading plugin: sampvoice
+[20:34:45] [sv:dbg:network:init] : module initializing...
+[20:34:45] [dbg:raknet:init] : module initializing...
+[20:34:45] [dbg:raknet:init] : module initialized
+[20:34:45] [sv:dbg:network:init] : module initialized
+[20:34:45] [sv:dbg:main:Load] : creating 2 work threads...
+[20:34:45]  -------------------------------------------    
+[20:34:45]    ___                __   __    _              
+[20:34:45]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
+[20:34:45]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
+[20:34:45]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
+[20:34:45]                   |_|                           
+[20:34:45]  -------------------------------------------    
+[20:34:45]            SampVoice by MOR loaded              
+[20:34:45]  -------------------------------------------    
+[20:34:45]   Loaded.
+[20:34:45]  Loading plugin: profiler
+[20:34:45]   Profiler plugin 2.15.3
+[20:34:45]   Loaded.
+[20:34:45]  Loading plugin: discord-connector
+[20:34:48]  >> plugin.dc-connector: v0.3.5 successfully loaded.
+[20:34:48]   Loaded.
+[20:34:48]  Loaded 9 plugins.
 
-[21:52:40] 
-[21:52:40] Filterscripts
-[21:52:40] ---------------
-[21:52:40]   Loaded 0 filterscripts.
+[20:34:48] 
+[20:34:48] Filterscripts
+[20:34:48] ---------------
+[20:34:48]   Loaded 0 filterscripts.
 
-[21:52:41] [sv:dbg:main:AmxLoad] : net game pointer (value:006F9BD8) received
-[21:52:41] [sv:dbg:network:bind] : voice server running on port 52355
-[21:52:41] [profiler] Attached profiler to gamemodes/homeland
-[21:52:41] [profiler] Started profiling gamemodes/homeland
-[21:52:41]  
-[21:52:41] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
-[21:52:41] ***                 Ignore any errors if the FS already unloaded.
-[21:52:41]  
-[21:52:41]  
-[21:52:41] *** fixes.inc info: Trying to load multiple ID determination FSes...
-[21:52:41] ***                 Ignore any errors due to insufficient FS slots.
-[21:52:41]  
-[21:52:41]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
-[21:52:41]  
-[21:52:41] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
-[21:52:41]  
-[21:52:41]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
-[21:52:41]  
-[21:52:41]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
-[21:52:41]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
-[21:52:41]  
-[21:52:41] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
-[21:52:41] ***                 Ignore any errors if the FS already loaded.
-[21:52:41]  
-[21:52:41]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
-[21:52:41] [debug] Long callback execution detected (hang or performance issue)
-[21:52:41] [debug] AMX backtrace:
-[21:52:41] [debug] #0 00008f98 in FIXES_IsPlayerConnected (playerid=15) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:12409
-[21:52:41] [debug] #1 00016d64 in SSCANF_RunInit () at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\sscanf2.inc:908
-[21:52:41] [debug] #2 00016fb8 in public On_GameModeInit ()  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\sscanf2.inc:1065
-[21:52:41] [debug] #3 000098f8 in public OnGameModeInit () at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:12706
-[21:52:41]  
-[21:52:41] --------------------------------------
-[21:52:41]  Anticheat Nex-AC carregado!
-[21:52:41]  Anticheat versão: 1.9.62
-[21:52:41]  Autor: Nexius (PT-BR by NicK_)
-[21:52:41] --------------------------------------
+[20:34:48] [sv:dbg:main:AmxLoad] : net game pointer (value:00699C38) received
+[20:34:48] [sv:dbg:network:bind] : voice server running on port 57069
+[20:34:48] [profiler] Attached profiler to gamemodes/homeland
+[20:34:48] [profiler] Started profiling gamemodes/homeland
+[20:34:48]  
+[20:34:48] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
+[20:34:48] ***                 Ignore any errors if the FS already unloaded.
+[20:34:48]  
+[20:34:48]  
+[20:34:48] *** fixes.inc info: Trying to load multiple ID determination FSes...
+[20:34:48] ***                 Ignore any errors due to insufficient FS slots.
+[20:34:48]  
+[20:34:48]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
+[20:34:48]  
+[20:34:48] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
+[20:34:48]  
+[20:34:48]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
+[20:34:48]  
+[20:34:48]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
+[20:34:48]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
+[20:34:48]  
+[20:34:48] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
+[20:34:48] ***                 Ignore any errors if the FS already loaded.
+[20:34:48]  
+[20:34:48]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
+[20:34:48] [debug] Long callback execution detected (hang or performance issue)
+[20:34:48] [debug] AMX backtrace:
+[20:34:48] [debug] #0 00008f98 in FIXES_IsPlayerConnected (playerid=15) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:12409
+[20:34:48] [debug] #1 00016d64 in SSCANF_RunInit () at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\sscanf2.inc:908
+[20:34:48] [debug] #2 00016fb8 in public On_GameModeInit ()  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\sscanf2.inc:1065
+[20:34:48] [debug] #3 000098f8 in public OnGameModeInit () at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:12706
+[20:34:48]  
+[20:34:48] --------------------------------------
+[20:34:48]  Anticheat Nex-AC carregado!
+[20:34:49]  Anticheat versão: 1.9.62
+[20:34:49]  Autor: Nexius (PT-BR by NicK_)
+[20:34:49] --------------------------------------
 
-[21:52:41] MapFix by Nexius v4.3.3 loaded (include version).
-[21:52:41] =======================================================================
-[21:52:41] = Carregando: Homeland Roleplay v1.0
-[21:52:41] =======================================================================
-[21:52:41]  
-[21:52:41] => AntiAMX       		: Carregado
-[21:52:41] => Organizações       		: 7 Carregadas
-[21:52:41] => Veiculos Conce       		: 0 Carregados
-[21:52:41] => Concessionarias       		: 0 Carregados
-[21:52:41] => Postos de Gasolinas       		: 0 Carregados
-[21:52:41] => Objetos       		: Carregados
-[21:52:41] => Casas       		: 0 Carregados
-[21:52:41] => Radares       		: 61 Carregados
-[21:52:41] => Plantações       		: Carregadas
-[21:52:41]  
-[21:52:41] =======================================================================
-[21:52:41] Servidor Ligado: [05/12/2023 21:52]
-[21:52:41] =======================================================================
-[21:52:41] Number of vehicle models: 0
-[21:53:16] [connection] 127.0.0.1:59381 requests connection cookie.
-[21:53:17] [connection] incoming connection: 127.0.0.1:59381 id: 0
-[21:53:17] [sv:dbg:network:connect] : connecting player (0) with address (127.0.0.1) ...
-[21:53:17] [sv:dbg:network:connect] : player (0) assigned key (29c6f80c)
-[21:53:17] [join] Luan_Rosa has joined the server (0:127.0.0.1)
-[21:53:17] [debug] Long callback execution detected (hang or performance issue)
-[21:53:17] [debug] AMX backtrace:
-[21:53:17] [debug] #0 0010ee9c in todastextdraw (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:8386
-[21:53:17] [debug] #1 0059b7f4 in public ac_OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:14583
-[21:53:17] [debug] #2 0002c7f4 in public mob_OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:3858
-[21:53:17] [debug] #3 0001c570 in public Iter_OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\mobile.inc:46
-[21:53:17] [debug] #4 native CallLocalFunction () in samp-server.exe
-[21:53:17] [debug] #5 000179b4 in public SSCANF_OnPlayerConnect (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\foreach.inc:584
-[21:53:17] [debug] #6 00017188 in public On_PlayerConnect (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\sscanf2.inc:1129
-[21:53:17] [debug] #7 0000a5a0 in public OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:13220
-[21:53:17] [sv:dbg:network:receive] : player (0) identified (port:59382)
-[21:53:33] [debug] Long callback execution detected (hang or performance issue)
-[21:53:33] [debug] AMX backtrace:
-[21:53:33] [debug] #0 00071964 in DOF2_ParseFile (file[]=@0168c14c "Contas/Luan_Rosa.ini", extraid=-1, bool:callback=false) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1059
-[21:53:33] [debug] #1 00070c58 in DOF2_GetStringEx (file[]=@0168c14c "Contas/Luan_Rosa.ini", key[]=@014becd8 "pSenha", result[]=@0168bf24 "", size=128, tag[]=@0164d158 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:698
-[21:53:33] [debug] #2 00070afc in DOF2_GetString (file[]=@0168c14c "Contas/Luan_Rosa.ini", key[]=@014becd8 "pSenha", tag[]=@0164d158 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:685
-[21:53:33] [debug] #3 00108f7c in checkPasswordAccount (playerid=0, password[]=@0164cf40 "abcde") at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:8100
-[21:53:33] [debug] #4 005c6100 in public ac_OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@0164cf40 "abcde") at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:17977
-[21:53:33] [debug] #5 00030fd8 in public On_DialogResponse (0, 0, 1, -1, 23383872)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:4300
-[21:53:33] [debug] #6 00012808 in public OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@0164cf40 "abcde") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:17956
-[21:53:38] [debug] Long callback execution detected (hang or performance issue)
-[21:53:38] [debug] AMX backtrace:
-[21:53:38] [debug] #0 0007522c in DOF2_HashKey (key[]=@0168bfb4 "Item_12") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1677
-[21:53:38] [debug] #1 000722a0 in DOF2_ParseFile (file[]=@0168ce1c "Inventarios/Luan_Rosa.ini", extraid=-1, bool:callback=false) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1143
-[21:53:38] [debug] #2 00070c58 in DOF2_GetStringEx (file[]=@0168ce1c "Inventarios/Luan_Rosa.ini", key[]=@0168cd1c "Item_1", result[]=@0168c7f4 "", size=128, tag[]=@0164d140 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:698
-[21:53:38] [debug] #3 00070afc in DOF2_GetString (file[]=@0168ce1c "Inventarios/Luan_Rosa.ini", key[]=@0168cd1c "Item_1", tag[]=@0164d140 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:685
-[21:53:38] [debug] #4 000f03e4 in public LoadInv (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:5966
-[21:53:38] [debug] #5 000b7068 in public TxdLogin (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:2729
-[21:53:38] [debug] Run time error 4: "Array index out of bounds"
-[21:53:38] [debug]  Attempted to read/write array element at index 21 in array of size 21
-[21:53:38] [debug] AMX backtrace:
-[21:53:38] [debug] #0 000b7354 in public TxdLogin (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:2740
-[21:54:08] [debug] Long callback execution detected (hang or performance issue)
-[21:54:08] [debug] AMX backtrace:
-[21:54:08] [debug] #0 000e3db8 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4890
-[21:54:13] [debug] Long callback execution detected (hang or performance issue)
-[21:54:13] [debug] AMX backtrace:
-[21:54:13] [debug] #0 000e3bb0 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4884
-[21:54:27] [debug] Run time error 4: "Array index out of bounds"
-[21:54:27] [debug]  Attempted to read/write array element at index 2 in array of size 2
-[21:54:27] [debug] AMX backtrace:
-[21:54:27] [debug] #0 005bbd74 in public ac_OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:17027
-[21:54:27] [debug] #1 00044d30 in public On_PlayerKeyStateChange (0, 16, 0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:6021
-[21:54:27] [debug] #2 0000eb28 in public OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15196
-[21:54:34] [debug] Run time error 4: "Array index out of bounds"
-[21:54:34] [debug]  Attempted to read/write array element at index 2 in array of size 2
-[21:54:34] [debug] AMX backtrace:
-[21:54:34] [debug] #0 005bbd74 in public ac_OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:17027
-[21:54:34] [debug] #1 00044d30 in public On_PlayerKeyStateChange (0, 16, 0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:6021
-[21:54:34] [debug] #2 0000eb28 in public OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15196
-[21:54:58] [debug] Long callback execution detected (hang or performance issue)
-[21:54:58] [debug] AMX backtrace:
-[21:54:58] [debug] #0 0009b0d8 in public ac_OnPlayerUpdate (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\enterfix.inc:71
-[21:54:58] [debug] #1 00044658 in public On_PlayerUpdate (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:5975
-[21:54:58] [debug] #2 0000df0c in public OnPlayerUpdate (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:14533
-[21:56:59] [sv:dbg:network:connect] : disconnecting player (0) ...
-[21:56:59] [debug] Long callback execution detected (hang or performance issue)
-[21:56:59] [debug] AMX backtrace:
-[21:56:59] [debug] #0 000719ac in DOF2_ParseFile (file[]=@0168c2ac "Contas/Luan_Rosa.ini", extraid=-1, bool:callback=false) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1061
-[21:56:59] [debug] #1 0006fee8 in DOF2_SetString (file[]=@0168c2ac "Contas/Luan_Rosa.ini", key[]=@014c352c "IDF", value[]=@0168c160 "1001", tag[]=@0164cf40 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:579
-[21:56:59] [debug] #2 00070dd8 in DOF2_SetInt (file[]=@0168c2ac "Contas/Luan_Rosa.ini", key[]=@014c352c "IDF", value=1001, tag[]=@0164cf40 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:858
-[21:56:59] [debug] #3 00172dc8 in SalvarDados (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:12036
-[21:56:59] [debug] #4 0059e4d4 in public ac_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:14692
-[21:56:59] [debug] #5 0002d360 in public TIMERFIX_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:3925
-[21:56:59] [debug] #6 0001c9f8 in public mob_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\timerfix.inc:208
-[21:56:59] [debug] #7 0001c65c in public Iter_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\mobile.inc:67
-[21:56:59] [debug] #8 native CallLocalFunction () in samp-server.exe
-[21:56:59] [debug] #9 000185a4 in public SSCANF_OnPlayerDisconnect (0, 1)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\foreach.inc:818
-[21:56:59] [debug] #10 000171fc in public On_PlayerDisconnect (0, 1)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\sscanf2.inc:1154
-[21:56:59] [debug] #11 0000a674 in public OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:13272
-[21:57:00] [part] Luan_Rosa has left the server (0:1)
-[21:57:06]  -------------------------------------------
-[21:57:06]            SampVoice unloading...           
-[21:57:06]  -------------------------------------------
-[21:57:06] [dbg:raknet:free] : module releasing...
-[21:57:06] [dbg:raknet:free] : module released
-[21:57:06] [sv:dbg:network:free] : module releasing...
-[21:57:06] [sv:dbg:network:free] : module released
-
-----------
-Loaded log file: "server_log.txt".
-----------
-
-SA-MP Dedicated Server
-----------------------
-v0.3.7-R2, (C)2005-2015 SA-MP Team
-
-[23:24:05] filterscripts = ""  (string)
-[23:24:05] 
-[23:24:05] Server Plugins
-[23:24:06] --------------
-[23:24:06]  Loading plugin: sscanf
-[23:24:06] 
-[23:24:06]  ===============================
-[23:24:06] 
-[23:24:06]       sscanf plugin loaded.     
-[23:24:06] 
-[23:24:06]          Version: 2.13.8
-[23:24:06] 
-[23:24:06]    (c) 2022 Alex "Y_Less" Cole  
-[23:24:06] 
-[23:24:06]  ===============================
-[23:24:06] 
-[23:24:06]   Loaded.
-[23:24:06]  Loading plugin: crashdetect
-[23:24:06]   CrashDetect plugin 4.20
-[23:24:06]   Loaded.
-[23:24:06]  Loading plugin: streamer
-[23:24:06] 
-
-*** Streamer Plugin v2.9.5 by Incognito loaded ***
-
-[23:24:06]   Loaded.
-[23:24:06]  Loading plugin: textdraw-streamer
-[23:24:06] 
-[23:24:06]  =================================
-[23:24:06]  |                               |
-[23:24:06]  |    textdraw-streamer v2.0.3   |
-[23:24:06]  |            Loaded             |
-[23:24:06]  |                               |
-[23:24:06]  |  Coding:                      |
-[23:24:06]  |                               |
-[23:24:06]  |  Burak (Nexor)                |
-[23:24:06]  |                               |
-[23:24:06]  |  Compiled:                    |
-[23:24:06]  |                               |
-[23:24:06]  |  29.09.2023, 16:49:07         |
-[23:24:06]  |                               |
-[23:24:06]  |  Github:                      |
-[23:24:06]  |                               |
-[23:24:06]  |  github.com/nexquery          |
-[23:24:06]  |                               |
-[23:24:06]  |  Discord:                     |
-[23:24:06]  |                               |
-[23:24:06]  |  benburakya - Nexor#4730      |
-[23:24:06]  |                               |
-[23:24:06]  =================================
-[23:24:06] 
-[23:24:06]   Loaded.
-[23:24:06]  Loading plugin: timerfix
-[23:24:06]   >> TimerFix v1.5 successfully loaded.
-[23:24:06]   Loaded.
-[23:24:06]  Loading plugin: pawnraknet
-[23:24:06] [Pawn.RakNet] plugin v1.6.0 loading...
-[23:24:06] [Pawn.RakNet] 
-
-    | Pawn.RakNet 1.6.0 | 2016 - 2023
-    |--------------------------------
-    | Author and maintainer: katursis
-
-
-    | Compiled: Feb 12 2023 at 19:36:19
-    |--------------------------------------------------------------
-    | Repository: https://github.com/katursis/Pawn.RakNet
-    |--------------------------------------------------------------
-    | Wiki: https://github.com/katursis/Pawn.RakNet/wiki
-
-[23:24:06]   Loaded.
-[23:24:06]  Loading plugin: sampvoice
-[23:24:06] [sv:dbg:network:init] : module initializing...
-[23:24:06] [dbg:raknet:init] : module initializing...
-[23:24:06] [dbg:raknet:init] : module initialized
-[23:24:06] [sv:dbg:network:init] : module initialized
-[23:24:06] [sv:dbg:main:Load] : creating 2 work threads...
-[23:24:06]  -------------------------------------------    
-[23:24:06]    ___                __   __    _              
-[23:24:06]   / __| __ _ _ __  _ _\ \ / /__ (_) __ ___    
-[23:24:06]   \__ \/ _` | '  \| '_ \   / _ \| |/ _/ -_)
-[23:24:06]   |___/\__,_|_|_|_| .__/\_/\___/|_|\__\___|
-[23:24:06]                   |_|                           
-[23:24:06]  -------------------------------------------    
-[23:24:06]            SampVoice by MOR loaded              
-[23:24:06]  -------------------------------------------    
-[23:24:06]   Loaded.
-[23:24:06]  Loading plugin: profiler
-[23:24:06]   Profiler plugin 2.15.3
-[23:24:06]   Loaded.
-[23:24:06]  Loading plugin: discord-connector
-[23:24:08]  >> plugin.dc-connector: v0.3.5 successfully loaded.
-[23:24:08]   Loaded.
-[23:24:08]  Loaded 9 plugins.
-
-[23:24:09] 
-[23:24:09] Filterscripts
-[23:24:09] ---------------
-[23:24:09]   Loaded 0 filterscripts.
-
-[23:24:09] [sv:dbg:main:AmxLoad] : net game pointer (value:02099C38) received
-[23:24:09] [sv:dbg:network:bind] : voice server running on port 62059
-[23:24:09] [profiler] Attached profiler to gamemodes/homeland
-[23:24:09] [profiler] Started profiling gamemodes/homeland
-[23:24:09]  
-[23:24:09] *** fixes.inc info: Trying to unload RconCommand/ClientCheckResponse fix FS...
-[23:24:09] ***                 Ignore any errors if the FS already unloaded.
-[23:24:09]  
-[23:24:09]  
-[23:24:09] *** fixes.inc info: Trying to load multiple ID determination FSes...
-[23:24:09] ***                 Ignore any errors due to insufficient FS slots.
-[23:24:09]  
-[23:24:09]   Filterscript '../scriptfiles/fs-count-A.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-B.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-C.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-D.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-E.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-F.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-G.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-H.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-I.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-J.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-K.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-L.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-M.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-N.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-O.amx' loaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-P.amx' loaded.
-[23:24:09]  
-[23:24:09] *** fixes.inc info: If this crashes it might be due to pawn-uuid.  See:
-[23:24:09]  
-[23:24:09]     https://github.com/Southclaws/pawn-uuid/issues/8#issuecomment-984940512
-[23:24:09]  
-[23:24:09]   Filterscript '../scriptfiles/fs-count-P.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-O.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-N.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-M.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-L.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-K.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-J.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-I.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-H.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-G.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-F.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-E.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-D.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-C.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-B.amx' unloaded.
-[23:24:09]   Filterscript '../scriptfiles/fs-count-A.amx' unloaded.
-[23:24:09]  
-[23:24:09] *** fixes.inc info: Trying to load RconCommand/ClientCheckResponse fix FS...
-[23:24:09] ***                 Ignore any errors if the FS already loaded.
-[23:24:09]  
-[23:24:09]   Filterscript '../scriptfiles/callbackfix.amx' loaded.
-[23:24:09] [debug] Long callback execution detected (hang or performance issue)
-[23:24:09] [debug] AMX backtrace:
-[23:24:09] [debug] #0 00008f98 in FIXES_IsPlayerConnected (playerid=15) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:12409
-[23:24:09] [debug] #1 00016d64 in SSCANF_RunInit () at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\sscanf2.inc:908
-[23:24:09] [debug] #2 00016fb8 in public On_GameModeInit ()  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\sscanf2.inc:1065
-[23:24:09] [debug] #3 000098f8 in public OnGameModeInit () at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:12706
-[23:24:09]  
-[23:24:09] --------------------------------------
-[23:24:09]  Anticheat Nex-AC carregado!
-[23:24:09]  Anticheat versão: 1.9.62
-[23:24:09]  Autor: Nexius (PT-BR by NicK_)
-[23:24:09] --------------------------------------
-
-[23:24:09] MapFix by Nexius v4.3.3 loaded (include version).
-[23:24:09] =======================================================================
-[23:24:09] = Carregando: Homeland Roleplay v1.0
-[23:24:09] =======================================================================
-[23:24:09]  
-[23:24:09] => AntiAMX       		: Carregado
-[23:24:09] => Organizações       		: 7 Carregadas
-[23:24:09] => Veiculos Conce       		: 0 Carregados
-[23:24:09] => Concessionarias       		: 0 Carregados
-[23:24:09] => Postos de Gasolinas       		: 0 Carregados
-[23:24:09] => Objetos       		: Carregados
-[23:24:09] => Casas       		: 0 Carregados
-[23:24:09] => Radares       		: 61 Carregados
-[23:24:09] => Plantações       		: Carregadas
-[23:24:09]  
-[23:24:09] =======================================================================
-[23:24:09] Servidor Ligado: [05/12/2023 23:24]
-[23:24:09] =======================================================================
-[23:24:10] Number of vehicle models: 0
-[23:24:40] [connection] 127.0.0.1:55433 requests connection cookie.
-[23:24:41] [connection] incoming connection: 127.0.0.1:55433 id: 0
-[23:24:41] [sv:dbg:network:connect] : connecting player (0) with address (127.0.0.1) ...
-[23:24:41] [sv:dbg:network:connect] : player (0) assigned key (5b3ca483)
-[23:24:41] [join] Luan_Rosa has joined the server (0:127.0.0.1)
-[23:24:41] [debug] Long callback execution detected (hang or performance issue)
-[23:24:41] [debug] AMX backtrace:
-[23:24:41] [debug] #0 00013758 in _FIXES_ApplyAnimationDelay (animname[]=@014b4ff8 "null", playerid=0, idx=109, Float:fDelta=4.00000, loop=1, lockx=0, locky=0, freeze=0, time=0, forcesync=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:19172
-[23:24:41] [debug] #1 00013d64 in FIXES_ApplyAnimation (playerid=0, animlib[]=@0149e66c "SHOTGUN", animname[]=@014b4ff8 "null", Float:fDelta=4.00000, loop=1, lockx=0, locky=0, freeze=0, time=0, forcesync=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:19235
-[23:24:41] [debug] #2 000ec4a0 in CarregarAnims (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:5600
-[23:24:41] [debug] #3 0059b7a8 in public ac_OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:14581
-[23:24:41] [debug] #4 0002c7f4 in public mob_OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:3858
-[23:24:41] [debug] #5 0001c570 in public Iter_OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\mobile.inc:46
-[23:24:41] [debug] #6 native CallLocalFunction () in samp-server.exe
-[23:24:41] [debug] #7 000179b4 in public SSCANF_OnPlayerConnect (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\foreach.inc:584
-[23:24:41] [debug] #8 00017188 in public On_PlayerConnect (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\sscanf2.inc:1129
-[23:24:41] [debug] #9 0000a5a0 in public OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:13220
-[23:24:41] [sv:dbg:network:receive] : player (0) identified (port:55434)
-[23:25:00] [debug] Long callback execution detected (hang or performance issue)
-[23:25:00] [debug] AMX backtrace:
-[23:25:00] [debug] #0 00072884 in DOF2_ParseLine (line[]=@0168b8e4 "pBanco = 0", key[]=@0168b6e4 "pDinho", value[]=@0168b4e4 "0", keysize=128, valuesize=128) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1202
-[23:25:00] [debug] #1 00071e54 in DOF2_ParseFile (file[]=@0168c14c "Contas/Luan_Rosa.ini", extraid=-1, bool:callback=false) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1125
-[23:25:00] [debug] #2 00070c58 in DOF2_GetStringEx (file[]=@0168c14c "Contas/Luan_Rosa.ini", key[]=@014becd8 "pSenha", result[]=@0168bf24 "", size=128, tag[]=@0164d158 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:698
-[23:25:00] [debug] #3 00070afc in DOF2_GetString (file[]=@0168c14c "Contas/Luan_Rosa.ini", key[]=@014becd8 "pSenha", tag[]=@0164d158 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:685
-[23:25:00] [debug] #4 00108f7c in checkPasswordAccount (playerid=0, password[]=@0164cf40 "abcde") at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:8100
-[23:25:00] [debug] #5 005c6100 in public ac_OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@0164cf40 "abcde") at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:17977
-[23:25:00] [debug] #6 00030fd8 in public On_DialogResponse (0, 0, 1, -1, 23383872)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:4300
-[23:25:00] [debug] #7 00012808 in public OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@0164cf40 "abcde") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:17956
-[23:25:05] [debug] Long callback execution detected (hang or performance issue)
-[23:25:05] [debug] AMX backtrace:
-[23:25:05] [debug] #0 000157b0 in FIXES_strcmp (string1[]=@01683278 "0", string2[]=@005f3a24 "(null)", bool:ignorecase=true, length=2147483647) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:20274
-[23:25:05] [debug] #1 00072c38 in DOF2_ParseLine (line[]=@005caf50 "Arma4 = 0", key[]=@01683054 "Arma4", value[]=@01683278 "0", keysize=128, valuesize=16) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1234
-[23:25:05] [debug] #2 0006f2fc in DOF2_SearchEntry (key[]=@016832dc "Arma4", tag[]=@0164cf40 "", keybuf[]=@01683054 "Arma4", valbuf[]=@01683278 "0", &pos=@01683254 0, keybufsize=128, valbufsize=16) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:519
-[23:25:05] [debug] #3 00070cfc in DOF2_GetStringEx (file[]=@016880fc "Armas/Luan_Rosa.ini", key[]=@016832dc "Arma4", result[]=@01683278 "0", size=16, tag[]=@0164cf40 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:706
-[23:25:05] [debug] #4 00070e5c in DOF2_GetInt (file[]=@016880fc "Armas/Luan_Rosa.ini", key[]=@016832dc "Arma4", tag[]=@0164cf40 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:865
-[23:25:05] [debug] #5 000e7140 in CarregarArmas (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:5111
-[23:25:05] [debug] #6 000b7008 in public TxdLogin (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:2726
-[23:25:05] [debug] Run time error 4: "Array index out of bounds"
-[23:25:05] [debug]  Attempted to read/write array element at index 21 in array of size 21
-[23:25:05] [debug] AMX backtrace:
-[23:25:05] [debug] #0 000b7354 in public TxdLogin (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:2740
-[23:25:13] [sv:dbg:network:connect] : disconnecting player (0) ...
-[23:25:13] [debug] Long callback execution detected (hang or performance issue)
-[23:25:13] [debug] AMX backtrace:
-[23:25:13] [debug] #0 000157b4 in FIXES_strcmp (string1[]=@0168b518 "0", string2[]=@005f3a24 "(null)", bool:ignorecase=true, length=2147483647) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:20274
-[23:25:13] [debug] #1 00072c38 in DOF2_ParseLine (line[]=@0168b918 "LicencaConduzir = 0", key[]=@0168b718 "LicencaConduzir", value[]=@0168b518 "0", keysize=128, valuesize=128) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1234
-[23:25:13] [debug] #2 00071e54 in DOF2_ParseFile (file[]=@0168c2ac "Contas/Luan_Rosa.ini", extraid=-1, bool:callback=false) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1125
-[23:25:13] [debug] #3 0006fee8 in DOF2_SetString (file[]=@0168c2ac "Contas/Luan_Rosa.ini", key[]=@014c352c "IDF", value[]=@0168c160 "1001", tag[]=@0164cf40 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:579
-[23:25:13] [debug] #4 00070dd8 in DOF2_SetInt (file[]=@0168c2ac "Contas/Luan_Rosa.ini", key[]=@014c352c "IDF", value=1001, tag[]=@0164cf40 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:858
-[23:25:13] [debug] #5 00172dc8 in SalvarDados (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:12036
-[23:25:13] [debug] #6 0059e4d4 in public ac_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:14692
-[23:25:13] [debug] #7 0002d360 in public TIMERFIX_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:3925
-[23:25:13] [debug] #8 0001c9f8 in public mob_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\timerfix.inc:208
-[23:25:13] [debug] #9 0001c65c in public Iter_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\mobile.inc:67
-[23:25:13] [debug] #10 native CallLocalFunction () in samp-server.exe
-[23:25:13] [debug] #11 000185a4 in public SSCANF_OnPlayerDisconnect (0, 1)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\foreach.inc:818
-[23:25:13] [debug] #12 000171fc in public On_PlayerDisconnect (0, 1)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\sscanf2.inc:1154
-[23:25:13] [debug] #13 0000a674 in public OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:13272
-[23:25:13] [part] Luan_Rosa has left the server (0:1)
-[23:26:08] [connection] 127.0.0.1:60619 requests connection cookie.
-[23:26:09] [connection] incoming connection: 127.0.0.1:60619 id: 0
-[23:26:09] [sv:dbg:network:connect] : connecting player (0) with address (127.0.0.1) ...
-[23:26:09] [sv:dbg:network:connect] : player (0) assigned key (80b47647)
-[23:26:09] [join] Luan_Rosa has joined the server (0:127.0.0.1)
-[23:26:09] [debug] Long callback execution detected (hang or performance issue)
-[23:26:09] [debug] AMX backtrace:
-[23:26:09] [debug] #0 0056aa14 in MapRemocao (playerid=0) at ../modulos/mapserver.inc:27408
-[23:26:09] [debug] #1 0059b788 in public ac_OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:14580
-[23:26:09] [debug] #2 0002c7f4 in public mob_OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:3858
-[23:26:09] [debug] #3 0001c570 in public Iter_OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\mobile.inc:46
-[23:26:09] [debug] #4 native CallLocalFunction () in samp-server.exe
-[23:26:09] [debug] #5 000179b4 in public SSCANF_OnPlayerConnect (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\foreach.inc:584
-[23:26:09] [debug] #6 00017188 in public On_PlayerConnect (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\sscanf2.inc:1129
-[23:26:09] [debug] #7 0000a5a0 in public OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:13220
-[23:26:09] [sv:dbg:network:receive] : player (0) identified (port:60663)
-[23:26:28] [debug] Long callback execution detected (hang or performance issue)
-[23:26:28] [debug] AMX backtrace:
-[23:26:28] [debug] #0 00072d78 in charfind (string[]=@005cb550 "pLastLogin = 05/12/2023 - 23:25", c=61) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1340
-[23:26:28] [debug] #1 000726d4 in DOF2_ParseLine (line[]=@005cb550 "pLastLogin = 05/12/2023 - 23:25", key[]=@0168c29c "", value[]=@0168c4c0 "", keysize=128, valuesize=128) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1192
-[23:26:28] [debug] #2 0006f2fc in DOF2_SearchEntry (key[]=@015f3d58 "pLastLogin", tag[]=@0164d158 "", keybuf[]=@0168c29c "", valbuf[]=@0168c4c0 "", &pos=@0168c49c 0, keybufsize=128, valbufsize=128) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:519
-[23:26:28] [debug] #3 00070cfc in DOF2_GetStringEx (file[]=@0168cadc "Contas/Luan_Rosa.ini", key[]=@015f3d58 "pLastLogin", result[]=@0168c4c0 "", size=128, tag[]=@0164d158 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:706
-[23:26:28] [debug] #4 00070afc in DOF2_GetString (file[]=@0168cadc "Contas/Luan_Rosa.ini", key[]=@015f3d58 "pLastLogin", tag[]=@0164d158 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:685
-[23:26:28] [debug] #5 005c64e4 in public ac_OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@0164cf40 "abcde") at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:17999
-[23:26:28] [debug] #6 00030fd8 in public On_DialogResponse (0, 0, 1, -1, 23383872)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:4300
-[23:26:28] [debug] #7 00012808 in public OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@0164cf40 "abcde") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:17956
-[23:26:34] [debug] Long callback execution detected (hang or performance issue)
-[23:26:34] [debug] AMX backtrace:
-[23:26:34] [debug] #0 000219e0 in public ac_GivePlayerWeapon (playerid=0, weaponid=0, ac_ammo=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:1394
-[23:26:34] [debug] #1 0002a430 in acc_GivePlayerWeapon (playerid=0, weaponid=0, ammo=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:2605
-[23:26:34] [debug] #2 000e7230 in CarregarArmas (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:5114
-[23:26:34] [debug] #3 000b7008 in public TxdLogin (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:2726
-[23:26:34] [debug] Run time error 4: "Array index out of bounds"
-[23:26:34] [debug]  Attempted to read/write array element at index 21 in array of size 21
-[23:26:34] [debug] AMX backtrace:
-[23:26:34] [debug] #0 000b7354 in public TxdLogin (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:2740
-[23:27:15] [sv:dbg:network:connect] : disconnecting player (0) ...
-[23:27:15] [debug] Long callback execution detected (hang or performance issue)
-[23:27:15] [debug] AMX backtrace:
-[23:27:15] [debug] #0 0001585c in FIXES_tolower (c=73) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:20447
-[23:27:15] [debug] #1 00075254 in DOF2_HashKey (key[]=@0168b718 "pInterior") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1677
-[23:27:15] [debug] #2 000722a0 in DOF2_ParseFile (file[]=@0168c2ac "Contas/Luan_Rosa.ini", extraid=-1, bool:callback=false) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1143
-[23:27:15] [debug] #3 0006fee8 in DOF2_SetString (file[]=@0168c2ac "Contas/Luan_Rosa.ini", key[]=@014c352c "IDF", value[]=@0168c160 "1001", tag[]=@0164cf40 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:579
-[23:27:15] [debug] #4 00070dd8 in DOF2_SetInt (file[]=@0168c2ac "Contas/Luan_Rosa.ini", key[]=@014c352c "IDF", value=1001, tag[]=@0164cf40 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:858
-[23:27:15] [debug] #5 00172dc8 in SalvarDados (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:12036
-[23:27:15] [debug] #6 0059e4d4 in public ac_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:14692
-[23:27:15] [debug] #7 0002d360 in public TIMERFIX_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:3925
-[23:27:15] [debug] #8 0001c9f8 in public mob_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\timerfix.inc:208
-[23:27:15] [debug] #9 0001c65c in public Iter_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\mobile.inc:67
-[23:27:15] [debug] #10 native CallLocalFunction () in samp-server.exe
-[23:27:15] [debug] #11 000185a4 in public SSCANF_OnPlayerDisconnect (0, 1)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\foreach.inc:818
-[23:27:15] [debug] #12 000171fc in public On_PlayerDisconnect (0, 1)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\sscanf2.inc:1154
-[23:27:15] [debug] #13 0000a674 in public OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:13272
-[23:27:15] [part] Luan_Rosa has left the server (0:1)
-[23:28:51]  -------------------------------------------
-[23:28:51]            SampVoice unloading...           
-[23:28:51]  -------------------------------------------
-[23:28:51] [dbg:raknet:free] : module releasing...
-[23:28:51] [dbg:raknet:free] : module released
-[23:28:51] [sv:dbg:network:free] : module releasing...
-[23:28:51] [sv:dbg:network:free] : module released
+[20:34:49] MapFix by Nexius v4.3.3 loaded (include version).
+[20:34:49] =======================================================================
+[20:34:49] = Carregando: Homeland Roleplay v1.0
+[20:34:49] =======================================================================
+[20:34:49]  
+[20:34:49] => AntiAMX       		: Carregado
+[20:34:49] => Organizações       		: 7 Carregadas
+[20:34:49] => Veiculos Conce       		: 0 Carregados
+[20:34:49] => Concessionarias       		: 0 Carregados
+[20:34:49] => Postos de Gasolinas       		: 0 Carregados
+[20:34:49] => Objetos       		: Carregados
+[20:34:49] => Casas       		: 0 Carregados
+[20:34:49] => Radares       		: 61 Carregados
+[20:34:49] => Plantações       		: Carregadas
+[20:34:49]  
+[20:34:49] =======================================================================
+[20:34:49] Servidor Ligado: [06/12/2023 20:34]
+[20:34:49] =======================================================================
+[20:34:49] Number of vehicle models: 0
+[20:35:31] [connection] 127.0.0.1:56964 requests connection cookie.
+[20:35:32] [connection] incoming connection: 127.0.0.1:56964 id: 0
+[20:35:32] [sv:dbg:network:connect] : connecting player (0) with address (127.0.0.1) ...
+[20:35:32] [sv:dbg:network:connect] : player (0) assigned key (66136f3d)
+[20:35:32] [join] Luan_Rosa has joined the server (0:127.0.0.1)
+[20:35:32] [debug] Long callback execution detected (hang or performance issue)
+[20:35:32] [debug] AMX backtrace:
+[20:35:32] [debug] #0 00013a40 in _FIXES_ApplyAnimationDelay (animname[]=@014b79c4 "null", playerid=0, idx=9, Float:fDelta=4.00000, loop=1, lockx=0, locky=0, freeze=0, time=0, forcesync=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:19179
+[20:35:32] [debug] #1 00013d64 in FIXES_ApplyAnimation (playerid=0, animlib[]=@014a04bc "BIKED", animname[]=@014b79c4 "null", Float:fDelta=4.00000, loop=1, lockx=0, locky=0, freeze=0, time=0, forcesync=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:19235
+[20:35:32] [debug] #2 000eca38 in CarregarAnims (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:5655
+[20:35:32] [debug] #3 0059d660 in public ac_OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:14625
+[20:35:32] [debug] #4 0002c7f4 in public mob_OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:3858
+[20:35:32] [debug] #5 0001c570 in public Iter_OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\mobile.inc:46
+[20:35:32] [debug] #6 native CallLocalFunction () in samp-server.exe
+[20:35:32] [debug] #7 000179b4 in public SSCANF_OnPlayerConnect (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\foreach.inc:584
+[20:35:32] [debug] #8 00017188 in public On_PlayerConnect (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\sscanf2.inc:1129
+[20:35:32] [debug] #9 0000a5a0 in public OnPlayerConnect (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:13220
+[20:35:32] [sv:dbg:network:receive] : player (0) identified (port:57289)
+[20:35:39] [debug] Long callback execution detected (hang or performance issue)
+[20:35:39] [debug] AMX backtrace:
+[20:35:39] [debug] #0 0005eafc in public pr_ip_AC_AIM_SYNC (playerid=0, BitStream:bs=1703084) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:8638
+[20:35:53] [debug] Long callback execution detected (hang or performance issue)
+[20:35:53] [debug] AMX backtrace:
+[20:35:53] [debug] #0 00071a04 in DOF2_ParseFile (file[]=@01691394 "Contas/Luan_Rosa.ini", extraid=-1, bool:callback=false) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1062
+[20:35:53] [debug] #1 00070c58 in DOF2_GetStringEx (file[]=@01691394 "Contas/Luan_Rosa.ini", key[]=@014c16a4 "pSenha", result[]=@0169116c "", size=128, tag[]=@016523a0 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:698
+[20:35:53] [debug] #2 00070afc in DOF2_GetString (file[]=@01691394 "Contas/Luan_Rosa.ini", key[]=@014c16a4 "pSenha", tag[]=@016523a0 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:685
+[20:35:53] [debug] #3 00109514 in checkPasswordAccount (playerid=0, password[]=@01652188 "abcde") at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:8155
+[20:35:53] [debug] #4 005c8000 in public ac_OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@01652188 "abcde") at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:18022
+[20:35:53] [debug] #5 00030fd8 in public On_DialogResponse (0, 0, 1, -1, 23404936)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:4300
+[20:35:53] [debug] #6 00012808 in public OnDialogResponse (playerid=0, dialogid=0, response=1, listitem=-1, inputtext[]=@01652188 "abcde") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:17956
+[20:35:58] [debug] Long callback execution detected (hang or performance issue)
+[20:35:58] [debug] AMX backtrace:
+[20:35:58] [debug] #0 00071a9c in DOF2_ParseFile (file[]=@0168d344 "Armas/Luan_Rosa.ini", extraid=-1, bool:callback=false) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1067
+[20:35:58] [debug] #1 00070c58 in DOF2_GetStringEx (file[]=@0168d344 "Armas/Luan_Rosa.ini", key[]=@01688524 "Arma0", result[]=@016884c0 "", size=16, tag[]=@01652188 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:698
+[20:35:58] [debug] #2 00070e5c in DOF2_GetInt (file[]=@0168d344 "Armas/Luan_Rosa.ini", key[]=@01688524 "Arma0", tag[]=@01652188 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:865
+[20:35:58] [debug] #3 000e76d8 in CarregarArmas (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:5166
+[20:35:58] [debug] #4 000b75a0 in public TxdLogin (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:2781
+[20:35:58] [debug] Run time error 4: "Array index out of bounds"
+[20:35:58] [debug]  Attempted to read/write array element at index 21 in array of size 21
+[20:35:58] [debug] AMX backtrace:
+[20:35:58] [debug] #0 000b78ec in public TxdLogin (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:2795
+[20:36:13] [debug] Long callback execution detected (hang or performance issue)
+[20:36:13] [debug] AMX backtrace:
+[20:36:13] [debug] #0 000e3fb4 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4939
+[20:36:33] [debug] Long callback execution detected (hang or performance issue)
+[20:36:33] [debug] AMX backtrace:
+[20:36:33] [debug] #0 000e4134 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4939
+[20:36:48] [debug] Long callback execution detected (hang or performance issue)
+[20:36:48] [debug] AMX backtrace:
+[20:36:48] [debug] #0 000e40d8 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4939
+[20:36:52] [debug] Long callback execution detected (hang or performance issue)
+[20:36:52] [debug] AMX backtrace:
+[20:36:52] [debug] #0 0003edbc in public On_PlayerUpdate (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:5445
+[20:36:52] [debug] #1 0000df0c in public OnPlayerUpdate (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:14533
+[20:36:53] [debug] Long callback execution detected (hang or performance issue)
+[20:36:53] [debug] AMX backtrace:
+[20:36:53] [debug] #0 000e3ef8 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4939
+[20:37:01] [debug] Run time error 4: "Array index out of bounds"
+[20:37:01] [debug]  Attempted to read/write array element at index 2 in array of size 2
+[20:37:01] [debug] AMX backtrace:
+[20:37:01] [debug] #0 005bdc74 in public ac_OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:17072
+[20:37:01] [debug] #1 00044d30 in public On_PlayerKeyStateChange (0, 16, 0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:6021
+[20:37:01] [debug] #2 0000eb28 in public OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15196
+[20:37:33] [debug] Long callback execution detected (hang or performance issue)
+[20:37:33] [debug] AMX backtrace:
+[20:37:33] [debug] #0 000e401c in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4939
+[20:37:44] [debug] Long callback execution detected (hang or performance issue)
+[20:37:44] [debug] AMX backtrace:
+[20:37:44] [debug] #0 000a9e68 in CreateNotify (playerid=0, index=2, i=20, Float:new_x=73.50000) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:2255
+[20:37:44] [debug] #1 000a2610 in ShowNotify (playerid=0, message[]=@0160fac4 "Comprou um vip e recebeu seus beneficios.", icon=3) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:2065
+[20:37:44] [debug] #2 000a1be8 in SuccesMsg (playerid=0, pesan[]=@0160fac4 "Comprou um vip e recebeu seus beneficios.") at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:2016
+[20:37:44] [debug] #3 005dbbcc in public ac_OnDialogResponse (playerid=0, dialogid=18, response=1, listitem=2, inputtext[]=@01652188 "- VIP PREMIUM") at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:19480
+[20:37:44] [debug] #4 00030fd8 in public On_DialogResponse (0, 18, 1, 2, 23404936)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:4300
+[20:37:44] [debug] #5 00012808 in public OnDialogResponse (playerid=0, dialogid=18, response=1, listitem=2, inputtext[]=@01652188 "- VIP PREMIUM") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:17956
+[20:38:28] [debug] Long callback execution detected (hang or performance issue)
+[20:38:28] [debug] AMX backtrace:
+[20:38:28] [debug] #0 000e4274 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4944
+[20:39:28] [debug] Long callback execution detected (hang or performance issue)
+[20:39:28] [debug] AMX backtrace:
+[20:39:28] [debug] #0 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #1 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #2 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #3 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #4 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #5 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #6 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #7 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #8 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #9 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #10 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #11 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #12 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #13 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #14 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #15 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #16 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #17 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #18 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #19 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #20 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #21 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #22 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #23 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #24 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #25 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #26 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #27 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #28 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #29 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #30 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #31 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #32 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #33 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #34 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #35 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #36 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #37 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #38 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #39 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #40 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #41 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #42 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #43 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #44 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #45 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #46 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #47 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #48 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #49 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #50 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #51 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #52 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #53 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #54 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #55 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #56 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #57 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #58 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #59 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #60 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #61 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #62 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #63 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #64 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #65 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #66 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #67 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #68 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #69 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #70 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #71 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #72 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #73 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #74 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #75 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #76 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #77 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #78 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #79 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #80 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #81 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #82 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #83 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #84 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #85 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #86 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #87 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #88 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #89 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #90 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #91 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #92 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #93 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #94 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #95 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #96 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #97 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #98 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #99 0000e4d4 in ?? (21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:28] [debug] #100 0000e4d4 in public AttVeh (playerid=21716748, 2000, 0, 21716800, 23667072) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15018
+[20:39:33] [debug] Long callback execution detected (hang or performance issue)
+[20:39:33] [debug] AMX backtrace:
+[20:39:33] [debug] #0 000e3e64 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4939
+[20:39:38] [debug] Long callback execution detected (hang or performance issue)
+[20:39:38] [debug] AMX backtrace:
+[20:39:38] [debug] #0 000e430c in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4945
+[20:40:23] [debug] Long callback execution detected (hang or performance issue)
+[20:40:23] [debug] AMX backtrace:
+[20:40:23] [debug] #0 00069878 in public ac_Timer (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:9391
+[20:40:52] [debug] Long callback execution detected (hang or performance issue)
+[20:40:52] [debug] AMX backtrace:
+[20:40:52] [debug] #0 0006a924 in ac_IsValidFloat (Float:value=0.87812) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:9594
+[20:40:52] [debug] #1 0005e684 in public pr_ip_AC_DRIVER_SYNC (playerid=0, BitStream:bs=1703084) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:8608
+[20:40:53] [debug] Long callback execution detected (hang or performance issue)
+[20:40:53] [debug] AMX backtrace:
+[20:40:53] [debug] #0 000e41b4 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4939
+[20:40:58] [debug] Long callback execution detected (hang or performance issue)
+[20:40:58] [debug] AMX backtrace:
+[20:40:58] [debug] #0 000444ec in public On_PlayerUpdate (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:5966
+[20:40:58] [debug] #1 0000df0c in public OnPlayerUpdate (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:14533
+[20:40:58] [debug] Long callback execution detected (hang or performance issue)
+[20:40:58] [debug] AMX backtrace:
+[20:40:58] [debug] #0 000e3f50 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4939
+[20:41:16] [debug] Run time error 4: "Array index out of bounds"
+[20:41:16] [debug]  Attempted to read/write array element at index 2 in array of size 2
+[20:41:16] [debug] AMX backtrace:
+[20:41:16] [debug] #0 005bdc74 in public ac_OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:17072
+[20:41:16] [debug] #1 00044d30 in public On_PlayerKeyStateChange (0, 16, 0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:6021
+[20:41:16] [debug] #2 0000eb28 in public OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15196
+[20:41:47] [debug] Run time error 4: "Array index out of bounds"
+[20:41:47] [debug]  Attempted to read/write array element at index 2 in array of size 2
+[20:41:47] [debug] AMX backtrace:
+[20:41:47] [debug] #0 005bdc74 in public ac_OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:17072
+[20:41:47] [debug] #1 00044d30 in public On_PlayerKeyStateChange (0, 16, 0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:6021
+[20:41:47] [debug] #2 0000eb28 in public OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15196
+[20:42:23] [debug] Long callback execution detected (hang or performance issue)
+[20:42:23] [debug] AMX backtrace:
+[20:42:23] [debug] #0 000e42ac in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4945
+[20:42:28] [debug] Long callback execution detected (hang or performance issue)
+[20:42:28] [debug] AMX backtrace:
+[20:42:28] [debug] #0 000e4024 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4939
+[20:42:30] [debug] Long callback execution detected (hang or performance issue)
+[20:42:30] [debug] AMX backtrace:
+[20:42:30] [debug] #0 0006a8d4 in ac_IsValidFloat (Float:value=867.52502) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:9594
+[20:42:30] [debug] #1 0003cddc in public On_PlayerUpdate (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:5283
+[20:42:30] [debug] #2 0000df0c in public OnPlayerUpdate (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:14533
+[20:42:53] [debug] Long callback execution detected (hang or performance issue)
+[20:42:53] [debug] AMX backtrace:
+[20:42:53] [debug] #0 000e3ec4 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4939
+[20:43:09] [debug] Long callback execution detected (hang or performance issue)
+[20:43:09] [debug] AMX backtrace:
+[20:43:09] [debug] #0 0003f404 in public On_PlayerUpdate (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:5481
+[20:43:09] [debug] #1 0000df0c in public OnPlayerUpdate (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:14533
+[20:43:38] [debug] Long callback execution detected (hang or performance issue)
+[20:43:38] [debug] AMX backtrace:
+[20:43:38] [debug] #0 000e4054 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4939
+[20:44:13] [debug] Long callback execution detected (hang or performance issue)
+[20:44:13] [debug] AMX backtrace:
+[20:44:13] [debug] #0 000e41f0 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4939
+[20:44:30] [debug] Long callback execution detected (hang or performance issue)
+[20:44:30] [debug] AMX backtrace:
+[20:44:30] [debug] #0 00000a44 in bool:operator>=(Float:,Float:) (Float:oper1=3.40457, Float:oper2=80.00000) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\float.inc:151
+[20:44:30] [debug] #1 0003d6f4 in public On_PlayerUpdate (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:5339
+[20:44:30] [debug] #2 0000df0c in public OnPlayerUpdate (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:14533
+[20:44:41] [debug] Long callback execution detected (hang or performance issue)
+[20:44:41] [debug] AMX backtrace:
+[20:44:41] [debug] #0 0006a84c in ac_IsWeaponSlotWithAmmo (weaponslot=8) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:9590
+[20:44:41] [debug] #1 000654e4 in public ac_Timer (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:9158
+[20:44:48] [debug] Long callback execution detected (hang or performance issue)
+[20:44:48] [debug] AMX backtrace:
+[20:44:48] [debug] #0 00063800 in public ac_Timer (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:9041
+[20:44:52] [debug] Long callback execution detected (hang or performance issue)
+[20:44:52] [debug] AMX backtrace:
+[20:44:52] [debug] #0 00064c58 in public ac_Timer (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:9126
+[20:44:53] [debug] Long callback execution detected (hang or performance issue)
+[20:44:53] [debug] AMX backtrace:
+[20:44:53] [debug] #0 00044628 in public On_PlayerUpdate (0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:5973
+[20:44:53] [debug] #1 0000df0c in public OnPlayerUpdate (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:14533
+[20:45:38] [debug] Long callback execution detected (hang or performance issue)
+[20:45:38] [debug] AMX backtrace:
+[20:45:38] [debug] #0 000e40b8 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4939
+[20:45:47] [debug] Run time error 4: "Array index out of bounds"
+[20:45:47] [debug]  Attempted to read/write array element at index 2 in array of size 2
+[20:45:47] [debug] AMX backtrace:
+[20:45:47] [debug] #0 005bdc74 in public ac_OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:17072
+[20:45:47] [debug] #1 00044d30 in public On_PlayerKeyStateChange (0, 16, 0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:6021
+[20:45:47] [debug] #2 0000eb28 in public OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15196
+[20:46:36] [debug] Run time error 4: "Array index out of bounds"
+[20:46:36] [debug]  Attempted to read/write array element at index 2 in array of size 2
+[20:46:36] [debug] AMX backtrace:
+[20:46:36] [debug] #0 005bdc74 in public ac_OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:17072
+[20:46:36] [debug] #1 00044d30 in public On_PlayerKeyStateChange (0, 16, 0)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:6021
+[20:46:36] [debug] #2 0000eb28 in public OnPlayerKeyStateChange (playerid=0, newkeys=16, oldkeys=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:15196
+[20:46:43] [debug] Long callback execution detected (hang or performance issue)
+[20:46:43] [debug] AMX backtrace:
+[20:46:43] [debug] #0 000e4370 in public AttVeh (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:4945
+[20:47:02] [sv:dbg:network:connect] : disconnecting player (0) ...
+[20:47:02] [debug] Long callback execution detected (hang or performance issue)
+[20:47:02] [debug] AMX backtrace:
+[20:47:02] [debug] #0 00072878 in DOF2_ParseLine (line[]=@005ccb50 "pFome = 97", key[]=@01691180 "", value[]=@01690f80 "", keysize=128, valuesize=128) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:1202
+[20:47:02] [debug] #1 0006f2fc in DOF2_SearchEntry (key[]=@014c616c "pFome", tag[]=@01652188 "", keybuf[]=@01691180 "", valbuf[]=@01690f80 "", &pos=@01691384 0, keybufsize=128, valbufsize=128) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:519
+[20:47:02] [debug] #2 0006ff70 in DOF2_SetString (file[]=@016914f4 "Contas/Luan_Rosa.ini", key[]=@014c616c "pFome", value[]=@016913a8 "97", tag[]=@01652188 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:582
+[20:47:02] [debug] #3 00070dd8 in DOF2_SetInt (file[]=@016914f4 "Contas/Luan_Rosa.ini", key[]=@014c616c "pFome", value=97, tag[]=@01652188 "") at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\DOF2.inc:858
+[20:47:02] [debug] #4 00174008 in SalvarDados (playerid=0) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:12120
+[20:47:02] [debug] #5 005a038c in public ac_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\gamemodes\homeland.pwn:14736
+[20:47:02] [debug] #6 0002d360 in public TIMERFIX_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\nex-ac.inc:3925
+[20:47:02] [debug] #7 0001c9f8 in public mob_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\timerfix.inc:208
+[20:47:02] [debug] #8 0001c65c in public Iter_OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\mobile.inc:67
+[20:47:02] [debug] #9 native CallLocalFunction () in samp-server.exe
+[20:47:02] [debug] #10 000185a4 in public SSCANF_OnPlayerDisconnect (0, 1)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\foreach.inc:818
+[20:47:02] [debug] #11 000171fc in public On_PlayerDisconnect (0, 1)  at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\sscanf2.inc:1154
+[20:47:02] [debug] #12 0000a674 in public OnPlayerDisconnect (playerid=0, reason=1) at C:\Users\Administrador\Documents\Baixada-Roleplay\pawno\include\fixes.inc:13272
+[20:47:02] [part] Luan_Rosa has left the server (0:1)
+[20:49:35]  -------------------------------------------
+[20:49:35]            SampVoice unloading...           
+[20:49:35]  -------------------------------------------
+[20:49:35] [dbg:raknet:free] : module releasing...
+[20:49:35] [dbg:raknet:free] : module released
+[20:49:35] [sv:dbg:network:free] : module releasing...
+[20:49:35] [sv:dbg:network:free] : module released
