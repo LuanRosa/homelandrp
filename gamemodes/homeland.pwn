@@ -40,12 +40,12 @@
 #include 		<	    mapfix		 	>
 #include 		< 		enterfix 		>
 #include		<		Fader			>
+#include		<		sql_easy		>
 #pragma warning disable 239
 
 main()
 {}
 
-new DB:Connect;
 #define SERVERFORUM     			"discord.gg/3daewrJXyE"
 #define VERSAOSERVER     			"Build v3.0.1"
 #define MAX_CAIXAS               	50
@@ -66,6 +66,12 @@ new	UltimaFala[MAX_PLAYERS];
 #define MAX_SEGUNDOSFALAR  			2
 #define MAX_EASTER_EGGS         	46
 
+//DATABASE
+static DB:DBconnect,
+    DBResult:results,
+    query[800];
+#define serverDATABASE  "Dados/Database.db"
+#define TABELA_CONTAS "contas"
 #define PASTA_BANIDOS 				"Banidos/Contas/%s.ini"
 #define PASTA_BANIDOSIP 			"Banidos/IPs/%s.ini"
 #define PASTA_CONTAS 				"Contas/%s.ini"
@@ -1837,7 +1843,186 @@ CallBack::SegurandoPP(playerid){
 	}
 	return true;
 }
+stock Bdados(){
+	print("[SQLite] Fazendo conexao com o database.");
+	if((DBconnect = db_open(serverDATABASE)) == DB:0)
+	{
+		print("[ERRO]: Nao foi possivel conectar-se ao arquivo \"Database.db\".");
+		SendRconCommand("exit");
+	}else{
+		print("[SUCESSO]: O arquivo \"Database.db\" foi aberto com sucesso.");		
 
+		db_free_result(db_query(DBconnect, "CREATE TABLE IF NOT EXISTS `"TABELA_CONTAS"`(\
+			`ID` INTEGER PRIMARY KEY AUTOINCREMENT,\
+			`NOME` VARCHAR(25) NOT NULL,\
+			`SENHA` VARCHAR(64) NOT NULL,\
+			`EMAIL` VARCHAR(64) NOT NULL,\
+			`IP` VARCHAR(32) NOT NULL,\
+			`ADMIN` NUMERIC,\
+			`SEXO` NUMERIC,\
+			`SKIN` NUMERIC,\
+			`MONEY` NUMERIC,\
+			`BANCO` NUMERIC,\
+			`LEVEL` NUMERIC,\
+			`SJOGADOS` NUMERIC,\
+			`ULTIMOLOG` VARCHAR(60) NOT NULL,\
+			`INTERIOR` NUMERIC,\
+			`CADEIASTF` NUMERIC,\
+			`CALADO` INTEGER,\
+			`CONGELADO` INTEGER,\
+			`FOME` NUMERIC,\
+			`SEDE` NUMERIC,\
+			`HCOINS` NUMERIC,\
+			`VIP` NUMERIC,\
+			`EMPREGO` NUMERIC,\
+			`ORG` NUMERIC,\
+			`ORGDIV` NUMERIC,\
+			`CARGO` NUMERIC,\
+			`PROCURADO` NUMERIC,\
+			`MULTAS` NUMERIC,\
+			`CASA` NUMERIC,\
+			`XP` NUMERIC,\
+			`LICENCA` NUMERIC,\
+			`NOMERG` VARCHAR(64) NOT NULL,\
+			`NASCEU` VARCHAR(64) NOT NULL,\
+			`PAI` VARCHAR(64) NOT NULL,\
+			`MAE` VARCHAR(64) NOT NULL,\
+			`RG` NUMERIC,\
+			`CARTEIRAT` NUMERIC,\
+			`PECAS` NUMERIC,\
+			`VIDA` NUMERIC,\
+			`COLETE` NUMERIC,\
+			`AVISOS` NUMERIC);"));
+	}
+	return 1;
+}
+/*stock CriarDados(playerid, password[]){
+	format(query, sizeof(query), "INSERT INTO `"TABELA_CONTAS"`(NOME, SENHA, IP) VALUES('%s', '%s', '%s');", DB_Escape(Name(playerid)), password, getIp(playerid));
+	db_free_result(db_query(DBconnect, query));
+	return 1;
+}*/
+stock CriarDados(playerid, password[]){
+	format(query, sizeof(query), "INSERT INTO `"TABELA_CONTAS"`(NOME, SENHA, EMAIL, IP, ADMIN, SEXO, SKIN, MONEY, BANCO,\
+	LEVEL, SJOGADOS, ULTIMOLOG, INTERIOR, PX, PY, PZ, PR, CAMX, CAMY, CAMZ, CADEIASTF, CALADO, CONGELADO, FOME, SEDE, HCOINS,\
+	VIP, EMPREGO, ORG, ORGDIV, CARGO, PROCURADO, MULTAS, CASA, XP, LICENCA, NOMERG, NASCEU, PAI, MAE, RG, CARTEIRAT, PECAS,\
+	VIDA, COLETE, AVISOS) VALUES('%s', '%s', '%s', '%s', '0', '0', '0', '500', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', \
+	'0', '0', '100', '100', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '100', '0', '0');", DB_Escape(Name(playerid)), password, PlayerInfo[playerid][pEmail],getIp(playerid));
+	db_free_result(db_query(DBconnect, query));
+	return 1;
+}
+stock SalvarDados(playerid)
+{
+	//if(pLogado[playerid] == false) return 0;
+	new Data[24], Email[25], Dia, Mes, Ano, Hora, Minuto, Float:A, Float:X, Float:Y, Float:Z;
+	GetPlayerCameraPos(playerid, X, Y, Z);
+	gettime(Hora, Minuto);
+	getdate(Ano, Mes, Dia);
+	new int = GetPlayerInterior(playerid);
+	GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
+	GetPlayerFacingAngle(playerid, A);
+	new Float:health;
+    	GetPlayerHealth(playerid,health);
+	new Float:armour;
+    	GetPlayerArmour(playerid,armour);
+	format(Data, 24, "%02d/%02d/%d - %02d:%02d", Dia, Mes, Ano, Hora, Minuto);
+	format(Email, 24, "%s", PlayerInfo[playerid][pEmail]);
+	if(pLogado[playerid] == true){
+		//Pegar local do arquivo
+		sql_init("UPDATE `"TABELA_CONTAS"`");
+		//Strings
+		sql_setstring("EMAIL", Email);
+		sql_setstring("ULTIMOLOG", Data);
+		sql_setstring("NOMERG", PlayerInfo[playerid][pNome]);
+		sql_setstring("NASCEU", PlayerInfo[playerid][pNascimento]);
+		sql_setstring("PAI", PlayerInfo[playerid][pPai]);
+		sql_setstring("MAE", PlayerInfo[playerid][pMae]);
+		//Integers/Numeric
+		sql_setint("ADMIN", PlayerInfo[playerid][pAdmin]);
+		sql_setint("SEXO", PlayerInfo[playerid][pSexo]);
+		sql_setint("SKIN", PlayerInfo[playerid][pSkin]);
+		sql_setint("MONEY", PlayerInfo[playerid][pDinheiro]);
+		sql_setint("BANCO", PlayerInfo[playerid][pBanco]);
+		sql_setint("LEVEL", PlayerInfo[playerid][pLevel]);
+		sql_setint("SJOGADOS", PlayerInfo[playerid][pSegundosJogados]);
+		sql_setint("INTERIOR", int);
+		sql_setint("CADEIASTF", PlayerInfo[playerid][pCadeia]);
+		sql_setint("HCOINS", PlayerInfo[playerid][pCoins]);
+		sql_setint("VIP", PlayerInfo[playerid][pVIP]);
+		sql_setint("EMPREGO", PlayerInfo[playerid][pProfissao]);
+		sql_setint("ORG", PlayerInfo[playerid][Org]);
+		sql_setint("ORGDIV", PlayerInfo[playerid][OrgDiv]);
+		sql_setint("CARGO", PlayerInfo[playerid][Cargo]);
+		sql_setint("PROCURADO", PlayerInfo[playerid][pProcurado]);
+		sql_setint("MULTAS", PlayerInfo[playerid][pMultas]);
+		sql_setint("CASA", PlayerInfo[playerid][Casa]);
+		sql_setint("XP", PlayerInfo[playerid][pXP]);
+		sql_setint("LICENCA", PlayerInfo[playerid][LicencaConduzir]);
+		sql_setint("RG", PlayerInfo[playerid][pRG]);
+		sql_setint("CARTEIRAT", PlayerInfo[playerid][pCarteiraT]);
+		sql_setint("PECAS", PlayerInfo[playerid][PecasArma]);
+		sql_setint("AVISOS", PlayerInfo[playerid][pAvisos]);
+		sql_setint("FOME", FomePlayer[playerid]);
+		sql_setint("SEDE", SedePlayer[playerid]);
+		//Floats
+		//Bools
+		//sql_setbool("CALADO", PlayerInfo[playerid][pCalado]);
+		//sql_setbool("CONGELADO", PlayerInfo[playerid][pCongelado]);
+		
+		format(query, sizeof query, "WHERE `ID` = '%i'", PlayerInfo[playerid][IDF]);
+		sql_setrequires(query);
+		sql_save(DBconnect);
+		printf("[SQLite] Conta %04i salva com sucesso no banco de dados!",PlayerInfo[playerid][IDF]);
+	}else{
+		printf("[SQLite] Falha ao salvar a conta %04i no banco de dados!",PlayerInfo[playerid][IDF]);
+	}
+	return 1;
+}
+stock CarregarDados(playerid){
+	format(query, sizeof(query), "SELECT * FROM `"TABELA_CONTAS"` WHERE `NOME` = '%s' LIMIT 1", DB_Escape(Name(playerid)));
+	results = db_query(DBconnect, query);
+	if(db_num_rows(results)){
+		format(PlayerInfo[playerid][pLastLogin], 24, sql_getstring(results,"ULTIMOLOG"));
+		format(PlayerInfo[playerid][pEmail],64,sql_getstring(results,"EMAIL"));
+		PlayerInfo[playerid][IDF] = sql_getint(results,"ID");
+		PlayerInfo[playerid][pSkin] = sql_getint(results,"SKIN");
+		PlayerInfo[playerid][pSexo] = sql_getint(results, "SEXO");
+		SetPlayerSkin(playerid, sql_getint(results, "SKIN"));
+		PlayerInfo[playerid][pDinheiro] = sql_getint(results, "MONEY");
+		GivePlayerMoney(playerid, PlayerInfo[playerid][pDinheiro]);
+		PlayerInfo[playerid][pBanco] = sql_getint(results, "BANCO");
+		PlayerInfo[playerid][pSegundosJogados] = sql_getint(results, "SJOGADOS");
+		PlayerInfo[playerid][pAvisos] = sql_getint(results, "AVISOS");
+		PlayerInfo[playerid][pCadeia] = sql_getint(results, "CADEIASTF");
+		PlayerInfo[playerid][pAdmin] = sql_getint(results, "ADMIN");
+		PlayerInfo[playerid][pInterior] = sql_getint(results, "INTERIOR");
+		PlayerInfo[playerid][pCongelado] = sql_getbool(results, "CONGELADO");
+		PlayerInfo[playerid][pCalado] = sql_getbool(results, "CALADO");
+		FomePlayer[playerid] = sql_getint(results, "FOME");
+		SedePlayer[playerid] = sql_getint(results, "SEDE");
+		PlayerInfo[playerid][pVIP] = sql_getint(results, "VIP");
+		PlayerInfo[playerid][pCoins] = sql_getint(results, "HCOINS");
+		PlayerInfo[playerid][pProfissao] = sql_getint(results, "EMPREGO");
+		PlayerInfo[playerid][Org] = sql_getint(results, "ORG");
+		PlayerInfo[playerid][Cargo] = sql_getint(results, "CARGO");
+		PlayerInfo[playerid][pProcurado] = sql_getint(results, "PROCURADO");
+		SetPlayerWantedLevel(playerid, sql_getint(results, "PROCURADO"));
+		PlayerInfo[playerid][pMultas] = sql_getint(results, "MULTAS");
+		PlayerInfo[playerid][Casa] = sql_getint(results, "CASA");
+		SetPlayerScore(playerid, sql_getint(results, "LEVEL")); 
+		PlayerInfo[playerid][pXP] = sql_getint(results, "XP");
+		PlayerInfo[playerid][LicencaConduzir] = sql_getint(results, "LICENCA");
+		format(PlayerInfo[playerid][pNome],80,sql_getstring(results,"NOMERG"));
+		format(PlayerInfo[playerid][pNascimento],30,sql_getstring(results,"NASCEU"));
+		format(PlayerInfo[playerid][pPai],80,sql_getstring(results,"PAI"));
+		format(PlayerInfo[playerid][pMae],80,sql_getstring(results,"MAE"));
+		PlayerInfo[playerid][pRG] = sql_getint(results, "RG");
+		PlayerInfo[playerid][pCarteiraT] = sql_getint(results, "CARTEIRAT");
+		PlayerInfo[playerid][PecasArma] = sql_getint(results, "Pecas");
+		PlayerInfo[playerid][OrgDiv] = sql_getint(results, "ORGDIV");
+	}
+	db_free_result(results);
+	return 1;
+}
 stock ShowItemBox(playerid, string[], total[], model, time)
 {
 	if(MaxPlayerItemBox[playerid] == 5) return 1;
@@ -1863,7 +2048,12 @@ stock ShowItemBox(playerid, string[], total[], model, time)
 	SetTimerEx("HideItemBox", validtime, false, "d", playerid);
 	return 1;
 }
+stock getIp(playerid) {
 
+	static playerIp[32];
+	GetPlayerIp(playerid, playerIp, sizeof (playerIp));
+	return playerIp;
+}
 stock CreateItemBox(const playerid, index, i, const Float:new_x)
 {
 	new lines = InfoItemBox[playerid][index][ItemBoxSize];
@@ -2766,7 +2956,6 @@ CallBack::TxdLogin(playerid)
 		new mskin = randomEx(1,264);
 		SetPlayerSkin(playerid, mskin);
 		PlayerInfo[playerid][pSkin] = mskin;
-		SalvarDadosSkin(playerid);
 	}
 	if(IsBandido(playerid))
 	{
@@ -8147,7 +8336,7 @@ stock darxp(playerid, XP, XP_Prox, Float:XP_Porc = 0.0, masganho = _:0.0)
     return 1;
 }
 
-stock checkPasswordAccount(playerid, password[]) {
+/*stock checkPasswordAccount(playerid, password[]) {
 	new SHA256_password[95],Account[256], returnSucess = 0;
 
 	// Encryptar a senha
@@ -8158,6 +8347,30 @@ stock checkPasswordAccount(playerid, password[]) {
 	    	returnSucess = 1;
 		}
 	}
+	return returnSucess;
+}*/
+stock checkPasswordAccount(playerid, password[]) {
+
+	new fileAccount[115];
+	new DBResult:returnResult;
+	new SHA256_password[95], returnSucess = 0;
+
+	// Encryptar a senha
+	SHA256_PassHash(password, passwordSalt, SHA256_password, sizeof (SHA256_password));
+
+	format(fileAccount, sizeof fileAccount, "SELECT SENHA FROM `"TABELA_CONTAS"` WHERE `NOME` = '%s' LIMIT 1", DB_Escape(Name(playerid)));
+
+	returnResult = db_query(DBconnect, fileAccount);
+
+	if (db_num_rows(returnResult)) {
+
+	    if (!strcmp(SHA256_password, sql_getstring(returnResult, "SENHA"))) {
+	        returnSucess = 1;
+	    }
+	}
+
+	db_free_result(returnResult);
+
 	return returnSucess;
 }
 
@@ -12079,141 +12292,6 @@ stock ZerarDados(playerid)
 	return 1;
 }
 
-stock SalvarDados(playerid)
-{
-	new File[500];
-	new Data[24], Email[25], Dia, Mes, Ano, Hora, Minuto, Float:A, Float:X, Float:Y, Float:Z;
-	GetPlayerCameraPos(playerid, X, Y, Z);
-	gettime(Hora, Minuto);
-	getdate(Ano, Mes, Dia);
-	GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
-	GetPlayerFacingAngle(playerid, A);
-	new Float:health;
-    	GetPlayerHealth(playerid,health);
-	new Float:armour;
-    	GetPlayerArmour(playerid,armour);
-	format(Data, 24, "%02d/%02d/%d - %02d:%02d", Dia, Mes, Ano, Hora, Minuto);
-	format(Email, 24, "%s", PlayerInfo[playerid][pEmail]);
-
-	format(File, sizeof(File), PASTA_CONTAS, Name(playerid));
-	if(DOF2_FileExists(File))
-	{
-		DOF2_SaveFile();
-		DOF2_SetInt(File, "IDF", PlayerInfo[playerid][IDF]);
-		DOF2_SetString(File,"pEmail", Email);
-		DOF2_SetInt(File, "pDinheiro", PlayerInfo[playerid][pDinheiro]);
-		DOF2_SetInt(File,"pSexo", PlayerInfo[playerid][pSexo]);
-		DOF2_SetInt(File, "pBanco", PlayerInfo[playerid][pBanco]);
-		DOF2_SetInt(File, "pIdade", PlayerInfo[playerid][pIdade]);
-		DOF2_SetInt(File, "pSegundosJogados", PlayerInfo[playerid][pSegundosJogados]);
-		DOF2_SetInt(File, "pAvisos", PlayerInfo[playerid][pAvisos]);
-		DOF2_SetInt(File, "pCadeia", PlayerInfo[playerid][pCadeia]);
-		DOF2_SetString(File, "pLastLogin", Data);
-		DOF2_SetInt(File, "pInterior", GetPlayerInterior(playerid));
-		DOF2_SetFloat(File, "pPosX", Pos[0]);
-		DOF2_SetFloat(File, "pPosY", Pos[1]);
-		DOF2_SetFloat(File, "pPosZ", Pos[2]);
-		DOF2_SetFloat(File, "pPosA", A);
-		DOF2_SetFloat(File, "pCamX", X);
-		DOF2_SetFloat(File, "pCamY", Y);
-		DOF2_SetFloat(File, "pCamZ", Z);
-		DOF2_SetBool(File, "pCongelado", PlayerInfo[playerid][pCongelado]);
-		DOF2_SetBool(File, "pCalado", PlayerInfo[playerid][pCalado]);
-		DOF2_SetInt(File, "pFome", FomePlayer[playerid]);
-		DOF2_SetInt(File, "pSede", SedePlayer[playerid]);
-		DOF2_SetInt(File, "pCoins", PlayerInfo[playerid][pCoins]);
-		DOF2_SetInt(File, "pProfissao", PlayerInfo[playerid][pProfissao]);
-		DOF2_SetInt(File, "pOrg", PlayerInfo[playerid][Org]);
-		DOF2_SetInt(File, "pCargo", PlayerInfo[playerid][Cargo]);
-		DOF2_SetInt(File, "pProcurado", GetPlayerWantedLevel(playerid));
-		DOF2_SetInt(File, "pMultas", PlayerInfo[playerid][pMultas]);
-		DOF2_SetInt(File, "pCasa", PlayerInfo[playerid][Casa]);
-		DOF2_SetInt(File, "pLevel", GetPlayerScore(playerid));
-		DOF2_SetInt(File, "pXP", PlayerInfo[playerid][pXP]);
-		DOF2_SetInt(File, "LicencaConduzir", PlayerInfo[playerid][LicencaConduzir]);
-		DOF2_SetString(File, "pNome", PlayerInfo[playerid][pNome]);
-		DOF2_SetString(File, "pNascimento", PlayerInfo[playerid][pNascimento]);
-		DOF2_SetString(File, "pPai", PlayerInfo[playerid][pPai]);
-		DOF2_SetString(File, "pMae", PlayerInfo[playerid][pMae]);
-		DOF2_SetInt(File, "pRG", PlayerInfo[playerid][pRG]);
-		DOF2_SetInt(File, "pCarteiraT", PlayerInfo[playerid][pCarteiraT]);
-		DOF2_SetInt(File, "Pecas", PlayerInfo[playerid][PecasArma]);
-		DOF2_SetFloat(File, "pVida", health);
-		DOF2_SetFloat(File, "pColete", armour);
-		DOF2_SetInt(File, "pOrgDiv", PlayerInfo[playerid][OrgDiv]);
-		DOF2_SaveFile();
-	}
-	return 1;
-}
-
-stock SalvarDadosSkin(playerid)
-{
-	new File[255];
-	new Data[24], Email[25], Dia, Mes, Ano, Hora, Minuto, Float:A, Float:X, Float:Y, Float:Z;
-	GetPlayerCameraPos(playerid, X, Y, Z);
-	gettime(Hora, Minuto);
-	getdate(Ano, Mes, Dia);
-	GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
-	GetPlayerFacingAngle(playerid, A);
-	new Float:health;
-    	GetPlayerHealth(playerid,health);
-	new Float:armour;
-    	GetPlayerArmour(playerid,armour);
-	format(Data, 24, "%02d/%02d/%d - %02d:%02d", Dia, Mes, Ano, Hora, Minuto);
-	format(Email, 24, "%s", PlayerInfo[playerid][pEmail]);
-
-	format(File, sizeof(File), PASTA_CONTAS, Name(playerid));
-	if(DOF2_FileExists(File))
-	{
-		DOF2_SaveFile();
-		DOF2_SetInt(File, "IDF", PlayerInfo[playerid][IDF]);
-		DOF2_SetString(File,"pEmail", Email);
-		DOF2_SetInt(File, "pSkin", GetPlayerSkin(playerid));
-		DOF2_SetInt(File, "pDinheiro", PlayerInfo[playerid][pDinheiro]);
-		DOF2_SetInt(File,"pSexo", PlayerInfo[playerid][pSexo]);
-		DOF2_SetInt(File, "pBanco", PlayerInfo[playerid][pBanco]);
-		DOF2_SetInt(File, "pIdade", PlayerInfo[playerid][pIdade]);
-		DOF2_SetInt(File, "pSegundosJogados", PlayerInfo[playerid][pSegundosJogados]);
-		DOF2_SetInt(File, "pAvisos", PlayerInfo[playerid][pAvisos]);
-		DOF2_SetInt(File, "pCadeia", PlayerInfo[playerid][pCadeia]);
-		DOF2_SetString(File, "pLastLogin", Data);
-		DOF2_SetInt(File, "pInterior", GetPlayerInterior(playerid));
-		DOF2_SetFloat(File, "pPosX", Pos[0]);
-		DOF2_SetFloat(File, "pPosY", Pos[1]);
-		DOF2_SetFloat(File, "pPosZ", Pos[2]);
-		DOF2_SetFloat(File, "pPosA", A);
-		DOF2_SetFloat(File, "pCamX", X);
-		DOF2_SetFloat(File, "pCamY", Y);
-		DOF2_SetFloat(File, "pCamZ", Z);
-		DOF2_SetBool(File, "pCongelado", PlayerInfo[playerid][pCongelado]);
-		DOF2_SetBool(File, "pCalado", PlayerInfo[playerid][pCalado]);
-		DOF2_SetInt(File, "pFome", FomePlayer[playerid]);
-		DOF2_SetInt(File, "pSede", SedePlayer[playerid]);
-		DOF2_SetInt(File, "pCoins", PlayerInfo[playerid][pCoins]);
-		DOF2_SetInt(File, "pProfissao", PlayerInfo[playerid][pProfissao]);
-		DOF2_SetInt(File, "pOrg", PlayerInfo[playerid][Org]);
-		DOF2_SetInt(File, "pCargo", PlayerInfo[playerid][Cargo]);
-		DOF2_SetInt(File, "pProcurado", GetPlayerWantedLevel(playerid));
-		DOF2_SetInt(File, "pMultas", PlayerInfo[playerid][pMultas]);
-		DOF2_SetInt(File, "pCasa", PlayerInfo[playerid][Casa]);
-		DOF2_SetInt(File, "pLevel", GetPlayerScore(playerid));
-		DOF2_SetInt(File, "pXP", PlayerInfo[playerid][pXP]);
-		DOF2_SetInt(File, "LicencaConduzir", PlayerInfo[playerid][LicencaConduzir]);
-		DOF2_SetString(File, "pNome", PlayerInfo[playerid][pNome]);
-		DOF2_SetString(File, "pNascimento", PlayerInfo[playerid][pNascimento]);
-		DOF2_SetString(File, "pPai", PlayerInfo[playerid][pPai]);
-		DOF2_SetString(File, "pMae", PlayerInfo[playerid][pMae]);
-		DOF2_SetInt(File, "pRG", PlayerInfo[playerid][pRG]);
-		DOF2_SetInt(File, "pCarteiraT", PlayerInfo[playerid][pCarteiraT]);
-		DOF2_SetInt(File, "Pecas", PlayerInfo[playerid][PecasArma]);
-		DOF2_SetFloat(File, "pVida", health);
-		DOF2_SetFloat(File, "pColete", armour);
-		DOF2_SetInt(File, "pOrgDiv", PlayerInfo[playerid][OrgDiv]);
-		DOF2_SaveFile();
-	}
-	return 1;
-}
-
 stock SalvarAvaliacao(playerid)
 {
 	new File[5000];
@@ -12465,6 +12543,7 @@ public OnGameModeInit()
 	SendRconCommand("rcon 0");
 	SendRconCommand("stream_distance 500.0");
 	SendRconCommand("stream_rate 1000");
+	Bdados(); //Carregar banco de dados
 	print("=======================================================================");
 	print("= Carregando: Homeland Roleplay v1.0");
 	print("=======================================================================");
@@ -14610,9 +14689,8 @@ public OnGameModeExit()
     printf("=======================================================================");
 	printf("Servidor Desligado: [%02d/%02d/%d %02d:%02d]", Dia, Mes, Ano, Hora, Minuto);
     printf("=======================================================================");
-	DOF2_SaveFile();
 	DOF2_Exit();
-	db_close(Connect);
+	db_close(DBconnect);
 	return 1;
 }
 
@@ -14627,7 +14705,7 @@ public OnPlayerConnect(playerid)
 	CarregarAnims(playerid);
 	LimparChat(playerid, 10);
 	todastextdraw(playerid);
-	ZerarDados(playerid);
+	//ZerarDados(playerid);
 	//PlayAudioStreamForPlayer(playerid, "http://k.top4top.io/m_2685nhtv30.mp3");
 	for(new t=0;t<11;t++){
 		PlayerTextDrawShow(playerid, Alertalogin[playerid][t]);
@@ -15586,6 +15664,40 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		if(Damage == 0) SetVehicleHealth(hitid, 7);
 	}
 	return 1;
+}
+stock DB_Escape(text[])
+{
+    new
+    ret[80 * 2],
+    ch,
+    i,
+    j;
+    while ((ch = text[i++]) && j < sizeof (ret))
+    {
+ 
+        if (ch == '\'')
+        {
+ 
+            if (j < sizeof (ret) - 2)
+            {
+ 
+                ret[j++] = '\'';
+                ret[j++] = '\'';
+            }
+        }
+        else if (j < sizeof (ret))
+        {
+ 
+            ret[j++] = ch;
+        }
+        else
+        {
+ 
+            j++;
+        }
+    }
+    ret[sizeof (ret) - 1] = '\0';
+    return ret;
 }
 
 stock terminouteste(playerid)
@@ -16938,7 +17050,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				if(i == 7)break;
 			}
 			MostrandoMenu[playerid] = false;
-			SalvarDadosSkin(playerid);
 			CancelSelectTextDraw(playerid);
 		}
 		cmd_pegaritem(playerid);
@@ -17830,85 +17941,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new SHA256_password[85];
 				format(PlayerInfo[playerid][pSenha], 20, inputtext);
 				SHA256_PassHash(PlayerInfo[playerid][pSenha], passwordSalt, SHA256_password, sizeof (SHA256_password));
-
-				new uid = GetIdfixo();
-				if(!DOF2_FileExists(Account))
-				{
-					DOF2_CreateFile(Account);
-					DOF2_SaveFile();
-					DOF2_SetString(Account, "pSenha", SHA256_password);
-					DOF2_SetString(Account, "pEmail", "");
-					DOF2_SetInt(Account, "IDF", uid);
-					PlayerInfo[playerid][IDF] = uid;
-					DOF2_SetInt(Account, "pSexo", 0);
-					DOF2_SetInt(Account, "pSkin", 0);
-					DOF2_SetInt(Account, "pDinheiro", 0);
-					DOF2_SetInt(Account, "pBanco", 0);
-					DOF2_SetInt(Account, "pIdade", 0);
-					DOF2_SetInt(Account, "pSegundosJogados", 0);
-					DOF2_SetInt(Account, "pAvisos", 0);
-					DOF2_SetInt(Account, "pCadeia", 0);
-					DOF2_SetInt(Account, "pLastLogin", 0);
-					DOF2_SetInt(Account, "pInterior", 0);
-					DOF2_SetFloat(Account, "pPosX", 1685.698608);
-					DOF2_SetFloat(Account, "pPosY", -2334.948730);
-					DOF2_SetFloat(Account, "pPosZ", 13.546875);
-					DOF2_SetFloat(Account, "pPosA", 0.269069);
-					DOF2_SetFloat(Account, "pCamX", 0);
-					DOF2_SetFloat(Account, "pCamY", 0);
-					DOF2_SetFloat(Account, "pCamZ", 0);
-					DOF2_SetBool(Account, "pCongelado", false);
-					DOF2_SetBool(Account, "pCalado", false);
-					DOF2_SetInt(Account, "pFome", 0);
-					FomePlayer[playerid] = 100;
-					DOF2_SetInt(Account, "pSede", 0);
-					SedePlayer[playerid] = 100;
-					DOF2_SetInt(Account, "pCoins", 0);
-					DOF2_SetInt(Account, "pProfissao", 0);
-					DOF2_SetInt(Account, "pOrg", 0);
-					DOF2_SetInt(Account, "pCargo", 0);
-					DOF2_SetInt(Account, "pProcurado", 0);
-					DOF2_SetInt(Account, "pMultas", 0);
-					DOF2_SetInt(Account, "pCasa", -1);
-					DOF2_SetInt(Account, "pLevel", 0);
-					DOF2_SetInt(Account, "pXP", 0);
-					DOF2_SetInt(Account, "LicencaConduzir", 0);
-					DOF2_SetString(Account,"pNome","");
-					DOF2_SetString(Account,"pNascimento","");
-					DOF2_SetString(Account,"pPai","");
-					DOF2_SetString(Account,"pMae","");
-					DOF2_SetInt(Account, "pRG", 0);
-					DOF2_SetInt(Account, "pCarteiraT", 0);
-					DOF2_SetInt(Account, "Pecas", 0);
-					DOF2_SetFloat(Account, "pVida", 100);
-					DOF2_SetFloat(Account, "pColete", 100);
-					DOF2_SetInt(Account, "pOrgDiv", 0);
-					PlayerInfo[playerid][pVida] = 100;
-					PlayerInfo[playerid][Casa] = -1;
-					DOF2_SaveFile();
-				}
-
+				CriarDados(playerid,SHA256_password);
 				CriarInventario(playerid);
 				for(new i = 0; i < 15; ++i)
 				{
 					PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
 					if(i == 15)break;
 				}
-				new tarquivo[64];
-				format(tarquivo, sizeof(tarquivo), "IDs/%04d.ini",uid);
-				if(!DOF2_FileExists(tarquivo))
-				{
-					DOF2_CreateFile(tarquivo);
-					DOF2_SetString(tarquivo,"IDF de:", Name(playerid));
-
-				}
-				new Account2[255];
-				format(Account2, sizeof(Account2), "IDCONTAS/%04d.ini", GetPlayerIdfixo(playerid));
-				if(!DOF2_FileExists(Account2))
-				{
-					DOF2_CreateFile(Account2);
-					DOF2_SaveFile();
-				}
+				
 				new string[255];
 				new DCC_Embed:embed = DCC_CreateEmbed("Homeland Roleplay");                                                   
 				format(string,sizeof(string),"### NOVO ID GERADO\n\nID: %04d\nPertence: %s", PlayerInfo[playerid][IDF],Name(playerid));
@@ -18031,9 +18071,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						InfoMsg(playerid, "Senha errada");
 						Kick(playerid);
-						return 1;
 					}
-					return 1;
 				}
 				else
 				{
@@ -18042,58 +18080,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						PlayerTextDrawHide(playerid, Registration_PTD[playerid][i]);
 						if(i == 15)break;
 					}
-					if(DOF2_FileExists(Account))
-    	            {
-						format(PlayerInfo[playerid][pLastLogin], 24, DOF2_GetString(Account, "pLastLogin"));
-						format(PlayerInfo[playerid][pEmail],64,DOF2_GetString(Account,"pEmail"));
-						PlayerInfo[playerid][IDF] = DOF2_GetInt(Account, "IDF");
-						PlayerInfo[playerid][pSkin] = DOF2_GetInt(Account, "pSkin");
-						PlayerInfo[playerid][pSexo] = DOF2_GetInt(Account, "pSexo");
-						SetPlayerSkin(playerid, DOF2_GetInt(Account, "pSkin"));
-						PlayerInfo[playerid][pDinheiro] = DOF2_GetInt(Account, "pDinheiro");
-						PlayerInfo[playerid][pBanco] = DOF2_GetInt(Account, "pBanco");
-						PlayerInfo[playerid][pIdade] = DOF2_GetInt(Account, "pIdade");
-						PlayerInfo[playerid][pSegundosJogados] = DOF2_GetInt(Account, "pSegundosJogados");
-						PlayerInfo[playerid][pAvisos] = DOF2_GetInt(Account, "pAvisos");
-						PlayerInfo[playerid][pCadeia] = DOF2_GetInt(Account, "pCadeia");
-						PlayerInfo[playerid][pAdmin] = DOF2_GetInt(Account, "pAdmin");
-						PlayerInfo[playerid][pInterior] = DOF2_GetInt(Account, "pInterior");
-						PlayerInfo[playerid][pPosX] = DOF2_GetFloat(Account, "pPosX");
-						PlayerInfo[playerid][pPosY] = DOF2_GetFloat(Account, "pPosY");
-						PlayerInfo[playerid][pPosZ] = DOF2_GetFloat(Account, "pPosZ");
-						PlayerInfo[playerid][pPosA] = DOF2_GetFloat(Account, "pPosA");
-						PlayerInfo[playerid][pCamX] = DOF2_GetFloat(Account, "pCamX");
-						PlayerInfo[playerid][pCamY] = DOF2_GetFloat(Account, "pCamY");
-						PlayerInfo[playerid][pCamZ] = DOF2_GetFloat(Account, "pCamZ");
-						PlayerInfo[playerid][pCongelado] = DOF2_GetBool(Account, "pCongelado");
-						PlayerInfo[playerid][pCalado] = DOF2_GetBool(Account, "pCalado");
-						FomePlayer[playerid] = DOF2_GetInt(Account, "pFome");
-						SedePlayer[playerid] = DOF2_GetInt(Account, "pSede");
-						PlayerInfo[playerid][pVIP] = DOF2_GetInt(Account, "pVIP");
-						PlayerInfo[playerid][pCoins] = DOF2_GetInt(Account, "pCoins");
-						PlayerInfo[playerid][pProfissao] = DOF2_GetInt(Account, "pProfissao");
-						PlayerInfo[playerid][Org] = DOF2_GetInt(Account, "pOrg");
-						PlayerInfo[playerid][Cargo] = DOF2_GetInt(Account, "pCargo");
-						PlayerInfo[playerid][pProcurado] = DOF2_GetInt(Account, "pProcurado");
-						SetPlayerWantedLevel(playerid, DOF2_GetInt(Account, "pProcurado"));
-						PlayerInfo[playerid][pMultas] = DOF2_GetInt(Account, "pMultas");
-						PlayerInfo[playerid][Casa] = DOF2_GetInt(Account, "pCasa");
-						SetPlayerScore(playerid, DOF2_GetInt(Account, "pLevel")); 
-						PlayerInfo[playerid][pXP] = DOF2_GetInt(Account, "pXP");
-						PlayerInfo[playerid][LicencaConduzir] = DOF2_GetInt(Account, "LicencaConduzir");
-						format(PlayerInfo[playerid][pNome],80,DOF2_GetString(Account,"pNome"));
-						format(PlayerInfo[playerid][pNascimento],30,DOF2_GetString(Account,"pNascimento"));
-						format(PlayerInfo[playerid][pPai],80,DOF2_GetString(Account,"pPai"));
-						format(PlayerInfo[playerid][pMae],80,DOF2_GetString(Account,"pMae"));
-						PlayerInfo[playerid][pRG] = DOF2_GetInt(Account, "pRG");
-						PlayerInfo[playerid][pCarteiraT] = DOF2_GetInt(Account, "pCarteiraT");
-						PlayerInfo[playerid][PecasArma] = DOF2_GetInt(Account, "Pecas");
-						PlayerInfo[playerid][pVida] = DOF2_GetFloat(Account, "pVida");
-						PlayerInfo[playerid][pColete] = DOF2_GetFloat(Account, "pColete");
-						PlayerInfo[playerid][OrgDiv] = DOF2_GetInt(Account, "pOrgDiv");
-						DOF2_SaveFile();
-						//
-					}
+					CarregarDados(playerid);
 					if(FirstLogin[playerid] == false)
 					{
 						UltimaPos[playerid] = 1;
@@ -18225,7 +18212,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if(IsValidInput(inputtext))
 						{
-							format(PlayerInfo[playerid][pEmail], 40, inputtext);
+							format(PlayerInfo[playerid][pEmail], 64, inputtext);
 							actorcad[playerid] = CreateActor(0, 1984.0140,1194.2424,26.8835,135.6409);
 							SetPlayerCameraPos(playerid, 1981.038940, 1191.061401, 27.828259); 
 							SetPlayerCameraLookAt(playerid, 1985.139648, 1195.111572, 27.636171);
@@ -21417,7 +21404,7 @@ public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 
 public OnClickDynamicPlayerTextDraw(playerid, PlayerText:textid)
 {
-	new str[64], File[255];
+	new str[64];
 	if(textid == RadioVOIP[playerid][29])
 	{
 		format(Str, sizeof(Str),"Introduza a frequencia que deseja entrar");
@@ -21574,20 +21561,16 @@ public OnClickDynamicPlayerTextDraw(playerid, PlayerText:textid)
 	}
 	if(textid == Registration_PTD[playerid][12])
 	{
-		format(File, sizeof(File), PASTA_CONTAS, Name(playerid));
-		if(DOF2_FileExists(File))
-		{
+		format(query, sizeof(query), "SELECT * FROM `"TABELA_CONTAS"` WHERE `NOME`='%s';", DB_Escape(Name(playerid)));
+		results = db_query(DBconnect, query);
+		if(db_num_rows(results)){
 			FirstLogin[playerid] = false;
 			format(Str, sizeof(Str), "Desejo boas vindas novamente, %s.\nPara Entrar no servidor Digite sua senha abaixo.", Name(playerid));
 			ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Bem vindo de novo", Str, "Ingressar", "X");
-			return 0;
-		}
-		else
-		{
+		}else{
 			FirstLogin[playerid] = true;
 			format(Str, sizeof(Str), "Seja bem-vindo ao nosso servidor, %s!\nPara efetuar seu cadastro, insira uma senha abaixo.\n*Sua senha deve conter entre 4 e 20 caracteres.", Name(playerid));
 			ShowPlayerDialog(playerid, DIALOG_REGISTRO, DIALOG_STYLE_INPUT, "Bem vindo", Str, "Criar", "X");
-			return 0;
 		}
 	}
 	for(new i = 1; i < 33; ++i)
@@ -21860,7 +21843,6 @@ public OnClickDynamicTextDraw(playerid, Text:textid)
 		}
 		DestroyActor(actorcad[playerid]);
 		MostrandoMenu[playerid] = false;
-		SalvarDadosSkin(playerid);
 		SuccesMsg(playerid, "Voce concluiu o cadastro, agora realize o login em sua conta.");
 		format(Str, sizeof(Str), "Desejo boas vindas, %s.\nPara Entrar no servidor Digite sua senha abaixo.", Name(playerid));
 		ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Seja bem vindo ao servidor...", Str, "Logar", "Cancelar");
@@ -22303,7 +22285,6 @@ CMD:setskin(playerid, params[])
 			{
 				PlayerInfo[i][pSkin] = Numero;
 				SetPlayerSkin(i, Numero);
-				SalvarDadosSkin(i);
 				SuccesMsg(playerid, "Mudou a skin do jogador.");
 				InfoMsg(i, "Algum administrador mudou sua skin.");
 				
@@ -23093,7 +23074,7 @@ CMD:gmx(playerid)
 		if(pLogado[i] == true) SalvarDados(i), SalvarMortos(playerid),SalvarInventario(playerid),SalvarAvaliacao(playerid),	SalvarVIP(playerid),Kick(i);
 
 	}
-	SendRconCommand("exit");
+	SendRconCommand("gmx");
 	return 1;
 }
 
@@ -25606,7 +25587,6 @@ CMD:mudarskin(playerid, params[])
 			if(i == 7)break;
 		}
 		MostrandoMenu[playerid] = false;
-		SalvarDadosSkin(playerid);
 		CancelSelectTextDraw(playerid);
 	}
 	return 1;
@@ -25636,7 +25616,6 @@ CMD:mudarskin2(playerid)
 			if(i == 7)break;
 		}
 		MostrandoMenu[playerid] = false;
-		SalvarDadosSkin(playerid);
 		CancelSelectTextDraw(playerid);
 	}
 	return 1;
