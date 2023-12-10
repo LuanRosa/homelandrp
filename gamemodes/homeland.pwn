@@ -1853,46 +1853,46 @@ stock Bdados(){
 		print("[SUCESSO]: O arquivo \"Database.db\" foi aberto com sucesso.");		
 
 		db_free_result(db_query(DBconnect, "CREATE TABLE IF NOT EXISTS `"TABELA_CONTAS"`(\
-			`ID` INTEGER PRIMARY KEY AUTOINCREMENT,\
-			`NOME` VARCHAR(25) NOT NULL,\
-			`SENHA` VARCHAR(64) NOT NULL,\
-			`EMAIL` VARCHAR(64) NOT NULL,\
-			`IP` VARCHAR(32) NOT NULL,\
-			`ADMIN` NUMERIC,\
-			`SEXO` NUMERIC,\
-			`SKIN` NUMERIC,\
-			`MONEY` NUMERIC,\
-			`BANCO` NUMERIC,\
-			`LEVEL` NUMERIC,\
-			`SJOGADOS` NUMERIC,\
-			`ULTIMOLOG` VARCHAR(60) NOT NULL,\
-			`INTERIOR` NUMERIC,\
-			`CADEIASTF` NUMERIC,\
-			`CALADO` INTEGER,\
-			`CONGELADO` INTEGER,\
-			`FOME` NUMERIC,\
-			`SEDE` NUMERIC,\
-			`HCOINS` NUMERIC,\
-			`VIP` NUMERIC,\
-			`EMPREGO` NUMERIC,\
-			`ORG` NUMERIC,\
-			`ORGDIV` NUMERIC,\
-			`CARGO` NUMERIC,\
-			`PROCURADO` NUMERIC,\
-			`MULTAS` NUMERIC,\
-			`CASA` NUMERIC,\
-			`XP` NUMERIC,\
-			`LICENCA` NUMERIC,\
-			`NOMERG` VARCHAR(64) NOT NULL,\
-			`NASCEU` VARCHAR(64) NOT NULL,\
-			`PAI` VARCHAR(64) NOT NULL,\
-			`MAE` VARCHAR(64) NOT NULL,\
-			`RG` NUMERIC,\
-			`CARTEIRAT` NUMERIC,\
-			`PECAS` NUMERIC,\
-			`VIDA` NUMERIC,\
-			`COLETE` NUMERIC,\
-			`AVISOS` NUMERIC);"));
+			ID INTEGER PRIMARY KEY AUTOINCREMENT,\
+			NOME VARCHAR(25) NOT NULL,\
+			SENHA VARCHAR(64) NOT NULL,\
+			EMAIL VARCHAR(64) NOT NULL,\
+			IP VARCHAR(32) NOT NULL,\
+			ADMIN INTEGER,\
+			SEXO NUMERIC,\
+			SKIN NUMERIC,\
+			MONEY NUMERIC,\
+			BANCO NUMERIC,\
+			LEVEL NUMERIC,\
+			SJOGADOS NUMERIC,\
+			ULTIMOLOG VARCHAR(60) NOT NULL,\
+			INTERIOR NUMERIC,\
+			CADEIASTF NUMERIC,\
+			CALADO INTEGER,\
+			CONGELADO INTEGER,\
+			FOME NUMERIC,\
+			SEDE NUMERIC,\
+			HCOINS NUMERIC,\
+			VIP NUMERIC,\
+			EMPREGO NUMERIC,\
+			ORG NUMERIC,\
+			ORGDIV NUMERIC,\
+			CARGO NUMERIC,\
+			PROCURADO NUMERIC,\
+			MULTAS NUMERIC,\
+			CASA NUMERIC,\
+			XP NUMERIC,\
+			LICENCA NUMERIC,\
+			NOMERG VARCHAR(64) NOT NULL,\
+			NASCEU VARCHAR(64) NOT NULL,\
+			PAI VARCHAR(64) NOT NULL,\
+			MAE VARCHAR(64) NOT NULL,\
+			RG NUMERIC,\
+			CARTEIRAT NUMERIC,\
+			PECAS NUMERIC,\
+			VIDA NUMERIC,\
+			COLETE NUMERIC,\
+			AVISOS NUMERIC);"));
 	}
 	return 1;
 }
@@ -1926,99 +1926,72 @@ stock SalvarDados(playerid)
     	GetPlayerArmour(playerid,armour);
 	format(Data, 24, "%02d/%02d/%d - %02d:%02d", Dia, Mes, Ano, Hora, Minuto);
 	format(Email, 24, "%s", PlayerInfo[playerid][pEmail]);
-	if(pLogado[playerid] == true){
-		//Pegar local do arquivo
-		sql_init("UPDATE `"TABELA_CONTAS"`");
-		//Strings
-		sql_setstring("EMAIL", Email);
-		sql_setstring("ULTIMOLOG", Data);
-		sql_setstring("NOMERG", PlayerInfo[playerid][pNome]);
-		sql_setstring("NASCEU", PlayerInfo[playerid][pNascimento]);
-		sql_setstring("PAI", PlayerInfo[playerid][pPai]);
-		sql_setstring("MAE", PlayerInfo[playerid][pMae]);
-		//Integers/Numeric
-		sql_setint("ADMIN", PlayerInfo[playerid][pAdmin]);
-		sql_setint("SEXO", PlayerInfo[playerid][pSexo]);
-		sql_setint("SKIN", PlayerInfo[playerid][pSkin]);
-		sql_setint("MONEY", PlayerInfo[playerid][pDinheiro]);
-		sql_setint("BANCO", PlayerInfo[playerid][pBanco]);
-		sql_setint("LEVEL", PlayerInfo[playerid][pLevel]);
-		sql_setint("SJOGADOS", PlayerInfo[playerid][pSegundosJogados]);
-		sql_setint("INTERIOR", int);
-		sql_setint("CADEIASTF", PlayerInfo[playerid][pCadeia]);
-		sql_setint("HCOINS", PlayerInfo[playerid][pCoins]);
-		sql_setint("VIP", PlayerInfo[playerid][pVIP]);
-		sql_setint("EMPREGO", PlayerInfo[playerid][pProfissao]);
-		sql_setint("ORG", PlayerInfo[playerid][Org]);
-		sql_setint("ORGDIV", PlayerInfo[playerid][OrgDiv]);
-		sql_setint("CARGO", PlayerInfo[playerid][Cargo]);
-		sql_setint("PROCURADO", PlayerInfo[playerid][pProcurado]);
-		sql_setint("MULTAS", PlayerInfo[playerid][pMultas]);
-		sql_setint("CASA", PlayerInfo[playerid][Casa]);
-		sql_setint("XP", PlayerInfo[playerid][pXP]);
-		sql_setint("LICENCA", PlayerInfo[playerid][LicencaConduzir]);
-		sql_setint("RG", PlayerInfo[playerid][pRG]);
-		sql_setint("CARTEIRAT", PlayerInfo[playerid][pCarteiraT]);
-		sql_setint("PECAS", PlayerInfo[playerid][PecasArma]);
-		sql_setint("AVISOS", PlayerInfo[playerid][pAvisos]);
-		sql_setint("FOME", FomePlayer[playerid]);
-		sql_setint("SEDE", SedePlayer[playerid]);
-		//Floats
-		//Bools
-		//sql_setbool("CALADO", PlayerInfo[playerid][pCalado]);
-		//sql_setbool("CONGELADO", PlayerInfo[playerid][pCongelado]);
-		
-		format(query, sizeof query, "WHERE `ID` = '%i'", PlayerInfo[playerid][IDF]);
-		sql_setrequires(query);
-		sql_save(DBconnect);
-		printf("[SQLite] Conta %04i salva com sucesso no banco de dados!",PlayerInfo[playerid][IDF]);
-	}else{
-		printf("[SQLite] Falha ao salvar a conta %04i no banco de dados!",PlayerInfo[playerid][IDF]);
-	}
+	format(query,sizeof query,"UPDATE `"TABELA_CONTAS"` SET EMAIL=%s,ADMIN=%i,SEXO=%i,SKIN=%i,MONEY=%i,BANCO=%i,\
+	LEVEL=%i,SJOGADOS=%i,ULTIMOLOG=%s,INTERIOR=%i,CADEIASTF=%i,FOME=%i,SEDE=%i,HCOINS=%i,VIP=%i,EMPREGO=%i,ORG=%i,ORGDIV=%i,\
+	CARGO=%i,PROCURADO=%i,MULTAS=%i,CASA=%i,XP=%i,LICENCA=%i,NOMERG=%s,NASCEU=%s,PAI=%s,MAE=%s,RG=%i,CARTEIRAT=%i,\
+	PECAS=%i,VIDA=%i,COLETE=%i,AVISOS=%i WHERE ID=%i",Email,PlayerInfo[playerid][pAdmin],PlayerInfo[playerid][pSexo],
+	PlayerInfo[playerid][pSkin],PlayerInfo[playerid][pDinheiro],PlayerInfo[playerid][pBanco],PlayerInfo[playerid][pLevel],
+	PlayerInfo[playerid][pSegundosJogados],Data,int,PlayerInfo[playerid][pCadeia],
+	FomePlayer[playerid],SedePlayer[playerid],PlayerInfo[playerid][pCoins],PlayerInfo[playerid][pVIP],PlayerInfo[playerid][pProfissao],
+	PlayerInfo[playerid][Org],PlayerInfo[playerid][OrgDiv],PlayerInfo[playerid][Cargo],PlayerInfo[playerid][pProcurado],
+	PlayerInfo[playerid][pMultas],PlayerInfo[playerid][Casa],PlayerInfo[playerid][LicencaConduzir],PlayerInfo[playerid][pNome],
+	PlayerInfo[playerid][pNascimento],PlayerInfo[playerid][pPai],PlayerInfo[playerid][pMae],PlayerInfo[playerid][pRG],
+	PlayerInfo[playerid][pCarteiraT],PlayerInfo[playerid][PecasArma],health,armour,PlayerInfo[playerid][pAvisos],
+	PlayerInfo[playerid][IDF]);
+	db_free_result(db_query(DBconnect, query));
 	return 1;
 }
 stock CarregarDados(playerid){
 	format(query, sizeof(query), "SELECT * FROM `"TABELA_CONTAS"` WHERE `NOME` = '%s' LIMIT 1", DB_Escape(Name(playerid)));
 	results = db_query(DBconnect, query);
 	if(db_num_rows(results)){
-		format(PlayerInfo[playerid][pLastLogin], 24, sql_getstring(results,"ULTIMOLOG"));
-		format(PlayerInfo[playerid][pEmail],64,sql_getstring(results,"EMAIL"));
-		PlayerInfo[playerid][IDF] = sql_getint(results,"ID");
-		PlayerInfo[playerid][pSkin] = sql_getint(results,"SKIN");
-		PlayerInfo[playerid][pSexo] = sql_getint(results, "SEXO");
-		SetPlayerSkin(playerid, sql_getint(results, "SKIN"));
-		PlayerInfo[playerid][pDinheiro] = sql_getint(results, "MONEY");
+		new tst[100];
+		db_get_field_assoc(results, "ULTIMOLOG", tst, sizeof(tst));
+		PlayerInfo[playerid][pLastLogin] = strval(tst);
+		db_get_field_assoc(results, "EMAIL", tst,64);
+		PlayerInfo[playerid][pEmail] = strval(tst);
+		PlayerInfo[playerid][IDF] = db_get_field_assoc_int(results,"ID");
+		PlayerInfo[playerid][pSkin] = db_get_field_assoc_int(results,"SKIN");
+		PlayerInfo[playerid][pSexo] = db_get_field_assoc_int(results, "SEXO");
+		SetPlayerSkin(playerid, db_get_field_assoc_int(results, "SKIN"));
+		PlayerInfo[playerid][pDinheiro] = db_get_field_assoc_int(results, "MONEY");
 		GivePlayerMoney(playerid, PlayerInfo[playerid][pDinheiro]);
-		PlayerInfo[playerid][pBanco] = sql_getint(results, "BANCO");
-		PlayerInfo[playerid][pSegundosJogados] = sql_getint(results, "SJOGADOS");
-		PlayerInfo[playerid][pAvisos] = sql_getint(results, "AVISOS");
-		PlayerInfo[playerid][pCadeia] = sql_getint(results, "CADEIASTF");
-		PlayerInfo[playerid][pAdmin] = sql_getint(results, "ADMIN");
-		PlayerInfo[playerid][pInterior] = sql_getint(results, "INTERIOR");
-		PlayerInfo[playerid][pCongelado] = sql_getbool(results, "CONGELADO");
-		PlayerInfo[playerid][pCalado] = sql_getbool(results, "CALADO");
-		FomePlayer[playerid] = sql_getint(results, "FOME");
-		SedePlayer[playerid] = sql_getint(results, "SEDE");
-		PlayerInfo[playerid][pVIP] = sql_getint(results, "VIP");
-		PlayerInfo[playerid][pCoins] = sql_getint(results, "HCOINS");
-		PlayerInfo[playerid][pProfissao] = sql_getint(results, "EMPREGO");
-		PlayerInfo[playerid][Org] = sql_getint(results, "ORG");
-		PlayerInfo[playerid][Cargo] = sql_getint(results, "CARGO");
-		PlayerInfo[playerid][pProcurado] = sql_getint(results, "PROCURADO");
-		SetPlayerWantedLevel(playerid, sql_getint(results, "PROCURADO"));
-		PlayerInfo[playerid][pMultas] = sql_getint(results, "MULTAS");
-		PlayerInfo[playerid][Casa] = sql_getint(results, "CASA");
-		SetPlayerScore(playerid, sql_getint(results, "LEVEL")); 
-		PlayerInfo[playerid][pXP] = sql_getint(results, "XP");
-		PlayerInfo[playerid][LicencaConduzir] = sql_getint(results, "LICENCA");
-		format(PlayerInfo[playerid][pNome],80,sql_getstring(results,"NOMERG"));
-		format(PlayerInfo[playerid][pNascimento],30,sql_getstring(results,"NASCEU"));
-		format(PlayerInfo[playerid][pPai],80,sql_getstring(results,"PAI"));
-		format(PlayerInfo[playerid][pMae],80,sql_getstring(results,"MAE"));
-		PlayerInfo[playerid][pRG] = sql_getint(results, "RG");
-		PlayerInfo[playerid][pCarteiraT] = sql_getint(results, "CARTEIRAT");
-		PlayerInfo[playerid][PecasArma] = sql_getint(results, "Pecas");
-		PlayerInfo[playerid][OrgDiv] = sql_getint(results, "ORGDIV");
+		PlayerInfo[playerid][pBanco] = db_get_field_assoc_int(results, "BANCO");
+		PlayerInfo[playerid][pSegundosJogados] = db_get_field_assoc_int(results, "SJOGADOS");
+		PlayerInfo[playerid][pAvisos] = db_get_field_assoc_int(results, "AVISOS");
+		PlayerInfo[playerid][pCadeia] = db_get_field_assoc_int(results, "CADEIASTF");
+		PlayerInfo[playerid][pAdmin] = db_get_field_assoc_int(results, "ADMIN");
+		PlayerInfo[playerid][pInterior] = db_get_field_assoc_int(results, "INTERIOR");
+		PlayerInfo[playerid][pVida] = db_get_field_assoc_int(results, "VIDA");
+		PlayerInfo[playerid][pColete] = db_get_field_assoc_int(results, "COLETE");
+		//PlayerInfo[playerid][pCongelado] = sql_getbool(results, "CONGELADO");
+		//PlayerInfo[playerid][pCalado] = sql_getbool(results, "CALADO");
+		FomePlayer[playerid] = db_get_field_assoc_int(results, "FOME");
+		SedePlayer[playerid] = db_get_field_assoc_int(results, "SEDE");
+		PlayerInfo[playerid][pVIP] = db_get_field_assoc_int(results, "VIP");
+		PlayerInfo[playerid][pCoins] = db_get_field_assoc_int(results, "HCOINS");
+		PlayerInfo[playerid][pProfissao] = db_get_field_assoc_int(results, "EMPREGO");
+		PlayerInfo[playerid][Org] = db_get_field_assoc_int(results, "ORG");
+		PlayerInfo[playerid][Cargo] = db_get_field_assoc_int(results, "CARGO");
+		PlayerInfo[playerid][pProcurado] = db_get_field_assoc_int(results, "PROCURADO");
+		SetPlayerWantedLevel(playerid, db_get_field_assoc_int(results, "PROCURADO"));
+		PlayerInfo[playerid][pMultas] = db_get_field_assoc_int(results, "MULTAS");
+		PlayerInfo[playerid][Casa] = db_get_field_assoc_int(results, "CASA");
+		SetPlayerScore(playerid, db_get_field_assoc_int(results, "LEVEL")); 
+		PlayerInfo[playerid][pXP] = db_get_field_assoc_int(results, "XP");
+		PlayerInfo[playerid][LicencaConduzir] = db_get_field_assoc_int(results, "LICENCA");
+		db_get_field_assoc(results, "NOMERG", tst,sizeof(tst));
+		PlayerInfo[playerid][pNome] = strval(tst);
+		db_get_field_assoc(results, "NASCEU", tst,sizeof(tst));
+		PlayerInfo[playerid][pNascimento] = strval(tst);
+		db_get_field_assoc(results, "PAI", tst,sizeof(tst));
+		PlayerInfo[playerid][pPai] = strval(tst);
+		db_get_field_assoc(results, "MAE", tst,sizeof(tst));
+		PlayerInfo[playerid][pMae] = strval(tst);
+		PlayerInfo[playerid][pRG] = db_get_field_assoc_int(results, "RG");
+		PlayerInfo[playerid][pCarteiraT] = db_get_field_assoc_int(results, "CARTEIRAT");
+		PlayerInfo[playerid][PecasArma] = db_get_field_assoc_int(results, "PECAS");
+		PlayerInfo[playerid][OrgDiv] = db_get_field_assoc_int(results, "ORGDIV");
 	}
 	db_free_result(results);
 	return 1;
@@ -21572,6 +21545,7 @@ public OnClickDynamicPlayerTextDraw(playerid, PlayerText:textid)
 			format(Str, sizeof(Str), "Seja bem-vindo ao nosso servidor, %s!\nPara efetuar seu cadastro, insira uma senha abaixo.\n*Sua senha deve conter entre 4 e 20 caracteres.", Name(playerid));
 			ShowPlayerDialog(playerid, DIALOG_REGISTRO, DIALOG_STYLE_INPUT, "Bem vindo", Str, "Criar", "X");
 		}
+		db_free_result(results);
 	}
 	for(new i = 1; i < 33; ++i)
 	{
