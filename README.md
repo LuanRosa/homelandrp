@@ -1,6 +1,6 @@
-# BAIXADA ROLEPLAY 
+z# HOMELAND ROLEPLAY 
 
-Baixada Roleplay é uma gamemode que simula a vida real no SA:MP. O objetivo do jogo é simular sua vida, trabalhar em empregos, conhecer pessoas e ser o um jogador de sucesso.
+Homeland Roleplay é uma gamemode que simula a vida real no SA:MP. O objetivo do jogo é simular sua vida, trabalhar em empregos, conhecer pessoas e ser o um jogador de sucesso.
 
 O objetivo geral é como dito é sim simular sua vida, podendo seguir ela como um jogador civil ou um jogador criminoso que adora fazer uma bagunça em toda a cidade.
 
